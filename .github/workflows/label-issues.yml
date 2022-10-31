@@ -1,0 +1,19 @@
+name: Task Issue Labeler
+on:
+  issues:
+    types:
+      - opened
+jobs:
+  Label-New-Issues:
+    runs-on: ubuntu-latest
+    steps:
+    - name: SAP task issue labeler
+      uses: sap-tutorials/tutorial-actions@main        
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+
+
+
