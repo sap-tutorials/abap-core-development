@@ -43,16 +43,16 @@ Define and expose new associations in the base BO data model defined in the CDS 
    
   1. Define the new associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`**, and **`_Currency`**. Open your data definition ![datadefinition](adt_ddls.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the `select` statement as shown on the screenshot below. Format the source code with **Pretty Printer** **(Shift+F1)**.   
 
-    ```ABAP
-    association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
-    association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID = _Customer.CustomerID
-    association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
-    association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
-    ```
+     ```ABAP
+     association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
+     association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID =  _Customer.CustomerID
+     association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
+     association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
+     ```
    
-    Your source code should look like this: 
+     Your source code should look like this: 
     
-    ![association](newa.png)
+     ![association](newa.png)
     
 
   2. Expose the defined associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`** and **`_Currency`** in the selection list. For that, insert the code snippet provided below in the selection list between the curly brackets (`{...}`) as shown on the screenshot.

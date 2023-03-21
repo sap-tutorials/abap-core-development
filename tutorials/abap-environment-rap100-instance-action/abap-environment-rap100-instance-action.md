@@ -200,9 +200,7 @@ In contrary to determinations and validations which are automatically called by 
 
 Now, you will expose the actions in the BO behavior projection and enrich the UI semantics in the CDS metadata extension to add appropriate button to the **travel** App.
 
- 1. Expose the actions in the BO behavior projection.
-
-    Go to your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet as shown on the screenshot below. The keyword **`use action`** indicates that a behavior of the base BO is used on the projection layer.
+ 1. Expose the actions in the BO behavior projection. Go to your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet as shown on the screenshot below. The keyword **`use action`** indicates that a behavior of the base BO is used on the projection layer.
 
     ```ABAP  
     use action deductDiscount;
@@ -216,26 +214,24 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     The actions are yet ready to be consumed on the UI, but they also need to be explicitly placed on the UI.
 
- 3. Enhance UI semantics of the UI service to make the action `deductDiscount` only visible on the object page with the label `Deduct Discount`. with the labels **Accept Travel** and **Reject Travel** specified.
-
-    For that, go to your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and replace the existing all `@UI` annotations placed before the element **`OverallStatus`** with the code snippet provided below as shown on the screenshot below. The semantic of the annotation `@UI.identification` will be enhanced for the purpose.
+ 3. Enhance UI semantics of the UI service to make the action `deductDiscount` only visible on the object page with the label `Deduct Discount`. with the labels **Accept Travel** and **Reject Travel** specified. For that, go to your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and replace the existing all `@UI` annotations placed before the element **`OverallStatus`** with the code snippet provided below as shown on the screenshot below. The semantic of the annotation `@UI.identification` will be enhanced for the purpose.
 
     **Please note**: Some lines in the provided code snippet are commented out using **`//`**. **DO NOT remove them**. You will uncomment these lines in the following exercise steps.
 
     ```ABAP
-      @UI: {
-      lineItem:       [ { position: 100, importance: #HIGH }                          
-                        //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
-                        //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
-                        //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-           ],
-      identification: [ { position: 100 }                          
-                       ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
-                       //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
-                       //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-           ],
-        textArrangement: #TEXT_ONLY
-      }
+    @UI: {
+    lineItem:       [ { position: 100, importance: #HIGH }                          
+                      //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
+                      //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
+                      //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
+          ],
+    identification: [ { position: 100 }                          
+                      ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
+                      //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
+                      //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
+          ],
+      textArrangement: #TEXT_ONLY
+    }
     ```
 
     Your source code should look like this:

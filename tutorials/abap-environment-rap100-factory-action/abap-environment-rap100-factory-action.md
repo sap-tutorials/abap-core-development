@@ -55,14 +55,10 @@ Define the instance factory action `copyTravel` in the behavior definition
     factory action copyTravel [1];
     ```
 
-    The result should look like this:
-
-    ![Travel BO Behavior Definition](nn2.png)    
+    ![Travel BO Behavior Definition](nnx2.png)    
 
     Short explanation: 
-
     For factory actions, the same rules apply as for instance non-factory actions with the following differences:
-    
       - Instance factory actions are specified with the keyword factory action before its name.
       - Output parameters are not allowed. Factory actions always produce one new BO entity instance with possible child entity instances. It is therefore not necessary to specify the result parameter.
       - The cardinality must always be [1] for factory actions.
@@ -79,7 +75,7 @@ Implement the instance factory action `coyTravel` in the base BO behavior pool.
 
  1. First declare the required method in the behavior pool. Go to the behavior definition `ZRAP100_R_TRAVELTP_###`, set the cursor on the action name, `copyTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry Add method for action `copyTravel` of entity `zrap100_r_traveltp_###` in the view to add the required method to the local handler class. The result should look like this:
 
-    ![Travel BO Behavior Projection](nn3.png)
+    ![Travel BO Behavior Projection](nn3x.png)
 
  2. Go to the declaration part of the local handler class of the behavior pool `ZRAP100_BP_TRAVELTP_###`, set the cursor on the method name, `copyTravel`, press F2, and examine the full method interface.
 
@@ -164,25 +160,25 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  1. Expose the new action **`copyTravel`** in the BO behavior projection. For that, open your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet after the actions added previously.
 
-    ```ABAP
-    use action copyTravel;
-    ```
+   ```ABAP
+   use action copyTravel;
+   ```
 
-    The result should like this:
+   The result should like this:
 
-    ![Travel BO Behavior Projection](nn7.png)
+   ![Travel BO Behavior Projection](nn7.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
  3. Enhance UI semantics of the UI service to make the action **`copyTravel`** only visible on the list report page with the label **Copy Travel**. For that, open your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and un-comment following code line in the **`@UI.lineItem`** annotation block placed before the element **`OverallStatus`**.
 
-    ```ABAP   
-    ,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' }
-    ```
+   ```ABAP   
+   ,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' }
+   ```
 
-    The result should look like this:
+   The result should look like this:
 
-    ![Travel CDS Metadata Extension](nn8.png)
+   ![Travel CDS Metadata Extension](nn8.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -210,7 +206,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
     The result should like this:
 
-    ![Travel BO Behavior Projection](nn12.png)
+    ![Travel BO Behavior Projection](nn12x.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -218,7 +214,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
     The result should look like this: 
 
-    ![Travel CDS Metadata Extension](nn13.png)
+    ![Travel CDS Metadata Extension](nn13x.png)
 
     You are through with the definition of both actions. Go ahead with the implementations of the two inserted method in the behavior pool.
 
