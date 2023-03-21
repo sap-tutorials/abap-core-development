@@ -49,7 +49,7 @@ Define and expose new associations in the base BO data model defined in the CDS 
     association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
     association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
     ```
- 
+   
     Your source code should look like this: 
     
     ![association](newa.png)

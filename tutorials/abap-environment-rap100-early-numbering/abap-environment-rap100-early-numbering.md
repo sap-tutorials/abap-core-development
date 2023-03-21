@@ -44,28 +44,35 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
  1. Open the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TravelTP_###`** of the **Travel** entity.
 
- 2. Specify the statement provided below just after the statement `authorization master( global )`, just before the opening curly bracket `{` as shown on the screenshot.
+ 2. Specify the statement provided below just after the statement `authorization master( global )`, just before the opening curly bracket `{` as shown on the screenshot. 
 
     ```ABAP 
     early numbering
+    ```
+    
+    Add `TravelID`.
+
+    ```ABAP 
+    field (readonly)
+    TravelID;
     ```
 
     The warning message **Early Numbering for `CREATE ZRAP100_R_TRAVELTP_###`** is not implemented is now displayed for the statement **`create;`**. You can hover the yellow underlined statement to display the message or have a look at the **Problems** view.        
 
     You can ignore it for now. You will handle it later.    
 
-    ![Travel BO Behavior Definition](new7.png)
+    ![Travel BO Behavior Definition](new7x.png)
 
 
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
  4. To complete the definition, you need to declare the required method in behavior implementation class. You can use the ADT Quick Fix to do that.
- 
+   
     Set the cursor on the statement **`create;`** and press **Ctrl+1** to open the **Quick Assist** view.
 
     Select the entry **Add `earlynumbering` method for create of entity `zrap100_i_travel_###` in local handler** from the dialog to add the **FOR NUMBERING** method **`earlynumbering_create`** to the local handler class **`lcl_handler`** of the behavior pool ![class icon](adt_class.png)  **`ZRAP100_BP_TRAVEL_###`**.
 
-    ![Travel BO behavior Definition](create.png)
+    ![Travel BO behavior Definition](createx.png)
 
     The behavior implementation class ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`** will be enhanced appropriately.
 
