@@ -53,14 +53,14 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
  1. Go to the behavior definition of the **Travel** BO entity ![bdef icon](adt_bdef.png) **`ZRAP100_R_TravelTP_###`** and insert the following statement after the statement **`delete;`** as shown on the screenshot below:
 
-    ```ABAP
-    determination setStatusToOpen on modify { create; }
-    ```
+   ```ABAP
+   determination setStatusToOpen on modify { create; }
+   ```
 
-    ![Travel BO Definition](new14.png)
+   ![Travel BO Definition](new14x.png)
 
-    **Short explanation**:  
-    The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
+   **Short explanation**:  
+   The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.   
 
@@ -171,8 +171,8 @@ You can now preview and test the changes by creating a new travel instance in th
  2. Create a new **Travel** instance. The overall status should now be set automatically by the logic you just implemented.   
     The initial overall status of the created should now be set to **open** **(O)**.
 
-    ![Travel App Preview](n2.png)
-
+    ![Travel App Preview](n2x.png)
+ 
  
 
 ### Test yourself
