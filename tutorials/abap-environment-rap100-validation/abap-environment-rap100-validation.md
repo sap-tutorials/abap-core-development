@@ -60,7 +60,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
-    ![validation](n2.png)   
+    ![validation](n2x.png)   
 
   3. Define the validations **`validateCustomer`** and **`validateDates`**. For that, add the following code snippet after the determination.
 
@@ -82,7 +82,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
-    ![validation](new18.png)           
+    ![validation](new18x.png)           
 
     **Short explanation**:    
 
@@ -314,7 +314,7 @@ You can either refresh your application in the browser using **F5** if the brows
 
   1. Click **Create** to create a new entry.
 
-  2. Select an `Sunshine Travel (70001)` as Agency ID,  **12345** as Customer ID, Mar 16, 2022 as starting date and Mar 14, 2022 as end date and click **Create**.
+  2. Select an `Sunshine Travel (70001)` as Agency ID,  **Buchholm (1)** as Customer ID, set a start in the future and the end date as your current date, click **Create**.
 
        ![package](n3.png)
 

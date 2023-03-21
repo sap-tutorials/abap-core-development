@@ -60,7 +60,7 @@ You will get familiar with both action implementations, i.e. action without and 
     action deductDiscount result [1] $self; 
     ```      
 
-     ![Travel BO Behavior Definition](nn2.png)      
+     ![Travel BO Behavior Definition](nn2x.png)      
 
      **Short explanation**:  
      - The name of the instance action is specified after the keyword **action**
@@ -83,7 +83,7 @@ You will get familiar with both action implementations, i.e. action without and 
 
      The result should look like this:
  
-     ![Travel BO Behavior Pool](nn3.png)
+     ![Travel BO Behavior Pool](nn3x.png)
 
   4. Save ![save icon](adt_save.png) the changes.
 

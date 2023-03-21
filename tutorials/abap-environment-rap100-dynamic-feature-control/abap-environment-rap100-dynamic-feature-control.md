@@ -58,13 +58,13 @@ Define the dynamic instance feature control for the standard operations **`updat
     ```
 
     In case you've defined and implemented the instance actions `acceptTravel` and `rejectTravel` in the previous exercise, then also add the code snippet provided below as shown on the screenshot.
-
-    ```ABAP
+ 
+    ```ABAP 
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
-    ```
-
-    ![Travel Behavior Definition](f.png)
+    ``` 
+ 
+    ![Travel Behavior Definition](fx.png)  
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
