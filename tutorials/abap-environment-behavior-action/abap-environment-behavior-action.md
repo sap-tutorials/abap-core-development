@@ -1,0 +1,863 @@
+---
+parser: v2
+auto_validation: true
+primary_tag: software-product>sap-btp--abap-environment
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform ]
+time: 10
+author_name: Merve Temel
+author_profile: https://github.com/mervey45
+---
+
+# Enhance Behavior With Action and Validation
+<!-- description --> Enhance behavior definition and implementation with action and validation.
+
+## Prerequisites  
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
+For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- If you are using a **licensed system** make sure, that the flight scenario is available in your system. If not, you should follow these [steps](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/downloading-abap-flight-reference-scenario) in your licensed system. The flight scenario is already in the trial systems.
+
+ 
+## You will learn  
+  - How to enhance behavior definition
+  - How to enhance behavior implementation
+  - How to enhance behavior definition for projection view
+  - How to implement more validation methods
+  - How to implement determinations  
+  - How to implement action
+
+
+## Intro 
+In this tutorial, wherever ### appears, use a number (e.g. 000).
+
+---
+
+### Enhance behavior definition
+
+  1. Switch to your behavior definition `ZR_TRAVELTP_###` and add **with draft** to enable the draft concept.
+
+    ```ABAP
+    with draft;
+    ```
+
+  2. Add your **draft table** to your behavior definition.
+  
+    ```ABAP
+    draft table zdtravel_###
+    ```
+
+  4. Change the authorization master into global:
+
+    ```ABAP
+    authorization master ( global )
+    ```
+
+  5. Change the lock master into. 
+   
+    ```ABAP
+    lock master total etag LocalLastChangedAt
+    ```
+
+    **Draft**: To enable the draft concept these changes are needed. Further reading[draft concecpt](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenbdl_with_draft.htm).
+
+  6. Switch to your behavior definition `ZR_TRAVELTP_###` and add **instance action** and dynamic control.
+
+    ```ABAP
+    // instance action and dynamic action control
+    action ( features : instance ) acceptTravel result [1] $self;
+    ```
+
+    **Action:** In the RAP context, an action is a non-standard operation that change the data of a BO instance. Further reading [Actions](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/action-definition?locale=en-US)
+
+  7. Enhance your coding with **validation**.
+  
+    ```ABAP
+    // validations
+    validation validateCustomer on save { field customerid; }
+    validation validateDates on save { field begindate, enddate; }
+    validation validateAgency on save { field agencyid; }
+    ```
+
+    **Validation:** A validation is an optional part of the business object behavior that checks the consistency of business object instances based on trigger conditions. Further reading: [Validations](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/171e26c36cca42699976887b4c8a83bf.html) 
+
+  8. Enhance your coding with **determination**.
+   
+    ```ABAP
+    // determination
+    determination CalculateTravelKey on modify { create; }
+    ```
+
+    **Determination:** A determination is an optional part of the business object behavior that modifies instances of business objects based on trigger conditions. Further reading: [Determinations](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/6edb0438d3e14d18b3c403c406fbe209.html)
+
+
+  9. Add the **mapping** to your behavior definition.
+ 
+    ```ABAP
+    mapping for zatravel_###
+        {
+          TravelID = travel_id;
+          AgencyID = agency_id;
+          CustomerID = customer_id;
+          BeginDate = begin_date;
+          EndDate = end_date;
+          BookingFee = booking_fee;
+          TotalPrice = total_price;
+          CurrencyCode = currency_code;
+          Description = description;
+          OverallStatus = overall_status;
+          CreatedBy = created_by;
+          CreatedAt = created_at;
+          LastChangedBy = last_changed_by;
+          LastChangedAt = last_changed_at;
+          LocalLastChangedAt = local_last_changed_at;
+        }
+    ```
+
+
+ 10. Check your code:
+
+    ```ABAP
+    managed implementation in class zbp_r_traveltp_### unique;
+    strict ( 2 );
+    with draft;
+
+    define behavior for ZR_TravelTP_### alias Travel
+    persistent table zatravel_###
+    draft table zdtravel_###
+    authorization master ( global )
+    etag master lastchangedat
+    lock master total etag LocalLastChangedAt
+    {
+
+      // key that will be automatically generated by the framework
+      field ( readonly, numbering : managed ) mykey;
+
+      // semantic key is calculated in a determination
+      field ( readonly ) travelid;
+
+      // administrative fields (read only)
+      field ( readonly ) lastchangedat, lastchangedby, createdat, createdby;
+
+      // mandatory fields that are required to create a travel
+      field ( mandatory ) agencyid, overallstatus, bookingfee, currencycode;
+
+      // mandatory fields that are required to create a travel
+      field ( mandatory ) BeginDate, EndDate, CustomerID;
+
+      // standard operations for travel entity
+      create;
+      update;
+      delete;
+
+      // instance action and dynamic action control
+      action ( features : instance ) acceptTravel result [1] $self;
+
+      // validations
+      validation validateCustomer on save { field customerid; }
+      validation validateDates on save { field begindate, enddate; }
+      validation validateAgency on save { field agencyid; }
+
+      // determination
+      determination CalculateTravelKey on modify { create; }
+
+      draft action Edit;
+      draft action Activate;
+      draft action Discard;
+      draft action Resume;
+      draft determine action Prepare;
+
+      mapping for zatravel_###
+      {
+        TravelID = travel_id;
+        AgencyID = agency_id;
+        CustomerID = customer_id;
+        BeginDate = begin_date;
+        EndDate = end_date;
+        BookingFee = booking_fee;
+        TotalPrice = total_price;
+        CurrencyCode = currency_code;
+        Description = description;
+        OverallStatus = overall_status;
+        CreatedBy = created_by;
+        CreatedAt = created_at;
+        LastChangedBy = last_changed_by;
+        LastChangedAt = last_changed_at;
+        LocalLastChangedAt = local_last_changed_at;
+      }
+    }
+    ```
+
+  9. Save and activate.
+
+      ![save and activate](activate.png)
+
+
+> `$self` means that the instance of the same type is returned on which the operation is performed – here a travel instance.
+
+
+### Enhance behavior definition for projection view
+
+  1. Switch to your behavior definition `ZC_TRAVELTP_###` and add `use draft` to enable the draft functionality:
+
+    ```ABAP
+    use draft;
+    ``` 
+  
+  2. Add the use action:
+
+    ```ABAP
+    use action acceptTravel;
+    use action acceptTravel;
+    use action Edit;
+    use action Activate;
+    use action Discard;
+    use action Resume;
+    use action Prepare;
+    ``` 
+
+
+  2. Check your code:
+
+    ```ABAP
+    projection;
+    strict ( 1 );
+    use draft;
+
+    define behavior for ZC_TravelTP_### alias TravelProcessor
+    {
+      use create;
+      use update;
+      use delete;
+
+      use action acceptTravel;
+      use action Edit;
+      use action Activate;
+      use action Discard;
+      use action Resume;
+      use action Prepare;
+     }
+    ```  
+
+  2. Save and activate.
+
+      ![save and activate](activate.png)
+
+     The **validation** allows you to check the data consistency of your travel booking application.
+
+     By using **actions** your are able to change the status of your booking status.
+
+
+### Create implementation class
+
+  1. In your behavior definition `ZR_TravelTP_###` set the cursor before the implementation class `ZBP_R_TRAVELTP_###` and click **`CTRL` + 1**. Double-click on **Create behavior implementation class `ZBP_R_TRAVELTP_###`** to create your implementation class.
+
+      ![Create behavior implementation](implementation.png)
+
+  2. Create a new behavior implementation:
+
+     - Description: Behavior implementation for `ZR_TravelTP_###`
+
+     Click **Next >**.
+
+      ![Create behavior implementation](implementation2.png)
+
+  3. Click **Finish** to use your transport request.
+
+      ![Create behavior implementation](implementation3.png)
+
+    > The skeleton code of the class appears in a new editor. The skeleton includes code for the relevant method definitions and implementations, derived from your behavior definition `ZR_TravelTP_###`.
+
+
+### Enhance implementation class
+
+  1. Open your behavior implementation `ZR_TravelTP_###`, in **Global Class** replace your code:
+
+    ```ABAP
+    CLASS zbp_r_traveltp_### DEFINITION
+      PUBLIC
+      ABSTRACT
+      FINAL
+      FOR BEHAVIOR OF ZR_TRAVELTP_###.
+
+      PUBLIC SECTION.
+      PROTECTED SECTION.
+      PRIVATE SECTION.
+    ENDCLASS.
+
+
+
+    CLASS zbp_r_traveltp_00s IMPLEMENTATION.
+    ENDCLASS.
+    ```
+
+  2. Open your behavior implementation `ZR_TravelTP_###` and switch to **Local Types**.
+
+  3. Define the **local constant** `travel_status` to store the allowed value of the overall status of a travel instance. Insert the following code snippet in the definition part of the local handler class `LHC_TRAVEL` as shown on the screenshot below.
+
+    ```ABAP
+    PRIVATE SECTION.
+    CONSTANTS:
+      BEGIN OF travel_status,
+        open     TYPE c LENGTH 1 VALUE 'O', "Open
+        accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
+        rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
+      END OF travel_status. 
+    ``` 
+
+      ![travelstatus](travelstatus.png)
+
+  4. Add the **method** `get_global_authorizations` to the private section of your class `lhc_Travel` and delete method `get_instance_authorization`.
+
+    ```ABAP
+    METHODS:
+        get_global_authorizations FOR GLOBAL AUTHORIZATION
+          IMPORTING
+          REQUEST requested_authorizations FOR Travel
+          RESULT result,
+        get_instance_features FOR INSTANCE FEATURES
+          IMPORTING keys REQUEST requested_features FOR Travel RESULT result.
+    ``` 
+   
+  5. Your private section should look like this:
+
+    ```ABAP
+    CLASS lhc_Travel DEFINITION INHERITING FROM cl_abap_behavior_handler.
+      PRIVATE SECTION.
+        CONSTANTS:
+          BEGIN OF travel_status,
+            open     TYPE c LENGTH 1 VALUE 'O', "Open
+            accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
+            rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
+          END OF travel_status.
+        METHODS:
+          get_global_authorizations FOR GLOBAL AUTHORIZATION
+            IMPORTING
+            REQUEST requested_authorizations FOR Travel
+            RESULT result,
+          get_instance_features FOR INSTANCE FEATURES
+            IMPORTING keys REQUEST requested_features FOR Travel RESULT result.
+
+        METHODS acceptTravel FOR MODIFY
+          IMPORTING keys FOR ACTION Travel~acceptTravel RESULT result.
+
+        METHODS CalculateTravelKey FOR DETERMINE ON MODIFY
+          IMPORTING keys FOR Travel~CalculateTravelKey.
+
+        METHODS validateAgency FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateAgency.
+
+        METHODS validateCustomer FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateCustomer.
+
+        METHODS validateDates FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateDates.
+
+    ENDCLASS.
+    ``` 
+
+      ![travelstatus](private.png)
+
+  5. Delete method `get_instance_authorization` also in the class `lhc_Travel IMPLEMENTATION`.
+
+  6. Add method `get_global_authorizations` in the class `lhc_Travel IMPLEMENTATION`.
+
+    ```ABAP
+    METHOD get_global_authorizations.
+    ENDMETHOD.
+    ```
+
+      ![travelstatus](global.png)
+
+  7. Add **missing method** **`get_feature_instance`**. This method ensures the dynamic feature handling for travel instances.
+
+    ```ABAP
+    METHOD get_instance_features.
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+          ENTITY travel
+          FROM VALUE #( FOR key IN keys (  mykey = key-mykey
+                                            %control-overallstatus  = if_abap_behv=>mk-on
+                                            ) )
+          RESULT DATA(lt_travel).
+
+      result = VALUE #( FOR travel IN lt_travel
+                        ( %key                           = travel-%key
+                          %features-%action-acceptTravel = COND #( WHEN travel-overallstatus = 'A'
+                                                                      THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                        ) ).
+
+    ENDMETHOD.
+    ```
+
+  8. Add **missing method** **`acceptTravel`**. This method ensures that the status of accepted gets set of the `overallstatus` in the application.
+
+    ```ABAP
+    METHOD acceptTravel.
+      " Modify in local mode: BO-related updates that are not relevant for authorization checks
+      MODIFY ENTITIES OF zr_traveltp_### IN LOCAL MODE
+            ENTITY travel
+                UPDATE FROM VALUE #( FOR key IN keys ( mykey = key-mykey
+                                                      overallstatus = 'A' " Accepted
+                                                      %control-overallstatus = if_abap_behv=>mk-on ) )
+            FAILED   failed
+            REPORTED reported.
+
+      " Read changed data for action result
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+          ENTITY travel
+          FROM VALUE #( FOR key IN keys (  mykey = key-mykey
+                                            %control = VALUE #(
+                                              agencyid       = if_abap_behv=>mk-on
+                                              customerid     = if_abap_behv=>mk-on
+                                              begindate      = if_abap_behv=>mk-on
+                                              enddate        = if_abap_behv=>mk-on
+                                              bookingfee     = if_abap_behv=>mk-on
+                                              totalprice     = if_abap_behv=>mk-on
+                                              currencycode   = if_abap_behv=>mk-on
+                                              overallstatus  = if_abap_behv=>mk-on
+                                              description     = if_abap_behv=>mk-on
+                                              createdby      = if_abap_behv=>mk-on
+                                              createdat      = if_abap_behv=>mk-on
+                                              lastchangedby = if_abap_behv=>mk-on
+                                              lastchangedat = if_abap_behv=>mk-on
+                                            ) ) )
+          RESULT DATA(lt_travel).
+
+      result = VALUE #( FOR travel IN lt_travel ( mykey = travel-mykey
+                                                  %param    = travel
+                                                ) ).
+    ENDMETHOD.
+    ```
+  
+  9. Add **missing method** **`CalculateTravelKey`**. This method ensures that the `travelID` gets updated in the application.
+
+    ```ABAP
+    METHOD CalculateTravelKey.
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+    ENTITY travel
+      FIELDS ( travelid )
+      WITH CORRESPONDING #( keys )
+      RESULT DATA(travels).
+
+
+      DELETE travels WHERE travelid IS NOT INITIAL.
+      CHECK travels IS NOT INITIAL.
+
+      "Get max travelID
+      SELECT SINGLE FROM zatravel_### FIELDS MAX( travel_id ) INTO @DATA(lv_max_travelid).
+
+      "update involved instances
+      MODIFY ENTITIES OF zr_traveltp_### IN LOCAL MODE
+        ENTITY travel
+          UPDATE FIELDS ( travelid )
+          WITH VALUE #( FOR ls_travel IN travels INDEX INTO i (
+                            %key      = ls_travel-%key 
+                            travelid  = lv_max_travelid + i ) )
+      REPORTED DATA(lt_reported).
+    ENDMETHOD.
+    ```
+
+ 10. Add **missing method** **`validateAgency`**. This method ensures the validation of the agency in the application.
+
+    ```ABAP
+    METHOD validateAgency.
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+        ENTITY Travel
+          FIELDS ( AgencyID )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(travels).
+
+      DATA agencies TYPE SORTED TABLE OF /dmo/agency WITH UNIQUE KEY agency_id.
+
+      " Optimization of DB select: extract distinct non-initial customer IDs
+      agencies = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING agency_id = agencyid EXCEPT * ).
+      DELETE agencies WHERE agency_id IS INITIAL.
+      CHECK agencies IS NOT INITIAL.
+
+      " Check if customer ID exist
+      SELECT FROM /dmo/agency FIELDS agency_id
+        FOR ALL ENTRIES IN @agencies
+        WHERE agency_id = @agencies-agency_id
+        INTO TABLE @DATA(lt_agency_db).
+
+      " Raise msg for non existing customer id
+      LOOP AT travels INTO DATA(travel).
+
+        IF travel-agencyid IS NOT INITIAL AND NOT line_exists( lt_agency_db[ agency_id = travel-agencyid ] ).
+          APPEND VALUE #(  mykey = travel-mykey ) TO failed-travel.
+          APPEND VALUE #(  mykey = travel-mykey
+                          %msg      = new_message( id       = /dmo/cx_flight_legacy=>agency_unkown-msgid
+                                                    number   = /dmo/cx_flight_legacy=>agency_unkown-msgno
+                                                    v1       = travel-agencyid
+                                                    severity = if_abap_behv_message=>severity-error )
+                          %element-agencyid = if_abap_behv=>mk-on ) TO reported-travel.
+        ENDIF.
+      ENDLOOP.
+    ENDMETHOD.
+    ```
+
+ 11. Add **missing method** **`validateCustomer`**. This method ensures the validation of the customer in the application.
+
+    ```ABAP
+    METHOD validateCustomer.
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+      ENTITY Travel
+        FIELDS ( CustomerID )
+        WITH CORRESPONDING #( keys )
+        RESULT DATA(travels).
+
+
+      DATA customers TYPE SORTED TABLE OF /dmo/customer WITH UNIQUE KEY customer_id.
+
+      " Optimization of DB select: extract distinct non-initial customer IDs
+      customers = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING customer_id = customerid EXCEPT * ).
+      DELETE customers WHERE customer_id IS INITIAL.
+      CHECK customers IS NOT INITIAL.
+
+      " Check if customer ID exist
+      SELECT FROM /dmo/customer FIELDS customer_id
+        FOR ALL ENTRIES IN @customers
+        WHERE customer_id = @customers-customer_id
+        INTO TABLE @DATA(lt_customer_db).
+
+      " Raise msg for non existing customer id
+      LOOP AT travels INTO DATA(travel).
+        IF travel-customerid IS NOT INITIAL AND NOT line_exists( lt_customer_db[ customer_id = travel-customerid ] ).
+          APPEND VALUE #(  mykey = travel-mykey ) TO failed-Travel.
+          APPEND VALUE #(  mykey = travel-mykey
+                          %msg      = new_message( id       = /dmo/cx_flight_legacy=>customer_unkown-msgid
+                                                    number   = /dmo/cx_flight_legacy=>customer_unkown-msgno
+                                                    v1       = travel-customerid
+                                                    severity = if_abap_behv_message=>severity-error )
+                          %element-customerid = if_abap_behv=>mk-on ) TO reported-Travel.
+        ENDIF.
+      ENDLOOP.
+    ENDMETHOD.
+    ```
+
+ 12. Add **missing method** **`validateDates`**. This method ensures the validation of the date in the application.
+
+    ```ABAP
+    METHOD validateDates.
+      READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+      ENTITY travel
+        FIELDS ( BeginDate EndDate TravelID )
+        WITH CORRESPONDING #( keys )
+        RESULT DATA(travels).
+
+      LOOP AT travels INTO DATA(travel).
+
+        IF travel-enddate < travel-begindate.  "end_date before begin_date
+
+          APPEND VALUE #( %key        = travel-%key
+                          mykey   = travel-mykey ) TO failed-travel.
+
+          APPEND VALUE #( %key     = travel-%key
+                          %msg     = new_message( id       = /dmo/cx_flight_legacy=>end_date_before_begin_date-msgid
+                                                  number   = /dmo/cx_flight_legacy=>end_date_before_begin_date-msgno
+                                                  v1       = travel-begindate
+                                                  v2       = travel-enddate
+                                                  v3       = travel-travelid
+                                                  severity = if_abap_behv_message=>severity-error )
+                          %element-begindate = if_abap_behv=>mk-on
+                          %element-enddate   = if_abap_behv=>mk-on ) TO reported-travel.
+
+        ELSEIF travel-begindate < cl_abap_context_info=>get_system_date( ).  "begin_date must be in the future
+
+          APPEND VALUE #( %key        = travel-%key
+                          mykey   = travel-mykey ) TO failed-travel.
+
+          APPEND VALUE #( %key = travel-%key
+                          %msg = new_message( id       = /dmo/cx_flight_legacy=>begin_date_before_system_date-msgid
+                                              number   = /dmo/cx_flight_legacy=>begin_date_before_system_date-msgno
+                                              severity = if_abap_behv_message=>severity-error )
+                          %element-begindate = if_abap_behv=>mk-on
+                          %element-enddate   = if_abap_behv=>mk-on ) TO reported-travel.
+        ENDIF.
+      ENDLOOP.
+    ENDMETHOD.
+    ```
+   
+ 13. Check your code.
+
+    ```ABAP
+    CLASS lhc_Travel DEFINITION INHERITING FROM cl_abap_behavior_handler.
+      PRIVATE SECTION.
+        CONSTANTS:
+          BEGIN OF travel_status,
+            open     TYPE c LENGTH 1 VALUE 'O', "Open
+            accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
+            rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
+          END OF travel_status.
+        METHODS:
+          get_global_authorizations FOR GLOBAL AUTHORIZATION
+            IMPORTING
+            REQUEST requested_authorizations FOR Travel
+            RESULT result,
+          get_instance_features FOR INSTANCE FEATURES
+            IMPORTING keys REQUEST requested_features FOR Travel RESULT result.
+
+        METHODS acceptTravel FOR MODIFY
+          IMPORTING keys FOR ACTION Travel~acceptTravel RESULT result.
+
+        METHODS CalculateTravelKey FOR DETERMINE ON MODIFY
+          IMPORTING keys FOR Travel~CalculateTravelKey.
+
+        METHODS validateAgency FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateAgency.
+
+        METHODS validateCustomer FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateCustomer.
+
+        METHODS validateDates FOR VALIDATE ON SAVE
+          IMPORTING keys FOR Travel~validateDates.
+
+    ENDCLASS.
+
+    CLASS lhc_Travel IMPLEMENTATION.
+
+      METHOD get_global_authorizations.
+      ENDMETHOD.
+
+      METHOD get_instance_features.
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+            ENTITY travel
+            FROM VALUE #( FOR key IN keys (  mykey = key-mykey
+                                              %control-overallstatus  = if_abap_behv=>mk-on
+                                              ) )
+            RESULT DATA(lt_travel).
+
+        result = VALUE #( FOR travel IN lt_travel
+                          ( %key                           = travel-%key
+                            %features-%action-acceptTravel = COND #( WHEN travel-overallstatus = 'A'
+                                                                        THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                          ) ).
+
+      ENDMETHOD.
+
+
+
+      METHOD acceptTravel.
+        " Modify in local mode: BO-related updates that are not relevant for authorization checks
+        MODIFY ENTITIES OF zr_traveltp_### IN LOCAL MODE
+              ENTITY travel
+                  UPDATE FROM VALUE #( FOR key IN keys ( mykey = key-mykey
+                                                        overallstatus = 'A' " Accepted
+                                                        %control-overallstatus = if_abap_behv=>mk-on ) )
+              FAILED   failed
+              REPORTED reported.
+
+        " Read changed data for action result
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+            ENTITY travel
+            FROM VALUE #( FOR key IN keys (  mykey = key-mykey
+                                              %control = VALUE #(
+                                                agencyid       = if_abap_behv=>mk-on
+                                                customerid     = if_abap_behv=>mk-on
+                                                begindate      = if_abap_behv=>mk-on
+                                                enddate        = if_abap_behv=>mk-on
+                                                bookingfee     = if_abap_behv=>mk-on
+                                                totalprice     = if_abap_behv=>mk-on
+                                                currencycode   = if_abap_behv=>mk-on
+                                                overallstatus  = if_abap_behv=>mk-on
+                                                description     = if_abap_behv=>mk-on
+                                                createdby      = if_abap_behv=>mk-on
+                                                createdat      = if_abap_behv=>mk-on
+                                                lastchangedby = if_abap_behv=>mk-on
+                                                lastchangedat = if_abap_behv=>mk-on
+                                              ) ) )
+            RESULT DATA(lt_travel).
+
+        result = VALUE #( FOR travel IN lt_travel ( mykey = travel-mykey
+                                                    %param    = travel
+                                                  ) ).
+      ENDMETHOD.
+
+      METHOD CalculateTravelKey.
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+      ENTITY travel
+        FIELDS ( travelid )
+        WITH CORRESPONDING #( keys )
+        RESULT DATA(travels).
+
+
+        DELETE travels WHERE travelid IS NOT INITIAL.
+        CHECK travels IS NOT INITIAL.
+
+        "Get max travelID
+        SELECT SINGLE FROM zatravel_### FIELDS MAX( travel_id ) INTO @DATA(lv_max_travelid).
+
+        "update involved instances
+        MODIFY ENTITIES OF zr_traveltp_### IN LOCAL MODE
+          ENTITY travel
+            UPDATE FIELDS ( travelid )
+            WITH VALUE #( FOR ls_travel IN travels INDEX INTO i (
+                              %key      = ls_travel-%key
+                              travelid  = lv_max_travelid + i ) )
+        REPORTED DATA(lt_reported).
+      ENDMETHOD.
+
+      METHOD validateAgency.
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+          ENTITY Travel
+            FIELDS ( AgencyID )
+            WITH CORRESPONDING #( keys )
+            RESULT DATA(travels).
+
+        DATA agencies TYPE SORTED TABLE OF /dmo/agency WITH UNIQUE KEY agency_id.
+
+        " Optimization of DB select: extract distinct non-initial customer IDs
+        agencies = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING agency_id = agencyid EXCEPT * ).
+        DELETE agencies WHERE agency_id IS INITIAL.
+        CHECK agencies IS NOT INITIAL.
+
+        " Check if customer ID exist
+        SELECT FROM /dmo/agency FIELDS agency_id
+          FOR ALL ENTRIES IN @agencies
+          WHERE agency_id = @agencies-agency_id
+          INTO TABLE @DATA(lt_agency_db).
+
+        " Raise msg for non existing customer id
+        LOOP AT travels INTO DATA(travel).
+
+          IF travel-agencyid IS NOT INITIAL AND NOT line_exists( lt_agency_db[ agency_id = travel-agencyid ] ).
+            APPEND VALUE #(  mykey = travel-mykey ) TO failed-travel.
+            APPEND VALUE #(  mykey = travel-mykey
+                            %msg      = new_message( id       = /dmo/cx_flight_legacy=>agency_unkown-msgid
+                                                      number   = /dmo/cx_flight_legacy=>agency_unkown-msgno
+                                                      v1       = travel-agencyid
+                                                      severity = if_abap_behv_message=>severity-error )
+                            %element-agencyid = if_abap_behv=>mk-on ) TO reported-travel.
+          ENDIF.
+        ENDLOOP.
+      ENDMETHOD.
+
+      METHOD validateCustomer.
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+        ENTITY Travel
+          FIELDS ( CustomerID )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(travels).
+
+
+        DATA customers TYPE SORTED TABLE OF /dmo/customer WITH UNIQUE KEY customer_id.
+
+        " Optimization of DB select: extract distinct non-initial customer IDs
+        customers = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING customer_id = customerid EXCEPT * ).
+        DELETE customers WHERE customer_id IS INITIAL.
+        CHECK customers IS NOT INITIAL.
+
+        " Check if customer ID exist
+        SELECT FROM /dmo/customer FIELDS customer_id
+          FOR ALL ENTRIES IN @customers
+          WHERE customer_id = @customers-customer_id
+          INTO TABLE @DATA(lt_customer_db).
+
+        " Raise msg for non existing customer id
+        LOOP AT travels INTO DATA(travel).
+          IF travel-customerid IS NOT INITIAL AND NOT line_exists( lt_customer_db[ customer_id = travel-customerid ] ).
+            APPEND VALUE #(  mykey = travel-mykey ) TO failed-Travel.
+            APPEND VALUE #(  mykey = travel-mykey
+                            %msg      = new_message( id       = /dmo/cx_flight_legacy=>customer_unkown-msgid
+                                                      number   = /dmo/cx_flight_legacy=>customer_unkown-msgno
+                                                      v1       = travel-customerid
+                                                      severity = if_abap_behv_message=>severity-error )
+                            %element-customerid = if_abap_behv=>mk-on ) TO reported-Travel.
+          ENDIF.
+        ENDLOOP.
+      ENDMETHOD.
+      METHOD validateDates.
+        READ ENTITIES OF zr_traveltp_### IN LOCAL MODE
+        ENTITY travel
+          FIELDS ( BeginDate EndDate TravelID )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(travels).
+
+        LOOP AT travels INTO DATA(travel).
+
+          IF travel-enddate < travel-begindate.  "end_date before begin_date
+
+            APPEND VALUE #( %key        = travel-%key
+                            mykey   = travel-mykey ) TO failed-travel.
+
+            APPEND VALUE #( %key     = travel-%key
+                            %msg     = new_message( id       = /dmo/cx_flight_legacy=>end_date_before_begin_date-msgid
+                                                    number   = /dmo/cx_flight_legacy=>end_date_before_begin_date-msgno
+                                                    v1       = travel-begindate
+                                                    v2       = travel-enddate
+                                                    v3       = travel-travelid
+                                                    severity = if_abap_behv_message=>severity-error )
+                            %element-begindate = if_abap_behv=>mk-on
+                            %element-enddate   = if_abap_behv=>mk-on ) TO reported-travel.
+
+          ELSEIF travel-begindate < cl_abap_context_info=>get_system_date( ).  "begin_date must be in the future
+
+            APPEND VALUE #( %key        = travel-%key
+                            mykey   = travel-mykey ) TO failed-travel.
+
+            APPEND VALUE #( %key = travel-%key
+                            %msg = new_message( id       = /dmo/cx_flight_legacy=>begin_date_before_system_date-msgid
+                                                number   = /dmo/cx_flight_legacy=>begin_date_before_system_date-msgno
+                                                severity = if_abap_behv_message=>severity-error )
+                            %element-begindate = if_abap_behv=>mk-on
+                            %element-enddate   = if_abap_behv=>mk-on ) TO reported-travel.
+          ENDIF.
+        ENDLOOP.
+      ENDMETHOD.
+
+
+    ENDCLASS.
+    ```
+
+  14. Save and activate.
+
+   
+### Test your application 
+
+1. Switch to your **service binding** **`ZUI_TRAVEL_O4_UI_###`** and open the `TravelProcessor` entity to start the preview of your SAP Fiori application.
+
+    ![preview](previewx.png)
+
+2. Click **Go**.
+
+    ![preview](go.png)
+
+3. Check your result.
+
+    ![preview](go2.png)
+
+4. Select the last entry with the overall status X and press the **Accept Travel** button. 
+
+    ![preview](go3.png)
+
+5. As a result you should see that the overall status is now set to A. This means that the status has changed from canceled to accepted.
+
+    ![preview](go4.png) 
+
+    Now you can try to create new entries. 
+ 
+### Test yourself
+
+---  
+  
+### Next
+
+You can [deploy your ABAP application with SAP Business Application Studio](abap-environment-deploy-cf-production). Follow therefore the tutorial.
+
+After completing this mission, you might be interested in the next in the series: [Level Up with SAP BTP, ABAP Environment](mission.abap-env-level-up)
+
+### More Information
+[Entity Manipulation Language (EML)](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/af7782de6b9140e29a24eae607bf4138.html )
+
+[Examples of EML](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/ec279ca529d4497ea41e7674a4daf9e2.html )
+
+[Validations](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/171e26c36cca42699976887b4c8a83bf.html )
+
+[Determinations](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/6edb0438d3e14d18b3c403c406fbe209.html )
+
+[Actions](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/83bad707a5a241a2ae93953d81d17a6b.html )
+
+[Feature Control](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/a5055eef86fa492d99a29b3a9c7c2b88.html )
+
+[Implicit Returning Parameters](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/aceaf8453d4b4e628aa29aa7dfd7d948.html )
+
+[RAP course: `openSAP`](https://open.sap.com/courses/cp13 )
