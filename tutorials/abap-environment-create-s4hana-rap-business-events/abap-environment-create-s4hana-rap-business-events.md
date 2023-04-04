@@ -32,7 +32,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   1. Open ADT and open your system.
 
-  2. If you do not have an **ABAP Package** create a new one. Please be sure if your package name is with **Z** like
+  2. If you do not have an **ABAP Package** create a new one. Please be sure if your package name is started with **Z** like
 
     - Name: `ZEVENT_BOOKING_####`
     - Description: `define a RAP event`
@@ -397,7 +397,7 @@ After creating a channel, you can decide which events should be listed on this c
 
     ![topic](9-4.png)
 
-3. Check your topic is listed.
+3. Check your topic is listed. 
 
     ![topic](9-5.png)
 
@@ -406,34 +406,38 @@ After creating a channel, you can decide which events should be listed on this c
 
 In the SAP Event Mesh system, create a queue for the selected instance and subscribe it to your topic. For more information on how to create a queue, check [ this ] (https://blogs.sap.com/2022/08/19/an-introduction-to-enterprise-event-enablement-for-sap-btp-abap-environment/) blog post. 
 
+The structure of the topic should be like: your event mesh instance namespace/ce/the event type you are generated and are subscriebed to: `zevent####/booking/delete/*`.
+
+The Topic will look like: `PmEvnt/PmEvnt.sap/Demo/ce/zevent####/booking/Delete/*`
+
 
 ### Create a Message in Application
 
-1. In the SAP Event Mesh system, create a queue for the selected instance and subscribe it to your topic.
+After you created a queue for the selected instance in the SAP Event Mesh system and subscribe it to your topic,
 
-2. Back to ADT and open service binding `ZEVENT_UI_BOOKING_04_####`, choose **BOOKING** and click **Preview**.
+1. Back to ADT and open service binding `ZEVENT_UI_BOOKING_04_####`, choose **BOOKING** and click **Preview**.
 
     ![preview](10-1.png)
 
-3. Click **Go** to load all bookings. Select an entry with the chosen ID and delete it. An event will be raised then.
+2. Click **Go** to load all bookings. Select an entry with the chosen ID and delete it. An event will be raised then.
 
     ![preview](10-2.png)
 
     ![delete](10-3.png)
 
-4. Back to your queue, hier you can see that a message is in your queue.
+3. Back to your queue, hier you can see that a message is in your queue.
 
     ![message](10-4.png)
 
-5. Click **Test** and choose your queue. Click **Consume message**.
+4. Click **Test** and choose your queue. Click **Consume message**.
 
     ![consume](10-5.png)
 
-6. Check the **Message Data**
+5. Check the **Message Data**
 
     ![data](10-6.png)
 
-7. To monitor the generated event on SAP Logon, open **SAP Logon** and run the transaction `/n/IWXBE/EVENT_MONITOR`. Choose your channel and click **Execute**
+6. To monitor the generated event on SAP Logon, open **SAP Logon** and run the transaction `/n/IWXBE/EVENT_MONITOR`. Choose your channel and click **Execute**
 
     ![monitor](10-7.png)
 
