@@ -12,7 +12,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 <!-- description --> Create and exposure of business events in an On-Premise system
 
 ## Prerequisites
- - You need to have access to an On-Premise 2022 system with authority to create and maintain a channel.
+ - You need to have access to an On-Premise 2022 system with authority to create and maintain a channel. 
  - You need to prepare an event mesh instance in your SAP business technology platform system and download the service key of this instance. For more information see the [Create Instance of SAP Event Mesh] (https://developers.sap.com/tutorials/cp-enterprisemessaging-instance-create.html)
 
 
