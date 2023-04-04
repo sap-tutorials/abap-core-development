@@ -56,7 +56,7 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
     ![Travel BO Behavior Definition](p1.png)
 
- 3. Specify the field TravelID as read-only field since it will be set at runtime by the internal early numbering.
+ 3. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
       Info: The static field control is used to restrict properties of particular fields.
 
       For that, replace the statement

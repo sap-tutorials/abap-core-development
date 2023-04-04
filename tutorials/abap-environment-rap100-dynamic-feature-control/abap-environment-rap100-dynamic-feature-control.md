@@ -75,7 +75,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
     The result should look like this:
 
-    ![Travel BO Behavior Pool](p19.png)
+    ![Travel BO Behavior Pool](p20.png)
 
  4. Check the interface of the method **`get_instance_features`** in the declaration part of the local handler class in the behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.  
 
