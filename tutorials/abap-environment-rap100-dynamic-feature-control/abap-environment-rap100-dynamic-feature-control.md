@@ -12,10 +12,9 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object behavior using dynamic feature control with SAP BTP ABAP environment.
 
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
 
 ## You will learn  
   - How to define dynamic instance feature control
@@ -46,6 +45,8 @@ Define the dynamic instance feature control for the standard operations **`updat
     - Draft action **`Edit`**
     - Instance actions **`acceptTravel`**, **`rejectTravel`**, and **`deductDiscount`**
 
+ 2. Add following:
+
     ```ABAP
     ...
     create;
@@ -58,13 +59,13 @@ Define the dynamic instance feature control for the standard operations **`updat
     ```
 
     In case you've defined and implemented the instance actions `acceptTravel` and `rejectTravel` in the previous exercise, then also add the code snippet provided below as shown on the screenshot.
- 
-    ```ABAP 
+
+    ```ABAP
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
-    ``` 
- 
-    ![Travel Behavior Definition](fx.png)  
+    ```
+
+    ![Travel Behavior Definition](p18.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -74,7 +75,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
     The result should look like this:
 
-    ![Travel BO Behavior Pool](l.png)
+    ![Travel BO Behavior Pool](p20.png)
 
  4. Check the interface of the method **`get_instance_features`** in the declaration part of the local handler class in the behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.  
 
