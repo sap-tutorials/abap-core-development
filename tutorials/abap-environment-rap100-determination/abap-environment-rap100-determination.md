@@ -24,7 +24,7 @@ author_profile: https://github.com/mervey45
   In the previous exercise, you've defined and implemented the early numbering for assigning automatically an identifier (ID) for a new instance of the BO entity Travel.
 
   In the present exercise, you will define and implement a determination, `setStatusToOpen`, which will be used to set a default value for the overall status of a Travel entity instance. You will use the Entity Manipulation Language (EML) to implement the transactional behavior of the Travel business object.
-
+ 
 ---
 
 ## Intro

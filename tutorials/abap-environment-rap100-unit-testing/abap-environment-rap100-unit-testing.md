@@ -7,7 +7,7 @@ time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
-
+ 
 # Write an ABAP Unit Test for the RAP Business Object
 <!-- description --> Write an ABAP Unit Test for the RAP business object.
 

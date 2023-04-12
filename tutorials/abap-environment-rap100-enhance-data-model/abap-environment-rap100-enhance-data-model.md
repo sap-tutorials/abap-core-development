@@ -7,7 +7,7 @@ time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
-
+ 
 # Enhance the Business Object Data Model and Enable OData Streams
 <!-- description --> Enhance the business object data model and enable OData streams with SAP BTP ABAP environment.
 
