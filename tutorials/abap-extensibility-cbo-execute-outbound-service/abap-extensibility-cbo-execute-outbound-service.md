@@ -11,7 +11,11 @@ time: 15
 
 ## Prerequisites  
 **Authorizations:** Your user needs
+<<<<<<< HEAD
+- (a) business role(s) with business catalogs **Extensibility** (ID: `SAP_CORE_BC_EXT`) and **Communication Management** (ID: `SAP_CORE_BC_COM`) in your **S/4HANA Cloud** system
+=======
 - (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Communication Management** (ID: `SAP_CORE_BC_COM`) in your **S/4HANA Cloud** system
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 - access to **[SAP API Business Hub](https://api.sap.com)**.
 **Example Objects:** Existence of custom business object `Bonus Entitlement` as described in this [tutorial](https://blogs.sap.com/2017/02/20/part-iv-associated-business-objects-bonus-entitlement-with-plan-sales-order/) (Blog)
 **Knowledge:** (optional) [Tutorial: Getting started with the SAP API Business Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)

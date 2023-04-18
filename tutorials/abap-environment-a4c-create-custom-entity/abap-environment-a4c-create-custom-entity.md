@@ -13,7 +13,11 @@ author_profile: https://github.com/julieplummer20
 
 ##Prerequisites
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
+<<<<<<< HEAD
+- **IMPORTANT**: This tutorial is part 4 of a mission. You must complete the other 3 parts first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps.
+=======
 - **IMPORTANT**: This tutorial is part of a mission. You must complete the previous parts first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
   - How to implement a query manually for your CDS custom entity

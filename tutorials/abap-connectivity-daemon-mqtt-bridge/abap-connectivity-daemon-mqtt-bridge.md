@@ -2,7 +2,11 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-development
+<<<<<<< HEAD
+tags: [ tutorial>intermediate, topic>abap-development  ]
+=======
 tags: [ tutorial>intermediate, topic>abap-development ]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 # Forward MQTT and AMC Messages Using an ABAP Daemon
@@ -92,7 +96,11 @@ METHOD if_abap_daemon_extension~on_accept.
 ENDMETHOD.
 ```
 
+<<<<<<< HEAD
+Now, implement the `ON_START` method. It receives two startup parameters containing the names of the MQTT topics for subscription and publication and stores them in the member variables created in step 1.
+=======
 Now, implement the `ON_START` method. It receives two startup parameters containing the names of the MQTT topics for subscription and publication, and stores them in the member variables created in step 1.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ```ABAP
 METHOD if_abap_daemon_extension~on_start.
@@ -325,7 +333,11 @@ For the reverse direction, you will need a class that simply waits for any incom
 CLASS zcl_tutorial_mqtt_daemon_recv DEFINITION
   PUBLIC
   FINAL
+<<<<<<< HEAD
+  CREATE PUBLIC.
+=======
   CREATE PUBLIC .
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   PUBLIC SECTION.
     INTERFACES: if_oo_adt_classrun, if_amc_message_receiver_pcp.
@@ -399,7 +411,11 @@ You should see the text you just published on your ABAP Messaging Channel appear
 
 For testing the other forwarding direction, **activate the class** `ZCL_TUTORIAL_MQTT_DAEMON_RECV`  **by pressing `Ctrl+F3`**. Now **run it as ABAP Application (Console) by pressing `F9`**.
 
+<<<<<<< HEAD
+> The class will now be able to receive AMC messages for 60 seconds. You can extend this time range by modifying the `WAIT ... UP TO 60 SECONDS` statement in the source code or you simply execute your class again.
+=======
 > The class will now be able to receive AMC messages for 60 seconds. You can extend this time range by modifying the `WAIT ... UP TO 60 SECONDS` statement in the source code, or you simply execute your class again.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 While the class is running, you can publish MQTT messages under the topic `abaptopic/tutorial/subscribe` by using the [HiveMQ Websocket Client](http://www.hivemq.com/demos/websocket-client/):
 

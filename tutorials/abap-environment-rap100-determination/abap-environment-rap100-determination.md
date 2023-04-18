@@ -2,7 +2,11 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
+<<<<<<< HEAD
+tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+=======
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -12,9 +16,14 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object behavior using determination with SAP BTP ABAP environment.
 
 ## Prerequisites
+<<<<<<< HEAD
+- You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to define determinations
@@ -24,7 +33,11 @@ author_profile: https://github.com/mervey45
   In the previous exercise, you've defined and implemented the early numbering for assigning automatically an identifier (ID) for a new instance of the BO entity Travel.
 
   In the present exercise, you will define and implement a determination, `setStatusToOpen`, which will be used to set a default value for the overall status of a Travel entity instance. You will use the Entity Manipulation Language (EML) to implement the transactional behavior of the Travel business object.
+<<<<<<< HEAD
+
+=======
  
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 ## Intro
@@ -52,13 +65,20 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
  1. Go to the behavior definition of the **Travel** BO entity ![bdef icon](adt_bdef.png) **`ZRAP100_R_TravelTP_###`** and insert the following statement after the statement **`delete;`** as shown on the screenshot below:
 
+<<<<<<< HEAD
+=======
  2. Add following code:
 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP
     determination setStatusToOpen on modify { create; }
     ```
 
+<<<<<<< HEAD
+    ![Travel BO Definition](new14.png)
+=======
     ![Travel BO Definition](p6.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     **Short explanation**:  
     The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
@@ -71,7 +91,11 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
     As result, the `FOR DETERMINE` method **`setStatusToOpen`** will be added to the local handler class **`lcl_handler`** of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
 
+<<<<<<< HEAD
+    ![Travel BO Behavior Pool](new15.png)             
+=======
     ![Travel BO Behavior Pool](p7.png)             
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

@@ -2,7 +2,11 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
+<<<<<<< HEAD
+tags: [  tutorial>beginner, programming-tool>abap-development, products>sap-business-technology-platform, tutorial>license ]
+=======
 tags: [  tutorial>beginner, programming-tool>abap-development, products>sap-business-technology-platform, tutorial>license, software-product-function>s-4hana-cloud-abap-environment ]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 15
 author_name: Niloofar Flothkoetter
 author_profile: https://github.com/niloofar-flothkoetter
@@ -17,8 +21,11 @@ author_profile: https://github.com/niloofar-flothkoetter
   - How to create a communication scenario
 
 ## Intro
+<<<<<<< HEAD
+=======
 This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way. 
 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 Always replace `XXX` with your initials or group number.
 
 Create all business services with ABAP namespace `Z...`.

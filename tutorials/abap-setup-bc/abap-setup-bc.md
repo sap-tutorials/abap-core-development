@@ -72,8 +72,15 @@ An installation guide and other documentation can be downloaded from the [SAP BC
 
 Copy the private key, the CA's response, and the certificate to the `config` folder of the SAP BC server.
 
+<<<<<<< HEAD
+
 ### Test yourself
 
+
+=======
+### Test yourself
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Set up WebSocket RFC from on-premise to cloud
 
 [WebSocket RFC to Cloud Using SAP Business Connector](abap-websocket-rfc-bc)
@@ -85,5 +92,8 @@ Copy the private key, the CA's response, and the certificate to the `config` fol
 
 
 
+<<<<<<< HEAD
+=======
 
 ---
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
