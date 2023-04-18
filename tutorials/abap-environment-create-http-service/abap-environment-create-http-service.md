@@ -3,7 +3,11 @@
 parser: v2
 auto_validation: true
 time: 15
+<<<<<<< HEAD
 tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, tutorial>license]
+=======
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
@@ -25,6 +29,7 @@ author_profile: https://github.com/julieplummer20
   -	How to return system data using a (whitelisted) ABAP utility class
   - How to expose the service for external consumption, by defining the necessary inbound communication artifacts
 
+<<<<<<< HEAD
 ## Intro
 **Important**: If you are working in SAP S/4HANA:
 ICF services are direct entry points into the ABAP system via the HTTP protocol. Implementing ICF services is a security-critical task with implications on the system and landscape configuration.
@@ -33,10 +38,21 @@ Therefore, to follow the best practices adopted by SAP internally, consider impl
 
 ---
 
+=======
+
+This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
+
+Throughout this tutorial, replace `XXX` or `000` with your initials or group number.
+
+---
+
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Create an HTTP service
 
 1. Select a package and choose **New > Other Repository Object** from the context menu:
 
+<<<<<<< HEAD
     ![Image depicting step-1a-new-repo-object](step-1a-new-repo-object.png)
 
 2. Enter the filter text **HTTP** and choose **Next**:
@@ -44,6 +60,15 @@ Therefore, to follow the best practices adopted by SAP internally, consider impl
     ![Image depicting step-1b-choose-HTTP-service](step-1b-choose-HTTP-service.png)
 
 3. Enter a **Name:`Z_GET_DATE_HTTP_XXX`** and **Description:Get system date** for your service and choose **Next**:
+=======
+    <!-- border -->![Image depicting step-1a-new-repo-object](step-1a-new-repo-object.png)
+
+2. Enter the filter text **HTTP** and choose **Next**:
+
+    <!-- border -->![Image depicting step-1b-choose-HTTP-service](step-1b-choose-HTTP-service.png)
+
+3. Enter a **Name:`Z_GET_DATE_HTTP_000`** and **Description:Get system date** for your service and choose **Next**:
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     <!-- border -->![Image depicting step-1c-name-service](step-1c-name-service.png)
 
@@ -63,14 +88,22 @@ Now, you will implement the handler class, starting with a simple text output.
 
 1. Open the handler class by clicking on the hyperlink:
 
+<<<<<<< HEAD
     ![Image depicting step-2a-open-handler-class](step-2a-open-handler-class.png)
+=======
+    <!-- border -->![Image depicting step-2a-open-handler-class](step-2a-open-handler-class.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 2. The structure of the class and the interfaces statement for `IF_HTTP_SERVICE_EXTENSION` are generated automatically.
 3. Go to the class implementation section and insert the following statement in the method:
 
     **`response->set_text('Hello!').`**
 
+<<<<<<< HEAD
     ![Image depicting step-2b-insert-method](step-2b-insert-method.png)
+=======
+    <!-- border -->![Image depicting step-2b-insert-method](step-2b-insert-method.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Save and activate
@@ -82,11 +115,19 @@ Now, you will implement the handler class, starting with a simple text output.
 
 1. Go back to your HTTP Service. Test your service in the browser by clicking the URL link:
 
+<<<<<<< HEAD
     ![Image depicting step-4-test-http-service](step-4-test-http-service.png)
 
 2. If necessary, log in again. The preview open automatically in a new tab and display something like this:
 
     ![Image depicting step-4b-hello](step-4b-hello.png)
+=======
+    <!-- border -->![Image depicting step-4-test-http-service](step-4-test-http-service.png)
+
+2. If necessary, log in again. The preview open automatically in a new tab and display something like this:
+
+    <!-- border -->![Image depicting step-4b-hello](step-4b-hello.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Add method `get_html`
@@ -137,14 +178,21 @@ In the ABAP environment, you can only use whitelisted APIs. Therefore, for examp
     <!-- border -->![step8a-formatted-html](step8a-formatted-html.png)
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Check code
 
 Your code should look like this:
 
 ```ABAP
+<<<<<<< HEAD
 CLASS Z_GET_DATE_HTTP_XXX DEFINITION
+=======
+CLASS Z_GET_DATE_HTTP_000 DEFINITION
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
   PUBLIC
   CREATE PUBLIC .
 
@@ -162,7 +210,11 @@ ENDCLASS.
 
 
 
+<<<<<<< HEAD
 CLASS Z_GET_DATE_HTTP_XXX IMPLEMENTATION.
+=======
+CLASS Z_GET_DATE_HTTP_000 IMPLEMENTATION.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
   METHOD if_http_service_extension~handle_request.
@@ -188,18 +240,26 @@ CLASS Z_GET_DATE_HTTP_XXX IMPLEMENTATION.
 ENDCLASS.
 ```
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Create an inbound Communication Scenario
 
 You will now create the artifacts you need to allow other systems to call your service compliantly. This involves some overhead for one consumer; however, the advantage is that you can add several consumer systems, or users (for example, with different authentication) pointing to the same HTTP service, wrapped in the same Communication Scenario.
 
+<<<<<<< HEAD
 ![step9-create-comm-artefacts-overview](step9-create-comm-artefacts-overview.png)
+=======
+<!-- border -->![step9-create-comm-artefacts-overview](step9-create-comm-artefacts-overview.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  First, create the **Communication Scenario**.
 
 1. Select your package, then choose **New > Other Repository Object...** from the context menu.
 
+<<<<<<< HEAD
     ![step9a-new-other](step9a-new-other.png)
 
 2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
@@ -211,12 +271,26 @@ You will now create the artifacts you need to allow other systems to call your s
 Your Communication Scenario appears.
 
 ![step9-new-comm-scen](step9-new-comm-scen.png)
+=======
+    <!-- border -->![step9a-new-other](step9a-new-other.png)
+
+2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
+
+    <!-- border -->![step9c-create-comm-scenario](step9c-create-comm-scenario.png)
+
+3. Add a **Name: `Z_WRAP_HTTP_INBOUND_000`** and **Description**, choose a transport request, then choose **Finish**.
+
+Your Communication Scenario appears.
+
+<!-- border -->![step9-new-comm-scen](step9-new-comm-scen.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Add the HTTP service
 
 1. On the **Inbound** tab, choose **Add...**.
 
+<<<<<<< HEAD
     ![step10-add-http-service](step10-add-http-service.png)
 
 2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z_HTTP`**, select your service, then choose **Finish**.
@@ -226,6 +300,17 @@ Your Communication Scenario appears.
 3. Your service appears. Choose **Publish Locally**.
 
     ![step10-b-publish-locally](step10-b-publish-locally.png)
+=======
+    <!-- border -->![step10-add-http-service](step10-add-http-service.png)
+
+2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z_HTTP`**, select your service, then choose **Finish**.
+
+    <!-- border -->![step10a-browse-for-service](step10a-browse-for-service.png)
+
+3. Your service appears. Choose **Publish Locally**.
+
+    <!-- border -->![step10-b-publish-locally](step10-b-publish-locally.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 
@@ -233,6 +318,7 @@ Your Communication Scenario appears.
 
 1. Open the dashboard for your system. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
 
+<<<<<<< HEAD
     ![step11a-open-flp](step11a-open-flp.png)
 
 2. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
@@ -242,6 +328,17 @@ Your Communication Scenario appears.
 3. Choose your scenario, **`Z_WRAP_HTTP_INBOUND_XXX`** from the drop-down list. Accept the default (identical) Arrangement name.
 
     ![step11c-name-comm-arr](step11c-name-comm-arr.png)
+=======
+    <!-- border -->![step11a-open-flp](step11a-open-flp.png)
+
+2. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
+
+    <!-- border -->![step11b-new](step11b-new.png)
+
+3. Choose your scenario, **`Z_WRAP_HTTP_INBOUND_000`** from the drop-down list. Accept the default (identical) Arrangement name.
+
+    <!-- border -->![step11c-name-comm-arr](step11c-name-comm-arr.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 
@@ -255,18 +352,30 @@ Your Communication Scenario appears.
 
 4. In **Technical Data > General > Host Name**, enter **Dummy**. Leave the other defaults and choose **Save**.
 
+<<<<<<< HEAD
     ![step12a-new-system](step12a-new-system.png)
+=======
+    <!-- border -->![step12a-new-system](step12a-new-system.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Create Communication User
 
 1. Scroll down to **Users for Inbound Communication**, then create a new user by choosing the **+** icon.
 
+<<<<<<< HEAD
     ![step13a-create-comm-user](step13a-create-comm-user.png)
 
 2. Choose **New User** and the **Authentication Method: User name and password**.
 
     ![step13b-choose-new-user](step13b-choose-new-user.png)
+=======
+    <!-- border -->![step13a-create-comm-user](step13a-create-comm-user.png)
+
+2. Choose **New User** and the **Authentication Method: User name and password**.
+
+    <!-- border -->![step13b-choose-new-user](step13b-choose-new-user.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 3. Enter a name and description, then choose **Propose password**, then choose **Create > OK > Save**.
 
@@ -274,7 +383,11 @@ Your Communication Scenario appears.
 ### Save Communication Arrangement
 
 
+<<<<<<< HEAD
 ![step14-save-comm-arr](step14-save-comm-arr.png)
+=======
+<!-- border -->![step14-save-comm-arr](step14-save-comm-arr.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 

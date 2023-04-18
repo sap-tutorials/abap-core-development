@@ -10,7 +10,10 @@ primary_tag: topic>abap-extensibility
 <!-- description --> Create destination in SAP Cloud Platform cockpit to connect to S/4HANA cloud system.
 
 ## Prerequisites
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
   - Custom Business Object must have been created. If not, then follow the tutorials [Create Custom Business Objects in S/4HANA Cloud](group.abap-extensibiliy-cbo-cce-ccl).
   - You must have SAP Cloud Platform account.
 

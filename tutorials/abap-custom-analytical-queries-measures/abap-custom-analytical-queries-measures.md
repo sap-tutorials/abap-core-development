@@ -15,14 +15,22 @@ author_profile: https://github.com/mervey45
 The Business user requires the Role `SAP_CA_BC_ANA_AQD_PC` to access the Query Designer.
 Furthermore `ABAP Custom Analytical Queries` as a tutorial reveals another Prerequisite.
 
+<<<<<<< HEAD
 ## You will learn  
 This tutorial teaches you the creation of a Custom Analytical Query and the addition of a Calculated Measures. You will also be able to edit your calculated Measures and define an Exception Aggregation.
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## Intro
 The Application Custom Analytical Queries characterizes the usage of reporting and analysis.
 Raw data from business documents are getting converted into a meaningful grid.
 By using Custom Analytical Queries you do not need to understand the technical details.
+<<<<<<< HEAD
 
+=======
+## You will learn  
+This tutorial teaches you the creation of a Custom Analytical Query and the addition of a Calculated Measures. You will also be able to edit your calculated Measures and define an Exception Aggregation.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ---
 ### Open Custom Analytical Queries Application

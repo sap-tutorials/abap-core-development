@@ -6,14 +6,25 @@ tags: [  tutorial>beginner, topic>abap-development, products>sap-business-techno
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
+<<<<<<< HEAD
 ---
+=======
+--- 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 # Enhance the Business Object Behavior With Validations
 <!-- description --> Enhance the business object behavior using validation with SAP BTP ABAP environment.
 
 ## Prerequisites
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ## You will learn  
@@ -59,7 +70,11 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
+<<<<<<< HEAD
     ![validation](n2.png)   
+=======
+    ![validation](p8.png)   
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   3. Define the validations **`validateCustomer`** and **`validateDates`**. For that, add the following code snippet after the determination.
 
@@ -81,6 +96,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
+<<<<<<< HEAD
     ![validation](new18.png)           
 
     **Short explanation**:    
@@ -90,6 +106,17 @@ Define the validations `validateCustomer` and `validateDates`.
      - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
 
      - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
+=======
+    ![validation](p9.png)           
+
+     **Short explanation**:    
+
+      - Validations are always invoked during the save and specified with the keyword `validateCustomer on save`.   
+
+      - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
+
+      - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     >**Hint:** In case a validation should be invoked at every change of the BO entity instance, then the trigger conditions createand update must be specified: e.g. validation `validateCustomer on save { create; update; }`
 
@@ -101,7 +128,11 @@ Define the validations `validateCustomer` and `validateDates`.
 
      As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
  
+<<<<<<< HEAD
      ![Travel BO Behavior Pool](new19.png)  
+=======
+     ![Travel BO Behavior Pool](p10.png)  
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   7. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -226,6 +257,7 @@ An appropriate message should be raised and displayed on the UI for each invalid
 
 ### Implement the Validation validateDates
 
+<<<<<<< HEAD
 Implement the validation `validateDates` which checks the validity of entered begin dates (`BeginDate`) and end dates (`EndDate`).
 An appropriate messages should be raised and displayed on the UI for each invalid value.
 
@@ -235,6 +267,14 @@ An appropriate messages should be raised and displayed on the UI for each invali
 
     This validation is performed on the fields **`BeginDate`** and **`EndDate`**. It checks if the entered begin date (`BeginDate`) is in the future and if the value of the entered end date (`EndDate`) is after the begin date (`BeginDate`).   
 
+=======
+Implement the validation `validateDates` which checks the validity of entered begin dates (`BeginDate`) and end dates (`EndDate`). An appropriate messages should be raised and displayed on the UI for each invalid value.
+ 
+ 1. In your implementation class ![class](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`** of **`validateDates`** with following code snippet and replace all occurrences of the placeholder **`###`** with your group ID. The main implementation steps are similar to the one of method **`validateCustomer`**. This validation is performed on the fields **`BeginDate`** and **`EndDate`**. It checks if the entered begin date (`BeginDate`) is in the future and if the value of the entered end date (`EndDate`) is after the begin date (`BeginDate`). 
+
+ 2. Replace the current method implementation.
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP
     **********************************************************************
     * Validation: Check the validity of begin and end dates
@@ -302,7 +342,11 @@ An appropriate messages should be raised and displayed on the UI for each invali
       ENDMETHOD.
     ```
 
+<<<<<<< HEAD
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
+=======
+ 3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Preview and test the enhanced travel app

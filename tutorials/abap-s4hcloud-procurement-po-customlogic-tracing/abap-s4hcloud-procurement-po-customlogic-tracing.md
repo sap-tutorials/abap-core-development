@@ -21,7 +21,11 @@ author_profile: https://github.com/julieplummer20
     - **`SAP_BR_PURCHASER`** for the app **Create Purchase Order - Advanced**
     - **`SAP_BR_ADMINISTRATOR`** for **Custom Logic Tracing** and **Custom Logic**
 - You have created a custom field using Key User extensibility **`yy1_zhdrprnt2_pdh_000`**
+<<<<<<< HEAD
 - In Custom Logic, you have created a `BAdI` implementation `YY1_FILLHEADERCUSTOMFIELDS_000` in the business context and `BAdI` definition **Modify Purchase Order Header (`MM_PUR_S4_PO_MODIFY_HEADER`)**
+=======
+- In Custom Logic, you have created a `BAdI` implementation `YY1_FILLHEADERCUSTOMFIELDS_000` in the business context and `BAdI` definition **Modify Purchase Order Header (`MM_PUR_S4_PR_CHECK`)**
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 
@@ -32,11 +36,18 @@ author_profile: https://github.com/julieplummer20
 - How to check the custom logic of this custom field, in **Custom Fields**
 
 ## Intro
+<<<<<<< HEAD
 
 >The administrator receives an welcome e-mail after provisioning. This e-mail includes the system URL. By removing `/ui` you can log into the SAP S/4HANA Cloud ABAP Environment system. Further information can be found [Developer Extensibility: Connect to the ABAP System](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/4b962c243a3342189f8af460cc444883.html?locale=en-US).
 
 
 Throughout this tutorial, the placeholder `###` or `000` is used. Always replace this with your initials or group number.
+=======
+>The administrator receives an welcome e-mail after provisioning. This e-mail includes the system URL. By removing `/ui` you can log into the SAP S/4HANA Cloud ABAP Environment system. Further information can be found [Developer Extensibility: Connect to the ABAP System](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/4b962c243a3342189f8af460cc444883.html?locale=en-US).
+
+Throughout this tutorial, the placeholder `###` or `000` is used. Always replace this with your initials or group number.
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 ### Apply custom logic
@@ -175,12 +186,20 @@ Then choose the parameter **Purchase Order**.
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### More information
 - SAP Help Portal: [Business Add-Ins (`BAdIs`)](https://help.sap.com/docs/ABAP_PLATFORM_2021/46a2cfc13d25463b8b9a3d2a3c3ba0d9/8ff2e540f8648431e10000000a1550b0.html?locale=en-US)
 - SAP Help Portal: ABAP Platform [App Implementation: Custom Logic Tracing](https://help.sap.com/docs/ABAP_PLATFORM_NEW/dd52b271fd064d84b4085a87209cb1bd/76099babb7c74f6d8c2ecdaf2c07fa14.html?locale=en-US)
 - SAP Help Portal: Sourcing and Procurement: [Adaptation of App Behavior (Overview and List of Available `BAdIs`)](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0e602d466b99490187fcbb30d1dc897c/259a396e6bdb4d08b130049880a3920f.html?locale=en-US)
+<<<<<<< HEAD
 
+=======
+- Blog post: [Key User Extensibility...: Custom Field with ABAP implemented Value Help](https://blogs.sap.com/2022/07/26/sap-s-4hana-key-user-extensibility-powered-by-embedded-steampunk-custom-field-with-abap-implemented-value-help/)
+- Video of this tutorial: [Running a Trace in SAP Key User Extensibility](https://www.youtube.com/watch?v=4xd4wuyvqfs)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ---

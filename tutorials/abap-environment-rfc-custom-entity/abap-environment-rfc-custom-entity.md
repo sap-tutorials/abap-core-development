@@ -29,7 +29,16 @@ Note that, if you are using the trial version, currently you cannot access an on
 
 A BAPI is a standard interface to a business object model, implemented as a function module.
 
+<<<<<<< HEAD
 Custom entities are used for data models whose runtime is implemented manually. There is no SELECT statement on the data source. Rather, you define the elements and their types in the custom entity. Then you implement the data retrieval logic in an ABAP class, which is referenced in an entity annotation. Custom entities allow you to get data using an OData service or, as here, using RFC.
+=======
+Custom entities are used for data models for which you do not run a SELECT statement from an existing data source in the database. Rather, you:
+    1. Define the elements and their types in the custom entity
+    2. Implement the data retrieval logic manually in an ABAP class
+    3. Reference this class in an entity annotation. 
+    
+Custom entities allow you to get data using an OData service or, as here, using RFC.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ---
@@ -208,8 +217,16 @@ Go back to the class.
 
 If you are working in the trial version, omit this step.
 
+<<<<<<< HEAD
 If you are working in the full version of ABAP Environment: Define the connection as follows, replacing `000` in both `i_name` and `i_service_instance_name` to your initials or group number. Ignore the warning for now. Wrap this in a `TRY. ...CATCH... ENDTRY.`
 
+=======
+If you are working in the full version of ABAP Environment: Define the connection as follows.
+<!-- 
+, replacing `000` in both `i_name` and `i_service_instance_name` to your initials or group number. Ignore the warning for now. Wrap this in a `TRY. ...CATCH... ENDTRY.`
+ -->
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 **IMPORTANT**: Always specify the authentication mode using the interface `if_a4c_cp_service`. Never hard-code your password in the class.
 
     ```ABAP
@@ -217,7 +234,11 @@ If you are working in the full version of ABAP Environment: Define the connectio
     IF lv_abap_trial = abap_false.
 
       TRY.
+<<<<<<< HEAD
       DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
+=======
+        DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
                               comm_scenario          = Z_OUTBOUND_RFC_000_CS     " Communication scenario
                               service_id             = Z_OUTBOUND_HANA_000       " Outbound service
                               comm_system_id         = Z_OUTBOUND_HANA_CS_000    " Communication system

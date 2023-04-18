@@ -12,7 +12,11 @@ author_profile: https://github.com/mervey45
 <!-- description --> Learn how to copy and paste data from spreadsheet applications. Get to know how to create business configuration documentation and make use of intent navigation.
 
 ## Prerequisites  
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
+=======
+- You need an SAP BTP, ABAP environment license or a [trial user](abap-environment-trial-onboarding).
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 - This is the fourth tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the given order.
 - Install [ABAP Development Tools](https://tools.hana.ondemand.com/#abap). You can also follow **step 1** of this [tutorial](abap-install-adt) to install ADT.
 

@@ -12,8 +12,15 @@ author_profile: https://github.com/mervey45
 <!-- description --> Create behavior definition and implementation for managed scenario.
 
 ## Prerequisites  
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
+For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- If you are using a **licensed system** make sure, that the flight scenario is available in your system. If not, you should follow these [steps](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/downloading-abap-flight-reference-scenario) in your licensed system. The flight scenario is already in the trial systems.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to create behavior definition
@@ -21,13 +28,21 @@ author_profile: https://github.com/mervey45
   - How to create behavior definition for projection view
 
 ## Intro
+<<<<<<< HEAD
 In this tutorial, wherever XXX appears, use a number (e.g. 000).
+=======
+In this tutorial, wherever ### appears, use a number (e.g. 000).
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ---
 
 ### Create behavior definition
 
+<<<<<<< HEAD
   1. Right-click on your data definition `ZI_TRAVEL_M_XXX` and select **New Behavior Definition**. 
+=======
+  1. Right-click on your data definition `ZR_TRAVELTP_###` and select **New Behavior Definition**. 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![Create behavior definition](definition.png)
 
@@ -44,15 +59,26 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
   4. Replace your code with following.
 
     ```ABAP
+<<<<<<< HEAD
     managed implementation in class zbp_i_travel_m_xxx unique;
 
     define behavior for ZI_TRAVEL_M_XXX alias Travel
     persistent table ztravel_xxx
     etag master last_changed_at
+=======
+    managed implementation in class zbp_r_traveltp_### unique;
+    strict ( 2 );
+
+    define behavior for ZR_TravelTP_### alias Travel
+    persistent table zatravel_###
+    authorization master ( instance )
+    etag master lastchangedat
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     lock master
     {
 
       // semantic key is calculated in a determination
+<<<<<<< HEAD
       field ( readonly ) travel_id;
 
       // administrative fields (read only)
@@ -63,13 +89,31 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
       // mandatory fields that are required to create a travel
       field ( mandatory ) Begin_Date, End_Date, Customer_ID;
+=======
+      field ( readonly ) travelid;
+
+      // administrative fields (read only)
+      field ( readonly ) lastchangedat, lastchangedby, createdat, createdby;
+
+      // mandatory fields that are required to create a travel
+      field ( mandatory ) agencyid, overallstatus, bookingfee, currencycode;
+
+      // mandatory fields that are required to create a travel
+      field ( mandatory ) BeginDate, EndDate, CustomerID;
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       // standard operations for travel entity
       create;
       update;
       delete;
+<<<<<<< HEAD
     }  
     ```
+=======
+    }
+    ```
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   5. Save and activate.
 
@@ -79,24 +123,37 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
     Now the **behavior definition** is created and determines the create, update and delete functionality for travel booking.
 
+<<<<<<< HEAD
 
 
 ### Create behavior definition for projection view
 
   1. Right-click on your data definition `ZC_TRAVEL_M_XXX` and select **New Behavior Definition**.
+=======
+ 
+   
+### Create behavior definition for projection view
+
+  1. Right-click on your data definition `ZC_TRAVELTP_###` and select **New Behavior Definition**.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![Create behavior definition for projection view](projection.png)
 
   2. Check your behavior definition. Your implementation type is projection.
 
      Click **Next >**.
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
       ![Create behavior definition for projection view](projection2.png)
 
   3. Click **Finish** to use your transport request.
 
       ![Create behavior definition for projection view](projection3.png)
 
+<<<<<<< HEAD
   4. Replace your code with following:
 
     ```ABAP
@@ -104,6 +161,15 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
     define behavior for ZC_TRAVEL_M_XXX alias TravelProcessor
     use etag
+=======
+  4. Add your alias to the behavior definition for the projection view. Replace your code with following:
+
+    ```ABAP
+    projection;
+    strict ( 1 ); 
+
+    define behavior for ZC_TravelTP_### alias TravelProcessor
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     {
       use create;
       use update;
@@ -115,6 +181,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
       ![save and activate](activate.png)
 
+<<<<<<< HEAD
   6. Now switch to your service binding and activate your service binding again.
 
      ![Create behavior definition for projection view](activate2.png)
@@ -132,6 +199,8 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
      Please note that the semantic key Travel ID is not calculated yet. We will do this in the next tutorial.
 
       ![Create behavior definition for projection view](projection5.png)
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Test yourself

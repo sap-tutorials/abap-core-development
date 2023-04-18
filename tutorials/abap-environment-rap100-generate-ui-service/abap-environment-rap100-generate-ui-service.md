@@ -2,18 +2,34 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
+<<<<<<< HEAD
 tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+=======
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 # Create Database Table and Generate UI Service
 <!-- description --> Create a database table and generate UI services with SAP BTP ABAP environment.
 
 ## Prerequisites
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to create an ABAP package
@@ -47,11 +63,19 @@ Create your exercise package. This ABAP package will contain all the artefacts y
       ![package](p.png)
 
 
+<<<<<<< HEAD
 
 ### Create database table
 
 
 Create a database table![table](adt_tabl.png) to store the **Travel** data.   
+=======
+ 
+### Create database table
+
+
+Create a database table![table](adt_tabl.png) to store the **Travel** data.    
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 A Travel entity defines general travel data, such as the agency ID or customer ID, overall status of the travel booking, and the price of travel.
 
  1. Right-click on your ABAP package **`ZRAP100_###`** and select **New** > **Other ABAP Repository Object** from the context menu.
@@ -216,6 +240,7 @@ The generated business service will be transactional, draft-enabled, and enriche
 
     Verify the maintained entries and press **Next >** to confirm. The needed artifacts will be generated.
 
+<<<<<<< HEAD
     > **Please note**: Error Invalid XML format  
     > If you receive an error message **Invalid XML format of the response**, this may be due to a bug in version 1.26 of the ADT tools.  
     > An update of your ADT plugin to version 1.26.3 will fix this issue.
@@ -223,6 +248,26 @@ The generated business service will be transactional, draft-enabled, and enriche
     ![class](tb.png)  
 
     ![class](new0.png)                    
+=======
+    > **Please note**: Error Invalid XML format.   
+    > If you receive an error message **Invalid XML format of the response**, this may be due to a bug in version 1.26 of the ADT tools.  
+    > An update of your ADT plugin to version 1.26.3 will fix this issue.
+
+    | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
+    |----------------------------------------|-------------------------|-----------------------------------------------------|
+    | **Business Object**                    |                         |                                                     |
+    |                                        | **Data Model**          | Data Definition Name: **`ZRAP100_R_TravelTP_###`**  |
+    |                                        |                         | Alias Name: **`Travel`**                            |  
+    |                                        | **Behavior**            | Implementation Class: **`ZRAP100_BP_TravelTP_###`** |
+    |                                        |                         | Draft Table Name: **`ZRAP100_DTRAV###`**            |  
+    | **Service Projection (BO Projection)** |                         | Name: **`ZRAP100_C_TravelTP_###`**                  |
+    | **Business Services**                  |                         |                                                     |
+    |                                        | **Service Definition**  | Name: **`ZRAP100_UI_Travel_###`**                   |
+    |                                        | **Service Binding**     | Name: **`ZRAP100_UI_Travel_O4_###`**                |
+    |                                        |                         | Binding Type: **`OData V4 - UI`**                   |
+
+    ![class](new0.png)                     
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
  4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
@@ -266,6 +311,56 @@ Publish the local service endpoint of your service binding ![service binding](ad
      ![class](p9.png)
 
 
+<<<<<<< HEAD
+=======
+### Preview the Travel App in SAP S/4HANA on premise (optional)
+
+>**Hint:** In **SAP S/4HANA on premise or private cloud systems** publishing the local service endpoint of your OData V4 service binding does not work from within ADT. Therefore you have to publish the service binding locally using transaction `/IWFND/V4_ADMIN` in these systems.
+
+ 1. In the menu click on the button **Run ABAP Development Object as ABAP Application in SAPGUI** or press `Alt+F8`.
+
+     ![onprem](onprem.png)
+
+ 2. Type `/iwfnd/v4_admin` as a search string and double-click on the entry `/IWFND/V4_ADMIN` (Transaction).
+
+     ![onprem](onprem2.png)
+
+ 3. Click the button **Publish Service Groups** to get a list of service groups that can be published.
+
+     ![onprem](onprem3.png)
+
+ 4. Enter following values to search for the service group of your service and press the button **Get Service Groups**:
+
+    - System Alias: LOCAL
+    - Service Group ID: `Z*###*`
+
+     ![onprem](onprem4.png)  
+
+ 5. Select the entry `ZRAP100_UI_TRAVELTP_O4_###` from the list and press the button **Publish Service Groups**.
+
+     ![onprem](onprem5.png)
+
+ 6. In the following popup enter a meaningful description such as `Travel App ###`.
+
+     ![onprem](onprem6.png)
+
+ 7. You are now asked to provide a customizing request. Choose an existing customizing request or create a new one and choose a meaningful description.
+
+     ![onprem](onprem7.png)
+
+ 8. Confirm the success message and press **Enter**.
+
+     ![onprem](onprem8.png)
+
+ 9. Navigate back to your service binding in the project explorer. Right click on it and choose **Refresh**.
+ 
+     ![onprem](onprem9.png)
+
+
+10. Check that your service bindings is now publish and choose the entity **Travel** and press the button **Preview**.
+
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Test yourself
 
 

@@ -10,10 +10,16 @@ time: 75
 <!-- description --> Create a database table from scratch using the ABAP Development Tools (ADT); use different Data Dictionary objects to define the fields; then fill the table with test data.
 
 ## Prerequisites  
+<<<<<<< HEAD
 - You have done one of the following:
     - You have a valid instance of SAP Business Technology Platform (BTP) ABAP Environment. For more information, see **Tutorial**: [Create Your First ABAP Console Application](abap-environment-console-application), steps 1-2. On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see [ Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
     - You have a valid instance of an on-premise [SAP AS ABAP Platform 1909, developer edition on Docker](https://blogs.sap.com/2021/02/15/sap-abap-platform-1909-developer-edition-available-soon/). (The ABAP Flight Reference Scenario is included pre-installed on this server)
     - You have a valid instance of an on-premise [SAP AS ABAP Platform 1909, developer edition in SAP Cloud Appliance Library (CAL)](https://cal.sap.com/subscription?sguid=7bd4548f-a95b-4ee9-910a-08c74b4f6c37)
+=======
+- You have a valid instance of one of the following:
+    - SAP Business Technology Platform (BTP) ABAP Environment. For more information, see **Tutorial**: [Create Your First ABAP Console Application](abap-environment-console-application), steps 1-2. On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see [ Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
+    - On-premise [SAP AS ABAP Platform 1909, developer edition in SAP Cloud Appliance Library (CAL)](https://cal.sap.com/subscription?sguid=7bd4548f-a95b-4ee9-910a-08c74b4f6c37)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 - **Tutorial**: [Create an ABAP Project in ABAP Development Tools (ADT)](abap-create-project)
 
 
@@ -399,6 +405,14 @@ The class appears in a new editor.
 
 3. Run your class by choosing **Run as Console Application (F9)**.
 
+<<<<<<< HEAD
+=======
+The output should look roughly like this.
+
+<!-- border -->
+![step16a-console](step16a-console.png)
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Check your table in Data Preview
 
 Select your table from the Project Explorer and choose **Open With > Data Preview** from the context menu (**F8**).

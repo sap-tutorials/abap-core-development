@@ -7,13 +7,24 @@ time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 # Enhance the Business Object Behavior With Instance Action
 <!-- description --> Enhance the business object behavior using instance action with SAP BTP ABAP environment.
 
 ## Prerequisites
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to define actions
@@ -58,7 +69,11 @@ You will get familiar with both action implementations, i.e. action without and 
     action deductDiscount result [1] $self; 
     ```      
 
+<<<<<<< HEAD
      ![Travel BO Behavior Definition](nn2.png)      
+=======
+     ![Travel BO Behavior Definition](pp.png)      
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
      **Short explanation**:  
      - The name of the instance action is specified after the keyword **action**
@@ -81,7 +96,11 @@ You will get familiar with both action implementations, i.e. action without and 
 
      The result should look like this:
  
+<<<<<<< HEAD
      ![Travel BO Behavior Pool](nn3.png)
+=======
+     ![Travel BO Behavior Pool](p12.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   4. Save ![save icon](adt_save.png) the changes.
 
@@ -202,6 +221,11 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     Go to your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet as shown on the screenshot below. The keyword **`use action`** indicates that a behavior of the base BO is used on the projection layer.
 
+<<<<<<< HEAD
+=======
+  2. Replace your code:
+    
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP  
     use action deductDiscount;
     ```
@@ -220,6 +244,11 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     **Please note**: Some lines in the provided code snippet are commented out using **`//`**. **DO NOT remove them**. You will uncomment these lines in the following exercise steps.
 
+<<<<<<< HEAD
+=======
+ 4. Add following annotation:
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP
       @UI: {
       lineItem:       [ { position: 100, importance: #HIGH }                          
@@ -402,4 +431,8 @@ You can now test the new behavior of the action button `Deduct Discount` on the 
 
 
 ---
+<<<<<<< HEAD
  
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25

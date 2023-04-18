@@ -107,7 +107,11 @@ METHOD publish.
   ENDTRY.
 ENDMETHOD.
 ```
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 >The Quality of Service (QoS) specifies if the message is sent once without the receiver acknowledging it (at most once), sent multiple times until the receiver acknowledges receiving it (at least once) or if the two parties should engage in a two-level handshake to ensure exactly one copy of the message is received (exactly once).
 
 

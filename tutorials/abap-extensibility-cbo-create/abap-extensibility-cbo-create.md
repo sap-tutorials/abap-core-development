@@ -10,7 +10,11 @@ time: 10
 <!-- description --> Define the data structure and create the database persistence of a custom business object.
 
 ## Prerequisites  
+<<<<<<< HEAD
  - **Authorizations:** Your user needs a business role with business catalog **Extensibility** (ID: `SAP_CORE_BC_EXT`) in your **S/4HANA Cloud** system
+=======
+ - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **S/4HANA Cloud** system
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
 - Define a custom business object and its a simple data structure

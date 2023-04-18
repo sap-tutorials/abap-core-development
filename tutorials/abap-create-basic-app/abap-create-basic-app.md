@@ -116,7 +116,10 @@ You will now enhance the program to output your user name and today's date. Chan
 
 
 ### Run the ABAP program
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 Again, choose **F8** to run your program. Your output should now look something like this:
 
 ![Image depicting step9-run-program-2](step9-run-program-2.png)

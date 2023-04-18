@@ -10,7 +10,11 @@ time: 20
 <!-- description --> Control your custom business object application with ABAP logic
 
 ## Prerequisites  
+<<<<<<< HEAD
 - **Authorizations:** Your user needs a business role with business catalog **Extensibility** (ID: `SAP_CORE_BC_EXT`) in your **S/4HANA Cloud** system
+=======
+- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **S/4HANA Cloud** system
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ## You will learn  

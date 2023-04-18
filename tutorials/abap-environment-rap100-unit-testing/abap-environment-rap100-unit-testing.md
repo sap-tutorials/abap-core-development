@@ -7,13 +7,24 @@ time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 # Write an ABAP Unit Test for the RAP Business Object
 <!-- description --> Write an ABAP Unit Test for the RAP business object.
 
 ## Prerequisites
+<<<<<<< HEAD
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
+=======
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to create ABAP unit test class
@@ -157,11 +168,19 @@ You will declare the needed special ABAP unit instance and static methods, and t
 
 Implement the special static methods **`class_setup`** and **`class_teardown`**,  and the special instance method **`setup`** required by the ABAP unit framework.
 
+<<<<<<< HEAD
   1. Implement the static method **`class_setup`** which is used to setup the test doubles environment and prepare the test data.       
 
     Replace the method body with the code snippet below and replace all occurrences of the placeholder **`###`** with your group ID.
 
     Use the **Pretty Printer** (Shift+F1) to format your source code and save ![save icon](adt_save.png) the changes.
+=======
+  1. Implement the static method **`class_setup`** which is used to setup the test doubles environment and prepare the test data. Replace the method body with the code snippet below and replace all occurrences of the placeholder **`###`** with your group ID.
+
+  2. Use the **Pretty Printer** (Shift+F1) to format your source code and save ![save icon](adt_save.png) the changes.
+  
+  3. Add following:
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     ```ABAP
      METHOD class_setup.
@@ -191,6 +210,7 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
 
     Your source code should look like this:
 
+<<<<<<< HEAD
     ![Test Class](ex8_2.png)    
 
   2. Save ![save icon](adt_save.png) the changes.
@@ -199,6 +219,16 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
 
     Replace the method body with the code snippet provided below, format your code your source code, and save ![save icon](adt_save.png) the changes.
 
+=======
+      ![Test Class](ex8_2.png)    
+
+  2. Save ![save icon](adt_save.png) the changes.
+
+  3. Implement the ABAP Unit framework standard static method **`class_teardown`** which is used to stop the test doubles at the end of the test class execution. Replace the method body with the code snippet provided below, format your code your source code, and save ![save icon](adt_save.png) the changes.
+
+  4. Add following:
+  
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP
      METHOD class_teardown.
        " remove test doubles
@@ -209,7 +239,11 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
 
     Your source code should look like this:
 
+<<<<<<< HEAD
     ![Test Class](testclass05.png)
+=======
+      ![Test Class](testclass05.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
   4. Implement the special instance method **`setup`** which is used to reset the test doubles and insert the test data before the execution of the test method - or of each test method of a test class in general.    

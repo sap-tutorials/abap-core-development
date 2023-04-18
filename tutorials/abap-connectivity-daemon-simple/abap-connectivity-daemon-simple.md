@@ -2,7 +2,11 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-development
+<<<<<<< HEAD
 tags: [ tutorial>intermediate, topic>abap-development  ]
+=======
+tags: [ tutorial>intermediate, topic>abap-development ]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 # Create a Simple ABAP Daemon

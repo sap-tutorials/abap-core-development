@@ -8,11 +8,20 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
+<<<<<<< HEAD
 # Create a Remote Client Proxy
 <!-- description --> In the SAP Business Technology Platform, ABAP Environment, create a local class that instantiates a proxy, which passes an OData request to a remote service.
 
 ##Prerequisites
 - **IMPORTANT**: This tutorial cannot be completed on a trial account  
+=======
+# Create a Remote Client Proxy in an SAP BTP ABAP Environment Service
+<!-- description --> In the SAP Business Technology Platform, ABAP Environment, create a local class that instantiates a proxy, which passes an OData request to a remote service.
+
+##Prerequisites
+- **IMPORTANT**: This tutorial cannot be completed on a trial account
+- **IMPORTANT**: This tutorial is part of a mission. You must complete the previous parts first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps  
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
   - How to create an HTTP client in an ABAP class
@@ -141,9 +150,17 @@ ENDCLASS.
 
     ```
 
+<<<<<<< HEAD
     <!-- border -->![step3a-abap-artifacts](step3a-abap-artifacts.png)
     <!-- border -->![step3b-relative-path-inbound-service](step3b-relative-path-inbound-service.png)
 
+=======
+    <!-- border -->
+    ![step3a-abap-artifacts](step3a-abap-artifacts.png)
+
+    <!-- border -->
+    ![step3b-relative-path-inbound-service](step3b-relative-path-inbound-service.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Create message class
@@ -152,7 +169,12 @@ ENDCLASS.
 
 2. Enter the filter text **message** and choose **ABAP > ... Message Class**, then choose **Next**.
 
+<<<<<<< HEAD
     <!-- border -->![step4a-message-class-wizard](step4a-message-class-wizard.png)
+=======
+    <!-- border -->
+    ![step4a-message-class-wizard](step4a-message-class-wizard.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 3. Enter a name, **`ZCM_TRAVELS_XXX`**, and description, then choose **Next**. Your message class should have the prefix **`ZCM`**.
 
@@ -160,14 +182,24 @@ ENDCLASS.
 
 The new message class appears in a new editor.
 
+<<<<<<< HEAD
 <!-- border -->![step4b-new-message-class](step4b-new-message-class.png)
+=======
+<!-- border -->
+![step4b-new-message-class](step4b-new-message-class.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Add messages
 
 In your code, there are five `CATCH` statements. Enter a number and short text for each one. Enter the five numbers using the **Create** icon.
 
+<<<<<<< HEAD
 <!-- border -->![step5-create-message-icon](step5-create-message-icon.png)
+=======
+<!-- border -->
+![step5-create-message-icon](step5-create-message-icon.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 |  Number | Short Text
 |  :------| :-------------
@@ -205,7 +237,12 @@ Define these using a code template:
 
 1. In the private section of your exception class, type **`textID`**, then trigger code completion using **`Ctrl+Space`**, then choose **`textIdExceptionClass...`**
 
+<<<<<<< HEAD
     <!-- border -->![step7a-code-complete-textid](step1a-code-complete-textid.png)
+=======
+    <!-- border -->
+    ![step7a-code-complete-textid](step1a-code-complete-textid.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 2. Replace the default texts:
     - `begin of <ExceptionClass>` = **`begin of destination_provider_fail`**

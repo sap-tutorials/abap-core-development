@@ -6,7 +6,11 @@ tags: [  tutorial>beginner, programming-tool>abap-development, software-product>
 time: 25
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
+<<<<<<< HEAD
 --- 
+=======
+---
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 # Create a SAP Fiori App and Deploy it to SAP BTP, ABAP Environment
 <!-- description --> Create a SAP Fiori app for a RAP business object from SAP BTP, ABAP Environment in SAP Business Application Studio and deploy it to SAP BTP, ABAP Environment.
@@ -53,10 +57,17 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](user3.png)
 
+<<<<<<< HEAD
   5. Select `Business_Application_Studio_Administrator`, `Business_Application_Studio_Developer` and `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
 
       ![assign role collection](user4.png)
 
+=======
+  5. Select `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
+
+      ![assign role collection](user4.png)
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Create dev space
@@ -73,7 +84,11 @@ author_profile: https://github.com/mervey45
   3. Create a new dev space:
        - Name: **Fiori**
        - Type: **SAP Fiori**
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
        Click **Create Dev Space**.
 
      ![dev](studio4.png)
@@ -168,8 +183,12 @@ author_profile: https://github.com/mervey45
 
       ![object](s15.png)
 
+<<<<<<< HEAD
      **HINT:** Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
 
+=======
+    >Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   7. Configure deployment:
        - Target: ABAP
@@ -183,8 +202,13 @@ author_profile: https://github.com/mervey45
 
       Click **Next >**.
 
+<<<<<<< HEAD
      **HINT:** If you want to copy your transport request, please do following: Open Eclipse, search your package `ZTRAVEL_APP_XXX` and open it. Open your transport organizer to see your transport request. Copy your transport request for later use. You can find your transport request underneath the Modifiable folder.
      ![app](deploy3.png)
+=======
+    >If you want to copy your transport request, please do following: Open Eclipse, search your package `ZTRAVEL_APP_XXX` and open it. Open your transport organizer to see your transport request. Copy your transport request for later use. You can find your transport request underneath the Modifiable folder.
+    ![app](deploy3.png)
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 
@@ -264,7 +288,11 @@ author_profile: https://github.com/mervey45
 
       ![iam](iam4.png)
 
+<<<<<<< HEAD
   5. Select **Services** and add a new one.
+=======
+  5. Select **Services** and add a new one. 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![iam](iam5.png)
 
@@ -273,12 +301,23 @@ author_profile: https://github.com/mervey45
       - Service Name: `ZUI_C_TRAVEL_M_XXX_0001`    
 
       ![iam](iam6.png)
+<<<<<<< HEAD
 
       Click **OK**.
 
       **Save** and **activate** your IAM app.
 
   7. Right-click your package **`ZTRAVEL_APP_XXX`** and select  **New** > **Other Repository Object**.
+=======
+ 
+      Click **OK**.
+
+      Right-click your IAM App and click **Activate**.
+
+    >If you can't find your service name, you can press **CTRL + space** to search for it.
+
+  7. Right-click your package **`ZTRAVEL_APP_XXX`** and select  **New** > **Other Repository Object**. 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![catalog](catalog.png)
 
@@ -295,7 +334,11 @@ author_profile: https://github.com/mervey45
       Click **Next >**.
 
  10. Click **Finish**.
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
       ![catalog](catalog4.png)
 
  11. Select **Apps** and add a new one.

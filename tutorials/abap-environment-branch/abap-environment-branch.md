@@ -1,8 +1,13 @@
 ---
 parser: v2
 auto_validation: true
+<<<<<<< HEAD
 primary_tag: products>sap-btp--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform, tutorial>license ]
+=======
+primary_tag: software-product>sap-btp--abap-environment
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license ]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 20
 ---
 
