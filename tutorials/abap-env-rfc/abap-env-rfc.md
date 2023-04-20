@@ -115,8 +115,8 @@ Now, in SAP BTP ABAP Environment, you need to create the necessary ABAP artifact
 1. In ABAP Development Tools (ADT), select the ABAP Cloud Project and choose **New > ABAP Package** from the context menu.
 
 2. Enter the following and choose **Next**:
-    - Name = **`Z_API_OUTBOUND_RFC_000`**
-    - Description = **Call API from S/4HANA Using RFC**
+    - Name = **`Z_OUTBOUND_RFC_000`**
+    - Description = **Get product data from S/4HANA using RFC**
     - Package type = **Development**
 
     <!-- border -->
@@ -141,7 +141,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
     ![step2a-new-outbound-service](step2a-new-outbound-service.png)
 
 2. Enter the following and choose **Next**.
-    - Outbound service: **`Z_OUTBOUND_HANA_RFC_000`**. The **`SRFC`** suffix will be added automatically.
+    - Outbound service: **`Z_OUTBOUND_RFC_000`**. The **`SRFC`** suffix will be added automatically.
     - Description: **Get data from HANA System using RFC**
     - Service type: **RFC Service**
 
@@ -150,7 +150,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 
 3. Choose the transport request you just created, then choose **Finish**.
 
-The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, then choose **Save**.
+The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, then choose **Save** from the main toolbar.
 
   <!-- border -->
   ![step2c-new-outbound-service-rfc](step2c-new-outbound-service-rfc.png)
@@ -164,7 +164,7 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
     ![step3a-new-comm-scen](step3a-new-comm-scen.png)
 
 2. Enter the following and choose **Next**.
-    - Name: **`Z_OUTBOUND_HANA_RFC_000_CS`**
+    - Name: **`Z_OUTBOUND_RFC_000_CSCEN`**
     - Description: **`Comm Scen: Call API from HANA using RFC`**
 
     <!-- border -->
@@ -182,7 +182,7 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
     <!-- border -->
     ![step3c-add-service](step3c-add-service.png)
 
-5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_HANA_000_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
+5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_RFC_000_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
 
 6. Choose **Finish**. Your communication scenario should look like this.
 Make sure that **Supported Authentication Methods > Basic** is ticked, since you will use this method later.
@@ -207,8 +207,8 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
 
 2. Enter the following and choose **Create**.
 
-    - System ID: **`Z_OUTBOUND_HANA_CS_000`**
-    - System Name: **`Z_OUTBOUND_HANA_CS_000`**
+    - System ID: **`Z_OUTBOUND_RFC_CSYS_000`**
+    - System Name: **`Z_OUTBOUND_RFC_CSYS_000`**
 
 3. In **General** and below, enter:
 
@@ -249,7 +249,7 @@ Next, you will create communication arrangement, pointing to the communication s
     <!-- border -->
     ![step4a-comm-management-tiles](step4a-comm-management-tiles.png)
 
-2. Choose your communication scenario, **`Z_OUTBOUND_RFC_000_CS`**. This name is also entered automatically for the communication arrangement. You can accept this default.
+2. Choose your communication scenario, **`Z_OUTBOUND_RFC_000_CSCEN`**. This name is also entered automatically for the communication arrangement. You can accept this default.
 
     <!-- border -->
     ![step4a-new-comm-arr](step4a-new-comm-arr.png)
@@ -257,26 +257,10 @@ Next, you will create communication arrangement, pointing to the communication s
     <!-- border -->
     ![step4b-select-comm-scenario](step4b-select-comm-scenario.png)
 
-3. Choose the communication system you created, **`Z_OUTBOUND_HANA_CS_000`**.
+3. Choose the communication system you created, **`Z_OUTBOUND_RFC_CSYS_000`**.
     The other details, e.g. **Communication User**, **RFC Outbound Service**, and **RFC Function Module** are entered automatically.
 
 4. Check the connection.
-
-
-### Create communication system on-premise
-
-Now you will create the necessary communication artifacts in the on-premise system, starting with the **Communication System**.
-
-1. In **Communication Systems**, choose **New**.
-
-2. Enter the following and choose **Create**.
-
-    - System ID: **`Z_INBOUND_RFC_CS_000`**
-    - System Name: **`Z_INBOUND_RFC_CS_000`**
-
-3. In **Technical Data**, choose **Inbound Only**.
-
-4. In **Users for Inbound Communication**, choose **Add**, then choose your existing communication user from the drop-down list.
 
 
 ### Create ABAP class for RFC connection in SAP BTP, ABAP Environment
@@ -306,9 +290,10 @@ In the method **`if_oo_adt_classrun~main`**, create the data types that specify 
 
     ```ABAP
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                            comm_scenario          = Z_OUTBOUND_RFC_000_CS     " Communication scenario
-                            service_id             = Z_OUTBOUND_HANA_000       " Outbound service
-                            comm_system_id         = Z_OUTBOUND_HANA_CS_000    " Communication system
+
+                              comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+                              service_id             = 'Z_OUTBOUND_RFC_000'         " Outbound service
+                              comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
 
                            ).
 
@@ -371,9 +356,10 @@ CLASS ZCL_A4C_RFC_ IMPLEMENTATION.
   METHOD IF_OO_ADT_CLASSRUN~MAIN.
     TRY.
       DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                              comm_scenario          = Z_OUTBOUND_RFC_000_CS     " Communication scenario
-                              service_id             = Z_OUTBOUND_HANA_000       " Outbound service
-                              comm_system_id         = Z_OUTBOUND_HANA_CS_000    " Communication system
+
+                              comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+                              service_id             = 'Z_OUTBOUND_RFC_000'         " Outbound service
+                              comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
 
                            ).
 
@@ -440,9 +426,6 @@ ENDCLASS.
 
 ### More Information
 
-This tutorial mission is based on a blog post series by Andre Fischer:
-- [How to call a remote function module in your on-premise SAP system from SAP BTP ABAP Environment](https://blogs.sap.com/2019/02/28/how-to-call-a-remote-function-module-in-your-on-premise-sap-system-from-sap-cloud-platform-abap-environment/)
-
 OData services:
 
 - [Mission: Take a Deep Dive into OData](mission.scp-3-odata)
@@ -452,15 +435,15 @@ SAP Gateway in general, see:
 - [OData service development with SAP Gateway using CDS](https://blogs.sap.com/2016/06/01/odata-service-development-with-sap-gateway-using-cds-via-referenced-data-sources/) - pertains to on-premise Systems, but contains lots of useful background information on the relationships between CDS views and OData services
 
 Connectivity in this context, see:
-- SAP Help Portal: [SAP Cloud Connector](https://help.sap.com/viewer/368c481cd6954bdfa5d0435479fd4eaf/Cloud/en-US/642e87f1492146998a8eb0779cd07289.html)
+- SAP Help Portal: [SAP Cloud Connector](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/cloud-connector)
 
 - SAP Help Portal: [RFC Communication via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/rfc-communication-via-communication-arrangements)
 
 SAP Business Technology Platform (BTP):
 
-- SAP Help Portal: [What is SAP Business Technology Platform (BTP)](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/73beb06e127f4e47b849aa95344aabe1.html)
+- SAP Help Portal: [What is SAP Business Technology Platform (BTP)](https://help.sap.com/docs/btp/sap-business-technology-platform/btp-basic-platform-concepts)
 
-- SAP Help Portal: [Getting Started With a Customer Account](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/e34a329acc804c0e874496548183682f.html) - If you use the booster, these steps are performed automatically for you, but you may be interested in the background information
+- SAP Help Portal: [Getting Started With a Customer Account](https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-customer-account-in-abap-environment) - If you use the booster, these steps are performed automatically for you, but you may be interested in the background information
 
 
 
