@@ -7,7 +7,7 @@ time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
- 
+
 # Create Database Table and Generate UI Service
 <!-- description --> Create a database table and generate UI services with SAP BTP ABAP environment.
 

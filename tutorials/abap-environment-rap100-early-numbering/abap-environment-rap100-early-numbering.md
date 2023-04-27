@@ -7,7 +7,7 @@ time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
- 
+
 # Enhance the Business Object Behavior With Unmanaged Internal Numbering
 <!-- description --> Enhance the business object behavior using early numbering with SAP BTP ABAP environment.
 

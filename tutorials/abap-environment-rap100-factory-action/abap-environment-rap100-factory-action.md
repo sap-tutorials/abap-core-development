@@ -10,7 +10,7 @@ author_profile: https://github.com/mervey45
 
 # Enhance the Business Object Behavior With Factory Action
 <!-- description --> Enhance the business object behavior using factory action with SAP BTP ABAP environment.
- 
+
 ## Prerequisites
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.

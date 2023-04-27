@@ -6,7 +6,7 @@ tags: [  tutorial>beginner, topic>abap-development, software-product>sap-busines
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
---- 
+---
 
 # Enhance the Business Object Behavior With Dynamic Feature Control
 <!-- description --> Enhance the business object behavior using dynamic feature control with SAP BTP ABAP environment.
