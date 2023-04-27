@@ -2,10 +2,10 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
 time: 20
 author_name: Merve Temel
-author_profile: https://github.com/mervey45
+author_profile: https://github.com/mervey45 
 ---
 
 # Write an ABAP Unit Test for the RAP Business Object
@@ -15,7 +15,6 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
 
 ## You will learn  
   - How to create ABAP unit test class
@@ -212,7 +211,6 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
     Your source code should look like this:
 
       ![Test Class](testclass05.png)
-
 
   4. Implement the special instance method **`setup`** which is used to reset the test doubles and insert the test data before the execution of the test method - or of each test method of a test class in general.    
 

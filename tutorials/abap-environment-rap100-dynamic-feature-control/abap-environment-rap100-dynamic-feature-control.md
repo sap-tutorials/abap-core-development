@@ -6,7 +6,7 @@ tags: [  tutorial>beginner, topic>abap-development, software-product>sap-busines
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
----
+
 
 # Enhance the Business Object Behavior With Dynamic Feature Control
 <!-- description --> Enhance the business object behavior using dynamic feature control with SAP BTP ABAP environment.
@@ -15,6 +15,7 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+
 
 ## You will learn  
   - How to define dynamic instance feature control
@@ -64,7 +65,7 @@ Define the dynamic instance feature control for the standard operations **`updat
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
     ```
-
+    
     ![Travel Behavior Definition](p18.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.

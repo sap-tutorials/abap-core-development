@@ -50,8 +50,7 @@ Define the instance factory action `copyTravel` in the behavior definition
 
  1. Go to the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the action defined in the previous step.
 
-
-2. Add following:
+ 2. Add following:
  
     ```ABAP  
     factory action copyTravel [1];
@@ -168,6 +167,7 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  2. Add following:
   
+
     ```ABAP
     use action copyTravel;
     ```

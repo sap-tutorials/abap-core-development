@@ -16,8 +16,6 @@ author_profile: https://github.com/mervey45
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 
-
-
 ## You will learn  
   - How to create an ABAP package
   - How to create a database table
@@ -50,7 +48,6 @@ Create your exercise package. This ABAP package will contain all the artefacts y
       ![package](p.png)
 
 
- 
 ### Create database table
 
 
@@ -238,7 +235,6 @@ The generated business service will be transactional, draft-enabled, and enriche
 
     ![class](new0.png)                     
 
-
  4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
 
     ![class](new.png)
@@ -325,7 +321,6 @@ Publish the local service endpoint of your service binding ![service binding](ad
 
 
 10. Check that your service bindings is now publish and choose the entity **Travel** and press the button **Preview**.
-
 
 ### Test yourself
 

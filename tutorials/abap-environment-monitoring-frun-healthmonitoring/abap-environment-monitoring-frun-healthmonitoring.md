@@ -13,7 +13,11 @@ author_profile: https://github.com/julieplummer20
 
 ## Prerequisites
 - SAP BTP ABAP Environment instance with the Administrator role
+<<<<<<< HEAD
+- Access to the Fiori app  **Advanced Application Management> Health Monitoring**
+=======
 - Access to the Fiori app **Advanced Application Management> Health Monitoring**
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 - Access to the Fiori app **Advanced Application Management> Cloud Service Management**
 
 ## You will learn

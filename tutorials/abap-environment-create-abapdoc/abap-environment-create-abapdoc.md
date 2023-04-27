@@ -2,7 +2,11 @@
 parser: v2
 auto_validation: true
 time: 10
+<<<<<<< HEAD
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, tutorial>license]
+=======
 tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform]
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20

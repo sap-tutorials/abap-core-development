@@ -12,9 +12,15 @@ author_profile: https://github.com/julieplummer20
 <!-- description --> Work with ABAP classes in the ABAP Debugger in (ADT) for both a console application and SAP Fiori application.
 
 ##Prerequisites
+<<<<<<< HEAD
+- You have done one of the following:
+    - **Mission**: [Get Data from a Remote System Using a Custom Entity](mission.abap-env-connect-onpremise)
+    - Created a new ABAP class in SAP BTP, ABAP Environment
+=======
 - **Important**: You cannot complete this tutorial on a trial account
 - This tutorial is part of the **Mission**: [Get Data from a Remote System Using a Custom Entity](mission.abap-env-connect-onpremise).
 You can only complete it as part of the mission, not as a standalone tutorial.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
   - How to debug an ABAP Console application in ABAP Development Tools (ADT)
@@ -31,6 +37,115 @@ For more information, see:
 
 ---
 
+<<<<<<< HEAD
+### Duplicate existing class or add code to new class
+
+If you have completed the mission:
+1. Select your class, `ZCL_OUTPUT_TEST_XXX` and choose **Duplicate** from the context menu.
+
+    This is clearly not standard practice. However, you are working with the ABAP Debugger for the first time, and also adding some dummy code to your class.
+
+2. Enter a name, e.g. `ZCL_OUTPUT_TEST_DEBUG_XXX` and choose **Finish**.
+
+If you have not completed the mission:
+1. Open your new ABAP class and copy the following code into it:
+
+    ```ABAP
+    CLASS zjp_out_test DEFINITION
+      PUBLIC
+      FINAL
+      CREATE PUBLIC .
+
+      PUBLIC SECTION.
+         INTERFACES if_oo_adt_classrun.
+      PROTECTED SECTION.
+      PRIVATE SECTION.
+    ENDCLASS.
+
+
+
+    CLASS zjp_out_test IMPLEMENTATION.
+
+      METHOD if_oo_adt_classrun~main.
+
+
+        " ABAP source code for type definition for BAPI_EPM_PRODUCT_HEADER
+        " generated on: ...
+
+        TYPES : BEGIN OF ty_bapi_epm_product_header,
+                  productid     TYPE c LENGTH 10,
+                  typecode      TYPE c LENGTH 2,
+                  category      TYPE c LENGTH 40,
+                  name          TYPE c LENGTH 255,
+                  description   TYPE c LENGTH 255,
+                  supplierid    TYPE c LENGTH 10,
+                  suppliername  TYPE c LENGTH 80,
+                  taxtarifcode  TYPE int1,
+                  measureunit   TYPE c LENGTH 3,
+                  weightmeasure TYPE p LENGTH 7 DECIMALS 3,
+                  weightunit    TYPE c LENGTH 3,
+                  price         TYPE p LENGTH 12 DECIMALS 4,
+                  currencycode  TYPE c LENGTH 5,
+                  width         TYPE p LENGTH 7 DECIMALS 3,
+                  depth         TYPE p LENGTH 7 DECIMALS 3,
+                  height        TYPE p LENGTH 7 DECIMALS 3,
+                  dimunit       TYPE c LENGTH 3,
+                  productpicurl TYPE c LENGTH 255,
+                END OF ty_bapi_epm_product_header.
+
+        TRY.
+
+            DATA(lo_rfc_dest) = cl_rfc_destination_provider=>create_by_cloud_destination(
+              i_name = |ES5_RFC_XXX|
+              ).
+            DATA(lv_rfc_dest_name) = lo_rfc_dest->get_destination_name( ).
+
+
+            "variables needed to call BAPI
+
+            DATA lt_product TYPE STANDARD TABLE OF  ty_bapi_epm_product_header.
+            DATA ls_product TYPE ty_bapi_epm_product_header.
+            DATA msg TYPE c LENGTH 255.
+
+            "Exception handling is mandatory to avoid dumps
+            CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
+              DESTINATION lv_rfc_dest_name
+              EXPORTING
+                 max_rows              = 25
+              TABLES
+                headerdata            = lt_product
+              EXCEPTIONS
+                system_failure        = 1 MESSAGE msg
+                communication_failure = 2 MESSAGE msg
+                OTHERS                = 3.
+
+            CASE sy-subrc.
+              WHEN 0.
+                LOOP AT lt_product INTO ls_product.
+                  out->write( ls_product-name && ls_product-price && ls_product-currencycode ).
+                ENDLOOP.
+              WHEN 1.
+                out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
+              WHEN 2.
+                out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
+              WHEN 3.
+                out->write( |EXCEPTION OTHERS| ).
+            ENDCASE.
+
+          CATCH cx_root INTO DATA(lx_root).
+            out->write(  lx_root->get_longtext( ) ).
+
+        ENDTRY.
+      ENDMETHOD.
+    ENDCLASS.
+
+    ```
+
+2. Format, save, and activate your class ( **`Ctrl+F1, Ctrl+S, Ctrl+F3`** ).
+
+
+=======
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Change ABAP Debugger setting to user
 
 
@@ -50,8 +165,14 @@ Your class, which includes an RFC request, that is an external request to a diff
 Note that breakpoints in the ABAP Development Tools (ADT) are by default external user breakpoints. For more information, see: [Breakpoints - Characteristics](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/4ec121276e391014adc9fffe4e204223.html?q=external)
 
 
+<<<<<<< HEAD
+
+
+### Add dummy code and breakpoints
+=======
 ### Add dummy code and breakpoints
 1. Open your class, **`ZCL_OUTPUT_TEST_000`**.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 1. Right at the start of the method, add some simple code, e.g.
 
@@ -118,7 +239,11 @@ The internal table appears in a new tab in the bottom panel.
     ![Link text step6a-step-functions](step6a-step-functions.png)
 
 
+<<<<<<< HEAD
+2. Step through the first few lines of the program line by line using **`F5`** - **UNTIL** you get to the statement `DATA(lo_rfc_dest) = cl_rfc_destination_provider=>create_by_cloud_destination...`.
+=======
 2. Step through the first few lines of the program line by line using **`F5`** - **UNTIL** you get to the statement `DATA(lo_destination) = cl_rfc_destination_provider=>create_by_cloud_destination...`.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 3. Since this statement calls a system class, which you **do not** want to debug it. Execute these two `DATA` statements using **`F6`**.
 
@@ -161,7 +286,11 @@ To jump straight from your first breakpoint to the `CASE` statement:
 3. Run the Debugger again by choosing `F9`.
 
 
+<<<<<<< HEAD
+### Set watchpoint for variable with a condition
+=======
 ### Set `watchpoint` for variable with a condition
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 You may want to stop, not at a specific statement, but when a variable hits a specific value.
 To do this, run the Debugger again and proceed as follows:
@@ -192,7 +321,11 @@ To do this, run the Debugger again and proceed as follows:
 You can define a wide range of complex conditions for breakpoints and `watchpoint`. For more information, see [SAP Help Portal: SAP Cloud Platform: ABAP Development User Guide: Adding Conditions to Breakpoints](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/162f24582b7540d2b1dc05a87b4874da.html)
 
 
+<<<<<<< HEAD
+### Set watchpoint for  variable with condition for table row index
+=======
 ### Set `watchpoint` for  variable with condition for table row index
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 You can also specify a specific value for a different variable.
 
@@ -215,6 +348,21 @@ You can also specify a specific value for a different variable.
 
 The class that you created previously (in [Get Data from a Remote System Using a Custom Entity](abap-environment-rfc-custom-entity)) is not displayed in the ABAP Console. However, you can start the ABAP Debugger for it as follows:
 
+<<<<<<< HEAD
+1. Again, duplicate the class, in this case `zcl_product_via_rfc_xxx`.
+
+2. Open your custom entity, `zce_product_xxx`.
+
+3. Change the name of the implementing class to, e.g. `ZCL_PRODUCT_DEBUG_XXX` (upper case); then **Save and Activate ( Ctrl+S, Ctrl+F3 )** the custom entity.
+
+    ```CDS
+
+    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PRODUCT_DEBUG'
+
+    ```
+
+4. Open your service binding, `ZSB_PRODUCT_XXX` and choose **Preview**.
+=======
 1. Duplicate the class, in this case `zcl_product_via_rfc_000`.
 
 2. Open your custom entity, `zce_product_000`.
@@ -228,6 +376,7 @@ The class that you created previously (in [Get Data from a Remote System Using a
     ```
 
 4. Open your service binding, `ZSB_PRODUCT_000` and choose **Preview**.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     ![Image depicting step14-preview](step14-preview.png)
 

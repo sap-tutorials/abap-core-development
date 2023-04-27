@@ -3,6 +3,7 @@ parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -51,10 +52,9 @@ Define and expose new associations in the base BO data model defined in the CDS 
     ```
 
     Your source code should look like this: 
-    
+
       ![association](newa.png)
     
-
   2. Expose the defined associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`** and **`_Currency`** in the selection list. For that, insert the code snippet provided below in the selection list between the curly brackets (`{...}`) as shown on the screenshot.
 
     ```ABAP
@@ -67,6 +67,7 @@ Define and expose new associations in the base BO data model defined in the CDS 
     ```
 
      ![association](newa2.png)
+
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -106,6 +107,7 @@ The only things you will have to do in the RAP business object, is to specify th
      - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
      - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
      - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
+
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
