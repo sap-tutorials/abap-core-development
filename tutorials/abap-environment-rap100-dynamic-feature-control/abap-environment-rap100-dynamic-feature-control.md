@@ -2,33 +2,20 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-<<<<<<< HEAD
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
-time: 15
-author_name: Merve Temel
-author_profile: https://github.com/mervey45
----
-=======
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform]
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
---- 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+---
 
 # Enhance the Business Object Behavior With Dynamic Feature Control
 <!-- description --> Enhance the business object behavior using dynamic feature control with SAP BTP ABAP environment.
 
 ## Prerequisites
-<<<<<<< HEAD
-- You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
-- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
-
-=======
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+
 
 ## You will learn  
   - How to define dynamic instance feature control
@@ -59,11 +46,8 @@ Define the dynamic instance feature control for the standard operations **`updat
     - Draft action **`Edit`**
     - Instance actions **`acceptTravel`**, **`rejectTravel`**, and **`deductDiscount`**
 
-<<<<<<< HEAD
-=======
  2. Add following:
 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP
     ...
     create;
@@ -81,12 +65,8 @@ Define the dynamic instance feature control for the standard operations **`updat
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
     ```
-
-<<<<<<< HEAD
-    ![Travel Behavior Definition](f.png)
-=======
+    
     ![Travel Behavior Definition](p18.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -96,11 +76,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
     The result should look like this:
 
-<<<<<<< HEAD
-    ![Travel BO Behavior Pool](l.png)
-=======
     ![Travel BO Behavior Pool](p20.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  4. Check the interface of the method **`get_instance_features`** in the declaration part of the local handler class in the behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.  
 

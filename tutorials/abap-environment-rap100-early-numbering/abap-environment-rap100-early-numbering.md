@@ -2,33 +2,19 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-<<<<<<< HEAD
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
-=======
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 # Enhance the Business Object Behavior With Unmanaged Internal Numbering
 <!-- description --> Enhance the business object behavior using early numbering with SAP BTP ABAP environment.
 
 ## Prerequisites
-<<<<<<< HEAD
-- You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
-- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
-=======
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to define internal early numbering
@@ -67,11 +53,6 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
     You can ignore it for now. You will handle it later.    
 
-<<<<<<< HEAD
-    ![Travel BO Behavior Definition](new7.png)
-
-
-=======
     ![Travel BO Behavior Definition](p1.png)
 
  3. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
@@ -86,7 +67,6 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
       
       ![Travel BO Behavior Definition](p2.png)
       
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
  4. To complete the definition, you need to declare the required method in behavior implementation class. You can use the ADT Quick Fix to do that.
@@ -95,11 +75,7 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
     Select the entry **Add `earlynumbering` method for create of entity `zrap100_i_travel_###` in local handler** from the dialog to add the **FOR NUMBERING** method **`earlynumbering_create`** to the local handler class **`lcl_handler`** of the behavior pool ![class icon](adt_class.png)  **`ZRAP100_BP_TRAVEL_###`**.
 
-<<<<<<< HEAD
-    ![Travel BO behavior Definition](create.png)
-=======
     ![Travel BO behavior Definition](p3.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     The behavior implementation class ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`** will be enhanced appropriately.
 
@@ -244,19 +220,11 @@ You can now preview and test the changes by creating a new travel instance in th
 
   2. Create a new **Travel** instance. 
 
-<<<<<<< HEAD
-     ![Travel App Preview](p2.png)
-
-     No dialog for manually entering a Travel ID should be displayed now. The Travel ID will be assigned automatically by the logic you just implemented.
-
-     ![Travel App Preview](p3.png)
-=======
      ![Travel App Preview](p4.png)
 
      No dialog for manually entering a Travel ID should be displayed now. The Travel ID will be assigned automatically by the logic you just implemented.
 
      ![Travel App Preview](p5.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Test yourself
