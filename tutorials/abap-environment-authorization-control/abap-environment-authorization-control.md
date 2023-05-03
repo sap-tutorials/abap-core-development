@@ -2,19 +2,19 @@
 parser: v2
 auto_validation: true
 primary_tag: software-product>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
 time: 30
-author_name: Merve Temel
-author_profile: https://github.com/mervey45
+author_name: Patrick Winkler
+author_profile: https://github.com/sepp4me
 ---
 
-# Provide authorization control for a Business Configuration Maintenance Object
-<!-- description --> Provide authorization control for a Business Configuration Maintenance Object
+# Providing Authorization Control for a Business Configuration Maintenance Object
+<!-- description --> Providing Authorization Control for a Business Configuration Maintenance Object
 
 ## Prerequisites  
 - You need an SAP BTP, ABAP environment license. If you have only a trial account, you can skip this tutorial.
-- This is the second tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the given order.
-- Install [ABAP Development Tools](https://tools.hana.ondemand.com/#abap). You can also follow **step 1** of this [tutorial](abap-install-adt) to install ADT.
+- This tutorial also works in an SAP S/4HANA Cloud, public edition system.
+- This is the second tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the specified order.
 
 
 ## You will learn  
@@ -23,18 +23,22 @@ author_profile: https://github.com/mervey45
 - How to create and assign an IAM Business Catalog to a Business Role
 
 ## Intro
-[Authorization control in RAP](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/375a8124b22948688ac1c55297868d06.html) protects your business object against unauthorized access to data:
+[Authorization control in RAP](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/375a8124b22948688ac1c55297868d06.html) protects your business object from unauthorized access to data:
 
  - To protect data from unauthorized read access, ABAP CDS provides its own authorization concept based on a data control language (DCL).
- - Modifying operations, such as standard operations and actions can be checked against unauthorized access during RAP runtime.
+ - Modify operations such as standard operations and actions can be checked against unauthorized access during RAP runtime.
 
-For this purposes the generated business object is checking authorization object `S_TABU_NAM` with the CDS entity `ZI_ERRORCODE###` and activity `03` (read) / `02` (modify).
+For this purposes, the generated business object checks the authorization object `S_TABU_NAM` with the CDS entity `ZI_ERRORCODE###` and the activity `03` (read) / `02` (modify).
+
+[To consume the service](https://help.sap.com/docs/btp/sap-abap-development-user-guide/consuming-services-in-ui) of the generated business object in the CUBCO app, you must define an IAM app and assign the service to the app. It ensures that you can define the required authorizations and allows your business user to consume the service in the CUBCO app.
+
+First, you create the IAM app yourself. As a next step, you create a business catalog and a business role that you can assign to your business user.
 
 ---
 ### Create IAM app
 
 
-  1. Right-click on package **`Z_ERROR_CODES_###`**, select **New** > **Other ABAP Repository Object**.
+  1. Right-click the package **`Z_ERROR_CODES_###`** and choose **New** > **Other ABAP Repository Object**.
 
       ![New repository object](e.png)
 
@@ -42,7 +46,7 @@ For this purposes the generated business object is checking authorization object
 
       ![New IAM app](iam.png)
 
-  3. Create a new IAM app:
+  3. Create new IAM app:
       - Name: **`Z_ERROR_CODES_###`**
       - Description: **`Error Codes - Maintenance`**
       - Application Type: **`MBC - Business Configuration App`**
@@ -53,7 +57,7 @@ For this purposes the generated business object is checking authorization object
 
   4. Select a Transport Request and click **Finish**.
 
-  5. Select **Services** and add a new service.
+  5. Choose **Services** and add a new service.
 
       ![Add service to IAM app](iam4.png)
 
@@ -65,7 +69,7 @@ For this purposes the generated business object is checking authorization object
 
       Click **OK**.
 
-  7. Select **Authorizations** and add a new authorization object.
+  7. Choose **Authorizations** and add a new authorization object.
 
       ![Add authorization object](iam6.png)
 
@@ -81,11 +85,11 @@ For this purposes the generated business object is checking authorization object
 
       ![Add entity](iam9a.png)
 
- 11. For the user to see the changes in the  [**Business Configuration Change Logs**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/5c6cf20499894f1083e80dba7c5963d4.html) app, add an additional instance of the authorization object with **`Display change documents`** for activity and the table names.
+ 11. To enable the user to see the changes in the app [**Business Configuration Change Logs**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/5c6cf20499894f1083e80dba7c5963d4.html), add an additional instance of the authorization object with **`Display change documents`** for the activity and the table names.
 
       ![Select display change documents](iam9.png)
 
- 12. Save the IAM app. Further information on IAM apps can be found [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
+ 12. Save the IAM app. For more information about IAM apps, see [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
 
 
 
@@ -95,7 +99,7 @@ For this purposes the generated business object is checking authorization object
   1. In the overview section of the IAM app, click on **Create a new Business Catalog and assign the App to it**
 
       ![Create a new Business Catalog](iam0.png)
-  2. Enter the following and click on **Next >**.
+  2. Enter the following and click **Next >**.
 
       - Name: **`Z_ERROR_CODES_###`**
       - Description: **`Error Codes - Maintenance`**
@@ -104,11 +108,11 @@ For this purposes the generated business object is checking authorization object
 
   3. Select a Transport Request and click **Finish**.
 
-  4. Finish the wizard to create the Business Catalog App Assignment.
+  4. Complete the wizard to create the Business Catalog App Assignment.
 
       ![Business Catalog App Assignment](bc5.png)
 
-  5. In the Business Catalog click **Publish Locally** to be able to test your app in the development system.
+  5. In the Business Catalog, click **Publish Locally** to be able to test your app in the development system.
 
       ![Publish locally](bc10.png)
 
@@ -120,13 +124,13 @@ For this purposes the generated business object is checking authorization object
 
       ![Select properties](fiori.png)
 
-  2. Select **ABAP Development** and click on the **system URL**.
+  2. Choose **ABAP Development** and click on the **system URL**.
 
       ![Click on the system URL](fiori2.png)
 
-  3. Logon with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
+  3. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
 
-  4. Click **Maintain Business Roles**.
+  4. Open the **Maintain Business Roles** app.
 
       ![Start Maintain Business Roles app](fiori4.png)
 
@@ -151,7 +155,7 @@ For this purposes the generated business object is checking authorization object
 
       ![Select Business Catalog](fiori8.png)
 
-  9. Select **General Role Details** and set Access Category **Write, Read, Value Help** to **`Unrestricted`**
+  9. Select **General Role Details** and set Access Category **Write, Read, Value Help** to **`Unrestricted`**. If you set Access Category **Write, Read, Value Help** to **`No Access`**, the user can only read the content, but not change it.
 
      ![Set Access Category to unrestricted](fiori9.png)
 
