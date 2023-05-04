@@ -12,7 +12,7 @@ author_profile: https://github.com/julieplummer20
 ---
 
 
-## Prerequisites 
+## Prerequisites
 
 - **IMPORTANT**: This tutorial cannot be completed on a trial account. If you want to explore some of the concepts of this mission on a trial account, using OData or SOAP rather than RFC, see the following workshop: [SAP BTP, ABAP Environment: Connectivity and Integration](https://github.com/SAP-samples/teched2020-DEV268).
 - You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
@@ -43,23 +43,18 @@ There are two problems when setting up connectivity between the SAP BTP, ABAP En
 
 **The solution:**
 
-Set up a secure connection from the on-premise system to the SAP BTP, ABAP Environment. To do this, you will create:
+Set up a secure connection from the on-premise system to the SAP BTP, ABAP Environment.
 
-  - SAP Cloud Connector, to set up the secure tunnel connection
-  - The **`create_by_comm_arrangement`** method of the **`cl_http_destination_provider`** class
-  - Communication artifacts
-  - ABAP class that outputs the retrieved data to the Console
 
-**Technical information:**
-
-1. The ABAP environment tenant fetches the destination from the Destination service instance.
-2. The ABAP environment tenant requests to open the tunnel connection through the Connectivity service.
-3. The Connectivity service tells the Cloud Connector to open the connection to this specific ABAP environment tenant using the admin connection.
-4. The Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL.
-5. After the tunnel is established, it can be used for actual data connection using the RFC or HTTP(S) protocols.
+<!--
+**Technical information:** 
+1. The ABAP environment tenant requests to open the tunnel connection through the Connectivity service.
+2. The Connectivity service tells the Cloud Connector to open the connection to this specific ABAP environment tenant using the admin connection.
+3. The Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL.
+4. After the tunnel is established, it can be used for actual data connection using the RFC or HTTP(S) protocols. -->
 
 <!-- border -->
-![overview-cf-only](overview-cf-only.png)
+<!-- LATER ![overview-cf-only](overview-cf-only.png) -->
 
 ---
 
@@ -81,7 +76,7 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
   Note down the **Location ID**, e.g. **`SAPDEV`** as here. **You will need it later.**
 
 
-### Add On-Premise System
+### Check that On-Premise System has been added
 
 1. In the menu in the left pane, expand the sub-account and choose **Cloud To On-Premise > Access Control**.
     
@@ -98,7 +93,7 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
     ![step2b-scc-resources](step2b-scc-resources.png)
 
 
-### Check connectivity from SAP BTP cockpit
+### Optional: Check connectivity in SAP BTP cockpit
 
 In the SAP BTP cockpit of your Cloud Foundry sub-account, choose **Cloud Connectors**:
 
@@ -108,7 +103,7 @@ In the SAP BTP cockpit of your Cloud Foundry sub-account, choose **Cloud Connect
 > The **Location ID** points to the correct SAP Cloud Connector (located in the on-Premise system); The **Virtual host** points to the on-Premise connection mapped in SAP Cloud Connector. Later, in your **Communication System** in Fiori Launchpad, you will use these values, as **SCC Location ID** and **Target Host** respectively.
 
 
-### Create package
+### Create package in ADT
 
 Now, in SAP BTP ABAP Environment, you need to create the necessary ABAP artifacts in ABAP Development Tools (ADT), starting with a package.
 
@@ -120,12 +115,12 @@ Now, in SAP BTP ABAP Environment, you need to create the necessary ABAP artifact
     - Package type = **Development**
 
     <!-- border -->
-    ![step1a-create-package](step1a-create-package.png)
+    ![step3a-create-package](step3a-create-package.png) 
 
 3. Choose **Create new transport request**, enter a description, such as **Get product data from S/4HANA using RFC**, then choose **Finish**.
 
     <!-- border -->
-    ![step1b-transport-request](step1b-transport-request.png)
+    ![step1b-transport-request](step1b-transport-request.png) 
 
 
 ### Create outbound service
@@ -142,7 +137,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 
 2. Enter the following and choose **Next**.
     - Outbound service: **`Z_OUTBOUND_RFC_000`**. The **`SRFC`** suffix will be added automatically.
-    - Description: **Get data from HANA System using RFC**
+    - Description: **Get product data from S/4HANA using RFC**
     - Service type: **RFC Service**
 
     <!-- border -->
@@ -153,7 +148,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, then choose **Save** from the main toolbar.
 
   <!-- border -->
-  ![step2c-new-outbound-service-rfc](step2c-new-outbound-service-rfc.png)
+  <!-- ![step2c-new-outbound-service-rfc](step2c-new-outbound-service-rfc.png) -->
 
 
 ### Create communication scenario
@@ -168,7 +163,7 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
     - Description: **`Comm Scen: Call API from HANA using RFC`**
 
     <!-- border -->
-    ![step3b-new-comm-scen-name](step3b-new-comm-scen-name.png)
+    ![step3b-new-comm-scen-name](step3b-new-comm-scen-name.png) 
 
 3. Choose the transport request you just created, then choose **Finish**.
 
@@ -179,16 +174,13 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
         
 4. On the **Outbound** tab, add your service by choosing **Add**.
 
-    <!-- border -->
-    ![step3c-add-service](step3c-add-service.png)
-
 5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_RFC_000_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
 
 6. Choose **Finish**. Your communication scenario should look like this.
 Make sure that **Supported Authentication Methods > Basic** is ticked, since you will use this method later.
 
   <!-- border -->
-  ![step3d-comm-scen-finished](step3d-comm-scen-finished.png)
+  ![step3d-comm-scen-finished](step3d-comm-scen-finished.png) -->
 
 7. Leave the other default settings, choose **Save**, then choose **Publish locally**.
 
@@ -202,6 +194,7 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
 
     <!-- border -->
     [step4a-comm-system](step4a-comm-system.png)
+
     <!-- border -->
     ![step4b-new-comm-system](step4b-new-comm-system.png)
 
