@@ -69,7 +69,7 @@ You can add multiple error codes by copying and pasting them from a [spreadsheet
 ### Create business configuration documentation
 
 
-You want to provide the user of the app **Custom Business Configurations** with detailed documentation of the business configuration.
+You want to provide the user of the app **Custom Business Configurations** with detailed [documentation](https://help.sap.com/docs/btp/sap-business-technology-platform/custom-business-configurations-app#show-documentation) of the business configuration.
 
   1. Open your ABAP package in ADT, right-click your Business Configuration Maintenance Object, and choose **New Knowledge Transfer Document**.
 

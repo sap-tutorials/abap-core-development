@@ -30,7 +30,7 @@ author_profile: https://github.com/sepp4me
 
 For this purposes, the generated business object checks the authorization object `S_TABU_NAM` with the CDS entity `ZI_ERRORCODE###` and the activity `03` (read) / `02` (modify).
 
-[To consume the service](https://help.sap.com/docs/btp/sap-abap-development-user-guide/consuming-services-in-ui) of the generated business object in the CUBCO app, you must define an IAM app and assign the service to the app. It ensures that you can define the required authorizations and allows your business user to consume the service in the CUBCO app.
+[To consume the service](https://help.sap.com/docs/btp/sap-abap-development-user-guide/consuming-services-in-ui) of the generated business object in the CUBCO app, you must define an IAM app and assign the service to the app. This ensures that you can define the required authorizations.
 
 First, you create the IAM app yourself. As a next step, you create a business catalog and a business role that you can assign to your business user.
 
@@ -81,7 +81,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       ![Select Change and Display](iam8.png)
 
- 10. Click **TABLE** and add entity **`ZI_ERRORCODE###`**
+ 10. Click **TABLE** and add entity **`ZI_ERRORCODE###`**. A CDS entity can be specified for the field **TABLE**.
 
       ![Add entity](iam9a.png)
 

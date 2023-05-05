@@ -22,7 +22,7 @@ author_profile: https://github.com/sepp4me
 - How to generate a Business Configuration Maintenance Object
 
 ## Intro
-This tutorial shows you how to create an **SAP Fiori based Table Maintenance app** using the [**ABAP RESTful Application Programming Model**](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/289477a81eec4d4e84c0302fb6835035.html) (RAP) and the [**Custom Business Configurations**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76384d8e68e646d6ae5ce8977412cbb4.html) (CUBCO) app. This tutorial is based on a simplified error code database model.
+This tutorial shows you how to create an **SAP Fiori based Table Maintenance app** using the [**ABAP RESTful Application Programming Model**](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/289477a81eec4d4e84c0302fb6835035.html) (RAP) and the [**Custom Business Configurations**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76384d8e68e646d6ae5ce8977412cbb4.html) (CUBCO) app. This tutorial is based on a simplified error code database model: a table to store the error codes and a table to store the language-dependent error code descriptions.
 
 You first create the database tables and then use the [ABAP Repository Generator](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/047e01c3bcdd4303a60b61364bd5b31d.html?version=Cloud) to create the required repository objects.
 
@@ -103,7 +103,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       ![New database table](db.png)
 
-  2. Create Database Table:
+  2. Create the error code database table:
      - Name: **`ZERRCODE_###`**
      - Description: **`Error Code ###`**
 
@@ -131,7 +131,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
   5. Save and activate.
 
-  6. Repeat the steps **3.1.- 3.4** and create another database table:
+  6. Repeat the steps **3.1.- 3.4** and create the database table for the error code description. An additional database table is considered as a text table by the ABAP generator that you use in step 5 if the annotation **`@AbapCatalog.foreignKey.keyType : #TEXT_KEY`** is used.
 
      - Name: **`ZERRCODET_###`**
      - Description: **`Error Code Description ###`**
@@ -165,7 +165,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
 To use the [**Business Configuration Change Logs**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/5c6cf20499894f1083e80dba7c5963d4.html) app, enable the Log Changes function to track configuration changes in your business configuration tables.
 
->In client-specific Customizing tables, buffering is usually switched on using a generic key with a number of key fields equal to 1. In client-specific Customizing text tables, buffering is usually switched on using a generic key with the number of key fields 2 to include the language key field.
+>In client-specific Customizing tables, buffering is usually switched on using a generic key with a number of key fields equal to 1. In client-specific Customizing text tables, buffering is usually switched on using a generic key with the number of key fields equal to 2 to include the language key field.
 
 >Read operations on the CDS view entities do not benefit from the table buffer, but have their own buffer mechanism, see this [blog](https://blogs.sap.com/2022/01/27/buffering-cds-view-entities/). Consider reading directly from the buffered customizing tables in your application code.
 
@@ -193,7 +193,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
      ![Select generator](bc2.png)
 
-  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/8b8f9d8f3cb948b2841d6045a255e503.html). An additional database table is considered as a text table by the wizard if the annotation **`@AbapCatalog.foreignKey.keyType : #TEXT_KEY`** is used. If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/8b8f9d8f3cb948b2841d6045a255e503.html). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
 
 
       Click **Next >**.

@@ -90,11 +90,11 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
     ![Search default customizing request](m12.png)
 
-15. Select the default transport request and create a new task for your user.
+    Select the default transport request and create a new task for your user.
 
     ![Select default request](m13.png)
 
-16. Create new task:
+    Create new task:
     - Description: **`New Error Codes`**
     - Owner: **`<User responsible for maintaining error codes>`**
 
@@ -102,13 +102,13 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
     Click **Create**.
 
-17. In the **Custom Business Configurations** app, click the **Select Transport** action again. Use the input help to select a transport request and click **OK** and then **Select Transport**. The selected transport request is now displayed in the **Transport** section. If you do not find a transport request, try reloading the **Custom Business Configurations** app.
+15. In the **Custom Business Configurations** app, click the **Select Transport** action again. Use the input help to select a transport request and click **OK** and then **Select Transport**. The selected transport request is now displayed in the **Transport** section. If you do not find a transport request, try reloading the **Custom Business Configurations** app.
 
     ![Select transport request in Custom Business Configurations app](m16.png)
 
-18. Click **Save**. The data was recorded on the transport request.
+16. Click **Save**. The data was recorded on the transport request.
 
-19. If you have enabled `Log Changes` for the database table, you can navigate to the **Business Configuration Change Logs** app by clicking **Display Change Logs** in the **Custom Business Configurations** app.
+17. If you have enabled `Log Changes` for the database table, you can navigate to the **Business Configuration Change Logs** app by clicking **Display Change Logs** in the **Custom Business Configurations** app.
 
 
     ![Business Configuration Change Logs app](m17.png)
