@@ -195,7 +195,7 @@ A channel represents a single connection to a service instance of the SAP Ev
 
     ![run](5-1.png)
 
-  2. Press **via Service Key** > **Default** to create a new channel.
+  2. Press **via Service Key** > **Default** to create a new channel. 
 
     ![new](5-2.png)
 
