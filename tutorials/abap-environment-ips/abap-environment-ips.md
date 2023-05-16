@@ -110,7 +110,7 @@ Identity provisioning requires to configure a so-called source system for user a
 
     ![Add Source System button](ips_source_system_add.png)
 
-4. To simplify the system creation and to reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_source.json`](https://raw.githubusercontent.com/sap-tutorials/Tutorials/master/tutorials/abap-environment-ips/ips_system_template_source.json) locally.
+4. To simplify the system creation and to reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_source.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-environment-ips/ips_system_template_source.json) locally.
 
 5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning service source system UI.
 
@@ -189,7 +189,7 @@ In this example, the target systems is an ABAP system in SAP BTP.
 
     ![Add Target System button](ips_target_system_add.png)
 
-4. To simplify the system creation and reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_target.json`](https://raw.githubusercontent.com/sap-tutorials/Tutorials/master/tutorials/abap-environment-ips/ips_system_template_target.json) locally.
+4. To simplify the system creation and reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_target.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-environment-ips/ips_system_template_target.json) locally.
 
 5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning service target system UI.
 
