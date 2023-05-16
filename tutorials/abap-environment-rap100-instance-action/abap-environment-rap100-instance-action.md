@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -15,7 +15,6 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
 
 ## You will learn  
   - How to define actions
@@ -59,7 +58,7 @@ You will get familiar with both action implementations, i.e. action without and 
     ```ABAP
     action deductDiscount result [1] $self; 
     ```      
-
+    
      ![Travel BO Behavior Definition](pp.png)      
 
      **Short explanation**:  
@@ -408,4 +407,4 @@ You can now test the new behavior of the action button `Deduct Discount` on the 
 
 
 ---
- 
+

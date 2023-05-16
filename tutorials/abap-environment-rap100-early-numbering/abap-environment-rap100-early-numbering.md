@@ -61,12 +61,12 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
       For that, replace the statement
       ```ABAP 
-      field ( readonly )
+      field ( readonly ) 
       TravelID;
       ```
       You can use the ABAP Pretty Printer function (Shift+F1) to format the source code.
       
-      ![Travel BO Behavior Definition](p2.png)
+      ![Travel BO Behavior Definition](p2x.png)
       
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
