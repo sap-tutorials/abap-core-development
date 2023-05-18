@@ -41,7 +41,7 @@ You first create the database tables and then use the [ABAP Repository Generator
   2. Create a new package:
      - Name: **`Z_ERROR_CODES_###`**
      - Description: **`Error Codes ###`**
-     - Superpackage: **`ZLOCAL`**
+     - Super package: **`ZLOCAL`**
      - Select **Add to favorite packages**
 
       ![Enter new package](p2.png)
