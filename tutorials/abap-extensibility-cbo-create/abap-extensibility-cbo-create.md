@@ -2,19 +2,15 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-extensibility
-tags: [  tutorial>beginner, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 10
 ---
-
+<!--DONE in E1Y-->
 # Create a Custom Business Object
-<!-- description --> Define the data structure and create the database persistence of a custom business object.
+<!-- description -->Define the data structure and create the database persistence of a custom business object.
 
 ## Prerequisites  
-<<<<<<< HEAD
- - **Authorizations:** Your user needs a business role with business catalog **Extensibility** (ID: `SAP_CORE_BC_EXT`) in your **S/4HANA Cloud** system
-=======
  - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **S/4HANA Cloud** system
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
 - Define a custom business object and its a simple data structure
@@ -29,7 +25,7 @@ As applications are based on business objects, it all starts with custom busines
 
 In the first parts a manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
 ## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 1808
+- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
 
 ---
 
@@ -38,9 +34,9 @@ In the first parts a manager wants to define business objects "Bonus Plan" for e
 
 1. Enter your SAP S/4HANA system's Fiori Launchpad.
 
-2. Open application **Custom Business Objects** from **Extensibility** Launchpad group.
+2. Start typing **Custom Business Objects** in the Launchpad search and open the App from the results.
 
-    ![Custom Business Objects application tile](tile_CBO.png)
+    ![Custom Business Objects application from search results](FLP_search_resultCBO.png)
 
 
 ### Create a custom business object
@@ -104,6 +100,7 @@ In the first parts a manager wants to define business objects "Bonus Plan" for e
 **Publish** the business object `Bonus Plan`.
 
 ![Press Publish](CBO_pressPublish.png)
+
 This creates the database persistence of the business object.
 
 
