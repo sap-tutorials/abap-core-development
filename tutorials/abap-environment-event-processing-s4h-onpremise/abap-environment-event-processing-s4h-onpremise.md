@@ -28,7 +28,7 @@ The ABAP RESTful Application Programming Model (RAP) now supports the native con
 
 
 ### Download event specification file 
-An Event Consumption Model is a set of ABAP artifacts which allows you to receive events from external applications and to consume them within your business application. You can have a wide range of event producers. So, you need to know how the emitted event exactly looks like. To this aim, you need a file which contains the metadata of this event like how the payload looks like, what kind of types are there and so on. This is all specified in the event specification file, in this case, AsyncAPI specification, which is supported by SAP and can be downloaded from SAP API Business Hub in JSON format. For this aim, you need to download an event specification for the event **business partner** from the API hub.
+An Event Consumption Model is a set of ABAP artifacts which allows you to receive events from external applications and to consume them within your business application. You can have a wide range of event producers. So, you need to know how the emitted event exactly looks like. To this aim, you need a file which contains the metadata of this event like how the payload looks like, what kind of types are there and so on. This is all specified in the event specification file, in this case, `AsyncAPI` specification, which is supported by SAP and can be downloaded from SAP API Business Hub in JSON format. For this aim, you need to download an event specification for the event **business partner** from the API hub.
     
 1. Login to [SAP Business Hub] (https://api.sap.com/) and choose **SAP S/4HANA**. 
 
@@ -199,7 +199,7 @@ A channel represents a single connection to a service instance of the SAP Ev
 
     ![new](5-2.png)
 
-  3. Enter the following name and description and replace all **####** with your number, eneter the service key of your Event Mesh instance into the corresponding field and press save icon.
+  3. Enter the following name and description and replace all **####** with your number, enter the service key of your Event Mesh instance into the corresponding field and press save icon.
 
     - Name:`ZEVENT_CHANNEL_####`
     - Description: `New Channel ####`
@@ -248,7 +248,7 @@ After creating a channel, you can decide which events should be listed on this c
 
   1. You need to create a queue for your Event Mesh instance. How to get access to the SAP Event Mesh and creating a queue is already explained in this [blog post] (https://blogs.sap.com/2022/08/19/an-introduction-to-enterprise-event-enablement-for-sap-btp-abap-environment/) in details.. For more information about how to create a queue see also this [link] (https://developers.sap.com/tutorials/cp-enterprisemessaging-queue-queuesubscription.html)
 
-  2. The second step of the event consumption configuration is the creation of queue subscriptions for the channel. Back to your On-Premise system. In the channel config UI click **Subscriptions** to start configuring the queue subscriptions for the event consumption. Alternatively, you can run `/n/IWXBE/SUBSCRIPTION`. 
+  2. The second step of the event consumption configuration is the creation of queue subscriptions for the channel. Back to your On-Premise system. In the channel configuration UI click **Subscriptions** to start configuring the queue subscriptions for the event consumption. Alternatively, you can run `/n/IWXBE/SUBSCRIPTION`. 
 
     ![subs](7-1.png)
 

@@ -18,7 +18,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 
 ## You will learn
   - How to create Business Events with RAP in an On-Premise system
-  - How to set up a channel to connect to SAP Event Mesh
+  - How to set up a channel to connect to SAP Event Mesh 
 
 ## Intro
 >Always replace `####` with your initials or group number.
@@ -48,7 +48,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
     ![database](1-3.png)
 
-  4. Replace the default code with the code snippet provided below and replace all occurences of the placeholder `####` with your group ID using the **Replace All** function `Ctrl+F`.
+  4. Replace the default code with the code snippet provided below and replace all placeholder `####` with your group ID using the **Replace All** function `Ctrl+F`.
 
 
     ```ZBOOKING_####
@@ -252,7 +252,7 @@ The generated business service will be transactional, draft-enabled, and enriche
 
 ### Create an Event in Behaviour Definition
 
-  1. You need to create an event which is raised when a booking flight is cancelled. For this, open `ZEVENT_BP_BOOKINGTP_####` and add a new event to the business object. The event name is BookingCancelled.
+  1. You need to create an event which is raised when a booking flight is cancelled. For this, open `ZEVENT_BP_BOOKINGTP_####` and add a new event to the business object. The event name is `BookingCancelled`.
 
     ```
       event BookingCancelled parameter ZEVENT_D_BOOKING_CANCEL_####;
@@ -344,8 +344,8 @@ Now create the event binding for your newly created business event. This event b
 
         METHOD save_modified.
             IF delete-booking IS NOT INITIAL.
-            RAISE ENTITY EVENT zevent_r_bookingtp_####~BookingCancelled
-        FROM VALUE #( ( TravelID = '00000006'  %param = VALUE #( reasoncode ='02'  description = 'cancelled by customer in OP' ) ) ).
+           RAISE ENTITY EVENT zevent_r_bookingtp_####~BookingCancelled
+         FROM VALUE #( FOR <s_travel> IN delete-booking  ( TravelID = <s_travel>-TravelID  %param = VALUE #( reasoncode ='02'  description = 'cancelled by customer' ) ) ).
             ENDIF.
         ENDMETHOD.
         ENDCLASS.
@@ -406,7 +406,7 @@ After creating a channel, you can decide which events should be listed on this c
 
 In the SAP Event Mesh system, create a queue for the selected instance and subscribe it to your topic. For more information on how to create a queue, check [ this ] (https://blogs.sap.com/2022/08/19/an-introduction-to-enterprise-event-enablement-for-sap-btp-abap-environment/) blog post. 
 
-The structure of the topic should be like: your event mesh instance namespace/ce/the event type you are generated and are subscriebed to: `zevent####/booking/delete/*`.
+The structure of the topic should be like: your event mesh instance `namespace/ce/the event type you are generated` and are subscribed to: `zevent####/booking/delete/*`.
 
 The Topic will look like: `PmEvnt/PmEvnt.sap/Demo/ce/zevent####/booking/Delete/*`
 
@@ -425,7 +425,7 @@ After you created a queue for the selected instance in the SAP Event Mesh system
 
     ![delete](10-3.png)
 
-3. Back to your queue, hier you can see that a message is in your queue.
+3. Back to your queue, here you can see that a message is in your queue.
 
     ![message](10-4.png)
 
