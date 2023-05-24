@@ -12,8 +12,8 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object behavior using early numbering with SAP BTP ABAP environment.
 
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 
 
@@ -44,35 +44,39 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
  1. Open the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TravelTP_###`** of the **Travel** entity.
 
- 2. Specify the statement provided below just after the statement `authorization master( global )`, just before the opening curly bracket `{` as shown on the screenshot. 
+ 2. Specify the statement provided below just after the statement `authorization master( global )`, just before the opening curly bracket `{` as shown on the screenshot.
 
     ```ABAP 
     early numbering
-    ```
-    
-    Add `TravelID`.
-
-    ```ABAP 
-    field (readonly)
-    TravelID;
     ```
 
     The warning message **Early Numbering for `CREATE ZRAP100_R_TRAVELTP_###`** is not implemented is now displayed for the statement **`create;`**. You can hover the yellow underlined statement to display the message or have a look at the **Problems** view.        
 
     You can ignore it for now. You will handle it later.    
 
-    ![Travel BO Behavior Definition](new7x.png)
+    ![Travel BO Behavior Definition](p1.png)
 
+ 3. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
+      Info: The static field control is used to restrict properties of particular fields.
 
+      For that, replace the statement
+      ```ABAP 
+      field ( readonly ) 
+      TravelID;
+      ```
+      You can use the ABAP Pretty Printer function (Shift+F1) to format the source code.
+      
+      ![Travel BO Behavior Definition](p2x.png)
+      
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
  4. To complete the definition, you need to declare the required method in behavior implementation class. You can use the ADT Quick Fix to do that.
-   
+ 
     Set the cursor on the statement **`create;`** and press **Ctrl+1** to open the **Quick Assist** view.
 
     Select the entry **Add `earlynumbering` method for create of entity `zrap100_i_travel_###` in local handler** from the dialog to add the **FOR NUMBERING** method **`earlynumbering_create`** to the local handler class **`lcl_handler`** of the behavior pool ![class icon](adt_class.png)  **`ZRAP100_BP_TRAVEL_###`**.
 
-    ![Travel BO behavior Definition](createx.png)
+    ![Travel BO behavior Definition](p3.png)
 
     The behavior implementation class ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`** will be enhanced appropriately.
 
@@ -217,11 +221,11 @@ You can now preview and test the changes by creating a new travel instance in th
 
   2. Create a new **Travel** instance. 
 
-     ![Travel App Preview](p2.png)
+     ![Travel App Preview](p4.png)
 
      No dialog for manually entering a Travel ID should be displayed now. The Travel ID will be assigned automatically by the logic you just implemented.
 
-     ![Travel App Preview](p3.png)
+     ![Travel App Preview](p5.png)
 
 
 ### Test yourself

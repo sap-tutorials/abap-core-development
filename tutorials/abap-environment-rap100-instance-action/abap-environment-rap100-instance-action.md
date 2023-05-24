@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -12,10 +12,9 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object behavior using instance action with SAP BTP ABAP environment.
 
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
 
 ## You will learn  
   - How to define actions
@@ -59,8 +58,8 @@ You will get familiar with both action implementations, i.e. action without and 
     ```ABAP
     action deductDiscount result [1] $self; 
     ```      
-
-     ![Travel BO Behavior Definition](nn2x.png)      
+    
+     ![Travel BO Behavior Definition](pp.png)      
 
      **Short explanation**:  
      - The name of the instance action is specified after the keyword **action**
@@ -83,7 +82,7 @@ You will get familiar with both action implementations, i.e. action without and 
 
      The result should look like this:
  
-     ![Travel BO Behavior Pool](nn3x.png)
+     ![Travel BO Behavior Pool](p12.png)
 
   4. Save ![save icon](adt_save.png) the changes.
 
@@ -200,8 +199,12 @@ In contrary to determinations and validations which are automatically called by 
 
 Now, you will expose the actions in the BO behavior projection and enrich the UI semantics in the CDS metadata extension to add appropriate button to the **travel** App.
 
- 1. Expose the actions in the BO behavior projection. Go to your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet as shown on the screenshot below. The keyword **`use action`** indicates that a behavior of the base BO is used on the projection layer.
+ 1. Expose the actions in the BO behavior projection.
 
+    Go to your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet as shown on the screenshot below. The keyword **`use action`** indicates that a behavior of the base BO is used on the projection layer.
+
+  2. Replace your code:
+    
     ```ABAP  
     use action deductDiscount;
     ```
@@ -214,24 +217,28 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     The actions are yet ready to be consumed on the UI, but they also need to be explicitly placed on the UI.
 
- 3. Enhance UI semantics of the UI service to make the action `deductDiscount` only visible on the object page with the label `Deduct Discount`. with the labels **Accept Travel** and **Reject Travel** specified. For that, go to your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and replace the existing all `@UI` annotations placed before the element **`OverallStatus`** with the code snippet provided below as shown on the screenshot below. The semantic of the annotation `@UI.identification` will be enhanced for the purpose.
+ 3. Enhance UI semantics of the UI service to make the action `deductDiscount` only visible on the object page with the label `Deduct Discount`. with the labels **Accept Travel** and **Reject Travel** specified.
+
+    For that, go to your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and replace the existing all `@UI` annotations placed before the element **`OverallStatus`** with the code snippet provided below as shown on the screenshot below. The semantic of the annotation `@UI.identification` will be enhanced for the purpose.
 
     **Please note**: Some lines in the provided code snippet are commented out using **`//`**. **DO NOT remove them**. You will uncomment these lines in the following exercise steps.
 
+ 4. Add following annotation:
+
     ```ABAP
-    @UI: {
-    lineItem:       [ { position: 100, importance: #HIGH }                          
-                      //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
-                      //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
-                      //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-          ],
-    identification: [ { position: 100 }                          
-                      ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
-                      //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
-                      //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-          ],
-      textArrangement: #TEXT_ONLY
-    }
+      @UI: {
+      lineItem:       [ { position: 100, importance: #HIGH }                          
+                        //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
+                        //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
+                        //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
+           ],
+      identification: [ { position: 100 }                          
+                       ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
+                       //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
+                       //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
+           ],
+        textArrangement: #TEXT_ONLY
+      }
     ```
 
     Your source code should look like this:
@@ -400,4 +407,4 @@ You can now test the new behavior of the action button `Deduct Discount` on the 
 
 
 ---
- 
+

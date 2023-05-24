@@ -265,7 +265,7 @@ Before you activate the table, change the technical settings at the top as follo
 
 ### Save and activate
 
-Save (`Ctrl+S`) and activate (`F3`) your table.
+Save (`Ctrl+S`) and activate (`Ctrl+F3`) your table.
 
 
 ### Add check table

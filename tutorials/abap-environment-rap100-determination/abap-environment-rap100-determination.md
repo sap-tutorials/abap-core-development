@@ -7,13 +7,13 @@ time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
- 
+
 # Enhance the Business Object Behavior With Determinations
 <!-- description --> Enhance the business object behavior using determination with SAP BTP ABAP environment.
- 
+
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 
 
@@ -53,14 +53,16 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
  1. Go to the behavior definition of the **Travel** BO entity ![bdef icon](adt_bdef.png) **`ZRAP100_R_TravelTP_###`** and insert the following statement after the statement **`delete;`** as shown on the screenshot below:
 
-   ```ABAP
-   determination setStatusToOpen on modify { create; }
-   ```
+ 2. Add following code:
 
-   ![Travel BO Definition](new14x.png)
+    ```ABAP
+    determination setStatusToOpen on modify { create; }
+    ```
+    
+    ![Travel BO Definition](p6.png)
 
-   **Short explanation**:  
-   The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
+    **Short explanation**:  
+    The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.   
 
@@ -70,7 +72,7 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
     As result, the `FOR DETERMINE` method **`setStatusToOpen`** will be added to the local handler class **`lcl_handler`** of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
 
-    ![Travel BO Behavior Pool](new15.png)             
+    ![Travel BO Behavior Pool](p7.png)             
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -171,8 +173,8 @@ You can now preview and test the changes by creating a new travel instance in th
  2. Create a new **Travel** instance. The overall status should now be set automatically by the logic you just implemented.   
     The initial overall status of the created should now be set to **open** **(O)**.
 
-    ![Travel App Preview](n2x.png)
- 
+    ![Travel App Preview](n2.png)
+
  
 
 ### Test yourself

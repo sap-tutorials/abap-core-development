@@ -2,10 +2,10 @@
 parser: v2
 auto_validation: true
 primary_tag: software-product>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
 time: 30
-author_name: Merve Temel
-author_profile: https://github.com/mervey45
+author_name: Patrick Winkler
+author_profile: https://github.com/sepp4me
 ---
 
 # Use Custom Business Configurations app
@@ -13,8 +13,8 @@ author_profile: https://github.com/mervey45
 
 ## Prerequisites  
 - You need an SAP BTP, ABAP environment license or a [trial user](abap-environment-trial-onboarding).
+- This tutorial also works in an SAP S/4HANA Cloud, public edition system.
 - This is the third tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the given order.
-- Install [ABAP Development Tools](https://tools.hana.ondemand.com/#abap). You can also follow **step 1** of this [tutorial](abap-install-adt) to install ADT.
 
 
 ## You will learn  
@@ -24,7 +24,7 @@ author_profile: https://github.com/mervey45
 ## Intro
 The [**Custom Business Configurations**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/76384d8e68e646d6ae5ce8977412cbb4.html) app serves as an entry point to the configuration objects provided by different applications or partners. You can use the app to adjust these configuration objects to change and influence the system behavior.
 
-The required business catalog is contained in business role template `SAP_BR_BPC_EXPERT (Configuration Expert - Business Process Configuration)`. Ensure the user responsible for maintaining the error codes has this role assigned.
+The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configuration Expert - Business Process Configuration)` business role template. Make sure that this role is assigned to the user who is responsible for maintaining the error codes.
 
 >**Hint:** The trial user in SAP BTP ABAP trial system already has the required catalog.
 
@@ -32,9 +32,9 @@ The required business catalog is contained in business role template `SAP_BR_BPC
 ### Custom Business Configurations
 
 
-  1. Start the SAP Build Work Zone. You can start the SAP Build Work Zone from ADT if you right-click on your ABAP system in the project explorer and select **Properties**, select **ABAP Development** and click on the system URL.
+  1. Start SAP Build Work Zone. You can launch SAP Build Work Zone from ADT by right-clicking your ABAP system in the Project Explorer and selecting **Properties**, selecting **ABAP Development**, and clicking the system URL.
 
-  2. Logon with the user responsible for maintaining the error codes.
+  2. Log on with the user who is responsible for maintaining the error codes.
 
   3. Select **Custom Business Configurations** tile.
 
@@ -60,7 +60,7 @@ The required business catalog is contained in business role template `SAP_BR_BPC
 
      ![Click save](m5.png)
 
-  8. If you only have a trial account and performed the adjustments mentioned in the first tutorial, the save operation is successful and you can skip the rest of this tutorial and continue with the next one. If not, you get an error message that the transport request is missing. Click **Close**.
+  8. If you only have a SAP BTP trial account and have made the code adjustments mentioned in the first tutorial, the save process is successful and you can now set this step to **Done** and proceed to the next step **Test yourself**. If not, you get an error message that the transport request is missing. Click **Close**.
 
       ![Error message](m6.png)
 
@@ -68,11 +68,11 @@ The required business catalog is contained in business role template `SAP_BR_BPC
 
     ![Click Select transport](m7.png)
 
-10. If a Task of a modifiable Transport Request is assigned to your user, you can select the Transport Request and proceed with saving. If not you need to create a new one first.
+10. If a task of a modifiable transport request is assigned to your user, you can select the transport request and continue with saving. If this is not the case, you must first create a new one.
 
     ![Select transport](m8.png)
 
-11. To create a transport request, return to the SAP Build Work Zone Home Page and select the [**Export Customizing Transports**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) tile.
+11. To create a transport request, return to the SAP Build Work Zone home page and choose the [**Export Customizing Transports**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) tile.
 
      ![Start Export Customizing Transports app](m9.png)
 
@@ -86,15 +86,15 @@ The required business catalog is contained in business role template `SAP_BR_BPC
 
     Click **Create**.
 
-14. If you get an error message that there is already a default transport request, click **Cancel** and go back and search for the default customizing request.
+14. If you get an error message that a default transport request already exists, choose **Cancel**, go back and search for the default customizing request.
 
     ![Search default customizing request](m12.png)
 
-15. Select the default transport request and create a new task for your user.
+    Select the default transport request and create a new task for your user.
 
     ![Select default request](m13.png)
 
-16. Create new task:
+    Create new task:
     - Description: **`New Error Codes`**
     - Owner: **`<User responsible for maintaining error codes>`**
 
@@ -102,20 +102,18 @@ The required business catalog is contained in business role template `SAP_BR_BPC
 
     Click **Create**.
 
-17. Back in the **Custom Business Configurations** app click again on the **Select Transport** action. Use the input help to select a Transport Request and click **OK** and then click **Select Transport**. The selected Transport Request is now shown in the section **Transport**. If you miss a Transport Request, try to refresh the **Custom Business Configurations** app.
+15. In the **Custom Business Configurations** app, click the **Select Transport** action again. Use the input help to select a transport request and click **OK** and then **Select Transport**. The selected transport request is now displayed in the **Transport** section. If you do not find a transport request, try reloading the **Custom Business Configurations** app.
 
     ![Select transport request in Custom Business Configurations app](m16.png)
 
-18. Click **Save**. The data has been recorded on the transport request.
+16. Click **Save**. The data was recorded on the transport request.
 
-19. If you have activated `Log Changes` for the database table, you can navigate to the **Business Configuration Change Logs** by clicking on **Display Change Logs** in the **Custom Business Configurations** app.
+17. If you have enabled `Log Changes` for the database table, you can navigate to the **Business Configuration Change Logs** app by clicking **Display Change Logs** in the **Custom Business Configurations** app.
 
 
     ![Business Configuration Change Logs app](m17.png)
      
->You can manage your customizing transports with the [**Export Customizing Transport**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) app
-
->Business Configuration content can be recorded on both software components of type `Business Configuration` or `Development`. The former is recommended, see also [Business Configuration for SAP Cloud Platform ABAP Environment | SAP Blogs](https://blogs.sap.com/2019/12/20/business-configuration-for-sap-cloud-platform-abap-environment/). The transport request must have the attribute `SAP_ATO_TRANSPORT_TYPE` set to `BC` and the attribute `SAP_CUS_TRANSPORT_CATEGORY` set to `DEFAULT_CUST` or `MANUAL_CUST`.
+>Business configuration content can be recorded in both business configuration and development software components. The former is recommended, see also [Business Configuration for SAP Cloud Platform ABAP Environment | SAP Blogs](https://blogs.sap.com/2019/12/20/business-configuration-for-sap-cloud-platform-abap-environment/). For the transport request, the attribute `SAP_CUS_TRANSPORT_CATEGORY` must be set to `DEFAULT_CUST` or `MANUAL_CUST`.
 
 
 

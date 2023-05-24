@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -12,10 +12,9 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object behavior using validation with SAP BTP ABAP environment.
 
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
 
 ## You will learn  
   - How to define validations
@@ -60,7 +59,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
-    ![validation](n2x.png)   
+    ![validation](p8.png)   
 
   3. Define the validations **`validateCustomer`** and **`validateDates`**. For that, add the following code snippet after the determination.
 
@@ -82,15 +81,15 @@ Define the validations `validateCustomer` and `validateDates`.
 
     Your source code should look like this:
 
-    ![validation](new18x.png)           
+    ![validation](p9.png)           
 
-    **Short explanation**:    
+     **Short explanation**:    
 
-     - Validations are always invoked during the save and specified with the keyword `validateCustomer on save`.   
+      - Validations are always invoked during the save and specified with the keyword `validateCustomer on save`.   
 
-     - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
+      - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
 
-     - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
+      - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
 
     >**Hint:** In case a validation should be invoked at every change of the BO entity instance, then the trigger conditions createand update must be specified: e.g. validation `validateCustomer on save { create; update; }`
 
@@ -102,7 +101,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
      As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
  
-     ![Travel BO Behavior Pool](new19.png)  
+     ![Travel BO Behavior Pool](p10.png)  
 
   7. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -227,81 +226,80 @@ An appropriate message should be raised and displayed on the UI for each invalid
 
 ### Implement the Validation validateDates
 
-Implement the validation `validateDates` which checks the validity of entered begin dates (`BeginDate`) and end dates (`EndDate`).
-An appropriate messages should be raised and displayed on the UI for each invalid value.
-
- 1. In your implementation class ![class](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`**, replace the current method implementation of **`validateDates`** with following code snippet and replace all occurrences of the placeholder **`###`** with your group ID. 
+Implement the validation `validateDates` which checks the validity of entered begin dates (`BeginDate`) and end dates (`EndDate`). An appropriate messages should be raised and displayed on the UI for each invalid value.
  
-   ```ABAP
-   **********************************************************************
-   * Validation: Check the validity of begin and end dates
-   **********************************************************************
-   METHOD validateDates.
-      READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-        ENTITY Travel
-          FIELDS (  BeginDate EndDate TravelID )
-          WITH CORRESPONDING #( keys )
-        RESULT DATA(travels).
+ 1. In your implementation class ![class](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`** of **`validateDates`** with following code snippet and replace all occurrences of the placeholder **`###`** with your group ID. The main implementation steps are similar to the one of method **`validateCustomer`**. This validation is performed on the fields **`BeginDate`** and **`EndDate`**. It checks if the entered begin date (`BeginDate`) is in the future and if the value of the entered end date (`EndDate`) is after the begin date (`BeginDate`). 
 
-      LOOP AT travels INTO DATA(travel).
+ 2. Replace the current method implementation.
+ 
+    ```ABAP
+    **********************************************************************
+    * Validation: Check the validity of begin and end dates
+    **********************************************************************
+      METHOD validateDates.
 
-        APPEND VALUE #(  %tky               = travel-%tky
-                          %state_area        = 'VALIDATE_DATES' ) TO reported-travel.
+        READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+          ENTITY Travel
+            FIELDS (  BeginDate EndDate TravelID )
+            WITH CORRESPONDING #( keys )
+          RESULT DATA(travels).
 
-        IF travel-BeginDate IS INITIAL.
-          APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+        LOOP AT travels INTO DATA(travel).
 
-          APPEND VALUE #( %tky               = travel-%tky
-                          %state_area        = 'VALIDATE_DATES'
-                            %msg              = NEW /dmo/cm_flight_messages(
-                                                                  textid   = /dmo/cm_flight_messages=>enter_begin_date
-                                                                  severity = if_abap_behv_message=>severity-error )
-                        %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
-        ENDIF.
-        IF travel-BeginDate < cl_abap_context_info=>get_system_date( ) AND travel-BeginDate IS NOT INITIAL.
-          APPEND VALUE #( %tky               = travel-%tky ) TO failed-travel.
+          APPEND VALUE #(  %tky               = travel-%tky
+                           %state_area        = 'VALIDATE_DATES' ) TO reported-travel.
 
-          APPEND VALUE #( %tky               = travel-%tky
-                          %state_area        = 'VALIDATE_DATES'
-                            %msg              = NEW /dmo/cm_flight_messages(
-                                                                  begin_date = travel-BeginDate
-                                                                  textid     = /dmo/cm_flight_messages=>begin_date_on_or_bef_sysdate
-                                                                  severity   = if_abap_behv_message=>severity-error )
+          IF travel-BeginDate IS INITIAL.
+            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+
+            APPEND VALUE #( %tky               = travel-%tky
+                            %state_area        = 'VALIDATE_DATES'
+                             %msg              = NEW /dmo/cm_flight_messages(
+                                                                    textid   = /dmo/cm_flight_messages=>enter_begin_date
+                                                                    severity = if_abap_behv_message=>severity-error )
                           %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
-        ENDIF.
-        IF travel-EndDate IS INITIAL.
-          APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+          ENDIF.
+          IF travel-BeginDate < cl_abap_context_info=>get_system_date( ) AND travel-BeginDate IS NOT INITIAL.
+            APPEND VALUE #( %tky               = travel-%tky ) TO failed-travel.
 
-          APPEND VALUE #( %tky               = travel-%tky
-                          %state_area        = 'VALIDATE_DATES'
-                            %msg                = NEW /dmo/cm_flight_messages(
-                                                                  textid   = /dmo/cm_flight_messages=>enter_end_date
-                                                                  severity = if_abap_behv_message=>severity-error )
-                          %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
-        ENDIF.
-        IF travel-EndDate < travel-BeginDate AND travel-BeginDate IS NOT INITIAL
-                                              AND travel-EndDate IS NOT INITIAL.
-          APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+            APPEND VALUE #( %tky               = travel-%tky
+                            %state_area        = 'VALIDATE_DATES'
+                             %msg              = NEW /dmo/cm_flight_messages(
+                                                                    begin_date = travel-BeginDate
+                                                                    textid     = /dmo/cm_flight_messages=>begin_date_on_or_bef_sysdate
+                                                                    severity   = if_abap_behv_message=>severity-error )
+                            %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
+          ENDIF.
+          IF travel-EndDate IS INITIAL.
+            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
 
-          APPEND VALUE #( %tky               = travel-%tky
-                          %state_area        = 'VALIDATE_DATES'
-                          %msg               = NEW /dmo/cm_flight_messages(
-                                                                  textid     = /dmo/cm_flight_messages=>begin_date_bef_end_date
-                                                                  begin_date = travel-BeginDate
-                                                                  end_date   = travel-EndDate
-                                                                  severity   = if_abap_behv_message=>severity-error )
-                          %element-BeginDate = if_abap_behv=>mk-on
-                          %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
-        ENDIF.
-      ENDLOOP.
+            APPEND VALUE #( %tky               = travel-%tky
+                            %state_area        = 'VALIDATE_DATES'
+                             %msg                = NEW /dmo/cm_flight_messages(
+                                                                    textid   = /dmo/cm_flight_messages=>enter_end_date
+                                                                   severity = if_abap_behv_message=>severity-error )
+                            %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
+          ENDIF.
+          IF travel-EndDate < travel-BeginDate AND travel-BeginDate IS NOT INITIAL
+                                               AND travel-EndDate IS NOT INITIAL.
+            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
 
-    ENDMETHOD.
+            APPEND VALUE #( %tky               = travel-%tky
+                            %state_area        = 'VALIDATE_DATES'
+                            %msg               = NEW /dmo/cm_flight_messages(
+                                                                    textid     = /dmo/cm_flight_messages=>begin_date_bef_end_date
+                                                                    begin_date = travel-BeginDate
+                                                                    end_date   = travel-EndDate
+                                                                    severity   = if_abap_behv_message=>severity-error )
+                            %element-BeginDate = if_abap_behv=>mk-on
+                            %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
+          ENDIF.
+        ENDLOOP.
+
+      ENDMETHOD.
     ```
-    
-    The main implementation steps are similar to the one of method **`validateCustomer`**. This validation is performed on the fields **`BeginDate`** and **`EndDate`**. It checks if the entered begin date (`BeginDate`) is in the future and if the value of the entered end date (`EndDate`) is after the begin date (`BeginDate`).  
 
- 2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
-
+ 3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
 ### Preview and test the enhanced travel app
 
@@ -311,7 +309,7 @@ You can either refresh your application in the browser using **F5** if the brows
 
   1. Click **Create** to create a new entry.
 
-  2. Select an `Sunshine Travel (70001)` as Agency ID,  **Buchholm (1)** as Customer ID, set a start in the future and the end date as your current date, click **Create**.
+  2. Select an `Sunshine Travel (70001)` as Agency ID,  **12345** as Customer ID, Mar 16, 2022 as starting date and Mar 14, 2022 as end date and click **Create**.
 
        ![package](n3.png)
 

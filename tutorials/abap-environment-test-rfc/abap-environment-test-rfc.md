@@ -101,9 +101,9 @@ Define the connection, replacing `000` in each artifact.
 ```ABAP
 
 DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                        comm_scenario          = Z_OUTBOUND_RFC_000_CS     " Communication scenario
-                        service_id             = Z_OUTBOUND_HANA_000       " Outbound service
-                        comm_system_id         = Z_OUTBOUND_HANA_CS_000    " Communication system
+                        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
+                        service_id             = 'Z_OUTBOUND_RFC_000'           " Outbound service
+                        comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'      " Communication system
 
                        ).
 
@@ -223,11 +223,11 @@ CLASS ZCL_OUTPUT_TEST_000 IMPLEMENTATION.
     TRY.
 
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                            comm_scenario          = Z_OUTBOUND_RFC_000_CS     " Communication scenario
-                            service_id             = Z_OUTBOUND_HANA_000       " Outbound service
-                            comm_system_id         = Z_OUTBOUND_HANA_CS_000    " Communication system
+                        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
+                        service_id             = 'Z_OUTBOUND_RFC_000'       " Outbound service
+                        comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
 
-                           ).
+                        ).
 
     DATA(lv_destination) = lo_destination->get_destination_name( ).
 

@@ -3,6 +3,7 @@ parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -12,8 +13,8 @@ author_profile: https://github.com/mervey45
 <!-- description --> Enhance the business object data model and enable OData streams with SAP BTP ABAP environment.
 
 ## Prerequisites
-- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2021 or higher) system.
-For example, you can create [free trial user on SAP BTP, ABAP environment](abap-environment-trial-onboarding).
+- You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
+  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 
 
@@ -36,25 +37,24 @@ For example, you can create [free trial user on SAP BTP, ABAP environment](abap-
 ### Enhance base business object data model
 
 Define and expose new associations in the base BO data model defined in the CDS view entity **`ZRAP100_R_TRAVELTP_###`**:  
-
   - Associations to the business entities `/DMO/I_Customer` and `/DMO/I_Agency` 
-
   - Associations to the value help views  `I_Currency` and `/DMO/I_Overall_Status_VH` 
    
   1. Define the new associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`**, and **`_Currency`**. Open your data definition ![datadefinition](adt_ddls.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the `select` statement as shown on the screenshot below. Format the source code with **Pretty Printer** **(Shift+F1)**.   
+  
+  2. Replace your code:
 
-     ```ABAP
-     association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
-     association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID =  _Customer.CustomerID
-     association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
-     association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
-     ```
-   
-     Your source code should look like this: 
-    
-     ![association](newa.png)
-    
+    ```ABAP
+    association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
+    association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID = _Customer.CustomerID
+    association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
+    association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
+    ```
 
+    Your source code should look like this: 
+
+      ![association](newa.png)
+    
   2. Expose the defined associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`** and **`_Currency`** in the selection list. For that, insert the code snippet provided below in the selection list between the curly brackets (`{...}`) as shown on the screenshot.
 
     ```ABAP
@@ -66,7 +66,8 @@ Define and expose new associations in the base BO data model defined in the CDS 
     _Currency
     ```
 
-    ![association](newa2.png)
+     ![association](newa2.png)
+
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -79,9 +80,9 @@ The only things you will have to do in the RAP business object, is to specify th
 >**Hint:** Further reading: [Working with Large Objects](https://help.sap.com/docs/BTP/923180ddb98240829d935862025004d6/10a3eb645b83413cbbebe4fc1d879a62.html)
 
   1. Remain in the CDS data definition `ZRAP100_R_TRAVELTP_###` and have a look at following elements in the select list:   
-    - Attachment - It will be used to store the MIME object (stream). It must be annotated appropriately using the CDS annotation `@Semantics.largeObject`.
-    - `MimeType` - It will be used to store the MIME type of the mime object (stream) It must be tagged appropriately using the CDS annotation `@Semantics.mimeType`.
-    - `FileName` - It will be used to store the file name of the mime object (stream). No specific annotation is needed for this element.
+     - Attachment - It will be used to store the MIME object (stream). It must be annotated appropriately using the CDS annotation `@Semantics.largeObject`.
+     - `MimeType` - It will be used to store the MIME type of the mime object (stream) It must be tagged appropriately using the CDS annotation `@Semantics.mimeType`.
+     - `FileName` - It will be used to store the file name of the mime object (stream). No specific annotation is needed for this element.
 
   2. Use the code snippets provided below and annotate the elements as shown on the screenshot.
 
@@ -100,12 +101,13 @@ The only things you will have to do in the RAP business object, is to specify th
 
     ![association](new7.png)
 
-    Short explanation: The attributes of the annotation `@Semantics.largeObject`
+     Short explanation: The attributes of the annotation `@Semantics.largeObject`
 
-    - `mimeType`: It indicates the name of the field containing the type of a MIME object. ⚠ The value is case sensitive.
-    - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
-    - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
-    - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
+     - `mimeType`: It indicates the name of the field containing the type of a MIME object. ⚠ The value is case sensitive.
+     - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
+     - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
+     - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
+
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -200,11 +202,9 @@ For example, you will allow the full-text search on some elements, add new eleme
 
     ![document](doc.png) **Source code document**: ![ddls icon](adt_ddls.png)[CDS projection view ZRAP100_C_TRAVELTP_###](EX2_DDLS_ZRAP100_C_TRAVELTP.txt). Format your source code with the ABAP Pretty Printer (Shift+F1). Your source code should look like this:
 
-      ![projected view](new6.png)
+       ![projected view](new6.png)
 
-    >**Hint**: Frontend Validations
-    Validations are used to ensure the data consistency.
-    As the name suggests, frontend validations are performed on the UI. They are used to improve the user experience by providing faster feedback and avoiding unnecessary server roundtrips. In the RAP context, front-end validations are defined using CDS annotation (e.g. `@Consumption.valueHelpDefinition.useForValidation: true`) or UI logic.
+    >**Hint**: **Frontend Validations:** Validations are used to ensure the data consistency. As the name suggests, frontend validations are performed on the UI. They are used to improve the user experience by providing faster feedback and avoiding unnecessary server roundtrips. In the RAP context, front-end validations are defined using CDS annotation (e.g. `@Consumption.valueHelpDefinition.useForValidation: true`) or UI logic.
 
   4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -215,27 +215,27 @@ Enhance the metadata extension![ddlx icon](adt_ddlx.png) to change the appearanc
 
   1. Open your metadata extension ![metadataextension](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and adjust the UI annotations to achieve the following changes on the Fiori elements based UI of the **Travel App**.
 
-    - Element **`TravelID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
-    - Element **`AgencyID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
-    - Element **`CustomerID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
-    - Element **`BeginDate`** - (no changes)
-    - Element **`EndDate`** - (no changes)
-    - Element **`BookingFee`** - should not be displayed in the list table.
-    - Element **`TotalPrice`** - should not be displayed in the list table.
-    - Element **`CurrencyCode`** - should not be explicitly displayed, neither in the list table nor on the object page.
+     - Element **`TravelID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
+     - Element **`AgencyID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
+     - Element **`CustomerID`** - should also be a selection criteria in the filter bar and have high display importance on small windows.
+     - Element **`BeginDate`** - (no changes)
+     - Element **`EndDate`** - (no changes)
+     - Element **`BookingFee`** - should not be displayed in the list table.
+     - Element **`TotalPrice`** - should not be displayed in the list table.
+     - Element **`CurrencyCode`** - should not be explicitly displayed, neither in the list table nor on the object page.
        **Hint:** The currency code will be automatically displayed on the UI thanks to `@consumption` annotations specified for the element `CurrencyCode` in the BO projection view.
     
-    - Element **`Description`** - should not be displayed in the list table.
-    - Element **`OverallStatus`** - should have a high display importance on small windows and only its associated descriptive text should be displayed on the UI.
-    - Element Attachment - should only be displayed on the object page - not in the list table.
-    - Element `MimeType` - should be hidden.
-    - Element `FileName` - should be hidden.
+     - Element **`Description`** - should not be displayed in the list table.
+     - Element **`OverallStatus`** - should have a high display importance on small windows and only its associated descriptive text should be displayed on the UI.
+     - Element Attachment - should only be displayed on the object page - not in the list table.
+     - Element `MimeType` - should be hidden.
+     - Element `FileName` - should be hidden.
 
-    For that, replace the generated source code of the metadata extension with the code provided in the source code document linked below and replace all occurrence of the placeholder **`###`** with your group ID using **CTRL+F**.
+     For that, replace the generated source code of the metadata extension with the code provided in the source code document linked below and replace all occurrence of the placeholder **`###`** with your group ID using **CTRL+F**.
 
-    ![document](doc.png) **Source code document**: ![ddlx icon](adt_ddlx.png)[CDS metadata extension `ZRAP100_C_TRAVELTP_###`](EX2_DDLX_ZRAP100_C_TRAVELTP.txt)
+     ![document](doc.png) **Source code document**: ![ddlx icon](adt_ddlx.png)[CDS metadata extension `ZRAP100_C_TRAVELTP_###`](EX2_DDLX_ZRAP100_C_TRAVELTP.txt)
 
-    ![projected view](n3.png)
+     ![projected view](n3.png)
 
    2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -247,23 +247,23 @@ Test the enhanced SAP Fiori elements application.
 
   1. Open your service binding ![servicebinding](adt_srvb.png) **`ZRAP100_UI_TRAVEL_O4_###`** and double-click the **Travel** entity set to open the SAP Fiori elements preview.
 
-    ![package](preview4.png)
+     ![package](preview4.png)
 
   2. Click **Go** on the app and check the result.
 
   3. Play around in the app, e.g. filter the entries and test the defined value helps by creating a new entry or editing an existing one.
 
-    a. You will notice, that on the list report page there are nice descriptions and options to filter the result.
+     a. You will notice, that on the list report page there are nice descriptions and options to filter the result.
 
-    ![package](preview.png)
+     ![package](preview.png)
 
-    b. When you create a new entry or change an existing one you see that the values helps for the fields `Agency ID` and `Customer ID` offer an out of the box fronted validation.
+     b. When you create a new entry or change an existing one you see that the values helps for the fields `Agency ID` and `Customer ID` offer an out of the box fronted validation.
 
-    ![package](preview22.png)
+     ![package](preview22.png)
 
-    c. In addition your application allows you to upload pictures of type **`jpg`** and **`png`**.
+     c. In addition your application allows you to upload pictures of type **`jpg`** and **`png`**.
 
-    ![package](preview3.png)
+     ![package](preview3.png)
 
 ### Test yourself
 

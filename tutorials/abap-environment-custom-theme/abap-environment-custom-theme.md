@@ -11,8 +11,13 @@ parser: v2
 ---
 
 ## Prerequisites
+<<<<<<< HEAD
+ - [You have set up the SAP Launchpad Service](btp-app-launchpad-service)
+  - You have a user with the **Subaccount Administrator** role collection in the subaccount where you set up the SAP Launchpad Service.
+=======
  - [You have set up the SAP Build Work Zone, standard edition](btp-app-work-zone-subscribe)
  - You have a user with the **Subaccount Administrator** role collection in the subaccount where you set up the SAP Launchpad Service.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
  - You have access to a SAP BTP ABAP Environment in a Cloud Foundry space.
  - You are a member of the Cloud Foundry space where your SAP BTP ABAP Environment resides, and you have **Space Developer** role.
  - You have a user in your SAP BTP ABAP Environment with the following business catalogs: `SAP_CORE_BC_SEC` and `SAP_CORE_BC_COM`.
@@ -33,14 +38,22 @@ The **UI Theme Designer** is a business service integrated in the launchpad serv
 3. Click on **Launch Theme Designer** in the bottom-left corner. In the **UI Theme Designer** you can see an overview of all the available custom themes, as well as create new ones. ![Overview of the custom themes](5-create-new-themes.png)
 4. The **ID** column shows the ID's of the custom themes. Make a note of them, you will need these ID's in a later step.
 
+<<<<<<< HEAD
+>For the purpose of this tutorial, one custom theme was created with ID: `custome_theme_000`. If you wish to use the Theme Designer to create and publish your own themes, you will need a user with the role collection `Launchpad_Advanced_Theming` in the subaccount where you set up the SAP Launchpad Service.
+=======
 >For the purpose of this tutorial, one custom theme was created with ID: `custome_theme_000`. If you wish to use the Theme Designer to create and publish your own themes, you will need a user with the role collection `Launchpad_Advanced_Theming` in the subaccount where you set up the SAP Build Work Zone, standard edition.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ### Assign entitlements for UI Theme Designer service
 
 You now need to integrate the Theme Designer with your SAP BTP ABAP Environment. For this purpose, you need to assign the correct entitlements for the **UI Theme Designer** service to your chosen subaccount.
 
 1. Open the SAP BTP cockpit of your global account.
+<<<<<<< HEAD
+2. In the **Account Explorer** tab, open the subaccount where you have subscribed to the SAP Launchpad service.
+=======
 2. In the **Account Explorer** tab, open the subaccount where you have subscribed to the SAP Build Work Zone, standard edition.
+>>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 3. Open the **Entitlements** tab and check if the **UI Theme Designer** service is already assigned. If the service has not been assigned yet, click on **Configure Entitlements** > **Add Service Plans**. Search for the **UI Theme Designer** service, select the **standard** plan and click on **Add 1 Service Plan**. ![Add service entitlement](1-Add-service-entitlement.png)
 4. Click on **Save**.
 
