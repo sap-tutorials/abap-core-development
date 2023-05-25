@@ -20,7 +20,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 ## You will learn  
   - How to create and import a new software component into a SAP BTP ABAP Environment instance
   - How to add ABAP sources and export software component
-  - How to import software component into a new SAP BTP ABAP Environment instance
+  - How to import software component into a new SAP BTP ABAP Environment instance 
 
 ## Intro
 >Always replace `####` with your initials or group number.
