@@ -80,7 +80,7 @@ For **published** Custom Business Objects **without a Draft version** you can im
    
     ![Enter After Modification logic](CBO_go2AfterModify.png)
 
-3. Being in the **Develop** section click **Edit** to change the currently published logic which is empty still.
+3. In the **Develop** section click on **Edit** to change the currently published logic (which is empty still).
 
     ![Create Draft of logic implementation](CBO_logicEdit.png)
 
@@ -160,7 +160,7 @@ Alternatively you can also change the logic in the **Compare** section which all
 
 ### Test during development and publish the logic
 
-In the **Test** section you can test the draft or latest published version of the logic with example runtime data. This data can also be saved as variant for later usages.
+In the **Test** section you can test the draft or latest published version of the logic with example runtime data. This data can also be saved as variant for later use.
 
 1. Switch to **Test** section
 

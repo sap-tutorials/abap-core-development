@@ -13,8 +13,8 @@ time: 10
  - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **S/4HANA Cloud** system
 
 ## You will learn
-- Define a custom business object and its a simple data structure
-- Create the database table for the custom business object
+- How to define a custom business object and its simple data structure
+- How to create the database table for the custom business object
 
 ## Intro
 **Our Example**
@@ -42,12 +42,12 @@ In the first parts a manager wants to define business objects "Bonus Plan" for e
 ### Create a custom business object
 
 
-1. Press **New** to start creation of a custom business object
+1. Press **New** to start the creation of a custom business object.
 
     ![Press New](CBO_pressNew.png)
     A pop up opens.
 
-2. Enter the **Name** **`Bonus Plan`**. The other editable fields will get proposals automatically but can be changed.
+2. Enter the **Name** **`Bonus Plan`**. The other editable fields will be filled up automatically automatically with suggested values, but can be changed.
 
     ![Creation Pop Up](CBO_createNew.png)
 

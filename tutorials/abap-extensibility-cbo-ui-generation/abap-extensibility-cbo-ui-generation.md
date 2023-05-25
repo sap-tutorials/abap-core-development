@@ -56,9 +56,7 @@ Start typing **Custom Business Objects** in the Launchpad search and open the Ap
 ### Grant Access to Application
 
 
-Now you grant access to the generated UI by assigning it to a Business Catalog.
-Ensure not to be in edit mode which is the case just after publishing.
-From the Business Object's overview go to Custom Catalog Extension application by clicking the **Maintain Catalogs** link.
+Now you grant access to the generated UI by assigning it to a Business Catalog. Ensure not to be in edit mode which is the case just after publishing. From the Business Object's overview go to Custom Catalog Extension application by clicking the **Maintain Catalogs** link.
 
 ![Maintain Custom Catalog Extension](CBO_maintainCCE.png)
 
@@ -72,7 +70,7 @@ In the opening value help narrow down the result list by searching for `Custom B
 
 ![Value Help for adding Custom Catalog Extension](CCE_addValueHelp.png)
 
->You could also choose another Catalog, but be aware that your user must have a Business Role containing the same to be able to use the created application.
+>You could also choose another Catalog, but be aware that your user must have a Business Role containing that catalog to be able to access the created application.
 
 **Select** the just added Catalog and **Publish** it.
 
