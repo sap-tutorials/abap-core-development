@@ -53,7 +53,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 
       ![clone](dash5.png)
 
-  6. In the clone dialog select **Master** branch and click **Clone**.
+  6. In the clone dialog select **Main** branch and click **Clone**.
 
       ![confirm clone](step1-5.png)
 
@@ -150,7 +150,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 
       ![import SC](dash5.png)
 
-  4. In the clone dialog select **Master** branch and click **Clone**.
+  4. In the clone dialog select **Main** branch and click **Clone**.
 
       ![confirm clone](step1-5.png)
 
