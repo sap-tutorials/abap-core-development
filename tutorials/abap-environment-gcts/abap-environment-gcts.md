@@ -20,7 +20,10 @@ author_profile: https://github.com/niloofar-flothkoetter
 ## You will learn  
   - How to create and import a new software component into a SAP BTP ABAP Environment instance
   - How to add ABAP sources and export software component
-  - How to import software component into a new SAP BTP ABAP Environment instance
+  - How to import software component into a new SAP BTP ABAP Environment instance 
+
+## Intro
+>Always replace `####` with your initials or group number.
 
 ---
 
@@ -40,6 +43,9 @@ author_profile: https://github.com/niloofar-flothkoetter
       ![add a new SC](dash2.png)
 
   4. Enter a **Software Component Name** and a **Description** and press **Create**.
+
+    - Name: `Z_MY_APP_####`
+    - Description: `my software component`
 
       ![enter data](save.png)
 
@@ -65,7 +71,7 @@ author_profile: https://github.com/niloofar-flothkoetter
 
       ![add to favorites](favorite.png)
 
-  2. Enter **`Z_MY_APP_XXX`**, select it and click **OK**.
+  2. Enter **`Z_MY_APP_####`**, select it and click **OK**.
 
       ![add to favorites](favorite2.png)
 
@@ -73,14 +79,14 @@ author_profile: https://github.com/niloofar-flothkoetter
 
       ![add to favorites](eclipsenew1.png)
 
-  4. Right-click your package **`Z_MY_APP_XXX`** and select **New** > **ABAP Package**.
+  4. Right-click your package **`Z_MY_APP_####`** and select **New** > **ABAP Package**.
 
       ![new package](dash6.png)
 
   5. Create a package
 
-    - Name: **`Z_PACKAGE_SC_XXX`**
-    - Description: **`Package XXX`**
+    - Name: **`Z_PACKAGE_SC_####`**
+    - Description: **`Package ####`**
 
     Click **Next**.
 
@@ -90,33 +96,30 @@ author_profile: https://github.com/niloofar-flothkoetter
 
   6. Select **Create a new request**
 
-    - Request Description: **`TRXXX`**
+    - Request Description: **`TR####`**
 
     click **Finish**.
 
     ![create package2](dash8.png)
 
-  7. Right-click your package **`Z_PACKAGE_SC_XXX`** and select **New** > **ABAP Class**.
+  7. Right-click your package **`Z_PACKAGE_SC_####`** and select **New** > **ABAP Class**.
 
       ![release tasks](c1.png)
 
 
-  8. Create class in package `Z_PACKAGE_SC_XXX`:
+  8. Create class in package `Z_PACKAGE_SC_####`:
 
-     - Name: **`Z_CLASS_XXX`**
-     - Description: **`Class XXX`**
+     - Name: **`Z_CLASS_####`**
+     - Description: **`Class ####`**
 
      Click **Next**.
 
      ![release tasks](c2.png)
 
-  9. Select your transport request **`TRXXX`**. Click **Finish**.
+  9. Select your transport request **`TR####`**. Click **Finish**. Save and activate your new class.
 
-      ![release tasks](c3.png)
 
-    Save and activate your new class.
-
-  10. Release your transport request and its subtasks. Therefore, open view **Transport Organizer**.
+  10. To release your transport request and its subtasks open view **Transport Organizer**.
 
       ![release](release1.png)
 
@@ -127,6 +130,10 @@ author_profile: https://github.com/niloofar-flothkoetter
   12. Afterwards right-click your transport request and select **Release** to release your transport request.
 
       ![release tasks](release3.png)
+
+  13. You will get a message, that your release was successful. Click **OK** to close it.
+
+      ![release tasks](release4.png)
 
 
 ### Update or import software component again
