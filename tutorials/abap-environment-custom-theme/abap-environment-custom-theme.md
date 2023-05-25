@@ -126,5 +126,6 @@ The desired custom theme is displayed.
 
 >**WARNING:** If a custom theme (currently in use) is removed from the communication arrangement the Fiori Launchpad UI will appear broken. To fix this the custom theme must be included again in the communication arrangement, or a new theme must be selected. Since navigating a broken UI is challenging, it is possible to specify a new theme directly in the URL of the launchpad site. Add the following parameter after the top level domain in the URL: `ui?sap-theme=chosen_theme_ID`.
 
+### Test yourself
 
 ---
