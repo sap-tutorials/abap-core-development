@@ -2,19 +2,15 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-extensibility
-tags: [  tutorial>beginner, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 20
 ---
 
 # Implement Logic for a Custom Business Object
-<!-- description --> Control your custom business object application with ABAP logic
+<!-- description -->Control your custom business object application with ABAP logic
 
 ## Prerequisites  
-<<<<<<< HEAD
-- **Authorizations:** Your user needs a business role with business catalog **Extensibility** (ID: `SAP_CORE_BC_EXT`) in your **S/4HANA Cloud** system
-=======
 - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **S/4HANA Cloud** system
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ## You will learn  
@@ -34,25 +30,31 @@ A several tutorials spanning example will show extensibility along custom Bonus 
 
 In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
 ## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 1808
+- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
 
 ---
 ### Make key field Read-Only
 
 As there was no backend implementation to set the mandatory key field **`ID`** so far, we were forced to set it from the UI to be able to save instances. Now, as we will implement the logic to set the ID in backend and nowhere else, we will set that key field to Read-Only for the UI.
 
-1. Open the business object **Bonus Plan** in Custom Business Objects application
+1. Enter your SAP S/4HANA system's Fiori Launchpad.
 
-2. Start Edit Mode by executing the **Edit Draft** action.
+2. Start typing **Custom Business Objects** in the Launchpad search and open the App from the results.
 
-3. Switch to **Fields** section.
+    ![Custom Business Objects application from search results](FLP_search_resultCBO.png)
+    
+3. Select the business object **Bonus Plan** in Custom Business Objects application
+   
+4. Start Edit Mode by executing the **Edit Draft** action.
 
-4. **Check** the Read-Only box for key field **`ID`**.
+5. Switch to **Fields** section.
+
+6. **Check** the Read-Only box for key field **`ID`**.
 
     ![Check Read-Only box](CBO_checkReadOnly.png)
 
 
-### Enable logic implementation
+### Enable logic development
 
 
 1. Switch to **General Information** section.
@@ -63,109 +65,110 @@ As there was no backend implementation to set the mandatory key field **`ID`** s
 
 3. **Publish** the business object.
 
-Now you are enabled to implement **Determination** logic which is called **after each modification** to a Bonus Plan instance from the UI, as well as **Validation** logic which is called **before each save** of an instance.
-Only in Determination logic you are able to change custom business object data.
-Validation logic is intended to check the business object, decide whether a save can be performed and provide the end user a message with helpful information like successful save or the reason for which a save had to be rejected.  
+Now you are enabled to implement **Determination** logic which is called **after each modification** to a Bonus Plan instance from the UI, as well as **Validation** logic which is called **before each save** of an instance. Only in Determination logic you are able to change custom business object data. Validation logic is intended to check the business object, decide whether a save can be performed and provide the end user a message with helpful information like successful save or the reason for which a save had to be rejected.  
 
 
-### Start logic implementation
+### Implement After Modification logic
 
 For **published** Custom Business Objects **without a Draft version** you can implement logic.
 
 1. Switch to **Logic** section.
+   
     ![Switch to Logic section](CBO_LogicSection.png)
+
 2. Enter the After Modification Event Logic which is a Determination Logic.
+   
     ![Enter After Modification logic](CBO_go2AfterModify.png)
-3. In the logic view you initially see the not editable empty published version.
-Click the **Create Draft** action.
-    ![Create Draft of logic implementation](CBO_AfterModifyCreateDraft.png)
 
-An editable copy of the published version appears left to it. With the **Draft Version** and **Published Version** actions you can decide what coding to see.
+3. In the **Develop** section click on **Edit** to change the currently published logic (which is empty still).
 
-![View Draft and/or Published Version of logic](CBO_AfterModifyDraftOrPublishedVersion.png)
+    ![Create Draft of logic implementation](CBO_logicEdit.png)
 
+4. Determine and set static values:
 
-### Implement After Modification: fix values
+    - Set the key field `ID` if still initial.
 
-Implement After Modification event with following fix value functionality:
+        >**Hint:** Changing Parameter `bonusplan` enables you to read current node data and change it.
+        >
+        >**Hint:** You can read existing Bonus Plan data via the CDS View that is named as the Business Object's Identifier (here: `YY1_BONUSPLAN`).
+        >
+        >**Hint:** With the key combination **CTRL + Space** you can access the very helpful code completion.
+        >
+        >![Code Completion](CBO_logicCodeCompletion.png)
 
-- Set the key field `ID` if still initial.
+        ```ABAP
+        * set ID
+        IF bonusplan-id IS INITIAL.
+            SELECT MAX( id ) FROM yy1_bonusplan INTO @DATA(current_max_id).
+            bonusplan-id = current_max_id + 1.
+        ENDIF.
+        ```
 
-    >**Hint:** Changing Parameter `bonusplan` enables you to read current node data and change it.
-    >
-    **Hint:** You can read existing Bonus Plan data via the CDS View that is named as the Business Object's Identifier (here: `YY1_BONUSPLAN`).
-    >
-    **Hint:** With the key combination **CTRL + Space** you can access the very helpful code completion.
+    - Set the Unit of Measure for the Bonus Percentages to `P1` which is the code for % (percent)
 
-    ![Code Completion](CBO_logicCodeCompletion.png)
+        ```ABAP
+        * set percentage unit
+        bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = 'P1'.
+        ```
 
-    <br><br>
+    - Set the Employee Name from the Employee ID
+        >**Hint:** Extensibility offers Helper class `CL_ABAP_CONTEXT_INFO` with method `GET_USER_FORMATTED_NAME` that needs a user ID to return its formatted name
 
-    ```ABAP
-    * set ID
-    IF bonusplan-id IS INITIAL.
-       SELECT MAX( id ) FROM yy1_bonusplan INTO @DATA(current_max_id).
-       bonusplan-id = current_max_id + 1.
-    ENDIF.
-    ```
+        ```ABAP
+        * set Employee Name
+        IF bonusplan-employeeid IS NOT INITIAL.
+            bonusplan-employeename = cl_abap_context_info=>get_user_formatted_name( bonusplan-employeeid ).
+        ENDIF.
+        ```
 
-- Set the Unit of Measure for the Bonus Percentages to `P1` which is the code for % (percent)
+5. Check user input to determine the `isconsistent` property.
 
-    ```ABAP
-    * set percentage unit
-    bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = 'P1'.
-    ```
+    - Check that `ValidityStartDate` and `ValidityEndDate` are set and that `ValidityStartDate` is earlier in time than `ValidityEndDate`.
 
-- Determine and set the Employee Name from the Employee ID
-    >**Hint:** Extensibility offers Helper class `CL_ABAP_CONTEXT_INFO` with method `GET_USER_FORMATTED_NAME` that needs a user ID to return its formatted name
+    - Check that Factors and Percentages are set correctly (all > 0, Percentages < 100, `LowBonusAssignmentFactor` < `HighBonusAssignmentFactor`)
 
-    ```ABAP
-    * set Employee Name
-    IF bonusplan-employeeid IS NOT INITIAL.
-       bonusplan-employeename = cl_abap_context_info=>get_user_formatted_name( bonusplan-employeeid ).
-    ENDIF.
-    ```
+    - Check that Employee ID is set
 
+        ```ABAP
+        * consistency check START
+        IF bonusplan-validitystartdate IS INITIAL
+        OR bonusplan-validityenddate IS INITIAL
+        OR bonusplan-validitystartdate GE bonusplan-validityenddate
+        OR bonusplan-lowbonusassignmentfactor IS INITIAL
+        OR bonusplan-highbonusassignmentfactor IS INITIAL
+        OR bonusplan-lowbonuspercentage_v IS INITIAL
+        OR bonusplan-highbonuspercentage_v IS INITIAL
+        OR bonusplan-lowbonuspercentage_v GE 100
+        OR bonusplan-highbonuspercentage_v GE 100
+        OR bonusplan-lowbonusassignmentfactor GE bonusplan-highbonusassignmentfactor
+        OR bonusplan-employeeid IS INITIAL.
+            bonusplan-isconsistent = abap_false.
+        ELSE.
+            bonusplan-isconsistent = abap_true.
+        ENDIF.
+        * consistency check END
+        ```
 
-### Implement After Modification: consistency check
+6. **Save** the logic.
 
-In dependence on following checks, set the `isconsistent` property.
-
-- Check that `ValidityStartDate` and `ValidityEndDate` are set and that `ValidityStartDate` is earlier in time than `ValidityEndDate`.
-- Check that Factors and Percentages are set correctly (all > 0, Percentages < 100, `LowBonusAssignmentFactor` < `HighBonusAssignmentFactor`)
-- Check that Employee ID is set
-
-```ABAP
-* consistency check START
-IF bonusplan-validitystartdate IS INITIAL
- OR bonusplan-validityenddate IS INITIAL
- OR bonusplan-validitystartdate GE bonusplan-validityenddate
- OR bonusplan-lowbonusassignmentfactor IS INITIAL
- OR bonusplan-highbonusassignmentfactor IS INITIAL
- OR bonusplan-lowbonuspercentage_v IS INITIAL
- OR bonusplan-highbonuspercentage_v IS INITIAL
- OR bonusplan-lowbonuspercentage_v GE 100
- OR bonusplan-highbonuspercentage_v GE 100
- OR bonusplan-lowbonusassignmentfactor GE bonusplan-highbonusassignmentfactor
- OR bonusplan-employeeid IS INITIAL.
-    bonusplan-isconsistent = abap_false.
-ELSE.
-    bonusplan-isconsistent = abap_true.
-ENDIF.
-* consistency check END
-```
+    ![Save logic without publishing](CBO_logicSave.png)
 
 
-### Test the logic during development
+Alternatively you can also change the logic in the **Compare** section which allows you to see for example the Draft Version and Latest Published Version next to each other.
 
+![View Draft and/or Published Version of logic](CBO_logicCompareVersions.png)
 
-On top of the coding you can maintain runtime data for the current node structure which represents the data before running the test functionality. This data can also be saved as variant for later usages.
+### Test during development and publish the logic
 
-1. Click the value help to add test data
+In the **Test** section you can test the draft or latest published version of the logic with example runtime data. This data can also be saved as variant for later use.
 
-    ![Add Test Data](CBO_logicDevAddTestData.png)
+1. Switch to **Test** section
 
-2. Enter following data
+2. Switch from **Importing Parameters** to **Changing Parameters** view, this will add the **Value Out** column.
+
+3. Expand the `BONUSPLAN` node
+
+4. Enter following data to the **Value In** column
 
     | Field	Name | Field Value |
     |------------|-------------|
@@ -179,26 +182,29 @@ On top of the coding you can maintain runtime data for the current node structur
     | `highbonuspercentage_v` | `20` |
     | `employeeid` | `<any>` |
 
-    `employeeid` `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2016 and that are completed.
+    `employeeid` `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
 
-    This will look as follows.
+5. Execute the **Test** action
 
-    ![Maintain Test Data](CBO_logicDevMaintainTestData.png)
+6. A message toast appears telling that the test was executed
 
-3. Execute the **Test** action and you can see the node data after your logic was executed.
+7. You can see the node data after your logic was executed in the **Value Out** column.
 
-    ![Execute Test](CBO_logicTest.png)
+    You can see that your logic works as `id`, `*percentage_u` fields and `employename` are filled as expected and `isconsistent` is 'X'.
 
-    You can see that your logic works as `id`, `*percentage_u` fields and `employename` are filled and `isconsistent` is 'X'.
+![Test logic](CBO_logicTest.png)
 
-4. **Publish** the After Modification Logic.
+Go back to **Develop** section and **Publish** the After Modification Logic.
 
 
-### Implement Before Save
+### Implement Before Save logic
 
 1. Being in After Modification logic you can get to Before Save Logic this way:
 
     - Go Back in application
+     
+        ![Go Back in application](CBO_applicationBack.png)
+
     - In Tab "Logic", go to section "Determination and Validation"
 
 2. **Implement** Before Save event with following functionality
@@ -275,7 +281,7 @@ On top of the coding you can maintain runtime data for the current node structur
         * consistency error message  END
         ```
 
-3. **Publish** the Before Save Logic
+3. **Test** and **Publish** the Before Save Logic
 
 
 ### Test via the UI
