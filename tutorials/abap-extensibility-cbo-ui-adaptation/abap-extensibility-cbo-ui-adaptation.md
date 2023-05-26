@@ -10,7 +10,7 @@ time: 10
 <!-- description -->Adapt the UI of a business object inside SAP S/4Hana Cloud, shown at the generated UI of a Custom Business Object
 
 ## Prerequisites  
-- **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Key User Adaptation** (ID: `	SAP_CORE_BC_EXT_FLEX`)in your **S/4HANA Cloud** system
+- **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Key User Adaptation** (ID: `	SAP_CORE_BC_EXT_FLEX`) in your **S/4HANA Cloud** system
 
 
 ## You will learn  
@@ -21,7 +21,7 @@ As the generated User Interfaces only lists all fields of a business object node
 
 >Before done **UI Generation** and here shown **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA system. They are key user functionality with limited possibilities. UI Adaptation has effect on all users in the system.
 >
->Alternatively to UI Generation and Adaptation the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create Custom UI for S/4HANA Cloud](group.abap-custom-ui-with-webide)).
+>Alternatively to UI Generation and Adaptation the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create Custom UI for S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
 
 **Our Example**
 

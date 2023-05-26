@@ -152,6 +152,7 @@ Define the external SAP API Business Hub service as an available Communication S
     ![Switch to outbound services in scenario maintenance](CCS_addOB_service.png)
 
 5. Press **Add** to start outbound service creation. A pop up opens.
+   
     ![Pop Up to create outbound service](CCS_createOB_service.png)
 
     Enter following data into the input fields
@@ -241,7 +242,7 @@ Now as the business object has just been published, the logic can be enhanced by
 
 3. Code HTTP client creation
    
-   In order to call an external service from there you need to create an HTTP client in your custom business object logic.
+    In order to call an external service from there you need to create an HTTP client in your custom business object logic.
 
     - In the already existing coding go to the end but stay in front of the last ENDIF
   
@@ -254,6 +255,7 @@ Now as the business object has just been published, the logic can be enhanced by
             outbound_service       = 'YY1_OS_SAP_TRANSLATION_HUB_REST'
         ) = abap_true.
         ```
+
     - Implement creation of HTTP client
 
         ```abap
