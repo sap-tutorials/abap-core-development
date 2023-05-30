@@ -13,55 +13,55 @@ primary_tag: software-product>sap-btp--abap-environment
  - You have installed and set up ABAP Development Tools for Eclipse, see <https://tools.hana.ondemand.com/#abap>
  - You have an **SAP Business Technology Platform** customer subaccount and have prepared the following
     - Subscription to **Cloud Identity Services**
-    - Established trust to your **SAP Cloud Identity Services - Identity Authentication tenant**, see [ABAP Environment Documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
+    - Established trust to your **SAP Cloud Identity Services tenant**, see [ABAP Environment Documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
     - Created an **ABAP environment** service instance for custom development with
-        - An SAP Fiori launchpad business role for custom ABAP development created from template `SAP_BR_DEVELOPER`
+        - An SAP Fiori launchpad business role for custom ABAP development created from template `SAP_BR_DEVELOPER`, as for example in this tutorial `BR_IPS_TUTORIAL_DEVELOPER`
         - A service key for ADT integration
  - You have one or more users with authorization for
-    - User and Group Management in your **SAP Cloud Identity Services - Identity Authentication tenant**
+    - User and Group Management in your **SAP Cloud Identity Services tenant**
     <!--- Space development in your ABAP system service instance's Cloud Foundry space-->
-    - **Communication Management** in your ABAP environment service instance (business catalog ID `SAP_CORE_BC_COM` or business role template ID `SAP_BR_ADMINISTRATOR`)
+    - **Communication Management** in your ABAP environment service instance (business catalog ID `SAP_CORE_BC_COM` or business role from template ID `SAP_BR_ADMINISTRATOR`)
 
 ## You will learn
-  - How to create and group developer identities in your **SAP Cloud Identity Services - Identity Authentication tenant**
-  - How to enable identity provisioning in your Identity Authentication service tenant
+  - How to create and group developer identities in your **SAP Cloud Identity Services tenant**
+  - How to enable identity provisioning in your SAP Cloud Identity tenant
   - How to configure and run identity provisioning
   - How to connect Eclipse with the ABAP environment
 
 ## Intro
 Additional information:
 
-  - In this use case the **SAP Cloud Identity Services - Identity Authentication tenant** is used as an identity provider and not as a proxy to another identity provider.
+  - In this use case the **SAP Cloud Identity Services tenant** is used as an identity provider and not as a proxy to another identity provider.
   - [Documentation: SAP Cloud Identity Services – Identity Provisioning](https://help.sap.com/viewer/f48e822d6d484fa5ade7dda78b64d9f5/Cloud/en-US/2d2685d469a54a56b886105a06ccdae6.html)
 
 ---
 
-### Create User in Identity Authentication Service Tenant
+### Create User in SAP Cloud Identity Service Tenant
 
-To create your development user's identity in your Identity Authentication service tenant, log on with your User Management Administrator to your Identity Authentication tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
+As the SAP Cloud Identity service tenant serves as the identity provider, we first ensure that there is an identity for the developer, that shall get a user provisioned in a SAP BTP ABAP Environment.
 
-1. Navigate to **Users & Authorizations** > **User Management**.
+1. Log on with your User Management Administrator to your SAP Cloud Identity tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
+   
+2. Navigate to **Users & Authorizations** > **User Management**.
 
-    ![Open User Management in Identity Authentication service tenant](IAS_user_mgmt_open.png)
+    ![Open User Management in SAP Cloud Identity service tenant and Press Add button for new user](IAS_user_mgmt_open_user_add.png)
 
-2. Select **Add User** to start the creation process of a user.
+3. Select **Add** to start the creation process of a user.
+   
+4. Fill the personal information for the user and select **Save**.
 
-    ![Press Add button for new user](IAS_user_add.png)
+    ![Configure properties of new user](IAS_user_add_save.png)
 
-3. Fill the personal information for the user and select **Save**.
-
-    ![Configure properties of new user](IAS_user_configure_new.png)
-
-4. The new user is now displayed in the list of users.
+5. The new user is now displayed in the list of users.
 
     ![List entry for new user](IAS_user_created.png)
 
->Note that the Identity Authentication service user will receive an email to activate the account before being able to log on with a local user somewhere for the first time.
+>Note that the SAP Cloud Identity service user will receive an email to activate the account before being able to log on with a local user in some other connected system for the first time.
 
 
 ### Create Developer Group and Assign User
 
-To bundle developers users, create a corresponding user group in the Identity Authentication service tenant and assign the users to it.
+To bundle developer users, create a corresponding user group in the SAP Cloud Identity service tenant and assign the users to it.
 
 1. Navigate to **Users & Authorizations** > **User Groups** and select **Create**.
 
@@ -96,25 +96,21 @@ Navigate to **Users & Authorizations** > **Administrators** choose the Administr
 ![Set Identity Provisioning Management](IAS_IPS_admin_configure.png)
 
 
-### Configure Source in Identity Provisioning Service
+### Configure Identity Provisioning Source
 
-Identity provisioning requires to configure a so-called source system for user and user group data.
+Identity provisioning requires to configure a so-called source system which is used as a data source for users and user groups that can be provisioned to other systems. We simply need to maintain the used Cloud Identity Service tenant itself as source.
 
-1. Log on with your Identity Provisioning Manager user to your Identity Authentication service tenant's identity provisioning UI (URL ends with path `/ips`, for example `https://rapworkshop.accounts.ondemand.com/ips`).
+1. Logon with your Identity Provisioning Manager user to your SAP Cloud Identity service tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
 
-2. Select the **Source Systems** tile.
+2. Navigate to **Identity Provisioning** > **Source Systems** 
 
-    ![Source System Tile](ips_source_systems_tile.png)
+    ![Navigate to Source Systems, Add new and browse](ips_source_systems_nav_add_browse.png)
 
-3. To start the creation, select **Add**.
-
-    ![Add Source System button](ips_source_system_add.png)
+3. To start the creation, select **Add**.    
 
 4. To simplify the system creation and to reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_source.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-environment-ips/ips_system_template_source.json) locally.
 
-5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning service source system UI.
-
-    ![Browse for source system template file](ips_source_systems_browse.png)
+5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning source system UI.
 
 6. Adapt the values to your needs and provide the mandatory value for `URL` as shown below.
 
@@ -133,14 +129,14 @@ Identity provisioning requires to configure a so-called source system for user a
     |  :------------- | :-------------
     |  **`Type`**           | **`HTTP`**
     |  **`ProxyType`**           | **`Internet`**
-    |  **`URL`**          | your Identity Authentication service tenant URL, for example <https://rapworkshop.accounts.ondemand.com>
+    |  **`URL`**          | your SAP Cloud Identity service tenant URL, for example <https://rapworkshop.accounts.ondemand.com>
     |  **`Authentication`** | **`ClientCertificateAuthentication`**
     |  **`ias.user.filter`**   | **`groups.display eq "BR_IPS_TUTORIAL_DEVELOPER"`**
     |  **`ias.group.filter`**   | **`displayName eq "BR_IPS_TUTORIAL_DEVELOPER"`**
 
 7. **Save** your changes.
 
-8. Switch to the **Outbound C...** (C... like Certificate) tab and **Download** the certificate for later usage.
+8. Switch to the **Outbound C...** (C... like Certificate) tab and **Download** the certificate (which was automatically generated during creation of the system) for later usage.
 
     ![Download certificate of source system](ips_source_systems_download_cert.png)
 
@@ -149,8 +145,7 @@ Identity provisioning requires to configure a so-called source system for user a
 
 ### Configure Access to Source via Technical User
 
-In this example the Identity Authentication service itself is used as a source for users and user groups that can be provisioned to other systems.
-To allow identity provisioning to read users and groups from the Identity Authentication service, you need a technical user with corresponding permissions.
+In this example the provisioning Cloud Identity service tenant itself is used as the source for users and user groups that can be provisioned to other systems. But still to allow identity provisioning to read users and groups, you need a technical user with corresponding permissions.
 
 1. Navigate to **Users & Authorizations** > **Administrators**.
 
@@ -159,43 +154,41 @@ To allow identity provisioning to read users and groups from the Identity Authen
     ![Start Administrator creation](IAS_admin_add.png)
 
 3. Provide a **Name** for the system, for example `ips_tutorial_admin`.
-Make sure to only set authorizations for **Read Users** and **Manage Groups** which are both needed to read users and groups during identity provisioning, **Save** your changes.
-
+   
     ![Configure Administrator Authorizations](IAS_admin_configure.png)
+   
+4. Make sure to have set authorizations for **Read Users** and **Manage Groups** which are both needed to read users and groups during identity provisioning.
+   
+5. **Save** your changes.
 
-4. Navigate to **Configure System Authentication** >  **Certificate**.
+6. Navigate to **Configure System Authentication** >  **Certificate**.
 
     ![Configure certificate](ias_admin_configure_cert.png)
 
-5. **Browse** for the certificate of the source system and **Save** the technical user again.
+7. **Browse** for the certificate of the source system and **Save** the technical user again.
 
     ![Upload source system's certificate to technical user](ias_admin_save_cert.png)
 
-Now the technical user can be authenticated via the certificate sent by the Identity Provisioning service and has the authorizations to read users and groups in Identity Authentication service tenant.
+Now the source system can be authenticated via the certificate sent by Identity Provisioning, be mapped to the technical user and via that has the authorizations to read users and groups.
 
 
-### Configure Target in Identity Provisioning Service 
+### Configure Identity Provisioning Target
 
-Identity provisioning requires to configure a so-called target system for user and user group data.
-In this example, the target systems is an ABAP system in SAP BTP.
+Identity provisioning requires to configure a so-called target system to provision user and user group data to. In this example, the target systems is an ABAP system in SAP BTP.
 
-1. Log on with your Identity Provisioning Manager user to your Identity Authentication tenant's identity provisioning UI (URL ends with path `/ips`, for example <https://rapworkshop.accounts.ondemand.com/ips>).
+1. Logon with your Identity Provisioning Manager user to your SAP Cloud Identity service tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
 
-2. Select the **Target Systems** tile.
+2. Navigate to **Identity Provisioning** > **Target Systems** 
 
-    ![Source Target Tile](ips_target_systems_tile.png)
+    ![Navigate to Target Systems, Add new and browse](ips_target_systems_nav_add_browse.png)
 
-3. To start the Creation, select **Add**.
+3. To start the creation, select **Add**.    
 
-    ![Add Target System button](ips_target_system_add.png)
+4. To simplify the system creation and reduce the risk of errors, this tutorial provides a template JSON file for the target system. Download [`ips_system_template_target.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-environment-ips/ips_system_template_target.json) locally.
 
-4. To simplify the system creation and reduce the risk of errors, this tutorial provides a template JSON file for the source system. Download [`ips_system_template_target.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-environment-ips/ips_system_template_target.json) locally.
+5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning target system UI.
 
-5. Define the system by uploading the JSON file via **Browse** in the Identity Provisioning service target system UI.
-
-    ![Browse for target system template file](ips_target_systems_browse.png)
-
-6. Adapt the values to your needs and provide the mandatory value for `URL` as shown below.
+6. Adapt the values to your needs and provide the mandatory value for `Source System` and `URL` as shown below.
 
     Alternatively, you can configure everything manually.
 
@@ -220,66 +213,72 @@ In this example, the target systems is an ABAP system in SAP BTP.
 
 7. **Save** your changes.
 
-8. Switch to the **Outbound C...** (C... like Certificate) tab and **Download** the certificate for later usage.
+8. Switch to the **Outbound C...** (C... like Certificate) tab and **Download** the certificate (which was automatically generated during creation of the system) for later usage.
 
     ![Download certificate of target system](ips_target_systems_download_cert.png)
 
-9. **Save** again.
+9.  **Save** again.
 
 
 ### Configure Access to Target via Communication Management
 
-To enable the Identity Authentication service to create users and assign business roles in the target system, that system has to provide the corresponding authorization to the Identity Authentication service. This has to be done in the launchpad of your ABAP environment instance with the user that is authorized to use the **Communication Management** apps.
+To enable Identity Provisioning to create users and assign business roles in the target system, that system has to know it and provide the corresponding authorization to it. The Identity Provisioning will be represented and authenticated as a communication user and system, the required authorizations for Business User operations will be given to it via the corresponding communication scenario in a communication arrangement. 
 
-1. Open the **Maintain Communication Users** app.
+1. Enter your ABAP environment's Fiori Launchpad with the user that is authorized to use the **Communication Management** apps.
 
-    ![Open Maintain Communication Users app](ABAP_FLP_CC_tile.png)
+2. Start typing **Maintain Communication Users** in the Launchpad search and open the App from the results.
 
-2. Select **New**.
+    ![Maintain Communication Users application from search results](ABAP_FLP_CC_search_result.png)
+
+3. Select **New**.
 
     ![Select an option to create a new user](ABAP_FLP_CC_new.png)
 
-3. Enter a **User Name** for example, `IPS_TUTORIAL_USER`, enter a **Description**, **Upload** the certificate from the Identity Provisioning service target system, and select **Create**.
+4. Enter a **User Name** for example, `IPS_TUTORIAL_USER`, enter a **Description**, **Upload** the certificate from the Identity Provisioning target system, and select **Create**.
 
     ![Maintain and create user](ABAP_FLP_CC_create.png)
 
-4. Open the **Communication Systems** app.
+5. Start typing **Communication Systems** in the Launchpad search and open the App from the results.
 
-    ![Open Communication Systems app](ABAP_FLP_CS_tile.png)
+    ![Communication Systems application from search results](ABAP_FLP_CS_search_result.png)
 
-5. Select **New**.
+6. Select **New**.
 
-6. Enter a **System ID** and **System Name**, for example `IPS_TUTORIAL_SYSTEM` in the opening pop up and select **Create**.
+7. Enter a **System ID** and **System Name**, for example `IPS_TUTORIAL_SYSTEM` in the opening pop up and select **Create**.
 
     ![Create system](ABAP_FLP_CS_create.png)
 
-7. In the object page of the new communication system under **General** > **Technical Data**, mark the checkbox to make the communication system **Inbound Only**.
+8.  In the object page of the new communication system under **General** > **Technical Data**, mark the checkbox to make the communication system **Inbound Only**.
 
     ![Set system as Inbound Only](ABAP_FLP_CS_MarkInboundOnly.png)
 
-8. Under **Users for Inbound Communication**, select the **+** to add a user. In the opening pop up, select the communication user you created earlier and choose **OK** so that the pop up closes.
+9.  Under **Users for Inbound Communication**, select the **+** to add a user. In the opening pop up, select the communication user you created earlier and choose **OK** so that the pop up closes.
 
     ![Add inbound user to system and save](ABAP_FLP_CS_save.png)
 
-9. **Save** the system.
+10. **Save** the system.
 
-10. Open the **Communication Arrangements** app.
+11. Start typing **Communication Arrangements** in the Launchpad search and open the App from the results.
 
-    ![Open Communication Arrangements app](ABAP_FLP_CA_tile.png)
+    ![Communication Arrangements application from search results](ABAP_FLP_CA_search_result.png)
 
-11. Select **New**.
+12. Select **New**.
 
-12. A pop up for the creation of a new communication arrangement opens, where you have to select scenario **Identity Provisioning Integration** `SAP_COM_0193`. This communication scenario exposes all the needed services for identity provisioning integration.
+13. A pop up for the creation of a new communication arrangement opens, where you have to select scenario **Identity Provisioning Integration** `SAP_COM_0193`. This communication scenario exposes all the needed services for identity provisioning integration.
 
     ![Select communication scenario SAP_COM_0193](ABAP_FLP_CA_select_scenario.png)
 
-13. Select **Create**.
+14. Select **Create**.
 
-    ![Save the communication arrangement](ABAP_FLP_CA_create.png)
+    ![Create the communication arrangement](ABAP_FLP_CA_create.png)
 
-14. **Save** the communication arrangement.
+15. Set the Communication System
 
-Now the communication user can be authenticated via the certificate sent by Identity Provisioning service and has the authorization to create users and assign roles.
+    ![Set System at Arrangement and Save](ABAP_FLP_CA_save.png)
+
+16. **Save** the communication arrangement.
+
+Now the communication user can be authenticated via the certificate sent by Identity Provisioning and has the authorization to create users and assign roles.
 
 <!--service key version--->
 <!--1. Navigate to **Services > Instances and Subscriptions** in your SAP BTP subaccount, search for your ABAP environment instance and select **Create Service Key**
@@ -314,7 +313,7 @@ Now the communication user can be authenticated via the certificate sent by Iden
 
     ![View Credentials of service instance](BTP_ABAP_env_view_credentials.png)
 
-6. Choose the credentials that you have set earlier as service key for Identity Provisioning service.
+6. Choose the credentials that you have set earlier as service key for Identity Provisioning.
 Copy the **`username`**, **`password`** and **`url`** value for the next step.     
 
     ![Get communication user credentials from service key](btp_service_key_get_credentials.png)-->
@@ -323,25 +322,23 @@ Copy the **`username`**, **`password`** and **`url`** value for the next step.
 
 ### Run Identity Provisioning
 
-After the source and target Systems have been created and connected with each other you can run the Identity provisioning.
+Now you can run the Identity provisioning.
 
-1. Switch to **Source Systems**.
+![Run Identity Provisioning Job for Source System ](IPS_source_system_run_job.png)
 
-    ![Navigate from Target System to Source Systems](IPS_target_system_2_source_systems.png)
+1. Switch to **Identity Provisioning** > **Source Systems**.
 
-2. Open your source system and select the **Jobs** tab.
+2. Open your source system.
+   
+3. Select the **Jobs** tab.
 
-3. Choose **Run Now**.
+4. Choose **Run Now**.
 
-    ![Run Identity Provisioning Job](IPS_source_system_run_job.png)
+5. To check the status of the job run, select **Identity Provisioning** > **Job Logs** from the navigation pane.
 
-4. To check the status of the job run, select **Job Logs** from the navigation pane.
+    ![Job Logs](IPS_Job_log.png)
 
-    ![Navigate to Job Logs](IPS_Job_logs_open.png)
-
-5. Search for your log by checking the source system name and time and make sure the status is **Success**.
-
-    ![Job finished successfully](IPS_Job_log_success.png)
+6. Search for your log by checking the source system name and time and make sure the status is **Success**.
 
 >If the run did not finish successfully, you can navigate to the log and follow the instructions there to analyze and solve the problem. See also [Guided Answers: Identity Provisioning Troubleshooting](https://ga.support.sap.com/dtp/viewer/#/tree/2065/actions/26547:29111:29114:27412).
 
