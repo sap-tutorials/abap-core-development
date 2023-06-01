@@ -54,44 +54,44 @@ Although this tutorial describes the flow with a trial account, the sequence is 
 
 3.  In the navigation pane expand the **Connectivity** section.
 
+    ![Get to New Destination](btp-destination-new.png)
+
 4.  Select **Destinations**.
 
 5.  To simplify the destination creation and to reduce the risk of errors, this tutorial provides a template text file for the destination. You can download [`YOUR_SYSTEMS_ID_SAML_ASSERTION_trial_s4hc_template_destination.txt`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/master/tutorials/abap-custom-ui-bas-connect-s4hc/YOUR_SYSTEMS_ID_SAML_ASSERTION_trial_s4hc_template_destination.txt) locally.
 
-6. Create the destination either by uploading the text file via **Import Destination** (A) or if you want to input everything manually via **New Destination** (B).
+6.  Create the destination either by uploading the text file via **Import Destination** (A) or if you want to input everything manually via **New Destination** (B).
 
- ![Get to New Destination](btp-destination-new.png)
+7.  In case of import (A) adapt the `Name` and `Description` to your needs and provide the mandatory value for `URL` and `Audience` as shown below.
 
-7. In case of import (A) adapt the `Name` and `Description` to your needs and provide the mandatory value for `URL` and `Audience` as shown below.
+    In case of completely manual configuration (B) set the values as shown below.
 
-   In case of completely manual configuration (B) set the values as shown below.
+    |  Field Name     | Value
+    |  :------------- | :-------------
+    |  Name           | **`<YOUR_SYSTEMS_ID>_SAML_ASSERTION`**
+    |  Type           | **`HTTP`**
+    |  Description    | **`SAML Assertion Destination to SAP S/4HANA Cloud tenant <YOUR_SYSTEMS_ID>`**
+    |  URL          | In the SAP S/4HANA Cloud tenant, navigate to the **Communication Systems** app and copy the **Host Name** from **Own SAP Cloud System** = `Yes`<div>![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)</div> and paste it with prefix `https://` for example `https://my12345-api.s4hana.ondemand.com.`
+    |  Proxy Type   | **`Internet`**
+    |  Authentication | **`SAMLAssertion`**
+    |  Audience   | Enter the URL of your system and remove `-api`, for example `https://my12345.s4hana.ondemand.com`.
+    |  `AuthnContextClassRef` | **`urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`**
 
-   |  Field Name     | Value
-   |  :------------- | :-------------
-   |  Name           | **`<YOUR_SYSTEMS_ID>_SAML_ASSERTION`**
-   |  Type           | **`HTTP`**
-   |  Description    | **`SAML Assertion Destination to SAP S/4HANA Cloud tenant <YOUR_SYSTEMS_ID>`**
-   |  URL          | In the SAP S/4HANA Cloud tenant, navigate to the **Communication Systems** app and copy the **Host Name** from **Own SAP Cloud System** = `Yes`<div>![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)</div> and paste it with prefix `https://` for example `https://my12345-api.s4hana.ondemand.com.`
-   |  Proxy Type   | **`Internet`**
-   |  Authentication | **`SAMLAssertion`**
-   |  Audience   | Enter the URL of your system and remove `-api`, for example `https://my12345.s4hana.ondemand.com`.
-   |  `AuthnContextClassRef` | **`urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`**
+    Select **New Property** and maintain the following **Additional Properties** and values.
 
-   Select **New Property** and maintain the following **Additional Properties** and values.
+    |  Field Name     | Value          | Remark
+    |  :------------- | :------------- | :-------------
+    |  HTML5.DynamicDestination           | **`true`**   |&nbsp;
+    |  HTML5.Timeout           | **`60000`**   | value stated in milliseconds. 60000 equals 1 minute. Required as deployment needs longer than the standard of 30 seconds.
+    |  `WebIDEEnabled`    | **`true`**   |&nbsp;
+    |  `WebIDEUsage`          | **`odata_abap,dev_abap`**   |&nbsp;
+    |  `nameIDFormat`     | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**  | Required in case your subaccount sends mail address as SAML Name ID for authentication ( **Subject Name Identifier** in Identity Authentication tenant), although SAP S/4HANA Cloud tenant expects user login by default. **That is the case with a trial Account.** This also requires the mail address to be maintained for SAP S/4HANA Cloud tenant business users.
 
-   |  Field Name     | Value          | Remark
-   |  :------------- | :------------- | :-------------
-   |  HTML5.DynamicDestination           | **`true`**   |&nbsp;
-   |  HTML5.Timeout           | **`60000`**   | value stated in milliseconds. 60000 equals 1 minute. Required as deployment needs longer than the standard of 30 seconds.
-   |  `WebIDEEnabled`    | **`true`**   |&nbsp;
-   |  `WebIDEUsage`          | **`odata_abap,dev_abap`**   |&nbsp;
-   |  `nameIDFormat`     | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**  | Required in case your subaccount sends mail address as SAML Name ID for authentication (**Subject Name Identifier** in Identity Authentication tenant), although SAP S/4HANA Cloud tenant expects user login by default. **That is the case with a trial Account.** This also requires the mail address to be maintained for SAP S/4HANA Cloud tenant business users.
+8.  Make sure that the **Use default JDK truststore** checkbox is ticked.
 
-8. Make sure that the **Use default JDK truststore** checkbox is ticked.
+    ![Configure Destination](btp-destination-configure.png)
 
-   ![Configure Destination](btp-destination-configure.png)
-
-9. Click **Save**.
+9.  Click **Save**.
 
 
 
