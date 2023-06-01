@@ -11,7 +11,7 @@ primary_tag: topic>abap-extensibility
 
 ## Prerequisites
 - You have an **SAP S/4HANA Cloud tenant** for development and a business user with UI Development authorization (this requires a business role with unrestricted write access containing business catalog *Extensibility - Fiori App Development* *`SAP_CORE_BC_EXT_UI`*).
-- You have a custom business object with OData service running in the SAP S/4HANA Cloud tenant, for example `YY1_BONUSPLAN`, see [Create a Custom Business Object](abap-extensibility-cbo-create) and first two steps of [Expose Custom Business Object as External Web Service](abap-custom-ui-business-object).
+- You have a custom business object with OData service running in the SAP S/4HANA Cloud tenant, for example `YY1_BONUSPLAN`, see [Create a Custom Business Object](abap-extensibility-cbo-create) and first steps of [Create the UI for a Custom Business Object](abap-extensibility-cbo-ui-generation), but be aware that User Interface needs to stay de-selected as otherwise you wouldn't get the label texts automatically in the custom UI!
 - You have an SAP Business Technology Platform (SAP BTP) trial account with an SAP Business Application Studio subscription and a dev space within that, see preceding tutorials of this tutorial group.
 
 ## You will learn
