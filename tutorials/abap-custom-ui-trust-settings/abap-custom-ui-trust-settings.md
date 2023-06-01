@@ -2,13 +2,11 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-development
-tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility  ]
+tags: [  tutorial>beginner, tutorial>license, topic>abap-development, topic>abap-extensibility  ]
 time: 25
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
 ---
 
-# Set Up Trust Between Identity Authentication and SAP Business Technology Platform
+# Set Up Trust Between Identity Authentication and SAP Business Technology Platform Neo Environment
 <!-- description --> Set up trust between SAP Cloud Identity Services - Identity Authentication and SAP Business Technology Platform for secure communication via SAML 2.0.
 
 ## Prerequisites
