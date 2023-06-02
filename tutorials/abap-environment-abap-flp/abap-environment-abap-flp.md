@@ -33,7 +33,7 @@ Learn how to integrate your list report application into ABAP Fiori launchpad.
 ### Make use of existing IAM App and business catalog
 
 
-  1. Open ADT, select your package `ZTRAVEL_APP_XXX` and open your IAM App `ZTRAVEL_IAM_XXX`. Add the UI5 application ID to your IAM app and publish it.
+  1.  Open ADT, select your package `ZTRAVEL_APP_XXX` and open your IAM App `ZTRAVEL_IAM_XXX`. On the **Overview** tab add the UI5 application ID to your IAM app and publish it, by right-clicking on the IAM app.
 
     ![iamapp](iamapp.png)
 

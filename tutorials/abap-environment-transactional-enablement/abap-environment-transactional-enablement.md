@@ -226,9 +226,6 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
        "provide the appropriate lock handling if required
       ENDMETHOD.
 
-      METHOD get_instance_authorizations.
-      ENDMETHOD.
-
     ENDCLASS.
 
 
