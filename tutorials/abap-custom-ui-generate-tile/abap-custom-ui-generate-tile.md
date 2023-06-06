@@ -37,7 +37,7 @@ Start typing **Custom Catalog Extensions** in the Launchpad search and open the 
 
 Search your application and select it.
 
-The ID of your application is the combination of the name that you gave when deploying it from SAP Business Technology Platform to S/4HANA Cloud including the prefix `YY1_` plus the suffix `_UI5R`. It is of type `Custom UI App`.  
+The ID of your application is the combination of the name that you gave when deploying it from SAP Business Technology Platform to SAP S/4HANA Cloud including the prefix `YY1_` plus the suffix `_UI5R`. It is of type `Custom UI App`.  
 
 ![Select application for Custom Catalog Extension](CCE_selectApp.png)
 
