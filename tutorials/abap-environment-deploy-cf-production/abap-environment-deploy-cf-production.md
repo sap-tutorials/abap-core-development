@@ -19,6 +19,7 @@ author_profile: https://github.com/mervey45
     - You need to be an organization manager at the used Cloud Foundry subaccount
     - You need to be a security administrator at the used Cloud Foundry Subaccount​
     - The SAP Business Application Studio and the SAP BTP, ABAP environment instance must be under same subaccount.
+    - Read following blog post to get an overview on [Connecting from SAP Business Application Studio to SAP BTP Cloud Foundry environment](https://blogs.sap.com/2021/04/21/connecting-from-sap-business-application-studio-to-sap-btp-cloud-foundry-environment/)
 
 ## You will learn  
 - How to assign role collections
@@ -51,17 +52,10 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](user3.png)
 
-<<<<<<< HEAD
-  5. Select `Business_Application_Studio_Administrator`, `Business_Application_Studio_Developer` and `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
-
-      ![assign role collection](user4.png)
-
-=======
   5. Select `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
 
       ![assign role collection](user4.png)
  
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 ### Create dev space
@@ -78,11 +72,7 @@ author_profile: https://github.com/mervey45
   3. Create a new dev space:
        - Name: **Fiori**
        - Type: **SAP Fiori**
-<<<<<<< HEAD
-
-=======
  
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
        Click **Create Dev Space**.
 
      ![dev](studio4.png)
@@ -177,12 +167,7 @@ author_profile: https://github.com/mervey45
 
       ![object](s15.png)
 
-<<<<<<< HEAD
-     **HINT:** Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
-
-=======
     >Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
   7. Configure deployment:
        - Target: ABAP
@@ -196,13 +181,8 @@ author_profile: https://github.com/mervey45
 
       Click **Next >**.
 
-<<<<<<< HEAD
-     **HINT:** If you want to copy your transport request, please do following: Open Eclipse, search your package `ZTRAVEL_APP_XXX` and open it. Open your transport organizer to see your transport request. Copy your transport request for later use. You can find your transport request underneath the Modifiable folder.
-     ![app](deploy3.png)
-=======
     >If you want to copy your transport request, please do following: Open Eclipse, search your package `ZTRAVEL_APP_XXX` and open it. Open your transport organizer to see your transport request. Copy your transport request for later use. You can find your transport request underneath the Modifiable folder.
     ![app](deploy3.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 
 
@@ -249,6 +229,8 @@ author_profile: https://github.com/mervey45
 
     When the deployment is successful, you will get these two information back as a result: **UIAD details** and **deployment successful**.
 
+    >**Hint:** If an error message appears, use the [Environment Check](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/75390cf5d81e43aea5db231ef4225268.html).
+
 
 ### Check BSP library and SAP Fiori Launchpad app descriptor item in Eclipse
 
@@ -282,11 +264,7 @@ author_profile: https://github.com/mervey45
 
       ![iam](iam4.png)
 
-<<<<<<< HEAD
-  5. Select **Services** and add a new one.
-=======
   5. Select **Services** and add a new one. 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![iam](iam5.png)
 
@@ -295,14 +273,6 @@ author_profile: https://github.com/mervey45
       - Service Name: `ZUI_C_TRAVEL_M_XXX_0001`    
 
       ![iam](iam6.png)
-<<<<<<< HEAD
-
-      Click **OK**.
-
-      **Save** and **activate** your IAM app.
-
-  7. Right-click your package **`ZTRAVEL_APP_XXX`** and select  **New** > **Other Repository Object**.
-=======
  
       Click **OK**.
 
@@ -311,7 +281,6 @@ author_profile: https://github.com/mervey45
     >If you can't find your service name, you can press **CTRL + space** to search for it.
 
   7. Right-click your package **`ZTRAVEL_APP_XXX`** and select  **New** > **Other Repository Object**. 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
       ![catalog](catalog.png)
 
@@ -328,11 +297,7 @@ author_profile: https://github.com/mervey45
       Click **Next >**.
 
  10. Click **Finish**.
-<<<<<<< HEAD
-
-=======
  
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
       ![catalog](catalog4.png)
 
  11. Select **Apps** and add a new one.
