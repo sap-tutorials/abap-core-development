@@ -65,13 +65,13 @@ To set up the trust from Identity Authentication to the subaccount you need the 
 
 ### Enter SAP Cloud Identity Services administration console
 
-Open the SAP Cloud Identity Services Administration Console with its URL which follows the pattern:
+Open the SAP Cloud Identity Services administration console with its URL which follows the pattern:
 
 `https://<YOUR_TENANTS_ID>.accounts.ondemand.com/admin`
 
-The Tenant ID is an automatically generated ID by the system. The first administrator created for the tenant receives an activation e-mail with a URL in it. This URL contains the tenant ID.
+The Tenant ID is an automatically generated ID by the system. The first administrator created for the tenant receives an activation e-mail with an URL in it. This URL contains the tenant ID.
 
-SAP Cloud Identity Services Administration Console entry screen looks (depending on authorizations) like that
+SAP Cloud Identity Services administration console entry screen looks (depending on authorizations) like that
 
 ![Enter SAP Cloud Identity Services administration console](IAS_entryScreen.png)
 
@@ -80,7 +80,7 @@ SAP Cloud Identity Services Administration Console entry screen looks (depending
 
 The subaccount is represented in SAP Cloud Identity Services as Application.
 
-Choose **Applications & Resources** (1) and go to **Applications** (2). Click **Create** (3) on the left hand panel to enter a **Display Name** (4) to represent your SAP Business Technology Platform subaccount. **Save** (5) your changes.
+Choose **Applications & Resources** (1) and go to **Applications** (2). Click **Create** (3) on the left hand panel and enter a **Display Name** (4) to represent your SAP Business Technology Platform subaccount. **Save** (5) your changes.
 
 ![Add subaccount as application](IAS_addApplication.png)
 
@@ -152,7 +152,7 @@ Choose **New Trust Configuration** to add a trusted identity provider.
 
 ![Click New Trust Configuration](btp-new-trust-config-button.png)
 
-Upload the metadata XML file of your SAP Cloud Identity tenant in the **Metadata File** field. **Save** your changes.
+Upload the metadata XML file of your SAP Cloud Identity tenant in the **Metadata File** field, give a **Name**, as for example the tenant id. **Save** your changes.
 
 ![Upload identity tenant' s metadata as trusted identity provider and save](btp-new-trust-config.png)
 
