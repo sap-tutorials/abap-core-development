@@ -13,7 +13,7 @@ author_profile: https://github.com/Liebherr
 
 ## Prerequisites
 **Authorizations**: Your user needs
-- Administrator access to your **SAP Business Technology Platform** Cloud Foundry subaccount
+- Administrator access to your **SAP Business Technology Platform** (aka SAP BTP) Cloud Foundry subaccount
 - Administrator access to your **SAP Cloud Identity Services tenant**
 
 **Glossary**
@@ -31,20 +31,20 @@ author_profile: https://github.com/Liebherr
 *SAP Cloud Identity Services console*: Web application to configure your tenant
 
 ## You will learn
-- How to set up SAP Business Technology Platform subaccount for secure communication (with Security Assertion Markup Language = SAML 2.0)
-- How to set up SAP Business Technology Platform subaccount on SAP Cloud Identity Services for secure communication
-- How to get necessary information from your SAP Business Technology Platform subaccount and your SAP Cloud Identity Services tenant to set up the mutual trust between them
+- How to set up SAP BTP subaccount for secure communication (with Security Assertion Markup Language = SAML 2.0)
+- How to set up SAP BTP subaccount on SAP Cloud Identity Services for secure communication
+- How to get necessary information from your SAP BTP subaccount and your SAP Cloud Identity Services tenant to set up the mutual trust between them
 
 **Additional Information**
 >Tutorial last updated in May 2023
 
 - **Documentation:** [SAP Cloud Identity Services - Identity Authentication](https://help.sap.com/viewer/6d6d63354d1242d185ab4830fc04feb1/Cloud/en-US/d17a116432d24470930ebea41977a888.html)
 
->Be aware that in case of an integration with SAP S/4HANA Cloud the used Identity Authentication for the subaccount should be the very same as the one used for the SAP S/4HANA Cloud system.
+>Be aware that in case of an integration with SAP S/4HANA Cloud the used Identity Authentication for the SAP BTP subaccount should be the very same as the one used for the SAP S/4HANA Cloud system.
 >
->Your SAP S/4HANA Cloud system you got already delivered by SAP with a configured trust between it and your SAP Cloud Identity Services tenant. Now you will configure the trust between that and your SAP Business Technology Platform subaccount on your own.
+>Your SAP S/4HANA Cloud system you got already delivered by SAP with a configured trust between it and your SAP Cloud Identity Services tenant. Now you will configure the trust between that and your SAP BTP subaccount on your own.
 >
->![SAP S/4HANA Cloud and SAP Business Technology Platform subaccount share same Identity Provider](trust_IAS_SCP.png)
+>![SAP S/4HANA Cloud and SAP BTP subaccount share same Identity Provider](trust_IAS_SCP.png)
 
 
 ---
@@ -52,11 +52,11 @@ author_profile: https://github.com/Liebherr
 
 ### Get SAML metadata of SAP BTP subaccount
 
-To set up the trust from Identity Authentication to the subaccount you need the subaccount's SAML metadata.
+To set up the trust from Identity Authentication to the SAP BTP subaccount you need the subaccount's SAML metadata.
 
 ![Enter SAP BTP Trust Configuration and get metadata](btp-open-trust-config-get-metadata.png)
 
-1. Enter the SAP Business Technology Platform subaccount as an administrator and expand the **Security** area.
+1. Enter the SAP BTP subaccount's cockpit as an administrator and expand the **Security** area.
    
 2. Open **Trust Configuration**.
    
@@ -78,22 +78,22 @@ SAP Cloud Identity Services administration console entry screen looks (depending
 
 ### Add SAP BTP subaccount as application
 
-The subaccount is represented in SAP Cloud Identity Services as Application.
+The SAP BTP subaccount is represented in SAP Cloud Identity Services as Application.
 
-Choose **Applications & Resources** (1) and go to **Applications** (2). Click **Create** (3) on the left hand panel and enter a **Display Name** (4) to represent your SAP Business Technology Platform subaccount. **Save** (5) your changes.
+Choose **Applications & Resources** (1) and go to **Applications** (2). Click **Create** (3) on the left hand panel and enter a **Display Name** (4) to represent your SAP BTP subaccount. **Save** (5) your changes.
 
-![Add subaccount as application](IAS_addApplication.png)
+![Add SAP BTP subaccount as application](IAS_addApplication.png)
 
 
-### Configure application's trust with subaccount
+### Configure application's trust with SAP BTP subaccount
 
 1. The newly created application will be shown, choose **SAML 2.0 Configuration**.
 
-    ![Configure application' s SAML 2.0 trust with subaccount](IAS_openSamlConfig.png)
+    ![Configure application' s SAML 2.0 trust with SAP BTP subaccount](IAS_openSamlConfig.png)
 
-2. **Browse** for the metadata XML file of your SAP Business Technology Platform subaccount and upload it. By this all needed properties are gotten from the XML file.
+2. **Browse** for the metadata XML file of your SAP BTP subaccount and upload it. By this all needed properties are gotten from the XML file.
 
-    ![Upload subaccount' s metadata](IAS_uploadSubaccountMetadata.png)
+    ![Upload SAP BTP subaccount' s metadata](IAS_uploadSubaccountMetadata.png)
    
 3. **Save** the SAML 2.0 configuration.
 
@@ -126,7 +126,7 @@ Select your corporate identity provider as **Default Identity Provider** and cli
 
 ### Get SAML metadata of SAP Cloud Identity Services tenant
 
-To set the SAP Cloud Identity Services tenant as trusted identity provider in the SAP Business Technology Platform subaccount next, you need to get its SAML metadata first.
+To set the SAP Cloud Identity Services tenant as trusted identity provider in the SAP BTP subaccount next, you need to get its SAML metadata first.
 
 ![Open SAP Cloud Identity Services tenant's settings - SAML 2.0 configuration](IAS-tenant-settings-SAML-config.png)
 
@@ -146,7 +146,7 @@ To set the SAP Cloud Identity Services tenant as trusted identity provider in th
 
 ### Add SAP Cloud Identity Services tenant as SAP BTP subaccount's trusted identity provider
 
-Switch back to your SAP Business Technology Platform cockpit and go to your trust configuration.
+Switch back to your SAP BTP cockpit and go to your trust configuration.
 
 Choose **New Trust Configuration** to add a trusted identity provider.
 
