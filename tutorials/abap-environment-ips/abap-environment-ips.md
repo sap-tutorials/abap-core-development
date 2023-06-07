@@ -12,27 +12,28 @@ primary_tag: software-product>sap-btp--abap-environment
 ## Prerequisites
  - You have installed and set up ABAP Development Tools for Eclipse, see <https://tools.hana.ondemand.com/#abap>
  - You have an **SAP Business Technology Platform** customer subaccount and have prepared the following
-    - Subscription to **Cloud Identity Services**
-    - Established trust to your **SAP Cloud Identity Services tenant**, see [ABAP Environment Documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
-    - Created an **ABAP environment** service instance for custom development with
+    - Subscription to **SAP Cloud Identity Services**
+    - Established trust to your **SAP Cloud Identity Services tenant**, see [SAP BTP ABAP Environment Documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
+    - Created an **SAP BTP ABAP Environment** service instance for custom development with
         - An SAP Fiori launchpad business role for custom ABAP development created from template `SAP_BR_DEVELOPER`, as for example in this tutorial `BR_IPS_TUTORIAL_DEVELOPER`
         - A service key for ADT integration
  - You have one or more users with authorization for
     - User and Group Management in your **SAP Cloud Identity Services tenant**
     <!--- Space development in your ABAP system service instance's Cloud Foundry space-->
-    - **Communication Management** in your ABAP environment service instance (business catalog ID `SAP_CORE_BC_COM` or business role from template ID `SAP_BR_ADMINISTRATOR`)
+    - **Communication Management** in your SAP BTP ABAP Environment service instance (business catalog ID `SAP_CORE_BC_COM` or business role from template ID `SAP_BR_ADMINISTRATOR`)
 
 ## You will learn
   - How to create and group developer identities in your **SAP Cloud Identity Services tenant**
-  - How to enable identity provisioning in your SAP Cloud Identity tenant
+  - How to enable identity provisioning in your SAP Cloud Identity Services tenant
   - How to configure and run identity provisioning
-  - How to connect Eclipse with the ABAP environment
+  - How to connect Eclipse with the SAP BTP ABAP Environment
 
-## Intro
-Additional information:
+**Additional information**
 
   - In this use case the **SAP Cloud Identity Services tenant** is used as an identity provider and not as a proxy to another identity provider.
   - [Documentation: SAP Cloud Identity Services – Identity Provisioning](https://help.sap.com/viewer/f48e822d6d484fa5ade7dda78b64d9f5/Cloud/en-US/2d2685d469a54a56b886105a06ccdae6.html)
+
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 ---
 
@@ -40,11 +41,11 @@ Additional information:
 
 As the SAP Cloud Identity service tenant serves as the identity provider, we first ensure that there is an identity for the developer, that shall get a user provisioned in a SAP BTP ABAP Environment.
 
-1. Log on with your User Management Administrator to your SAP Cloud Identity tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
+1. Log on with your User Management Administrator to your SAP Cloud Identity Services tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
    
 2. Navigate to **Users & Authorizations** > **User Management**.
 
-    ![Open User Management in SAP Cloud Identity service tenant and Press Add button for new user](IAS_user_mgmt_open_user_add.png)
+    ![Open User Management in SAP Cloud Identity Services tenant and Press Add button for new user](IAS_user_mgmt_open_user_add.png)
 
 3. Select **Add** to start the creation process of a user.
    
@@ -56,12 +57,12 @@ As the SAP Cloud Identity service tenant serves as the identity provider, we fir
 
     ![List entry for new user](IAS_user_created.png)
 
->Note that the SAP Cloud Identity service user will receive an email to activate the account before being able to log on with a local user in some other connected system for the first time.
+>Note that the SAP Cloud Identity Services user will receive an email to activate the account before being able to log on with a local user in some other connected system for the first time.
 
 
 ### Create Developer Group and Assign User
 
-To bundle developer users, create a corresponding user group in the SAP Cloud Identity service tenant and assign the users to it.
+To bundle developer users, create a corresponding user group in the SAP Cloud Identity Services tenant and assign the users to it.
 
 1. Navigate to **Users & Authorizations** > **User Groups** and select **Create**.
 
@@ -69,7 +70,7 @@ To bundle developer users, create a corresponding user group in the SAP Cloud Id
 
 2. In the Create Group dialog enter a **Name** and **Display Name** and select **Create**.
 
-    > For the group name, please use the identical name you have set for the business role in your ABAP environment (created from template `SAP_BR_DEVELOPER`, see prerequisites).
+    > For the group name, please use the identical name you have set for the business role in your SAP BTP ABAP Environment (created from template `SAP_BR_DEVELOPER`, see prerequisites).
 
     ![Configure properties of new group](IAS_group_configure_new.png)
 
@@ -98,7 +99,7 @@ Navigate to **Users & Authorizations** > **Administrators** choose the Administr
 
 ### Configure Identity Provisioning Source
 
-Identity provisioning requires to configure a so-called source system which is used as a data source for users and user groups that can be provisioned to other systems. We simply need to maintain the used Cloud Identity Service tenant itself as source.
+Identity provisioning requires to configure a so-called source system which is used as a data source for users and user groups that can be provisioned to other systems. We simply need to maintain the used SAP Cloud Identity Service tenant itself as source.
 
 1. Logon with your Identity Provisioning Manager user to your SAP Cloud Identity service tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
 
@@ -145,7 +146,7 @@ Identity provisioning requires to configure a so-called source system which is u
 
 ### Configure Access to Source via Technical User
 
-In this example the provisioning Cloud Identity service tenant itself is used as the source for users and user groups that can be provisioned to other systems. But still to allow identity provisioning to read users and groups, you need a technical user with corresponding permissions.
+In this example the provisioning SAP Cloud Identity Services tenant itself is used as the source for users and user groups that can be provisioned to other systems. But still to allow identity provisioning to read users and groups, you need a technical user with corresponding permissions.
 
 1. Navigate to **Users & Authorizations** > **Administrators**.
 
@@ -176,7 +177,7 @@ Now the source system can be authenticated via the certificate sent by Identity 
 
 Identity provisioning requires to configure a so-called target system to provision user and user group data to. In this example, the target systems is an ABAP system in SAP BTP.
 
-1. Logon with your Identity Provisioning Manager user to your SAP Cloud Identity service tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
+1. Logon with your Identity Provisioning Manager user to your SAP Cloud Identity Services tenant's administration UI (URL ends with path `/admin`, for example `https://rapworkshop.accounts.ondemand.com/admin`).
 
 2. Navigate to **Identity Provisioning** > **Target Systems** 
 
@@ -207,7 +208,7 @@ Identity provisioning requires to configure a so-called target system to provisi
     |  :------------- | :-------------
     |  **`Type`**           | **`HTTP`**
     |  **`ProxyType`**           | **`Internet`**
-    |  **`URL`**          | The API URL of your ABAP environment
+    |  **`URL`**          | The API URL of your SAP BTP ABAP Environment
     |  **`Authentication`** | **`ClientCertificateAuthentication`**
     |  **`Identity Provisioning ips.date.variable.format`**   | **`yyyy-MM-dd`**
 
@@ -344,9 +345,9 @@ Now you can run the Identity provisioning.
 
 
 
-### Log On to ABAP Environment in Eclipse
+### Log On to SAP BTP ABAP Environment in Eclipse
 
-Now that the Developer user has been provisioned and authorized in the ABAP environment for ABAP development, you can connect the user to the system by using ABAP Development Tools for Eclipse.
+Now that the Developer user has been provisioned and authorized in the SAP BTP ABAP Environment for ABAP development, you can connect the user to the system by using ABAP Development Tools for Eclipse.
 
 1. Open your Eclipse and navigate to **File > New > Project**.
 
@@ -376,7 +377,7 @@ Now that the Developer user has been provisioned and authorized in the ABAP envi
 
     ![Log on for ADT succeeded](ADT_project_new_logon_with_developer_success.png)
 
-8. In the project wizard in Eclipse, check the ABAP environment and user data, that are displayed in the **Service Instance Connection** dialog and select **Finish**.
+8. In the project wizard in Eclipse, check the SAP BTP ABAP Environment and user data, that are displayed in the **Service Instance Connection** dialog and select **Finish**.
 
     ![Finish ABAP Cloud project creation](ADT_project_new_finish.png)
 
