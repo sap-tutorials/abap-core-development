@@ -13,7 +13,7 @@ time: 15
 **Authorizations:** Your user needs
 - (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **SAP S/4HANA Cloud** system
 - access to **[SAP Business Accelerator Hub](https://api.sap.com)**.
-**Example Objects:** Existence of custom business object `Bonus Entitlement` as described in this [tutorial](https://blogs.sap.com/2017/02/20/part-iv-associated-business-objects-bonus-entitlement-with-plan-sales-order/) (Blog)
+**Example Objects:** Existence of custom business object `Bonus Entitlement` as described in this [tutorial](https://blogs.sap.com/2017/02/20/part-iv-associated-business-objects-bonus-entitlement-with-plan-sales-order/) (Blog), but without any special `bonusplan-releasestatus` logic.
 **Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
 
 ## You will learn
