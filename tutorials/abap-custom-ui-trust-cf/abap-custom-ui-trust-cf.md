@@ -62,6 +62,8 @@ To set up the trust from Identity Authentication to the SAP BTP subaccount you n
    
 3. Click **SAML Metadata**.
 
+The metadata will be downloaded as XML file.
+
 
 ### Enter SAP Cloud Identity Services administration console
 
@@ -76,7 +78,7 @@ SAP Cloud Identity Services administration console entry screen looks (depending
 ![Enter SAP Cloud Identity Services administration console](IAS_entryScreen.png)
 
 
-### Add SAP BTP subaccount as application
+### Add SAP BTP subaccount as an application
 
 The SAP BTP subaccount is represented in SAP Cloud Identity Services as Application.
 
@@ -91,9 +93,11 @@ Choose **Applications & Resources** (1) and go to **Applications** (2). Click **
 
     ![Configure application' s SAML 2.0 trust with SAP BTP subaccount](IAS_openSamlConfig.png)
 
-2. **Browse** for the metadata XML file of your SAP BTP subaccount and upload it. By this all needed properties are gotten from the XML file.
+2. **Browse** for the SAML metadata XML file of your SAP BTP subaccount that you downloaded before and upload it. 
 
     ![Upload SAP BTP subaccount' s metadata](IAS_uploadSubaccountMetadata.png)
+
+    All the needed properties will be automatically fetched from the XML file.
    
 3. **Save** the SAML 2.0 configuration.
 
