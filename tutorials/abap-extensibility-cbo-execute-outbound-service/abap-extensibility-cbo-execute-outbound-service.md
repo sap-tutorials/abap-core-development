@@ -7,35 +7,34 @@ time: 15
 ---
 <!--DONE in E1Y-->
 # Execute an Outbound Service from Custom Business Object Logic
-<!-- description --> Call an external service of SAP API Business Hub from inside the logic implementation of a custom business object.
+<!-- description --> Call an external service of SAP Business Accelerator Hub from inside the logic implementation of a custom business object.
 
 ## Prerequisites  
 **Authorizations:** Your user needs
-- (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **S/4HANA Cloud** system
-- access to **[SAP API Business Hub](https://api.sap.com)**.
+- (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **SAP S/4HANA Cloud** system
+- access to **[SAP Business Accelerator Hub](https://api.sap.com)**.
 **Example Objects:** Existence of custom business object `Bonus Entitlement` as described in this [tutorial](https://blogs.sap.com/2017/02/20/part-iv-associated-business-objects-bonus-entitlement-with-plan-sales-order/) (Blog)
-**Knowledge:** (optional) [Tutorial: Getting started with the SAP API Business Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
+**Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
 
 ## You will learn
-- How to get needed service data from SAP API Business Hub Sandbox
+- How to get needed service data from SAP Business Accelerator Hub Sandbox
 - How to configure outbound service connection in SAP S/4HANA Cloud system
 - How to call and process an outbound service in custom business object logic
 
 ## Intro
 The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
-> Be aware that the example is done with SAP API Business Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
+> Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
 
-## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
   
 ---
-### Excursus - Try out the service in SAP API Business Hub
+### Excursus - Try out the service in SAP Business Accelerator Hub
 
-To get to know the SAP Translation Hub service first, you can try it out in SAP API Business Hub.
+To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
 
-1. Go to [Try out of SAP Translation Hub on SAP API Business Hub](https://api.sap.com/api/translationhub/tryout)
+1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
 
-    ![Try out of SAP Translation Hub on SAP API Business Hub](API_Hub_TryOut.png)
+    ![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
 
 2. Expand the **Translate** operations section .
 
@@ -68,15 +67,15 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
 
 To configure the connection to the system and the outbound scenario you will need the service's end point.
 
-After trying out the service in SAP API Business Hub, the response appears. Copy the Request URL - which is the end point - from the response section and paste it into a text editor for later use.
+After trying out the service in SAP Business Accelerator Hub, the response appears. Copy the Request URL - which is the end point - from the response section and paste it into a text editor for later use.
 
 ![Service End Point: Request URL in response section](API_Hub_GetServiceEndPoint.png)
 
-In order to authenticate during service call later you'll need an API Key of SAP API Business Hub.
+In order to authenticate during service call later you'll need an API Key of SAP Business Accelerator Hub.
 
-1. Still in SAP API Business Hub, scroll to top and press **Show API Key**
+1. Still in SAP Business Accelerator Hub, scroll to top and press **Show API Key**
 
-    ![Button to show API Key of in SAP API Business Hub](API_Hub_ShowAPI_Key.png)
+    ![Button to show API Key of in SAP Business Accelerator Hub](API_Hub_ShowAPI_Key.png)
     A pop up opens.
 
 2. Press **Copy Key and Close** to save the key to your clipboard.
@@ -88,9 +87,9 @@ In order to authenticate during service call later you'll need an API Key of SAP
 
 ### Create Communication System for Sandbox
 
-In order to allow communication with the SAP API Business Hub Sandbox you have to create a communication system for it in your SAP S/4HANA System.
+In order to allow communication with the SAP Business Accelerator Hub Sandbox you have to create a communication system for it in your SAP S/4HANA Cloud System.
 
-1. Enter your SAP S/4HANA system's Fiori Launchpad.
+1. Enter your SAP S/4HANA Cloud system's Fiori Launchpad.
 
 2. Start typing **Communication Systems** in the Launchpad search and open the App from the results.
 
@@ -126,7 +125,7 @@ In order to allow communication with the SAP API Business Hub Sandbox you have t
 
 ### Create custom communication scenario for outbound service
 
-Define the external SAP API Business Hub service as an available Communication Scenario.
+Define the external SAP Business Accelerator Hub service as an available Communication Scenario.
 
 1. Start typing **Custom Communication Scenario** in the Launchpad search and open the App from the results.
 

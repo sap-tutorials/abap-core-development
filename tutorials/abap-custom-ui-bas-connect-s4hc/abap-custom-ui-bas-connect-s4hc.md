@@ -23,13 +23,13 @@ To follow this tutorial, you can also use your customer account. However, for th
 
   - Set up mutual trust between the SAP BTP subaccount and the Identity Provider, see
 
-    - [ABAP Environment Documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
+    - [SAP BTP, ABAP environment documentation: Setup of a Custom Identity Service](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/550251abaf49432bbaa65147b65a1f39.html)
 
-    - [Tutorial: SAP Business Technology Platform Neo Environment](abap-custom-ui-trust-settings) which is showing the process in SAP BTP Neo Environment instead of here needed Cloud Foundry environment. Nevertheless it's that similar, that in can help, you only have to omit setting the subaccount as service provider
+    - [Tutorial: Set Up Trust Between SAP Cloud Identity Services and SAP BTP Cloud Foundry Environment](abap-custom-ui-trust-cf)
 
-    - [SAP BTP Documentation: Trust and Federation with Identity Providers](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cb1bc8f1bd5c482e891063960d7acd78.html)  
+    - [SAP BTP documentation: Trust and Federation with Identity Providers](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cb1bc8f1bd5c482e891063960d7acd78.html)  
 
-  - Assign the developer users permission for SAP Business Application Studio, see [ABAP Environment Documentation: Assigning Permissions for SAP Business Application Studio](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/a08c1cb7def34798891b0a1ac6ddbd96.html)
+  - Assign the developer users permission for SAP Business Application Studio, see [SAP BTP, ABAP environment documentation: Assigning Permissions for SAP Business Application Studio](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/a08c1cb7def34798891b0a1ac6ddbd96.html)
 
 Alternatively, see [Integrating SAP Business Application Studio](https://help.sap.com/viewer/0f69f8fb28ac4bf48d2b57b9637e81fa/latest/en-US/22bc724fd51a4aa4a4d1c5854db7e026.html) documentation for this tutorial's content with a customer account.
 
