@@ -4,8 +4,6 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
 ---
 
 # Expose Custom Business Object as External Web Service
@@ -14,11 +12,7 @@ author_profile: https://github.com/Liebherr
 ## Prerequisites  
 - **Tutorial:**
 [Create a Custom Business Object](abap-extensibility-cbo-create)
-<<<<<<< HEAD
- - **Authorizations:** Your user needs (a) business role(s) with business catalogs **Extensibility** (ID: `SAP_CORE_BC_EXT`) and **Communication Management** (ID: `SAP_CORE_BC_COM`)
-=======
  - **Authorizations:** Your user needs (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) and **Communication Management** (ID: `SAP_CORE_BC_COM`)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
 - How to create the OData service for a custom business object

@@ -4,6 +4,8 @@ auto_validation: true
 time: 20
 tags: [ tutorial>beginner, software-product>identity-authentication, topic>cloud, tutorial>license]
 primary_tag: software-product>sap-btp--abap-environment
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 
 # Provision Users into your SAP BTP ABAP Environment

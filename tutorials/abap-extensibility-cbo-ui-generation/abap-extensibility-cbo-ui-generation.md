@@ -4,6 +4,8 @@ primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 auto_validation: true
 time: 15
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 
 # Create the UI for a Custom Business Object
@@ -23,17 +25,17 @@ To be able to work with a business object you need a user interface. In this tut
 At the end you will have a running application that you can create, update and delete custom business object entities with.
 
 ## Intro
->**UI Generation** and later done **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA system. They are key user functionality with limited possibilities.
+>**UI Generation** and later done **UI Adaptation** are so called **In-App Extensibility** features done completely inside a SAP S/4HANA Cloud system. They are key user functionality with limited possibilities.
 >
->Alternatively the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create a SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
+>Alternatively the more powerful **Side-By-Side Extensibility** via **SAP Business Technology Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create a SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
+
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 **Our Example**
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
-## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
 
 ---
 ### Generate UI
@@ -62,7 +64,7 @@ Now you grant access to the generated UI by assigning it to a Business Catalog. 
 
 A new window will open.
 
-Start adding a catalog with the **Add** action.
+Press **Add** to start extending the business catalog that the new app shall be part of.
 
 ![Add new Custom Catalog Extension](CCE_add.png)
 

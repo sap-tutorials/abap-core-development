@@ -4,12 +4,10 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 25
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
 ---
 
-#  Create Custom UI for S/4HANA on SAP Cloud Platform
-<!-- description --> Create a UI in a SAP Cloud Platform Subaccount's Web IDE and deploy it to the S/4HANA system.
+#  Create Custom UI for S/4HANA on SAP Business Technology Platform
+<!-- description --> Create a UI in a SAP Business Technology Platform Subaccount's Web IDE and deploy it to the S/4HANA system.
 
 ## Prerequisites
 **Authorizations**: Your user needs
@@ -23,7 +21,7 @@ author_profile: https://github.com/Liebherr
 - How to deploy that UI as application to the S/4HANA Cloud system's SAPUI5 ABAP Repository
 
 ## Intro
-As building UIs in SAP Cloud Platform (Side-by-Side Extensibility) offers more possibilities than UI Adaptation within S/4HANA Cloud (In-App-Extensibility), this tutorial shows you roughly how to build an UI based on a S/4HANA Cloud Custom Business Object's OData service in Web IDE and how to get it to the S/4HANA Cloud system.
+As building UIs in SAP Business Technology Platform (Side-by-Side Extensibility) offers more possibilities than UI Adaptation within S/4HANA Cloud (In-App-Extensibility), this tutorial shows you roughly how to build an UI based on a S/4HANA Cloud Custom Business Object's OData service in Web IDE and how to get it to the S/4HANA Cloud system.
 ## Additional Information
 - **SAP S/4HANA Cloud Release** (tutorial's last update): 1902
 
@@ -32,9 +30,9 @@ As building UIs in SAP Cloud Platform (Side-by-Side Extensibility) offers more p
 ### Create UI project from template in SAP Web IDE
 
 <!--Start of equal part with abap-custom-ui-communication-arrangement-->
-In your SAP Cloud Platform Subaccount go to **Services**, search for **SAP Web IDE** and select it.
+In your SAP Business Technology Platform Subaccount go to **Services**, search for **SAP Web IDE** and select it.
 
-![Open SAP Web IDE service overview in SAP Cloud Platform](sapcp_webIDE_serviceTile.png)
+![Open SAP Web IDE service overview in SAP Business Technology Platform](sapcp_webIDE_serviceTile.png)
 
 Click **Go to Service** to open SAP Web IDE.
 
@@ -58,7 +56,7 @@ Enter basic information for the project, like **`Bonusplan`** as name and title.
 
 Click **Next**.
 
-To add a data connection click **Service Catalog** and set the destination **`SAP_DEV_SYSTEM`** which you have previously created on your SAP Cloud Platform.
+To add a data connection click **Service Catalog** and set the destination **`SAP_DEV_SYSTEM`** which you have previously created on your SAP Business Technology Platform Subaccount.
 <!-- End of equal part with abap-custom-ui-communication-arrangement-->
 Choose **`YY1_BONUSPLAN_CDS`** as service and click **Next**.
 

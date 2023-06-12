@@ -4,31 +4,29 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
 ---
 
 #  Connect SAP Web IDE with S/4HANA Cloud System
-<!-- description --> Expose needed services (scenario SAP_COM_0013) of S/4HANA Cloud system to SAP Web IDE and maintain S/4HANA Cloud system access in SAP Cloud Platform Subaccount
+<!-- description --> Expose needed services (scenario SAP_COM_0013) of S/4HANA Cloud system to SAP Web IDE and maintain S/4HANA Cloud system access in SAP Business Technology Platform Subaccount
 
 ## Prerequisites
 **Authorizations**: Your user needs
 - a business role with business catalog **Communication Management** (ID: `SAP_CORE_BC_COM`) in your **S/4HANA Cloud** system
-- Administrator access to your **SAP Cloud Platform** subaccount
-- Developer access to your SAP Cloud Platform subaccount's **SAP Web IDE**
+- Administrator access to your **SAP Business Technology Platform** subaccount
+- Developer access to your SAP Business Technology Platform subaccount's **SAP Web IDE**
 
 
 ## You will learn
 - How to create a communication arrangement for SAP Web IDE scenario `SAP_COM_0013` in S/4HANA Cloud
-- How to create a HTTP destination to S/4HANA Cloud in SAP Cloud Platform
+- How to create a HTTP destination to S/4HANA Cloud in SAP Business Technology Platform
 - How to create a UI project in SAP Web IDE
 
 ## Intro
-You will learn how to enable SAP Cloud Platform development with SAP Web IDE against a S/4HANA Cloud system via OAuth authentication. You will see that the communication arrangement for SAP Web IDE scenario `SAP_COM_0013` in S/4HANA Cloud will expose essential services, that SAP Web IDE needs. SAP Cloud Platform subaccount will get a destination which holds data for the connection and OAuth communication with the S/4HANA Cloud system. At the end you will see in SAP Web IDE a list of services that you can theoretically build extensions on.
+You will learn how to enable SAP Business Technology Platform development with SAP Web IDE against a S/4HANA Cloud system via OAuth authentication. You will see that the communication arrangement for SAP Web IDE scenario `SAP_COM_0013` in S/4HANA Cloud will expose essential services, that SAP Web IDE needs. SAP Business Technology Platform subaccount will get a destination which holds data for the connection and OAuth communication with the S/4HANA Cloud system. At the end you will see in SAP Web IDE a list of services that you can theoretically build extensions on.
 
-Regarding the overall trust settings, you will now make your S/4HANA Cloud system trust your SAP Cloud Platform subaccount.
+Regarding the overall trust settings, you will now make your S/4HANA Cloud system trust your SAP Business Technology Platform subaccount.
 
-![S/4HANA Cloud trusts SAP Cloud Platform](trust_S4_SCP.png)
+![S/4HANA Cloud trusts SAP Business Technology Platform](trust_S4_SCP.png)
 
 
 That enables its Web IDE to request data from the S/4HANA system during Custom UI development and finally to deploy that UI to the S/4HANA Cloud system. Both processes are so called inbound requests to the S/4HANA Cloud system.
@@ -60,7 +58,7 @@ Add your communication system to your communication arrangement. Select **`SCP_D
 
 ### Get S/4HANA Cloud OAuth Details
 
-For the OAuth destination on SAP Cloud Platform being created in next steps you will need some OAuth details that you can get from the Communication Arrangement. Open the **OAuth 2.0 Details** from Inbound Communication section of the communication arrangement. Copy the data or simply leave the pop up open while maintaining the SAP Cloud Platform destination.
+For the OAuth destination on SAP Business Technology Platform being created in next steps you will need some OAuth details that you can get from the Communication Arrangement. Open the **OAuth 2.0 Details** from Inbound Communication section of the communication arrangement. Copy the data or simply leave the pop up open while maintaining the SAP Business Technology Platform destination.
 
 ![Button for OAuth 2.0 Details](s4_CA_OAuthDetailsButton.png)
 
@@ -70,7 +68,7 @@ A pop up opens
 
 You will need following data
 
-| Label in S/4HANA OAuth Details |	Label in SAP Cloud Platform destination | equals to
+| Label in S/4HANA OAuth Details |	Label in SAP Business Technology Platform destination | equals to
 |:-------------------------------|:------------------|:----
 | Client ID	| Client Key | Communications System's Inbound User
 | User Name |	Token Service User | Communications System's Inbound User
@@ -79,9 +77,9 @@ You will need following data
 | SAML2 Audience| Audience | |
 
 
-### Connect SAP Web IDE's SAP Cloud Platform with S/4HANA Cloud
+### Connect SAP Web IDE's SAP Business Technology Platform with S/4HANA Cloud
 
-Enter the SAP Cloud Platform account as an administrator. Switch to **Destinations** and click **New Destination**.
+Enter the SAP Business Technology Platform subaccount as an administrator. Switch to **Destinations** and click **New Destination**.
 
 ![Create HTTP destination](sapcp_newDestinationLink.png)
 
@@ -119,9 +117,9 @@ Add additional properties:
 ### Test connection from SAP Web IDE to S/4HANA Cloud
 
 <!--Start of equal part with abap-custom-ui-tile-->
-In your SAP Cloud Platform Subaccount go to **Services**, search for **SAP Web IDE** and select it.
+In your SAP Business Technology Platform Subaccount go to **Services**, search for **SAP Web IDE** and select it.
 
-![Open SAP Web IDE service overview in SAP Cloud Platform](sapcp_webIDE_serviceTile.png)
+![Open SAP Web IDE service overview in SAP Business Technology Platform](sapcp_webIDE_serviceTile.png)
 
 Click **Go to Service** to open SAP Web IDE.
 
@@ -145,7 +143,7 @@ Enter basic information for the project, like **`Bonusplan`** as name and title.
 
 Click **Next**.
 
-To add a data connection click **Service Catalog** and set the destination **`SAP_DEV_SYSTEM`** which you have previously created on your SAP Cloud Platform.
+To add a data connection click **Service Catalog** and set the destination **`SAP_DEV_SYSTEM`** which you have previously created on your SAP Business Technology Platform subaccount.
 <!-- End of equal part with abap-custom-ui-tile-->
 
 Now you can see a list of all custom services in the S/4HANA Cloud system. But if you try to select the `Bonusplan` service, you'll get an error message as it is not exposed yet. To finish creating your project, you have to expose that service before.

@@ -4,6 +4,8 @@ auto_validation: true
 time: 20
 tags: [ tutorial>beginner, topic>cloud, tutorial>license, products>sap-business-technology-platform, products>sap-business-application-studio  ]
 primary_tag: topic>abap-extensibility
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 <!--DONE with E1Y-->
 # Connect SAP Business Application Studio and SAP S/4HANA Cloud System
