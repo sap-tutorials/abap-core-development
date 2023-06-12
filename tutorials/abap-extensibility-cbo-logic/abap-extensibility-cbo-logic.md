@@ -4,13 +4,15 @@ auto_validation: true
 primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 20
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 
 # Implement Logic for a Custom Business Object
 <!-- description -->Control your custom business object application with ABAP logic
 
 ## Prerequisites  
-- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **S/4HANA Cloud** system
+- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **SAP S/4HANA Cloud** system
 
 
 ## You will learn  
@@ -29,15 +31,15 @@ At the end your application will set some data automatically and reject a save w
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
-## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
+
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 ---
 ### Make key field Read-Only
 
 As there was no backend implementation to set the mandatory key field **`ID`** so far, we were forced to set it from the UI to be able to save instances. Now, as we will implement the logic to set the ID in backend and nowhere else, we will set that key field to Read-Only for the UI.
 
-1. Enter your SAP S/4HANA system's Fiori Launchpad.
+1. Enter your SAP S/4HANA Cloud system's Fiori Launchpad.
 
 2. Start typing **Custom Business Objects** in the Launchpad search and open the App from the results.
 

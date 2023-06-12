@@ -4,13 +4,15 @@ auto_validation: true
 primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 10
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 <!--DONE in E1Y-->
 # Create a Custom Business Object
 <!-- description -->Define the data structure and create the database persistence of a custom business object.
 
 ## Prerequisites  
- - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **S/4HANA Cloud** system
+ - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **SAP S/4HANA Cloud** system
 
 ## You will learn
 - How to define a custom business object and its simple data structure
@@ -24,15 +26,15 @@ A several tutorials spanning example will show extensibility along custom Bonus 
 As applications are based on business objects, it all starts with custom business object creation.
 
 In the first parts a manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
-## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 2302
+
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 ---
 
 ### Start Custom Business Objects application
 
 
-1. Enter your SAP S/4HANA system's Fiori Launchpad.
+1. Enter your SAP S/4HANA Cloud system's Fiori Launchpad.
 
 2. Start typing **Custom Business Objects** in the Launchpad search and open the App from the results.
 

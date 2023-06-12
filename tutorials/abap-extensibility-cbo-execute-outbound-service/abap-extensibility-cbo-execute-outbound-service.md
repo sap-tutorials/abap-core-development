@@ -4,6 +4,8 @@ auto_validation: true
 primary_tag: programming-tool>abap-extensibility
 tags: [  tutorial>intermediate, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 15
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 <!--DONE in E1Y-->
 # Execute an Outbound Service from Custom Business Object Logic
