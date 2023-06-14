@@ -70,8 +70,8 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
 
 2. Your configuration should look like this. 
 
-  <!-- border -->
-  ![step1b-scc-location-id](step1b-scc-location-id.png)
+    <!-- border -->
+    ![step1b-scc-location-id](step1b-scc-location-id.png)
 
   Note down the **Location ID**, e.g. **`SAPDEV`** as here. **You will need it later.**
 
@@ -93,7 +93,7 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
     ![step2b-scc-resources](step2b-scc-resources.png)
 
 
-### Optional: Check connectivity in SAP BTP cockpit
+### Check connectivity in SAP BTP cockpit (optional)
 
 In the SAP BTP cockpit of your Cloud Foundry sub-account, choose **Cloud Connectors**:
 
@@ -131,7 +131,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 
     <!-- border -->
     ![step2a-new-repo-object](step2a-new-repo-object.png)
-    
+    </br>
     <!-- border -->
     ![step2a-new-outbound-service](step2a-new-outbound-service.png)
 
@@ -177,10 +177,11 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
 5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_RFC_000_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
 
 6. Choose **Finish**. Your communication scenario should look like this.
-Make sure that **Supported Authentication Methods > Basic** is ticked, since you will use this method later.
 
-  <!-- border -->
-  ![step3d-comm-scen-finished](step3d-comm-scen-finished.png) -->
+    Make sure that **Supported Authentication Methods > Basic** is ticked, since you will use this method later.
+
+    <!-- border -->
+    ![step3d-comm-scen-finished](step3d-comm-scen-finished.png) 
 
 7. Leave the other default settings, choose **Save**, then choose **Publish locally**.
 
@@ -213,18 +214,20 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
     | Cloud Connector | **On**
     | SCC Location ID: |**`SAPDEV`**
   
-4. In **RFC Settings** 
-  | Load Balancing | Off
-  | Target Host | **`s4h_rfc`**
-  | Client | *Client of your ABAP on-premise system, also found in the URL e.g. 100*
-  | Instance Number | Default = 00
+4. In **RFC Settings**, enter:
 
-  <!-- border -->
-  ![step4c-comm-system-settings]( step4c-comm-system-settings.png)    
+    | Load Balancing | Off
+    |  :----------------------| :-------------
+    | Target Host | **`s4h_rfc`**
+    | Client | *Client of your ABAP on-premise system, also found in the URL e.g. 100*
+    | Instance Number | Default = 00
+
+    <!-- border -->
+    ![step4c-comm-system-settings]( step4c-comm-system-settings.png)    
 
 5. Under **Users for Outbound Communication**, enter the following, then choose **Close**:
     - Authentication method: **User Name and Password** (basic authentication)
-    - User name: *Any name in the form ``BTP_S4H_CU_000``, where* **BTP** *= SAP BTP ABAP Environment and* **S4H** *= ABAP on-Premise System*
+    - User name: *Any name in the form `BTP_S4H_CU_000`, *where* **BTP** *= SAP BTP ABAP Environment and* **S4H** *= ABAP on-Premise System*
     - Password: *should be generated*. Store this password, e.g. locally, because you will need it later in the on-premise system
 
     <!-- border -->
@@ -265,14 +268,14 @@ For more information, see [Set Up SAP BTP, ABAP Environment and create Your Firs
 
 3. Create a new ABAP class: Choose **File > New > Other... > ABAP Class**.
 
-3. 2. Enter the following for your class, then choose **Next**. 
+4. Enter the following for your class, then choose **Next**. 
     - Name: **`ZCL_SYSTEM_INFO_RFC_000`**
     - Description for your class, e.g. **Test RFC BTP to on-premise** 
     - Interface: **`if_oo_adt_classrun`**. *This enables you to run the class in the console.*
 
-Replace `000` with your group number or initials.
+    Replace `000` with your group number or initials.
 
-4. Create or assign a transport request.
+5. Create or assign a transport request.
 
 
 ### Create variables
@@ -388,14 +391,24 @@ ENDCLASS.
 
 ### Add error handling to the class for the RFC connection
 
-1. Go back to your RFC class. Remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_SYSTEM_INFO`:
+1. Go back to your RFC class. 
+
+    In the method implementation for `if_oo_adt_classrun~main`, add a DATA statement (before you call the function):
+
+    ```ABAP
+    
+    DATA msg TYPE c LENGTH 255.
+    
+    ```
+
+2. Now, in the function call for `RFC_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_SYSTEM_INFO`:
 
     ```ABAP
 
     EXCEPTIONS
       system_failure        = 1 MESSAGE msg
       communication_failure = 2 MESSAGE msg
-      OTHERS                = 3.
+  OTHERS                    = 3.
 
     ```
 
@@ -407,17 +420,21 @@ ENDCLASS.
        WHEN 0.
          out->write( lv_result ).
        WHEN 1.
-         out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
+         out->write( | EXCEPTION SYSTEM_FAILURE | && msg ).
        WHEN 2.
-         out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
+         out->write( | EXCEPTION COMMUNICATION_FAILURE | && msg ).
        WHEN 3.
-         out->write( |EXCEPTION OTHERS| ).
+         out->write( | EXCEPTION OTHERS | ).
     ENDCASE.
 
     ```
 
 
 ### More Information
+
+This tutorial is based on an excellent blog post by André Fischer:
+
+  - [How to call a remote function module in your on-premise SAP system...](https://blogs.sap.com/2019/02/28/how-to-call-a-remote-function-module-in-your-on-premise-sap-system-from-sap-cloud-platform-abap-environment/)
 
 OData services:
 
