@@ -1,6 +1,6 @@
 ---
 parser: v2
-title: Call a Remote Function Module (RFC) From SAP BTP, ABAP Environment
+title: Remote Function Call(RFC) - Connect to Your On-Premise System from SAP BTP, ABAP Environment
 description: Call a remote function module located in an on-premise system, such as a SAP S/4HANA System, from the ABAP Environment
 auto_validation: true
 time: 30
