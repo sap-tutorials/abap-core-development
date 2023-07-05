@@ -8,16 +8,17 @@ primary_tag: software-product>sap-btp--abap-environment
 
 
 # Define your MTA resources and extension descriptors
+
 <!-- description --> Configure the MTA.yaml file and  MTA extension descriptors for deployment to cloud foundry
 
 ## You will learn
-  - How to define modules and resources for a multi-target application
-  - The different services involved in SaaS enabling an add-on on SAP BTP, ABAP Environment
+
+- How to define modules and resources for a multitarget application
+- The different services involved in SaaS enabling an add-on on SAP BTP, ABAP Environment
 
 ---
 
 ### Overview of necessary services
-
 
 To SaaS enable an ABAP Solution, we use the following BTP services alongside the services needed for creation of ABAP systems (`abap/standard`) or  (`abap/saas_oem`)
 
@@ -31,7 +32,7 @@ To SaaS enable an ABAP Solution, we use the following BTP services alongside the
 
 2. XSUAA:
 
-    The XSUAA service instance, acts as an OAuth 2.0 client to the multitenant application, and to the ABAP Solution service instance. It provides access to the SaaS Provisioning service for calling callbacks and getting the dependencies API by granting corresponding scopes.
+    The XSUAA service instance acts as an OAuth 2.0 client to the Multitenant Application and to the ABAP Solution service instance. It provides access to the SaaS Provisioning service for calling callbacks and getting the dependencies API by granting corresponding scopes.
 
     A role collection is defined as part of the XSUAA configuration which provides authorization for the initial user onboarding in the new ABAP tenant after a subscription was done.
 
@@ -39,11 +40,9 @@ To SaaS enable an ABAP Solution, we use the following BTP services alongside the
 
     The SaaS Provisioning service allows application providers to register applications and services in the Cloud Foundry environment in SAP Business Technology Platform.
 
-
 ### Define parameters
 
-
-The MTA file starts with the schema version, ID of the MTA and the MTA version. You can pick your own ID and version; the schema-version should be kept as is.
+In your Business Application Studio dev space, access the project you created in the tutorial 'Create an MTA project for the Multitenant Application using SAP Business Application Studio' and open the mta.yaml file. The MTA file starts with the schema version, ID of the MTA and the MTA version. You can pick your own ID and version, the schema-version should be kept as is.
 
 ```YAML
 _schema-version: "3.1"
@@ -57,7 +56,7 @@ To define parameters which can be reused in further sections, add the following 
 parameters:
   app-domain: ${default-domain}
   route-prefix: -${appname}
-  appname: ProductX
+  appname: 
   addon-product-name:
   provider-admin-email:
   saas-display-name:
@@ -68,10 +67,11 @@ parameters:
 
 |Field Name    | Description|
 |--------------|------------|
-|App name    | Name of your SaaS Application|
-|Addon-product-name | Name of your registered add-on product |
-|SaaS-display-name | Name what your consumer shall see while subscribing |
-|tenant-mode | Define whether you have a single/multi mode  - which defines whether you shall have multiple tenants  |
+|appname    | Name of your SaaS Application|
+|addon-product-name | Name of your registered add-on product |
+|saas-display-name | Name what your consumer shall see while subscribing |
+|tenant-mode | Define whether you have a single/multi mode  - which defines whether you    shall have multiple tenants  |
+|provider-admin-email | Email id of your administrator |
 
 The resultant mta.yaml file shall look as follows:
 
@@ -96,11 +96,7 @@ parameters:
   enable-parallel-deployments: true
 ```
 
-
-
-
 ### Define MTA module for the approuter
-
 
 The modules for our SaaS application must be defined. In our case, that's only the 'approuter'. Keep in mind that all values under 'properties' will be available as environment variables to the application once deployed
 
@@ -177,17 +173,15 @@ modules:
            abap_endpoint_timeout: 6000
 ```
 
-
 ### Define MTA resources
-
 
 Define the resources for XSUAA, SaaS Registry and the ABAP Solution Service
 
-1. "  XSUAA instance needs parameters to be configured as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/6069e4efa8bc456997c9a25abdb69a43.html?version=Cloud)
+1. XSUAA instance needs parameters to be configured as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/6069e4efa8bc456997c9a25abdb69a43.html?version=Cloud)
 
-2.  "The SaaS Provisioning Service needs the parameters as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8be9a3a51232402082480914e020b2d3.html?version=Cloud)
+2. The SaaS Provisioning Service needs the parameters as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8be9a3a51232402082480914e020b2d3.html?version=Cloud)
 
-3.  "The ABAP Solution Service needs the parameters as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/4370115a59a248cd876f0721303eaaab.html?version=Cloud)
+3. The ABAP Solution Service needs the parameters as described [here](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/4370115a59a248cd876f0721303eaaab.html?version=Cloud)
 
 The resources section could look as follows:
 
@@ -362,11 +356,7 @@ resources:
           xsappname: ${appname}
 ```
 
-
-
-
 ### Define MTA extension descriptors
-
 
 The parameters defined in the MTA can be adapted for the corresponding landscape using MTA extension descriptor files. These files extend the original MTA descriptor file (mta.yaml) and allow it to change certain values during deployment.
 
@@ -426,10 +416,6 @@ The workspace looks as follows after both files are created:
 
 ![Workspace](workspace.png)
 
-
 ### Test yourself
-
-
-
 
 ---
