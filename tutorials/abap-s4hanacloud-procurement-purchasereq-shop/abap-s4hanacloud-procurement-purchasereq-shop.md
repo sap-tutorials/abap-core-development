@@ -546,7 +546,6 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
         determination calculateTotalPrice on modify { create; field Price; } //ToDo: add side-effects with 2302
       validation checkOrderedQuantity on save { create; field OrderQuantity; }
       validation checkDeliveryDate on save { create; field DeliveryDate; }
-      event sendPurchaseRequisitionDetails parameter zabs_purchaserequisition;
 
     action(features:instance) createPurchaseRequisitionItem  result [1] $self;
       mapping for ZAONLINESHOP_xxx control zaonlineshop_# corresponding
@@ -599,7 +598,6 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
         determination calculateTotalPrice on modify { create; field Price; } //ToDo: add side-effects with 2302
       validation checkOrderedQuantity on save { create; field OrderQuantity; }
       validation checkDeliveryDate on save { create; field DeliveryDate; }
-      event sendPurchaseRequisitionDetails parameter zabs_purchaserequisition;
 
     action(features:instance) createPurchaseRequisitionItem  result [1] $self;
       mapping for ZAONLINESHOP_XXX control zaonlineshop_# corresponding
@@ -1633,19 +1631,6 @@ Please replace **`X`**, **`#`** and **`XXX`** with your ID.
     *      update zaonlineshop_xxx FROM  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_online_shop-OrderID  ) ).
           update zaonlineshop_xxx SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_online_shop-OrderUUID.
         ENDLOOP.
-        if ls_pr_key-purchaserequisition is not initial.
-
-
-          raise entity event zr_onlineshoptp_xxx~sendPurchaseRequisitionDetails
-            from value #(
-              for prdet in update-onlineshop (
-                  purchase_requisition = ls_pr_key-purchaserequisition
-                  created_by       = prdet-CreatedBy
-                  created_at          = prdet-CreatedAt
-    *              email  = prdet-Email
-                )
-              ).
-        endif.
       ENDIF.
     loop at delete-onlineshop into data(onlineshop_delete) WHERE OrderUUID is not INITIAL.
     delete from zaonlineshop_xxx where order_uuid = @onlineshop_delete-OrderUUID.
