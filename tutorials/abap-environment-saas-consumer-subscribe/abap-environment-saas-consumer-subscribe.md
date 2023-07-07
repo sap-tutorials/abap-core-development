@@ -83,7 +83,7 @@ To access your provider's SaaS application for the first time, you, as consumer,
 
     ![Initial administrator onboarding](InitialAdminOnboarding.png)
 
-  Click OK in the confirmation dialog
+    Click OK in the confirmation dialog
 
     ![User provisioning confirmation](UserProvisioningConfirm.png)
 

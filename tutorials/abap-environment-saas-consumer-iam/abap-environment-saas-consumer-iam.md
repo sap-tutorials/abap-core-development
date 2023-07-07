@@ -5,15 +5,14 @@ time: 10
 tags: [ tutorial>beginner, programming-tool>abap-development, programming-tool>abap-extensibility, tutorial>license]
 primary_tag: software-product>sap-btp--abap-environment
 ---
-# Create Business Users, Configure Roles and Business Configurations
 
-<!-- description --> Create business roles, assign them to business users and configure data for business configurations
+# Create Business Users, Configure Roles and Business Configurations
+<!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
 
 - How to create business users in the consumer tenant and manage business configuration entries
 
----
 
 ### Create Business Roles for the Custom Application
 
@@ -126,3 +125,4 @@ The "Upload Business Configuration" app can be used to upload data via excel imp
 [OPTION END]
 
 ### Test yourself
+---
