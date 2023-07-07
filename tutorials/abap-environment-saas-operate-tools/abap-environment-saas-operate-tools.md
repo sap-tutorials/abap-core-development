@@ -6,7 +6,7 @@ tags: [ tutorial>beginner, programming-tool>abap-development, programming-tool>a
 primary_tag: software-product>sap-btp--abap-environment
 ---
 
-# Maintain and support your SaaS solution
+# Maintain and Support Your SaaS solution
 
 <!-- description --> Overview of tools to maintain the landscape and support consumers of the SaaS solution
 
@@ -79,23 +79,23 @@ Release versions are used to deliver new major, planned functional enhancements.
 
 Navigate to the Landscape Portal as a Landscape Portal Admin.
 
-  1.Open the "Update Product Version" app
+  1. Open the "Update Product Version" app
 
-  2.On the right side of the screen, you can see the Planning Calendar. The planning calendar gives an overview of planned and unplanned downtimes of service-relevant infrastructure as well as already scheduled product version updates. You can use the calendar to help you find a fitting time slot for your product version update so as to make sure that it doesn't conflict with other downtimes
+  2. On the right side of the screen, you can see the Planning Calendar. The planning calendar gives an overview of planned and unplanned downtimes of service-relevant infrastructure as well as already scheduled product version updates. You can use the calendar to help you find a fitting time slot for your product version update so as to make sure that it doesn't conflict with other downtimes
 
-  3.On the left side, under Product and Product Version Selection, select which product and version you want to update from the drop-down menu
+  3. On the left side, under Product and Product Version Selection, select which product and version you want to update from the drop-down menu
 
-> The product version can only be updated to a higher version. It is not possible to update the product version to a lower version.
+     > The product version can only be updated to a higher version. It is not possible to update the product version to a lower version.
 
-  4.In the Available Systems section, select at least one system in which you want to update the product version. You can also select multiple systems at once
+  4. In the Available Systems section, select at least one system in which you want to update the product version. You can also select multiple systems at once
 
-    ![Update Product Version](UpdateProductVersion.png)
+      ![Update Product Version](UpdateProductVersion.png)
 
-  5.Click the Update button. Fill in the required details in the dialog
+  5. Click the Update button. Fill in the required details in the dialog.
 
-  6.Click Schedule
+  6. Click Schedule
 
-    ![Schedule Product Version Update](ScheduleProductVersionUpdate.png)
+     ![Schedule Product Version Update](ScheduleProductVersionUpdate.png)
 
 ### Verify, update and monitor the process
 
