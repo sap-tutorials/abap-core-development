@@ -347,7 +347,7 @@ resources:
         name: ${appname}
         addon_product_name: ${addon-product-name}
         size_of_runtime: 1
-        size_of_persistence: 2
+        size_of_persistence: 2 
         tenant_mode: ${tenant-mode}
         consumer_id_pattern: ([^-]*).*
         provider_admin_email: ${provider-admin-email}
