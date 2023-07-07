@@ -94,7 +94,7 @@ As an operator, assign a technical Cloud Foundry platform user as a space develo
 
 **Create a Technical Communication User for Access to the Add-on Assembly Kit as a Service(`AAKaaS`):**
 
-As part of the add-on build process, the Add-on Assembly Kit is used. With `AAKaaS`, the on-premise tooling is now available as a cloud service that is used by the build pipeline. 
+As part of the add-on build process, the Add-on Assembly Kit is used. With `AAKaaS`, the on-premise tooling is now available as a cloud service that is used by the build pipeline.
 
 To access the service that is offered via SAP Support Launchpad, a [technical communication user](https://launchpad.support.sap.com/#/notes/2532813) is used. [Create such a technical communication user](https://launchpad.support.sap.com/#/notes/2174416)
 
