@@ -1,4 +1,6 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 5

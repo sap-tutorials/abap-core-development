@@ -1,4 +1,6 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
@@ -7,12 +9,12 @@ primary_tag: software-product>sap-btp--abap-environment
 ---
 
 # Create Business Users, Configure Roles and Business Configurations
+
 <!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
 
 - How to create business users in the consumer tenant and manage business configuration entries
-
 
 ### Create Business Roles for the Custom Application
 
@@ -125,4 +127,5 @@ The "Upload Business Configuration" app can be used to upload data via excel imp
 [OPTION END]
 
 ### Test yourself
+
 ---

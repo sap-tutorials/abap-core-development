@@ -1,4 +1,6 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 5
@@ -71,7 +73,7 @@ For more information on the ABAP RESTful Application Programming Model, see [ABA
 
 After you have successfully developed your application, created a UI, and deployed it to your ABAP system, you will need to Clone or Pull the changes in your software component "/NAMESPC/COMPONENT" into your TST system in the 02 Test subaccount and manually test your changes.
 
-See [How to clone software components](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/18564c54f529496ba420d4c83545a2ce.html?locale=en-US&version=Cloud). 
+See [How to clone software components](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/18564c54f529496ba420d4c83545a2ce.html?locale=en-US&version=Cloud).
 
 Run ABAP Test Cockpit checks in DEV and/or TST systems. See [ABAP Test Cockpit in the cloud](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/22c26ff27b9f44b7b7229a01e8e8ed25.html?version=Cloud) to understand what is already possible.  
 
@@ -157,7 +159,6 @@ According to what is mentioned in the prerequisites, the ABAP systems that you u
 The service parameter `is_development_allowed` is used to differentiate between development and test systems.
 
 >For development in the ABAP correction system COR, you, as a SaaS solution operator, create a system in subaccount 01 Develop in the development space. For correction system COR, set parameter `is_development_allowed = true`.
-
 >For testing in the ABAP quality assurance system QAS, you, as a SaaS solution operator, create a system in subaccount 02 Test in the test space. For quality assurance system QAS, set parameter `is_development_allowed = false`.
 
 Users in the ABAP correction system COR might be locked and need to be unlocked for development of corrections.
