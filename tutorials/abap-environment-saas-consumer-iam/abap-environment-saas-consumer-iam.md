@@ -10,6 +10,7 @@ primary_tag: software-product>sap-btp--abap-environment
 <!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
+
 - How to create business users in the consumer tenant and manage business configuration entries
 
 ### Create Business Roles for the Custom Application
