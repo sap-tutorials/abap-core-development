@@ -1,6 +1,4 @@
 ---
-author_name: Sumana Vasuki
-author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
@@ -9,11 +7,9 @@ primary_tag: software-product>sap-btp--abap-environment
 ---
 
 # Create Business Users, Configure Roles and Business Configurations
-
 <!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
-
 - How to create business users in the consumer tenant and manage business configuration entries
 
 ### Create Business Roles for the Custom Application
@@ -39,8 +35,6 @@ To do this, as the administrator, logon to the Fiori Launchpad for the consumer 
 
 2. To create employees in the app, there are 2 options.
 
-    Option 1: Create Individual Employee Record.
-
     [OPTION BEGIN [Create Individual Employee Record]]
 
     ![Create Employee](CreateEmployee.png)
@@ -53,11 +47,9 @@ To do this, as the administrator, logon to the Fiori Launchpad for the consumer 
 
     3. Click "Create"
 
-[OPTION END]
+    [OPTION END]
 
-    Option 2: Import Employee Record from Excel.
-
-[OPTION BEGIN [Import Employee Records from Excel]]
+    [OPTION BEGIN [Import Employee Records from Excel]]
 
     The second option is to import employee records from Excel
     ![Import Employees](ImportEmployees.png)
@@ -72,7 +64,7 @@ To do this, as the administrator, logon to the Fiori Launchpad for the consumer 
 
     5. Click Import
 
-[OPTION END]
+    [OPTION END]
 
 ### Create Business Users and Assign Business Roles
 
