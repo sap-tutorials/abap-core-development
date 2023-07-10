@@ -102,7 +102,9 @@ Navigate to the Landscape Portal as a Landscape Portal Admin.
 ### Verify, update and monitor the process
 
 1. Navigate to the "Systems Overview" app in the Landscape Portal
-2. Click on the entry for the system that was created for your SaaS application. You could identify it from the system description "ABAP Solution System for `appname`" or via the SID. If a `sap_system_name` was defined in the configuration of the ABAP solution, systems are provisioned with same SID. If no sap_system_name was defined systems are provisioned with SID = AST or SID = AMT, depending on whether the solution was created with `tenant_mode` = single or `tenant_mode` = multi.
+
+2. Click on the entry for the system that was created for your SaaS application. You could identify it from the system description "ABAP Solution System for `appname`" or via the SID. If a `sap_system_name` was defined in the configuration of the ABAP solution, systems are provisioned with same SID. If no `sap_system_name` was defined, systems are provisioned with SID = AST or SID = AMT, depending on whether the solution was created with tenant_mode = single or tenant_mode = multi.
+
 
 3. Once the update scheduled in the previous step is complete, the "Software" section should reflect the new product version for the add-on
 
