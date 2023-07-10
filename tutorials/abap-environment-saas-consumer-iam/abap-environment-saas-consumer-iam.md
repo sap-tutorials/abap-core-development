@@ -84,7 +84,7 @@ To do this, select the radio button against the employee record created in step 
 
 Once the business user is created, we can assign roles to the users.
 
-You should be navigated to the "Maintain Business User" app automatically after creation of the business user. Here, click "Add" under the "Assigned Business Roles" section or alternately, click "Add Business Roles" to add relevant roles to this user
+You should be navigated to the "Maintain Business User" app automatically after creation of the business user. Here, click "Add" under the "Assigned Business Roles" section or alternately, click "Add Business Roles" to add relevant roles to this user.
 
 ![Add Business Roles](AddBusinessRoles.png)
 
