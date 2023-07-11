@@ -1,4 +1,6 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
@@ -10,6 +12,7 @@ primary_tag: software-product>sap-btp--abap-environment
 <!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
+
 - How to create business users in the consumer tenant and manage business configuration entries
 
 ### Create Business Roles for the Custom Application
@@ -96,7 +99,7 @@ To handle business configuration entries, we have apps provided under the "Busin
 
 The users with assigned  SAP\_BR\_BPC\_EXPERT role should now be able to see the applications under the "Business Configuration" group of the Fiori Launchpad.
 
-    ![Business Configuration](CustomBusinessConfig.png)
+![Business Configuration](CustomBusinessConfig.png)
 
 [OPTION BEGIN [Custom Business Configurations]]
 
@@ -114,7 +117,7 @@ The "Upload Business Configuration" app can be used to upload data via excel imp
     4. Fill in the downloaded template with suitable data conforming to the provided template.
     5. Add attachment, review the data and confirm deployment.
 
-        ![Upload Business Configuration](UploadBC.png)
+![Upload Business Configuration](UploadBC.png)
 
 [OPTION END]
 
