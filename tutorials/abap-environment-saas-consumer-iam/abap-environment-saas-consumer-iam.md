@@ -1,6 +1,4 @@
 ---
-author_name: Sumana Vasuki
-author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
@@ -9,6 +7,7 @@ primary_tag: software-product>sap-btp--abap-environment
 ---
 
 # Create Business Users, Configure Roles and Business Configurations
+
 <!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
