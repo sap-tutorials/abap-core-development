@@ -1,4 +1,6 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
@@ -98,7 +100,7 @@ To handle business configuration entries, we have apps provided under the "Busin
 
 The users with assigned  SAP\_BR\_BPC\_EXPERT role should now be able to see the applications under the "Business Configuration" group of the Fiori Launchpad.
 
-![Business Configuration](CustomBusinessConfig.png)
+ ![Business Configuration](CustomBusinessConfig.png)
 
 [OPTION BEGIN [Custom Business Configurations]]
 
@@ -110,11 +112,11 @@ The "Custom Business Configurations app" can be used to maintain data for config
 
 The "Upload Business Configuration" app can be used to upload data via excel import for various configuration tables of the SaaS application.
 
-    1. Open the "Upload Business Configuration" app.
-    2. Use the value help to select the object for which data has to be maintained.
-    3. Under the "Upload File" section, download the file template.
-    4. Fill in the downloaded template with suitable data conforming to the provided template.
-    5. Add attachment, review the data and confirm deployment.
+1. Open the "Upload Business Configuration" app.
+2. Use the value help to select the object for which data has to be maintained.
+3. Under the "Upload File" section, download the file template.
+4. Fill in the downloaded template with suitable data conforming to the provided template.
+5. Add attachment, review the data and confirm deployment.
 
 ![Upload Business Configuration](UploadBC.png)
 
