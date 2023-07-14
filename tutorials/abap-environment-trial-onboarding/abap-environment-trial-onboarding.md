@@ -70,6 +70,11 @@ This tutorial is part of a 3-part series of SAP BTP, ABAP Environment tutorials,
     ![Select ABAP Trial](downloadkey.png)
 
 
+    >**Hint:** You can also download the service key manually by navigating to **Instances and Subcriptions**.
+    > Therefore navigate to your **Global Account** > **Trial Subaccount** > **Instances and Subcriptions** and select there **`default_abap-trial`**. On the right side scroll down to **Service Keys**, select **`defaultKey_..`** and select the option **Download**.
+    >  ![Select ABAP Trial](sk.png)
+
+
 
 ### Open ABAP Development Tools
 
