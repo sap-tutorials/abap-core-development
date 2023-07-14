@@ -18,7 +18,7 @@ author_profile: https://github.com/mervey45
 
 ## You will learn  
 - How to create a purchase contract
-- How to create a purchase order
+- How to create a purchase order requisition
 - How to run ABAP classes
 
 
@@ -257,7 +257,7 @@ author_profile: https://github.com/mervey45
 
 
 
-### Create purchase order with reference to the purchase contract via EML
+### Create purchase order requisition with reference to the purchase contract via EML
 
 
   1. Right-click your package `Z_PURCHASE_CONTRACT_XXX` and select **New** > **ABAP Class**.
