@@ -1,11 +1,11 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: products>sap-btp--abap-environment
-tags:  [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform, software-product>sap-business-application-studio ]
+primary_tag: software-products>sap-btp--abap-environment
+tags: [  tutorial>beginner, programming-tool>abap-development, software-products>sap-business-technology-platform, software-products>sap-business-application-studio]
 time: 25
 author_name: Merve Temel
-author_profile: https://github.com/mervey45
+author_profile: https://github.com/mervey45 
 --- 
 
 # Create a SAP Fiori App and Deploy it to SAP BTP, ABAP Environment
@@ -52,10 +52,9 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](user3.png)
 
-  5. Select `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
+  5. Select `Business_Application_Studio_Developer` and click **Assign Role Collection**.
 
-      ![assign role collection](user4.png)
- 
+      ![assign role collection](bas7x.png)
 
 
 ### Create dev space
