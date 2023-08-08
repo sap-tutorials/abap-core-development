@@ -9,13 +9,14 @@ author_profile: https://github.com/julieplummer20
 
 ---
 
-# Monitor An SAP BTP ABAP Environment Service Using SAP Cloud ALM (CALM)
-<!-- description --> Configure health monitoring and real user monitoring for an SAP BTP ABAP Environment service using SAP Cloud ALM.
+# Monitor An SAP BTP ABAP Environment Service Using SAP Cloud ALM (CALM) 
+<!-- description -->
+Configure health monitoring and real user monitoring for an SAP BTP ABAP Environment service using SAP Cloud ALM.
 
 ## Prerequisites
 - SAP Cloud ALM instance
 - SAP BTP ABAP Environment instance with the Administrator role
-- Access to the Fiori app **Health Monitoring**
+
 
 ## You will learn
   - How to configure outbound communication from your SAP BTP ABAP Environment  using the communication scenario **`SAP_COM_0276`**
@@ -41,68 +42,25 @@ Throughout this tutorial, objects name include a prefix, such as **`Zxx`** or su
 
 ---
 
-### Set up destination service
-
-In the BTP Cockpit, you need to create a destination service in your BTP subaccount, if you have not already done so.
-
-1. Navigate to your **Space**, choose **Instances**, then choose **Create**.
-
-    <!-- border -->
-    ![step1a-navigate-to-space-etc](step1a-navigate-to-space-etc.png)
-
-2. Enter the following, then choose **Create**.
-
-    - Service: **Destination**
-    - Plan: **Lite**
-    - Instance Name: e.g. **`DST`**
-
-    <!-- border -->
-    ![step1a-create-destinations-service](step1a-create-destinations-service.png)
-
-3.	Create a service key for your SAP Cloud ALM service and download it; you will need it later - that is, the SAP Cloud ALM service mentioned in the prerequisites above.
-
-    <!-- border -->
-    ![step1c-calm-service-already-created](step1c-calm-service-already-created.png)
-
-
-4. Create a new service key for your SAP BTP ABAP Environment and download it; you will need it later.
-
-    <!-- border -->
-    ![step1c-create-service-key-for-steampunk](step1c-create-service-key-for-steampunk.png)
-
 
 ### Configure destination
 
 In the BTP Cockpit, you need to create a destination to SAP Cloud ALM if you have not already done so.
 
-1. Navigate to your **Subaccount** and choose **Destinations > New Destination**.
+1.	Create a service key for your SAP Cloud ALM service and download it; you will need it later - that is, the SAP Cloud ALM service mentioned in the prerequisites above.
+
+    <!-- border -->
+    ![step1c-calm-service-already-created](step1c-calm-service-already-created.png)
+
+2. Navigate to your **Subaccount** and choose **Destinations > New Destination**.
 
     <!-- border -->
     ![step1c-navigate-to-destinations](step1c-navigate-to-destinations.png)
 
-2. Configure the destination to your SAP Cloud ALM service using the credentials in the service key (from step 1.3).
+3. Configure the destination to your SAP Cloud ALM service using the credentials in the service key (from step 1.3).
 
     <!-- border -->
     ![step1b-destination-to-calm](step1b-destination-to-calm.png)
-
-
-### Create Communication Arrangement for Destination Service Integration (SAP_COM_0276)
-
-1.	Logon to your SAP BTP ABAP Environment as Administrator and choose the app **Communication Arrangements**.
-
-    <!-- border -->
-    ![step2a-comm-arr](step2a-comm-arr.png)
-
-2. Choose **New**.
-
-    <!-- border -->
-    ![step2b-comm-arr-new](step2b-comm-arr-new.png)
-
-3. Choose scenario **`SAP_COM_0276`**, paste the service key of your destination service (from step 1.4), then choose **Create**.
-
-    <!-- border -->
-    ![step2c-comm-arr-create](step2c-comm-arr-create.png)
-
 
 
 ### Create Communication Arrangement for Application Monitoring (SAP_COM_0527)
@@ -117,7 +75,7 @@ In the BTP Cockpit, you need to create a destination to SAP Cloud ALM if you hav
     <!-- border -->
     ![step3b-comm-system-new-cutout](step3b-comm-system-new-cutout.png)
 
-3. From the dropdown list, choose the **Name** for your SAP Cloud ALM service, that you configured in step 3.2.
+3. From the dropdown list, choose the **Name** for your SAP Cloud ALM service, that you configured in step 1.3.
 
     <!-- border -->
     ![step3c-comm-system-name](step3c-comm-system-name.png)

@@ -309,7 +309,7 @@ To be able to access the external service, you will:
 5. Catch any potential exceptions that may be thrown.
 
 A sample of the raw XML output is available here:
-[OverpassRawOutputXML.txt](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/abap-environment-external-api/OverpassRawOutputXML.txt)
+[OverpassRawOutputXML.txt](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/Tutorials/master/tutorials/abap-environment-external-api/OverpassRawOutputXML.txt)
 
 Implement the method **`if_oo_adt_classrun~main`** by inserting the following code. Replace the `000` with your group number or initials.
 
@@ -420,7 +420,7 @@ To be able to access the external service, you must:
 5. Catch any potential exceptions that may be thrown.
 
 A sample of the raw JSON output is available here:
-[OverpassRawOutputXML.txt](https://raw.githubusercontent.com/SAPDocuments/Tutorials/master/tutorials/abap-environment-external-api/OverpassRawOutputJSON.txt)
+[OverpassRawOutputJSON.txt](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/Tutorials/master/tutorials/abap-environment-external-api/OverpassRawOutputJSON.txt)
 
 Implement the method **`if_oo_adt_classrun~main`** by inserting the following code. Replace the `000` with your group number or initials.
 

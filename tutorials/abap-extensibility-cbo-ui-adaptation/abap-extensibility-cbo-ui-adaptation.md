@@ -2,15 +2,17 @@
 parser: v2
 auto_validation: true
 primary_tag: topic>abap-extensibility
-tags: [  tutorial>beginner, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 10
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 ---
 
 # Adapt the UI of a Business Object
-<!-- description --> Adapt the UI of a business object inside SAP S/4Hana Cloud, shown at the generated UI of a Custom Business Object
+<!-- description -->Adapt the UI of a business object inside SAP S/4Hana Cloud, shown at the generated UI of a Custom Business Object
 
 ## Prerequisites  
-- **Authorizations:** Your user needs a business role with business catalog **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) in your **S/4HANA Cloud** system
+- **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Key User Adaptation** (ID: `	SAP_CORE_BC_EXT_FLEX`) in your **SAP S/4HANA Cloud** system
 
 
 ## You will learn  
@@ -19,29 +21,27 @@ In the preceding tutorials you created a custom business object with a simple da
 ## Intro
 As the generated User Interfaces only lists all fields of a business object node, adapting the UI might be necessary to improve usability of it.
 
->Before done **UI Generation** and here shown **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA system. They are key user functionality with limited possibilities. UI Adaptation has effect on all users in the system.
+>Before done **UI Generation** and here shown **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA Cloud system. They are key user functionality with limited possibilities. UI Adaptation has effect on all users in the system.
 >
->Alternatively to UI Generation and Adaptation the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create Custom UI for S/4HANA Cloud](group.abap-custom-ui-with-webide)).
+>Alternatively to UI Generation and Adaptation the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create Custom UI for SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
 
 **Our Example**
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
-## Additional Information
-- **SAP S/4HANA Cloud Release** (tutorial's last update): 1808
+
+>Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 
 
 ### Open the UI to be adapted
 
+Start typing **Bonus Plans** in the Launchpad search and open the App from the results.
 
-Open the **Bonus Plans** application in Fiori Launchpad group **Extensibility**.
+![Bonus Plans application from search results](FLP_search_resultBonusPlans.png)
 
-![Bonus Plans application tile](tile_BonusPlans.png)
-
-
-Press **Go** to get the list of all Bonus Plans. **Open** a bonus plan's detail view.
+Press **Go** to get the list of all Bonus Plans. **Open** a bonus plan's detail view by clicking its list item.
 
 ![Open Bonus Plan's detail view](UI_openBoDetails.png)
 
@@ -53,29 +53,26 @@ This is the screen that will be adapted.
 ### Switch to Adaptation mode
 
 
-**Open User Settings** via the corresponding application's menu action
+1. Open User Profile via the corresponding application's menu action
+2. Open the adaptation mode via **Adapt UI**.
 
-![Open User Settings](UI_userSettings.png)
-
-Open the adaptation mode via **Adapt UI**.
-
-![Go to UI Adaptation mode](UI_go2adaptation.png)
+![Open User Settings and Adapt UI](UI_userProfileAdaptUI.png)
 
 
 ### Create an UI group
 
 
-Editable UI elements can be recognized by getting a dashed border and the movement cursor when hovering over them.
+Editable UI elements can be recognized by getting a border when hovering over them.
 
 ![Editable UI element](UI_editableElement.png)
 
 By right clicking onto them you get options to adapt the UI. As these options are partly type dependent you might need to find the right element first to get the option you need.
 
-**Hover** over the **General Information** area until it gets the dashed border and open the context menu via **Right Click**.
+**Hover** over the **General Information** area until it gets the border and open the context menu via **Right Click**.
 
 ![Create UI Group](UI_createGroup.png)
 
-**Create Group** and name it "Bonus Data".
+**Create Group** and give it the title "Bonus Data".
 
 
 ### Move UI elements
@@ -103,10 +100,21 @@ Repeat **Drag & Drop** into Bonus Data group for the fields:
 
 ### Apply UI changes
 
+Last you make the UI adaptations available to all users in the system.
 
-**Publish** the UI adaptations.
+Click the activation button (wand icon).
 
-Finally you only need to **Exit** adaptation mode to work with the new layout.
+![Activate UI changes](UI_activate.png)
+
+In the opening pop up give a name for the new version and **Confirm** that.
+
+![Give Version name during activation](UI_activateGiveVersionConfirm.png)
+
+Click the Publishing button (truck icon).
+
+![Publish UI version](UI_publish.png)
+
+Finally you only need to **Save & Exit** to make the last published layout version available to all users in the system.
 
 
 ### Test yourself

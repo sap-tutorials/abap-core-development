@@ -21,8 +21,6 @@ author_profile: https://github.com/mervey45
     - The SAP Business Application Studio and the SAP BTP, ABAP environment instance must be under same subaccount.
     - Read following blog post to get an overview on [Connecting from SAP Business Application Studio to SAP BTP Cloud Foundry environment](https://blogs.sap.com/2021/04/21/connecting-from-sap-business-application-studio-to-sap-btp-cloud-foundry-environment/)
 
-
-
 ## You will learn  
 - How to assign role collections
 - How to create dev spaces

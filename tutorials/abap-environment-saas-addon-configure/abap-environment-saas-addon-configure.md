@@ -22,13 +22,11 @@ primary_tag: software-product>sap-btp--abap-environment
 - The Landscape Portal Application has been subscribed to and your user has the landscape portal admin role collection assigned
 - Entitlements for the CI/CD service in the sub-account where the landscape portal application is subscribed
 - Cloud Foundry Technical Platform user with space developer role in Build/Assemble and Build/Test sub-accounts
-- Technical user for ABAP Add-on Kit as a service (AAKaaS)
+- Technical user for Add-on Assembly Kit as a service (AAKaaS)
 
 ## Intro
 
 ### Understand the different stages of an add-on build pipeline
-
-This system is used in later stages to import software components, run ATC checks, and build delivery packages for the add-on.
 
 ![Addon Build Overview](AddonBuildOverview.png)
 
@@ -36,8 +34,7 @@ The add-on build pipeline in the above image contains the following steps:
 
 **Initial Checks:**
 
-This stage runs preliminary checks for the Build stage of the pipeline.
-Some steps include:
+This stage runs preliminary checks for the Build stage of the pipeline. Some steps include:
 
 - Check of add-on product version
 
@@ -82,8 +79,10 @@ This stage deletes the SAP BTP, ABAP environment system created in the Prepare S
 **Add Technical Platform User to Space in Subaccount 03 Build/Assemble:**
 
 To trigger an import in the assembly system, communication scenario SAP\_COM\_0510 is used.
+
 To trigger the build process in assembly system, communication scenario SAP\_COM\_0582 is used.
-The credentials for these 2 scenarios are retrieved by creating a service key in the system
+
+The credentials for these 2 scenarios are retrieved by creating a service key in the system.
 
 As operator, assign a technical Cloud Foundry platform user as a space developer in subaccount 03 Build/Assemble. Later, this user's credentials are used to create service key
 
@@ -95,12 +94,13 @@ As an operator, assign a technical Cloud Foundry platform user as a space develo
 
 **Create a Technical Communication User for Access to the Add-on Assembly Kit as a Service(`AAKaaS`):**
 
-As part of the add-on build process, the Add-on Assembly Kit is used. With `AAKaaS`, the on-premise tooling is now available as a cloud service that is used by the build pipeline
+As part of the add-on build process, the Add-on Assembly Kit is used. With `AAKaaS`, the on-premise tooling is now available as a cloud service that is used by the build pipeline.
+
 To access the service that is offered via SAP Support Launchpad, a [technical communication user](https://launchpad.support.sap.com/#/notes/2532813) is used. [Create such a technical communication user](https://launchpad.support.sap.com/#/notes/2174416)
 
 ### Open Landscape Portal
 
-1.As a user with the Landscape Portal Administrator role, in the Global Account for Development, navigate to the sub-account where you have the Landscape Portal application subscribed.
+1.As a user with the Landscape Portal Administrator role, in the Global Account for Development, navigate to the subaccount where you have the Landscape Portal application subscribed.
 
 2.Click on the “Instances and Subscriptions” menu item. Under the “Subscriptions” section, find the Landscape Portal application and open it.
 ![Global Account for Development](GlobalAccountforDev.png)
@@ -134,3 +134,7 @@ To access the service that is offered via SAP Support Launchpad, a [technical co
 2.Open the Credentials Section and maintain the credentials of your cloud foundry technical user(“cf-platform”) and the AAKaaS technical user(“techuser-aakaas”).
 
 ![CF Credentials](CFCredentials.png)
+
+### Test Yourself
+
+---
