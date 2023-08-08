@@ -54,10 +54,9 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](user3.png)
 
-  5. Select `Business_Application_Studio_Extension_Deployer` and click **Assign Role Collection**.
+  5. Select `Business_Application_Studio_Developer` and click **Assign Role Collection**.
 
-      ![assign role collection](user4.png)
- 
+      ![assign role collection](bas7x.png)
 
 
 ### Create dev space
