@@ -23,9 +23,9 @@ In the online shop, customers can order various items. Once an item is ordered, 
 
 
 ## You will learn  
-- How to enhance behavior definition
-- How to enhance behavior implementation
-- How to run SAP Fiori Elements Preview
+- How to enhance a behavior definition
+- How to enhance a behavior implementation
+- How to run the SAP Fiori Elements Preview
 
 ## Intro
 In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
