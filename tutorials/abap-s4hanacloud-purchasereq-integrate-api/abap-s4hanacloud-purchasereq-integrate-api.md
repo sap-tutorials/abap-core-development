@@ -9,7 +9,7 @@ author_profile: https://github.com/mervey45
 --- 
  
 # Integrate released purchase requisition API into Online Shop Business Object
-<!-- description --> Integrate released purchase requisition API into online shop business object with SAP S/4HANA Cloud ABAP Environment or SAP S/4HANA on-premise.
+<!-- description --> Integrate released purchase requisition API into online shop business object with SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise.
  
 In the online shop, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
 
