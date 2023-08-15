@@ -8,8 +8,8 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
 
-# Log into SAP S/4HANA Cloud ABAP Environment or SAP S/4HANA On-Premise 
-<!-- description --> Learn how to log into an SAP S/4HANA Cloud ABAP Environment or SAP S/4HANA on-premise system.
+# Log into SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA On-Premise 
+<!-- description --> Learn how to log into an SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise system.
 
  
 ## Prerequisites  
@@ -17,7 +17,7 @@ author_profile: https://github.com/mervey45
 
 
 ## You will learn  
-- How to log into SAP S/4HANA Cloud ABAP Environment
+- How to log into SAP S/4HANA Cloud, ABAP Environment
 - How to log into SAP S/4HANA on-premise
 
 
@@ -25,9 +25,9 @@ author_profile: https://github.com/mervey45
 
 ### Log into your system
 
-Choose between the tabs **SAP S/4HANA Cloud ABAP Environment** and **SAP S/4HANA on-premise** and follow the login process.
+Choose between the tabs **SAP S/4HANA Cloud, ABAP Environment** and **SAP S/4HANA on-premise** and follow the login process.
 
-  [OPTION BEGIN [SAP S/4HANA Cloud ABAP Environment]] 
+  [OPTION BEGIN [SAP S/4HANA Cloud, ABAP Environment]] 
 
 
   1. Open Eclipse, select **File** > **New** > **Other**.
@@ -38,7 +38,7 @@ Choose between the tabs **SAP S/4HANA Cloud ABAP Environment** and **SAP S/4HANA
 
       ![logon](logon2.png)
 
-  3. Select **SAP S/4HANA Cloud ABAP Environment**, enter the ABAP service instance URL and click **Next >**.
+  3. Select **SAP S/4HANA Cloud, ABAP Environment**, enter the ABAP service instance URL and click **Next >**.
 
       ![logon](logon3.png)
 
@@ -46,7 +46,7 @@ Choose between the tabs **SAP S/4HANA Cloud ABAP Environment** and **SAP S/4HANA
 
       ![logon](logon4.png)
 
-      **HINT**: The administrator receives an welcome e-mail after provisioning. This e-mail includes the system URL. By removing `/ui` you can log into the SAP S/4HANA Cloud ABAP Environment system. Further information can be found [here](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/4b962c243a3342189f8af460cc444883.html?locale=en-US&state=DRAFT).
+      **HINT**: The administrator receives an welcome e-mail after provisioning. This e-mail includes the system URL. By removing `/ui` you can log into the SAP S/4HANA Cloud, ABAP Environment system. Further information can be found [here](https://help.sap.com/docs/SAP_S4HANA_CLOUD/6aa39f1ac05441e5a23f484f31e477e7/4b962c243a3342189f8af460cc444883.html?locale=en-US&state=DRAFT).
 
   5. Click **Next >**.
 
