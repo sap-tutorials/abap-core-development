@@ -25,9 +25,9 @@ author_profile: https://github.com/mervey45
 - How to create an ABAP package
 - How to create a database table
 - How to create transactional UI services
-- How to enhance behavior definition of data model 
-- How to publish service binding
-- How to run SAP Fiori Elements Preview
+- How to enhance the behavior definition of a data model 
+- How to publish a service binding
+- How to run the SAP Fiori Elements Preview
  
 ## Intro
 In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
