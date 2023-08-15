@@ -2,13 +2,13 @@
 parser: v2
 auto_validation: true
 primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
-tags:  [ tutorial>beginner, software-product>sap-btp--abap-environment, software-product-function>s-4hana-cloud-abap-environment, programming-tool>abap-development, programming-tool>abap-extensibility]
+tags:  [ tutorial>beginner, software-product-function>s-4hana-cloud-abap-environment, programming-tool>abap-development, programming-tool>abap-extensibility]
 time: 25
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
   
-# Adapt the metadata model of the Online Shop Business Object
+# Enhance the Behavior Defintion and Behavior Implementation of the Online Shop Business Object
 <!-- description --> Create your first order in the online shop.
 
 In the online shop, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
@@ -38,23 +38,7 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
 
 **In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
 
-  1. Open your behavior definition **`ZR_ONLINESHOPTP_XXX`** to enhance it. Delete following line:
-  
-    ```ABAP
-    persistent table zaonlineshop_xxx 
-    ```
-
-     ![projection](bdef.png)
-
-  2. Add the unmanaged save statement to your behavior definition:
-
-    ```ABAP
-    with unmanaged save
-    ``` 
-
-     ![projection](bdef2.png)
-  
-  3. Add the following statements to your behavior definition:
+  1. Open your behavior definition **`ZR_ONLINESHOPTP_XXX`** to enhance it. Add the following statements to your behavior definition:
 
     ```ABAP
     update (features: instance);
@@ -63,9 +47,9 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
     draft action(features: instance) Edit;
     ```
 
-     ![projection](bdef4.png)
+     ![projection](bdef4x.png)
 
-  4. Replace the following statements to your behavior definition:
+  2. Replace the following statements to your behavior definition:
 
     ```ABAP
     draft determine action Prepare { validation checkOrderedQuantity;  validation checkDeliveryDate;}
@@ -78,8 +62,8 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
      ![projection](bdef5xx.png) 
 
      **Hint:** Please replace **`#`**, **`X`** and **`XXX`** with your ID. 
-
-  5. Check your behavior definition:
+ 
+  3. Check your behavior definition:
 
     ```ABAP
     managed implementation in class ZBP_ONLINESHOPTP_XXX unique;
@@ -87,12 +71,11 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
     with draft;
 
     define behavior for ZR_ONLINESHOPTP_XXX alias OnlineShop
-
+    persistent table zaonlineshop_xxx
     draft table ZDONLINESHOP_XXX
     etag master LocalLastChangedAt
     lock master total etag LastChangedAt
     authorization master( global )
-    with unmanaged save
     {
       field ( readonly ) 
       OrderUUID,
@@ -145,51 +128,23 @@ In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
     }
     ```
 
-   6. Save and activate. 
+   4. Save and activate. 
 
  
 ### Enhance behavior implementation
 
 **Hint:** Please replace **`X`**, **`#`** and **`XXX`** with your ID. 
 
-  1. Open the behavior implementation **`ZBP_ONLINESHOPTP_XXX`**, add the missing methods, the `save_modified` with `create`, `update` and `delete` and the constant `c_overall_status` to your behavior implementation. In your **Local Types**, replace your code with following:
+  1. Open the behavior implementation **`ZBP_ONLINESHOPTP_XXX`**, add the constant `c_overall_status` to your behavior implementation. In your **Local Types**, replace your code with following:
 
     ```ABAP
     CLASS lsc_zr_onlineshoptp_xxx DEFINITION INHERITING FROM cl_abap_behavior_saver.
 
       PROTECTED SECTION.
 
-        METHODS save_modified REDEFINITION.
-
     ENDCLASS.
 
     CLASS lsc_zr_onlineshoptp_xxx IMPLEMENTATION.
-
-      METHOD save_modified.
-
-        DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-              ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-        IF create-onlineshop IS NOT INITIAL.
-          lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-          INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-        ENDIF.
-        IF update IS NOT INITIAL.
-          CLEAR lt_online_shop_as.
-          lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-          LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-    *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @data(ls_onlineshop) .
-    *                      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-
-            MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-    *           ENDSELECT.
-          ENDLOOP.
-        ENDIF.
-
-        LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-          DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-          DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
-        ENDLOOP.
-      ENDMETHOD.
 
     ENDCLASS.
 
