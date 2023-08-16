@@ -30,7 +30,7 @@ author_profile: https://github.com/mervey45
 - How to run the SAP Fiori Elements Preview
  
 ## Intro
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
 --- 
 

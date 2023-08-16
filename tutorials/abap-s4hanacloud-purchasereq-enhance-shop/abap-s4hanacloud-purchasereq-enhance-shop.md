@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
   
-# Enhance the Behavior Defintion and Behavior Implementation of the Online Shop Business Object
+# Enhance the Behavior Definition and Behavior Implementation of the Online Shop Business Object
 <!-- description --> Create your first order in the online shop.
 
 In the online shop, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
@@ -28,7 +28,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - How to run the SAP Fiori Elements Preview
 
 ## Intro
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
 ---
 
