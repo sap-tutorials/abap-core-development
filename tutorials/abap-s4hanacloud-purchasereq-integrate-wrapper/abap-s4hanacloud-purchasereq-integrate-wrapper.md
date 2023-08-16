@@ -1,6 +1,4 @@
 ---
-title: Integrate the Wrapper into the Online Shop Business Object
-description: Learn how to integrate your wrapper in a RAP BO, implement a new action to call the wrapper during the save sequence phase and expose it via service binding
 auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
@@ -8,28 +6,28 @@ primary_tag: programming-tool>abap-extensibility
 author_name: Arianna Musso Barcucci
 author_profile: https://github.com/AriannaMussoBarcucci
 parser: v2
-
 ---
 
-## Prerequisites
+# Integrate the Wrapper into the Online Shop Business Object
+<!-- description --> Learn how to integrate your wrapper in a RAP BO, implement a new action to call the wrapper during the save sequence phase and expose it via service binding
 
+## Prerequisites
 - You have completed the previous tutorials in this group and [created a wrapper for the BAPI `BAPI_PR_CREATE`](abap-s4hanacloud-purchasereq-create-wrapper) as well as [created an online shop business object](abap-s4hanacloud-procurement-purchasereq-shop) and [enhanced it](abap-s4hanacloud-purchasereq-enhance-shop).
  - For the entirety of this tutorial, you will be using the same user with full development authorization you used in the previous tutorial of this mission.
-
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
 
 ## You will learn
 - How to integrate a wrapper class in a RAP BO during the save sequence
 - How to implement a new action in RAP BO to call the wrapper class and use it to create a purchase requisition
 - How to expose the action via service binding
 
+## Intro
+>In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+
 In this tutorial you will take the wrapper that you created and you will integrate it in your RAP Business Object (RAP BO) to create purchase requisitions in your online shop application as indicated in the [Using BAPIs in RAP](https://blogs.sap.com/2022/11/30/using-bapis-in-rap/) blog post:
 
 - You will implement a new action. The action shall change the status of the business object instance to "Submitted".
 - You will implement a validation for the status. When the status is "Submitted", the validation will call the BAPI in test mode via the wrapper. It will return any error message raised by the BAPI. These error messages are then returned to the end user.
 - You will adapt the RAP BO and turn it into a RAP BO with unmanaged save. In the corresponding `save_modified` method implementation, when the status of a business object instance is "Submitted", the wrapper will be called via the BAPI and a purchase requisition is created for that business object instance.
-
----
 
 ### Implement new action `createPurchRqnBAPISave`
 

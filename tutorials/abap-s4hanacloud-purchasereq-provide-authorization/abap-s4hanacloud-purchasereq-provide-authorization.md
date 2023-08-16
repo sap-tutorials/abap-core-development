@@ -1,6 +1,4 @@
 ---
-title: Provide Authorizations to Users for non-Released Authorization Objects checked by the "Create Purchase Requisition" function module
-description: Learn how to provide a user with authorizations for your wrapper-enhanced RAP BO for both CHECK and DO NOT CHECK options.  
 auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
@@ -10,22 +8,24 @@ author_profile: https://github.com/AriannaMussoBarcucci
 parser: v2
 ---
 
+# Provide Authorizations to Users for non-Released Authorization Objects checked by the "Create Purchase Requisition" function module
+<!-- description --> Learn how to provide a user with authorizations for your wrapper-enhanced RAP BO for both CHECK and DO NOT CHECK options.  
+
 ## Prerequisites
  - [You have completed the previous tutorial in this group](abap-s4hanacloud-purchasereq-integrate-wrapper) and integrated your wrapper in your RAP BO.
  - You will be using the same user with full development authorization you used in the previous tutorial of this group. Throughout the tutorial, we will refer to this user as 'developer user' or 'user with unrestricted access', to distinguish it from other users we will create as part of the tutorial.
-
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
 
 ## You will learn
 - How to find out the needed authorization objects for a given BAPI
 - How to handle authorizations via an authorization default variant for the check authorization use case
 - How to suppress all authorization checks in the disable authorization check use case
 
-In the previous tutorials of this group we used a user with full development authorization to be able to develop the RAP BO and the wrapper. Given the unrestricted access that this user has, we did not have to worry about providing authorizations so far. In this tutorial we want to test two different authorization scenarios: the case in which we want authorizations to be checked upon the creation of a purchase requisition (so that only authorized users can perform this action), and the case in which we do not want any authorization check to be performed.
+## Intro
+>In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
 
-In a realistic scenario, the next step would be to develop a UI for your application, deploy it to your system, and maintain all the needed objects (i.e.: Business Catalogs, Business Roles, etc). However, in this tutorial we will follow a simplified approach and we will test the various authorization scenarios via the application preview available in ADT, without the need for UI development and deployment. For this reason, we need a user which is allowed to access the application preview via ADT: we create this user in the next step.
+>In the previous tutorials of this group we used a user with full development authorization to be able to develop the RAP BO and the wrapper. Given the unrestricted access that this user has, we did not have to worry about providing authorizations so far. In this tutorial we want to test two different authorization scenarios: the case in which we want authorizations to be checked upon the creation of a purchase requisition (so that only authorized users can perform this action), and the case in which we do not want any authorization check to be performed.
 
----
+>In a realistic scenario, the next step would be to develop a UI for your application, deploy it to your system, and maintain all the needed objects (i.e.: Business Catalogs, Business Roles, etc). However, in this tutorial we will follow a simplified approach and we will test the various authorization scenarios via the application preview available in ADT, without the need for UI development and deployment. For this reason, we need a user which is allowed to access the application preview via ADT: we create this user in the next step.
 
 ### Provide user with restricted role for preview testing
 

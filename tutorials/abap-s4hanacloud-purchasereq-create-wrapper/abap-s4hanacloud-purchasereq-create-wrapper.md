@@ -1,6 +1,4 @@
 ---
-title: Implement a Wrapper for the "Create Purchase Requisition" (BAPI_PR_CREATE) function module
-description: Learn how to wrap the BAPI_PR_CREATE in your SAP S/4HANA system and release it for consumption in tier 1.
 auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
@@ -10,21 +8,22 @@ author_profile: https://github.com/AriannaMussoBarcucci
 parser: v2
 ---
 
+# Implement a Wrapper for the "Create Purchase Requisition" (BAPI_PR_CREATE) function module
+<!-- description --> Learn how to wrap the BAPI_PR_CREATE in your SAP S/4HANA system and release it for consumption in tier 1.
+
 ## Prerequisites
-
 - You have completed the previous tutorials in this group to [learn about the 3-tier extensibility model](abap-s4hanacloud-purchasereq-understand-scenario) and connect to your SAP S/4HANA system.
-
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
 
 ## You will learn
 - How to create a wrapper interface and implement a wrapper class for the `BAPI_PR_CREATE`.
 - How to release the wrapper for consumption in tier 1.
 
+## Intro
+>In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+
 In a previous tutorial of this group, you learned about the 3-tier extensibility model and got an overview of the sample scenario used for this tutorial group, which will include a online shop Business Object with purchase requisition creation capability.
 
 In this tutorial we show how to deal with the case in which no convenient released API is available to create purchase requisitions. The [ABAP Cloud API Enablement Guidelines for SAP S/4HANA Cloud, private edition, and SAP S/4HANA](https://www.sap.com/documents/2023/05/b0bd8ae6-747e-0010-bca6-c68f7e60039b.html) documentation recommends to use a BAPI as an alternative to a released API, wrap it and then release the wrapper for consumption in tier 1. In a later tutorial you will then create a RAP Business Object for the online shop application and integrate this wrapper to create purchase requisitions.
-
----
 
 ### Get to know the BAPI_PR_CREATE via the BAPI Explorer
 
