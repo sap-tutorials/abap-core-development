@@ -33,7 +33,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - How to check purchase requisitions 
 
 ## Intro
-In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000). 
+In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
 ---
 
