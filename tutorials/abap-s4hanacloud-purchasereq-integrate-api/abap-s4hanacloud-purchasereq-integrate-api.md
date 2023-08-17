@@ -23,6 +23,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - Business role `SAP_BR_PURCHASER` needs to be assigned to your business user
 - Use Starter Development Tenant in S/4HANA Cloud for the tutorial to have necessary sample data in place. See [3-System Landscape and Transport Management](https://help.sap.com/docs/SAP_S4HANA_CLOUD/a630d57fc5004c6383e7a81efee7a8bb/e022623ec1fc4d61abb398e411670200.html?state=DRAFT&version=2208.503).
 
+
 ## You will learn  
 - How to enhance the behavior definition of a data model 
 - How to enhance the behavior definition of a projection view
@@ -33,7 +34,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - How to check purchase requisitions 
 
 ## Intro
-In this tutorial, wherever XXX appears, use a number (e.g. 000).
+In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
 
 ---
 
@@ -939,7 +940,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
  2. Now a purchase requisition item got created. Copy the purchase requisition item number for later use.
 
      ![preview](sb7.png)
-
+ 
 
 
 ### Check purchase requisition
