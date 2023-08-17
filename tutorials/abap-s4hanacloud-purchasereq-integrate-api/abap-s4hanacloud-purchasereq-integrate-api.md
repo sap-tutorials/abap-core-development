@@ -20,7 +20,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - This tutorial can be used in both SAP S/4HANA Cloud, private edition system and SAP S/4HANA on-premise system with release 2022 FPS01. We suggest using a [Fully-Activated Appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup.
 - For SAP S/4HANA on-premise, create developer user with full development authorization 
 - You have installed the latest [Eclipse with ADT](abap-install-adt).
-- Business role `SAP_BR_PURCHASER` needs to be assign to your business user
+- Business role `SAP_BR_PURCHASER` needs to be assigned to your business user
 - Use Starter Development Tenant in S/4HANA Cloud for the tutorial to have necessary sample data in place. See [3-System Landscape and Transport Management](https://help.sap.com/docs/SAP_S4HANA_CLOUD/a630d57fc5004c6383e7a81efee7a8bb/e022623ec1fc4d61abb398e411670200.html?state=DRAFT&version=2208.503).
 
 ## You will learn  
@@ -512,50 +512,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
   2. Add the missing constant to your implementation, the `createPruchaseRequisitionItem` action and enhance the `save_modified` method. In your **Local Types**, replace your code with following:
 
     ```ABAP
-    CLASS lsc_zr_onlineshoptp_xxx DEFINITION INHERITING FROM cl_abap_behavior_saver.
-
-      PROTECTED SECTION.
-
-      METHODS save_modified REDEFINITION.
-      METHODS cleanup_finalize REDEFINITION.
-
-    ENDCLASS.
-
-    CLASS lsc_zr_onlineshoptp_xxx IMPLEMENTATION.
-
-      METHOD save_modified.
-
-        DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-              ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-        IF create-onlineshop IS NOT INITIAL.
-          lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-          INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-        ENDIF.
-        IF update IS NOT INITIAL.
-          CLEAR lt_online_shop_as.
-          lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-          LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-    *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @data(ls_onlineshop) .
-    *                      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-
-            MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-    *           ENDSELECT.
-          ENDLOOP.
-        ENDIF.
-
-        LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-          DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-          DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
-        ENDLOOP.
-      ENDMETHOD.
-
-      METHOD cleanup_finalize.
-      ENDMETHOD.
-
-    ENDCLASS.
-
-    CLASS lhc_onlineshop DEFINITION INHERITING FROM cl_abap_behavior_handler.
-      PRIVATE SECTION.
+    CLASS lhc_OnlineShop DEFINITION INHERITING FROM cl_abap_behavior_handler.
+    PRIVATE SECTION.
         CONSTANTS:
           BEGIN OF is_draft,
             false TYPE abp_behv_flag VALUE '00', " active (not draft)
@@ -568,204 +526,31 @@ In our scenario, we want to integrate the released purchase requisition API duri
             submitted TYPE string VALUE 'Submitted / Approved',
             cancelled TYPE string VALUE 'Cancelled',
           END OF c_overall_status.
-        METHODS:
-          get_global_authorizations FOR GLOBAL AUTHORIZATION
-            IMPORTING
-            REQUEST requested_authorizations FOR OnlineShop
-            RESULT result,
+        METHODS: get_global_authorizations FOR GLOBAL AUTHORIZATION
+          IMPORTING REQUEST requested_authorizations FOR OnlineShop RESULT result,
+        createPruchaseRequisitionItem FOR MODIFY
+          IMPORTING keys FOR ACTION OnlineShop~createPurchaseRequisitionItem RESULT result,
           get_instance_features FOR INSTANCE FEATURES
-            IMPORTING keys REQUEST requested_features FOR OnlineShop RESULT result.
+            IMPORTING keys REQUEST requested_features FOR onlineshop RESULT result,
+                setInitialOrderValues FOR DETERMINE ON MODIFY
+                      IMPORTING keys FOR OnlineShop~setInitialOrderValues,
+                calculateTotalPrice FOR DETERMINE ON MODIFY
+                      IMPORTING keys FOR OnlineShop~calculateTotalPrice.
 
-        METHODS calculateTotalPrice FOR DETERMINE ON MODIFY
-          IMPORTING keys FOR OnlineShop~calculateTotalPrice.
+                    METHODS checkDeliveryDate FOR VALIDATE ON SAVE
+                      IMPORTING keys FOR OnlineShop~checkDeliveryDate.
 
-        METHODS setInitialOrderValues FOR DETERMINE ON MODIFY
-          IMPORTING keys FOR OnlineShop~setInitialOrderValues.
+                    METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
+                      IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
 
-        METHODS checkDeliveryDate FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkDeliveryDate.
-
-        METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
-        METHODS createPurchaseRequisitionItem FOR MODIFY
-          IMPORTING keys FOR ACTION OnlineShop~createPurchaseRequisitionItem RESULT result.
     ENDCLASS.
 
-    CLASS lhc_onlineshop IMPLEMENTATION.
+    CLASS lhc_OnlineShop IMPLEMENTATION.
+
       METHOD get_global_authorizations.
       ENDMETHOD.
-      METHOD get_instance_features.
 
-        " read relevant olineShop instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            FIELDS ( OverallStatus )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(OnlineOrders)
-          FAILED failed.
-
-        "ToDo: dynamic feature control is currently not working for the action cancel order
-
-        " evaluate condition, set operation state, and set result parameter
-        " update and checkout shall not be allowed as soon as purchase requisition has been created
-        result = VALUE #( FOR OnlineOrder IN OnlineOrders
-                          ( %tky                   = OnlineOrder-%tky
-                            %features-%update
-                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted  THEN if_abap_behv=>fc-o-disabled
-                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
-                                        ELSE if_abap_behv=>fc-o-enabled   )
-    *                         %features-%delete
-    *                           = COND #( WHEN OnlineOrder-PurchaseRequisition IS NOT INITIAL THEN if_abap_behv=>fc-o-disabled
-    *                                     WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
-    *                                     ELSE if_abap_behv=>fc-o-enabled   )
-                            %action-Edit
-                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted THEN if_abap_behv=>fc-o-disabled
-                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
-                                        ELSE if_abap_behv=>fc-o-enabled   )
-
-                            ) ).
-      ENDMETHOD.
-
-      METHOD calculateTotalPrice.
-        DATA total_price TYPE zr_onlineshoptp_xxx-TotalPrice.
-
-        " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            FIELDS ( OrderID TotalPrice )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(OnlineOrders).
-
-        LOOP AT OnlineOrders ASSIGNING FIELD-SYMBOL(<OnlineOrder>).
-          " calculate total value
-          <OnlineOrder>-TotalPrice = <OnlineOrder>-Price * <OnlineOrder>-OrderQuantity.
-        ENDLOOP.
-
-        "update instances
-        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            UPDATE FIELDS ( TotalPrice )
-            WITH VALUE #( FOR OnlineOrder IN OnlineOrders (
-                              %tky       = OnlineOrder-%tky
-                              TotalPrice = <OnlineOrder>-TotalPrice
-                            ) ).
-      ENDMETHOD.
-
-      METHOD setInitialOrderValues.
-
-        DATA delivery_date TYPE I_PurchaseReqnItemTP-DeliveryDate.
-        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-        "set delivery date proposal
-        delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
-        "read transfered instances
-        READ ENTITIES OF ZR_ONLINESHOPTP_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            FIELDS ( OrderID OverallStatus  DeliveryDate )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(OnlineOrders).
-
-        "delete entries with assigned order ID
-        DELETE OnlineOrders WHERE OrderID IS NOT INITIAL.
-        CHECK OnlineOrders IS NOT INITIAL.
-
-        " **Dummy logic to determine order IDs**
-        " get max order ID from the relevant active and draft table entries
-        SELECT MAX( order_id ) FROM zaonlineshop_xxx INTO @DATA(max_order_id). "active table
-        SELECT SINGLE FROM zdonlineshop_xxx FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
-        IF max_orderid_draft > max_order_id.
-          max_order_id = max_orderid_draft.
-        ENDIF.
-
-        "set initial values of new instances
-        MODIFY ENTITIES OF ZR_ONLINESHOPTP_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            UPDATE FIELDS ( OrderID OverallStatus  DeliveryDate Price  )
-            WITH VALUE #( FOR order IN OnlineOrders INDEX INTO i (
-                              %tky          = order-%tky
-                              OrderID       = max_order_id + i
-                              OverallStatus = c_overall_status-new  "'New / Composing'
-                              DeliveryDate  = delivery_date
-                              CreatedAt     = creation_date
-                            ) ).
-        .
-      ENDMETHOD.
-
-      METHOD checkDeliveryDate.
-
-    *   " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            FIELDS ( DeliveryDate )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(OnlineOrders).
-
-        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-        "raise msg if 0 > qty <= 10
-        LOOP AT OnlineOrders INTO DATA(online_order).
-
-
-          IF online_order-DeliveryDate IS INITIAL OR online_order-DeliveryDate = ' '.
-            APPEND VALUE #( %tky = online_order-%tky ) TO failed-onlineshop.
-            APPEND VALUE #( %tky         = online_order-%tky
-                            %state_area   = 'VALIDATE_DELIVERYDATE'
-                            %msg          = new_message_with_text(
-                                    severity = if_abap_behv_message=>severity-error
-                                    text     = 'Delivery Date cannot be initial' )
-                          ) TO reported-onlineshop.
-
-          ELSEIF  ( ( online_order-DeliveryDate ) - creation_date ) < 14.
-            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-onlineshop.
-            APPEND VALUE #(  %tky          = online_order-%tky
-                            %state_area   = 'VALIDATE_DELIVERYDATE'
-                            %msg          = new_message_with_text(
-                                    severity = if_abap_behv_message=>severity-error
-                                    text     = 'Delivery Date should be atleast 14 days after the creation date'  )
-
-                            %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
-          ENDIF.
-        ENDLOOP.
-      ENDMETHOD.
-
-      METHOD checkOrderedQuantity.
-
-        "read relevant order instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-        ENTITY OnlineShop
-        FIELDS ( OrderID OrderedItem OrderQuantity )
-        WITH CORRESPONDING #( keys )
-        RESULT DATA(OnlineOrders).
-
-        "raise msg if 0 > qty <= 10
-        LOOP AT OnlineOrders INTO DATA(OnlineOrder).
-          APPEND VALUE #(  %tky           = OnlineOrder-%tky
-                          %state_area    = 'VALIDATE_QUANTITY'
-                        ) TO reported-onlineshop.
-
-          IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
-            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-onlineshop.
-            APPEND VALUE #( %tky          = OnlineOrder-%tky
-                            %state_area   = 'VALIDATE_QUANTITY'
-                            %msg          = new_message_with_text(
-                                    severity = if_abap_behv_message=>severity-error
-                                    text     = 'Quantity cannot be empty' )
-                            %element-orderquantity = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
-
-          ELSEIF OnlineOrder-OrderQuantity > 10.
-            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-onlineshop.
-            APPEND VALUE #(  %tky          = OnlineOrder-%tky
-                            %state_area   = 'VALIDATE_QUANTITY'
-                            %msg          = new_message_with_text(
-                                    severity = if_abap_behv_message=>severity-error
-                                    text     = 'Quantity should be below 10' )
-
-                            %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
-          ENDIF.
-        ENDLOOP.
-      ENDMETHOD.
-      METHOD createPurchaseRequisitionItem.
+      METHOD createPruchaseRequisitionItem.
         DATA: purchase_requisitions      TYPE TABLE FOR CREATE I_PurchaserequisitionTP,
               purchase_requisition       TYPE STRUCTURE FOR CREATE I_PurchaserequisitionTP,
               purchase_requisition_items TYPE TABLE FOR CREATE i_purchaserequisitionTP\_PurchaseRequisitionItem,
@@ -908,6 +693,231 @@ In our scenario, we want to integrate the released purchase requisition API duri
           result = VALUE #( FOR order_2 IN result_read ( %tky   = order_2-%tky
                                                         %param = order_2 ) ).
         ENDIF.
+    endmethod.
+
+    METHOD get_instance_features.
+        " read relevant olineShop instance data
+        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
+          ENTITY OnlineShop
+            FIELDS ( OverallStatus )
+            WITH CORRESPONDING #( keys )
+          RESULT DATA(OnlineOrders)
+          FAILED failed.
+
+        "ToDo: dynamic feature control is currently not working for the action cancel order
+
+        " evaluate condition, set operation state, and set result parameter
+        " update and checkout shall not be allowed as soon as purchase requisition has been created
+        result = VALUE #( FOR OnlineOrder IN OnlineOrders
+                          ( %tky                   = OnlineOrder-%tky
+                            %features-%action-createPurchaseRequisitionItem
+                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted THEN if_abap_behv=>fc-o-disabled
+                                        WHEN OnlineOrder-%is_draft = is_draft-true THEN if_abap_behv=>fc-o-disabled
+                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
+                                        ELSE if_abap_behv=>fc-o-enabled   )
+                            %features-%update
+                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted  THEN if_abap_behv=>fc-o-disabled
+                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
+                                        ELSE if_abap_behv=>fc-o-enabled   )
+    *                         %features-%delete
+    *                           = COND #( WHEN OnlineOrder-PurchaseRequisition IS NOT INITIAL THEN if_abap_behv=>fc-o-disabled
+    *                                     WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
+    *                                     ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-Edit
+                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted THEN if_abap_behv=>fc-o-disabled
+                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
+                                        ELSE if_abap_behv=>fc-o-enabled   )
+
+                            ) ).
+
+      ENDMETHOD.
+      METHOD setInitialOrderValues.
+      DATA delivery_date TYPE I_PurchaseReqnItemTP-DeliveryDate.
+        data(creation_date) = cl_abap_context_info=>get_system_date(  ).
+        "set delivery date proposal
+        delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
+        "read transfered instances
+        READ ENTITIES OF ZR_ONLINESHOPTP_XXX IN LOCAL MODE
+          ENTITY OnlineShop
+            FIELDS ( OrderID OverallStatus  DeliveryDate )
+            WITH CORRESPONDING #( keys )
+          RESULT DATA(OnlineOrders).
+
+        "delete entries with assigned order ID
+        DELETE OnlineOrders WHERE OrderID IS NOT INITIAL.
+        CHECK OnlineOrders IS NOT INITIAL.
+
+        " **Dummy logic to determine order IDs**
+        " get max order ID from the relevant active and draft table entries
+        SELECT MAX( order_id ) FROM zaonlineshop_xxx INTO @DATA(max_order_id). "active table
+        SELECT SINGLE FROM zdonlineshop_xxx FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
+        IF max_orderid_draft > max_order_id.
+          max_order_id = max_orderid_draft.
+        ENDIF.
+
+        "set initial values of new instances
+        MODIFY ENTITIES OF ZR_ONLINESHOPTP_XXX IN LOCAL MODE
+          ENTITY OnlineShop
+            UPDATE FIELDS ( OrderID OverallStatus  DeliveryDate Price  )
+            WITH VALUE #( FOR order IN OnlineOrders INDEX INTO i (
+                              %tky          = order-%tky
+                              OrderID       = max_order_id + i
+                              OverallStatus = c_overall_status-new  "'New / Composing'
+                              DeliveryDate  = delivery_date
+                              CreatedAt     = creation_date
+                            ) ).
+      ENDMETHOD.
+
+    METHOD checkOrderedQuantity.
+        "read relevant order instance data
+        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
+        ENTITY OnlineShop
+        FIELDS ( OrderID OrderedItem OrderQuantity )
+        WITH CORRESPONDING #( keys )
+        RESULT DATA(OnlineOrders).
+
+        "raise msg if 0 > qty <= 10
+        LOOP AT OnlineOrders INTO DATA(OnlineOrder).
+          APPEND VALUE #(  %tky           = OnlineOrder-%tky
+                          %state_area    = 'VALIDATE_QUANTITY'
+                        ) TO reported-onlineshop.
+
+      IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
+            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky          = OnlineOrder-%tky
+                            %state_area   = 'VALIDATE_QUANTITY'
+                            %msg          = new_message_with_text(
+                                    severity = if_abap_behv_message=>severity-error
+                                    text     = 'Quantity cannot be empty' )
+                            %element-orderquantity = if_abap_behv=>mk-on
+                          ) TO reported-onlineshop.
+
+          ELSEIF OnlineOrder-OrderQuantity > 10.
+            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky          = OnlineOrder-%tky
+                            %state_area   = 'VALIDATE_QUANTITY'
+                            %msg          = new_message_with_text(
+                                    severity = if_abap_behv_message=>severity-error
+                                    text     = 'Quantity should be below 10' )
+
+                            %element-orderquantity  = if_abap_behv=>mk-on
+                          ) TO reported-onlineshop.
+          ENDIF.
+        ENDLOOP.
+      ENDMETHOD.
+
+      METHOD calculateTotalPrice.
+        DATA total_price TYPE zr_onlineshoptp_xxx-TotalPrice.
+
+        " read transfered instances
+        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
+          ENTITY OnlineShop
+            FIELDS ( OrderID TotalPrice )
+            WITH CORRESPONDING #( keys )
+          RESULT DATA(OnlineOrders).
+
+        LOOP AT OnlineOrders ASSIGNING FIELD-SYMBOL(<OnlineOrder>).
+          " calculate total value
+          <OnlineOrder>-TotalPrice = <OnlineOrder>-Price * <OnlineOrder>-OrderQuantity.
+        ENDLOOP.
+
+        "update instances
+        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
+          ENTITY OnlineShop
+            UPDATE FIELDS ( TotalPrice )
+            WITH VALUE #( FOR OnlineOrder IN OnlineOrders (
+                              %tky       = OnlineOrder-%tky
+                              TotalPrice = <OnlineOrder>-TotalPrice
+                            ) ).
+      ENDMETHOD.
+
+      METHOD checkdeliverydate.
+    *   " read transfered instances
+        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
+          ENTITY OnlineShop
+            FIELDS ( DeliveryDate )
+            WITH CORRESPONDING #( keys )
+          RESULT DATA(OnlineOrders).
+
+        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
+        "raise msg if 0 > qty <= 10
+        LOOP AT OnlineOrders INTO DATA(online_order).
+
+
+          IF online_order-DeliveryDate IS INITIAL OR online_order-DeliveryDate = ' '.
+            APPEND VALUE #( %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky         = online_order-%tky
+                            %state_area   = 'VALIDATE_DELIVERYDATE'
+                            %msg          = new_message_with_text(
+                                    severity = if_abap_behv_message=>severity-error
+                                    text     = 'Delivery Date cannot be initial' )
+                          ) TO reported-onlineshop.
+
+          ELSEIF  ( ( online_order-DeliveryDate ) - creation_date ) < 14.
+            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky          = online_order-%tky
+                            %state_area   = 'VALIDATE_DELIVERYDATE'
+                            %msg          = new_message_with_text(
+                                    severity = if_abap_behv_message=>severity-error
+                                    text     = 'Delivery Date should be atleast 14 days after the creation date'  )
+
+                            %element-orderquantity  = if_abap_behv=>mk-on
+                          ) TO reported-onlineshop.
+          ENDIF.
+        ENDLOOP.
+      ENDMETHOD.
+
+    ENDCLASS.
+
+    CLASS lsc_ZR_ONLINESHOPTP_XXX DEFINITION INHERITING FROM cl_abap_behavior_saver.
+    PROTECTED SECTION.
+
+      METHODS save_modified REDEFINITION.
+
+      METHODS cleanup_finalize REDEFINITION.
+
+    ENDCLASS.
+
+    CLASS lsc_ZR_ONLINESHOPTP_XXX IMPLEMENTATION.
+
+    METHOD save_modified.
+      DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
+            ls_online_shop_as        TYPE                   zaonlineshop_xxx.
+      IF create-onlineshop IS NOT INITIAL.
+        lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
+        INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+      ENDIF.
+      IF update IS NOT INITIAL.
+        CLEAR lt_online_shop_as.
+        lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
+        LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
+    *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @data(ls_onlineshop) .
+    *                      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
+
+          MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+    *           ENDSELECT.
+        ENDLOOP.
+      ENDIF.
+      IF zbp_onlineshoptp_xxx=>mapped_purchase_requisition IS NOT INITIAL AND update IS NOT INITIAL.
+        LOOP AT zbp_onlineshoptp_xxx=>mapped_purchase_requisition-purchaserequisition ASSIGNING FIELD-SYMBOL(<fs_pr_mapped>).
+          CONVERT KEY OF i_purchaserequisitiontp FROM <fs_pr_mapped>-%pid TO DATA(ls_pr_key).
+          <fs_pr_mapped>-purchaserequisition = ls_pr_key-purchaserequisition.
+    *        ZBP_ONLINESHOPTP_xxx=>cv_pr_pid = <fs_pr_mapped>-%pid.
+        ENDLOOP.
+        LOOP AT update-onlineshop INTO  DATA(ls_online_shop) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+          " Creates internal table with instance data
+          DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
+    *      update zaonlineshop_xxx FROM  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_online_shop-OrderID  ) ).
+          update zaonlineshop_xxx SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_online_shop-OrderUUID.
+        ENDLOOP.
+      ENDIF.
+    loop at delete-onlineshop into data(onlineshop_delete) WHERE OrderUUID is not INITIAL.
+    delete from zaonlineshop_xxx where order_uuid = @onlineshop_delete-OrderUUID.
+    delete from zdonlineshop_xxx where orderuuid = @onlineshop_delete-OrderUUID.
+    endloop.
+    ENDMETHOD.
+
+    METHOD cleanup_finalize.
     ENDMETHOD.
 
     ENDCLASS.

@@ -18,7 +18,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - This tutorial can be used in both SAP S/4HANA Cloud, private edition system and SAP S/4HANA on-premise system with release 2022 FPS01. We suggest using a [Fully-Activated Appliance] (https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup.
 - For SAP S/4HANA on-premise, create developer user with full development authorization 
 - You have installed the latest [Eclipse with ADT](abap-install-adt).
-- Business role `SAP_BR_PURCHASER` needs to be assign to your business user
+- Business role `SAP_BR_PURCHASER` needs to be assigned to your business user
 - Use Starter Development Tenant in S/4HANA Cloud for the tutorial to have necessary sample data in place. See [3-System Landscape and Transport Management](https://help.sap.com/docs/SAP_S4HANA_CLOUD/a630d57fc5004c6383e7a81efee7a8bb/e022623ec1fc4d61abb398e411670200.html?state=DRAFT&version=2208.503).
 
 
@@ -190,8 +190,6 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders)
           FAILED failed.
-
-        "ToDo: dynamic feature control is currently not working for the action cancel order
 
         " evaluate condition, set operation state, and set result parameter
         " update and checkout shall not be allowed as soon as purchase requisition has been created
