@@ -506,7 +506,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
     ENDCLASS.
 
 
-    CLASS zbp_onlineshoptp_xxx IMPLEMENTATION.
+    CLASS zbp_onlineshoptp_xxx IMPLEMENTATION. 
     ENDCLASS.
     ```
 
@@ -514,7 +514,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
     ```ABAP
     CLASS lhc_OnlineShop DEFINITION INHERITING FROM cl_abap_behavior_handler.
-    PRIVATE SECTION.
+      PRIVATE SECTION.
         CONSTANTS:
           BEGIN OF is_draft,
             false TYPE abp_behv_flag VALUE '00', " active (not draft)
@@ -523,7 +523,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
         CONSTANTS:
           BEGIN OF c_overall_status,
             new       TYPE string VALUE 'New / Composing',
-    *        composing  TYPE string VALUE 'Composing...',
+            *         composing  type string value 'Composing...',
             submitted TYPE string VALUE 'Submitted / Approved',
             cancelled TYPE string VALUE 'Cancelled',
           END OF c_overall_status.
@@ -538,11 +538,11 @@ In our scenario, we want to integrate the released purchase requisition API duri
                 calculateTotalPrice FOR DETERMINE ON MODIFY
                       IMPORTING keys FOR OnlineShop~calculateTotalPrice.
 
-                    METHODS checkDeliveryDate FOR VALIDATE ON SAVE
-                      IMPORTING keys FOR OnlineShop~checkDeliveryDate.
+        METHODS checkDeliveryDate FOR VALIDATE ON SAVE
+          IMPORTING keys FOR OnlineShop~checkDeliveryDate.
 
-                    METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
-                      IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
+        METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
+          IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
 
     ENDCLASS.
 
@@ -565,7 +565,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
               delivery_date              TYPE I_PurchaseReqnItemTP-DeliveryDate,
               requested_quantity         TYPE I_PurchaseReqnItemTP-RequestedQuantity.
 
-    *    delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
+        *    delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
 
         "read transfered order instances
         READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
@@ -591,16 +591,16 @@ In our scenario, we want to integrate the released purchase requisition API duri
                                                           plant                        = '1010'  "Plant 01 (DE)
                                                           accountassignmentcategory    = 'U'  "unknown
     *                                                       PurchaseRequisitionItemText  =  . "retrieved automatically from maintained MaterialInfo
-                                                          requestedquantity            = OnlineOrder-OrderQuantity
-                                                          purchaserequisitionprice     = OnlineOrder-Price
-                                                          purreqnitemcurrency          = OnlineOrder-Currency
-                                                          Material                     = 'D001'
-                                                          materialgroup                = 'A001'
-                                                          purchasinggroup              = '001'
-                                                          purchasingorganization       = '1010'
-                                                          DeliveryDate                 = OnlineOrder-DeliveryDate   "delivery_date  "yyyy-mm-dd (at least 10 days)
-                                                          CreatedByUser                = OnlineOrder-CreatedBy
-                                                          ) ) ).
+          requestedquantity            = OnlineOrder-OrderQuantity
+          purchaserequisitionprice     = OnlineOrder-Price
+          purreqnitemcurrency          = OnlineOrder-Currency
+          Material                     = 'D001'
+          materialgroup                = 'A001'
+          purchasinggroup              = '001'
+          purchasingorganization       = '1010'
+          DeliveryDate                 = OnlineOrder-DeliveryDate   "delivery_date  "yyyy-mm-dd (at least 10 days)
+          CreatedByUser                = OnlineOrder-CreatedBy
+          ) ) ).
           APPEND purchase_requisition_item TO purchase_requisition_items.
 
           "purchase requisition account assignment
@@ -646,10 +646,10 @@ In our scenario, we want to integrate the released purchase requisition API duri
                       purchasingorganization
                       DeliveryDate
                     )
-            WITH purchase_requisition_items
+            with purchase_requisition_items
           "purchase reqn account assignment
-          ENTITY purchaserequisitionitem
-            CREATE BY \_purchasereqnacctassgmt
+          entity purchaserequisitionitem
+            create by \_purchasereqnacctassgmt
                 FIELDS ( CostCenter
                         GLAccount
                         Quantity
@@ -694,9 +694,9 @@ In our scenario, we want to integrate the released purchase requisition API duri
           result = VALUE #( FOR order_2 IN result_read ( %tky   = order_2-%tky
                                                         %param = order_2 ) ).
         ENDIF.
-    endmethod.
+      ENDMETHOD.
 
-    METHOD get_instance_features.
+      METHOD get_instance_features.
         " read relevant olineShop instance data
         READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
           ENTITY OnlineShop
@@ -722,23 +722,23 @@ In our scenario, we want to integrate the released purchase requisition API duri
                                         ELSE if_abap_behv=>fc-o-enabled   )
     *                         %features-%delete
     *                           = COND #( WHEN OnlineOrder-PurchaseRequisition IS NOT INITIAL THEN if_abap_behv=>fc-o-disabled
-    *                                     WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
-    *                                     ELSE if_abap_behv=>fc-o-enabled   )
+    *                                     when OnlineOrder-OverallStatus = c_overall_status-cancelled then if_abap_behv=>fc-o-disabled
+    *                                     else if_abap_behv=>fc-o-enabled   )
                             %action-Edit
-                              = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted THEN if_abap_behv=>fc-o-disabled
-                                        WHEN OnlineOrder-OverallStatus = c_overall_status-cancelled THEN if_abap_behv=>fc-o-disabled
-                                        ELSE if_abap_behv=>fc-o-enabled   )
+                              = cond #( when OnlineOrder-OverallStatus = c_overall_status-submitted then if_abap_behv=>fc-o-disabled
+                                        when OnlineOrder-OverallStatus = c_overall_status-cancelled then if_abap_behv=>fc-o-disabled
+                                        else if_abap_behv=>fc-o-enabled   )
 
                             ) ).
 
       ENDMETHOD.
       METHOD setInitialOrderValues.
-      DATA delivery_date TYPE I_PurchaseReqnItemTP-DeliveryDate.
-        data(creation_date) = cl_abap_context_info=>get_system_date(  ).
+        DATA delivery_date TYPE I_PurchaseReqnItemTP-DeliveryDate.
+        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
         "set delivery date proposal
         delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
         "read transfered instances
-        READ ENTITIES OF ZR_ONLINESHOPTP_XXX IN LOCAL MODE
+        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
           ENTITY OnlineShop
             FIELDS ( OrderID OverallStatus  DeliveryDate )
             WITH CORRESPONDING #( keys )
@@ -757,7 +757,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
         ENDIF.
 
         "set initial values of new instances
-        MODIFY ENTITIES OF ZR_ONLINESHOPTP_XXX IN LOCAL MODE
+        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
           ENTITY OnlineShop
             UPDATE FIELDS ( OrderID OverallStatus  DeliveryDate Price  )
             WITH VALUE #( FOR order IN OnlineOrders INDEX INTO i (
@@ -769,7 +769,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
                             ) ).
       ENDMETHOD.
 
-    METHOD checkOrderedQuantity.
+      METHOD checkOrderedQuantity.
         "read relevant order instance data
         READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
         ENTITY OnlineShop
@@ -783,7 +783,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
                           %state_area    = 'VALIDATE_QUANTITY'
                         ) TO reported-onlineshop.
 
-      IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
+          IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
             APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-onlineshop.
             APPEND VALUE #( %tky          = OnlineOrder-%tky
                             %state_area   = 'VALIDATE_QUANTITY'
@@ -834,11 +834,11 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
       METHOD checkdeliverydate.
     *   " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
-            FIELDS ( DeliveryDate )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(OnlineOrders).
+            read entities of zr_onlineshoptp_xxx in local mode
+              entity OnlineShop
+                fields ( DeliveryDate )
+                with corresponding #( keys )
+              result data(OnlineOrders).
 
         DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
         "raise msg if 0 > qty <= 10
@@ -871,55 +871,55 @@ In our scenario, we want to integrate the released purchase requisition API duri
     ENDCLASS.
 
     CLASS lsc_ZR_ONLINESHOPTP_XXX DEFINITION INHERITING FROM cl_abap_behavior_saver.
-    PROTECTED SECTION.
+      PROTECTED SECTION.
 
-      METHODS save_modified REDEFINITION.
+        METHODS save_modified REDEFINITION.
 
-      METHODS cleanup_finalize REDEFINITION.
+        METHODS cleanup_finalize REDEFINITION.
 
     ENDCLASS.
 
     CLASS lsc_ZR_ONLINESHOPTP_XXX IMPLEMENTATION.
 
-    METHOD save_modified.
-      DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-            ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-      IF create-onlineshop IS NOT INITIAL.
-        lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-        INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-      ENDIF.
-      IF update IS NOT INITIAL.
-        CLEAR lt_online_shop_as.
-        lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-        LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-    *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @data(ls_onlineshop) .
-    *                      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
+      METHOD save_modified.
+        DATA : lt_online_shop_as TYPE STANDARD TABLE OF zaonlineshop_xxx,
+              ls_online_shop_as TYPE                   zaonlineshop_xxx.
+        IF create-onlineshop IS NOT INITIAL.
+          lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
+          INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+        ENDIF.
+        IF update IS NOT INITIAL.
+          CLEAR lt_online_shop_as.
+          lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
+          LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
+            *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @DATA(ls_onlineshop) .
+            *                      lt_online_shop_as = corresponding #( create-onlineshop MAPPING FROM ENTITY ).
 
-          MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-    *           ENDSELECT.
+            MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+            *           endselect.
+          ENDLOOP.
+        ENDIF.
+        IF zbp_onlineshoptp_xxx=>mapped_purchase_requisition IS NOT INITIAL AND update IS NOT INITIAL.
+          LOOP AT zbp_onlineshoptp_xxx=>mapped_purchase_requisition-purchaserequisition ASSIGNING FIELD-SYMBOL(<fs_pr_mapped>).
+            CONVERT KEY OF i_purchaserequisitiontp FROM <fs_pr_mapped>-%pid TO DATA(ls_pr_key).
+            <fs_pr_mapped>-purchaserequisition = ls_pr_key-purchaserequisition.
+            *        ZBP_ONLINESHOPTP_xxx=>cv_pr_pid = <fs_pr_mapped>-%pid.
+          ENDLOOP.
+          LOOP AT update-onlineshop INTO  DATA(ls_online_shop) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+            " Creates internal table with instance data
+            DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
+            *      update zaonlineshop_xxx from  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_online_shop-OrderID  ) ).
+            UPDATE zaonlineshop_xxx SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_online_shop-OrderUUID.
+          ENDLOOP.
+        ENDIF.
+        LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
+          DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
+          DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
         ENDLOOP.
-      ENDIF.
-      IF zbp_onlineshoptp_xxx=>mapped_purchase_requisition IS NOT INITIAL AND update IS NOT INITIAL.
-        LOOP AT zbp_onlineshoptp_xxx=>mapped_purchase_requisition-purchaserequisition ASSIGNING FIELD-SYMBOL(<fs_pr_mapped>).
-          CONVERT KEY OF i_purchaserequisitiontp FROM <fs_pr_mapped>-%pid TO DATA(ls_pr_key).
-          <fs_pr_mapped>-purchaserequisition = ls_pr_key-purchaserequisition.
-    *        ZBP_ONLINESHOPTP_xxx=>cv_pr_pid = <fs_pr_mapped>-%pid.
-        ENDLOOP.
-        LOOP AT update-onlineshop INTO  DATA(ls_online_shop) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
-          " Creates internal table with instance data
-          DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-    *      update zaonlineshop_xxx FROM  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_online_shop-OrderID  ) ).
-          update zaonlineshop_xxx SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_online_shop-OrderUUID.
-        ENDLOOP.
-      ENDIF.
-    loop at delete-onlineshop into data(onlineshop_delete) WHERE OrderUUID is not INITIAL.
-    delete from zaonlineshop_xxx where order_uuid = @onlineshop_delete-OrderUUID.
-    delete from zdonlineshop_xxx where orderuuid = @onlineshop_delete-OrderUUID.
-    endloop.
-    ENDMETHOD.
+      ENDMETHOD.
 
-    METHOD cleanup_finalize.
-    ENDMETHOD.
+      METHOD cleanup_finalize.
+      ENDMETHOD.
 
     ENDCLASS.
     ```
