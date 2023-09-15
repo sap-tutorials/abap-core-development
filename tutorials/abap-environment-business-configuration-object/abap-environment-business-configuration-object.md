@@ -189,7 +189,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
       ![Start ABAP Repository Objects generator](bc.png)
 
-  2. Select **`Business Configuration Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
+  2. Select **`Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
 
      ![Select generator](bc2.png)
 
