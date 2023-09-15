@@ -22,7 +22,6 @@ author_profile: https://github.com/mervey45
       - Apple Mac OS X 10.14 or higher
 - Microsoft VC Runtime:
       - For Windows OS: [Microsoft Visual C++ 2013 (x64)](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) for communication with the back-end system is required.
-
     >**Hint:** Precisely version Visual Studio 2013 (VC++ 12.0) x64 for communication with the back-end system is required.
 -	Java Runtime:
       -	ADT is validated and tested against Java versions 11 and 17 (Oracle Java and `OpenJDK`).
