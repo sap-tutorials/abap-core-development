@@ -174,7 +174,7 @@ author_profile: https://github.com/mervey45
 
       ![dev](studio3.png)
 
-  5. Create a new dev space:
+  5. Create a new dev space: 
        - Name: **Fiori**
        - Type: **SAP Fiori**
 
@@ -185,7 +185,18 @@ author_profile: https://github.com/mervey45
   6. When your status is **Running**, select your dev space **Fiori**.
 
       ![dev](studio5.png)
-      
+
+
+### Set project folder
+
+  1. Now you are in your **Fiori** dev space in SAP Business Application Studio.
+     Select the menu on the left side and click **Open Folder** to set your workspace.
+
+      ![organization](basn.png)
+
+  2. Select **`/home/user/projects/`** and click **OK**.
+
+      ![organization](basn2.png)
 
 ### Create list report object page
 
