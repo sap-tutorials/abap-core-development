@@ -8,16 +8,12 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Implement a CDS Custom Entity and Query Implementation Class
-<!-- description --> In the SAP Business Technology Platform, ABAP Environment, implement a CDS custom entity and query implementation class.
+# Implement a Custom Entity and Query Implementation Class
+<!-- description --> In the SAP Business Technology Platform, ABAP Environment, implement a CDS custom entity and query implementation class; then display the output in a Fiori Elements preview
 
 ##Prerequisites
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
-<<<<<<< HEAD
-- **IMPORTANT**: This tutorial is part 4 of a mission. You must complete the other 3 parts first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps.
-=======
 - **IMPORTANT**: This tutorial is part of a mission. You must complete the previous parts first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn
   - How to implement a query manually for your CDS custom entity
@@ -26,7 +22,7 @@ author_profile: https://github.com/julieplummer20
 ## Intro
 This tutorial is based on:
 
-  - [Using a CDS Custom Entity for Data Modeling](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/6436a50d7d284f01af2cca7a76c7116a.html).
+  - [Using a CDS Custom Entity for Data Modeling](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/6436a50d7d284f01af2cca7a76c7116a.html)
   - [Implementing the Query for Service Consumption](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/c33503ae1e794e3aad0d2e122f465611.html)
   - [Implementing Data and Count Retrieval](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/33497472ad294918b8a0184d9d8369bd.html)
 
@@ -34,267 +30,226 @@ Therefore, this tutorial will only cover in detail those aspects that are differ
 
 ---
 
-### Create class implementing data retrieval logic
 
-First, you create the class that implements the data retrieval logic.
+### Add query provider interface to class
+You have already tested the connection by displaying data in an ABAP Console app. You will now display this data in a Fiori Elements preview, using a custom entity.
+1. First, open the class **`ZCL_PROXY_TRAVELS_000`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
 
-1. In ADT, open your package **`Z_A4C_TO_A4C_XX2`** and choose **New > Class**.
+    ```ABAP
+      INTERFACES:   if_oo_adt_classrun,
+                    if_rap_query_provider.
+    
+    ```
 
-2. Enter a name and description:
-    - `ZCL_TRAVELS_XXX`
-    - Get travel data from A4C System
+    > The signature of the method `IF_RAP_QUERY_PROVIDER~SELECT` contains the import parameter `io_request`. This parameter represents the OData query options that are delegated from the UI and used as input for the SELECT method. Whenever the OData client requests data, the query implementation class must return the data that matches the request, or throw an exception if the request cannot be fulfilled.
 
-3. Accept the default transport request, then choose **Finish**.
+2. You will get a warning: "Implementation missing for method `IF_RAP_QUERY_PROVIDER~SELECT`." Select the warning and choose **Quick Fix (`Ctrl+1`)** from the context menu. Then choose the fix **Add implementation for select**. 
 
+    An empty method implementation is added.
 
-
-### Add INTERFACES statement
-
-The signature of the method `IF_RAP_QUERY_PROVIDER~SELECT` contains the import parameter `io_request`. This parameter represents the OData query options that are delegated from the UI and used as input for the SELECT method.
-
-Whenever the OData client requests data, the query implementation class must return the data that matches the request, or throw an exception if the request cannot be fulfilled.
-
-1. Implement the interface by adding this statement to the public section:
-
-    `INTERFACES if_rap_query_provider.`
-
-2. Choose **Quick Fix (`Ctrl+1`)**, then choose **Add implementation for SELECT...**.
-
-3. Save and activate ( **Ctrl+S, Ctrl+F3** ) your class.
-
-Later, you will implement the SELECT method of the interface.
-
+3. Format, save, and activate ( **Sh+F1, Ctrl+S, Ctrl+F3** ) your class.
 
 
 ### Specify class in your custom entity
 
+1. Open your CDS custom entity by choosing **Core Data Services > Data Definitions** > **`ZCE_TRAVEL_DATA_000`**, which you created in [Create a Service Consumption Model](abap-environment-create-service-consumption-model).
 
-1. Open your CDS custom entity **`ZCE_TRAVEL_DATA_XXX`**, created in [Create a Service Consumption Model](abap-environment-create-service-consumption-model).
-
-2. Add the following annotation to the view (immediately after the '@EndUserText.label' annotation), pointing to the class you have just created - NOTE: Use upper case!
+2. Add the following annotation to the view (immediately after the '@EndUserText.label' annotation), pointing to the class you have just created - **IMPORTANT: Use upper case!**
 
     ```CDS
 
-    @ObjectModel.query.implementedBy: 'ABAP:ZCL_TRAVELS_XXX'
+    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_200'
     ```
-
-
-
-### Copy code
-
-Copy the following code into your query implementation class, **`ZCL_TRAVELS_XXX`**. Ignore the warnings.
-
-```ABAP
-CLASS zcl_travels_xxx DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
-
-  PUBLIC SECTION.
-      INTERFACES if_rap_query_provider.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
-ENDCLASS.
-
-CLASS zcl_travels_xxx IMPLEMENTATION.
-  METHOD if_rap_query_provider~select.
-          """Instantiate Client Proxy
-        DATA(lo_client_proxy) = zcl_proxy_travels_xxx=>get_client_proxy( ).
-
-      TRY.
-          """Instantiate Client Proxy
-          """Create Read Request
-          DATA(lo_read_request) = lo_client_proxy->create_resource_for_entity_set( 'TRAVEL' )->create_request_for_read( ).
-
-
-          """Request Inline Count
-          IF io_request->is_total_numb_of_rec_requested( ).
-            io_response->set_total_number_of_records( lo_response->get_count( ) ).
-          ENDIF.
-
-          """Implement Paging
-          DATA(ls_paging) = io_request->get_paging( ).
-            IF ls_paging->get_offset( ) >= 0.
-              lo_read_request->set_skip( ls_paging->get_offset( ) ).
-            ENDIF.
-
-          IF ls_paging->get_page_size( ) <> if_rap_query_paging=>page_size_unlimited.
-              lo_read_request->set_top( ls_paging->get_page_size( ) ).
-
-              """Execute the Request
-              DATA(lo_response) = lo_read_request->execute( ).
-          ENDIF.        
-
-        CATCH /iwbep/cx_gateway INTO DATA(lx_gateway).
-          RAISE EXCEPTION TYPE ZCX_TRAVELS_CONS_XXX
-            EXPORTING
-              textid   = ZCX_TRAVELS_CONS_XXX=>query_fail
-              previous = lx_gateway.
-        ENDTRY.    
-
-  ENDMETHOD.
-
-ENDCLASS.
-
-```
 
 
 ### Implement SELECT method in query implementation class
 
-1. Add the variables you need using the **`DATA`** statement.
-    - **`lt_travel`** = internal table of the generated abstract entity, **`ZTRAVEL`** or **`ZTRAVEL+10-digit-GUID`**, created in tutorial [Create a Service Consumption Model](abap-environment-create-service-consumption-model). The data from the remote service will be written into that table.
+You will retrieve the travel data using the same method **`get_travels`** as before. This time, however, you will output the data to a Fiori Elements preview, by  implementing the method **`if_rap_query_provider~select`**
 
-        <!-- border -->![step7a-abstract-entity](step7a-abstract-entity.png)
-
-    - **`lt_travel_ce`** = internal table of the custom entity, **``zce_travels_xxx``**, created in step 3 above. This table is used to fill the output parameter of the select method.
+1. Add the following statements to **`METHODS get_travels`** in the **CLASS ... DEFINITION**.
 
     ```ABAP
-
-    """Define variables
-    IF io_request->is_data_requested( ).
-
-    DATA:
-
-        "abstract entity; receives data from remote service
-        lt_travel    TYPE STANDARD TABLE OF ZTRAVEL,
-
-        "custom entity; fills output parameter of SELECT
-        lt_travel_ce TYPE STANDARD TABLE OF zce_travel_data_pmd.
-
-    ENDIF.
+    IMPORTING
+      top              TYPE i OPTIONAL
+      skip             TYPE i OPTIONAL
 
     ```
 
-2. Get the data from the response object of your remote service, and write it to **`lt_travel`**.
+2. Now add the following code to the method **`if_rap_query_provider~select.`** in the **CLASS...IMPLEMENTATION**.
 
     ```ABAP
-    """Get data
-    lo_response->get_business_data( IMPORTING et_business_data = lt_travel ).
+      METHOD if_rap_query_provider~select.
+        DATA business_data TYPE TABLE OF zz000_simpletravel.
+        DATA(top)     = io_request->get_paging( )->get_page_size( ).
+        DATA(skip)    = io_request->get_paging( )->get_offset( ).
+        DATA(requested_fields)  = io_request->get_requested_elements( ).
+        DATA(sort_order)    = io_request->get_sort_elements( ).
+
+        TRY.
+          get_travels(
+
+            EXPORTING
+                      top               = CONV i( top )
+                      skip              = CONV i( skip )
+            IMPORTING
+              et_business_data  = business_data
+            ) .
+
+            io_response->set_total_number_of_records( lines( business_data ) ).
+            io_response->set_data( business_data ).
+
+          CATCH cx_root INTO DATA(exception).
+            DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
+
+        ENDTRY.
+
+      ENDMETHOD.
 
     ```
 
-3. If **`lt_travel`** returns entries, provide a mapping for those elements in the custom entity that are not identical with the names of the abstract entity elements - in this case, **Description**.
-
-    ```ABAP
-    """Check if lt_travel returns entries; map elements
-    IF lt_travel IS NOT INITIAL.
-        lt_travel_ce = CORRESPONDING #( lt_travel MAPPING description = memo    calculatedetag = lastchangedat ).
-    ENDIF.
-
-    ```
-
-4. Set return data.
-
-    ```ABAP
-    """Set return data
-    io_response->set_data( lt_travel_ce ).
-    ENDIF.
-
-    ```
-
-5. Save and activate ( **`Ctrl+S, Ctrl+F3`** ) the class.
+3. Format, save and activate ( **`Sh+F1, Ctrl+S, Ctrl+F3`** ) the class.
 
 
 
 ### Check the code for your query implementation class
 
-
 ```ABAP
-CLASS zcl_travels_xxx DEFINITION
+CLASS zcl_proxy_travels_300 DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-      INTERFACES if_rap_query_provider.
+
+    TYPES t_business_data TYPE TABLE OF zz000_simpletravel.
+
+    METHODS get_travels
+      IMPORTING
+        top              TYPE i OPTIONAL
+        skip             TYPE i OPTIONAL
+
+      EXPORTING
+        et_business_data TYPE t_business_data
+
+      RAISING
+        /iwbep/cx_cp_remote
+        /iwbep/cx_gateway
+        cx_web_http_client_error
+        cx_http_dest_provider_error
+      .
+    INTERFACES: if_oo_adt_classrun,
+      if_rap_query_provider.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
 
 
 
-CLASS zcl_travels_xxx IMPLEMENTATION.
-
-    METHOD if_rap_query_provider~select.
-          """Instantiate Client Proxy
-    DATA(lo_client_proxy) = zcl_proxy_travels_xxx=>get_client_proxy( ).
+CLASS zcl_proxy_travels_300 IMPLEMENTATION.
 
 
-    TRY.  
-          """ Instantiate Client Proxy
-          """ Create Read Request
-          DATA(lo_read_request) = lo_client_proxy->create_resource_for_entity_set( 'TRAVEL' )->create_request_for_read( ).
+  METHOD get_travels.
 
-            """ Request Inline Count
-            IF io_request->is_total_numb_of_rec_requested( ).
-              io_response->set_total_number_of_records( lo_response->get_count( ) ).
-            ENDIF.
+    DATA:
 
-            """ Implement Paging
-            DATA(ls_paging) = io_request->get_paging( ).
+      lo_http_client  TYPE REF TO if_web_http_client,
+      lo_client_proxy TYPE REF TO /iwbep/if_cp_client_proxy,
+      lo_request      TYPE REF TO /iwbep/if_cp_request_read_list,
+      lo_response     TYPE REF TO /iwbep/if_cp_response_read_lst.
 
-            IF ls_paging->get_offset( ) >= 0.
-                lo_read_request->set_skip( ls_paging->get_offset( ) ).
-            ENDIF.
 
-            IF ls_paging->get_page_size( ) <> if_rap_query_paging=>page_size_unlimited.
-                lo_read_request->set_top( ls_paging->get_page_size( ) ).
+    " 1. Get the destination of foreign system; Create http client
+    DATA(lo_destination) = cl_http_destination_provider=>create_by_comm_arrangement(
+                comm_scenario   = 'Z_OUTBOUND_000_REST_CSCEN' " MANDATORY, created in CLI, points to Comm Arr, Comm System, Comm User
+                comm_system_id  = 'Z000_TO_PRV_CSYS'          " recommended = points to Comm Sys
+                service_id      = 'Z_OUTBOUND_000_REST'       " recommended = created in ADT, points to COM Outbound Service
 
-                """ Execute the Request
-                DATA(lo_response) = lo_read_request->execute( ).
-            ENDIF.
 
-            """ Define variables
-            IF io_request->is_data_requested( ).
+                                                  ).
+    lo_http_client = cl_web_http_client_manager=>create_by_http_destination( lo_destination ).
 
-            DATA:
-                "abstract entity; receives data from remote service
-                lt_travel    TYPE STANDARD TABLE OF ztravelf7fb77ae54,
-                "custom entity; fills output param of SELECT
-                lt_travel_ce TYPE STANDARD TABLE OF zce_travel_data_pmd,
-                "local db table
-                lt_traveladd TYPE STANDARD TABLE OF zttravels_pmd.
+    "2. create client proxy
+    lo_client_proxy = cl_web_odata_client_factory=>create_v2_remote_proxy(
+     EXPORTING
+       iv_service_definition_name = 'Z000_MODEL_TRAVELS_API_O2'                 "service definition generated with Service Consumption Model (EDMX file)
+       io_http_client             = lo_http_client
+       iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000'  " = the service endpoint in the service binding in PRV
+        ).
 
-                """ Get data from response object
-                lo_response->get_business_data( IMPORTING et_business_data = lt_travel ).
+    "3. Navigate to the resource and create a request for the read operation
+    lo_request = lo_client_proxy->create_resource_for_entity_set( 'SIMPLETRAVEL' )->create_request_for_read( ).
 
-                """ Check if lt_travel returns entries, then pass data to internal table for custom entity
-                IF lt_travel IS NOT INITIAL.
-                    lt_travel_ce = CORRESPONDING #( lt_travel MAPPING description = memo    calculatedetag = lastchangedat ).
-                ENDIF.
+    lo_request->set_top( top )->set_skip( skip ).
 
-              """ Set return data
-              io_response->set_data( lt_travel_ce ).
-            ENDIF.
+    "4. Execute the request and retrieve the business data
+    lo_response = lo_request->execute( ).
+    lo_response->get_business_data( IMPORTING et_business_data = et_business_data ).
 
-      CATCH /iwbep/cx_gateway INTO DATA(lx_gateway).
-        RAISE EXCEPTION TYPE ZCX_TRAVELS_CONS_XXX
+  ENDMETHOD.
+
+
+  METHOD if_oo_adt_classrun~main.
+    DATA business_data TYPE TABLE OF zz000_simpletravel.
+
+
+    TRY.
+        get_travels(
+
+          IMPORTING
+            et_business_data  = business_data
+          ) .
+        out->write( business_data ).
+      CATCH cx_root INTO DATA(exception).
+        out->write( cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_text( ) ).
+
+
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD if_rap_query_provider~select.
+    DATA business_data TYPE TABLE OF zz000_simpletravel.
+    DATA(top)     = io_request->get_paging( )->get_page_size( ).
+    DATA(skip)    = io_request->get_paging( )->get_offset( ).
+    DATA(requested_fields)  = io_request->get_requested_elements( ).
+    DATA(sort_order)    = io_request->get_sort_elements( ).
+
+    TRY.
+        get_travels(
+
           EXPORTING
-            textid   = ZCX_TRAVELS_CONS_XXX=>query_fail
-            previous = lx_gateway.
-      ENDTRY.
+                     top               = CONV i( top )
+                     skip              = CONV i( skip )
+          IMPORTING
+            et_business_data  = business_data
+          ) .
+
+        io_response->set_total_number_of_records( lines( business_data ) ).
+        io_response->set_data( business_data ).
+
+      CATCH cx_root INTO DATA(exception).
+        DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
+
+    ENDTRY.
 
   ENDMETHOD.
 
 ENDCLASS.
-
 ```
-
-
-
 
 ### Create service binding
 
-1. Select your service definition, **`ZCE_TRAVEL_DATA_XXX`**, created in the tutorial [Create a Service Consumption Model](abap-environment-create-service-consumption-model) and choose **New > Create Service Binding** from the context menu.
+1. Select your service definition, **`Z000_MODEL_TRAVELS_UI_O2`**, created in the tutorial [Create a Service Consumption Model](abap-environment-create-service-consumption-model) and choose **New > Create Service Binding** from the context menu.
 
-    <!-- border -->![step2a-create-service-binding](step2a-create-service-binding.png)
+    <!-- border -->
+    ![step2a-create-service-binding](step2a-create-service-binding.png)
 
 2. In the wizard:
-    - Enter a name: **`Z_BIND_TRAVELS_XXX`** and description **Bind Travels Service**
+    - Enter a name: **``** and description ****
     - Enter the binding type: **`ODATA V2 - Web API`**
     - Choose **Next**
 
-    <!-- border -->![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
+    <!-- border -->
+    ![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
 
 3. Accept the transport request and choose **Finish**.    
 
@@ -307,7 +262,8 @@ ENDCLASS.
 
 5. Select the entity Set **Travel** and choose **Preview**.
 
-    <!-- border -->![step7b-service-binding-editor](step7b-service-binding-editor.png)
+    <!-- border -->
+    ![step7b-service-binding-editor](step7b-service-binding-editor.png)
 
     The Fiori Elements preview for your remote OData service appears in the browser, but without any data.
 
@@ -315,43 +271,12 @@ ENDCLASS.
 
     Your Fiori Elements preview should look roughly like this:
 
-    <!-- border -->![step7c-fiori](step7c-fiori.png)
+    <!-- border -->
+    ![step7c-fiori](step7c-fiori.png)
 
 
 
-### Refine UI
 
-If the data appears, you can now improve the look and feel of your preview.
-
-1. Make the first five column headers appear automatically when the app appears (without your having to select them in settings), by adding the following annotations:
-
-    ```CDS
-    @UI.lineItem: [ { position: 10 } ]
-    key TravelID           : abap.numc( 8 );
-
-    @UI.lineItem: [ { position: 20 } ]
-    AgencyID               : abap.numc( 6 );
-    @UI.lineItem: [ { position: 30 } ]
-    CustomerID             : abap.numc( 6 );
-
-    @UI.lineItem: [ { position: 40, label: 'Start Date'} ]
-    BeginDate              : rap_cp_odata_v2_edm_datetime;
-
-    @UI.lineItem: [ { position: 50, label: 'End Date'} ]      
-    EndDate                : rap_cp_odata_v2_edm_datetime;
-
-    ```
-
-2. The two headings **`RESTful` ABAP Programming: Data Type...** are ugly. Change them to **Begin Date** and **End Date** by adding labels, as follows:
-
-    ```CDS
-    @UI.lineItem: [ { position: 40, label: 'Start Date'} ]
-    BeginDate              : rap_cp_odata_v2_edm_datetime;
-
-    @UI.lineItem: [ { position: 50, label: 'End Date'} ]      
-    EndDate                : rap_cp_odata_v2_edm_datetime;
-
-    ```
 
 
 ### Check the code for your custom entity
@@ -381,10 +306,10 @@ define custom entity ZCE_TRAVEL_DATA_PMD
     EndDate                : rap_cp_odata_v2_edm_datetime;
 
     @Semantics.amount.currencyCode: 'CurrencyCode'
-    BookingFee             : abap.dec( 17, 3 );
+    BookingFee             : abap.dec( 16, 2 );
 
     @Semantics.amount.currencyCode: 'CurrencyCode'
-    TotalPrice             : abap.dec( 17, 3 );
+    TotalPrice             : abap.dec( 16, 2 );
 
     @Semantics.currencyCode: true
     CurrencyCode           : abap.cuky( 5 );
@@ -399,41 +324,11 @@ define custom entity ZCE_TRAVEL_DATA_PMD
 ```
 The SAP Fiori elements preview should now open looking like this.
 
-<!-- border -->![step9-fiori-improved](step9-fiori-improved.png)
-
-
+<!-- border -->
+![step9-fiori-improved](step9-fiori-improved.png)
 
 
 ### Test yourself
 
-
-
-
-
-### Test message class (optional)
-
-You can test your message class, for example by commenting out the value `i_service_instance_name` in the class `zcl_proxy_travels_xx2` and changing it to a non-existent value.
-
-When you run the application, by choosing **Go** in the Fiori Elements preview, then you should get an error message like this:
-
-<!-- border -->![step11-error](step11-error.png)
-
-
-### Debugging
-
-If you are having problems, you can trace the flow of your application in ABAP Debugger.
-
-1. For example, set a breakpoint at this statement:
-
-    `lt_travel_ce = CORRESPONDING #( lt_travel MAPPING description = memo    calculatedetag = lastchangedat ).`
-
-2. You can then see whether the two internal tables have been filled.
-
-    <!-- border -->![step12-debugger-lt_travel](step12-debugger-lt_travel.png)
-
-
-### More Information
-
-- [Inspect Your Class in the ABAP Debugger](abap-environment-custom-entity-debug)
 
 ---

@@ -2,60 +2,37 @@
 parser: v2
 auto_validation: true
 time: 45
-<<<<<<< HEAD
-tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, tutorial>license]
-=======
 tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-<<<<<<< HEAD
-# Create Communication Objects for a Remote OData Service
-=======
-# Create Communication Objects for a Remote OData Service from an SAP BTP ABAP Environment Service
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
-<!-- description --> Create an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment.
+# Provision a Remote OData Service from an SAP BTP ABAP Environment Service
+<!-- description --> Create an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment. You will use these in a later tutorial to enable a connection to this system from a consuming system, here also of SAP BTP, ABAP Environment. 
 
-## Prerequisites
+
+## Prerequisites 
+<!-- LATER : Released Obj eg I_Business_User - check trial systems -->
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
-<<<<<<< HEAD
-- You have set up 2 instances of SAP Business Technology Platform, ABAP Environment, a **provisioning system** and a **client system**, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
-=======
-- **IMPORTANT**: This tutorial is part of a mission. You must complete this part first; otherwise, you may experience errors or unexpected behavior. The link to the mission is available at the top right of the screen, immediately above the list of steps
 - You have set up 2 instances of SAP Business Technology Platform, ABAP Environment, a **provisioning system** and a **consuming system**, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 - **Tutorial**: [Create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2, for both instances
 - In the provisioning system:
-    - The business catalog **`SAP_CORE_BC_COM`** is assigned to your user
-    - The ABAP Flight Reference Scenario is available. To pull this reference scenario from `Github`, see [ Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
-    - You have exposed the data definition **` /DMO/TRAVEL_U`** as an OData service, using a service definition and service binding
+    - You have developer authorization for the apps for communication artifacts (i.e. business catalog **`SAP_CORE_BC_COM`** is assigned to your user)
+    - You have created a business object projection (i.e. service projection) from a base business object. Here, we created **`Z_C_TRAVEL_U_SIMPLE_000`** as a projection on **`/DMO/I_TRAVEL_U`** from the [ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
+    - You have created a service definition from this service projection. Here, we created **`Z_C_TRAVEL_U_SIMPLE_000`**
+- You have installed the latest version of [ABAP Development Tools (ADT)](https://tools.hana.ondemand.com/#abap).
 - You have read [Developing a UI Service with Access to a Remote Service](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/f4969e551d3049c59715210cbeb4ef56.html) and its [Scenario Description](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/4f539da657fe427f868a95c0bc1b3cfa.html), since this mission is based on this tutorial series
 - Optional: You have installed the [Postman API Platform](https://www.getpostman.com/)
 
+
 ## You will learn
-- In the **provisioning** system: How to expose a CDS view as an OData service using a **Service Binding**
+
+- In the **provisioning** system, how to expose a CDS view as an OData service using a **Service Binding**
 - How to wrap this OData service in an inbound communication scenario, so that it can be accessed from another instance of SAP BTP, ABAP environment
-- How to make the provisioning system available for connection from other ABAP systems
+- How to make the provisioning system service available for connection from other ABAP systems
 - How to test your service URL in Postman (optional)
-<<<<<<< HEAD
-- In the **client** system: How to create a new destination with an HTTP connection, pointing to the provisioning system
-
-## Intro
-This involves some overhead for one consumer; however, the advantage is that you can add several consumer systems, or users (for example, with different authentication) pointing to the same HTTP service, wrapped in the same Communication Scenario.
-
-<!-- border -->![step9-create-comm-artefacts-overview](step9-create-comm-artefacts-overview.png)
-
-.
-.
-
-**Mission Scenario**:
-
-You want to get data that is only available in a remote instance of SAP BTP, ABAP Environment ( **provisioning system** ) and display it in a second instance ( **client system** ).
-=======
-- In the **consuming** system: How to create a new destination with an HTTP connection, pointing to the provisioning system
+- How to create an XML metadata file representing the remote service
 
 This approach involves some overhead for one consumer; however, the advantage is that you can add several consumer systems, or users (for example, with different authentication) pointing to the same HTTP service, wrapped in the same Communication Scenario.
 
@@ -64,54 +41,22 @@ This tutorial mission was written for SAP BTP ABAP Environment. However, you sho
 **Mission Scenario**:
 
 You want to get data that is only available in a remote instance of SAP BTP, ABAP Environment ( **provisioning system** ) and display it in a second instance ( **consuming system** ).
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
-You need to:
-
-1. Create inbound communication artifacts for an OData Service in the **provisioning system**
-<<<<<<< HEAD
-2. Create a Service Consumption Model, and save this locally as a `$metadata` XML file; From this you will create proxy artifacts in the client system, representing the remote service, and use this model to generate an **abstract entity**
-3. Create a Remote Client Proxy
-4. Build a new OData service in the client system, using a CDS custom entity and query implementation class
-5. Finally, display the remote data in Fiori Elements preview in your browser
-
-<!-- border -->![overview-cf-only](overview-cf-only.png)
-
----
-
-### Create inbound Communication Scenario
-
-1. In your **provisioning** system, select your package, then choose **New > Other Repository Object...** from the context menu.
-
-    <!-- border -->![step9a-new-other](step9a-new-other.png)
-
-2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
-
-    <!-- border -->![step1b-create-comm-scen-2011](step1b-create-comm-scen-2011.png)
-
-3. Add a Name: **`Z_WRAP_TRAVEL_XXX`** and Description, **Inbound for Travel Remote Service**, choose a transport request, then choose **Finish**.
-
-Your Communication Scenario appears in a new editor.
-
-<!-- border -->![step1c-new-comm-scen-editor](step1c-new-comm-scen-editor.png)
-
-You can also see this scenario in the Project Explorer.
-
-<!-- border -->![step1d-comm-scen-in-adt-project-explorer](step1d-comm-scen-in-adt-project-explorer.png)
-=======
-2. Create outbound communication artifacts for an OData Service in the **consuming system**
-3. Create a **Service Consumption Model**, and save this locally as a `$metadata` XML file; from this you will create proxy artifacts in the consuming system, representing the remote service, and use this model to generate an **abstract entity**
-4. Create a Remote consuming Proxy
+In the mission, you will learn:
+1. In the **provisioning system**, create inbound communication artifacts for an OData Service 
+2. Create a **Service Consumption Model** and save this locally as a `$metadata` XML file. From this you will create proxy artifacts in the consuming system, representing the remote service, and use this model to generate an **abstract entity**
+3. In the **consuming system**, create outbound communication artifacts for an OData Service 
+4. Create a Remote Client Proxy that passes the OData requests to the remote service
 5. Build a new OData service in the consuming system, using a CDS custom entity and query implementation class
-6. Finally, display the remote data in Fiori Elements preview in your browser
+6. Display the remote data in an ABAP Console app
+7. Finally, display the remote data in Fiori Elements preview in your browser.
 
-> Throughout this tutorial, replace `XXX` or `000` with your initials or group number.
+> Throughout this tutorial, replace `000` with your initials or group number.
 
-<!-- border -->
-![step9-create-comm-artefacts-overview](step9-create-comm-artefacts-overview.png)
 
 <!-- border -->
 ![step0-overview-create-by-comm-arr](step0-overview-create-by-comm-arr.png)
+
 
 ---
 
@@ -122,132 +67,114 @@ You start in your **provisioning** system by creating the ABAP artifacts in ABAP
 1. select the ABAP Cloud Project and choose **New > ABAP Package** from the context menu.
 
 2. Enter the following and choose **Next**:
-    - Name = **`Z_PRV_2_CON_000`**
+    - Name = **`Z_BTP_2_BTP_000`**
     - Description = **Connect 2 instances of BTP ABAP**
     - Package type = **Development**
 
 3. Choose **Create new transport request**, enter a description, such as **Connect 2 instances of BTP ABAP**, then choose **Finish**.
 
+4. Add it to **Favorite Packages**.
+
+
+### Create OData service endpoint (service binding)
+
+First, you need to expose your service definition (based on your service projection, e.g. **`Z_C_TRAVEL_U_SIMPLE_000`**) as an endpoint so that the **consuming system** can access it. To do this, create a service binding of type **Web API**, OData version 2. (The type **UI** is not suitable for creating the other objects you will derive from it later.) 
+
+When naming, remember to comply with the [Naming Conventions for RAP Business Objects](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/8b8f9d8f3cb948b2841d6045a255e503.html?q=naming%20convention&version=2302.500).
+
+1. Create a new **Service Binding** from the service definition by selecting it and choosing **New Service Binding** from the context menu. 
+
+    <!-- border -->
+    ![step2a-create-service-binding](step2a-create-service-binding.png)
+
+
+2. In the wizard:
+
+    - **IMPORTANT**: Choose the correct package, that is, **your** package, not **`/DMO/...`**
+    - Delete the namespace `/DMO/` and enter the following:
+    - Name: **`Z_C_TRAVEL_API_O2_000`** 
+    - Description **`Endpoint Z_C_TRAVEL_U_SIMPLE_000`**
+    - Enter the binding type: **`ODATA V2 - Web API`**
+    - Make sure that the service definition = **`Z_C_TRAVEL_U_SIMPLE_000`**
+    - Choose **Next**
+
+    <!-- border -->
+    ![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
+
+3. Accept the transport request and choose **Finish**.    
+
+The service binding opens in a new editor.
+
+4. Choose **Activate `( Ctrl+F3 )`** , then choose **Publish**.
+
+    <!-- border -->
+    ![step2c-service-binding-published](step2c-service-binding-published.png)
+
 
 ### Create inbound Communication Scenario
+
 1. Choose **New > Other Repository Object...** from the context menu.
 
-    <!-- border -->
-    ![step9a-new-other](step9a-new-other.png)
-
 2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
-
-    <!-- border -->
-    ![step1b-create-comm-scen-2011](step1b-create-comm-scen-2011.png)
-
+    
 3. Enter the following, choose a transport request, then choose **Finish**.
-        - Name: **`Z_WRAP_TRAVEL_PRV`**
-        - Description **Inbound for Travel Remote Service**
 
-        > `PRV` is the System ID of the consuming system, i.e. the second instance.
+    - Name: **`Z_IN_ODATA_TRAVEL_CSCEN`** 
+    - Description **Get Travel w. OData API** 
 
 Your Communication Scenario appears in a new editor.
 
-<!-- border -->
-![step1c-new-comm-scen-editor](step1c-new-comm-scen-editor.png)
 
-You can also see this scenario in the Project Explorer.
+### Add service binding
 
-<!-- border -->
-![step1d-comm-scen-in-adt-project-explorer](step1d-comm-scen-in-adt-project-explorer.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
-
-
-### Point to OData service binding
 
 1. On the **Inbound** tab, choose **Add...**.
 
-<<<<<<< HEAD
-    <!-- border -->![step2a-add-http-service](step2a-add-http-service.png)
-
-2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z_BIND_T`**, select your service - with the ending `IWSG`, then choose **Finish**.
-
-    <!-- border -->![step2b-browse-inbound-service](step2b-browse-inbound-service.png)
-
-3. Your service appears. Choose **Publish Locally**.
-
-    <!-- border -->![step2c-publish-service-locally](step2c-publish-service-locally.png)
-=======
     <!-- border -->
     ![step2a-add-http-service](step2a-add-http-service.png)
 
-2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z_BIND_T`**, select your service - with the ending `IWSG`, then choose **Finish**.
+2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z000_`**, select your service binding - (with the ending `IWSG` or `G4BA` added automatically) then choose **Finish**.
 
     <!-- border -->
     ![step2b-browse-inbound-service](step2b-browse-inbound-service.png)
 
-3. Your service appears. Choose **Publish Locally**.
+3. Your service binding **`Z_C_TRAVEL_API_O2_000_IWSG`** appears. Save, then choose **Publish Locally**.
 
     <!-- border -->
     ![step2c-publish-service-locally](step2c-publish-service-locally.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+
+> `IWSG` refers to OData 2.0; 
+</br>
+`G4BA` refers to OData 4.0.
 
 
 ### Create Communication System
 
-<<<<<<< HEAD
-1. From the Dashboard Home screen, choose From **Communication Management > Communication Systems**.
+Now you will create several communication artifacts using the appropriate Fiori app.
 
-    <!-- border -->![step3a-comm-system-tile](step3a-comm-system-tile.png)
-
-2. Choose **New**.
-
-    <!-- border -->![step3b-comm-system-new](step3b-comm-system-new.png)
-
-3. Enter a System ID, **`ZTRAVEL_XXX`**, and accept the default (identical) System name, then choose **Create**.
-
-    <!-- border -->![step3c-comm-system-id-name](step3c-comm-system-id-name.png)
-
-4. In **Technical Data**:
-
-- Switch **Destination Service** to **OFF**.
-
-- In **Host Name**, enter the base URL of your provisioning system **without the protocol** - i.e. the URL should have the form **`<GUID>.abap.<region>.hana.ondemand.com`**. Again, you can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
-
-- **Business System** = dummy
-
-    <!-- border -->![step3d-host-name](step3d-host-name.png)
-
-5. Scroll down to **Users for Inbound Communication**, then create a new user by choosing the **+** icon.
-
-    <!-- border -->![step13a-create-comm-user](step13a-create-comm-user.png)
-
-6. Choose **New User** and the **Authentication Method: User name and password**.
-
-    <!-- border -->![step3e-comm-user-name](step3e-comm-user-name.png)
-
-7. Enter a name, **`Z_TRAVELPRO_XXX`**, and description, then choose **Propose password**, then choose **Create > OK > Save**. `XXX` is the name of the provisioning system, that is, this system. **IMPORTANT**: Save the proposed password to a text file, since you will need it later.
-
-8. Save your changes.
-=======
-1. Open the dashboard for your system in a browser. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
+1. Open the Fiori dashboard for your provisioning system in a browser. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development > System URL** from the context menu.
 
     <!-- border -->
-    ![step11a-open-flp](step11a-open-flp.png)
+    ![step5a-open-flp](step5a-open-flp.png)
 
 2. From the Dashboard Home screen, choose From **Communication Management > Communication Systems**.
-
-    <!-- border -->
-    ![step3a-comm-system-tile](step3a-comm-system-tile.png)
 
 3. Choose **New**.
 
     <!-- border -->
-    ![step3b-comm-system-new](step3b-comm-system-new.png)
+    ![step5b-comm-system-new](step5b-comm-system-new.png)
 
-4. Enter a System ID, **`ZTRAVEL_PRV`**, and accept the default (identical) System name, then choose **Create**.
+4. Enter a System ID, **`Z000_TO_CON_CSYS`** (where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
 
     <!-- border -->
-    ![step3c-comm-system-id-name](step3c-comm-system-id-name.png)
+    ![step5c-comm-system-id-name](step5c-comm-system-id-name.png)
+
 
 5. In **Technical Data**:
 
     - Switch **Destination Service** to **OFF**.
+
+    - Switch **Cloud Connector** to **OFF**.
 
     - In **Host Name**, enter the base URL of your provisioning system in the form **`<GUID>.abap.<region>.hana.ondemand.com`**. Again, you can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
 
@@ -257,287 +184,105 @@ You can also see this scenario in the Project Explorer.
         </br>
         Make sure the domain starts with `abap`, not `abap-web`
 
-
-    - Business System = **dummy**
+    <!-- LATER: UI Host Name; Inbound Only ??? 
+    - Business System = **dummy**?
+    Ask Sevdiye -->
 
     - Port = **443**
 
-        <!-- border -->
-        ![step3d-host-name](step3d-host-name.png)
+    <!-- border -->
+    ![step5e-host-name](step5e-host-name.png)
 
 6. Scroll down to **Users for Inbound Communication**, then create a new user by choosing the **+** icon.
-
+    
     <!-- border -->
-    ![step13a-create-comm-user](step13a-create-comm-user.png)
+    ![step5f-create-comm-user](step5f-create-comm-user.png)
 
 7. Choose **New User** and the **Authentication Method: User name and password**.
 
     <!-- border -->
-    ![step3e-comm-user-name](step3e-comm-user-name.png)
+    ![step5g-comm-user-name](step5g-comm-user-name.png)
 
-8. Enter a name, **`INBOUND_TRAVELPRO_PRV`**, and description, then choose **Propose password**, then choose **Create > OK > Save**. `PRV` is the name of the provisioning system, that is, this system. 
+8. Enter a name, **`INBOUND_USER_PRV`**, and description, then choose **Propose password**, then choose **Create > OK > Save**. `PRV` is the name of the provisioning system, that is, this system. 
 
-    > **IMPORTANT**: Save the proposed password to a text file, since you will need it later.
+    > **IMPORTANT**: Save the proposed password, since you will need it later.
 
 9. Save your changes.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
-
 
 
 ### Create inbound communication arrangement
 
-<<<<<<< HEAD
-1. Open the dashboard for your system in a browser. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
-
-    <!-- border -->![step11a-open-flp](step11a-open-flp.png)
-
-2. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
-
-    <!-- border -->![step11b-new](step11b-new.png)
-
-3. Choose your scenario, **`Z_WRAP_TRAVEL_XXX`** from the drop-down list. Accept the default (identical) Arrangement name.
-
-    <!-- border -->![step3c-choose-scenario](step3c-choose-scenario.png)
-
-4. From the dropdown list, choose your communication system **`ZTRAVEL_XXX`**
-
-    <!-- border -->![step4d-choose-comm-system](step4d-choose-comm-system.png)
-
-5. Save your changes.
-=======
 1. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
 
     <!-- border -->
-    ![step11b-new](step11b-new.png)
+    ![step6a-new-comm-arr](step6a-new-comm-arr.png)
 
-2. Choose your scenario, **`Z_WRAP_TRAVEL_PRV`** from the drop-down list. Accept the default (identical) Arrangement name.
-
-    <!-- border -->
-    ![step3c-choose-scenario](step3c-choose-scenario.png)
-
-3. From the dropdown list, choose your communication system **`ZTRAVEL_PRV`**
+2. Choose your scenario, **`Z_IN_ODATA_TRAVEL_CSCEN`** from the drop-down list. Accept the default (identical) Arrangement name.
 
     <!-- border -->
-    ![step4d-choose-comm-system](step4d-choose-comm-system.png)
+    ![step6b-choose-scenario](step6b-choose-scenario.png)
+
+3. From the dropdown list, choose your communication system **`Z000_TO_CON_CSYS`**
 
 4. Save your changes.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
-Your Communication Arrangement should look roughly like this.
-The Service URL / Service Interface = < Base URL of provisioning system > + relative path of your Inbound Service, here `/sap/opu/odata/sap/Z_BIND_TRAVELS_XXX`.
+Your Communication Arrangement should look roughly like this. 
 
-<<<<<<< HEAD
-<!-- border -->![step64e-comm-arr-2011](step64e-comm-arr-2011.png)
-=======
+> The information from the Communication System is filled in automatically. The Service URL / Service Interface = < Base URL of provisioning system > + relative path of your Inbound Service, here `/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000_IWSG`.
+
 <!-- border -->
-![step4e-comm-arr-2302](step4e-comm-arr-2302.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+![step6e-comm-arr-editor](step6e-comm-arr-editor.png)
 
 
-### Optional: Check service URL in Postman
+### Check service URL in Postman (Optional)
 
 1. Open Postman. In the **Authorization** tab, enter your authorization credentials:
 
     - Type = Basic Auth.
-<<<<<<< HEAD
-    - Username = `INBOUND_TRAVELPRO_XXX`
-=======
-    - Username = `INBOUND_TRAVELPRO_PRV`
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+    - Username = `INBOUND_USER_PRV`
     - Password = The generated password you noted down
 
 2. Stick with the default **GET** and paste the complete path of your service, Base URL and relative path, into the input field, then choose **Send**.
 
 3. The response appears in the **Body** field, along with the status **200 OK**.
 
-<<<<<<< HEAD
-    <!-- border -->![step7b-postman-response](step7b-postman-response.png)
-
-
-
-### Create destination in client system
-
-You will now open the client system and create a destination service instance there. This must be created at subaccount (not Space) level.
-
-1. In the **client** system, open the SAP BTP Cockpit of your Cloud Foundry subaccount and choose **Destinations**, then choose **New Destinations**.
-
-    <!-- border -->![step4a-cf-cockpit-new-destination](step4a-cf-cockpit-new-destination.png)
-
-2. Enter the following values. Note the name, since you will be using it later:
-
-    |  Field Name     | Value
-    |  :------------- | :-------------
-    |  Name           | **`SID_XXX_HTTP`**, where `SID` = your provisioning system
-    |  Type           | **`HTTP`**
-    |  Description    | Connect \<your_client_system> to \<your_provisioning_system>
-    |  URL    | <URL of inbound service **without** relative path (see below)>
-    | Proxy Type | Internet
-    | Authentication | **`BasicAuthentication`**
-    | User | **`INBOUND_TRAVELPRO_XXX`** (i.e. from the communication system)
-    | Password | The generated password you noted down
-
-    <!-- border -->![step8b-new-destination-settings](step8b-new-destination-settings.png)
-
-3. Check the connection:
-
-    <!-- border -->![step8c-check-connection-sid](step8c-check-connection-sid.png)
-=======
     <!-- border -->
     ![step7b-postman-response](step7b-postman-response.png)
 
 
-### Create package in in consuming system
+### Create service metadata file
 
-Now, in your **consuming** system by creating the ABAP artifacts in ABAP Development Tools (ADT), starting with a package.
+On the left is the Service Definition, `/DMO/TRAVEL_U`.
 
-1. select the ABAP Cloud Project and choose **New > ABAP Package** from the context menu.
-
-2. Enter the following and choose **Next**:
-    - Name = **`Z_PRV_2_CON_000`**
-    - Description = **Connect 2 instances of BTP ABAP**
-    - Package type = **Development**
-
-3. Choose **Create new transport request**, enter a description, such as **Connect 2 instances of BTP ABAP**, then choose **Finish**.
-
-
-### Create outbound Communication Service
-
-1. Select your package and choose **New > Other Repository Object...** from the context menu.
-
-    <!-- border -->
-    ![step9a-new-other](step9a-new-other.png)
-
-2. Add the filter **outbound**, choose **Outbound Service**, then choose **Next**.
-
-3. Enter the following, then choose **Next**.
-    - Outbound Service: **`Z_OUTBOUND_BTP_000`**
-    - Description: **Outbound RESTful service to BTP**
-    - Service Type: **HTTP Service**
-
-Your service appears in a new editor. The system adds the suffix **`_REST`** automatically.
-
-
-### Create outbound Communication Scenario
-
-1. Select your package and choose **New > Other Repository Object...** from the context menu.
-
-2. Add the filter **`scen`**, choose **Communication Scenario**, then choose **Next**.
-
-3. Enter the following, choose a transport request, then choose **Finish**.
-        - Name: **`Z_OUTBOUND_000_REST_CSCEN`**
-        - Description **Comm Scen: Connect BTP to BTP**
-        
-    Your Communication Scenario appears in a new editor.
-    <!-- border -->
-    ![step9a-new-outbound-comm-scen](step9a-new-outbound-comm-scen.png)
-
-4. On the **Outbound** tab, add the authorization type **Basic**.
-
-5. Then choose **Add**.
-
-    <!-- border -->
-    ![step9b-add-outbound-service](step9b-add-outbound-service.png)
-
-
-6. Browse for your service, **`Z_OUTBOUND_BTP_000_REST`**, (the service type is added automatically), then choose **Finish**.
-
-    The **Communication Scenario** appears in a new editor.
-
-7. Choose **Save**, then choose **Publish locally**.
-
-    <!-- border -->
-    ![step9c-publish-comm-scen](step9c-publish-comm-scen.png)
-
-
-### Create communication system
-
-1. In Fiori launchpad in the consuming system, open the app **Communication Systems**, then choose **New**.
-
-    <!-- border -->
-    ![step10a-comm-sys](step10a-comm-sys.png)
-    </br>
-    <!-- border -->
-    ![step10b-new-comm-sys](step10b-new-comm-sys)   
-
-2. Enter a system ID, then accept the (identical) system name:
-    - **`Z_CLI_TO_PRV_000`**
-
-3. In **Technical Data**:
-    - Switch **Destination Service** to **OFF**.
-
-    - In **Host Name**, enter the base URL of your provisioning system in the form **`<GUID>.abap.<region>.hana.ondemand.com`**. Again, you can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
-
-        > IMPORTANT:  
-        </br>
-        Remove the protocol (e.g. `https://`) from the start and `/` from the end of the host name.
-        </br>
-        Make sure the domain starts with `abap`, not `abap-web`
-
-    - Port = **443**
-
-    <!-- border -->
-    ![step10c-comm-sys-general](step10c-comm-sys-general.png)  
-
-4. In **Users for Outbound Communication**, add a new user by choosing the **+** symbol.
-
-    <!-- border -->
-    ![]()
-
-5. Choose the authentication method **User Name and Password**. 
-
-6. From the dropdown, choose the user from the provisioning system, **`INBOUND_TRAVELPRO`**; paste the password you generated previously; then choose **Create**.
-
-    <!-- border -->
-    ![]()
-
-7. Choose **Save**.
-
-
-### Create communication arrangement
-
-1. Similarly, open the app **Communication Arrangements**, then choose **New**.
-
-2. From the dropdown, choose your **Communication Scenario**, **`Z_OUTBOUND_000_REST_CSCEN`**; accept the generated (identical) **Arrangement Name**, then choose **Create**.
-
-    <!-- border -->
-    ![step11a-select-comm-scenario](step11a-select-comm-scenario)
-
-3. From the dropdown, select your **Communication System**. 
-
-    <!-- border -->
-    ![step11b-select-comm-sys](step11b-select-comm-sys.png)
-
-4. The system fills in the **User Name** and **Outbound Service** automatically. Choose **Save**.
-
-    <!-- border -->
-    ![step11c-comm-arr-complete](step11c-comm-arr-complete.png)
-
-5. In the **Outbound Services** panel, check the connection.
-
-    <!-- border -->
-    ![step11d-check-connection](step11d-check-connection.png)
-
-You should get a result like this.
+Now, on the right, is the active service, including the Entity Set and the Service URL.
 
 <!-- border -->
-![step11d-ping-successful](step11d-ping-successful.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+![step3a-service-binding](step3a-service-binding.png)
+
+You will now create a metadata file for this service, which you will access later in your consuming system.
+
+1. Click on the link **Service URL**. The `XML` file is shown in the browser.
+
+2. Add the suffix **`/$metadata`** to the Service URL (deleting parameters, such as `sap-client`).
+
+    <!-- border -->
+    ![step2d-add-metadata-suffix](step2d-add-metadata-suffix.png)
+
+    The service metadata appears.
+
+3. Choose **Save As...** from the context menu. 
+
+    > IMPORTANT: Make sure the file name is pre-filled as **`$metadata.xml`**. Otherwise, it is not a valid metadata file.
+
+4. Navigate to an appropriate folder and choose **Save**.
 
 
 ### Test yourself
 
 
-<<<<<<< HEAD
-
-
-### More Information
-[Postman: Video Tutorials](https://www.youtube.com/playlist?list=PLM-7VG-sgbtAgGq_pef5y_ruIUBPpUgNJ)
-
-=======
 ### More Information
 [Postman: Video Tutorials](https://www.youtube.com/playlist?list=PLM-7VG-sgbtAgGq_pef5y_ruIUBPpUgNJ)
 
 SAP Help Portal:[Service Consumption via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/service-consumption-via-communication-arrangements)
 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
