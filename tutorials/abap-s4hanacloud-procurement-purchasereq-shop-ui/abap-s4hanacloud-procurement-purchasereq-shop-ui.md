@@ -47,9 +47,9 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](btp.png)
 
-  4. Select the menu and click **Assign Role Collection**.
+  4. Select the menu and click **Assign Role Collection**.  
 
-      ![assign role collection](btp2.png)
+      ![assign role collection](btp2.png) 
 
       **Hint:** If you are using a licensed system, make sure you have the trust administrator role assigned to your user.
 
