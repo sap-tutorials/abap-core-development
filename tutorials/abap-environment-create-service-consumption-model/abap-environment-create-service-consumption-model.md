@@ -370,4 +370,5 @@ UI annotations enable your app to represent a semantic view of data by using def
 ### More Information
 
 SAP Help Portal: [UI Annotations](https://help.sap.com/docs/ABAP_PLATFORM_NEW/cc0c305d2fab47bd808adcad3ca7ee9d/f8af07bb0770414bb38a25cae29a12e9.html)
+
 ---

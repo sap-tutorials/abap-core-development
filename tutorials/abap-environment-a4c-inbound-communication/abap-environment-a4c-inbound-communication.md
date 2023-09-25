@@ -12,8 +12,8 @@ author_profile: https://github.com/julieplummer20
 <!-- description --> Create an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment. You will use these in a later tutorial to enable a connection to this system from a consuming system, here also of SAP BTP, ABAP Environment. 
 
 
-## Prerequisites 
-<!-- LATER : Released Obj eg I_Business_User - check trial systems -->
+## Prerequisites
+
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
 - You have set up 2 instances of SAP Business Technology Platform, ABAP Environment, a **provisioning system** and a **consuming system**, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
 - **Tutorial**: [Create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2, for both instances

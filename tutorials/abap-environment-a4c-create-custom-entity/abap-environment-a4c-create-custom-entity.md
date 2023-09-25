@@ -8,7 +8,7 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Implement a Custom Entity and Query Implementation Class
+# Implement a Custom Entity and Query Implementation Class 
 <!-- description --> In the SAP Business Technology Platform, ABAP Environment, implement a CDS custom entity and query implementation class; then display the output in a Fiori Elements preview
 
 ##Prerequisites
