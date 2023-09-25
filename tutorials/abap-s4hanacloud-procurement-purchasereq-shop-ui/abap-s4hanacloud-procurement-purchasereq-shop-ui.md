@@ -4,7 +4,7 @@ auto_validation: true
 primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
 tags:  [ tutorial>beginner, software-product-function>sap-s-4hana-cloud--abap-environment, programming-tool>abap-development, programming-tool>abap-extensibility]
 time: 25
-author_name: Merve Temel
+author_name: Merve Temel 
 author_profile: https://github.com/mervey45
 ---
 
@@ -14,7 +14,7 @@ author_profile: https://github.com/mervey45
 ## Prerequisites  
 - You have a license for SAP S/4HANA Cloud and have a developer user in it
 - You have installed the latest [Eclipse with ADT](abap-install-adt).
-- **Trial:** You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
+- **Trial:** You need an SAP BTP [trial user](hcp-create-trial-account)
 - Business Catalog `SAP_CORE_BC_COM` must be assigned to business user
 - The user must have the same email address as the user from trial
  
@@ -185,41 +185,7 @@ author_profile: https://github.com/mervey45
   6. When your status is **Running**, select your dev space **Fiori**.
 
       ![dev](studio5.png)
-
-
-### Set up organization and space
-
-
-  1. Now you are in your **Fiori** dev space in SAP Business Application Studio.
-     Select **Files & Folders** to set your workspace.
-
-      ![organization](basn.png)
-
-  2. Select **`/home/user/projects/`**.
-
-      ![organization](basn2.png)
-
-  3. Select the menu on the left side and click **View > Command Palette**.
-
-      ![organization](basn3.png)
-
-  4. Search for **CF: Login to Cloud Foundry** and select it.
-
-      ![organization](basn4.png) 
-
-  5. Enter your credentials and click **Sign in**.
-
-      ![organization](basn5.png)
-
-  6. Now you can see, that you are logged in. Set now your cloud foundry target:
-
-     - Cloud Foundry Organization: `<your_global_account>`
-     - Cloud Foundry Space: dev
-
-      ![organization](basn6.png)
-
-      Click **Apply**.
-
+      
 
 ### Create list report object page
 
