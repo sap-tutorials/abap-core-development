@@ -23,66 +23,74 @@ time: 20
     - WHERE clause
 
 ## Intro
+
+> In this tutorial, you will create an ABAP Dictionary-based CDS view. As of ABAP AS 7.57, such views are deprecated. This tutorial is available for compatibility purposes only.
+> For an short, up-to-date tutorial on CDS View Entities, see:
+> **Tutorial**:[Create an ABAP Core Data Services (CDS) View in ABAP On-Premise](abap-dev-create-cds-view)
+
 CDS is an extension of the ABAP Dictionary that allows you to define semantically rich data models in the database and to use these data models in your ABAP programs. CDS is a central part of enabling code push-down in ABAP applications.
 
-You can find more information about CDS in the [ABAP keyword documentation](https://help.sap.com/doc/abapdocu_751_index_htm/7.51/en-US/abencds.htm) and the [SAP Community](https://community.sap.com/topics/abap).
+You can find more information about these deprecated CDS Views here:
+- [ABAP keyword documentation, version 7.51: CDS Views](https://help.sap.com/doc/abapdocu_751_index_htm/7.51/en-US/abencds.htm)
 
+You can find more information about CDS View Entities here:
+- [https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm?file=abencds_v2_views.htm](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm?file=abencds.htm)
+- [SAP Community](https://community.sap.com/topics/abap).
+- 
 Throughout this tutorial, objects name include the suffix `XXX`. Always replace this with your group number or initials.
 
 ---
+
 
 ### Create a CDS view
 
   1. In the context menu of your package choose **New** and then choose **Other ABAP Repository Object**.
 
-    ![Image depicting step1-newObject](step1-newObject.png)
+  <!-- border -->
+  ![Image depicting step1-newObject](step1-newObject.png)
 
   2. Select **Data Definition**, then choose **Next**.
-
-    ![Image depicting step2-DataDef](step2-DataDef.png)
+    
+  <!-- border -->
+  ![Image depicting step2-DataDef](step2-DataDef.png)
 
   3. Enter the following values, then choose **Next**:
-    -	Name = **`Z_INVOICE_ITEMS_XXX`**
-    - Description = **Invoice Items**
+   
+  -	Name = **`Z_INVOICE_ITEMS_XXX`**
+  - Description = **Invoice Items**
+  - Referenced Object: **`sepm_sddl_so_invoice_item`**
 
+    <!-- border -->
     ![Image depicting step3-enterValues](step3-enterValues.png)
 
   4. Accept the default transport request (local) by simply choosing **Next** again.
 
-    ![Image depicting step4-AcceptTransportRequest](step4-AcceptTR.png)
-
   5. Select the entry **Define View**, then choose **Finish**
 
-    ![Image depicting step5-defineView](step5-defineView.png)
+  <!-- border -->
+  ![Image depicting step5-defineView](step5-defineView.png)
 
 
 ### Enter the data source
 
-The new view appears in an editor. Ignore the error for now. In this editor, enter the following values:
+The new view appears in an editor, with the fields from the referenced object, `sepm_sddl_so_invoice_item`. In this editor, enter the following values:
 
-  1. Enter `Z_ITEMS_XXX` as the SQL view name.
+1. Enter `Z_ITEMS_XXX` as the SQL view name.
 
-  2. Enter the CDS view `sepm_sddl_so_invoice_item` as the data source for your view. You can get proposals for the data source by entering a few characters, then using code completion (keyboard shortcut **CTRL+SPACE**).
+    Your CDS view should now look like this:
 
-    ![Image depicting step6-enterDataSourceEtc](step6-enterDataSourceEtc.png)
+    <!-- border -->
+      ![step3a-new-cds-view](step3a-new-cds-view.png)
 
-    ![Image depicting step6b-auto-complete-data-source](step6b-auto-complete-data-source.png)
+    > The SQL view name is the internal/technical name of the view which will be created in the database. `Z_Invoice_Items` is the name of the CDS view which provides enhanced view-building capabilities in ABAP. You should always use the CDS view name in your ABAP applications.
 
+2. Delete all the fields except:
 
-The SQL view name is the internal/technical name of the view which will be created in the database. `Z_Invoice_Items` is the name of the CDS view which provides enhanced view-building capabilities in ABAP. You should always use the CDS view name in your ABAP applications.
-
-
-### Edit the SELECT statement
-
-You will now insert the fields `currency_code` and `gross_amount` into the SELECT list as follows:
-
-  1. Trigger code completion in the SELECT list (by clicking on the SELECT list and using keyboard shortcut **CTRL+SPACE**), then double click on the entry **Insert all elements - template**. All the elements (fields and associations) of the underlying data source are inserted into the SELECT list.
-
-  2. Remove all the elements in the SELECT list which were inserted by the code completion apart from `currency_code` and `gross_amount`. Remember to separate the elements in the SELECT statement with a comma.
-
-    ![Image depicting step7A-InsertAll-crop](step7A-insertAll-crop.png)
-
-    ![Image depicting step7-Select1](step7-Select1.png)
+  ```ABAP
+  key sales_order_invoice_item_key,
+      currency_code,
+      gross_amount
+  ```
 
 
 ### Use an existing CDS association
@@ -92,6 +100,7 @@ You will now model the relationships between data sources by using some existing
 To see the related data sources that can be accessed using associations, scroll down.
 To see details about the target data source of the association header, choose the hyperlink **`sepm_sddl_so_invoice_header`**.
 
+<!-- border -->
 ![Image depicting step8-CdsAssociations](step8-CdsAssociations.png)
 
 
@@ -101,6 +110,13 @@ You will now add fields of related data sources to the SELECT list of `Z_Invoice
 
 1. Add the association **`header`** to your selection list, preferably with a comment, by adding the following the code. do not forget to add a comma after the previous item, `gross_amount`:
 
+    ```ABAP
+    //      * Associations *//
+            header    
+    
+    ```
+
+    <!-- border -->
     ![Image depicting step5-association](step5-association.png)
 
 2. You will get an error, "Field header must be included in the selection list together with field `SEPM_SDDL_SO_INVOICE_ITEM.SALES_ORDER_INVOICE_KEY`". Resolve this by adding the field **`sepm_sddl_so_invoice_item.sales_order_invoice_key`** to the Select statement.
@@ -109,6 +125,11 @@ You will now add fields of related data sources to the SELECT list of `Z_Invoice
 
 4.	Add the `payment_status` from the invoice header to the SELECT list using the association **header**
 
+    ```ABAP
+    header.payment_status
+    ```
+
+    <!-- border -->
     ![Image depicting step9-AddRelatedFields](step9-AddRelatedFields.png)
 
 
@@ -116,37 +137,41 @@ You will now add fields of related data sources to the SELECT list of `Z_Invoice
 
 If the invoice has been paid, you want to set the **`payment_status`** to X (true). Do this by implementing a CASE expression, assigning the alias `payment_status` to the CASE expression.
 
-Remove the existing declaration, **`header.payment_status,`** and replace it with the following code. Do not forget to separate **`payment_status`** and **`header`** with a comma.
+Remove the existing declaration, **`header.payment_status,`** and replace it with the following code. Do not forget to separate the new, calculated field **`paid`** and the association **`header`** with a comma.
 
 
 ```ABAP
 case header.payment_status
     when 'P' then 'X'
     else ' '
-end as payment_status,
+end as paid,
+
 ```
 
-![Image depicting step10-CaseStatement](step10-CaseStatement.png)
+<!-- border -->
+![Image depicting step5a-case-paid](step5a-case-paid.png)
 
 > You can check your code below.
 
 
 ### Add a WHERE clause
 
-You will now filter the results so that only invoice items with `currency_code = 'USD'` are retrieved.
+You will now filter the results so that only invoice items with `currency_code = 'EUR'` are retrieved.
 
 1. Add a WHERE clause:
 
     ```ABAP
 
-    WHERE currency_code = 'USD'
+    WHERE currency_code = 'EUR'
 
     ```
 
-    <!-- border -->![Image depicting step12-WHERE](step12-WHERE.png)
+    <!-- border -->
+    ![step6a-where-eur](step6a-where-eur.png) 
 
 2. Save and activate the data definition by choosing **Save** (`Ctrl+S`) and **Activate** (`Ctrl+F3`).
 
+    <!-- border -->
     ![Image depicting step14-saveAndActivate](step14-saveAndActivate.png)
 
 
@@ -155,36 +180,39 @@ You will now filter the results so that only invoice items with `currency_code =
 Your CDS view code should look something like this:
 
 ```ABAP
-
-@AbapCatalog.sqlViewName: 'ZITEMS_XXX'
+@AbapCatalog.sqlViewName: 'Z_ITEMS_XXX'
 @AbapCatalog.compiler.compareFilter: true
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-@EndUserText.label: 'CDS View for "Use-cds-view" tutorial'
-define view Z_Invoice_Items_2
+@EndUserText.label: 'Invoice Items'
+
+define view Z_INVOICE_ITEMS_XXX
   as select from sepm_sddl_so_invoice_item
-
 {
-  header.buyer.company_name,
-  sepm_sddl_so_invoice_item.sales_order_invoice_key,
-  sepm_sddl_so_invoice_item.currency_code,
-  sepm_sddl_so_invoice_item.gross_amount,
 
-  case header.payment_status
-    when 'P' then 'X'
-    else ' '
-    end
+  key sales_order_invoice_item_key,
+      sepm_sddl_so_invoice_item.sales_order_invoice_key,
 
-  as payment_status,
+      header.buyer.company_name,
 
-//* Associations *//
-  header
+      currency_code,
+      gross_amount,
+
+      case header.payment_status
+          when 'P' then 'X'
+          else ' '
+      end as paid,
+
+      //      * Associations *//
+      header
 }
 
-where currency_code = 'USD'
+where
+  currency_code = 'EUR'
 
 ```
-Open the CDS View in the Data Preview by choosing **F8**. Your CDS View should look like this:
+Open the CDS View in the Data Preview by choosing **F8**. Your CDS View should look roughly like this:
 
+  <!-- border -->
   ![Image depicting step15-data-preview](step15-data-preview.png)
 
 
