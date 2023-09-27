@@ -160,7 +160,7 @@ The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, t
 
 2. Enter the following and choose **Next**.
     - Name: **`Z_OUTBOUND_RFC_000_CSCEN`**
-    - Description: **`Comm Scen: Call API from HANA using RFC`**
+    - Description: **`Comm Scen: Call API from S/4HANA using RFC`**
 
     <!-- border -->
     ![step3b-new-comm-scen-name](step3b-new-comm-scen-name.png) 
@@ -282,13 +282,11 @@ For more information, see [Set Up SAP BTP, ABAP Environment and create Your Firs
 
 In the method **`if_oo_adt_classrun~main`**, create the data types that specify your remote connection information
 
-<!-- REVISE THIS, replacing the `i_name` with your the name of the specific **RFC** destination, which you created in SAP BTP cockpit (in step 5 of this tutorial). -->
-
     ```ABAP
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
                               comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-                              service_id             = 'Z_OUTBOUND_RFC_000'         " Outbound service
+                              service_id             = 'Z_OUTBOUND_RFC_000_SRFC'         " Outbound service
                               comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
 
                            ).
@@ -337,7 +335,7 @@ endtry.
 Your code should look roughly like this:
 
 ```ABAP
-CLASS ZCL_A4C_RFC_ DEFINITION
+CLASS ZCL_A4C_RFC_000 DEFINITION
   public
   final
   create public .
@@ -348,13 +346,13 @@ protected section.
 private section.
 ENDCLASS.
 
-CLASS ZCL_A4C_RFC_ IMPLEMENTATION.
+CLASS ZCL_A4C_RFC_000 IMPLEMENTATION.
   METHOD IF_OO_ADT_CLASSRUN~MAIN.
     TRY.
       DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
                               comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-                              service_id             = 'Z_OUTBOUND_RFC_000'         " Outbound service
+                              service_id             = 'Z_OUTBOUND_RFC_000_SRFC'         " Outbound service
                               comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
 
                            ).
@@ -408,7 +406,7 @@ ENDCLASS.
     EXCEPTIONS
       system_failure        = 1 MESSAGE msg
       communication_failure = 2 MESSAGE msg
-  OTHERS                    = 3.
+    OTHERS                    = 3.
 
     ```
 
