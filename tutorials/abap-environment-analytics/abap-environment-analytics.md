@@ -33,7 +33,7 @@ Always replace `####` with your initials or group number.
 The new **RAP based InA service exposure** enables the SAP Business Technology Platform ABAP Environment developers to develop analytical queries(based on ABAP-CDS analytical data models) and expose them via the `InA` (Information Access) service protocol. In this Tutorial you will create a complete Analytical Data Model for Booking data. This consists out of dimensions for Carrier, Customer, Connection and Agency data, as well as an interface CDS view for Booking data which acts as a data source for the cube and query.
 These analytical queries can be further consumed in the SAP Analytics cloud to create analytical models, stories, multi-dimensional reports and more.
 
-![overview](1.png)
+![overview](0010.png)
 
 
 ### Import templates for Analytical CDS views
@@ -491,7 +491,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
      - **Name**: `ZRAP500_I_BookingCube_####`
      - **Description**: `Booking Cube`
-     - **Referenced Object**: `ZRAP_I_BOOKING_####` (The booking interface view)
+     - **Referenced Object**: `ZRAP500_I_BOOKING_####` (The booking interface view)
 
      ![new cube](1270.png)
 
@@ -657,7 +657,7 @@ Again you can use a template that you have imported at the beginning of this tut
 
       ![template query](1130.png)
 
-  5. Edit the code of your query and add the annotation **@AnalyticsDetails.query.axis** to all properties except the two measures `FlightPrice` and `TotalOfBookings`. All fields beside the field `CustomerCountry` get the annotation **@AnalyticsDetails.query.axis: #ROWS**, whereas the field `CustomerCountry` gets the annotation **@AnalyticsDetails.query.axis: #COLUMN**.
+  5. Edit the code of your query with removing **KEY** from `TravelID` and `BookingID`, add the annotation **@AnalyticsDetails.query.axis** to all properties except the two measures `FlightPrice` and `TotalOfBookings`. All fields beside the field `CustomerCountry` get the annotation **@AnalyticsDetails.query.axis: #ROWS**, whereas the field `CustomerCountry` gets the annotation **@AnalyticsDetails.query.axis: #COLUMN**.
 
   6. You add a currency conversion to the field `FlightPrice` to be able to comparison all flight prices in a single currency.    
 
@@ -692,9 +692,9 @@ Again you can use a template that you have imported at the beginning of this tut
 
     define view entity ZRAP500_C_BOOKINGQUERY_#### as select from ZRAP500_I_BookingCube_#### {
     @AnalyticsDetails.query.axis: #ROWS
-    key TravelID,
+    TravelID,
     @AnalyticsDetails.query.axis: #ROWS
-    key BookingID,
+    BookingID,
     @AnalyticsDetails.query.axis: #ROWS
     BookingDate,
     @AnalyticsDetails.query.axis: #ROWS
