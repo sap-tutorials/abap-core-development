@@ -19,14 +19,14 @@ author_profile: https://github.com/julieplummer20
   - How to implement a query manually for your CDS custom entity
   - How to display the data retrieved in a Fiori Elements preview
 
-## Intro
+
 This tutorial is based on:
 
   - [Using a CDS Custom Entity for Data Modeling](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/6436a50d7d284f01af2cca7a76c7116a.html)
   - [Implementing the Query for Service Consumption](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/c33503ae1e794e3aad0d2e122f465611.html)
   - [Implementing Data and Count Retrieval](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/33497472ad294918b8a0184d9d8369bd.html)
 
-Therefore, this tutorial will only cover in detail those aspects that are different. In this case, you are not including both remote and local data, you are only retrieving local data. Therefore, you do not need to include the local calculated fields,  `DiscountPct` and `DiscountAbs`.
+Therefore, this tutorial will only cover in detail those aspects that are different. In this case, you are not including both remote and local data, you are only retrieving local data. Therefore, you do not include the local calculated fields,  `DiscountPct` and `DiscountAbs`.
 
 ---
 
@@ -58,7 +58,7 @@ You have already tested the connection by displaying data in an ABAP Console app
 
     ```CDS
 
-    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_200'
+    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_000'
     ```
 
 
@@ -79,29 +79,30 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
 
     ```ABAP
       METHOD if_rap_query_provider~select.
-        DATA business_data TYPE TABLE OF zz000_simpletravel.
-        DATA(top)     = io_request->get_paging( )->get_page_size( ).
-        DATA(skip)    = io_request->get_paging( )->get_offset( ).
-        DATA(requested_fields)  = io_request->get_requested_elements( ).
-        DATA(sort_order)    = io_request->get_sort_elements( ).
+    DATA business_data TYPE TABLE OF zce_travel_data_000.
+    DATA(top)     = io_request->get_paging( )->get_page_size( ).
+    DATA(skip)    = io_request->get_paging( )->get_offset( ).
+    DATA(requested_fields)  = io_request->get_requested_elements( ).
+    DATA(sort_order)    = io_request->get_sort_elements( ).
 
-        TRY.
-          get_travels(
+    TRY.
+        get_travels(
 
-            EXPORTING
-                      top               = CONV i( top )
-                      skip              = CONV i( skip )
-            IMPORTING
-              et_business_data  = business_data
-            ) .
+          EXPORTING
+                     top               = CONV i( top )
+                     skip              = CONV i( skip )
+          IMPORTING
+            et_business_data  = business_data
+          ) .
 
-            io_response->set_total_number_of_records( lines( business_data ) ).
-            io_response->set_data( business_data ).
+        io_response->set_total_number_of_records( lines( business_data ) ).
+        io_response->set_data( business_data ).
 
-          CATCH cx_root INTO DATA(exception).
-            DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
+      CATCH cx_root INTO DATA(exception).
+        DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
 
-        ENDTRY.
+    ENDTRY.
+
 
       ENDMETHOD.
 
@@ -114,7 +115,7 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
 ### Check the code for your query implementation class
 
 ```ABAP
-CLASS zcl_proxy_travels_300 DEFINITION
+CLASS ZCL_PROXY_TRAVELS_000 DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -145,7 +146,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_proxy_travels_300 IMPLEMENTATION.
+CLASS ZCL_PROXY_TRAVELS_000 IMPLEMENTATION.
 
 
   METHOD get_travels.
@@ -207,7 +208,7 @@ CLASS zcl_proxy_travels_300 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD if_rap_query_provider~select.
-    DATA business_data TYPE TABLE OF zz000_simpletravel.
+    DATA business_data TYPE TABLE OF zce_travel_data_000.
     DATA(top)     = io_request->get_paging( )->get_page_size( ).
     DATA(skip)    = io_request->get_paging( )->get_offset( ).
     DATA(requested_fields)  = io_request->get_requested_elements( ).
@@ -231,25 +232,44 @@ CLASS zcl_proxy_travels_300 IMPLEMENTATION.
 
     ENDTRY.
 
+
   ENDMETHOD.
 
 ENDCLASS.
 ```
 
+### Create service definition
+
+1. Select your custom entity **`ZCE_TRAVEL_DATA_000`** and choose **New > Create Service Definition** from the context menu.
+
+2. In the wizard:
+    - Enter a name: **`ZCE_TRAVEL_DATA_000`** and description **Service for ZCE_TRAVEL_DATA_000**
+    - Enter the referenced object: **`ZCE_TRAVEL_DATA_000`**
+    - Choose **Next**
+
+3. Accept the transport request and choose **Finish**.    
+
+    The service definition opens in a new editor.
+
+4. Choose **Save** and **Activate**.
+
+> Generally, the custom entity and service definition are part of the same business object and have the same name.
+
+
 ### Create service binding
 
-1. Select your service definition, **`Z000_MODEL_TRAVELS_UI_O2`**, created in the tutorial [Create a Service Consumption Model](abap-environment-create-service-consumption-model) and choose **New > Create Service Binding** from the context menu.
+1. Select your service definition, **`ZCE_TRAVEL_DATA_000`** and choose **New > Create Service Binding** from the context menu.
 
     <!-- border -->
     ![step2a-create-service-binding](step2a-create-service-binding.png)
 
 2. In the wizard:
-    - Enter a name: **``** and description ****
-    - Enter the binding type: **`ODATA V2 - Web API`**
+    - Enter a name: **`ZCE_TRAVEL_DATA_000_UI_O2`** and description **Endpoint for ZCE_TRAVEL_DATA_000**
+    - Enter the binding type: **`ODATA V2 - UI`**
     - Choose **Next**
 
     <!-- border -->
-    ![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
+    ![step5b-create-sb-wizard](step5b-service-binding-wizard)
 
 3. Accept the transport request and choose **Finish**.    
 
@@ -257,7 +277,7 @@ ENDCLASS.
 
 4. Choose **Activate**.
 
-    On the left is the Service Definition, `ZCE_TRAVEL_DATA_XXX`.
+    On the left is the Service Definition, `ZCE_TRAVEL_DATA_000`.
     On the right, is the active service, including the Entity Set and the Service URL.
 
 5. Select the entity Set **Travel** and choose **Preview**.
@@ -284,10 +304,10 @@ ENDCLASS.
 Your code should now look like this.
 
 ```ABAP
-@EndUserText.label: 'Travel data custom entity in PMD'
-@ObjectModel.query.implementedBy: 'ABAP:ZCL_TRAVELS_PMD'
+@EndUserText.label: 'Travel data custom entity from PRV'
+@ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_000'
 
-define custom entity ZCE_TRAVEL_DATA_PMD
+define custom entity ZCE_TRAVEL_DATA_000
 
  {
 
