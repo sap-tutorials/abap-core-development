@@ -32,6 +32,7 @@ Therefore, this tutorial will only cover in detail those aspects that are differ
 
 
 ### Add query provider interface to class
+
 You have already tested the connection by displaying data in an ABAP Console app. You will now display this data in a Fiori Elements preview, using a custom entity.
 1. First, open the class **`ZCL_PROXY_TRAVELS_000`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
 
@@ -109,7 +110,6 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
     ```
 
 3. Format, save and activate ( **`Sh+F1, Ctrl+S, Ctrl+F3`** ) the class.
-
 
 
 ### Check the code for your query implementation class
@@ -242,10 +242,15 @@ ENDCLASS.
 
 1. Select your custom entity **`ZCE_TRAVEL_DATA_000`** and choose **New > Create Service Definition** from the context menu.
 
-2. In the wizard:
-    - Enter a name: **`ZCE_TRAVEL_DATA_000`** and description **Service for ZCE_TRAVEL_DATA_000**
-    - Enter the referenced object: **`ZCE_TRAVEL_DATA_000`**
+2. In the wizard, enter the following:
+    - Name: **`ZCE_TRAVEL_DATA_000`** 
+    - Description **Service - Travel data from remote system**
+    - Source Type: Definition
+    - (The referenced object: **`ZCE_TRAVEL_DATA_000`** should be entered automatically)
     - Choose **Next**
+
+    <!-- border -->
+    ![step4a-sd-wizard](step4a-sd-wizard.png)    
 
 3. Accept the transport request and choose **Finish**.    
 
@@ -293,10 +298,6 @@ ENDCLASS.
 
     <!-- border -->
     ![step7c-fiori](step7c-fiori.png)
-
-
-
-
 
 
 ### Check the code for your custom entity
