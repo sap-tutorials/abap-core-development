@@ -274,7 +274,7 @@ ENDCLASS.
     - Choose **Next**
 
     <!-- border -->
-    ![step5b-create-sb-wizard](step5b-service-binding-wizard)
+    ![step5b-create-sb-wizard](step5b-service-binding-wizard.png)
 
 3. Accept the transport request and choose **Finish**.    
 
