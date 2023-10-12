@@ -636,7 +636,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 ### Implement query as CDS view entity
 
 
-Since a query belongs to the projection layer (formerly known as consumption layer) it must have a **C** in its name according to the naming convention used in the Virtual Data Model (VDM) used in SAP S/4HANA. To create a query, there is a mandatory header annotation: **@Analytics.query: true**
+Since a query belongs to the projection layer (formerly known as consumption layer) it must have a **C** in its name according to the naming convention used in the Virtual Data Model (VDM) used in SAP S/4HANA.
 
 Again you can use a template that you have imported at the beginning of this tutorial.
 
@@ -676,21 +676,18 @@ Again you can use a template that you have imported at the beginning of this tut
 
       ![ADTquery](1131.png)
 
-    > Using the template the mandatory annotations for query is set automatically.
-    > **@Analytics.query: true**
     > With the annotation **@AnalyticsDetails.query.axis:<VALUE>**, the elements of the view can be positioned on multiple axes: Rows, Columns and Free. The elements can be directly annotated with their axis. All measures (elements which can be aggregated) need to be on the same axis. The annotation of the first measure will therefore be used for all measures of the query. If **@AnalyticsDetails.query.axis:<VALUE>** is not found, the system positions the measures on the columns.
 
   8. Your final code should look like the following:
 
     ```ZRAP500_C_BOOKINGQUERY_####
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Query for Booking'
+    @EndUserText.label: 'Flights Query'
+    @AccessControl.authorizationCheck: #NOT_ALLOWED
 
-
-    @Analytics.query: true
-
-
-    define view entity ZRAP500_C_BOOKINGQUERY_#### as select from ZRAP500_I_BookingCube_#### {
+    define transient view entity DEF23_Flights_Query
+      provider contract analytical_query
+      as projection on DEF23_Flights_Cube
+    {
     @AnalyticsDetails.query.axis: #ROWS
     TravelID,
     @AnalyticsDetails.query.axis: #ROWS
