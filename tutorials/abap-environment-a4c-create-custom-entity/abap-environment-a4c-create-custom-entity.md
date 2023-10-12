@@ -37,9 +37,9 @@ You have already tested the connection by displaying data in an ABAP Console app
 1. First, open the class **`ZCL_PROXY_TRAVELS_000`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
 
     ```ABAP
-      INTERFACES:   if_oo_adt_classrun,
-                    if_rap_query_provider.
-    
+    INTERFACES:   if_oo_adt_classrun,
+                  if_rap_query_provider.
+
     ```
 
     > The signature of the method `IF_RAP_QUERY_PROVIDER~SELECT` contains the import parameter `io_request`. This parameter represents the OData query options that are delegated from the UI and used as input for the SELECT method. Whenever the OData client requests data, the query implementation class must return the data that matches the request, or throw an exception if the request cannot be fulfilled.
@@ -122,7 +122,7 @@ CLASS ZCL_PROXY_TRAVELS_000 DEFINITION
 
   PUBLIC SECTION.
 
-    TYPES t_business_data TYPE TABLE OF zz000_simpletravel.
+    TYPES t_business_data TYPE TABLE OF zce_travel_data_000.
 
     METHODS get_travels
       IMPORTING
@@ -190,7 +190,7 @@ CLASS ZCL_PROXY_TRAVELS_000 IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
-    DATA business_data TYPE TABLE OF zz000_simpletravel.
+    DATA business_data TYPE TABLE OF zce_travel_data_000.
 
 
     TRY.
@@ -259,7 +259,7 @@ ENDCLASS.
 4. Optional: Add a semantic alias for the service, here **`SimpleTravels`**:
 
     ```CDS
-    expose ZCE_TRAVEL_DATA_200 as SimpleTravels;
+    expose ZCE_TRAVEL_DATA_000 as SimpleTravels;
 
     ```
   
@@ -308,6 +308,9 @@ ENDCLASS.
 
 
 ### Check the code for your custom entity
+
+
+Add a label for the **`BeginDate`** and **`EndDate`**.
 
 Your code should now look like this.
 
