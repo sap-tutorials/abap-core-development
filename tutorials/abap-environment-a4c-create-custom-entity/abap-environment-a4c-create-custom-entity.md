@@ -256,7 +256,14 @@ ENDCLASS.
 
     The service definition opens in a new editor.
 
-4. Choose **Save** and **Activate**.
+4. Optional: Add a semantic alias for the service, here **`SimpleTravels`**:
+
+    ```CDS
+    expose ZCE_TRAVEL_DATA_200 as SimpleTravels;
+
+    ```
+  
+5. Choose **Save** and **Activate**.
 
 > Generally, the custom entity and service definition are part of the same business object and have the same name.
 
