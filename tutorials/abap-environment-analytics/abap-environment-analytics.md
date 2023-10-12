@@ -731,7 +731,7 @@ Again you can use a template that you have imported at the beginning of this tut
 ### Data preview
 
 
-Similar to the SAP Fiori Elements preview which is offered for OData V2 UI and OData V4 UI service bindings there is now an Analytical Data Preview available. This can be used by the ABAP developer to test the implementation of an Analytical Query since the preview uses the InA protocol.
+Similar to the SAP Fiori Elements preview which is offered for OData V2 UI and OData V4 UI service bindings there is now an Analytical Data Preview available. This can be used by the ABAP developer to test the implementation of an Analytical Query since the preview uses the InA protocol. 
 
 Now that you have created the query it is possible to use a data preview to test our implementation.
 
