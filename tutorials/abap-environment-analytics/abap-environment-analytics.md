@@ -659,7 +659,7 @@ Again you can use a template that you have imported at the beginning of this tut
 
   5. Edit the code of your query with removing **KEY** from `TravelID` and `BookingID`, add the annotation **@AnalyticsDetails.query.axis** to all properties except the two measures `FlightPrice` and `TotalOfBookings`. All fields beside the field `CustomerCountry` get the annotation **@AnalyticsDetails.query.axis: #ROWS**, whereas the field `CustomerCountry` gets the annotation **@AnalyticsDetails.query.axis: #COLUMN**.
 
-  6. You add a currency conversion to the field `FlightPrice` to be able to comparison all flight prices in a single currency.    
+  6. You add a currency conversion to the field `FlightPrice` to be able to comparison all flight prices in a single currency.
 
         ```
               @Semantics.amount.currencyCode: 'CurrencyCode'
