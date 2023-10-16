@@ -35,7 +35,7 @@ This scenario describes the embedded deployment, which features an SAP Fiori fro
  
 ### Create an ABAP package
 
-In this step, we'll create an ABAP package with the **superpackage `$TMP`**. 
+In this step, we'll create an ABAP package with the **`superpackage` `$TMP`**. 
 
   1.  Select **Local Objects (`$TMP`)** > **New** > **ABAP Package**.
 

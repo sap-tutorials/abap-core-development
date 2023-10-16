@@ -116,8 +116,7 @@ author_profile: https://github.com/mervey45
 
 ### Install abapGit plugin
 
-
->**HINT:** Step 2 is only mandatory for cloud users.
+>**Hint:** This step is optional and is only required to transfer ABAP development objects between a Git repository and an SAP S/4HANA Cloud, ABAP Environment instance or an SAP BTP, ABAP Environment instance.
 
 To transfer your ABAP development objects from on-premise SAP systems to an SAP BTP, ABAP Environment instance, you can use the `abapGit` plugin.
 
