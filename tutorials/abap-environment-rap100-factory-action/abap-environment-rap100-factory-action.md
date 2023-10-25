@@ -2,11 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-<<<<<<< HEAD
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
-=======
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -14,18 +10,11 @@ author_profile: https://github.com/mervey45
 
 # Enhance the Business Object Behavior With Factory Action
 <!-- description --> Enhance the business object behavior using factory action with SAP BTP ABAP environment.
-<<<<<<< HEAD
 
-## Prerequisites
-- You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
-- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap).
-=======
- 
 ## Prerequisites
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ## You will learn  
   - How to define factory action
@@ -61,23 +50,15 @@ Define the instance factory action `copyTravel` in the behavior definition
 
  1. Go to the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the action defined in the previous step.
 
-<<<<<<< HEAD
-=======
-
-2. Add following:
+ 2. Add following:
  
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP  
     factory action copyTravel [1];
     ```
 
     The result should look like this:
 
-<<<<<<< HEAD
-    ![Travel BO Behavior Definition](nn2.png)    
-=======
     ![Travel BO Behavior Definition](p14.png)    
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     Short explanation: 
 
@@ -99,11 +80,7 @@ Implement the instance factory action `coyTravel` in the base BO behavior pool.
 
  1. First declare the required method in the behavior pool. Go to the behavior definition `ZRAP100_R_TRAVELTP_###`, set the cursor on the action name, `copyTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry Add method for action `copyTravel` of entity `zrap100_r_traveltp_###` in the view to add the required method to the local handler class. The result should look like this:
 
-<<<<<<< HEAD
-    ![Travel BO Behavior Projection](nn3.png)
-=======
     ![Travel BO Behavior Projection](p15.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  2. Go to the declaration part of the local handler class of the behavior pool `ZRAP100_BP_TRAVELTP_###`, set the cursor on the method name, `copyTravel`, press F2, and examine the full method interface.
 
@@ -188,11 +165,9 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  1. Expose the new action **`copyTravel`** in the BO behavior projection. For that, open your behavior projection ![bdef icon](adt_bdef.png) **`ZRAP100_C_TRAVELTP_###`** and insert the following code snippet after the actions added previously.
 
-<<<<<<< HEAD
-=======
  2. Add following:
   
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+
     ```ABAP
     use action copyTravel;
     ```
@@ -205,11 +180,8 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  3. Enhance UI semantics of the UI service to make the action **`copyTravel`** only visible on the list report page with the label **Copy Travel**. For that, open your CDS metadata extension ![ddlx icon](adt_ddlx.png) **`ZRAP100_C_TRAVELTP_###`** and un-comment following code line in the **`@UI.lineItem`** annotation block placed before the element **`OverallStatus`**.
 
-<<<<<<< HEAD
-=======
  4. Add following:
     
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     ```ABAP   
     ,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' }
     ```
@@ -235,11 +207,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
  1. First, define the instance non-factory actions `acceptTravel` and `rejectTravel` in the behavior definition of the travel entity. 
     Go to your behavior definition `ZRAP100_R_TRAVELTP_###` and define both actions.
 
-<<<<<<< HEAD
-    For that, insert the following code snippet after the defined validations as shown on the screenshot below.
-=======
  2. For that, insert the following code snippet after the defined validations as shown on the screenshot below.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     ```ABAP
     action acceptTravel result [1] $self;
@@ -248,11 +216,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
     The result should like this:
 
-<<<<<<< HEAD
-    ![Travel BO Behavior Projection](nn12.png)
-=======
     ![Travel BO Behavior Projection](p16.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -260,11 +224,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
     The result should look like this: 
 
-<<<<<<< HEAD
-    ![Travel CDS Metadata Extension](nn13.png)
-=======
     ![Travel CDS Metadata Extension](p17.png)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
     You are through with the definition of both actions. Go ahead with the implementations of the two inserted method in the behavior pool.
 

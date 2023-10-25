@@ -1,21 +1,22 @@
 ---
+author_name: Sumana Vasuki
+author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
 tags: [ tutorial>beginner, programming-tool>abap-development, programming-tool>abap-extensibility, tutorial>license]
 primary_tag: software-product>sap-btp--abap-environment
 ---
-# Create business users, configure roles and business configurations
-<!-- description --> Create business roles, assign them to business users and configure data for business configurations
 
+# Create Business Users, Configure Roles and Business Configurations
+
+<!-- description -->Create business roles, assign them to business users and configure data for business configurations
 
 ## You will learn
-  How to create business users in the consumer tenant and manage business configuration entries
 
----
+- How to create business users in the consumer tenant and manage business configuration entries
 
-### Create business roles for the custom application
-
+### Create Business Roles for the Custom Application
 
 Navigate to the Maintain Business Roles application in the Fiori Launchpad of the consumer tenant as initial administrator user.
 
@@ -27,11 +28,9 @@ Navigate to the Maintain Business Roles application in the Fiori Launchpad of th
 4. Save the role.
 5. Repeat these 4 steps until all necessary roles for your application are created  
 
-
 ### Create Employees
 
-
-Before we can assign roles to business users, we need to create employees in the system.
+Before we can assign roles to business users, we need to create employees in the system.  
 To do this, as the administrator, logon to the Fiori Launchpad for the consumer tenant using the URL shared by the provider (the route for the consumer)
 
 1. Open the Maintain Employees app
@@ -40,50 +39,42 @@ To do this, as the administrator, logon to the Fiori Launchpad for the consumer 
 
 2. To create employees in the app, there are 2 options.
 
+    [OPTION BEGIN [Create Individual Employee Record]]
 
-Option 1: Create Individual Employee Record.
+    ![Create Employee](CreateEmployee.png)
 
-[OPTION BEGIN [Create Individual Employee Record]]
-The first option is to create individual employees
+    The first option is to create individual employees
 
-![Create Employee](CreateEmployee.png)
+    1. Click the Create button in the app.
 
-1. Click the Create button in the app.
+    2. Enter at least the mandatory fields in the form under both the "General Information" and "Contact Information" sections
 
-2. Enter at least the mandatory fields in the form under both the "General Information" and "Contact Information" sections
+    3. Click "Create"
 
-3. Click "Create"
+    [OPTION END]
 
-[OPTION END]
+    [OPTION BEGIN [Import Employee Records from Excel]]
 
+    The second option is to import employee records from Excel
+    ![Import Employees](ImportEmployees.png)
 
-Option 2: Import Employee Record from Excel.
+    1. Click the Import button in the app
 
-[OPTION BEGIN [Import Employee Records from Excel]]
-The second option is to import employee records from Excel
+    2. Download the template with a delimiter of your choice
 
-![Import Employees](ImportEmployees.png)
+    3. Fill in the downloaded excel with employee details conforming to the template specified
 
-1. Click the Import button in the app
+    4. Use the browse button to find and upload the excel file
 
-2. Download the template with a delimiter of your choice
+    5. Click Import
 
-3. Fill in the downloaded excel with employee details conforming to the template specified
+    [OPTION END]
 
-4. Use the browse button to find and upload the excel file
+### Create Business Users and Assign Business Roles
 
-5. Click Import
+Next we create a business user for the employee.  
 
-[OPTION END]
-
-
-
-### Create business users and assign business roles
-
-
-Next we create a business user for the employee
-
-To do this, select the radio button against the employee record created in step 2 and click "Maintain Business User"
+To do this, select the radio button against the employee record created in step 2 and click "Maintain Business User".
 
 ![Maintain Business User](MaintainBusinessUser.png)
 
@@ -93,9 +84,7 @@ You should be navigated to the "Maintain Business User" app automatically after 
 
 ![Add Business Roles](AddBusinessRoles.png)
 
-
-### Create role from template for business configurations
-
+### Create Role From Template for Business Configurations
 
 To handle business configuration entries, we have apps provided under the "Business Configuration" group on the Fiori Launchpad. To gain access to this group, a user needs to have the "BPC\_EXPERT" role assigned.
 
@@ -107,41 +96,32 @@ To handle business configuration entries, we have apps provided under the "Busin
 4. Maintain relevant restrictions for read/write using the "Maintain Restrictions" button
 5. Save the role
 
+### Custom Business Configurations
 
-### Maintain Business Configurations
+The users with assigned  SAP\_BR\_BPC\_EXPERT role should now be able to see the applications under the "Business Configuration" group of the Fiori Launchpad.
 
+ ![Business Configuration](CustomBusinessConfig.png)
 
-The users to whom the SAP\_BR\_BPC\_EXPERT role is assigned should now be able to see the applications under the "Business Configuration" group of the Fiori Launchpad
-![Business Configuration](BusinessConfig.png)
-
-[OPTION BEGIN [Maintain Business Configurations]]
-
+[OPTION BEGIN [Custom Business Configurations]]
 
 The "Custom Business Configurations app" can be used to maintain data for configuration tables in the SaaS application if a business configuration maintenance object is registered. Refer [documentation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/508d406ac92043dba95f694144803c26.html?locale=en-US) for more details
 
-
 [OPTION END]
 
+[OPTION BEGIN  [Upload Business Configuration]]
 
-[OPTION BEGIN [Upload Business Configuration]]
-
-The "Upload Business Configuration" app can be used to upload data via excel import for various configuration tables of the SaaS application
+The "Upload Business Configuration" app can be used to upload data via excel import for various configuration tables of the SaaS application.
 
 1. Open the "Upload Business Configuration" app.
-2. Use the value help to select the object for which data has to be maintained
-3. Under the "Upload File" section, download the file template
-4. Fill in the downloaded template with suitable data conforming to the provided template
-5. Add attachment, review the data and confirm deployment  
+2. Use the value help to select the object for which data has to be maintained.
+3. Under the "Upload File" section, download the file template.
+4. Fill in the downloaded template with suitable data conforming to the provided template.
+5. Add attachment, review the data and confirm deployment.
 
 ![Upload Business Configuration](UploadBC.png)
 
 [OPTION END]
 
-
 ### Test yourself
-
-
-
-
 
 ---

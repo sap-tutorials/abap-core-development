@@ -10,7 +10,9 @@ author_profile: https://github.com/mervey45
 
 
 # Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
-<!-- description --> IDownload the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
+
+<!-- description --> Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin.
+
 
 
 ## You will learn
@@ -35,7 +37,8 @@ author_profile: https://github.com/mervey45
 
 ### Download and run Eclipse IDE
 
-  1. Open the [Eclipse download page](https://www.eclipse.org/downloads/packages/) to download the appropriate (usually latest) Eclipse version.
+  1. Open the [Eclipse download page](https://www.eclipse.org/downloads/packages/) to download the appropriate Eclipse version.
+
 
       ![eclipse](eclipse.png)
 
@@ -115,7 +118,6 @@ author_profile: https://github.com/mervey45
  9. Check your result.
 
       ![eclipse](eclipse18.png)
-
 
 Following this tutorial you will be able to update the latest version of Eclipse and ADT when new releases are available.
 

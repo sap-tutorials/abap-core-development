@@ -4,8 +4,6 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
 ---
 
 # Define SAP Web IDE as Communication Partner in S/4HANA Cloud
