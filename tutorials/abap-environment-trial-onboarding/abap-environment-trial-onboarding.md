@@ -123,10 +123,4 @@ Open Eclipse. Make sure you have installed ADT in your Eclipse. Find [here](abap
 ### Test yourself
 
 
-
-
----
-
-After completing this mission, you might be interested in the next in the series: [Create and Expose a CDS-Based Data Model With SAP BTP ABAP Environment](mission.cp-starter-extensions-abap)
-
 ---
