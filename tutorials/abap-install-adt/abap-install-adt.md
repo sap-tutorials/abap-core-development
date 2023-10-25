@@ -10,7 +10,9 @@ author_profile: https://github.com/mervey45
 
 
 # Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
+
 <!-- description --> Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin.
+
 
 
 ## You will learn
@@ -20,7 +22,7 @@ author_profile: https://github.com/mervey45
 
 ## Prerequisites
 - Operating System:
-      - Windows 10, or
+      - Windows 10, or higher
       - Apple Mac OS X 10.14 or higher
 - Microsoft VC Runtime:
       - For Windows OS: [Microsoft Visual C++ 2013 (x64)](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) for communication with the back-end system is required.
@@ -32,10 +34,11 @@ author_profile: https://github.com/mervey45
 
 ---
 
-### Install ABAP Development Tools (ADT)
 
+### Download and run Eclipse IDE
 
   1. Open the [Eclipse download page](https://www.eclipse.org/downloads/packages/) to download the appropriate Eclipse version.
+
 
       ![eclipse](eclipse.png)
 
@@ -73,35 +76,38 @@ author_profile: https://github.com/mervey45
 
       ![eclipse](eclipse10.png)
 
-10. Select **Help** > **Install New Software**.
+
+### Add ADT plugin to Eclipse
+
+ 1. Select **Help** > **Install New Software**.
 
       ![eclipse](eclipse11.png)
 
-11. Enter the latest ADT URL **`https://tools.hana.ondemand.com/latest`** in the **Work with** section, press enter,  select **ABAP Development Tools** and click **Next >**.
+ 2. Enter the latest ADT URL **`https://tools.hana.ondemand.com/latest`** in the **Work with** section, press enter,  select **ABAP Development Tools** and click **Next >**.
 
       ![eclipse](eclipse12.png)
 
-12. Click **Next >**.
+ 3. Click **Next >**.
 
       ![eclipse](eclipse13.png)
 
-13. Accept the **license agreement** and click **Finish**.
+ 4. Accept the **license agreement** and click **Finish**.
 
       ![eclipse](eclipse14.png)
 
-14. Now ADT will be installed. Select **Install anyway**.
+ 5. Now ADT will be installed. Select **Install anyway**.
 
       ![eclipse](eclipse15.png)
 
-15. Click **Select All** and **Accept selected**.
+ 6. Click **Select All** and **Accept selected**.
 
       ![eclipse](eclipse16.png)
 
-16. Click **Restart Now**.
+ 7. Click **Restart Now**.
 
       ![eclipse](eclipse17.png)
 
-17. Now ADT is installed. Switch to the ABAP perspective. Therefore select **Window** > **Perspective** > **Other Perspective** > **Other**.
+ 8. Now ADT is installed. Switch to the ABAP perspective. Therefore select **Window** > **Perspective** > **Other Perspective** > **Other**.
 
     ![eclipse](perspective.png)
 
@@ -109,12 +115,12 @@ author_profile: https://github.com/mervey45
 
       ![eclipse](perspective2.png)
 
-18. Check your result.
+ 9. Check your result.
 
       ![eclipse](eclipse18.png)
 
+Following this tutorial you will be able to update the latest version of Eclipse and ADT when new releases are available.
 
->**HINT:** Following this tutorial you will be able to update the latest version of Eclipse and ADT when new releases are available.
 
 ### Test yourself
 
