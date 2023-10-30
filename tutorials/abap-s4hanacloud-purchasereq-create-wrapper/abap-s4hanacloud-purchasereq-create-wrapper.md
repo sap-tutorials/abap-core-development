@@ -634,13 +634,13 @@ Repeat the same steps to release the factory class you created:
 
 ### Run ATC checks and request exemptions
 
-You will now need to run ATC checks on the objects you just released and request exemptions to use unreleased API.
+You will now need to run ATC checks on the objects you created and request exemptions to use unreleased API.
 
-To run the ATC checks right click on the `Z_PURCHASE_REQ_TIER2_XXX` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
+To run the ATC checks right click on the `$Z_PURCHASE_REQ_TIER2_XXX` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
 
 ![ATC checks - interface error](interface_atc_checks.png)
 
->Note that there are ATC checks errors for both the interface and the factory class. You will need to request an exemption for each of the two objects.
+>Note that there are ATC checks errors for both the interface and the wrapper class. You will need to request an exemption for each of the two objects.
 
 Right click on any one of the interface related errors in the ATC Problems tab and choose **Request Exemption**. You can then request an exemption for the whole interface by selecting `Interface (ABAP Objects)` under the `Apply exemption To` tab:
 
@@ -650,9 +650,9 @@ Click **Next**, choose a valid approver, a reason to request the exemptions and 
 
 ![Approver and justification](approver_and_justification.png)
 
-Proceed in the same way to request an exemption for the whole factory class.
+Proceed in the same way to request an exemption for the whole wrapper class.
 
->How to maintain approvers and how approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemption, you can verify it by running ATC checks again in ADT: no issue should arise.
+>How to maintain approvers and how approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemptions, you can verify it by running ATC checks again in ADT: no issue should arise.
 
 ### Test released wrapper with console application in tier 1
 

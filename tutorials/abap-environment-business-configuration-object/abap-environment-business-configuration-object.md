@@ -64,7 +64,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       ![Select Data Element](e2.png)
 
-  3. Create a data element. You use data elements instead of predefined ABAP types because the field labels on the user interface are derived from the data element definition. In addition, a data element is required to define a foreign key relationship between two tables.
+  3. Create a data element. You use data elements instead of predefined ABAP types because the field labels on the user interface are derived from the data element definition. In addition, a data element is required to define a foreign key relationship between two tables. Note: For character-like key fields, you must associate the data element with a domain. This ensures that case-sensitivity is applied correctly, thus avoiding problems when transporting the content.
      - Name: **`Z_ERROR_CODE_###`**
      - Description: **`Error Code`**
 
