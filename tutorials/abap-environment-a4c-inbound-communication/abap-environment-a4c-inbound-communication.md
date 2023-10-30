@@ -23,7 +23,6 @@ author_profile: https://github.com/julieplummer20
     - You have created a service definition from this service projection. Here, we created **`Z_C_TRAVEL_U_SIMPLE_000`**
 - You have installed the latest version of [ABAP Development Tools (ADT)](https://tools.hana.ondemand.com/#abap).
 - You have read [Developing a UI Service with Access to a Remote Service](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/f4969e551d3049c59715210cbeb4ef56.html) and its [Scenario Description](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/4f539da657fe427f868a95c0bc1b3cfa.html), since this mission is based on this tutorial series
-- Optional: You have installed the [Postman API Platform](https://www.getpostman.com/)
 
 
 ## You will learn
@@ -31,8 +30,8 @@ author_profile: https://github.com/julieplummer20
 - In the **provisioning** system, how to expose a CDS view as an OData service using a **Service Binding**
 - How to wrap this OData service in an inbound communication scenario, so that it can be accessed from another instance of SAP BTP, ABAP environment
 - How to make the provisioning system service available for connection from other ABAP systems
-- How to test your service URL in Postman (optional)
 - How to create an XML metadata file representing the remote service
+<!-- - How to test your service URL in Postman (optional) -->
 
 This approach involves some overhead for one consumer; however, the advantage is that you can add several consumer systems, or users (for example, with different authentication) pointing to the same HTTP service, wrapped in the same Communication Scenario.
 
@@ -43,20 +42,20 @@ This tutorial mission was written for SAP BTP ABAP Environment. However, you sho
 You want to get data that is only available in a remote instance of SAP BTP, ABAP Environment ( **provisioning system** ) and display it in a second instance ( **consuming system** ).
 
 In the mission, you will learn:
+
 1. In the **provisioning system**, create inbound communication artifacts for an OData Service 
 2. Create a **Service Consumption Model** and save this locally as a `$metadata` XML file. From this you will create proxy artifacts in the consuming system, representing the remote service, and use this model to generate an **abstract entity**
 3. In the **consuming system**, create outbound communication artifacts for an OData Service 
 4. Create a Remote Client Proxy that passes the OData requests to the remote service
 5. Build a new OData service in the consuming system, using a CDS custom entity and query implementation class
-6. Display the remote data in an ABAP Console app
+6. Display the remote data in an ABAP Console app (not depicted below.)
 7. Finally, display the remote data in Fiori Elements preview in your browser.
 
 > Throughout this tutorial, replace `000` with your initials or group number.
 
 
 <!-- border -->
-![step0-overview-create-by-comm-arr](step0-overview-create-by-comm-arr.png)
-
+![step0-overview-create-by-comm-arr-v2](step0-overview-create-by-comm-arr-v2.png)
 
 ---
 
@@ -68,7 +67,7 @@ You start in your **provisioning** system by creating the ABAP artifacts in ABAP
 
 2. Enter the following and choose **Next**:
     - Name = **`Z_BTP_2_BTP_000`**
-    - Description = **Connect 2 instances of BTP ABAP**
+    - Description = **Connect two instances of BTP ABAP**
     - Package type = **Development**
 
 3. Choose **Create new transport request**, enter a description, such as **Connect 2 instances of BTP ABAP**, then choose **Finish**.
@@ -90,8 +89,6 @@ When naming, remember to comply with the [Naming Conventions for RAP Business Ob
 
 2. In the wizard:
 
-    - **IMPORTANT**: Choose the correct package, that is, **your** package, not **`/DMO/...`**
-    - Delete the namespace `/DMO/` and enter the following:
     - Name: **`Z_C_TRAVEL_API_O2_000`** 
     - Description **`Endpoint Z_C_TRAVEL_U_SIMPLE_000`**
     - Enter the binding type: **`ODATA V2 - Web API`**
@@ -113,7 +110,7 @@ The service binding opens in a new editor.
 
 ### Create inbound Communication Scenario
 
-1. Choose **New > Other Repository Object...** from the context menu.
+1. Select the package and choose **New > Other Repository Object...** from the context menu.
 
 2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
     
@@ -126,7 +123,6 @@ Your Communication Scenario appears in a new editor.
 
 
 ### Add service binding
-
 
 1. On the **Inbound** tab, choose **Add...**.
 
@@ -152,7 +148,12 @@ Your Communication Scenario appears in a new editor.
 
 Now you will create several communication artifacts using the appropriate Fiori app.
 
-1. Open the Fiori dashboard for your provisioning system in a browser. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development > System URL** from the context menu.
+1. Open the Fiori dashboard for your provisioning system in a browser. You can find the URL for the dashboard as follows: 
+   
+   - Select your system (that is, ABAP Project in Project Explorer)
+   - Choose **Properties > ABAP Development > System URL** from the context menu
+   - Copy this URL into your browser and choose **Enter**. 
+   - **IMPORTANT**: Check that the URL does **not** contain the string **`-api`**. If it does, delete it.
 
     <!-- border -->
     ![step5a-open-flp](step5a-open-flp.png)
@@ -164,7 +165,7 @@ Now you will create several communication artifacts using the appropriate Fiori 
     <!-- border -->
     ![step5b-comm-system-new](step5b-comm-system-new.png)
 
-4. Enter a System ID, **`Z000_TO_CON_CSYS`** (where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
+4. Enter a System ID, **`Z000_TO_CON_CSYS`**, where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
 
     <!-- border -->
     ![step5c-comm-system-id-name](step5c-comm-system-id-name.png)
@@ -185,8 +186,8 @@ Now you will create several communication artifacts using the appropriate Fiori 
         Make sure the domain starts with `abap`, not `abap-web`
 
     <!-- LATER: UI Host Name; Inbound Only ??? 
-    - Business System = **dummy**?
-    Ask Sevdiye -->
+    - Business System = **dummy**? --> 
+    <!-- Ask Sevdiye -->
 
     - Port = **443**
 
@@ -234,6 +235,8 @@ Your Communication Arrangement should look roughly like this.
 ![step6e-comm-arr-editor](step6e-comm-arr-editor.png)
 
 
+<!-- 
+SORT BORDER
 ### Check service URL in Postman (Optional)
 
 1. Open Postman. In the **Authorization** tab, enter your authorization credentials:
@@ -246,9 +249,9 @@ Your Communication Arrangement should look roughly like this.
 
 3. The response appears in the **Body** field, along with the status **200 OK**.
 
-    <!-- border -->
+    <!-- border 
     ![step7b-postman-response](step7b-postman-response.png)
-
+ -->
 
 ### Create service metadata file
 
@@ -279,10 +282,10 @@ You will now create a metadata file for this service, which you will access late
 
 ### Test yourself
 
-
+<!--
 ### More Information
-[Postman: Video Tutorials](https://www.youtube.com/playlist?list=PLM-7VG-sgbtAgGq_pef5y_ruIUBPpUgNJ)
+  [Postman: Video Tutorials](https://www.youtube.com/playlist?list=PLM-7VG-sgbtAgGq_pef5y_ruIUBPpUgNJ)
+-->
 
-SAP Help Portal:[Service Consumption via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/service-consumption-via-communication-arrangements)
 
 ---
