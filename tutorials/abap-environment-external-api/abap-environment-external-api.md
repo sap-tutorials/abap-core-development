@@ -4,7 +4,7 @@ title: Call an External API and Parse the Response in SAP BTP ABAP Environment
 description: Call an external API SAP BTP ABAP Environment and parse the response using JSON or XML
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
+tags: [ tutorial>intermediate, software-product-function>sap-s-4hana-cloud--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20 
@@ -146,7 +146,7 @@ Now, you need to create the necessary communication artifacts in Fiori Launchpad
     <!-- border -->
     ![step4b-new-comm-system-dialog](step4b-new-comm-system-dialog.png)
 
-3. Enter host name: `overpass-api.de`
+3. Enter host name: **`overpass-api.de`**
 
 4. Under **Users for Outbound Communication**, enter the option **None**.
 
