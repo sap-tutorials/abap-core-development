@@ -591,7 +591,7 @@ This tutorial is based on an excellent blog post by André Fischer:
 
 For information on **`ACO_PROXY`**, see:
 
-- SAP Help Portal: [RFC: Generating Static Proxies](https://help.sap.com/doc/saphelp_nw75/7.5.5/en-US/b4/50522405e0423c948c7d369d869b9d/frameset.htm)
+- SAP Help Portal: [RFC: Generating Static Proxies](https://help.sap.com/docs/ABAP_PLATFORM_NEW/753088fc00704d0a80e7fbd6803c8adb/b450522405e0423c948c7d369d869b9d.html?locale=en-US)
 
 For OData services in general:
 
