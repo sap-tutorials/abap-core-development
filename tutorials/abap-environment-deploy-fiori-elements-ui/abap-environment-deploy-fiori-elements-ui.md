@@ -12,15 +12,15 @@ author_profile: https://github.com/mervey45
 <!-- description --> Create an SAP Fiori app for a RAP business object from SAP BTP, ABAP Environment in SAP Business Application Studio and deploy it to SAP BTP, ABAP Environment.
 
 ## Prerequisites  
+
 - **Trial:** You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - **Licensed system:**
-    - You have created the [Travel App Mission](mission.sap-fiori-abap-rap100). Mandatory is only the first tutorial of this tutorial mission [Create Database Table and Generate UI Service](abap-environment-rap100-generate-ui-service).
     - The business catalog `SAP_A4C_BC_DEV_UID_PC` (Development - UI Deployment) needs to be assigned to a business role of the developer user. For an existing ABAP systems, the business catalog needs to be added manually to the existing developer business role.
+    - You need to be a member at the used global account​
     - You need to be an organization manager at the used Cloud Foundry subaccount
     - You need to be a security administrator at the used Cloud Foundry Subaccount​
-    - The SAP Business Application Studio and the SAP BTP, ABAP environment instance must be under same subaccount.
-    - Read following blog post to get an overview on [Connecting from SAP Business Application Studio to SAP BTP Cloud Foundry environment](https://blogs.sap.com/2021/04/21/connecting-from-sap-business-application-studio-to-sap-btp-cloud-foundry-environment/)
-
+- You have created the [Travel App Mission](mission.sap-fiori-abap-rap100). Mandatory is only the first tutorial of this tutorial mission [Create Database Table and Generate UI Service](abap-environment-rap100-generate-ui-service).
+  
 ## You will learn  
 - How to assign role collections
 - How to create dev spaces
