@@ -525,7 +525,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
 6. Comment out both lines of annotation `@Semantics.amount.currencyCode` and the property **Flight Price**.
 
-7. Add the following two fields alongside with a foreign key association
+7. Add the following two fields alongside with a foreign key association 
 
     ```foreignKey
         @ObjectModel.foreignKey.association: '_CustomerCountry'
