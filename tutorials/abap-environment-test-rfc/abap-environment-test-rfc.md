@@ -6,10 +6,11 @@ tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, softw
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
+keyword: RFC
 ---
 
-# Call a Remote Function Module (RFC): Test the Connection to the Remote System
-<!-- description --> Test that the connection to the BAPI works via RFC.
+# Test the Business API (BAPI) with An ABAP Console App
+<!-- description --> Test that the connection to the BAPI works (A BAPI is a type of RFC).
 
 ## Prerequisites
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
@@ -101,10 +102,9 @@ Define the connection, replacing `000` in each artifact.
 ```ABAP
 
 DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
-                        service_id             = 'Z_OUTBOUND_RFC_000'           " Outbound service
-                        comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'      " Communication system
-
+                              comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+                              service_id             = 'Z_OUTBOUND_RFC_000'         " Outbound service
+                              comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
                        ).
 
 DATA(lv_destination) = lo_destination->get_destination_name( ).
@@ -279,6 +279,7 @@ ENDCLASS.
 Test the class in the ABAP Console by choosing **`F9`**.
 Your output should look like this:
 
+<!-- border -->
 ![Image depicting test-rfc-console](test-rfc-console.png)
 
 
