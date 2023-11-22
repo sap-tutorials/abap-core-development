@@ -193,10 +193,10 @@ SAP Fiori Application projects created via the SAP Fiori template are automatica
           "uri": "css/style.css"
         }
       ]
-    },
+    }
+  },
   "sap.flp":{
-    "type": "plugin"
-  }
+  "type": "plugin"
   }
 }
 ```
