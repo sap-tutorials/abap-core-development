@@ -10,7 +10,7 @@ author_profile: https://github.com/mervey45
 
 
 # Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
-<!-- description --> IDownload the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
+<!-- description --> Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin.
 
 
 ## You will learn
