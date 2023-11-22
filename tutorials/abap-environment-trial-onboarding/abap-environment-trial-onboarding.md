@@ -9,7 +9,7 @@ author_profile: https://github.com/mervey45
 ---
 
 # Create an SAP BTP ABAP Environment Trial User
-<!-- description --> Create a trial user with SAP BTP ABAP environment.
+<!-- description --> Create an trial user with SAP BTP ABAP environment.
 
 ## Prerequisites
 - You have read the blog post [It's Trial Time for ABAP in SAP Business Technology Platform](https://blogs.sap.com/2019/09/28/its-trialtime-for-abap-in-sap-cloud-platform/), including the section "Rules of the Game"
