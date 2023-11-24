@@ -4,6 +4,8 @@ auto_validation: true
 primary_tag: products>sap-cloud-platform--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, products>sap-cloud-platform, tutorial>license ]
 time: 5
+author_name: Merve Temel
+author_profile: https://github.com/mervey45
 ---
 
 # Connect to SAP S/4HANA Cloud system with SAP Cloud Platform ABAP Environment
