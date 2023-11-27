@@ -292,7 +292,7 @@ Two built-in HANA SQL functions are used. First, `add_workdays` is used to add t
 
 You can now use the defined scalar function to add a production date field to your CDS model.
 
-1. Open the interface layer CDS view ZR_FACTORYORDER_###.
+1. Open the interface layer CDS view `ZR_FACTORYORDER_###`.
 2. Add a new field which is calculated using the scalar function and the other required fields as input:
 
     ```ABAP
@@ -324,7 +324,7 @@ You can now use the defined scalar function to add a production date field to yo
 
 3. Save and activate the changes.
 
-4. Open the interface layer behavior definition ZR_FACTORYORDER_###.
+4. Open the interface layer behavior definition `ZR_FACTORYORDER_###`.
 
 5. You should see a syntax error appear in your behavior definition. Since you added a field to the CDS view, your draft table does no longer match the data model. Use the offered quick fix to adjust the draft table.
 
@@ -334,13 +334,13 @@ You can now use the defined scalar function to add a production date field to yo
 
 8. Save and activate the behavior definition.
 
-9. Open the projection layer CDS view ZC_FACTORYORDER_###.
+9. Open the projection layer CDS view `ZC_FACTORYORDER_###`.
 
 10. Expose the new field `ProductionEndDate` by adding it to the CDS view.
 
 11. Save and activate the changes.
 
-12. Open the metadata extension ZC_FACTORYORDER_###.
+12. Open the metadata extension `ZC_FACTORYORDER_###`.
 
 13. Add UI annotations for the newly defined field, so that it will be visible on the UI:
 
@@ -367,7 +367,7 @@ You can now use the defined scalar function to add a production date field to yo
 
 The user inputs a delivery date when creating an order. This date should be validated to ensure it is not earlier than the production end date that is calculated by the system. You can achieve this by introducing a validation in your business object.
 
-1. Open the interface layer behavior definition ZR_FACTORYORDER_###.
+1. Open the interface layer behavior definition `ZR_FACTORYORDER_###`.
 
 2. Define a new validation on the delivery date field, which shall be triggered during the save process. Add the new validation to the standard **Prepare** action:
 
