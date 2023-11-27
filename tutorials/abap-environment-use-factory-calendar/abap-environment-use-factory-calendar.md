@@ -299,13 +299,13 @@ You can now use the defined scalar function to add a production date field to yo
     @AccessControl.authorizationCheck: #CHECK
     @EndUserText.label: '##GENERATED Factory Calendar Tutorial'
     define root view entity ZR_FACTORYORDER_###
-      as select from zfactorycal_### as FactoryOrder
+      as select from zfactoryord_### as FactoryOrder
     {
       key order_id as OrderID,
       description as Description,
       days_to_produce as DaysToProduce,
       factory_calendar as FactoryCalendar,
-      production_start_date as OrderDate,
+      production_start_date as ProductionStartDate,
       delivery_date as DeliveryDate,
       @Semantics.user.createdBy: true
       created_by as CreatedBy,
