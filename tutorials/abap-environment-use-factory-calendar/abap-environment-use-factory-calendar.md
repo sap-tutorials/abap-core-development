@@ -1,7 +1,7 @@
 ---
 auto_validation: true
 time: 25
-tags: [ tutorial>intermediate, programming-tool>abap-development,  softwareproducts>sap-business-technology-platform, tutorial>license ]
+tags: [ tutorial>intermediate, programming-tool>abap-development,  softwareproducts>sap-business-technology-platform ]
 primary_tag: products>sap-btp--abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/AchimSeubert
@@ -14,7 +14,6 @@ parser: v2
 
 ## Prerequisites
 
-- You have an SAP BTP, ABAP environment license.
 - You have a business user with developer authorization (business role `SAP_BR_DEVELOPER`) in the system.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)](https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an ABAP Cloud project for the system in ADT.
@@ -213,11 +212,11 @@ Each factory order receives a production start date and the required production 
 
     ```ABAP
     define scalar function ZFACTORYORDER_SCALAR_###
-    with parameters
-    i_calendar_id: abap.char( 32 ),
-    i_production_start_date: abap.dats,
-    i_days_to_produce : abap.int4
-    returns abap.dats
+      with parameters
+        i_calendar_id: abap.char( 32 ),
+        i_production_start_date: abap.dats,
+        i_days_to_produce : abap.int4
+      returns abap.dats
     ```
 
 7. Save and activate your changes.
@@ -299,13 +298,13 @@ You can now use the defined scalar function to add a production date field to yo
     @AccessControl.authorizationCheck: #CHECK
     @EndUserText.label: '##GENERATED Factory Calendar Tutorial'
     define root view entity ZR_FACTORYORDER_###
-      as select from zfactorycal_### as FactoryOrder
+      as select from zfactoryord_### as FactoryOrder
     {
       key order_id as OrderID,
       description as Description,
       days_to_produce as DaysToProduce,
       factory_calendar as FactoryCalendar,
-      production_start_date as OrderDate,
+      production_start_date as ProductionStartDate,
       delivery_date as DeliveryDate,
       @Semantics.user.createdBy: true
       created_by as CreatedBy,
