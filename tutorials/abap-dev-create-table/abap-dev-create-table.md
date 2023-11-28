@@ -30,7 +30,7 @@ Tables are defined independently of the database in the ABAP Dictionary. When yo
 The table in this tutorial will store bank account details for customers. The table will have the following columns (or **fields**):
 
 - `client` (key field)
-- `account_number` (key account number)
+- `account_number` (key field)
 - `bank_customer_id`
 - `bank_name`
 - `city`
@@ -38,6 +38,8 @@ The table in this tutorial will store bank account details for customers. The ta
 - `currency`
 - `account_category`
 - `lastchangedat`
+
+> Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
 
 ---
@@ -94,7 +96,7 @@ One key field has been added automatically:
 This specifies that the table is client-specific.
 Tables can be cross-client or client-specific. Each client is a self-contained unit within an organization, such as a subsidiary. For client-specific tables, the client is the first key field in the table.
 
-The field is also specified as `not null x`. This means that the field cannot be left blank. In this case, `abap.clnt` is automatically filled with the value of the current client (such as 001).
+The field is also specified as `not null`. This means that the field cannot be left blank. In this case, `abap.clnt` is automatically filled with the value of the current client (such as 001).
 
 
 ### Add field account number using primitive type
@@ -155,7 +157,6 @@ Add a field based on a built-in domain.
 
     <!-- border -->
     ![step5c-domain-attributes](step5c-domain-attributes.png)
-
 
 
 ### Add field bank using new data element

@@ -70,7 +70,7 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 3. Enter the following, choose a transport request, then choose **Finish**.
     - Name: **`Z_OUTBOUND_000_REST_CSCEN`**
-    - Description **Comm Scen: Connect BTP to BTP**
+    - Description **Comm Scenario: Connect BTP to BTP**
     </br>       
     Your Communication Scenario appears in a new editor.
         <!-- border -->
@@ -270,7 +270,7 @@ Since you are implementing the query manually, you need to use a custom entity a
 2. Enter the following, then choose **Next**. **DO NOT** enter a referenced object.
 
     - Name: **`ZCE_TRAVEL_DATA_000`**
-    - Description: **Travel data custom entity cons. sys**
+    - Description: **Travel data custom entity cons. sys.**
 
 3. Accept the transport request and choose **Next** - not **Finish**.
 
@@ -369,6 +369,10 @@ UI annotations enable your app to represent a semantic view of data by using def
 
 ### More Information
 
-SAP Help Portal: [UI Annotations](https://help.sap.com/docs/ABAP_PLATFORM_NEW/cc0c305d2fab47bd808adcad3ca7ee9d/f8af07bb0770414bb38a25cae29a12e9.html)
+- SAP Help Portal: [Service Consumption via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/service-consumption-via-communication-arrangements)
+
+- SAP Help Portal: [UI Annotations](https://help.sap.com/docs/ABAP_PLATFORM_NEW/cc0c305d2fab47bd808adcad3ca7ee9d/f8af07bb0770414bb38a25cae29a12e9.html)
+
+- SAP Community blog post: [Service Consumption Model 2 for OData Client Proxy](https://blogs.sap.com/2023/11/06/service-consumption-model-2-for-odata-client-proxy/)
 
 ---
