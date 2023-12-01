@@ -348,12 +348,13 @@ CLASS zcl_product_via_rfc_000 IMPLEMENTATION.
     "Set RFC destination
     TRY.
 
-    DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                          comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'      " Communication scenario
-                          service_id             = 'Z_OUTBOUND_RFC_000'            " Outbound service
-                          comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'       " Communication system
+        DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
+                comm_scenario   = 'Z_OUTBOUND_000_REST_CSCEN'     " MANDATORY, created in CLI in ADT, contains Comm Arr, System, User
+                comm_system_id  = 'Z000_TO_PRV_CSYS'              " recommended = points to Comm Sys
+                service_id      = 'Z_OUTBOUND_000_REST'           " recommended = created in ADT, points to COM Outbound Service
 
-                         ).
+
+                            ).
 
 
         "Check if data is requested
@@ -410,13 +411,6 @@ You use a **Service Definition** to define which data is to be exposed (with the
 
 You then use the **Service Binding** to bind a service definition to a client-server communication protocol such as OData. This allows you to provide several bindings for the same definition, e.g. to expose the service to a UI, and to an `A2X` provider.
 
-<!-- 
-For more information, see:
-
-- Business Service Definition in ADT Help.
-
-- Business Service Binding in ADT Help.
- -->
 
 Start with the Service Definition:
 
@@ -522,9 +516,11 @@ The console output should look like this:
 
 ## More Information
 
-- [SAP Help Portal: BAPI](https://help.sap.com/viewer/166400f6be7b46e8adc6b90fd20f3516/1709%20002/en-US)
+- SAP Help Portal: [BAPI](https://help.sap.com/viewer/166400f6be7b46e8adc6b90fd20f3516/1709%20002/en-US)
 
-- [SAP Help Portal: Using a CDS Custom Entity to Define the Data Model for an OData Service](https://help.sap.com/viewer/c0d02c4330c34b3abca88bdd57eaccfc/Cloud/en-US/6a064c09c508435a81357898e8e65d06.html)
+- SAP Help Portal: [Using a CDS Custom Entity to Define the Data Model for an OData Service](https://help.sap.com/viewer/c0d02c4330c34b3abca88bdd57eaccfc/Cloud/en-US/6a064c09c508435a81357898e8e65d06.html)
+
+- SAP Help Portal: [Service Definition](https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/b09e4d53bfca4544a9f8910bcc2cd9d6.html)
 
 - [Implement a custom entity in the ABAP RESTful Programming Model using RFC](https://blogs.sap.com/2019/03/01/how-to-implement-a-custom-entity-in-the-abap-restful-programming-model-using-remote-function-modules/) - includes handling a single record, filtering, and ordering
 

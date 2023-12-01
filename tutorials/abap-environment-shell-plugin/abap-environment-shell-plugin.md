@@ -116,7 +116,7 @@ SAP Fiori Application projects created via the SAP Fiori template are automatica
 {
   "_version": "1.58.0",
   "sap.app": {
-    "id": "zplugin000",
+    "id": "zplugin###",
     "type": "component",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -183,7 +183,7 @@ SAP Fiori Application projects created via the SAP Fiori template are automatica
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "zplugin000.i18n.i18n"
+          "bundleName": "zplugin###.i18n.i18n"
         }
       }
     },
@@ -219,7 +219,7 @@ sap.ui.define([
     function (UIComponent) {
         "use strict";
 
-        return UIComponent.extend("zplugin000.Component", {
+        return UIComponent.extend("zplugin###.Component", {
             metadata: {
                 manifest: "json"
             },
@@ -254,7 +254,7 @@ sap.ui.define([
 );
 ```
 
->In line 7, the `"zplugin000.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin000` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` parameter.
+>In line 7, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` parameter.
 
 ### Preview your SAPUI5 Application
 
