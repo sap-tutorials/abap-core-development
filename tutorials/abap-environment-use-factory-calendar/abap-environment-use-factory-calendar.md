@@ -14,7 +14,6 @@ parser: v2
 
 ## Prerequisites
 
-- You have an SAP BTP, ABAP environment license.
 - You have a business user with developer authorization (business role `SAP_BR_DEVELOPER`) in the system.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)](https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an ABAP Cloud project for the system in ADT.
@@ -213,11 +212,11 @@ Each factory order receives a production start date and the required production 
 
     ```ABAP
     define scalar function ZFACTORYORDER_SCALAR_###
-    with parameters
-    i_calendar_id: abap.char( 32 ),
-    i_production_start_date: abap.dats,
-    i_days_to_produce : abap.int4
-    returns abap.dats
+      with parameters
+        i_calendar_id: abap.char( 32 ),
+        i_production_start_date: abap.dats,
+        i_days_to_produce : abap.int4
+      returns abap.dats
     ```
 
 7. Save and activate your changes.
