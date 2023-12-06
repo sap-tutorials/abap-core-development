@@ -226,9 +226,13 @@ The generated business service will be transactional, draft-enabled, and enriche
 
     Verify the maintained entries and press **Next >** to confirm. The needed artifacts will be generated.
 
-    > **Please note**: Error Invalid XML format.   
-    > If you receive an error message **Invalid XML format of the response**, this may be due to a bug in version 1.26 of the ADT tools.  
-    > An update of your ADT plugin to version 1.26.3 will fix this issue.
+    >**About Naming Conventions**
+      The main aspects of the naming conventions of SAP S/4HANA's Virtual Data Model (VDM) are used in this exercise.
+      More information on VDM can be found on the SAP Help portal: Here.
+
+    >**Attention**
+      Please make sure to replace all the name proposals in the wizard with the names provided below.
+      Doing this is important to ensure the correctness of the code snippets provided in the following exercises.
 
     | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
     |----------------------------------------|-------------------------|-----------------------------------------------------|
