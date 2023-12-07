@@ -34,8 +34,8 @@ Create your own ABAP development package, which will serve as the basis for the 
 2. Right click the main package `ZLOCAL` and choose **New > ABAP Package**.
 
 3. Create your own ABAP development package as a sub package of `ZLOCAL` using Software Component `ZLOCAL`. Create a new Transport Request for this purpose.
-  <ol type="a"><li>Name: `ZBPA2X`
-  </li><li>Description: `BP A2X Outbound Call Tutorial`</li></ol>
+    <ol type="a"><li>Name: `ZBPA2X`
+    </li><li>Description: `BP A2X Outbound Call Tutorial`</li></ol>
 
 ### Create an Outbound Service
 
