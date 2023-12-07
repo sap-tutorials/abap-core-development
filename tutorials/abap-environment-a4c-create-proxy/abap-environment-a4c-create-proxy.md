@@ -45,82 +45,88 @@ First, in the **consuming system**, you create the class that instantiates the c
 ### Copy code
 
 1. Replace the skeleton code with the following.
-<!-- provide details later; add images in folder -->
+<!-- provide details later; add images in folder
+sort top, skip -->
 
 
     ```ABAP
-    CLASS zcl_proxy_travels_000 DEFINITION
+    CLASS zcl_get_travels_000 DEFINITION
       PUBLIC
       FINAL
       CREATE PUBLIC .
 
       PUBLIC SECTION.
-
-        TYPES t_business_data TYPE TABLE OF zce_travel_data_000.
+        TYPES t_business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
 
         METHODS get_travels
-          EXPORTING
-              et_business_data TYPE t_business_data
+          IMPORTING
+            top              TYPE i OPTIONAL
+            skip             TYPE i OPTIONAL
 
-          RAISING
-                    /iwbep/cx_cp_remote
-                    /iwbep/cx_gateway
-                    cx_web_http_client_error
-                    cx_http_dest_provider_error
+          EXPORTING
+            et_business_data TYPE t_business_data
+
+    *
+    *      RAISING
+    *        /iwbep/cx_cp_remote
+    *        /iwbep/cx_gateway
+    *        cx_web_http_client_error
+    *        cx_http_dest_provider_error
           .
-        INTERFACES: if_oo_adt_classrun.
+
+        INTERFACES if_oo_adt_classrun .
+        INTERFACES if_rap_query_provider .
       PROTECTED SECTION.
       PRIVATE SECTION.
     ENDCLASS.
 
 
 
-    CLASS zcl_proxy_travels_000 IMPLEMENTATION.
-
+    CLASS zcl_get_travels_000 IMPLEMENTATION.
 
       METHOD get_travels.
 
+        " Variables for http_client and client_proxy
         DATA:
+              lo_http_client  TYPE REF TO if_web_http_client,
+              lo_client_proxy TYPE REF TO /iwbep/if_cp_client_proxy,
+              lo_request      TYPE REF TO /iwbep/if_cp_request_read_list,
+              lo_response     TYPE REF TO /iwbep/if_cp_response_read_lst.
 
-          lo_http_client   TYPE REF TO if_web_http_client,
-          lo_client_proxy  TYPE REF TO /iwbep/if_cp_client_proxy,
-          lo_request       TYPE REF TO /iwbep/if_cp_request_read_list,
-          lo_response      TYPE REF TO /iwbep/if_cp_response_read_lst.
+        " 1. Get the destination of remote system; Create http client
+        DATA(lo_destination) = cl_http_destination_provider=>create_by_comm_arrangement(
+                                                    comm_scenario  = '<Comm Scenario ID'
+    **                                                comm_system_id = '<Comm System ID>'
+    *                                                 service_id     = ''
+    ).
+        lo_http_client = cl_web_http_client_manager=>create_by_http_destination( lo_destination ).
+
+        "2. create client proxy
+        lo_client_proxy = /iwbep/cl_cp_factory_remote=>create_v2_remote_proxy(
+          EXPORTING
+              is_proxy_model_key       = VALUE #( repository_id       = 'DEFAULT'
+                                                  proxy_model_id      = 'Z000_MODEL_TRAVELS'
+                                                  proxy_model_version = '0001' )
+            io_http_client             = lo_http_client
+            iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000'  " = the service endpoint in the service binding in PRV' ).
+            ).
+        ASSERT lo_http_client IS BOUND .
+
+        " 3. Navigate to the resource and create a request for the read operation
+        lo_request = lo_client_proxy->create_resource_for_entity_set( 'SIMPLE_TRAVEL' )->create_request_for_read( ).
+        lo_request->set_top( 50 )->set_skip( 0 ).
+
+        " 4. Execute the request and retrieve the business data
+        lo_response = lo_request->execute( ). 
+        lo_response->get_business_data( IMPORTING et_business_data = et_business_data ).
 
 
-            " 1. Get the destination of foreign system; Create http client
-            DATA(lo_destination) = cl_http_destination_provider=>create_by_comm_arrangement(
-                        comm_scenario   = 'Z_OUTBOUND_000_REST_CSCEN' " MANDATORY, created in CLI, points to Comm Arr, Comm System, Comm User
-                        comm_system_id  = 'Z000_TO_PRV_CSYS'          " recommended = points to Comm Sys
-                        service_id      = 'Z_OUTBOUND_000_REST'       " recommended = created in ADT, points to COM Outbound Service
-
-
-                                                          ).
-            lo_http_client = cl_web_http_client_manager=>create_by_http_destination( lo_destination ).
-
-            "2. create client proxy
-            lo_client_proxy = cl_web_odata_client_factory=>create_v2_remote_proxy(
-            EXPORTING
-              iv_service_definition_name = 'Z000_MODEL_TRAVELS_API_O2'                 "service definition generated with Service Consumption Model (EDMX file)
-              io_http_client             = lo_http_client
-              iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000'  " = the service endpoint in the service binding in PRV
-                ).
-
-            "3. Navigate to the resource and create a request for the read operation
-            lo_request = lo_client_proxy->create_resource_for_entity_set( 'SIMPLETRAVEL' )->create_request_for_read( ).
-
-            lo_request->set_top( 50 )->set_skip( 0 ).
-
-            "4. Execute the request and retrieve the business data
-            lo_response = lo_request->execute( ).
-            lo_response->get_business_data( IMPORTING et_business_data = et_business_data ).
+        " Handle remote Exception
 
       ENDMETHOD.
 
-
-        METHOD if_oo_adt_classrun~main.
-        DATA business_data TYPE TABLE OF zce_travel_data_000.
-
+      METHOD if_oo_adt_classrun~main.
+        DATA business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
 
         TRY.
             get_travels(
@@ -131,10 +137,16 @@ First, in the **consuming system**, you create the class that instantiates the c
             out->write( business_data ).
           CATCH cx_root INTO DATA(exception).
             out->write( cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_text( ) ).
-    *         out->write( cl_message_helper=>get_latest_t100_exception( exception )->t100key ).
+
 
         ENDTRY.
       ENDMETHOD.
+
+
+      METHOD if_rap_query_provider~select.
+      ENDMETHOD.
+
+
     ENDCLASS.
 
     ```
