@@ -1,7 +1,7 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: software-product-function>s-4hana-cloud-abap-environment
+primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, products>sap-cloud-platform, tutorial>license ]
 time: 5
 author_name: Merve Temel
