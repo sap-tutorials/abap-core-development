@@ -68,7 +68,7 @@ Create a communication scenario and assign the outbound service to it. This will
     <ol type="a"><li>Name: `ZBPA2X_CS_BUPA`
     </li><li>Description: `Business Partner Outbound Service Call`
 
-      ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
+    ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
 
 3. Use the transport request created before and choose **Finish**
 
