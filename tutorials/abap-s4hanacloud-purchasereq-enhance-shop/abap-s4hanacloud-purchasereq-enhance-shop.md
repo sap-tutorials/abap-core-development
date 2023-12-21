@@ -2,16 +2,16 @@
 parser: v2
 auto_validation: true
 primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
-tags:  [ tutorial>beginner,software-product-function>sap-s-4hana-cloud--abap-environment, programming-tool>abap-development, programming-tool>abap-extensibility]
+tags:  [ tutorial>beginner, software-product-function>sap-s-4hana-cloud--abap-environment, programming-tool>abap-development, programming-tool>abap-extensibility]
 time: 25
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
   
-# Enhance the Behavior Definition and Behavior Implementation of the Online Shop Business Object
-<!-- description --> Create your first order in the online shop.
+# Enhance the Behavior Definition and Behavior Implementation of the Shopping Cart Business Object
+<!-- description --> Create your first order in the shopping cart.
 
-In the online shop, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
+In the shopping cart, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
 
  
 ## Prerequisites  
@@ -28,7 +28,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - How to run the SAP Fiori Elements Preview
 
 ## Intro
-In this tutorial, wherever XXX appears, use a number (e.g. 000).
+In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
 ---
 
@@ -38,7 +38,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
 **In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
 
-  1. Open your behavior definition **`ZR_ONLINESHOPTP_XXX`** to enhance it. Add the following statements to your behavior definition:
+  1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following statements to your behavior definition:
 
     ```ABAP
     update (features: instance);
@@ -47,7 +47,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
     draft action(features: instance) Edit;
     ```
 
-     ![projection](bdef4x.png)
+     ![projection](updatenew.png)
 
   2. Replace the following statements to your behavior definition:
 
@@ -60,19 +60,17 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
     ```
    
      ![projection](bdef5xx.png) 
-
-     **Hint:** Please replace **`#`**, **`X`** and **`XXX`** with your ID. 
  
   3. Check your behavior definition:
 
     ```ABAP
-    managed implementation in class ZBP_ONLINESHOPTP_XXX unique;
+    managed implementation in class ZBP_SHOPCARTTP_### unique;
     strict ( 2 );
     with draft;
 
-    define behavior for ZR_ONLINESHOPTP_XXX alias OnlineShop
-    persistent table zaonlineshop_xxx
-    draft table ZDONLINESHOP_XXX
+    define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
+    persistent table zashopcart_###
+    draft table ZDSHOPCART_###
     etag master LocalLastChangedAt
     lock master total etag LastChangedAt
     authorization master( global )
@@ -105,7 +103,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       validation checkOrderedQuantity on save { create; field OrderQuantity; }
       validation checkDeliveryDate on save { create; field DeliveryDate; }
 
-      mapping for ZAONLINESHOP_XXX 
+      mapping for ZASHOPCART_### 
       {
         OrderUUID = order_uuid;
         OrderID = order_id;
@@ -127,28 +125,19 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       }
     }
     ```
-
+    **Hint:** Please replace **`###`** with your ID.
+    
    4. Save and activate. 
 
  
 ### Enhance behavior implementation
 
-**Hint:** Please replace **`X`**, **`#`** and **`XXX`** with your ID. 
+**Hint:** Please replace **`###`** with your ID. 
 
-  1. Open the behavior implementation **`ZBP_ONLINESHOPTP_XXX`**, add the constant `c_overall_status` to your behavior implementation. In your **Local Types**, replace your code with following:
+  1. Open the behavior implementation **`ZBP_SHOPCARTTP_###`**, add the constant `c_overall_status` to your behavior implementation. In your **Local Types**, replace your code with following:
 
     ```ABAP
-    CLASS lsc_zr_onlineshoptp_xxx DEFINITION INHERITING FROM cl_abap_behavior_saver.
-
-      PROTECTED SECTION.
-
-    ENDCLASS.
-
-    CLASS lsc_zr_onlineshoptp_xxx IMPLEMENTATION.
-
-    ENDCLASS.
-
-    CLASS lhc_onlineshop DEFINITION INHERITING FROM cl_abap_behavior_handler.
+    CLASS lhc_shopcart DEFINITION INHERITING FROM cl_abap_behavior_handler.
       PRIVATE SECTION.
         CONSTANTS:
           BEGIN OF c_overall_status,
@@ -160,32 +149,32 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
         METHODS:
           get_global_authorizations FOR GLOBAL AUTHORIZATION
             IMPORTING
-            REQUEST requested_authorizations FOR OnlineShop
+            REQUEST requested_authorizations FOR ShoppingCart
             RESULT result,
           get_instance_features FOR INSTANCE FEATURES
-            IMPORTING keys REQUEST requested_features FOR OnlineShop RESULT result.
+            IMPORTING keys REQUEST requested_features FOR ShoppingCart RESULT result.
 
         METHODS calculateTotalPrice FOR DETERMINE ON MODIFY
-          IMPORTING keys FOR OnlineShop~calculateTotalPrice.
+          IMPORTING keys FOR ShoppingCart~calculateTotalPrice.
 
         METHODS setInitialOrderValues FOR DETERMINE ON MODIFY
-          IMPORTING keys FOR OnlineShop~setInitialOrderValues.
+          IMPORTING keys FOR ShoppingCart~setInitialOrderValues.
 
         METHODS checkDeliveryDate FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkDeliveryDate.
+          IMPORTING keys FOR ShoppingCart~checkDeliveryDate.
 
         METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
+          IMPORTING keys FOR ShoppingCart~checkOrderedQuantity.
     ENDCLASS.
 
-    CLASS lhc_onlineshop IMPLEMENTATION.
+    CLASS lhc_shopcart IMPLEMENTATION.
       METHOD get_global_authorizations.
       ENDMETHOD.
       METHOD get_instance_features.
 
         " read relevant olineShop instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OverallStatus )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders)
@@ -212,11 +201,11 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       ENDMETHOD.
 
       METHOD calculateTotalPrice.
-        DATA total_price TYPE zr_onlineshoptp_xxx-TotalPrice.
+        DATA total_price TYPE zr_shopcarttp_###-TotalPrice.
 
         " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OrderID TotalPrice )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -227,8 +216,8 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
         ENDLOOP.
 
         "update instances
-        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        MODIFY ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             UPDATE FIELDS ( TotalPrice )
             WITH VALUE #( FOR OnlineOrder IN OnlineOrders (
                               %tky       = OnlineOrder-%tky
@@ -243,8 +232,8 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
         "set delivery date proposal
         delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
         "read transfered instances
-        READ ENTITIES OF ZR_ONLINESHOPTP_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF ZR_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OrderID OverallStatus  DeliveryDate )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -255,15 +244,15 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
         " **Dummy logic to determine order IDs**
         " get max order ID from the relevant active and draft table entries
-        SELECT MAX( order_id ) FROM zaonlineshop_xxx INTO @DATA(max_order_id). "active table
-        SELECT SINGLE FROM zdonlineshop_xxx FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
+        SELECT MAX( order_id ) FROM zashopcart_### INTO @DATA(max_order_id). "active table
+        SELECT SINGLE FROM zdshopcart_### FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
         IF max_orderid_draft > max_order_id.
           max_order_id = max_orderid_draft.
         ENDIF.
 
         "set initial values of new instances
-        MODIFY ENTITIES OF ZR_ONLINESHOPTP_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        MODIFY ENTITIES OF ZR_SHOPCARTTP_### IN LOCAL MODE
+          ENTITY ShoppingCart
             UPDATE FIELDS ( OrderID OverallStatus  DeliveryDate Price  )
             WITH VALUE #( FOR order IN OnlineOrders INDEX INTO i (
                               %tky          = order-%tky
@@ -278,8 +267,8 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       METHOD checkDeliveryDate.
 
     *   " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( DeliveryDate )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -290,16 +279,16 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
 
           IF online_order-DeliveryDate IS INITIAL OR online_order-DeliveryDate = ' '.
-            APPEND VALUE #( %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky = online_order-%tky ) TO failed-ShoppingCart.
             APPEND VALUE #( %tky         = online_order-%tky
                             %state_area   = 'VALIDATE_DELIVERYDATE'
                             %msg          = new_message_with_text(
                                     severity = if_abap_behv_message=>severity-error
                                     text     = 'Delivery Date cannot be initial' )
-                          ) TO reported-onlineshop.
+                          ) TO reported-ShoppingCart.
 
           ELSEIF  ( ( online_order-DeliveryDate ) - creation_date ) < 14.
-            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-ShoppingCart.
             APPEND VALUE #(  %tky          = online_order-%tky
                             %state_area   = 'VALIDATE_DELIVERYDATE'
                             %msg          = new_message_with_text(
@@ -307,7 +296,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
                                     text     = 'Delivery Date should be atleast 14 days after the creation date'  )
 
                             %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-ShoppingCart.
           ENDIF.
         ENDLOOP.
       ENDMETHOD.
@@ -315,8 +304,8 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       METHOD checkOrderedQuantity.
 
         "read relevant order instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-        ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+        ENTITY ShoppingCart
         FIELDS ( OrderID OrderedItem OrderQuantity )
         WITH CORRESPONDING #( keys )
         RESULT DATA(OnlineOrders).
@@ -325,20 +314,20 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
         LOOP AT OnlineOrders INTO DATA(OnlineOrder).
           APPEND VALUE #(  %tky           = OnlineOrder-%tky
                           %state_area    = 'VALIDATE_QUANTITY'
-                        ) TO reported-onlineshop.
+                        ) TO reported-ShoppingCart.
 
           IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
-            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-ShoppingCart.
             APPEND VALUE #( %tky          = OnlineOrder-%tky
                             %state_area   = 'VALIDATE_QUANTITY'
                             %msg          = new_message_with_text(
                                     severity = if_abap_behv_message=>severity-error
                                     text     = 'Quantity cannot be empty' )
                             %element-orderquantity = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-ShoppingCart.
 
           ELSEIF OnlineOrder-OrderQuantity > 10.
-            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-ShoppingCart.
             APPEND VALUE #(  %tky          = OnlineOrder-%tky
                             %state_area   = 'VALIDATE_QUANTITY'
                             %msg          = new_message_with_text(
@@ -346,27 +335,27 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
                                     text     = 'Quantity should be below 10' )
 
                             %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-ShoppingCart.
           ENDIF.
         ENDLOOP.
       ENDMETHOD.
     ENDCLASS.
     ```
 
-   3. Save and activate.
+   2. Save and activate.
 
-   4. Go back to your behavior definition `ZR_ONLINESHOPTP_XXX` and activate it again, if needed. 
+   3. Go back to your behavior definition `ZR_SHOPCARTTP_###` and activate it again, if needed. 
 
 
 ### Run SAP Fiori Elements preview and create first order
 
- 1. Select **`OnlineShop`** in your service binding and click **Preview** to open SAP Fiori Elements preview.
+ 1. Select **`ShoppingCart`** in your service binding and click **Preview** to open SAP Fiori Elements preview.
 
-     ![preview](sb2.png)
+     ![preview](uinew0.png)
 
  2. Click **Create** to create a new entry.
 
-     ![preview](createx.png)
+     ![preview](uinew.png)
 
  3. Fill in all mandatory fields like in the screenshot below and click **Create**.
 

@@ -8,11 +8,11 @@ author_profile: https://github.com/AriannaMussoBarcucci
 parser: v2
 ---
 
-# Integrate the Wrapper into the Online Shop Business Object
+# Integrate the Wrapper into the Shopping Cart Business Object
 <!-- description --> Learn how to integrate your wrapper in a RAP BO, implement a new action to call the wrapper during the save sequence phase and expose it via service binding
 
 ## Prerequisites
-- You have completed the previous tutorials in this group and [created a wrapper for the BAPI `BAPI_PR_CREATE`](abap-s4hanacloud-purchasereq-create-wrapper) as well as [created an online shop business object](abap-s4hanacloud-procurement-purchasereq-shop) and [enhanced it](abap-s4hanacloud-purchasereq-enhance-shop).
+- You have completed the previous tutorials in this group to [create a wrapper for the BAPI `BAPI_PR_CREATE`](abap-s4hanacloud-purchasereq-create-wrapper) as well as [create a shopping cart business object](abap-s4hanacloud-procurement-purchasereq-shop) and [enhance it](abap-s4hanacloud-purchasereq-enhance-shop).
  - For the entirety of this tutorial, you will be using the same user with full development authorization you used in the previous tutorial of this mission.
 
 ## You will learn
@@ -21,9 +21,9 @@ parser: v2
 - How to expose the action via service binding
 
 ## Intro
->In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+>Throughout this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
-In this tutorial you will take the wrapper that you created and you will integrate it in your RAP Business Object (RAP BO) to create purchase requisitions in your online shop application as indicated in the [Using BAPIs in RAP](https://blogs.sap.com/2022/11/30/using-bapis-in-rap/) blog post:
+In this tutorial you will take the wrapper that you created and you will integrate it in your shopping cart RAP Business Object (RAP BO) to create purchase requisitions in your online shop application as indicated in the [Using BAPIs in RAP](https://blogs.sap.com/2022/11/30/using-bapis-in-rap/) blog post:
 
 - You will implement a new action. The action shall change the status of the business object instance to "Submitted".
 - You will implement a validation for the status. When the status is "Submitted", the validation will call the BAPI in test mode via the wrapper. It will return any error message raised by the BAPI. These error messages are then returned to the end user.
@@ -31,7 +31,7 @@ In this tutorial you will take the wrapper that you created and you will integra
 
 ### Implement new action `createPurchRqnBAPISave`
 
-You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_XXX` containing the RAP BO. Open the behavior definition `ZR_ONLINESHOPTP_XXX` and define a new action with the following code snippet:
+You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO. Open the behavior definition `ZR_SHOPCARTTP_###` and define a new action with the following code snippet:
 
 ```ABAP
   action ( features : instance ) createPurchRqnBAPISave result [1] $self;
@@ -42,21 +42,21 @@ Your behavior definition should look as follows:
 
 ![define action](declare_action.png)
 
-Save it.
+Save and activate it.
 
-Position the cursor on the newly defined action and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `add method for action createPurchRqnBAPISave of entity zr_onlineshoptp_xxx in local class lhc_onlineshop`. This will automatically create an empty method implementation in the `lhc_OnlineShop` class. Implement the method as follows:
+Position the cursor on the newly defined action and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `add method for action createPurchRqnBAPISave of entity zr_shopcarttp_### in local class lhc_shopcart`. This will automatically create an empty method implementation in the `lhc_shopcart` class. Implement the method as follows:
 
 ``` ABAP
   METHOD createpurchrqnbapisave.
   "read transfered order instances
-  READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-    ENTITY OnlineShop
+  READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+    ENTITY ShoppingCart
       ALL FIELDS WITH
       CORRESPONDING #( keys )
     RESULT DATA(OnlineOrders).
  
-  MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-     ENTITY OnlineShop
+  MODIFY ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+     ENTITY ShoppingCart
         UPDATE FIELDS ( OverallStatus )
            WITH VALUE #( FOR key IN keys (
             OrderUUID = key-OrderUUID
@@ -64,8 +64,8 @@ Position the cursor on the newly defined action and use the shortcut `ctrl + 1` 
          ) ).
  
   "Read the changed data for action result
-  READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-    ENTITY OnlineShop
+  READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+    ENTITY ShoppingCart
       ALL FIELDS WITH
       CORRESPONDING #( keys )
     RESULT DATA(result_read).
@@ -80,7 +80,7 @@ Save and activate it.
 
 This action will mark the orders where purchase requisition shall be created using the `OverallStatus` field. In a later step we will create the `save_modified` implementation and adapt it to use this `OverallStatus` field to filter the orders where purchase requisition shall be created. As a result, when the button for this action is clicked in the UI, a new purchase requisition will be created for the selected entity via the wrapper class.
 
-You now need to adapt the `get_instance_features` method in the `lhc_OnlineShop` class of the behavior implementation by adding the following code snippet:
+You now need to adapt the `get_instance_features` method in the `lhc_shopcart` class of the behavior implementation by adding the following code snippet:
 
 ```ABAP
 %action-createPurchRqnBAPISave 
@@ -95,13 +95,11 @@ So the method implementation now looks as follows:
 
 Save and activate it.
 
-Activate the behavior definition as well.
-
 ### Implement on save validation using the BAPI test mode
 
 As seen in the previous tutorial of this series, certain BAPI have a test mode that can be used to validate the input data. Depending on the type of BAPI, how you plan to integrate it in your RAP BO and your specific use case, it is recommended to use this test mode as a validation in your RAP BO. So, after the action `createPurchRqnBAPISave` is called, this validation can be used to check the input data (before the logic moves on to the `save_modified` step, where the entity is modified and the purchase requisition is created).
 
-Open the behavior definition `ZR_ONLINESHOPTP_XXX` and implement a new validation called `checkPurchaseRequisition`:
+Open the behavior definition `ZR_SHOPCARTTP_###` and implement a new validation called `checkPurchaseRequisition`:
 
 ```ABAP
   draft determine action Prepare { validation checkOrderedQuantity; validation checkDeliveryDate; validation checkPurchaseRequisition;}
@@ -112,22 +110,22 @@ Open the behavior definition `ZR_ONLINESHOPTP_XXX` and implement a new validatio
 
 ![Add validation](add_validation.png)
 
-Save and activate it. Then place the cursor on the newly created validation and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add method for validation checkpurchaserequisition of entity zr_onlineshoptp_xxx in local class lhc_OnlineShop` and implement the method as follows:
+Save and activate it. Then place the cursor on the newly created validation and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add method for validation checkpurchaserequisition of entity zr_shopcarttp_### in local class lhc_shopcart` and implement the method as follows:
 
 ``` ABAP
   METHOD checkpurchaserequisition.
     "read relevant order instance data
-    READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-      ENTITY OnlineShop
+    READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+      ENTITY ShoppingCart
         ALL FIELDS WITH
         CORRESPONDING #( keys )
       RESULT DATA(OnlineOrders).
  
     LOOP AT OnlineOrders INTO DATA(OnlineOrder) WHERE OverallStatus = c_overall_status-submitted.
-      DATA(pr_returns) = zcl_bapi_wrap_factory_xxx=>create_instance( )->check(
+      DATA(pr_returns) = zcl_bapi_wrap_factory_###=>create_instance( )->check(
           EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_xxx=>pr_items( (
+            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
+            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
               preq_item  = '00010'
               plant      = '1010'
               acctasscat = 'U'
@@ -142,18 +140,18 @@ Save and activate it. Then place the cursor on the newly created validation and 
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_accounts( (
+            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
                 preq_item = '00010'
                 costcenter = 'jwt-cost'
                 gl_account = '0000400000'
                 serial_no = '01'
             ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_texts( (
+            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
               preq_item = '00010'
               text_line = OnlineOrder-Notes
               text_id   = 'b01'
             ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header_texts( (
+            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
               preq_item = '00010'
               text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
               text_id   = 'B01'
@@ -175,12 +173,12 @@ Save and activate it. Then place the cursor on the newly created validation and 
                          v4 = pr_return_msg-message_v4  )
           %element-purchaserequisition = if_abap_behv=>mk-on
           %action-createPurchRqnBAPISave = if_abap_behv=>mk-on
-           ) TO reported-onlineshop.
+           ) TO reported-shoppingcart.
  
         APPEND VALUE #(
          orderuuid = OnlineOrder-OrderUUID
          %fail = VALUE #( cause = if_abap_behv=>cause-unspecific )
-        ) TO failed-onlineshop.
+        ) TO failed-shoppingcart.
       ENDLOOP.
     ENDLOOP.
   ENDMETHOD.
@@ -197,10 +195,10 @@ Save it and activate it.
 
 In our scenario, we want to call the wrapper during the save sequence and therefore we need to switch to a RAP BO with unmanaged save, so that we can implement and adapt the `save_modified` method and call the wrapper therein.
 
-Open the behavior definition `ZR_ONLINESHOPTP_XXX`, delete the following line:
+Open the behavior definition `ZR_SHOPCARTTP_###`, delete the following line:
 
 ```ABAP
-persistent table zaonlineshop_xxx 
+persistent table zashopcart_### 
 
 ```
 and add the unmanaged save statement:
@@ -217,23 +215,23 @@ Save and activate it. Position the cursor on the `with unmanaged save` statement
 ```ABAP
   METHOD save_modified.
 
-    DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-          ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-    IF create-onlineshop IS NOT INITIAL.
-      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-      INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+    DATA : lt_shopping_cart_as        TYPE STANDARD TABLE OF zashopcart_###,
+          ls_shopping_cart_as        TYPE                   zashopcart_###.
+    IF create-shoppingcart IS NOT INITIAL.
+      lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
+      INSERT zashopcart_### FROM TABLE @lt_shopping_cart_as.
     ENDIF.
     IF update IS NOT INITIAL.
-      CLEAR lt_online_shop_as.
-      lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-      LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-        MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+      CLEAR lt_shopping_cart_as.
+      lt_shopping_cart_as = CORRESPONDING #( update-shoppingcart MAPPING FROM ENTITY ).
+      LOOP AT update-shoppingcart  INTO DATA(shoppingcart) WHERE OrderUUID IS NOT INITIAL.
+        MODIFY zashopcart_### FROM TABLE @lt_shopping_cart_as.
       ENDLOOP.
     ENDIF.
 
-    LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-      DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-      DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
+    LOOP AT delete-shoppingcart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
+      DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
+      DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
     ENDLOOP.
   ENDMETHOD.
 
@@ -241,22 +239,22 @@ Save and activate it. Position the cursor on the `with unmanaged save` statement
 
 Save and activate it.
 
->We use the unmanaged save option for our scenario, rather than the additional save option. This is because the additional save should only be used in case data needs to be saved in addition to BO data in a persistence outside the BO, as stated in the [Additional Save documentation](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/ca7097c8ea404b11b1f1334fd54cdd15.html). Since this is not our use case (the purchase requisition is created and saved in the persistency of the online shop BO), we rely on the unmanaged save option.
+>We use the unmanaged save option for our scenario, rather than the additional save option. This is because the additional save should only be used in case data needs to be saved in addition to BO data in a persistence outside the BO, as stated in the [Additional Save documentation](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/ca7097c8ea404b11b1f1334fd54cdd15.html). Since this is not our use case (the purchase requisition is created and saved in the persistency of the shopping cart BO), we rely on the unmanaged save option.
 
 ### Call wrapper class in unmanaged save implementation `save_modified`
 
 As a final step, you now need to modify the `save_modified` method of the saver class, so that it calls the wrapper class (which creates the purchase requisition).
 
-Open the `lsc_zr_onlineshoptp_xxx` class of the behavior implementation and navigate to the `save_modified` method. Add the following code snippet:
+Open the `lsc_zr_shopcarttp_###` class of the behavior implementation and navigate to the `save_modified` method. Add the following code snippet:
 
 ```ABAP
     IF update IS NOT INITIAL.
-      LOOP AT update-onlineshop INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
-        DATA pr_returns TYPE zif_wrap_bapi_pr_create_xxx=>pr_returns.
-        DATA(purchase_requisition) = zcl_bapi_wrap_factory_xxx=>create_instance( )->create(
+      LOOP AT update-shoppingcart INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+        DATA pr_returns TYPE zif_wrap_bapi_pr_create_###=>pr_returns.
+        DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->create(
           EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_xxx=>pr_items( (
+            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
+            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
               preq_item  = '00010'
               plant      = '1010'
               acctasscat = 'U'
@@ -271,18 +269,18 @@ Open the `lsc_zr_onlineshoptp_xxx` class of the behavior implementation and navi
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_accounts( (
+            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
                 preq_item = '00010'
                 costcenter = 'jwt-cost'
                 gl_account = '0000400000'
                 serial_no = '01'
             ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_texts( (
+            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
               preq_item = '00010'
               text_line = OnlineOrder-Notes
               text_id   = 'b01'
             ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header_texts( (
+            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
               preq_item = '00010'
               text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
               text_id   = 'B01'
@@ -295,7 +293,7 @@ Open the `lsc_zr_onlineshoptp_xxx` class of the behavior implementation and navi
 
         DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
 
-        UPDATE zaonlineshop_xxx
+        UPDATE zashopcart_###
         SET purchase_requisition = @purchase_requisition,
             pr_creation_date = @creation_date
         WHERE order_uuid = @OnlineOrder-OrderUUID.
@@ -307,27 +305,27 @@ The `save_modified` method implementation should now look as follows:
 
 ```ABAP
   METHOD save_modified.
-    DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-           ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-    IF create-onlineshop IS NOT INITIAL.
-      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-      INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+    DATA : lt_shopping_cart_as        TYPE STANDARD TABLE OF zashopcart_###,
+           ls_shoppingcart_as        TYPE                   zashopcart_###.
+    IF create-shoppingcart IS NOT INITIAL.
+      lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
+      INSERT zashopcart_### FROM TABLE @lt_shopping_cart_as.
     ENDIF.
     IF update IS NOT INITIAL.
-      CLEAR lt_online_shop_as.
-      lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-      LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-        MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+      CLEAR lt_shopping_cart_as.
+      lt_shopping_cart_as = CORRESPONDING #( update-shoppingcart MAPPING FROM ENTITY ).
+      LOOP AT update-shoppingcart  INTO DATA(shoppingcart) WHERE OrderUUID IS NOT INITIAL.
+        MODIFY zashopcart_### FROM TABLE @lt_shopping_cart_as.
       ENDLOOP.
     ENDIF.
 
     IF update IS NOT INITIAL.
-      LOOP AT update-onlineshop INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
-        DATA pr_returns TYPE zif_wrap_bapi_pr_create_xxx=>pr_returns.
-        DATA(purchase_requisition) = zcl_bapi_wrap_factory_xxx=>create_instance( )->create(
+      LOOP AT update-shoppingcart INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+        DATA pr_returns TYPE zif_wrap_bapi_pr_create_###=>pr_returns.
+        DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->create(
           EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_xxx=>pr_items( (
+            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
+            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
               preq_item  = '00010'
               plant      = '1010'
               acctasscat = 'U'
@@ -342,18 +340,18 @@ The `save_modified` method implementation should now look as follows:
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_accounts( (
+            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
                 preq_item = '00010'
                 costcenter = 'jwt-cost'
                 gl_account = '0000400000'
                 serial_no = '01'
             ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_texts( (
+            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
               preq_item = '00010'
               text_line = OnlineOrder-Notes
               text_id   = 'b01'
             ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header_texts( (
+            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
               preq_item = '00010'
               text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
               text_id   = 'B01'
@@ -366,22 +364,22 @@ The `save_modified` method implementation should now look as follows:
 
         DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
 
-        UPDATE zaonlineshop_xxx
+        UPDATE zashopcart_###
         SET purchase_requisition = @purchase_requisition,
             pr_creation_date = @creation_date
         WHERE order_uuid = @OnlineOrder-OrderUUID.
       ENDLOOP.
     ENDIF.
 
-    LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-      DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-      DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
+    LOOP AT delete-shoppingcart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
+      DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
+      DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
     ENDLOOP.
   ENDMETHOD.
 ```
 Save and activate it.
 
-The logic is now fully implemented: when the new action is used, online shop orders are marked (similar to a checkbox) using the `OverallStatus` field, they are subsequently validated for purchase requisition creation and then used to create the actual purchase requisition in the unmanaged save implementation in the `save_modified` method.
+The logic is now fully implemented: when the new action is used, shopping cart orders are marked (similar to a checkbox) using the `OverallStatus` field, they are subsequently validated for purchase requisition creation and then used to create the actual purchase requisition in the unmanaged save implementation in the `save_modified` method.
 
 >The BAPI wrapper call is implemented in the unmanaged save implementation `save_modified`, and not directly in the action implementation. The reason is for transactional consistency: during the BAPI call a `CALL FUNCTION IN UPDATE TASK` happens, and the update task is not allowed in the interaction phase or early-save phase and leads to a runtime error.
 
@@ -393,7 +391,7 @@ The logic is now fully implemented: when the new action is used, online shop ord
 
 You will now expose the newly created action. To do this, you will modify the Metadata Extension and the Behavior Definition to expose the action.
 
-Open the Metadata Extension `ZC_ONLINESHOPTP_XXX` and substitute all the metadata content referring to the action `PurchaseRequisition` with the following code snippet referring to the new action:
+Open the Metadata Extension `ZC_SHOPCARTTP_###` and substitute all the metadata content referring to the action `PurchaseRequisition` with the following code snippet referring to the new action:
 
 ```ABAP
   @UI.lineItem: [ {
@@ -413,7 +411,7 @@ Your metadata implementation should look like this:
 
 Save and activate it.
 
-Open the Behavior Definition `ZC_ONLINESHOPTP_XXX` and expose the new action with the code snippet:
+Open the Behavior Definition `ZC_SHOPCARTTP_###` and expose the new action with the code snippet:
 
 ```ABAP
   use action createPurchRqnBAPISave;
@@ -427,7 +425,7 @@ Save and activate it.
 
 ### Run SAP Fiori Elements Preview to test action
 
-In ADT, open the Service Binding `ZUI_ONLINESHOP_O4_XXX` and click on the **Preview** button to start a preview of the UI of your RAP BO. You will be prompted to login. Create a new entry and then click on the button `Create PR via BAPI in SAVE` to create the purchase requisition:
+In ADT, open the Service Binding `ZUI_SHOPCART_O4_###` and click on the **Preview** button to start a preview of the UI of your RAP BO. You will be prompted to login. Create a new entry and then click on the button `Create PR via BAPI in SAVE` to create the purchase requisition:
 
 ![Create new entry](create_pr.png)
 

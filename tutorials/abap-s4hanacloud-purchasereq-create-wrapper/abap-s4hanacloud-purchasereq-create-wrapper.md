@@ -19,11 +19,11 @@ parser: v2
 - How to release the wrapper for consumption in tier 1.
 
 ## Intro
->In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+>Throughout this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
-In a previous tutorial of this group, you learned about the 3-tier extensibility model and got an overview of the sample scenario used for this tutorial group, which will include a online shop Business Object with purchase requisition creation capability.
+In a previous tutorial of this group, you learned about the 3-tier extensibility model and got an overview of the sample scenario used for this tutorial group, which will include a Shopping Cart Business Object with purchase requisition creation capability.
 
-In this tutorial we show how to deal with the case in which no convenient released API is available to create purchase requisitions. The [ABAP Cloud API Enablement Guidelines for SAP S/4HANA Cloud, private edition, and SAP S/4HANA](https://www.sap.com/documents/2023/05/b0bd8ae6-747e-0010-bca6-c68f7e60039b.html) documentation recommends to use a BAPI as an alternative to a released API, wrap it and then release the wrapper for consumption in tier 1. In a later tutorial you will then create a RAP Business Object for the online shop application and integrate this wrapper to create purchase requisitions.
+In this tutorial we show how to deal with the case in which no convenient released API is available to create purchase requisitions. The [ABAP Cloud API Enablement Guidelines for SAP S/4HANA Cloud, private edition, and SAP S/4HANA](https://www.sap.com/documents/2023/05/b0bd8ae6-747e-0010-bca6-c68f7e60039b.html) documentation recommends to use a BAPI as an alternative to a released API, wrap it and then release the wrapper for consumption in tier 1. In a later tutorial you will then create a Shopping Cart RAP Business Object for the online shop application and integrate this wrapper to create purchase requisitions.
 
 ### Get to know the BAPI_PR_CREATE via the BAPI Explorer
 
@@ -45,7 +45,7 @@ In the **Tools** section you can click on the **Function Builder** and then clic
 
 You will develop the wrapper in a dedicated package under the package `$TMP` in your SAP S/4HANA system.
 
-In ADT, open your SAP S/4HANA system project folder, right click on it and select **New** > **ABAP Package** and input the Name `$Z_PURCHASE_REQ_TIER2_XXX` and a Description:
+In ADT, open your SAP S/4HANA system project folder, right click on it and select **New** > **ABAP Package** and input the Name `$Z_PURCHASE_REQ_TIER2_###` and a Description:
 
 ![Create Tier 2 package](create_tier2_package.png)
 
@@ -55,7 +55,7 @@ Select **Add to favorite packages** for easy access later on. Keep the Package T
 
 You now want to wrap the API `BAPI_PR_CREATE`. Depending on your specific use-case, you normally would need to access only certain specific functionalities and methods of the BAPI you want to expose. An ABAP Interface is the perfect development object for this purpose: the interface simplifies and restricts the usage of the underlying BAPI for the specific use-case, by exposing only the parameters that are needed. As a consequence, non-wrapped functionalities are forbidden.
 
-To create the interface for your BAPI wrapper right click on the newly created package and select **New** > **ABAP Interface**. Input the Name `ZIF_WRAP_BAPI_PR_CREATE_XXX` and a Description:
+To create the interface for your BAPI wrapper right click on the newly created package and select **New** > **ABAP Interface**. Input the Name `ZIF_WRAP_BAPI_PR_CREATE_###` and a Description:
 
 ![Create interface](create_interface.png)
 
@@ -66,8 +66,8 @@ Implement your ABAP Interface to expose only the parameters that are needed in y
 ``` ABAP
 "! <h1>BAPI_PR_CREATE wrapper</h1>
 "! <p>This interface offers functionality related to ABAP class wrapper for Purchase Requisition BAPI for BAPI_PR_CREATE function module.</p>
-"! <p>Instances of this interface are created using method {@link zcl_bapi_wrap_factory_xxx.METH:create_instance}
-INTERFACE zif_wrap_bapi_pr_create_xxx
+"! <p>Instances of this interface are created using method {@link zcl_bapi_wrap_factory_###.METH:create_instance}
+INTERFACE zif_wrap_bapi_pr_create_###
   PUBLIC .
   "! Purchase Requisition Number
   TYPES pr_number             TYPE banfn.
@@ -178,7 +178,7 @@ Save and activate it.
 
 You now need to create a class to wrap the BAPI (implementing the interface you created in the previous step) and implement its methods.
 
-Right click on your package and select **New** > **ABAP Class**. Input the Name `ZCL_BAPI_PR_WRAPPER_XXX` and a Description:
+Right click on your package and select **New** > **ABAP Class**. Input the Name `ZCL_BAPI_PR_WRAPPER_###` and a Description:
 
 ![Create wrapper class](create_wrapper_class.png)
 
@@ -193,15 +193,15 @@ The implementation of the wrapper class depends on the specific use-case and BAP
 "! <p>This class offers functionality to wrap Purchase Requisition related BAPI calls (e.g. BAPI_PR_CREATE).<br/>
 "! Instances of this class are created using factory class {@link zrap620_cl_bapi_wrap_factory}.<br/>
 "! For a description and usage of the available functionality,
-"! see the method documentation in interface {@link zif_wrap_bapi_pr_create_xxx}.</p>
-CLASS zcl_bapi_pr_wrapper_xxx DEFINITION
+"! see the method documentation in interface {@link zif_wrap_bapi_pr_create_###}.</p>
+CLASS zcl_bapi_pr_wrapper_### DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
 
   PUBLIC SECTION.
 
-    INTERFACES zif_wrap_bapi_pr_create_xxx .
+    INTERFACES zif_wrap_bapi_pr_create_### .
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -278,28 +278,28 @@ CLASS zcl_bapi_pr_wrapper_xxx DEFINITION
     "!
     "! @parameter pr_header | Purchase Req. - Header
     "! @parameter prheaderx | Purchase Requisition - Header
-    METHODS prepare_headerx IMPORTING pr_header        TYPE zif_wrap_bapi_pr_create_xxx=>pr_header
+    METHODS prepare_headerx IMPORTING pr_header        TYPE zif_wrap_bapi_pr_create_###=>pr_header
                             RETURNING VALUE(prheaderx) TYPE bapimereqheaderx.
 
     "! <p class="shorttext synchronized" lang="en">This method prepares itemx control structure</p>
     "!
     "! @parameter pr_items | Purchase Req. - Item
     "! @parameter pritemx | Purchase Requisition - Item Data
-    METHODS prepare_itemx IMPORTING pr_items       TYPE zif_wrap_bapi_pr_create_xxx=>pr_items
+    METHODS prepare_itemx IMPORTING pr_items       TYPE zif_wrap_bapi_pr_create_###=>pr_items
                           RETURNING VALUE(pritemx) TYPE ty_bapimereqitemx.
 
     "! <p class="shorttext synchronized" lang="en">This method prepares accountx control structure</p>
     "!
     "! @parameter pr_item_accounts | Purchase Req. - Acct Assignment
     "! @parameter praccountx | Purchase Req. - Account Assignment
-    METHODS prepare_accountx IMPORTING pr_item_accounts  TYPE zif_wrap_bapi_pr_create_xxx=>pr_item_accounts
+    METHODS prepare_accountx IMPORTING pr_item_accounts  TYPE zif_wrap_bapi_pr_create_###=>pr_item_accounts
                              RETURNING VALUE(praccountx) TYPE ty_bapimereqaccountx.
 
 ENDCLASS.
 
 
 
-CLASS ZCL_BAPI_PR_WRAPPER_XXX IMPLEMENTATION.
+CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
 
 
   METHOD call_bapi_pr_create.
@@ -348,7 +348,7 @@ CLASS ZCL_BAPI_PR_WRAPPER_XXX IMPLEMENTATION.
 
   METHOD prepare_accountx.
     FIELD-SYMBOLS <fieldx> TYPE any.
-    DATA(pr_item_account_struct) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_account(  ) ) ).
+    DATA(pr_item_account_struct) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( VALUE zif_wrap_bapi_pr_create_###=>pr_item_account(  ) ) ).
 
     LOOP AT pr_item_accounts INTO DATA(pr_item_account).
       DATA(praccountx_line) = VALUE  bapimereqaccountx( preq_item = pr_item_account-preq_item serial_no = pr_item_account-serial_no ).
@@ -383,7 +383,7 @@ CLASS ZCL_BAPI_PR_WRAPPER_XXX IMPLEMENTATION.
 
   METHOD prepare_itemx.
     FIELD-SYMBOLS <fieldx> TYPE any.
-    DATA(pr_item_struct) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( VALUE zif_wrap_bapi_pr_create_xxx=>pr_item(  ) ) ).
+    DATA(pr_item_struct) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( VALUE zif_wrap_bapi_pr_create_###=>pr_item(  ) ) ).
 
     LOOP AT pr_items INTO DATA(pr_item).
       DATA(pritemx_line) = VALUE bapimereqitemx( preq_item = pr_item-preq_item ).
@@ -403,7 +403,7 @@ CLASS ZCL_BAPI_PR_WRAPPER_XXX IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_wrap_bapi_pr_create_xxx~check.
+  METHOD zif_wrap_bapi_pr_create_###~check.
     DATA(prheader) = CORRESPONDING bapimereqheader( pr_header ).
     DATA(pritem) = CORRESPONDING ty_bapimereqitemimp( pr_items ).
     DATA(pritemtext) = CORRESPONDING ty_bapimereqitemtext( pr_item_texts ).
@@ -431,7 +431,7 @@ CLASS ZCL_BAPI_PR_WRAPPER_XXX IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD zif_wrap_bapi_pr_create_xxx~create.
+  METHOD zif_wrap_bapi_pr_create_###~create.
     DATA(prheader) = CORRESPONDING bapimereqheader( pr_header ).
     DATA(pritem) = CORRESPONDING ty_bapimereqitemimp( pr_items ).
     DATA(pritemtext) = CORRESPONDING ty_bapimereqitemtext( pr_item_texts ).
@@ -471,7 +471,7 @@ Save and activate it.
 
 In the scope of this tutorial group, our recommended approach is to create a factory class to control the instantiation of the wrapper class. This factory class will then be released for consumption in tier 1. This approach has the advantage of a clear control of when and where an instance of the wrapper class is created, and in the event in which several wrapper classes are needed all their instantiations could be handled inside one single factory class. Also, in case of wrapper classes this has the advantage that in case the wrapper class is changed throughout it's software lifecycle, at a later point in time a different class could be initialized, without changes to the consumer implementation.
 
-To create the factory class right click on your package and select **New** > **ABAP Class**. Input the Name `ZCL_BAPI_WRAP_FACTORY_XXX` and a Description:
+To create the factory class right click on your package and select **New** > **ABAP Class**. Input the Name `ZCL_BAPI_WRAP_FACTORY_###` and a Description:
 
 ![Create factory class](create_factory_class.png)
 
@@ -483,7 +483,7 @@ We suggest to implement the ABAP Class with the following code:
 "! <h1>BAPI wrapper factory class</h1>
 "! <p>This factory class provides instances of BAPI wrapper classes, e.g. for purchase requisition BAPIs.<br/>
 "! For a description and usage of the available functionality, see the method documentation in wrapper class.</p>
-CLASS zcl_bapi_wrap_factory_xxx DEFINITION
+CLASS zcl_bapi_wrap_factory_### DEFINITION
   PUBLIC
   FINAL
   CREATE PRIVATE .
@@ -493,17 +493,17 @@ CLASS zcl_bapi_wrap_factory_xxx DEFINITION
     "! <p>This method creates an instance of the Purchase Requisition BAPI wrapper implementation.</p>
     "! @parameter result | Wrapper implementation instance
     CLASS-METHODS create_instance
-      RETURNING VALUE(result) TYPE REF TO zif_wrap_bapi_pr_create_xxx.
+      RETURNING VALUE(result) TYPE REF TO zif_wrap_bapi_pr_create_###.
   PROTECTED SECTION.
   PRIVATE SECTION.
     METHODS constructor.
 ENDCLASS.
  
-CLASS zcl_bapi_wrap_factory_xxx IMPLEMENTATION.
+CLASS zcl_bapi_wrap_factory_### IMPLEMENTATION.
  
   METHOD create_instance.
  
-    result = NEW zcl_bapi_pr_wrapper_xxx(  ).
+    result = NEW zcl_bapi_pr_wrapper_###(  ).
   ENDMETHOD.
  
   METHOD constructor.
@@ -517,11 +517,11 @@ Save and activate it.
 
 The wrapper you just created is currently not released for consumption in tier 1. You can test this by creating a console application in tier 1 to call the (unreleased) wrapper. We suggest to create a dedicated package under the tier 1 `ZLOCAL` package in your SAP S/4HANA System for this test.
 
-In ADT, open your SAP S/4HANA system project folder, navigate to the `ZLOCAL` structure package, right click on it and select **New** > **ABAP Package** and input the Name `Z_PURCHASE_REQ_TEST_XXX` and a Description:
+In ADT, open your SAP S/4HANA system project folder, navigate to the `ZLOCAL` structure package, right click on it and select **New** > **ABAP Package** and input the Name `Z_PURCHASE_REQ_TEST_###` and a Description:
 
 ![Create test package](create_test_package.png)
 
-Click on **Next** and then **Next** again. Select a suitable transport request (or create a new one if needed) and then click on **Finish**. Now you can create the class for the console application. Right click on the newly created package and select **New** > **ABAP Class** and input the Name `ZCL_BAPI_WRAP_TEST_XXX` and a Description:
+Click on **Next** and then **Next** again. Select a suitable transport request (or create a new one if needed) and then click on **Finish**. Now you can create the class for the console application. Right click on the newly created package and select **New** > **ABAP Class** and input the Name `ZCL_BAPI_WRAP_TEST_###` and a Description:
 
 ![Create test class](create_test_class.png)
 
@@ -534,7 +534,7 @@ You can check that the newly created class is a tier 1 class by checking that th
 Implement the newly created class as follows:
 
 ```ABAP
-CLASS zcl_bapi_wrap_test_xxx DEFINITION
+CLASS zcl_bapi_wrap_test_### DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
@@ -548,14 +548,14 @@ ENDCLASS.
 
 
 
-CLASS zcl_bapi_wrap_test_xxx IMPLEMENTATION.
+CLASS zcl_bapi_wrap_test_### IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
 DATA pr_returns TYPE bapirettab.
-DATA(purchase_requisition) = zcl_bapi_wrap_factory_xxx=>create_instance( )->create(
+DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->create(
           EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_xxx=>pr_items( (
+            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
+            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
               preq_item  = '00010'
               plant      = '1010'
               acctasscat = 'U'
@@ -570,18 +570,18 @@ DATA(purchase_requisition) = zcl_bapi_wrap_factory_xxx=>create_instance( )->crea
               purch_org = '1010'
               short_text = 'ZPRINTER01'
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_accounts( (
+            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
                 preq_item = '00010'
                 costcenter = 'jwt-cost'
                 gl_account = '0000400000'
                 serial_no = '01'
             ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_xxx=>pr_item_texts( (
+            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
               preq_item = '00010'
               text_line = ' '
               text_id   = 'b01'
             ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_xxx=>pr_header_texts( (
+            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
               preq_item = '00010'
               text_line = | { sy-uname } - { '00000001'  } |
               text_id   = 'B01'
@@ -636,7 +636,7 @@ Repeat the same steps to release the factory class you created:
 
 You will now need to run ATC checks on the objects you created and request exemptions to use unreleased API.
 
-To run the ATC checks right click on the `$Z_PURCHASE_REQ_TIER2_XXX` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
+To run the ATC checks right click on the `$Z_PURCHASE_REQ_TIER2_###` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
 
 ![ATC checks - interface error](interface_atc_checks.png)
 
@@ -652,15 +652,15 @@ Click **Next**, choose a valid approver, a reason to request the exemptions and 
 
 Proceed in the same way to request an exemption for the whole wrapper class.
 
->How to maintain approvers and how approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemptions, you can verify it by running ATC checks again in ADT: no issue should arise.
+>How to maintain approvers and how to approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemptions, you can verify it by running ATC checks again in ADT: no issue should arise.
 
 ### Test released wrapper with console application in tier 1
 
-You can test that the wrapper was correctly released for consumption in tier 1 by running the console application class `ZCL_BAPI_WRAP_TEST_XXX`. First, the errors in the class should have disappeared now that you released the wrapper, so you can save and activate the class. Now you can run it: right click on the class and select **Run As** > **ABAP Application (Console)**. The class should now run without errors and the purchase requisition will be created and displayed in the console:
+You can test that the wrapper was correctly released for consumption in tier 1 by running the console application class `ZCL_BAPI_WRAP_TEST_###`. First, the errors in the class should have disappeared now that you released the wrapper, so you can save and activate the class. Now you can run it: right click on the class and select **Run As** > **ABAP Application (Console)**. The class should now run without errors and the purchase requisition will be created and displayed in the console:
 
 ![Purchase requisition creation test](purchase_requisition_test.png)
 
->The console application is a quick and simple way to check if the BAPI was correctly wrapped and released and if the wrapper works as intended. In the next tutorials of this group you will create an online shop Business Object and you will integrate the wrapper to create purchase requisitions for the shop entries.
+>The console application is a quick and simple way to check if the BAPI was correctly wrapped and released and if the wrapper works as intended. In the next tutorials of this group you will create a Shopping Cart Business Object and you will integrate the wrapper to create purchase requisitions for the shopping cart entries.
 ### Test yourself
 
 ---

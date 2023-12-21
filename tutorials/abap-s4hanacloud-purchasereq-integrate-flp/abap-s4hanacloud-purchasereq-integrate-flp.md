@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 --- 
  
-# Add the Online Shop Fiori Application to FLP  
+# Add the Shopping Cart Fiori Application to FLP  
 <!-- description --> Integrate your list report application into ABAP Fiori launchpad.
 
 ## Prerequisites  
@@ -20,7 +20,7 @@ author_profile: https://github.com/mervey45
     - `SAP_FLP_USER`
     - `SAP_FLP_ADMIN`
   Find here the [documentation](https://help.sap.com/docs/ABAP_PLATFORM_NEW/a7b390faab1140c087b8926571e942b7/445570c460b24244bbacd962fe731326.html?version=202210.002).
-- You finished [Create a SAP Fiori Online Shop App and Deploy it](abap-s4hanacloud-purchasereq-deploy-ui) tutorial.
+- You finished [Create a SAP Fiori Shopping Cart App and Deploy it](abap-s4hanacloud-purchasereq-deploy-ui) tutorial.
 - Pages and Space should be activated.
 
 ## You will learn  
@@ -34,7 +34,7 @@ author_profile: https://github.com/mervey45
 
 
 ## Intro
-In this tutorial, wherever XXX appears, use a number (e.g. 000).
+In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
 ---
 
@@ -53,13 +53,13 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
       ![object](object3.png)
 
   4. Add your **semantic object**:
-     - Semantic Object: **`z_purchase_req_tier3_xxx`** 
-     - Semantic Object Name: **`z_purchase_req_tier3_xxx`** 
-     - Semantic Object Description: Online Shop XXX
+     - Semantic Object: **`z_purchase_req_tier3_###`** 
+     - Semantic Object Name: **`z_purchase_req_tier3_###`** 
+     - Semantic Object Description: Shopping Cart ###
      
       Click **Save**.
    
-      ![object](object4.png) 
+      ![object](new.png) 
 
   5. Select and confirm your transport request.
    
@@ -89,12 +89,12 @@ In this step, you will create a technical catalog. The technical catalog will be
      ![catalog](catalog4.png)
 
   5. Create a new **technical catalog**:
-     - Technical Catalog ID: **`Z_TC_ONLINESHOP_XXX`**
+     - Technical Catalog ID: **`Z_TC_SHOPCART_###`**
      - Language: English
-     - Technical Catalog Title: Online Shop XXX
-     - Package: **`$Z_PURCHASE_REQ_TIER3_XXX`**
+     - Technical Catalog Title: Shopping Cart ###
+     - Package: **`$Z_PURCHASE_REQ_TIER3_###`**
   
-      ![catalog](catalogx.png)
+      ![catalog](new2.png)
  
       Click **Save**. 
 
@@ -108,27 +108,27 @@ In this step, you will create a technical catalog. The technical catalog will be
 
   1. In the **SAP Fiori Launchpad Application Manager** click **Add App** and select **SAPUI5 Fiori App**.
 
-      ![catalog](catalog5.png)
+      ![catalog](newx.png)
     
     > **Hint:** The launchpad app descriptor item can be for e.g. an SAPUI5 Fiori app.
 
   2. Fill in the target application fields:
      - App Type: SAPUI5 Fiori App
-     - Semantic Object: **`z_purchase_req_tier3_xxx`**
+     - Semantic Object: **`z_purchase_req_tier3_###`**
      - Action: display
-     - SAPUI5 Component ID: **`zpurchasereqtier3xxx`**
+     - SAPUI5 Component ID: **`zpurchasereqtier3###`**
 
-      ![catalog](catalog6.png)
+      ![catalog](new3.png)
 
       You can search for the SAPUI5 Component ID. To make sure you selected the right one, you can go to **SAP Business Application Studio**. In the **Application Information** overview you will find it as the application identifier.
       
-      ![catalog](catalog7.png)
+      ![catalog](new4.png)
 
       Click **Save**.
 
   3. Open your package in Eclipse and refresh your package if needed. You will now see the FLP technical catalog and launchpad app descriptor item listed.
   
-      ![catalog](catalog8.png)
+      ![catalog](new5.png)
 
 
 ### Create SAP Fiori business catalog 
@@ -141,19 +141,19 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
       ![item](item.png)
 
-  2. Search for technical catalog **`Z_TC_ONLINESHOP_XXX`** and press **Go** to check the existing content.  
+  2. Search for technical catalog **`Z_TC_SHOPCART_###`** and press **Go** to check the existing content.  
   
-      ![item](item2.png)
+      ![item](new6.png)
 
   3. Now you can see the existing content of your technical catalog. Click **Create** to create a new business catalog.
 
-      ![item](item3.png)
+      ![item](new7.png)
  
   4. Create a **new catalog**:
-     - New ID: **`z_bc_onlineshop_xxx`**
-     - New Title: Business Catalog - Online Shop XXX
+     - New ID: **`z_bc_shopcart_###`**
+     - New Title: Business Catalog - Shopping Cart ###
 
-      ![item](item4.png)
+      ![item](new8.png)
 
       Select your transport request and description. Select the check mark.
 
@@ -161,15 +161,15 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
   5. Click **Add Tiles/Target Mappings** and select **`Add Tiles/TMs to Selected Catalog`**.
 
-      ![item](item6.png)
+      ![item](new9.png)
 
-  6. Search for **`Z_PURCHASE_REQ_TIER3_XXX`**, press **Go**, select your entry and click **Add Tile/TM Reference**.
+  6. Search for **`Z_PURCHASE_REQ_TIER3_###`**, press **Go**, select your entry and click **Add Tile/TM Reference**.
    
-      ![item](item7.png) 
+      ![item](new10.png) 
 
   7. Check your result.
    
-      ![item](item8.png)
+      ![item](new11.png)
 
 
 ### Create a business role and assign business catalog and business user
@@ -179,41 +179,41 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
       ![user](user.png)   
 
-  2. Enter **`Z_BR_SHOP_XXX`** as Role and click **Single Role**.
+  2. Enter **`Z_BR_SHOPCART_###`** as Role and click **Single Role**.
 
-      ![user](user2.png)
+      ![user](newx2.png)
 
   3. Enter a description and click **Save**.
 
-      ![user](user3.png)
+      ![user](newx3.png)
 
   4. Navigate to **Menu** and select **Transaction** > **SAP Fiori Launchpad** > **Launchpad Catalog**.
 
-      ![user](user4.png)
+      ![user](new14.png)
 
-  5. Enter **`Z_BC_ONLINESHOP_XXX`** as Catalog ID, select the check mark and click save.
+  5. Enter **`Z_BC_SHOPCART_###`** as Catalog ID, select the check mark and click save.
 
-      ![user](user5.png)
+      ![user](new15.png)
 
   6. Navigate to **Authorization** and select the edit icon for **Change Authorization Data**.
 
-      ![user](user9.png)
+      ![user](new16.png)
 
   7. Click the icon.
 
-      ![user](user10.png)
+      ![user](newx4.png)
 
   8. Select the check mark.
    
-      ![user](user11.png)
+      ![user](new18.png)
 
   9. Go back.
 
-      ![user](user12.png)
+      ![user](new19.png)
 
- 10. Navigate to **User**, enter your user and click **Save**.
+ 1.  Navigate to **User**, enter your user and click **Save**.
 
-      ![user](user13.png)
+      ![user](new20.png)
 
 
 ### Run application via app finder
@@ -222,7 +222,7 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
      ![flp](flp.png)
     
-  2. Log in with the user you assigned the business role `Z_BR_SHOP_XXX` to.
+  2. Log in with the user you assigned the business role `Z_BR_SHOPCART_###` to.
 
      ![flp](login.png)
 
@@ -230,17 +230,17 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
      ![flp](appfinder.png)
 
-  4. Search for **Online Shop XXX** and press the + symbol.
+  4. Search for **Shopping Cart ###** and press the + symbol.
 
-     ![flp](appfinder2.png)
+     ![flp](new21.png)
 
   5. Select **My Home** to add your application to the my home page.
 
-     ![flp](appfinder3.png)
+     ![flp](new22.png)
 
   6. Go to your home page and now you can see your application. Click your application and check your result.
    
-     ![flp](flp2.png)
+     ![flp](new23.png)
 
 
 
@@ -259,46 +259,46 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
       ![space](space4.png) 
 
   4. Create a **new space and page**:
-     - Space ID: **`z_purchase_req_xxx`**
-     - Space Description: Space for Online Shop XXX
-     - Space Title: Online Shop XXX
+     - Space ID: **`z_purchase_req_###`**
+     - Space Description: Space for Shopping Cart ### 
+     - Space Title: Shopping Cart ### 
      - Check mark **Also create a page**
-     - Page ID: **`z_purchase_req_xxx`**
-     - Page Description: Page for Online Shop XXX
-     - Page Title: Online Shop XXX
+     - Page ID: **`z_purchase_req_###`**
+     - Page Description: Page for Shopping Cart ### 
+     - Page Title: Shopping Cart ### 
 
-      ![space](space5.png)
+      ![space](new24.png)
 
       Select your transport request and click **Create** and assign your transport request.
 
   5. Click **Save**.
    
-      ![space](space7.png)
+      ![space](newx25.png)
 
-  6. Navigate to your page `Z_PURCHASE_REQ_XXX`.
+  6. Navigate to your page `Z_PURCHASE_REQ_###`.
 
-      ![space](edit.png)
+      ![space](new28.png)
 
-  7. Inside your page **`Z_PURCHASE_REQ_XXX`** click **Edit** to add your page content.
+  7. Inside your page **`Z_PURCHASE_REQ_###`** click **Edit** to add your page content.
    
-      ![space](edit2.png)
+      ![space](new29.png)
 
  
   8. Select the menu and click **Catalogs**.
    
-      ![space](space11.png)
+      ![space](new30.png)
 
-  9. Search for your catalog **`z_bc_onlineshop_xxx`**, select it and click **Select**.
+  9. Search for your catalog **`z_bc_shopcart_###`**, select it and click **Select**.
 
-      ![space](space12.png)
+      ![space](new31.png)
 
- 10. Select your business catalog **`z_bc_onlineshop_xxx`** and click **Add**.
+ 10. Select your business catalog **`z_bc_shopcart_###`** and click **Add**.
 
-      ![space](space13.png)
+      ![space](new32.png)
 
- 11. Enter the section title: **Online Shop Section** and click **Save**.
+ 11. Enter the section title: **Shopping Cart Section** and click **Save**.
 
-      ![space](space14.png)
+      ![space](new33.png)
 
 
 
@@ -308,21 +308,21 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
       ![user](user.png)   
 
-  2. Enter **`Z_BR_SHOP_XXX`** as Role and click the edit symbol.
+  2. Enter **`Z_BR_SHOPCART_###`** as Role and click the edit symbol.
 
-      ![user](change.png)
+      ![user](new34.png)
 
   3. Go back and navigate to **Menu** again. Select the **arrow** > **SAP Fiori Launchpad** > **Launchpad Space**. 
 
-      ![user](user6.png)
+      ![user](new35.png)
 
-  4. Enter **`Z_PURCHASE_REQ_XXX`** as Space ID and select the check mark.
+  4. Enter **`Z_PURCHASE_REQ_###`** as Space ID and select the check mark.
    
-      ![user](user7.png)
+      ![user](new36.png)
 
-  6. Add a description and click **Save**.
+  5. Add a description and click **Save**.
    
-      ![user](user8.png)
+      ![user](new37.png)
 
 
  
@@ -333,9 +333,9 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
      ![flp](flp.png)
     
-  2. Navigate to **Online Shop XXX** and select your tile to check your result.
+  2. Navigate to **Shopping Cart ###** and select your tile to check your result.
 
-     ![flp](flp2.png)
+     ![flp](new38.png)
 
 
 ### Test yourself
