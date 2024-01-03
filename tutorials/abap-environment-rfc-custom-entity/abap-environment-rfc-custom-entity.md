@@ -516,7 +516,7 @@ The console output should look like this:
 
 ## More Information
 
-- SAP Help Portal: [BAPI](https://help.sap.com/viewer/166400f6be7b46e8adc6b90fd20f3516/1709%20002/en-US)
+- SAP Help Portal: [BAPI](https://help.sap.com/docs/ABAP_PLATFORM_NEW/166400f6be7b46e8adc6b90fd20f3516/485f9ba265c907dce10000000a42189d.html?locale=en-US)
 
 - SAP Help Portal: [Using a CDS Custom Entity to Define the Data Model for an OData Service](https://help.sap.com/viewer/c0d02c4330c34b3abca88bdd57eaccfc/Cloud/en-US/6a064c09c508435a81357898e8e65d06.html)
 
