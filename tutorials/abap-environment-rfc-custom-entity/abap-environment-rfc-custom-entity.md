@@ -49,7 +49,7 @@ First, you create the class that implements the data retrieval logic.
 
 2. Enter the following, then choose **Next**:
     - Name: **`zcl_product_via_rfc_000`**
-    - Description: Read product data via `RFC`
+    - Description: **`Read product data via RFC`**
     - Interfaces: **`interfaces if_rap_query_provider`**
 
 3. Choose the transport request, then choose **Finish**.
