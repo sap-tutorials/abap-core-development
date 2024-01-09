@@ -56,11 +56,17 @@ Create an outbound service object, which models the outbound call that will be i
 
 4. Use the transport request created before and choose **Finish**.
 
+5. In the newly created Outbound Service set the **Default Path Prefix** parameter to `/sap/opu/odata/sap/API_BUSINESS_PARTNER`
+
+    ![Set Path](set_path.png)
+
+    >The **Path** parameter can be retrieved from the [Business Partner (A2X)](https://api.sap.com/api/OP_API_BUSINESS_PARTNER_SRV/overview) under **Configuration Details > PRODUCTION URL**. You will need to remove the `https://{host}:{port}` part of the URL.
+
 ### Create a Communication Scenario
 
 Create a communication scenario and assign the outbound service to it. This will be the basis for the outbound communication arrangement, which will be configured by an administrator at a later point. Keep in mind that the developer defines which authentication methods are supported, while the administrator decides which authentication method is ultimately used at runtime.
 
-1. In ADT, mark the created package under `ZLOCAL` or in Favorite Packages and click on **File** and choose **New > Other... > Communication Scenario**:
+1. In ADT, mark the created package under `ZLOCAL` or in Favorite Packages and click on **File** and choose **New** > **Other...** > **Communication Scenario**:
 
     ![Create Communication Scenario](create_communication_scenario.png)
 
@@ -72,13 +78,15 @@ Create a communication scenario and assign the outbound service to it. This will
 
 3. Use the transport request created before and choose **Finish**
 
-4. Select "One instance per client" from the **Allowed Instances** dropdown list
+4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
 
     ![Create Communication Scenario 3](create_communication_scenario_3.png)
 
-5. Choose Tab **Outbound** and Add the Outbound Service created before: `ZBPA2X_OBS_BUPA_REST`
+5. Choose Tab **Outbound** and Add the Outbound Service created before: `ZBPA2X_OBS_BUPA_REST`. The **Default Path Prefix** field should be filled automatically according to the **Default Path Prefix** set for the Outbound Service in the previous step. If that is not the case, click on the button **Synchronize**.
 
-6. Verify that the Authentication Methods **Basic** and **OAuth 2.0** are selected and choose **SAML 2.0 Bearer Assertion** from the dropdown list of the **OAuth 2.0 Grant Type**
+    ![Automatic path](automatic_path.png)
+
+6. Choose the Authentication Methods **Basic** and **X.509** to permit basic and certificate-based authentication via communication user. Choose Authentication Method **OAuth 2.0** with Grant Type **SAML 2.0 Bearer Assertion** to permit principal propagation.
 
     ![Create Communication Scenario 4](create_communication_scenario_4_2.png)
 
@@ -102,7 +110,7 @@ Obtain the service metadata file to be able to create the service consumption mo
 
 Create a service consumption model for the targeted OData service from the metadata file. This generates a number of proxy objects and greatly simplifies the remote service call in your ABAP code.
 
-1. In ADT, mark the package created in the previous tutorial of this tutorial group (`ZBPA2X`) under `ZLOCAL` or in Favorite Packages and click on **File** and choose **New > Other... > Service Consumption Model**:
+1. In ADT, mark the package created in the previous tutorial of this tutorial group (`ZBPA2X`) under `ZLOCAL` or in Favorite Packages and click on **File** and choose **New > Other... > Service Consumption Model**
   
     ![Create Service Consumption Model](create_service_consumption_model.png)
 
@@ -255,9 +263,9 @@ ENDCLASS.
 ```
 
   Remember to replace the name of all objects created in the tutorial unless you did not use the suggested names. Here the object names and the suggested names:
-  <ol type="a"><li>Communication Scenario: `ZBPA2X_CS_BUPA`
-  </li><li>Outbound Service: `ZBPA2X_OBS_BUPA_REST`
-  </li><li>Service Consumption Model: `ZBPA2X_SCM_BUPA`</li></ol>
+    <ol type="a"><li>Communication Scenario: `ZBPA2X_CS_BUPA`
+    </li><li>Outbound Service: `ZBPA2X_OBS_BUPA_REST`
+    </li><li>Service Consumption Model: `ZBPA2X_SCM_BUPA`</li></ol>
 4. Save and activate your class.
 
 The implementation uses the custom communication scenario and outbound service to create a destination object. This is in turn used to instantiate an HTTP client, which is used to handle the HTTP communication. The service consumption model is used to instantiate a client proxy, which offers standard methods to easily build the request payload directly from your ABAP code. In this example, the request creates a single business partner in the target system and writes its ID to the console.

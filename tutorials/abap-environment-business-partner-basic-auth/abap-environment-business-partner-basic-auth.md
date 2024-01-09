@@ -161,13 +161,7 @@ Configure the outbound connectivity in SAP BTP, ABAP environment. Create a commu
 
     ![Verify Authentication Method](verify_authentication_method.png)
 
-13. In the **Outbound Services** set the **Path** parameter to `/sap/opu/odata/sap/API_BUSINESS_PARTNER`
-
-    ![Set Path](set_path.png)
-
-    >The **Path** parameter can be retrieved from the [Business Partner (A2X)](https://api.sap.com/api/OP_API_BUSINESS_PARTNER_SRV/overview) under **Configuration Details > PRODUCTION URL**. You will need to remove the `https://{host}:{port}` part of the URL.
-
-14. Choose **Save** to save the **Communication Arrangement**
+13. Choose **Save** to save the **Communication Arrangement**
 
 You have now successfully integrated SAP BTP, ABAP Environment and your SAP S/4HANA Cloud, public edition system using Basic Authentication.
 
