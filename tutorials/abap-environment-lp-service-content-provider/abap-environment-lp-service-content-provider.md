@@ -9,22 +9,25 @@ primary_tag: software-product>sap-btp--abap-environment
 ---
 
 # Set SAP BTP, ABAP Environment as a Content Provider for SAP Build Work Zone, standard edition
+
 <!-- description --> Expose launchpad content of a SAP BTP, ABAP Environment system to the SAP Build Work Zone, standard edition of a subaccount on SAP Business Technology Platform.
 
 ## Prerequisites
- - You have subscribed to the [SAP Build Work Zone, standard edition](https://help.sap.com/docs/WZ_STD) in the subaccount where the content shall be consumed and your user is assigned to the `Launchpad_Admin` role collection. To subscribe to the SAP Build Work Zone, standard edition and assign the role collection, see ["Set Up the SAP Launchpad Service"](cp-portal-cloud-foundry-getting-started).
- - Your user in the SAP BTP, ABAP environment system is assigned to the `SAP_BR_ADMINISTRATOR` role. See [Assigning the ABAP Environment Administrator Role to the New Administrator User](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/ad888b0ab0a74665a22e0a58ef9e9100.html?version=Cloud).
+
+- You have subscribed to the [SAP Build Work Zone, standard edition](https://help.sap.com/docs/WZ_STD) in the subaccount where the content shall be consumed and your user is assigned to the `Launchpad_Admin` role collection. To subscribe to the SAP Build Work Zone, standard edition and assign the role collection, see ["Set Up the SAP Launchpad Service"](cp-portal-cloud-foundry-getting-started).
+- Your user in the SAP BTP, ABAP environment system is assigned to the `SAP_BR_ADMINISTRATOR` role. See [Assigning the ABAP Environment Administrator Role to the New Administrator User](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/ad888b0ab0a74665a22e0a58ef9e9100.html?version=Cloud).
 
 ## You will learn
-  - How to set up a communication arrangement for communication scenario `SAP_COM_0647`
-  - How to expose the launchpad content of a business role to the SAP Build Work Zone, standard edition
-  - How to create the necessary destinations in the SAP BTP subaccount
-  - How to create a content provider
-  - How to create a launchpad site and add the exposed content
+
+- How to set up a communication arrangement for communication scenario `SAP_COM_0647`
+- How to expose the launchpad content of a business role to the SAP Build Work Zone, standard edition
+- How to create the necessary destinations in the SAP BTP subaccount
+- How to create a content provider
+- How to create a launchpad site and add the exposed content
+
 ---
 
 ### Create a Communication System
-
 
 1. Open the `Communication Systems` app from the SAP Fiori Launchpad in your SAP BTP, ABAP environment system.
 
@@ -42,7 +45,7 @@ primary_tag: software-product>sap-btp--abap-environment
 
     <!-- border -->![New Inbound User](2-Users-for-inbound-communication.png)
 
-    -  Choose authentication method `User Name and Password`.
+    - Choose authentication method `User Name and Password`.
 
     <!-- border -->![New Inbound User](3-New-Inbound-Communication-User.png)
 
@@ -60,15 +63,13 @@ primary_tag: software-product>sap-btp--abap-environment
 
 5. To save the communication system, select `Save`.
 
-
 ### Create the Communication Arrangement
-
 
 1. Open the `Communication Arrangements` app from the SAP Fiori Launchpad and select `New`.
 
 2. In the `New Communication Arrangement` dialog choose communication scenario `SAP_COM_0647`.
 
-3. Select `Create`.    
+3. Select `Create`.
 
 4. In the `Common Data` section, set the following values
 
@@ -84,23 +85,21 @@ primary_tag: software-product>sap-btp--abap-environment
 
 6. Select `Save`.
 
-
 ### Select Roles for Exposure to SAP Build Work Zone, standard edition
-
 
 1. In the `Maintain Business Roles` app, search for business role ID `SAP_BR_ADMINISTRATOR`.
 
-3. Select business role `SAP_BR_ADMINISTRATOR`.
+2. Open business role `SAP_BR_ADMINISTRATOR`.
 
-4. Choose `Expose to SAP Launchpad Service`.
+3. Choose `Edit`.
 
-    <!-- border -->![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service-old.png)
+4. Mark `Exposed to SAP BTP`.
+
+    <!-- border -->![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
 
 > The content related to the exposed business role, such as groups, catalogs, pages, or spaces, can be consumed by the SAP Build Work Zone, standard edition as soon as the job, which you have configured in the previous step, has run successfully.
 
-
 ### Configure Communication between the SAP BTP Subaccount and the SAP BTP, ABAP Environment System
-
 
 1. In the SAP BTP cockpit, download the trust certificate of the subaccount runtime destinations by navigating to `Connectivity` > `Destinations`.
 
@@ -128,11 +127,7 @@ primary_tag: software-product>sap-btp--abap-environment
 
 5. To save the communication system, select `Save`.
 
-
-
-
 ### Protect Launchpad Content Against Clickjacking
-
 
 1. Open the `Maintain Protection Allowlists` app from the SAP Fiori launchpad in your SAP BTP, ABAP environment system.
 
@@ -145,8 +140,6 @@ primary_tag: software-product>sap-btp--abap-environment
     - Port: `443`
 
 3. Select `Save`.
-
-
 
 ### Create the Design-Time Destination
 
@@ -177,13 +170,12 @@ You create a design-time destination to define the location from which the SAP B
     - Password: Maintain password created in `Step 1` (Create the Communication System).
 
     The destination should look like this:
+
     <!-- border -->![Settings for new Destination](1-Destination-settings.png)
 
-7. Select `Save`.
-
+4. Select `Save`.
 
 ### Create Runtime Destination for Launching Apps in an iFrame
-
 
 1. Create a new destination and fill in the following fields:
 
@@ -208,11 +200,11 @@ You create a design-time destination to define the location from which the SAP B
 2. Select `Save`.
 
 Finally the destination should look like this:
-    <!-- border -->![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
 
+<!-- border -->
+![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
 
 ### Create Runtime Destination for Dynamic OData access
-
 
 1. Create a new destination.
 
@@ -238,16 +230,13 @@ Finally the destination should look like this:
 
         - `nameIdFormat`: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`
 
-2. Select `Save`.    
+2. Select `Save`.
 
 The destination should look like this:
-    <!-- border -->![Settings for dynamic Runtime Destination](2-Destination-oData.png)  
 
-
-
+<!-- border -->![Settings for dynamic Runtime Destination](2-Destination-oData.png)  
 
 ### Create Content Provider
-
 
 1. Before you create the content provider, make sure the content is available. The content is synchronized every 10 minutes, as configured in step 2. It can take up to one hour until the first synchronization run is scheduled. To check the availability of the content, open the **Display Launchpad Content Exposure Logs** app from the SAP Fiori launchpad in your SAP BTP, ABAP environment system. Once everything has been synchronized successfully, the content is available for consumption.
 
@@ -255,7 +244,7 @@ The destination should look like this:
 
 3. Access SAP Build Work Zone, standard edition.
 
-4. Select **Provider Manager**.
+4. Select **Channel Manager**.
 
 5. Create a new content provider.
 
@@ -275,7 +264,11 @@ The destination should look like this:
 
     - Runtime Destination for OData: `Tutorial_dynamic_OData_rt`
 
-    - Content Addition Mode: `Manual addition of selected content items`
+    - Automatically add all content items to subaccount: `Off`
+
+    - Use the Identity Provisioning service to provision user authorizations: `Off`
+
+    - Include group and catalog assignments to roles: `Off`
 
 7. Select `Save`.
 
@@ -285,32 +278,27 @@ The destination should look like this:
 
 > In the `Status` column of the table the status changes to `Created` as soon as the creation is finished.
 
-
 ### Choose Content in the Content Manager
-
 
 1. Navigate to the **Content Manager**.
 
-2. Open `Content Explorer` tab, where all the already created content providers are listed.
+2. Choose the `Content Explorer` button, where all the already created content providers are listed.
 
-3. Select the content provider you have created in the previous step.
+3. Choose the content provider you have created in the previous step.
 
-4. Select the `Administrator` content item and choose `Add to My Content`.
+4. Select the `Administrator` content item and choose `Add`.
 
     <!-- border -->![Add roles to own content](4-add-to-my-content.png)
 
-
 ### Create Launchpad Site
-
 
 1. Navigate to the Site Directory.
 
-2. Select `Create Sites`.
+2. Select `Create Site`.
 
 3. Choose a site name and select `Create`.
 
 4. Select `Edit` and move your cursor to the search box to `Search for items to assign`.
-
 
     <!-- border -->![Create Launchpad Site](2-1-create-site.png)
 
@@ -324,9 +312,7 @@ The destination should look like this:
 
 > Now you have assigned the business role, that is exposed to the SAP Build Work Zone, standard edition, to your launchpad site. With the business role all apps that are related to this business role will be available on the launchpad site. Also, a role collection is created, which is labeled according to this format: `<Content Provider name>_<Business Role name>`
 
-
 ### Add Role Collection to User
-
 
 > To access the launchpad site you have to assign the role collection created in the previous step, to your SAP BTP, ABAP environment user in the SAP BTP cockpit.
 
@@ -336,23 +322,19 @@ The destination should look like this:
 
 3. Search for your user and select it.
 
-5. Choose `Assign Role Collection` in the `Role Collection` section (depending on your window size, you might have to select `...` first).
+4. Choose `Assign Role Collection` in the `Role Collection` section (depending on your window size, you might have to select `...` first).
 
-6. Assign the created role collection `~tutorial_SAP_BR_ADMINISTRATOR` to the user.
+5. Assign the created role collection `~tutorial_SAP_BR_ADMINISTRATOR` to the user.
 
     <!-- border -->![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
 
-
 ### Access Launchpad Site
-
 
 1. With your user, access the launchpad site via the URL stored in `Step 11`.
 
 2. Log off and log on again. This makes sure the newly assigned role collection is taken into account.
 
 The launchpad site should look like this. The groups might be in different order:
-<!-- border -->![Launchpad](final-lp-view - Copy.png)
-
-
+<!-- border -->![Launchpad](final-lp-view.png)
 
 ---
