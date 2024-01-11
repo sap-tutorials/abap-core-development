@@ -352,10 +352,9 @@ CLASS zcl_product_via_rfc_000 IMPLEMENTATION.
                 comm_scenario   = 'Z_OUTBOUND_000_REST_CSCEN'     " MANDATORY, created in CLI in ADT, contains Comm Arr, System, User
                 comm_system_id  = 'Z000_TO_PRV_CSYS'              " recommended = points to Comm Sys
                 service_id      = 'Z_OUTBOUND_000_REST'           " recommended = created in ADT, points to COM Outbound Service
-
-
                             ).
 
+        DATA(lv_destination) = lo_destination->get_destination_name( ).
 
         "Check if data is requested
         IF io_request->is_data_requested(  ).
