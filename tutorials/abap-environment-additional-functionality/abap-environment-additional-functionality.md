@@ -16,7 +16,6 @@ author_profile: https://github.com/sepp4me
 - This tutorial also works in an SAP S/4HANA Cloud, public edition system.
 - This is the fourth tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the given order.
 
-
 ## You will learn  
 - How to copy and paste data from spreadsheet applications
 - How to create business configuration documentation
@@ -67,7 +66,6 @@ You can add multiple error codes by copying and pasting them from a [spreadsheet
 
 
 ### Create business configuration documentation
-
 
 You want to provide the user of the app **Custom Business Configurations** with detailed [documentation](https://help.sap.com/docs/btp/sap-business-technology-platform/custom-business-configurations-app#show-documentation) of the business configuration.
 
