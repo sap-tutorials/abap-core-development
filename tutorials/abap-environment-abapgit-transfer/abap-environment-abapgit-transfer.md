@@ -13,7 +13,9 @@ author_profile: https://github.com/mervey45
 
 ## Prerequisites  
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
-- You have installed [`abapGit`](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/2002380aeda84875a5fae4adc66b3fdb.html ).
+- You have installed the [`abapGit` plugin](abap-install-abapgit-plugin).
+- You can find the installation of the standalone version [here](https://docs.abapgit.org/user-guide/getting-started/install.html#install-standalone-version).
+
 
 ## You will learn  
 - How to create or adapt source code in ABAP instance
@@ -117,7 +119,6 @@ author_profile: https://github.com/mervey45
       ![object](object9.png)
 
     The staged objects are transferred to your repository.
-
 
 ### Test yourself
 

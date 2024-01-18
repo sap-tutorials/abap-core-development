@@ -21,7 +21,7 @@ parser: v2
 - How to suppress all authorization checks in the disable authorization check use case
 
 ## Intro
->In this tutorial, wherever X/XXX/#/### appears, use a number (e.g. 000).
+>Throughout this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
 >In the previous tutorials of this group we used a user with full development authorization to be able to develop the RAP BO and the wrapper. Given the unrestricted access that this user has, we did not have to worry about providing authorizations so far. In this tutorial we want to test two different authorization scenarios: the case in which we want authorizations to be checked upon the creation of a purchase requisition (so that only authorized users can perform this action), and the case in which we do not want any authorization check to be performed.
 
@@ -29,9 +29,9 @@ parser: v2
 
 ### Provide user with restricted role for preview testing
 
-In this tutorial we want to test different authorization scenarios via the application preview, and therefore we need a user with restricted access. You will now create such a user, which we will refer to as 'online shop user'.
+In this tutorial we want to test different authorization scenarios via the application preview, and therefore we need a user with restricted access. You will now create such a user, which we will refer to as 'shopping cart user'.
 
-Logon on to your SAP S/4HANA system via the backend, using your developer user credentials and create a new user (transaction `SU01`) with name `Z_USER_XXX`.
+Logon on to your SAP S/4HANA system via the backend, using your developer user credentials and create a new user (transaction `SU01`) with name `Z_USER_###`.
 
 ![Create user](create_user.png)
 
@@ -41,7 +41,7 @@ Start transaction `PFCG` and create a new role as a copy of the `SAP_BC_ABAP_DEV
 
 ![Create developer 5 role](create_dev_5_role.png)
 
- We suggest to name the role `ZAP_BC_ABAP_DEVELOPER_5_XXX`. Click on **Copy all**:
+ We suggest to name the role `ZAP_BC_ABAP_DEVELOPER_5_###`. Click on **Copy all**:
 
 ![Create developer 5 role - name](create_dev_5_role_2.png)
 
@@ -49,7 +49,7 @@ Open the newly created role in edit mode, navigate to the **Authorizations** tab
 
 ![Create developer 5 role - authorizations](create_dev_5_role_3.png)
 
-Then go back, navigate to the **User** tab and add the `Z_USER_XXX` (1), Save (2) and click on the **User Comparison** button (3) (select **Full Comparison** in the pop-up window):
+Then go back, navigate to the **User** tab and add the `Z_USER_###` (1), Save (2) and click on the **User Comparison** button (3) (select **Full Comparison** in the pop-up window):
 
 ![Create developer 5 role - user](create_dev_5_role_4.png)
 
@@ -57,33 +57,33 @@ This role allows the user to access ADT and get the URL of any service binding p
 
 ### Check authorization use case - Test user access with restricted authorizations
 
-For demonstration purposes and to keep this tutorial as modular as possible, you will now create a new service binding on which you will perform the authorizations tests: connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_XXX` containing the RAP BO, right click on the Service Definition `ZUI_ONLINESHOP_XXX` and select **New Service Binding**, input the Name `ZUI_ONLINESHOP_WRAPPER_O4_XXX`and a Description, and choose the **Binding Type** = `OData V4 - UI`:
+For demonstration purposes and to keep this tutorial as modular as possible, you will now create a new service binding on which you will perform the authorizations tests: connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO, right click on the Service Definition `ZUI_SHOPCART_###` and select **New Service Binding**, input the Name `ZUI_SHOPCART_WRAPPER_O4_###`and a Description, and choose the **Binding Type** = `OData V4 - UI`:
 
 ![Create service binding](create_service_binding_wrapper.png)
 
 Click on **Next**, select a suitable transport request (or create a new one) and then click on **Finish**. Activate it. Publish the service binding (as shown in a [previous tutorial](abap-s4hanacloud-procurement-purchasereq-shop)).
 
-We will now use the online shop user created in the previous step to test out different authorization scenario. First of all, to be able to test our service binding, the online shop user must have access to it. Logon on to your SAP S/4HANA system via the backend, using your developer user credentials, start transaction `PFCG` and create a new single role, with name: `ZR_ONLINESHOP_XXX`. In the **Menu** tab select **Transaction** --> **Authorization Default**
+We will now use the shopping cart user created in the previous step to test out different authorization scenarios. First of all, to be able to test our service binding, the shopping cart user must have access to it. Logon on to your SAP S/4HANA system via the backend, using your developer user credentials, start transaction `PFCG` and create a new single role, with name: `ZR_SHOPCART_###`. In the **Menu** tab select **Transaction** --> **Authorization Default**
 
 ![Create service binding role](create_service_role.png)
 
-As **Authorization Default** choose `SAP GATEWAY OData V4 Backend Service Group & Assignments` (1) an input your service binding name (2) then click on **Copy** (3):
+As **Authorization Default** choose `SAP GATEWAY OData V4 Backend Service Group & Assignments` (1) and input your service binding name (2) then click on **Copy** (3):
 
 ![Create service binding role - 2](create_service_role_2.png)
 
-Save the role. Then navigate to the **Authorizations** tab, click on **Change Authorization data** and click on the **Generate** icon to generate the authorization profile. Add the `Z_USER_XXX` in the **User** tab, save the role and then click on the **User Comparison** button.
+Save the role. Then navigate to the **Authorizations** tab, click on **Change Authorization data** and click on the **Generate** icon to generate the authorization profile. Add the `Z_USER_###` in the **User** tab, save the role and then click on the **User Comparison** button.
 
-With this role your user can now access the service binding and use the application preview to create entries in your online shop. But it still lacks authorizations to create a purchase requisition. To test this logon to ADT and open the service binding `ZUI_ONLINESHOP_WRAPPER_O4_XXX`, right click on the **`OnlineShop`** entity and select `Copy Fiori Elements App Preview URL' to copy the URL of the application preview.
+With this role your user can now access the service binding and use the application preview to create entries in your shopping cart. But it still lacks authorizations to create a purchase requisition. To test this logon to ADT and open the service binding `ZUI_SHOPCART_WRAPPER_O4_###`, right click on the **`ShoppingCart`** entity and select `Copy Fiori Elements App Preview URL` to copy the URL of the application preview.
 
 ![Open service binding](open_service_binding.png)
 
-Open the URL in a new browser so you will be prompted to login. Input the online shop user credentials:
+Open the URL in a new browser so you will be prompted to login. Input the shopping cart user credentials:
 
 ![Open service binding - 2](open_service_binding_2.png)
 
-The limited access of the online shop user allows it to access the service binding and create a new entry but it is not yet allowed to create a purchase requisition. You can test this out: create a new entry and then click on the `Create PR via BAPI in SAVE`, you will get an error message:
+The limited access of the shopping cart user allows it to access the service binding and create a new entry but it is not yet allowed to create a purchase requisition. You can test this out: create a new entry and then click on the `Create PR via BAPI in SAVE`, you will get an error message:
 
-![Online shop user no authorization case](auth_case_0.png)
+![Shopping cart user no authorization case](auth_case_0.png)
 
 ### Check authorization use case - create authorization default variant
 
@@ -93,17 +93,17 @@ In the case of released objects you would add the released authorizations object
 
 ![Unreleased authorization objects cannot be added to su22](unreleased_auth_obj_su22.png)
 
-The best practice in the case of unreleased authorization objects is to create an authorization default variant to hold the authorizations. You will now create such a variant for the wrapper service binding `ZUI_ONLINESHOP_WRAPPER_O4_XXX`.
+The best practice in the case of unreleased authorization objects is to create an authorization default variant to hold the authorizations. You will now create such a variant for the wrapper service binding `ZUI_SHOPCART_WRAPPER_O4_###`.
 
-Log on to the system via SAP GUI using the developer user credentials and start transaction `SU22`. In 'Type of Application' select `SAP Gateway OData V4 Backend Service group and Assignments` and as 'Object Name' input the service binding `ZUI_ONLINESHOP_WRAPPER_O4_XXX` then click on **Execute**:
+Log on to the system via SAP GUI using the developer user credentials and start transaction `SU22`. In 'Type of Application' select `SAP Gateway OData V4 Backend Service group and Assignments` and as 'Object Name' input the service binding `ZUI_SHOPCART_WRAPPER_O4_###` then click on **Execute**:
 
 ![Open service binding](authorization_trace.png)
 
-Open the service binding `ZUI_ONLINESHOP_WRAPPER_O4_XXX`: there should be no authorization objects except for `S_START`. Click on the **Variant** icon to create a new variant:
+Open the service binding `ZUI_SHOPCART_WRAPPER_O4_###`: there should be no authorization objects except for `S_START`. Click on the **Variant** icon to create a new variant:
 
 ![Create variant](create_variant.png)
 
-Input the name `ZUI_ONLINESHOP_WRAPPER_O4_XXX_V` and a description for the default variant (1) and then click on **Save** (2). You will be prompted to select a package: input the tier 2 package `$Z_PURCHASE_REQ_TIER2_XXX` (3) and save it (4):
+Input the name `ZUI_SHOPCART_WRAPPER_O4_###_V` and a description for the default variant (1) and then click on **Save** (2). You will be prompted to select a package: input the tier 2 package `$Z_PURCHASE_REQ_TIER2_###` (3) and save it (4):
 
 ![Create variant - 2](create_variant_2.png)
 
@@ -125,7 +125,7 @@ Input the username for which you want to activate the trace (in this case: your 
 
 Do NOT close this window.
 
-From ADT, open the preview of the wrapper service binding `ZUI_ONLINESHOP_WRAPPER_O4_XXX` using the developer user credentials, create a new entry and create a purchase requisition by clicking on the `Create PR via BAPI in SAVE` button. The needed authorizations will be picked up by the active trace.
+From ADT, open the preview of the wrapper service binding `ZUI_SHOPCART_WRAPPER_O4_###` using the developer user credentials, create a new entry and create a purchase requisition by clicking on the `Create PR via BAPI in SAVE` button. The needed authorizations will be picked up by the active trace.
 
 Go back to the `SU22` window you left open, click on **Deactivate Trace** and then click on **Evaluate**. Select all the authorization Objects that the trace found, and click on the **Continue** icon. The needed authorizations will be added.
 
@@ -145,17 +145,21 @@ Click on **Evaluate** and the needed field values will be displayed for the give
 
 Repeat the process for all the non-released authorization objects and then click on the **Continue** icon in the right bottom corner. Save it.
 
-Save it. Now start transaction `SU24` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name and click on the `Execute` button. Select the newly created variant (1), switch to Edit mode (2), click on the `SAP Data` icon (3), and then click on `Copy SAP Data to SU24` icon (4).
+Save it. Now start transaction `SU24` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name and click on the `Execute` button. Select the newly created variant (1), switch to Edit mode (2), click on the `SAP Data` icon (3), and then click on `Copy SAP Data to SU24` icon in the `Maintenance Status for Authorization Objects` tab (4).
 
 ![Synchronized with SAP data](comparison_with_su24.png)
+
+This will copy the authorization objects, but you still need to copy the authorization defaults values for each object. To do this, click on the `Synchronize with SAP data` icon for all the authorization objects (1) and then click on the `Copy SAP Data to SU24` icon in the `Authorization Default Values` tab (2).
+
+![Synchronized with SAP data - 2](comparison_with_su24_2.png)
 
 Save it and select a suitable transport request (or create a new one if needed).
 
 ### Check authorization use case - add authorization default variant to the role
 
-In the previous steps you found out the needed authorization objects to create a purchase requisition via the `BAPI_PR_CREATE` wrapper, and you created a default variant for the service binding granting such authorizations. The last step is to add this default variant to the `ZR_ONLINESHOP_XXX` role. Any user with this role will then be able to create a purchase requisition.
+In the previous steps you found out the needed authorization objects to create a purchase requisition via the `BAPI_PR_CREATE` wrapper, and you created a default variant for the service binding granting such authorizations. The last step is to add this default variant to the `ZR_SHOPCART_###` role. Any user with this role will then be able to create a purchase requisition.
 
-Start transaction `PFCG`, and open the `ZR_ONLINESHOP_XXX` role. Switch to Edit mode and in the **Applications** tab deselect the authorization default and select the default variant you created, then click on **Save**:
+Start transaction `PFCG`, and open the `ZR_SHOPCART_###` role. Switch to Edit mode and in the **Applications** tab deselect the authorization default and select the default variant you created, then click on **Save**:
 
 ![Create variant role - 4](create_variant_role_4.png)
 
@@ -167,13 +171,13 @@ you will see that all the authorization objects are automatically added and all 
 
 ![Create variant role - 6](create_variant_role_6.png)
 
-Now the online shop user has the role assigned, which contains the authorization default variant for the service binding, granting the necessary authorizations to create a purchase requsition via the BAPI wrapper.
+Now the shopping cart user has the role assigned, which contains the authorization default variant for the service binding, granting the necessary authorizations to create a purchase requsition via the BAPI wrapper.
 
-You can test it: open the service binding using the online shop user credentials (we suggest to open it in incognito mode, so that you will be prompted to log in) and try to create a purchase requisition by clicking on the `Create PR via BAPI in SAVE` button, it should work without errors:
+You can test it: open the service binding using the shopping cart user credentials (we suggest to open it in incognito mode, so that you will be prompted to log in) and try to create a purchase requisition by clicking on the `Create PR via BAPI in SAVE` button, it should work without errors:
 
-![Online shop user create PR with variant](business_user_variant_test.png)
+![Shopping cart user create PR with variant](business_user_variant_test.png)
 
->After the `DO CHECK` use case test is succesfully done, remove the `ZR_ONLINESHOP_XXX` roles from the `Z_USER_XXX` (this can be done in transaction `SU01`) so that the online shop user is returned to its limited access state, and ready to be used in the next use case.
+>After the `DO CHECK` use case test is succesfully done, remove the `ZR_SHOPCART_###` roles from the `Z_USER_###` (this can be done in transaction `SU01`) so that the shopping cart user is returned to its limited access state, and ready to be used in the next use case.
 
 ### Disable authorization check use case
 
@@ -183,19 +187,19 @@ In this authorization scenario, you have decided that you do not want that any o
 
 ![Do not check option su22 not available](do_not_check_missing.png)
 
-To keep this tutorial clear and modular, we will create a new service binding to test this scenario. This service binding exposes exactly the same service as the previous one. Logon to ADT using the developer user credentials and navigate to the package `Z_PURCHASE_REQ_XXX`. Right click on the service definition `ZUI_ONLINESHOP_XXX` and select **New Service Binding**, input the Name `ZUI_ONLINESHOP_WRP_NCK_O4_XXX` and a Description and select the Binding Type `OData V4 - UI`:
+To keep this tutorial clear and modular, we will create a new service binding to test this scenario. This service binding exposes exactly the same service as the previous one. Logon to ADT using the developer user credentials and navigate to the package `Z_PURCHASE_REQ_###`. Right click on the service definition `ZUI_SHOPCART_###` and select **New Service Binding**, input the Name `ZUI_SHOPCART_WRP_NCK_O4_###` and a Description and select the Binding Type `OData V4 - UI`:
 
 ![Create Service Binding](create_service_binding.png)
 
 Click on **Next**. Select an existing transport request (or create a new one if needed) and click on **Finish**. Activate it. Publish the service binding as shown in a [previous tutorial](abap-s4hanacloud-procurement-purchasereq-shop) of this series.
 
-After the service binding has been published, logon to the backend of the system using the developer user credentials and, similar as what done in a previous step, create a new role (we suggest to name the role `ZR_ONLINESHOP_NCK_XXX`) and add the newly created `ZUI_ONLINESHOP_WRP_NCK_O4_XXX` service binding defaults in the **Menu** tab to gain access to the service. Assign the `Z_USER_XXX` user to role. The online shop user should now have only two roles: `ZAP_BC_ABAP_DEVELOPER_5_XXX` and `ZR_ONLINESHOP_NCK_XXX`:
+After the service binding has been published, logon to the backend of the system using the developer user credentials and, similar as what done in a previous step, create a new role (we suggest to name the role `ZR_SHOPCART_NCK_###`) and add the newly created `ZUI_SHOPCART_WRP_NCK_O4_###` service binding defaults in the **Menu** tab to gain access to the service. Assign the `Z_USER_###` user to role (do not forget to generate the authroization profile and do the user comparison). The shopping cart user should now have only two roles: `ZAP_BC_ABAP_DEVELOPER_5_###` and `ZR_SHOPCART_NCK_###`:
 
 ![Remove role](remove_roles.png)
 
-At the moment, the newly created service binding `ZUI_ONLINESHOP_WRP_NCK_O4_XXX` would still perform authorization checks when creating a purchase requisition. You can test this using the `Z_USER_XXX` role: since this role does not have the required authorization, you will get an error when trying to create a purchase requsition from the service binding preview.
+At the moment, the newly created service binding `ZUI_SHOPCART_WRP_NCK_O4_###` would still perform authorization checks when creating a purchase requisition. You can test this using the `Z_USER_###` role: since this role does not have the required authorization, you will get an error when trying to create a purchase requsition from the service binding preview.
 
-Now, we will modify the service binding so that no authorization check is performed. Start transaction `SU24` and open the `ZUI_ONLINESHOP_WRP_NCK_O4_XXX` service binding. Similar to what done in the previous step, for the check authorization use case, switch to edit mode and add all the needed authorization objects.
+Now, we will modify the service binding so that no authorization check is performed. Start transaction `SU24` and open the `ZUI_SHOPCART_WRP_NCK_O4_###` service binding. Similar to what done in the previous step, for the check authorization use case, switch to edit mode and add all the needed authorization objects.
 
 >For the scope of this tutorial, you already found out the needed authorization objects in a previous step. You could also use the system trace directly from the `SU24` transaction to find the authorization objects that you need to add.
 
@@ -203,9 +207,9 @@ Then select all of them and click on **Check Indicator** -> **Do Not Check**:
 
 ![Do not check option](do_not_check_option.png)
 
-Save it. Now the service binding will not perform authorization checks for all the authorization objects with a 'DO NOT CHECK' indicator. As a result, even users with limited access and no specific authorizations will be able to create a purchase requisition. You can test this with the `Z_USER_XXX` user:
+Save it. Now the service binding will not perform authorization checks for all the authorization objects with a 'DO NOT CHECK' indicator. As a result, even users with limited access and no specific authorizations will be able to create a purchase requisition. You can test this with the `Z_USER_###` user:
 
-![Online shop user creates PR with DO NOT CHECK option](business_user_do_not_check_option_test.png)
+![Shopping cart user creates PR with DO NOT CHECK option](business_user_do_not_check_option_test.png)
 
 ### Test yourself
 
