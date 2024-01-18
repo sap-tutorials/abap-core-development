@@ -12,7 +12,7 @@ author_profile: https://github.com/julieplummer20
 <!-- description --> In the consuming system, create the necessary artifacts for remote communication; then create a service consumption model from an XML metadata file; then test your connection to the provisioning system using an ABAP Console app.
 
 
-## Prerequisites
+## Prerequisites 
   
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
 - **IMPORTANT**: This tutorial is part two of a mission, [Connect Two Instances of SAP BTP, ABAP Environment](https://developers.sap.com/mission.abap-env-connect-2-environments.html). You cannot complete it standalone; it will not work

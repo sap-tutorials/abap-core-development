@@ -36,7 +36,7 @@ Therefore, this tutorial will only cover in detail those aspects that are differ
 ### Add query provider interface to class
 
 You have already tested the connection by displaying data in an ABAP Console app. You will now display this data in a Fiori Elements preview, using a custom entity.
-1. First, open the class **`ZCL_PROXY_TRAVELS_000`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
+1. First, open the class **`ZCL_PROXY_TRAVELS_###`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
 
     ```ABAP
     INTERFACES:   if_oo_adt_classrun,
@@ -55,13 +55,13 @@ You have already tested the connection by displaying data in an ABAP Console app
 
 ### Specify class in your custom entity
 
-1. Open your CDS custom entity by choosing **Core Data Services > Data Definitions** > **`ZCE_TRAVEL_DATA_000`**, which you created in [Create a Service Consumption Model](abap-environment-create-service-consumption-model).
+1. Open your CDS custom entity by choosing **Core Data Services > Data Definitions** > **`ZCE_TRAVEL_DATA_###`**, which you created in [Create a Service Consumption Model](abap-environment-create-service-consumption-model).
 
 2. Add the following annotation to the view (immediately after the '@EndUserText.label' annotation), pointing to the class you have just created - **IMPORTANT: Use upper case!**
 
     ```CDS
 
-    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_000'
+    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_###'
     ```
 
 
@@ -82,7 +82,7 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
 
     ```ABAP
       METHOD if_rap_query_provider~select.
-    DATA business_data TYPE TABLE OF zce_travel_data_000.
+    DATA business_data TYPE TABLE OF zce_travel_data_###.
     DATA(top)     = io_request->get_paging( )->get_page_size( ).
     DATA(skip)    = io_request->get_paging( )->get_offset( ).
     DATA(requested_fields)  = io_request->get_requested_elements( ).
@@ -122,7 +122,7 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    TYPES t_business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
+    TYPES t_business_data TYPE TABLE OF z###_model_travels=>tys_simple_travel_type.
 
     METHODS get_travels
       IMPORTING
@@ -148,7 +148,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_get_travels_000 IMPLEMENTATION.
+CLASS zcl_get_travels_### IMPLEMENTATION.
 
   METHOD get_travels.
 
@@ -161,7 +161,7 @@ CLASS zcl_get_travels_000 IMPLEMENTATION.
 
     " 1. Get the destination of remote system; Create http client
     DATA(lo_destination) = cl_http_destination_provider=>create_by_comm_arrangement(
-                                                 comm_scenario  = 'Z_OUTBOUND_ODATA_CSCEN_000'
+                                                 comm_scenario  = 'Z_OUTBOUND_ODATA_CSCEN_###'
 **                                                comm_system_id = '<Comm System Id>'
 *                                                 service_id     = ''
 ).
@@ -171,10 +171,10 @@ CLASS zcl_get_travels_000 IMPLEMENTATION.
      lo_client_proxy = /iwbep/cl_cp_factory_remote=>create_v2_remote_proxy(
        EXPORTING
           is_proxy_model_key       = VALUE #( repository_id       = 'DEFAULT'
-                                              proxy_model_id      = 'Z000_MODEL_TRAVELS'
-                                              proxy_model_version = '0001' )
+                                              proxy_model_id      = 'Z###_MODEL_TRAVELS'
+                                              proxy_model_version = '###1' )
          io_http_client             = lo_http_client
-         iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000'  " = the service endpoint in the service binding in PRV' ).
+         iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_###'  " = the service endpoint in the service binding in PRV' ).
         ).
      ASSERT lo_http_client IS BOUND .
 
@@ -192,7 +192,7 @@ CLASS zcl_get_travels_000 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD if_oo_adt_classrun~main.
-    DATA business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
+    DATA business_data TYPE TABLE OF z###_model_travels=>tys_simple_travel_type.
 
     TRY.
         get_travels(
@@ -209,7 +209,7 @@ CLASS zcl_get_travels_000 IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD if_rap_query_provider~select.
-    DATA business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
+    DATA business_data TYPE TABLE OF z###_model_travels=>tys_simple_travel_type.
     DATA(top)     = io_request->get_paging( )->get_page_size( ).
     DATA(skip)    = io_request->get_paging( )->get_offset( ).
     DATA(requested_fields)  = io_request->get_requested_elements( ).
@@ -241,13 +241,13 @@ ENDCLASS.
 
 ### Create service definition
 
-1. Select your custom entity **`ZCE_TRAVEL_DATA_000`** and choose **New > Create Service Definition** from the context menu.
+1. Select your custom entity **`ZCE_TRAVEL_DATA_###`** and choose **New > Create Service Definition** from the context menu.
 
 2. In the wizard, enter the following:
-    - Name: **`ZCE_TRAVEL_DATA_000`** 
+    - Name: **`ZCE_TRAVEL_DATA_###`** 
     - Description **Service - Travel data from remote system**
     - Source Type: Definition
-    - (The referenced object: **`ZCE_TRAVEL_DATA_000`** should be entered automatically)
+    - (The referenced object: **`ZCE_TRAVEL_DATA_###`** should be entered automatically)
     - Choose **Next**
 
     <!-- border -->
@@ -260,7 +260,7 @@ ENDCLASS.
 4. Optional: Add a semantic alias for the service, here **`SimpleTravels`**:
 
     ```CDS
-    expose ZCE_TRAVEL_DATA_000 as SimpleTravels;
+    expose ZCE_TRAVEL_DATA_### as SimpleTravels;
 
     ```
   
@@ -271,13 +271,13 @@ ENDCLASS.
 
 ### Create service binding
 
-1. Select your service definition, **`ZCE_TRAVEL_DATA_000`** and choose **New > Create Service Binding** from the context menu.
+1. Select your service definition, **`ZCE_TRAVEL_DATA_###`** and choose **New > Create Service Binding** from the context menu.
 
     <!-- border -->
     ![step2a-create-service-binding](step2a-create-service-binding.png)
 
 2. In the wizard:
-    - Enter a name: **`ZCE_TRAVEL_DATA_000_UI_O2`** and description **Endpoint for ZCE_TRAVEL_DATA_000**
+    - Enter a name: **`ZCE_TRAVEL_DATA_###_UI_O2`** and description **`Endpoint for ZCE_TRAVEL_DATA_###`**
     - Enter the binding type: **`ODATA V2 - UI`**
     - Choose **Next**
 
@@ -290,7 +290,7 @@ ENDCLASS.
 
 4. Choose **Activate**.
 
-    On the left is the Service Definition, `ZCE_TRAVEL_DATA_000`.
+    On the left is the Service Definition, `ZCE_TRAVEL_DATA_###`.
     On the right, is the active service, including the Entity Set and the Service URL.
 
 5. Select the entity Set **Travel** and choose **Preview**.
@@ -317,9 +317,9 @@ Your code should now look like this.
 
 ```ABAP
 @EndUserText.label: 'Travel data custom entity from PRV'
-@ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_000'
+@ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_###'
 
-define custom entity ZCE_TRAVEL_DATA_000
+define custom entity ZCE_TRAVEL_DATA_###
 
  {
 
