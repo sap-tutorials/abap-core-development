@@ -4,7 +4,7 @@ description: Learn how to enrich your shell plug-in with the use of OData Servic
 keywords: tutorial
 auto_validation: true
 time: 45
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>s-4hana-cloud-abap-environment]
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>sap-s-4hana-cloud--abap-environment]
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Arianna Musso Barcucci
 author_profile: https://github.com/AriannaMussoBarcucci
@@ -16,6 +16,8 @@ parser: v2
 
 >This tutorial was written for SAP BTP ABAP Environment. However, you should be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
+>Throughout this tutorial, you will create various development objects and UI components. Wherever the suffix `###` or `000` is used, please replace it with your initials or group number.
+
 ## You will learn
   - How to create an OData Service to expose user-related information using the ABAP Developer Tool in Eclipse.
   - How to add the OData Service to your SAPUI5 project in Business Application Studio.
@@ -23,7 +25,6 @@ parser: v2
 
 ### Create a Business User Role Data Definition
 In this tutorial you will continue working on the shell plug-in you created in the pervious tutorial in this series. You will learn how to enrich it using OData Services to expose user-related information. To do this, you will first need to create a Data Definition to expose the User ID of the current user and the corresponding Business Role information.
->Throughout this tutorial, you will create various development objects and UI components. Wherever the suffix `XXX` is used, you can substitute it with a nomenclature of your choice. If you do so, make sure to keep the names consistent throughout the whole tutorial.
 
 1. Access ABAP Developer Tool in Eclipse, connect to your SAP BTP ABAP Environment, and open the package you created as part of the previous tutorial.
 
@@ -43,15 +44,11 @@ In this tutorial you will continue working on the shell plug-in you created in t
 
     ![Create data definition - transport request](create_transport_request_new.png)
 
-6. Mark the option **Use the selected template** and select the template **Define Root View Entity** then click on **Finish**.
-
-    ![Create data definition - template](create_data_definition_5.png)
-
-7. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
+6. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 ``` ABAP
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Business User Role'
-define root view entity Z_C_BusinessUserRole_XXX as select from I_IAMBusinessUserBusinessRole as _BusinessUserRole
+define root view entity Z_C_BusinessUserRole_### as select from I_IAMBusinessUserBusinessRole as _BusinessUserRole
   association [0..*] to I_IAMBusinessRoleText as _BusinessRoleText on $projection.BusinessRoleUUID = _BusinessRoleText.BusinessRoleUUID
 {
   key abap.char'Me' as ID,
@@ -75,14 +72,14 @@ Now you need to create a second Data Definition, which will take the User ID exp
 
     ![Create data definition - Business User](create_data_definition_7_new.png)
 
-2. Select your transport request and click on **Next**. Mark the option **Use the selected template** and select the template **Define Root View Entity** then click on **Finish**.
+2. Select your transport request and click on **Finish**.
 
 3. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 ``` ABAP
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Business User'
-define root view entity Z_C_BusinessUser_XXX as select from I_BusinessUserBasic
-      association [0..*] to Z_C_BusinessUserRole_XXX as _BusinessUserRole on $projection.ID = _BusinessUserRole.ID
+define root view entity Z_C_BusinessUser_### as select from I_BusinessUserBasic
+      association [0..*] to Z_C_BusinessUserRole_### as _BusinessUserRole on $projection.ID = _BusinessUserRole.ID
     {      
       key abap.char'Me' as ID,
       BusinessPartner,
@@ -110,14 +107,14 @@ In order to expose the data from the two previous Data Definitions you need to c
 
     ![Create service definition](create_service_definition_1_new.png)
 
-2. Select your transport request and click on **Next**. Mark the option **Use the selected template** and select the template **Define Service** then click on **Finish**.
+2. Select your transport request and click on **Finish**.
 
 3. Add your Projection Views to your Service Definition as follows:
 ``` ABAP
 @EndUserText.label: 'Business User Service Definition'
-define service ZUI_BUSINESSUSER_XXX {
-    expose Z_C_BusinessUser_XXX as BusinessUser;
-    expose Z_C_BusinessUserRole_XXX as BusinessUserRole;     
+define service ZUI_BUSINESSUSER_### {
+    expose Z_C_BusinessUser_### as BusinessUser;
+    expose Z_C_BusinessUserRole_### as BusinessUserRole;     
 }
 ```
 
@@ -135,7 +132,8 @@ Your Service Definition will be consumed by your SAP Fiori Application via the u
 2. Enter a **Name** and a **Description**. In the **Binding Type** dropdown menu, select the option **OData V4 - UI** and click on **Next**.
 
     ![Create service binding - name and description](create_service_binding_2_new.png)
->It is good practice to include the type of Service Binding in the Service Binding name, e.g.: adding the suffix `V_O4` to the name of Service Bindings of type OData Service V4.
+
+    >It is good practice to include the type of Service Binding in the Service Binding name, e.g.: adding the suffix `V_O4` to the name of Service Bindings of type OData Service V4.
 
 3. Select your transport request and click on **Finish**.
 
@@ -146,7 +144,8 @@ Your Service Definition will be consumed by your SAP Fiori Application via the u
 5. In the newly created Service Binding, click on the **Publish** button.
 
     ![Create service binding - publish](create_service_binding_3_new.png)
->Publishing a Service Binding can take up to a few minutes. Once the Service Binding is successfully published, the **Local Service Endpoint** parameter will change to **Published**.
+
+    >Publishing a Service Binding can take up to a few minutes. Once the Service Binding is successfully published, the **Local Service Endpoint** parameter will change to **Published**.
 
 6. You can now preview your Service Binding: click on the Service URL link.
 
@@ -163,7 +162,7 @@ Now that you have created an OData Service which exposes user-related informatio
 
     ![Open Service manager](open_service_manager.png)
 
-2. This will open an overview of the services used in your project. Click on the bin icon to delete the previous service.
+2. This will open an overview of the services used in your project. If there are any previous services, click on the bin icon to delete them.
 
     ![Service overview](service_overview.png)
 
@@ -187,7 +186,7 @@ Now that you have created an OData Service which exposes user-related informatio
 
     ![Create mockserver](install_dependency_new.png)
 
-8. A new dependency will be added in the **`package.json`** file, in the configuration `"ui5"` > `"dependencies"`:
+8. A new dependency will be added in the **`package.json`** file, in the configuration `"main"` > `"devDependencies"`:
 
     ![Modify package.json file - 2](modify_package_json_parameters_2.png)
 
@@ -196,7 +195,6 @@ Your SAPUI5 Application can now consume user-related information via the OData S
 
 1. In the **`webapp`** > **`i18n`** folder, open the **`i18n.properties`** file. Substitute the file content with the following code:  
 ``` HTML
-#This is the resource bundle for zpluginxxx
 #Texts for manifest.json
 #XTIT: Application name
 appTitle=Shell Plug-in
@@ -312,7 +310,7 @@ sap.ui.define([
         function (UIComponent, ResourceModel, Fragment) {
             "use strict";
 
-        return UIComponent.extend("zpluginxxx.Component", {
+        return UIComponent.extend("zplugin###.Component", {
             metadata: {
                 manifest: "json"
             },
@@ -329,11 +327,11 @@ sap.ui.define([
                 var businessUserModel = this.getModel();
 
                 var vtitleTab = new ResourceModel({
-                    bundleName: "zpluginxxx.i18n.i18n"
+                    bundleName: "zplugin###.i18n.i18n"
                 }).getResourceBundle().getText("titleTab");
 
                 var vsubtitleTab = new ResourceModel({
-                    bundleName: "zpluginxxx.i18n.i18n"
+                    bundleName: "zplugin###.i18n.i18n"
                 }).getResourceBundle().getText("subtitleTab");
 
                 var oRenderer = sap.ushell.Container.getRenderer();
@@ -348,10 +346,10 @@ sap.ui.define([
                             this.oFragment = Fragment.load({
                                 type: "XML",
                                 id: "BusinessUserFragment",
-                                name: "zpluginxxx.view.BusinessUserFragment"
+                                name: "zplugin###.view.BusinessUserFragment"
                             }).then(function (fragment) {
                                 var i18nModel = new ResourceModel({
-                                    bundleName: "zpluginxxx.i18n.i18n"
+                                    bundleName: "zplugin###.i18n.i18n"
                                 });
                                 fragment.setModel(i18nModel, "i18n");
                                 fragment.setModel(businessUserModel);
@@ -366,7 +364,7 @@ sap.ui.define([
                     }
                 };
                 var i18nModel = new ResourceModel({
-                    bundleName: "zpluginxxx.i18n.i18n"
+                    bundleName: "zplugin###.i18n.i18n"
                 });
                 oRenderer.setModel(i18nModel, "i18n");
                 oRenderer.addUserPreferencesEntry(oEntry);
@@ -375,20 +373,26 @@ sap.ui.define([
       }
     );
 ```
-> If you have chosen different names for your project and for your Fragment View in the previous steps, you will need to adjust the code above: replace any instance of `zpluginxxx` with the id of your project, and replace `BusinessUserFragment` with the name of your View.
+> If you have chosen different names for your project and for your Fragment View in the previous steps, you will need to adjust the code above: replace any instance of `###` with your initials or group number, and replace `BusinessUserFragment` with the name of your View.
 
 ### Preview your SAPUI5 Application
 Your enhanced SAPUI5 Application can be previewed before it is deployed. Using the preview functionality is good practice before deploying an application, to make sure that the UI looks as intended and the application's functionalities work as desired.
 
-1. Right click on your project folder and select **Preview Application**.
+1. In Business Application Studio, In the **Storyboard** tab right click on your UI Application and click on **Open Application Info**.
 
-    ![Preview application](Preview_app_1_new.png)
+    ![Preview application](Preview_app_1_storyboard.png)
 
-2. Select **start fiori-run**. This will prompt a new terminal window which will run the **start fiori-run** command. This can take up to a few seconds. Once it is done, a preview of your application will open up in a new browser window.
+    >The **Storyboard** tab can always be open from the Search bar by typing the command `> Open Storyboard`.
+
+2. In the **Application Info** view, select the **Preview Application** tile.
+
+    ![Preview application 2](Preview_app_1_2.png)
+
+3. Select **start fiori-run**. This will prompt a new terminal window which will run the **start fiori-run** command. This can take up to a few seconds. Once it is done, a preview of your application will open up in a new browser window.
 
     ![Preview application - start fiori run](Preview_app_2_new.png)
 
-3. In the preview of your application, click on the user icon in the top-right corner and open the **Settings**. Your shell plug-in is listed in the user's settings dialog. User-related information is displayed according to the layout you defined using the Fragment View.
+4. In the preview of your application, click on the user icon in the top-right corner and open the **Settings**. Your shell plug-in is listed in the user's settings dialog. User-related information is displayed according to the layout you defined using the Fragment View.
 
     ![Application preview - settings](Preview_app_3.png)
     
@@ -397,11 +401,11 @@ Your enhanced SAPUI5 Application can be previewed before it is deployed. Using t
 ### Deploy your Enhanced Shell Plug-in
 You can now re-deploy your SAPUI5 Application with an enhanced shell plug-in to your SAP BTP ABAP Environment.
 
-1. In Business Application Studio, right click on the project folder and select **Open in Integrated Terminal**. This will open a new terminal window.
+1. In Business Application Studio, in the **Application Info** view, click on the **Deploy** tile:
 
-    ![Open terminal window](open_terminal.png)
+    ![Deploy application](deploy_application.png)
 
-2. In the terminal window, run the command: `npm run deploy`. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
+2. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
 `Deployment Successful`.
 >The deployment process can take up to a few minutes.
 

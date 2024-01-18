@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 --- 
  
-# Create a SAP Fiori Online Shop App and Deploy it
+# Create a SAP Fiori Shopping Cart App and Deploy it
 <!-- description --> Create a SAP Fiori app for a business object in Visual Studio Code and deploy it.
 
 ## Prerequisites  
@@ -27,7 +27,7 @@ author_profile: https://github.com/mervey45
 
 
 ## Intro
-In this tutorial, wherever XXX appears, use a number (e.g. 000).
+In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial is done with the placeholder 000.
 
 This scenario describes the embedded deployment, which features an SAP Fiori front-end server (and the associated components) deployed along with the backend components in the same system.
 
@@ -42,12 +42,12 @@ In this step, we'll create an ABAP package with the **`superpackage` `$TMP`**.
       ![package](package0.png)
 
   2.  Create new **ABAP package**:
-       - Name: **`$Z_PURCHASE_REQ_TIER3_XXX`**
-       - Description: Package XXX - Tier 3
+       - Name: **`$Z_PURCHASE_REQ_TIER3_###`**
+       - Description: Package ### - Tier 3
        - `Superpackage:` **`$TMP`**
        - Package Type: Development
  
-      ![package](package.png)
+      ![package](new.png)
 
        Click **Next >**.
 
@@ -61,7 +61,7 @@ In this step, we'll create an ABAP package with the **`superpackage` `$TMP`**.
       ![package](package3.png) 
 
  
-  5. Now continue with step 2 of [Create an Online Shop Business Object](abap-s4hanacloud-procurement-purchasereq-shop). Move on with [Enhance the Behavior Definition and Behavior Implementation of the Online Shop Business Object](abap-s4hanacloud-purchasereq-enhance-shop) and [Integrate released purchase requisition API into Online Shop Business Object](abap-s4hanacloud-purchasereq-integrate-api). Afterwards, come back and continue with step 2 of this tutorial.
+  5. Now continue with step 2 of [Create an Shopping Cart Business Object](abap-s4hanacloud-procurement-purchasereq-shop). Move on with [Enhance the Behavior Definition and Behavior Implementation of the Shopping Cart Business Object](abap-s4hanacloud-purchasereq-enhance-shop) and [Integrate released purchase requisition API into Shopping Cart Business Object](abap-s4hanacloud-purchasereq-integrate-api). Afterwards, come back and continue with step 2 of this tutorial.
  
 
 ### Create list report object page
@@ -98,21 +98,21 @@ This step is for creating a list report object page. Open Visual Studio Code and
        Click the login symbol on the right side to log in.
 
      - System name: `<your_system_ur>`
-     - Service: **`ZUI_ONLINESHOP_O4_XXX > ZUI_ONLINESHOP_XXX(0001) - OData V4`**
+     - Service: **`ZUI_SHOPCART_O4_### > ZUI_SHOPCART_###(0001) - OData V4`**
 
-     ![object](vs5.png)
+     ![object](new2.png)
 
      Click **Next >**.
 
     >**Hint:** In case of invalid security certificate errors, follow this [link](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/4b318bede7eb4021a8be385c46c74045.html).
 
-  6. Select your main entity **`OnlineShop`** and click **Next >**.
+  6. Select your main entity **`ShoppingCart`** and click **Next >**.
 
-      ![object](vs6.png)
+      ![object](new3.png)
 
   7. Configure project attributes:  
-     - Name: **`z_purchase_req_tier3_xxx`**
-     - Title: **Online Shop XXX**
+     - Name: **`z_purchase_req_tier3_###`**
+     - Title: **Shopping Cart ###**
      - Description: **A Fiori application.**
      - Project folder path: `c:\Users\<userid>\projects`
      - Add deployment configuration: Yes
@@ -121,7 +121,7 @@ This step is for creating a list report object page. Open Visual Studio Code and
 
      Click **Next >**.
 
-      ![object](vs7.png)
+      ![object](new4.png)
 
      An FLP configuration does not have to be created in Visual Studio Code, as this will be created in a later step using [tools for setting up the Launchpad content](https://help.sap.com/docs/FLP/6583b46f6c164aad818a3891bc91d8d8/08683e5409b74ced8705b2856c96c63b.html?state=DRAFT).
 
@@ -133,12 +133,12 @@ This step is for creating a list report object page. Open Visual Studio Code and
        - Target: ABAP
        - Target system: `<your_abap_system_url>`
        - Enter client: 100
-       - SAPUI5 ABAP Repository: `zshop_tier3_xxx`
-       - Package: `$z_purchase_req_tier3_xxx`
+       - SAPUI5 ABAP Repository: `zshopcart_tier3_###`
+       - Package: `$z_purchase_req_tier3_###`
        - How do you want to enter Transport Request? Manually
        - Transport Request: is not needed
   
-      ![app](vs8.png)
+      ![app](new5.png)
 
      Click **Finish**.
 
@@ -150,15 +150,15 @@ In this step, we'll run the SAP Fiori application, to check
 
   1. In the **Application Information** overview, select **Preview Application** to start the preview.
 
-      ![deploy](vs9.png)
+      ![deploy](new6.png)
 
   2. Log in with your credentials. Then select the first entry in the search bar.
   
-      ![url](vs10.png)
+      ![url](new7.png)
 
   3. Your browser opens. Click **Go** and check your application. 
 
-      ![url](vs11.png)
+      ![url](new8.png)
 
 
 ### Deploy your application 
@@ -168,11 +168,11 @@ This step describes the deployment of the created application.
 
   1. In the **Application Information** overview, select **Deploy Application** to start the deployment.
 
-      ![deploy](vs12.png)   
+      ![deploy](new9.png)   
 
   2. When prompted, check deployment configuration and press y. Open the URL at the end of the deployment log in browser to preview the application.
 
-      ![deploy](vs13.png)
+      ![deploy](new10.png)
 
       When the deployment is successful, you will get these two information back as a result: **deployment successful**.
 
@@ -183,18 +183,18 @@ This step describes the deployment of the created application.
 
   1. Open the URL to open the deployed application.
 
-      ![deploy](vs14.png) 
+      ![deploy](new11.png) 
 
   2. Click **Go** and check your application.
 
-      ![deploy](vs11.png) 
+      ![deploy](new12.png) 
 
 ### Check BSP library and SAP Fiori Launchpad app descriptor item in Eclipse
 
 
-  1. Open Eclipse and check the **BSP library** in your package **`$z_purchase_req_tier3_xxx`**. You can find your package under **Local Objects (`$TMP`)** > **User123**. If you are not able to see BSP applications and SAP Fiori Launchpad app description items, refresh your package by pressing `F5`.
+  1. Open Eclipse and check the **BSP library** in your package **`$z_purchase_req_tier3_###`**. You can find your package under **Local Objects (`$TMP`)** > **User123**. If you are not able to see BSP applications and SAP Fiori Launchpad app description items, refresh your package by pressing `F5`.
 
-      ![library](bsp.png)
+      ![library](new13.png)
 
 
 ### Test yourself
