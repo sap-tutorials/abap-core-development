@@ -8,7 +8,7 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Remote Function Module (RFC) - Get Data from an On-Premise System Using a Custom Entity
+# RFC: Get Data from an On-Premise System Using a Custom Entity
 <!-- description --> Get data from an on-Premise System Using RFC, by Implementing a Custom Entity in ABAP Environment
 
 ## Prerequisites

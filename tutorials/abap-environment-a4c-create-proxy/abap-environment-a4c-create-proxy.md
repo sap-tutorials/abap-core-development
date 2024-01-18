@@ -8,7 +8,7 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Create a Remote Client Proxy and Console Application in an SAP BTP ABAP Environment Service 
+# Create a Remote Client Proxy and ABAP Console Application 
 <!-- description --> In the SAP Business Technology Platform, ABAP Environment, in your consuming system, create an ABAP Console application (ABAP class) that instantiates a proxy, which passes an OData request to a remote service.
 
 ##Prerequisites
