@@ -40,7 +40,7 @@ For productive use, you would develop your RAP BO in the productive package `ZCU
 
 The following requirements are needed for this tutorial group:
 
-- If your system is running on feature pack stack 1, you have imported the [SAP Note 3250849](https://launchpad.support.sap.com/#/notes/3250849), [SAP Note 3294354](https://launchpad.support.sap.com/#/notes/3294354), [SAP Note 3330593](https://launchpad.support.sap.com/#/notes/3330593) and [SAP Note 3280851](https://launchpad.support.sap.com/#/notes/3280851) into your system.
+- If your system is running on feature pack stack 1 (SAP S/4HANA 2022 release), you have imported the [SAP Note 3250849](https://launchpad.support.sap.com/#/notes/3250849), [SAP Note 3294354](https://launchpad.support.sap.com/#/notes/3294354), [SAP Note 3330593](https://launchpad.support.sap.com/#/notes/3330593) and [SAP Note 3280851](https://launchpad.support.sap.com/#/notes/3280851) into your system.
 - [You are connected to your SAP S/4HANA system in the ABAP Development Tool (ADT) in Eclipse](abap-s4hanacloud-login)
 - You have a user in the system with full development authorizations.
 - You have set up developer extensibility as described in the official documentation [Set Up Developer Extensibility](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/31367ef6c3e947059e0d7c1cbfcaae93.html?version=202210.000). In particular: the `ZLOCAL` development package is available and you have set up an ABAP Test Cockpit check variant (we will refer to this as 'ATC Check Variant' throughout the tutorial group).
