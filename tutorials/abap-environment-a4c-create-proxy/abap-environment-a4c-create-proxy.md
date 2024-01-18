@@ -8,7 +8,7 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Create a Remote Client Proxy and ABAP Console Application 
+# Create a Remote Client Proxy and ABAPConsole Application 
 <!-- description --> In the SAP Business Technology Platform, ABAP Environment, in your consuming system, create an ABAP Console application (ABAP class) that instantiates a proxy, which passes an OData request to a remote service.
 
 ##Prerequisites
@@ -31,11 +31,11 @@ Therefore, this tutorial will only cover in detail those aspects that are differ
 
 First, in the **consuming system**, you create the class that instantiates the client proxy.
 
-1. In ADT, open your package **`Z_BTP_2_BTP_000`** and choose **New > ABAP Class**.
+1. In ADT, open your package **`Z_BTP_2_BTP_###`** and choose **New > ABAP Class**.
 
 2. Enter the following, then choose **Next**.
  and description:
-    - Name: **`ZCL_PROXY_TRAVELS_000`**
+    - Name: **`ZCL_PROXY_TRAVELS_###`**
     - Description: **Get travel data from PRV**, *where PRV = your provisioning system*
     - Add interface: **`if_oo_adt_classrun`** *This will enable you to test your connection by outputting your results to the ABAP console first, before you create the artifacts for the Fiori app.
 
@@ -50,13 +50,13 @@ sort top, skip -->
 
 
     ```ABAP
-    CLASS zcl_get_travels_000 DEFINITION
+    CLASS zcl_get_travels_### DEFINITION
       PUBLIC
       FINAL
       CREATE PUBLIC .
 
       PUBLIC SECTION.
-        TYPES t_business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
+        TYPES t_business_data TYPE TABLE OF z###_model_travels=>tys_simple_travel_type.
 
         METHODS get_travels
           IMPORTING
@@ -82,7 +82,7 @@ sort top, skip -->
 
 
 
-    CLASS zcl_get_travels_000 IMPLEMENTATION.
+    CLASS zcl_get_travels_### IMPLEMENTATION.
 
       METHOD get_travels.
 
@@ -105,10 +105,10 @@ sort top, skip -->
         lo_client_proxy = /iwbep/cl_cp_factory_remote=>create_v2_remote_proxy(
           EXPORTING
               is_proxy_model_key       = VALUE #( repository_id       = 'DEFAULT'
-                                                  proxy_model_id      = 'Z000_MODEL_TRAVELS'
-                                                  proxy_model_version = '0001' )
+                                                  proxy_model_id      = 'Z###_MODEL_TRAVELS'
+                                                  proxy_model_version = '###1' )
             io_http_client             = lo_http_client
-            iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000'  " = the service endpoint in the service binding in PRV' ).
+            iv_relative_service_root   = '/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_###'  " = the service endpoint in the service binding in PRV' ).
             ).
         ASSERT lo_http_client IS BOUND .
 
@@ -126,7 +126,7 @@ sort top, skip -->
       ENDMETHOD.
 
       METHOD if_oo_adt_classrun~main.
-        DATA business_data TYPE TABLE OF z000_model_travels=>tys_simple_travel_type.
+        DATA business_data TYPE TABLE OF z###_model_travels=>tys_simple_travel_type.
 
         TRY.
             get_travels(

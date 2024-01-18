@@ -51,7 +51,7 @@ You start in your **provisioning** system by creating the ABAP artifacts in ABAP
 
 ### Create OData service endpoint (service binding)
 
-First, you need to expose your service definition (based on your service projection, e.g. **`Z_C_TRAVEL_U_SIMPLE_000`**) as an endpoint so that the **consuming system** can access it. To do this, create a service binding of type **Web API**, OData version 2. (The type **UI** is not suitable for creating the other objects you will derive from it later.) 
+First, you need to expose your service definition (based on your service projection, e.g. **`Z_C_TRAVEL_U_SIMPLE_###`**) as an endpoint so that the **consuming system** can access it. To do this, create a service binding of type **Web API**, OData version 2. (The type **UI** is not suitable for creating the other objects you will derive from it later.) 
 
 When naming, remember to comply with the [Naming Conventions for RAP Business Objects](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/8b8f9d8f3cb948b2841d6045a255e503.html?q=naming%20convention&version=2302.500).
 
@@ -64,9 +64,9 @@ When naming, remember to comply with the [Naming Conventions for RAP Business Ob
 2. In the wizard:
 
     - Name: **`Z_C_TRAVEL_API_O2_###`** 
-    - Description **`Endpoint Z_C_TRAVEL_U_SIMPLE_000`**
+    - Description **`Endpoint Z_C_TRAVEL_U_SIMPLE_###`**
     - Enter the binding type: **`ODATA V2 - Web API`**
-    - Make sure that the service definition = **`Z_C_TRAVEL_U_SIMPLE_000`**
+    - Make sure that the service definition = **`Z_C_TRAVEL_U_SIMPLE_###`**
     - Choose **Next**
 
     <!-- border -->
@@ -103,12 +103,12 @@ Your Communication Scenario appears in a new editor.
     <!-- border -->
     ![step2a-add-http-service](step2a-add-http-service.png)
 
-2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z000_`**, select your service binding - (with the ending `IWSG` or `G4BA` added automatically) then choose **Finish**.
+2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z###_`**, select your service binding - (with the ending `IWSG` or `G4BA` added automatically) then choose **Finish**.
 
     <!-- border -->
     ![step2b-browse-inbound-service](step2b-browse-inbound-service.png)
 
-3. Your service binding **`Z_C_TRAVEL_API_O2_000_IWSG`** appears. Save, then choose **Publish Locally**.
+3. Your service binding **`Z_C_TRAVEL_API_O2_###_IWSG`** appears. Save, then choose **Publish Locally**.
 
     <!-- border -->
     ![step2c-publish-service-locally](step2c-publish-service-locally.png)
@@ -139,7 +139,7 @@ Now you will create several communication artifacts using the appropriate Fiori 
     <!-- border -->
     ![step5b-comm-system-new](step5b-comm-system-new.png)
 
-4. Enter a System ID, **`Z000_TO_CON_CSYS`**, where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
+4. Enter a System ID, **`Z###_TO_CON_CSYS`**, where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
 
     <!-- border -->
     ![step5c-comm-system-id-name](step5c-comm-system-id-name.png)
@@ -193,13 +193,13 @@ Now you will create several communication artifacts using the appropriate Fiori 
     <!-- border -->
     ![step6b-choose-scenario](step6b-choose-scenario.png)
 
-3. From the dropdown list, choose your communication system **`Z000_TO_CON_CSYS`**
+3. From the dropdown list, choose your communication system **`Z###_TO_CON_CSYS`**
 
 4. Save your changes.
 
 Your Communication Arrangement should look roughly like this. 
 
-> The information from the Communication System is filled in automatically. The Service URL / Service Interface = < Base URL of provisioning system > + relative path of your Inbound Service, here `/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_000_IWSG`.
+> The information from the Communication System is filled in automatically. The Service URL / Service Interface = < Base URL of provisioning system > + relative path of your Inbound Service, here `/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_###_IWSG`.
 
 <!-- border -->
 ![step6e-comm-arr-editor](step6e-comm-arr-editor.png)
@@ -219,9 +219,10 @@ SORT BORDER
 
 3. The response appears in the **Body** field, along with the status **200 OK**.
 
-    <!-- border 
-    ![step7b-postman-response](step7b-postman-response.png)
- -->
+Add image later
+-->
+
+
 
 ### Create service metadata file
 
