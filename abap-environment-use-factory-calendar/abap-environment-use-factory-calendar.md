@@ -32,7 +32,7 @@ Please keep in mind that this tutorial uses standard, SAP-delivered factory cale
 
 > In this tutorial, wherever ### appears, use a number (e.g., 000).
 
-For more information on scalar functions, please see [CDS Scalar Functions | SAP Help Portal](https://help.sap.com/docs/btp/sap-abap-cds-development-user-guide/cds-scalar-functions?version=Cloud).
+For more information on scalar functions, please see [CDS Scalar Functions | SAP Help Portal](https://help.sap.com/docs/abap-cloud/abap-cds-tools-user-guide/cds-scalar-functions?version=sap_btp).
 
 For more information on factory calendars, please see [Maintain Factory Calendars | SAP Help Portal](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/maintain-factory-calendars). For accessing factory calendar related information from your ABAP code, see [Factory Calendar | SAP Help Portal](https://help.sap.com/docs/btp/sap-business-technology-platform/rel-comp-factory-calendar).
 
@@ -285,7 +285,7 @@ You will now implement the actual logic for the scalar function, which will be c
 
 6. Use the **Activate inactive ABAP development objects** functionality (`Crtl` + `Shift` + `F3`) to activate all class artifacts and the scalar function implementation reference. Since the objects are dependent on each other, they must be activated simultaneously.
 
-Two built-in HANA SQL functions are used. First, `add_workdays` is used to add the specified days to the production start date. This function makes use of the factory calendars maintained in your system. Since the output is in **DATE** format, function `to_dats` is used to convert it to the same ABAP date format as the other dates.
+  Two built-in HANA SQL functions are used. First, [`ADD_WORKDAYS` Function | SAP Help Portal](https://help.sap.com/docs/HANA_SERVICE_CF/7c78579ce9b14a669c1f3295b0d8ca16/d22c8391d2951014815a84e76cf66501.html) is used to add the specified days to the production start date. This function makes use of the factory calendars maintained in your system. Since the output is in **DATE** format, function [`TO_DATS` | SAP Help Portal](https://help.sap.com/docs/HANA_SERVICE_CF/7c78579ce9b14a669c1f3295b0d8ca16/20ecb35c75191014b225b00e53f9c1b8.html) is used to convert it to the same ABAP date format as the other dates.
 
 ### Consume the Scalar Function in your Business Object
 
