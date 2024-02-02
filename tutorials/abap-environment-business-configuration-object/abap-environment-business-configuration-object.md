@@ -176,7 +176,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
      ![Select generator](bc2.png)
 
-  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/8b8f9d8f3cb948b2841d6045a255e503.html). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
 
 
       Click **Next >**.
