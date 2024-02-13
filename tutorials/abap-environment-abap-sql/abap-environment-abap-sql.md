@@ -2,11 +2,7 @@
 parser: v2
 auto_validation: true
 time: 60
-<<<<<<< HEAD
-tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform]
-=======
 tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Niloofar Flothkoetter
 author_profile: https://github.com/niloofar-flothkoetter
@@ -27,15 +23,10 @@ author_profile: https://github.com/niloofar-flothkoetter
   - Open an ODBC connection in Microsoft Excel and access data
 
 ## Intro
-<<<<<<< HEAD
->Always replace `####` with your initials or group number.
-=======
 This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
 Always replace `####` with your initials or group number.
 
-
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 You will learn how you can access CDS view entities in an ABAP system using SQL via ODBC. Open Database Connectivity (ODBC) is a standard API for accessing databases.
 
@@ -466,9 +457,9 @@ Therefore, you will now to create a communication scenario and a communication a
 
     ![new](710.png)
 
-  3. In the popup choose `ZRAP_CS_SQL` in **Scenario** field. Change the **Arrangement Name** to `ZRAP_CS_SQL_####` and click **Create**.
+  3. In the popup choose `Z_COM_SCENARIO_SQL_####` in **Scenario** field. Change the **Arrangement Name** to `ZRAP_CS_SQL_####` and click **Create**.
 
-    ![create](715.png)
+    ![create](715x.png)
 
   4. To complete the link between communication scenario and communication system, you need to add your communication system **SQL_ACCESS_####**, and the system will automatically add the user **SQL_USER_####**. Before Saving your changes, you need to note down the service URL, `https://<hostname>/sap/bc/sql/sql1/sap/S_PRIVILEGED`.
 
