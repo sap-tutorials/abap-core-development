@@ -270,7 +270,7 @@ author_profile: https://github.com/mervey45
       - Service Type: `OData V2 (deprecated)`
       - Service Name: `ZUI_C_TRAVEL_M_XXX_0001`    
 
-      ![iam](iam6.png)
+      ![iam](iam6x.png)
 
       Click **OK**.
 
