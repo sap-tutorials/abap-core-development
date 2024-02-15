@@ -176,8 +176,6 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
 ### Enhance behavior definition of data model
 
-**Hint:** In case of S/4HANA 2022 `FPS01` and S/4HANA 2023 `FPS00`, strict(1) mode must be used. 
-
 **In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
   
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following read-only fields to your behavior definition:
@@ -196,7 +194,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
     ```ABAP
     managed implementation in class ZBP_SHOPCARTTP_### unique;
-    strict ( 1 );
+    strict ( 2 );
     with draft;
 
     define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
