@@ -4,7 +4,7 @@ description: Learn how to develop and deploy a custom shell plug-in to your SAP 
 keywords: tutorial
 auto_validation: true
 time: 45
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>s-4hana-cloud-abap-environment]
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>sap-s-4hana-cloud--abap-environment]
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Arianna Musso Barcucci
 author_profile: https://github.com/AriannaMussoBarcucci
@@ -22,6 +22,8 @@ parser: v2
 
 >This tutorial was written for SAP BTP ABAP Environment. However, you should be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
+>Throughout this tutorial, you will create various development objects and UI components. Wherever the suffix `###` or `000` is used, please replace it with your initials or group number.
+
 ## You will learn
 - How to create a custom shell plug-in.
 - How to deploy the shell plug-in to your SAP BTP ABAP Environment as part of a SAP Fiori Application.
@@ -32,7 +34,6 @@ parser: v2
 ### Create a Package in ABAP Developer Tool in Eclipse
 
 The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component.
->Throughout this tutorial, you will create various development objects and UI components. Wherever the suffix `XXX` is used, you can substitute it with a nomenclature of your choosing. If you do so, please make sure to keep the names consistent throughout the whole tutorial.
 
 1. Access ABAP Developer Tool in Eclipse and connect to your SAP BTP ABAP Environment.
 
@@ -43,7 +44,7 @@ The shell plug-in will be deployed to the local `ZLOCAL` software component in y
 3. Input a name and a description for your package. Make sure that the **Package Type** is **Development**. Click on **Next**.
 
     ![Create new package - name and description](create_new_package_2_new.png)
->For the scope of this tutorial, the package name is `Z_PLUGIN_XXX`. You can use this name or choose your own package name. But make sure that your package name starts with `Z`. Take note of the name of the package you just created, you will need it in a later step. You can also mark the **Add to favorite package** option, so the package will be automatically added to your favorites and it will be easier to find later on.
+>For the scope of this tutorial, the package name is `Z_PLUGIN_###`. You can use this name or choose your own package name. But make sure that your package name starts with `Z`. Take note of the name of the package you just created, you will need it in a later step. You can also mark the **Add to favorite package** option, so the package will be automatically added to your favorites and it will be easier to find later on.
 
 4. In the **Software Component** field input `ZLOCAL`. Click on **Next**.
 
@@ -75,7 +76,7 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as part of a
 
     ![Create SAP Fiori application](create_SAPUI5_project.png)
 
-5. In the **Application Type** dropdown menu, select  **SAPUI5 freestyle**. Select the **SAPUI5 Application** `floorplan` and click on **Next**.
+5. In the **Template Type** dropdown menu, select  **SAP Fiori**. Select the **Basic** `floorplan` and click on **Next**.
 
     ![Create SAPUI5 project](create_SAPUI5_project_2.png)
 
@@ -109,110 +110,94 @@ SAP Fiori Application projects created via the SAP Fiori template are automatica
 
     ![Open manifest.json file](open_manifest_json.png)
 
-2. In the **`manifest.json`** file, modify the following configurations: <ul><li>Under the `"sap.app"` configuration adjust the `"type"` parameter to `"component"`.</li><li>Under the `"crossNavigation"` configuration remove the `"title"`, `"subTitle"` and `"icon"`. And add the parameter `"hideLauncher": true`.</li><li>Remove the `"routing"` and the `"rootView"` configurations.</li><li>At the end of the file, insert the following code snippet:
+2. In the **`manifest.json`** file, modify the following configurations: <ul><li>Under the `"sap.app"` configuration adjust the `"type"` parameter to `"component"`.</li><li>Under the `"crossNavigation"` configuration remove the `"title"`. And add the parameter `"hideLauncher": true`.</li><li>Remove the `"routing"` and the `"rootView"` configurations.</li><li>At the end of the file, insert the following code snippet:
   `"sap.flp": {"type": "plugin"}`.</li> At the end your **`mainfest.json`** file should look like the following:
 ``` JSON
 {
-    "_version": "1.42.0",
-    "sap.app": {
-        "id": "zpluginxxx",
-        "type": "component",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:basic",
-            "version": "1.8.0",
-            "toolsId": "b503f28f-ee0b-467a-9b29-cfa8d61bc583"
-        },
-        "dataSources": {
-            "mainService": {
-                "uri": "/sap/opu/odata/",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            }
-        },
-        "crossNavigation": {
-            "inbounds": {
-                "zpluginxxx-inbound": {
-                    "signature": {
-                        "parameters": {},
-                        "additionalParameters": "allowed"
-                    },
-                    "hideLauncher": true,
-                    "semanticObject": "Shell",
-                    "action": "plugin"
-                }
-            }
-        }
+  "_version": "1.58.0",
+  "sap.app": {
+    "id": "zplugin###",
+    "type": "component",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
     },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.11.4",
+      "toolsId": "ca6d90b1-7c62-441c-8145-fa747953cc5c"
     },
-    "sap.ui5": {
-        "flexEnabled": true,
-        "dependencies": {
-            "minUI5Version": "1.102.1",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {},
-                "sap.f": {},
-                "sap.suite.ui.generic.template": {},
-                "sap.ui.comp": {},
-                "sap.ui.generic.app": {},
-                "sap.ui.table": {},
-                "sap.ushell": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "zpluginxxx.i18n.i18n"
-                }
-            },
-            "": {
-                "dataSource": "mainService",
-                "preload": true,
-                "settings": {}
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
+    "crossNavigation": {
+      "inbounds": {
+        "Shell-plugin": {
+          "hideLauncher": true,
+          "semanticObject": "Shell",
+          "action": "plugin",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
-    },
-    "sap.flp":{
-        "type": "plugin"
+      }
     }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zplugin###.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    }
+  },
+  "sap.flp":{
+  "type": "plugin"
+  }
 }
 ```
 >In the above code snippet, certain parameters are project-dependent and might therefore have different values for you. For this reason, you should use this code snippet as a guide, and manually adjust your **`mainfest.json`** file (rather than simply copy and paste this code snippet).
@@ -234,7 +219,7 @@ sap.ui.define([
     function (UIComponent) {
         "use strict";
 
-        return UIComponent.extend("zpluginxxx.Component", {
+        return UIComponent.extend("zplugin###.Component", {
             metadata: {
                 manifest: "json"
             },
@@ -269,21 +254,27 @@ sap.ui.define([
 );
 ```
 
->In line 7, the `"zpluginxxx.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zpluginxxx` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` parameter.
+>In line 7, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` parameter.
 
 ### Preview your SAPUI5 Application
 
 Your basic SAPUI5 Application can be previewed before it is deployed. Using the preview functionality is good practice before deploying an application, to make sure that the UI looks as intended and the application's functionalities work as desired.
 
-1. In Business Application Studio, right click on the project folder and select **Preview Application**.
+1. In Business Application Studio, In the **Storyboard** tab right click on your UI Application and click on **Open Application Info**.
 
     ![Preview application](Preview_app_1.png)
 
-2. Select **start fiori-run**. This will prompt a new terminal window which will run the **start fiori-run** command. This can take up to a few seconds. Once it is done, a preview of your application will open up in a new browser window.
+    >The **Storyboard** tab can always be open from the Search bar by typing the command `> Open Storyboard`.
+
+2. In the **Application Info** view, select the **Preview Application** tile.
+
+    ![Preview application 2](Preview_app_1_2.png)
+
+3. Select **start fiori-run**. This will prompt a new terminal window which will run the **start fiori-run** command. This can take up to a few seconds. Once it is done, a preview of your application will open up in a new browser window.
 
     ![Preview application - start fiori run](Preview_app_2_new.png)
 
-3. In the preview of your application, click on the user icon in the top-right corner and open the **settings**. Your shell plug-in is listed in the user's settings dialog.
+4. In the preview of your application, click on the user icon in the top-right corner and open the **settings**. Your shell plug-in is listed in the user's settings dialog.
 
     ![Application preview - settings](Preview_app_3.png)
     
@@ -294,12 +285,11 @@ Your basic SAPUI5 Application can be previewed before it is deployed. Using the 
 
 You can now deploy your SAPUI5 Application with a basic (empty) shell plug-in to your SAP BTP ABAP Environment.
 
-1. In Business Application Studio, right click on the project folder and select **Open in Integrated Terminal**. This will open a new terminal window.
+1. In Business Application Studio, in the **Application Info** view, click on the **Deploy** tile:
 
-    ![Open terminal window](open_terminal.png)
+    ![Deploy application](deploy_application.png)
 
-2. In the terminal window, run the command:
-`npm run deploy`. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
+2. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
 `Deployment Successful`. You can now close the terminal window.
 >The deployment process can take up to a few minutes.
 
@@ -387,13 +377,16 @@ Now you need to create a Business Role in your SAP BTP ABAP Environment and then
     
     Search for your user name, select it and click **OK**.
 
-6. In the **General Role Details** tab, change the value for the **Write, Read, Value Help** parameter to **Unrestricted**. Then click on **Save**. <br/> ![Create business role 7](Create_business_role_7_new.png)
+6. In the **General Role Details** tab, change the value for the **Write, Read, Value Help** parameter to **Unrestricted**. Then click on **Save**.
+
+[Create business role 7](Create_business_role_7_new.png)
 
 ### Test your Shell Plug-in
 
 You have successfully created an empty shell plug-in and deployed it to your SAP BTP ABAP Environment as part of a SAPUI5 Application. You have setup the IAM App, the Business Catalog and the Business Role. Any user with this Business Role will now see the shell plug-in in the user settings dialog: click on the user icon in the top right corner, and click on **Settings**.
 
-    ![Create business role 8](Create_business_role_8_new.png)
+![Create business role 8](Create_business_role_8_new.png)
+
 >You might have to refresh the webpage for the shell plug-in to appear in the **Settings**.
 
 In the next tutorial, you will learn how to enrich your shell plug-in making use of OData Services.

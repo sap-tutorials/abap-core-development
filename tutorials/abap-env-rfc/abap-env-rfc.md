@@ -1,28 +1,28 @@
 ---
 parser: v2
-title: Connect to Your On-Premise System from SAP BTP, ABAP Environment Using RFC
-description: Call a remote function module located in an on-premise system, such as a SAP S/4HANA System, from the ABAP Environment
 auto_validation: true
 time: 30
-tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
+tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, software-product>sap-business-technology-platform, software-product-function>sap-s-4hana-cloud--abap-environment, tutorial>license]
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 
 ---
 
+# Connect to Your On-Premise System from SAP BTP, ABAP Environment Using RFC
+<!-- description --> Call a remote function module located in an on-premise system, such as a SAP S/4HANA System, from the ABAP Environment
 
-## Prerequisites
+## Prerequisites 
 
 - **IMPORTANT**: This tutorial cannot be completed on a trial account. If you want to explore some of the concepts of this mission on a trial account, using OData or SOAP rather than RFC, see the following workshop: [SAP BTP, ABAP Environment: Connectivity and Integration](https://github.com/SAP-samples/teched2020-DEV268).
 - You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
 - **Tutorial**: [Set Up SAP BTP, ABAP Environment and create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
--	You have developer rights to an ABAP on-premise system, such as:
-    - [AS ABAP developer edition, latest version](https://blogs.sap.com/2019/07/01/as-abap-752-sp04-developer-edition-to-download/) or:
+-	You have rights to call the appropriate resources on an ABAP on-premise system. See step 2.4 for details. Examples of such on-premise systems include:
+    - [ABAP Platform Trial, latest version](https://hub.docker.com/r/sapse/abap-platform-trial/tags) or:
     - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) or:
     - [The SAP Gateway Demo System (ES5)](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
-- You have configured **SAP Cloud Connector**, connecting your BTP and on-premise systems and have added the appropriate resources
-- You have assigned the business role **`SAP_BR_DEVELOPER`** to your user in both systems; you will need it to create communication artifacts
+- You have connected **SAP Cloud Connector**, to your BTP subaccount
+- You have assigned the business roles **`SAP_BR_DEVELOPER`** and **`SAP_BR_ADMINISTRATOR`** to your user
 
   
 ## You will learn 
@@ -32,36 +32,16 @@ author_profile: https://github.com/julieplummer20
 
 This tutorial mission was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
-Throughout this tutorial, replace `000` with your initials or group number.
+Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
-**The problem:**
-
-There are two problems when setting up connectivity between the SAP BTP, ABAP Environment and an on-premise ABAP System:
-
-- The ABAP Environment "lives" in the Internet, but customer on-premise systems are behind a firewall
-- Remote Function Call (RFC) is not internet-enabled
-
-**The solution:**
-
-Set up a secure connection from the on-premise system to the SAP BTP, ABAP Environment.
-
-
-<!--
-**Technical information:** 
-1. The ABAP environment tenant requests to open the tunnel connection through the Connectivity service.
-2. The Connectivity service tells the Cloud Connector to open the connection to this specific ABAP environment tenant using the admin connection.
-3. The Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL.
-4. After the tunnel is established, it can be used for actual data connection using the RFC or HTTP(S) protocols. -->
-
-<!-- border -->
-<!-- LATER ![overview-cf-only](overview-cf-only.png) -->
+<!-- LATER: Overview graphic  -->
 
 ---
 
 
 ### Check SAP Cloud Connector Configuration
 
-First, you need to connect your ABAP on-premise system to your BTPsub-account by means of SAP Cloud Connector.
+First, you need to connect your ABAP on-premise system to your BTP sub-account by means of SAP Cloud Connector.
 
 1. In your browser, log on to SAP Cloud Connector:
     - Address = e.g. `https://localhost:<port>` (Default = **`8443`**)
@@ -73,7 +53,7 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
     <!-- border -->
     ![step1b-scc-location-id](step1b-scc-location-id.png)
 
-  Note down the **Location ID**, e.g. **`SAPDEV`** as here. **You will need it later.**
+ > The **Location ID** is optional. It enables you to connect multiple Cloud Connectors to a subaccount.
 
 
 ### Check that On-Premise System has been added
@@ -87,10 +67,13 @@ First, you need to connect your ABAP on-premise system to your BTPsub-account by
     <!-- border -->
     ![step2a-scc-virtual-host](step2a-scc-virtual-host.png)
 
-4. Check that the list of resources should looks roughly like this.
+4. Add the following resources:
+    
+    - **`RFC_GET_SYSTEM_INFO`** (as exact name)
+    - **`BAPI_EPM`** (as prefix)
 
-    <!-- border -->
-    ![step2b-scc-resources](step2b-scc-resources.png)
+      <!-- border -->
+      ![step2b-scc-resources](step2b-scc-resources.png)
 
 
 ### Check connectivity in SAP BTP cockpit (optional)
@@ -100,7 +83,7 @@ In the SAP BTP cockpit of your Cloud Foundry sub-account, choose **Cloud Connect
 <!-- border -->
 ![step3a-btp-cockpit-cloud-connectors](step3a-btp-cockpit-cloud-connectors.png)
 
-> The **Location ID** points to the correct SAP Cloud Connector (located in the on-Premise system); The **Virtual host** points to the on-Premise connection mapped in SAP Cloud Connector. Later, in your **Communication System** in Fiori Launchpad, you will use these values, as **SCC Location ID** and **Target Host** respectively.
+> The **Virtual host** points to the on-Premise connection mapped in SAP Cloud Connector. If used, The **Location ID** points to the correct SAP Cloud Connector (located in the on-Premise system). Later, in your **Communication System** in Fiori Launchpad, you will use these values, as  and **Target Host** and (optionally) **SCC Location ID** respectively.
 
 
 ### Create package in ADT
@@ -145,7 +128,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 
 3. Choose the transport request you just created, then choose **Finish**.
 
-The outbound service appears. Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, then choose **Save** from the main toolbar.
+The outbound service appears. Optional: Add the relevant RFC, **`RFC_GET_SYSTEM_INFO`**, then choose **Save** from the main toolbar.
 
   <!-- border -->
   <!-- ![step2c-new-outbound-service-rfc](step2c-new-outbound-service-rfc.png) -->
@@ -278,52 +261,64 @@ For more information, see [Set Up SAP BTP, ABAP Environment and create Your Firs
 5. Create or assign a transport request.
 
 
-### Create variables
+### Create variables in interface
 
 First, you need to create the types and variables that specify your remote connection information.
+
 Since the structure **`rfcsi`** is not a released object in SAP BTP, ABAP Environment, or in S/4HANA, Cloud edition, you need to create appropriate types for the variable **`lv_result`**. To generate these types for other remote function modules, use the transaction **`ACO_PROXY`**.
 
-1. In the Public section of your class definition, add the following:
+For readability and reuse, you will create these in an interface.
+
+1. Select your package and choose **New > Other ABAP Object > ABAP Interface** from the context menu.
+
+2. Enter the following and choose **Next**.
+
+  - Name: **`IF_TYPES_FOR_SYSTEM_INFO`**
+  - Description: **`Types for RFC_GET_SYSTEM_INFO`**
+  
+3. Choose the transport request, then choose **Finish**.
+
+4. Add the following to the interface:
 
     ```ABAP
       types:
-        RFCPROTO TYPE C LENGTH 000003 ##TYPSHADOW .
+        RFCPROTO TYPE C LENGTH 000003 .
       types:
-        RFCCHARTYP TYPE C LENGTH 000004 ##TYPSHADOW .
+        RFCCHARTYP TYPE C LENGTH 000004   .
       types:
-        RFCINTTYP TYPE C LENGTH 000003 ##TYPSHADOW .
+        RFCINTTYP TYPE C LENGTH 000003   .
       types:
-        RFCFLOTYP TYPE C LENGTH 000003 ##TYPSHADOW .
+        RFCFLOTYP TYPE C LENGTH 000003   .
       types:
-        RFCDEST TYPE C LENGTH 000032 ##TYPSHADOW .
+        RFCDEST TYPE C LENGTH 000032   .
       types:
-        RFCCHAR8 TYPE C LENGTH 000008 ##TYPSHADOW .
+        RFCCHAR8 TYPE C LENGTH 000008  .
       types:
-        SYSYSID TYPE C LENGTH 000008 ##TYPSHADOW .
+        SYSYSID TYPE C LENGTH 000008  .
       types:
-        RFCDBHOST TYPE C LENGTH 000032 ##TYPSHADOW .
+        RFCDBHOST TYPE C LENGTH 000032  .
       types:
-        SYDBSYS TYPE C LENGTH 000010 ##TYPSHADOW .
+        SYDBSYS TYPE C LENGTH 000010  .
       types:
-        SYSAPRL TYPE C LENGTH 000004 ##TYPSHADOW .
+        SYSAPRL TYPE C LENGTH 000004  .
       types:
-        RFCMACH TYPE C LENGTH 000005 ##TYPSHADOW .
+        RFCMACH TYPE C LENGTH 000005  .
       types:
-        SYOPSYS TYPE C LENGTH 000010 ##TYPSHADOW .
+        SYOPSYS TYPE C LENGTH 000010  .
       types:
-        RFCTZONE TYPE C LENGTH 000006 ##TYPSHADOW .
+        RFCTZONE TYPE C LENGTH 000006  .
       types:
-        SYDAYST TYPE C LENGTH 000001 ##TYPSHADOW .
+        SYDAYST TYPE C LENGTH 000001  .
       types:
-        RFCIPADDR TYPE C LENGTH 000015 ##TYPSHADOW .
+        RFCIPADDR TYPE C LENGTH 000015  .
       types:
-        SYKERNRL TYPE C LENGTH 000004 ##TYPSHADOW .
+        SYKERNRL TYPE C LENGTH 000004  .
       types:
-        SYHOST TYPE C LENGTH 000032 ##TYPSHADOW .
+        SYHOST TYPE C LENGTH 000032  .
       types:
-        RFCSI_RESV TYPE C LENGTH 000012 ##TYPSHADOW .
+        RFCSI_RESV TYPE C LENGTH 000012  .
       types:
-        RFCIPV6ADDR TYPE C LENGTH 000045 ##TYPSHADOW .
+        RFCIPV6ADDR TYPE C LENGTH 000045  .
       types:
         BEGIN OF RFCSI                         ,
               RFCPROTO                       TYPE RFCPROTO                      ,
@@ -346,24 +341,28 @@ Since the structure **`rfcsi`** is not a released object in SAP BTP, ABAP Enviro
               RFCHOST2                       TYPE SYHOST                        ,
               RFCSI_RESV                     TYPE RFCSI_RESV                    ,
               RFCIPV6ADDR                    TYPE RFCIPV6ADDR                   ,
-        END OF RFCSI                          ##TYPSHADOW .
+        END OF RFCSI                           .
 
     ```
 
-2. In the class implementation, in the method **`if_oo_adt_classrun~main`**, add the following:
+4. Format, save, and activate ( `Sh+F1, Ctrl + Save, Ctrl + F3`) your interface. 
+
+
+### Create variables in class implementation
+In the class implementation, in the method **`if_oo_adt_classrun~main`**, add the following variables.
    
     ```ABAP
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
-                              comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-                              service_id             = 'Z_OUTBOUND_RFC_000_SRFC'         " Outbound service
-                              comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
+        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+        service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
 
                           ).
 
     DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-    DATA lv_result type rfcsi.
+    DATA lv_result type IF_TYPES_FOR_SYSTEM_INFO=>rfcsi.
+    DATA msg TYPE c LENGTH 255.
 
     ```
 
@@ -371,7 +370,7 @@ Since the structure **`rfcsi`** is not a released object in SAP BTP, ABAP Enviro
 ### Call remote function from on-premise system
 
 ```ABAP
-CALL function 'RFC_SYSTEM_INFO'
+CALL function 'RFC_GET_SYSTEM_INFO'
 destination lv_destination
   IMPORTING
     RFCSI_EXPORT      = lv_result.
@@ -413,69 +412,6 @@ CLASS ZCL_A4C_RFC_000 DEFINITION
 public section.
   interfaces if_oo_adt_classrun.
 
-    types:
-    RFCPROTO TYPE C LENGTH 000003 ##TYPSHADOW .
-  types:
-    RFCCHARTYP TYPE C LENGTH 000004 ##TYPSHADOW .
-  types:
-    RFCINTTYP TYPE C LENGTH 000003 ##TYPSHADOW .
-  types:
-    RFCFLOTYP TYPE C LENGTH 000003 ##TYPSHADOW .
-  types:
-    RFCDEST TYPE C LENGTH 000032 ##TYPSHADOW .
-  types:
-    RFCCHAR8 TYPE C LENGTH 000008 ##TYPSHADOW .
-  types:
-    SYSYSID TYPE C LENGTH 000008 ##TYPSHADOW .
-  types:
-    RFCDBHOST TYPE C LENGTH 000032 ##TYPSHADOW .
-  types:
-    SYDBSYS TYPE C LENGTH 000010 ##TYPSHADOW .
-  types:
-    SYSAPRL TYPE C LENGTH 000004 ##TYPSHADOW .
-  types:
-    RFCMACH TYPE C LENGTH 000005 ##TYPSHADOW .
-  types:
-    SYOPSYS TYPE C LENGTH 000010 ##TYPSHADOW .
-  types:
-    RFCTZONE TYPE C LENGTH 000006 ##TYPSHADOW .
-  types:
-    SYDAYST TYPE C LENGTH 000001 ##TYPSHADOW .
-  types:
-    RFCIPADDR TYPE C LENGTH 000015 ##TYPSHADOW .
-  types:
-    SYKERNRL TYPE C LENGTH 000004 ##TYPSHADOW .
-  types:
-    SYHOST TYPE C LENGTH 000032 ##TYPSHADOW .
-  types:
-    RFCSI_RESV TYPE C LENGTH 000012 ##TYPSHADOW .
-  types:
-    RFCIPV6ADDR TYPE C LENGTH 000045 ##TYPSHADOW .
-  types:
-    BEGIN OF RFCSI                         ,
-          RFCPROTO                       TYPE RFCPROTO                      ,
-          RFCCHARTYP                     TYPE RFCCHARTYP                    ,
-          RFCINTTYP                      TYPE RFCINTTYP                     ,
-          RFCFLOTYP                      TYPE RFCFLOTYP                     ,
-          RFCDEST                        TYPE RFCDEST                       ,
-          RFCHOST                        TYPE RFCCHAR8                      ,
-          RFCSYSID                       TYPE SYSYSID                       ,
-          RFCDATABS                      TYPE SYSYSID                       ,
-          RFCDBHOST                      TYPE RFCDBHOST                     ,
-          RFCDBSYS                       TYPE SYDBSYS                       ,
-          RFCSAPRL                       TYPE SYSAPRL                       ,
-          RFCMACH                        TYPE RFCMACH                       ,
-          RFCOPSYS                       TYPE SYOPSYS                       ,
-          RFCTZONE                       TYPE RFCTZONE                      ,
-          RFCDAYST                       TYPE SYDAYST                       ,
-          RFCIPADDR                      TYPE RFCIPADDR                     ,
-          RFCKERNRL                      TYPE SYKERNRL                      ,
-          RFCHOST2                       TYPE SYHOST                        ,
-          RFCSI_RESV                     TYPE RFCSI_RESV                    ,
-          RFCIPV6ADDR                    TYPE RFCIPV6ADDR                   ,
-    END OF RFCSI                          ##TYPSHADOW .
-
-
 protected section.
 private section.
 ENDCLASS.
@@ -493,10 +429,10 @@ CLASS ZCL_A4C_RFC_000 IMPLEMENTATION.
 
         DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-        DATA lv_result TYPE RFCSI.
+        DATA lv_result TYPE if_types_for_system_info=>RFCSI.
         DATA msg TYPE c LENGTH 255.
 
-        CALL FUNCTION 'RFC_SYSTEM_INFO'
+        CALL FUNCTION 'RFC_GET_SYSTEM_INFO'
           DESTINATION lv_destination
           IMPORTING
             rfcsi_export          = lv_result
@@ -554,7 +490,7 @@ ENDCLASS.
     
     ```
 
-2. Now, in the function call for `RFC_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_SYSTEM_INFO`:
+2. Now, in the function call for `RFC_GET_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_GET_SYSTEM_INFO`:
 
     ```ABAP
 
@@ -585,36 +521,9 @@ ENDCLASS.
 
 ### More Information
 
-This tutorial is based on an excellent blog post by André Fischer:
-
-- [How to call a remote function module in your on-premise SAP system...](https://blogs.sap.com/2019/02/28/how-to-call-a-remote-function-module-in-your-on-premise-sap-system-from-sap-cloud-platform-abap-environment/)
-
 For information on **`ACO_PROXY`**, see:
 
 - SAP Help Portal: [RFC: Generating Static Proxies](https://help.sap.com/docs/ABAP_PLATFORM_NEW/753088fc00704d0a80e7fbd6803c8adb/b450522405e0423c948c7d369d869b9d.html?locale=en-US)
-
-For OData services in general:
-
-- Mission: [Take a Deep Dive into OData](mission.scp-3-odata)
-
-For SAP Gateway in general, see:
-
-- [OData service development with SAP Gateway using CDS](https://blogs.sap.com/2016/06/01/odata-service-development-with-sap-gateway-using-cds-via-referenced-data-sources/) - pertains to on-premise Systems, but contains lots of useful background information on the relationships between CDS views and OData services
-
-For connectivity in this context, see:
-- SAP Help Portal: [SAP Cloud Connector](https://help.sap.com/docs/connectivity/sap-btp-connectivity-cf/cloud-connector)
-
-- SAP Help Portal: [RFC Communication via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/rfc-communication-via-communication-arrangements)
-
-For SAP Business Technology Platform (BTP):
-
-- SAP Help Portal: [What is SAP Business Technology Platform (BTP)](https://help.sap.com/docs/btp/sap-business-technology-platform/btp-basic-platform-concepts)
-
-- SAP Help Portal: [Getting Started With a Customer Account](https://help.sap.com/docs/btp/sap-business-technology-platform/getting-started-with-customer-account-in-abap-environment) - If you use the booster, these steps are performed automatically for you, but you may be interested in the background information
-
-
-
-
 
 
 

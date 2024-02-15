@@ -8,10 +8,10 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 --- 
  
-# Integrate released purchase requisition API into Online Shop Business Object
-<!-- description --> Integrate released purchase requisition API into online shop business object with SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise.
+# Integrate released purchase requisition API into Shopping Cart Business Object
+<!-- description --> Integrate released purchase requisition API into shopping cart business object with SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise.
  
-In the online shop, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
+In the shopping cart, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
 
 [EML](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/af7782de6b9140e29a24eae607bf4138.html) can be used to trigger purchase requisitions API, which is released for cloud development.
 
@@ -34,7 +34,7 @@ In the online shop, customers can order various items. Once an item is ordered, 
 - How to check purchase requisitions 
 
 ## Intro
-In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
+In this tutorial, wherever `###` appears, use a number (e.g. 000).
 
 ---
 
@@ -43,7 +43,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
 
 **Hint:** In case of S/4HANA 2022 `FPS01`, strict(1) mode must be used.
 
-  1. Add the following action statement for `createPurchaseRequisitionItem ` to your behavior definition **`ZR_ONLINESHOPTP_XXX`**.
+  1. Add the following action statement for `createPurchaseRequisitionItem ` to your behavior definition **`ZR_SHOPCARTTP_###`**.
 
     ```ABAP
     action(features:instance) createPurchaseRequisitionItem  result [1] $self;
@@ -51,18 +51,18 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
    
      ![projection](bdef5.png)
 
-     **Hint:** Please replace **`#`**, **`X`** and **`XXX`** with your ID. 
+     **Hint:** Please replace **`###`** with your ID. 
 
   2. Check your behavior definition:
 
     ```ABAP
-    managed implementation in class ZBP_ONLINESHOPTP_XXX unique;
+    managed implementation in class ZBP_SHOPCARTTP_### unique;
     strict ( 2 );
     with draft;
 
-    define behavior for ZR_ONLINESHOPTP_XXX alias OnlineShop
-    persistent table zaonlineshop_xxx
-    draft table ZDONLINESHOP_XXX
+    define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
+    persistent table zashopcart_###
+    draft table ZDSHOPCART_###
     etag master LocalLastChangedAt
     lock master total etag LastChangedAt
     authorization master( global )
@@ -97,7 +97,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
       validation checkDeliveryDate on save { create; field DeliveryDate; }
 
     action(features:instance) createPurchaseRequisitionItem  result [1] $self;
-      mapping for ZAONLINESHOP_XXX 
+      mapping for ZASHOPCART_### 
       {
         OrderUUID = order_uuid;
         OrderID = order_id;
@@ -125,13 +125,13 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
 ### Enhance behavior definition of projection view
 
 
-  1. Open your behavior definition **`ZC_ONLINESHOPTP_XXX`** to enhance it. Add action `createPurchaseRequisitionItem` to your behavior definition.
+  1. Open your behavior definition **`ZC_SHOPCARTTP_###`** to enhance it. Add action `createPurchaseRequisitionItem` to your behavior definition.
 
     ```ABAP
     use action createPurchaseRequisitionItem;
     ```
     
-    ![projection](projection4.png)
+    ![projection](actionnew.png)
 
   2. Check your behavior definition:
 
@@ -140,7 +140,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
     strict ( 2 );
     use draft;
 
-    define behavior for ZC_ONLINESHOPTP_XXX alias OnlineShop
+    define behavior for ZC_SHOPCARTTP_### alias ShoppingCart
     use etag
     {
       use create;
@@ -161,7 +161,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
 
 ### Enhance metadata extension
 
-  1. Open your metadata extension **`ZC_ONLINESHOPTP_XXX`** to enhance it. Add following annotation to `PurchaseRequisition`.
+  1. Open your metadata extension **`ZC_SHOPCARTTP_###`** to enhance it. Add following annotation to `PurchaseRequisition`.
 
     ```ABAP
     ,
@@ -182,17 +182,17 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
     @Metadata.layer: #CUSTOMER
     @UI: {
       headerInfo: {
-        typeName: 'OnlineShop', 
-        typeNamePlural: 'OnlineShops'
+        typeName: 'ShoppingCart', 
+        typeNamePlural: 'ShoppingCart'
       }
     }
 
-    annotate view ZC_ONLINESHOPTP_XXX with
+    annotate view ZC_SHOPCARTTP_### with
     {
       @UI.facet: [ {
         id: 'idIdentification', 
         type: #IDENTIFICATION_REFERENCE, 
-        label: 'OnlineShop', 
+        label: 'ShoppingCart', 
         position: 10 
       } ]
       @UI.hidden: true
@@ -327,65 +327,31 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. 000).
     ```
 
    3. Save and activate.
-
-
-### Open documentation
-
-
-You have 2 options to open the documentation inside ADT.
-
- 
-> **Option 1**:
-
->  1. Open your ABAP class **`zbp_i_online_shop_xxx`**, search for `i_purchaserequisitiontp`, press CTRL and click on it.
-      ![service](docu.png)
->  2. Now you are in the released object `i_purchaserequisitiontp`.
-     Click **Open Documentation** to open it.
-      ![service](docu2.png)
->  3. Now you are able to read the documentation.
-      ![service](docu3.png)
-
->   **HINT:** You can also open the Element Info by clicking `i_purchaserequisitiontp` and pressing **`F2`**.
->       ![service](docuhint.png)
-
->    You can also switch to different layers inside the Element Info.
->       ![service](docugif.gif)
-
-> **Option 2**:
- 
-> 1. Go back to tab `i_purchaserequisitiontp`. You are now able to see the behavior definition folder of the released object `i_purchaserequisitiontp`  in the project explorer. Now navigate to the documentation `i_purchaserequisitiontp` and open it.
-      ![service](docu4.png)
->**HINT**: You can also check the API State of released object and see its visibility by selecting the properties.
-> 2. Now you can see the documentation.
-      ![service](docu5.png)
-
  
 ### Implement unmanaged save and save_modified
 
 In our scenario, we want to integrate the released purchase requisition API during the save sequence.
 
-  1. Open the behavior definition `ZR_ONLINESHOPTP_XXX`, delete the following line:
+  1. Open the behavior definition `ZR_SHOPCARTTP_###`, delete the following line:
   
     ```ABAP
-    persistent table zaonlineshop_xxx 
+    persistent table zashopcart_### 
     ```
   
-  2. In your behavior definition **`ZR_ONLINESHOPTP_XXX`** add the `with unmanaged save` statement.
+  2. In your behavior definition **`ZR_SHOPCARTTP_###`** add the `with unmanaged save` statement.
 
     ```ABAP
     with unmanaged save
     ```
-    ![projection](bdef2.png)
-
-  3. Check your behavior definition:
+    So that it looks as follows:
 
     ```ABAP
-    managed implementation in class ZBP_ONLINESHOPTP_XXX unique;
+    managed implementation in class ZBP_SHOPCARTTP_### unique;
     strict ( 2 );
     with draft;
 
-    define behavior for ZR_ONLINESHOPTP_XXX alias OnlineShop
-    draft table ZDONLINESHOP_XXX
+    define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
+    draft table ZDSHOPCART_###
     etag master LocalLastChangedAt
     lock master total etag LastChangedAt
     authorization master( global )
@@ -420,7 +386,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
       validation checkDeliveryDate on save { create; field DeliveryDate; }
 
     action(features:instance) createPurchaseRequisitionItem  result [1] $self;
-      mapping for ZAONLINESHOP_XXX 
+      mapping for ZASHOPCART_### 
       {
         OrderUUID = order_uuid;
         OrderID = order_id;
@@ -443,55 +409,45 @@ In our scenario, we want to integrate the released purchase requisition API duri
     }
     ```
 
-  4. Save and activate.
-
-  5. Open the behavior implementation `ZBP_ONLINESHOPTP_XXX` and add the missing method `save_modified` with create, update and delete to your behavior implementation. In your Local Types, add the `save_modified` to your `lsc_zr_onlineshoptp_xxx` class:
-
-    ```ABAP
-    METHODS save_modified REDEFINITION. 
-    ```
-
-    ![Implement save modified](implement_save_modified.png)
-
-    Position the cursor on the `save_modified` method and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add implementation for save_modified` to automatically create an empty implementation for the method. Implement it in your `lsc_zr_onlineshoptp_xxx` as follows:
+  4. Save and activate it. Position the cursor on the with unmanaged save statement and use the shortcut ctrl + 1 to load the quick assist proposals, then double-click on Add required method `save_modified` in new local saver class to automatically create an empty implementation for the method. Implement it as follows:
 
     ```ABAP
       METHOD save_modified.
 
-        DATA : lt_online_shop_as        TYPE STANDARD TABLE OF zaonlineshop_xxx,
-              ls_online_shop_as        TYPE                   zaonlineshop_xxx.
-        IF create-onlineshop IS NOT INITIAL.
-          lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-          INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+        DATA : lt_shopping_cart_as        TYPE STANDARD TABLE OF zashopcart_###,
+              ls_shopping_cart_as        TYPE                   zashopcart_###.
+        IF create-shoppingcart IS NOT INITIAL.
+          lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
+          INSERT zashopcart_### FROM TABLE @lt_shopping_cart_as.
         ENDIF.
         IF update IS NOT INITIAL.
-          CLEAR lt_online_shop_as.
-          lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-          LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-    *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @data(ls_onlineshop) .
-    *                      lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
+          CLEAR lt_shopping_cart_as.
+          lt_shopping_cart_as = CORRESPONDING #( update-shoppingcart MAPPING FROM ENTITY ).
+          LOOP AT update-shoppingcart  INTO DATA(shoppingcart) WHERE OrderUUID IS NOT INITIAL.
+    *           select * from zashopcart_###where order_uuid = @shoppingcart-OrderUUID into @data(ls_shoppingcart) .
+    *                      lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
 
-            MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+            MODIFY zashopcart_### FROM TABLE @lt_shopping_cart_as.
     *           ENDSELECT.
           ENDLOOP.
         ENDIF.
 
-        LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-          DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-          DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
+        LOOP AT delete-shoppingcart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
+          DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
+          DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
         ENDLOOP.
       ENDMETHOD.
 
     ```
 
-   6. Save and activate it.
+   5. Save and activate it.
 
->We use the unmanaged save option for our scenario, rather than the additional save option. This is because the additional save should only be used in case data needs to be saved in addition to BO data in a persistence outside the BO, as stated in the [Additional Save documentation](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/ca7097c8ea404b11b1f1334fd54cdd15.html). Since this is not our use case (the purchase requisition is created and saved in the persistency of the online shop BO), we rely on the unmanaged save option.
+>We use the unmanaged save option for our scenario, rather than the additional save option. This is because the additional save should only be used in case data needs to be saved in addition to BO data in a persistence outside the BO, as stated in the [Additional Save documentation](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/ca7097c8ea404b11b1f1334fd54cdd15.html). Since this is not our use case (the purchase requisition is created and saved in the persistency of the shopping cart BO), we rely on the unmanaged save option.
 
 
 ### Enhance behavior implementation
 
-**Hint:** Please replace **`X`**, **`#`** and **`XXX`** with your ID. 
+**Hint:** Please replace **`###`** with your ID. 
 
 **For S/4HANA on premise:** Material `D001` or similar needs to be created in system if S/4HANA on-premise is used. [More information](https://help.sap.com/docs/SAP_S4HANA_ON-PREMISE/f7fddfe4caca43dd967ac4c9ce6a70e4/23d6b8535c39b44ce10000000a174cb4.html?version=2022.000)
 
@@ -499,21 +455,21 @@ In our scenario, we want to integrate the released purchase requisition API duri
   1. In your **Global Class**, replace your code with following:
 
     ```ABAP
-    class ZBP_ONLINESHOPTP_XXX DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zr_onlineshoptp_xxx.
+    class ZBP_SHOPCARTTP_### DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zr_shopcarttp_###.
     PUBLIC SECTION.
       CLASS-DATA mapped_purchase_requisition TYPE response for mapped i_purchaserequisitiontp.
 
     ENDCLASS.
 
 
-    CLASS zbp_onlineshoptp_xxx IMPLEMENTATION. 
+    CLASS zbp_shopcarttp_### IMPLEMENTATION. 
     ENDCLASS.
     ```
 
-  2. Add the missing constant to your implementation, the `createPruchaseRequisitionItem` action and enhance the `save_modified` method. In your **Local Types**, replace your code with following:
+  2. Add the missing constant to your implementation, the `createPurchaseRequisitionItem` action and enhance the `save_modified` method. In your **Local Types**, replace your code with following:
 
     ```ABAP
-    CLASS lhc_OnlineShop DEFINITION INHERITING FROM cl_abap_behavior_handler.
+    CLASS lhc_ShopCart DEFINITION INHERITING FROM cl_abap_behavior_handler.
       PRIVATE SECTION.
         CONSTANTS:
           BEGIN OF is_draft,
@@ -523,35 +479,35 @@ In our scenario, we want to integrate the released purchase requisition API duri
         CONSTANTS:
           BEGIN OF c_overall_status,
             new       TYPE string VALUE 'New / Composing',
-            *         composing  type string value 'Composing...',
+    *         composing  type string value 'Composing...',
             submitted TYPE string VALUE 'Submitted / Approved',
             cancelled TYPE string VALUE 'Cancelled',
           END OF c_overall_status.
         METHODS: get_global_authorizations FOR GLOBAL AUTHORIZATION
-          IMPORTING REQUEST requested_authorizations FOR OnlineShop RESULT result,
-        createPruchaseRequisitionItem FOR MODIFY
-          IMPORTING keys FOR ACTION OnlineShop~createPurchaseRequisitionItem RESULT result,
+          IMPORTING REQUEST requested_authorizations FOR ShoppingCart RESULT result,
+        createPurchaseRequisitionItem FOR MODIFY
+          IMPORTING keys FOR ACTION shoppingcart~createPurchaseRequisitionItem RESULT result,
           get_instance_features FOR INSTANCE FEATURES
-            IMPORTING keys REQUEST requested_features FOR onlineshop RESULT result,
+            IMPORTING keys REQUEST requested_features FOR ShoppingCart RESULT result,
                 setInitialOrderValues FOR DETERMINE ON MODIFY
-                      IMPORTING keys FOR OnlineShop~setInitialOrderValues,
+                      IMPORTING keys FOR shoppingcart~setInitialOrderValues,
                 calculateTotalPrice FOR DETERMINE ON MODIFY
-                      IMPORTING keys FOR OnlineShop~calculateTotalPrice.
+                      IMPORTING keys FOR shoppingcart~calculateTotalPrice.
 
         METHODS checkDeliveryDate FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkDeliveryDate.
+          IMPORTING keys FOR shoppingcart~checkDeliveryDate.
 
         METHODS checkOrderedQuantity FOR VALIDATE ON SAVE
-          IMPORTING keys FOR OnlineShop~checkOrderedQuantity.
+          IMPORTING keys FOR shoppingcart~checkOrderedQuantity.
 
     ENDCLASS.
 
-    CLASS lhc_OnlineShop IMPLEMENTATION.
+    CLASS lhc_ShopCart IMPLEMENTATION.
 
       METHOD get_global_authorizations.
       ENDMETHOD.
 
-      METHOD createPruchaseRequisitionItem.
+      METHOD createPurchaseRequisitionItem.
         DATA: purchase_requisitions      TYPE TABLE FOR CREATE I_PurchaserequisitionTP,
               purchase_requisition       TYPE STRUCTURE FOR CREATE I_PurchaserequisitionTP,
               purchase_requisition_items TYPE TABLE FOR CREATE i_purchaserequisitionTP\_PurchaseRequisitionItem,
@@ -560,16 +516,16 @@ In our scenario, we want to integrate the released purchase requisition API duri
               purchase_reqn_acct_assgmt  TYPE STRUCTURE FOR CREATE I_PurchaseReqnItemTP\_PurchaseReqnAcctAssgmt,
               purchase_reqn_item_texts   TYPE TABLE FOR CREATE I_PurchaseReqnItemTP\_PurchaseReqnItemText,
               purchase_reqn_item_text    TYPE STRUCTURE FOR CREATE I_PurchaseReqnItemTP\_PurchaseReqnItemText,
-              update_lines               TYPE TABLE FOR UPDATE zr_onlineshoptp_xxx\\OnlineShop,
-              update_line                TYPE STRUCTURE FOR UPDATE zr_onlineshoptp_xxx\\OnlineShop,
+              update_lines               TYPE TABLE FOR UPDATE zr_shopcarttp_###\\ShoppingCart,
+              update_line                TYPE STRUCTURE FOR UPDATE zr_shopcarttp_###\\ShoppingCart,
               delivery_date              TYPE I_PurchaseReqnItemTP-DeliveryDate,
               requested_quantity         TYPE I_PurchaseReqnItemTP-RequestedQuantity.
 
-        *    delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
+    *    delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
 
         "read transfered order instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             ALL FIELDS WITH
             CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -664,7 +620,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
           FAILED DATA(failed_create_pr).
         ENDIF.
         "retrieve the generated
-        zbp_onlineshoptp_xxx=>mapped_purchase_requisition-purchaserequisition = mapped_create_pr-purchaserequisition.
+        zbp_shopcarttp_###=>mapped_purchase_requisition-purchaserequisition = mapped_create_pr-purchaserequisition.
 
         "set a flag to check in the save sequence that purchase requisition has been created
         "the correct value for PurchaseRequisition has to be calculated in the save sequence using convert key
@@ -674,8 +630,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
           APPEND update_line TO update_lines.
         ENDLOOP.
 
-        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        MODIFY ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             UPDATE
             FIELDS (  OverallStatus  )
             WITH update_lines
@@ -685,8 +641,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
         IF failed IS INITIAL.
           "Read the changed data for action result
-          READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-            ENTITY OnlineShop
+          READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+            ENTITY ShoppingCart
               ALL FIELDS WITH
               CORRESPONDING #( keys )
             RESULT DATA(result_read).
@@ -698,8 +654,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
       METHOD get_instance_features.
         " read relevant olineShop instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OverallStatus )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders)
@@ -738,8 +694,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
         "set delivery date proposal
         delivery_date = cl_abap_context_info=>get_system_date(  ) + 14.
         "read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OrderID OverallStatus  DeliveryDate )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -750,15 +706,15 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
         " **Dummy logic to determine order IDs**
         " get max order ID from the relevant active and draft table entries
-        SELECT MAX( order_id ) FROM zaonlineshop_xxx INTO @DATA(max_order_id). "active table
-        SELECT SINGLE FROM zdonlineshop_xxx FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
+        SELECT MAX( order_id ) FROM zashopcart_### INTO @DATA(max_order_id). "active table
+        SELECT SINGLE FROM zdshopcart_### FIELDS MAX( orderid ) INTO @DATA(max_orderid_draft). "draft table
         IF max_orderid_draft > max_order_id.
           max_order_id = max_orderid_draft.
         ENDIF.
 
         "set initial values of new instances
-        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        MODIFY ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             UPDATE FIELDS ( OrderID OverallStatus  DeliveryDate Price  )
             WITH VALUE #( FOR order IN OnlineOrders INDEX INTO i (
                               %tky          = order-%tky
@@ -771,8 +727,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
       METHOD checkOrderedQuantity.
         "read relevant order instance data
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-        ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+        ENTITY ShoppingCart
         FIELDS ( OrderID OrderedItem OrderQuantity )
         WITH CORRESPONDING #( keys )
         RESULT DATA(OnlineOrders).
@@ -781,20 +737,20 @@ In our scenario, we want to integrate the released purchase requisition API duri
         LOOP AT OnlineOrders INTO DATA(OnlineOrder).
           APPEND VALUE #(  %tky           = OnlineOrder-%tky
                           %state_area    = 'VALIDATE_QUANTITY'
-                        ) TO reported-onlineshop.
+                        ) TO reported-shoppingcart.
 
           IF OnlineOrder-OrderQuantity IS INITIAL OR OnlineOrder-OrderQuantity = ' '.
-            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky = OnlineOrder-%tky ) TO failed-shoppingcart.
             APPEND VALUE #( %tky          = OnlineOrder-%tky
                             %state_area   = 'VALIDATE_QUANTITY'
                             %msg          = new_message_with_text(
                                     severity = if_abap_behv_message=>severity-error
                                     text     = 'Quantity cannot be empty' )
                             %element-orderquantity = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-shoppingcart.
 
           ELSEIF OnlineOrder-OrderQuantity > 10.
-            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky = OnlineOrder-%tky ) TO failed-shoppingcart.
             APPEND VALUE #(  %tky          = OnlineOrder-%tky
                             %state_area   = 'VALIDATE_QUANTITY'
                             %msg          = new_message_with_text(
@@ -802,17 +758,17 @@ In our scenario, we want to integrate the released purchase requisition API duri
                                     text     = 'Quantity should be below 10' )
 
                             %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-shoppingcart.
           ENDIF.
         ENDLOOP.
       ENDMETHOD.
 
       METHOD calculateTotalPrice.
-        DATA total_price TYPE zr_onlineshoptp_xxx-TotalPrice.
+        DATA total_price TYPE zr_shopcarttp_###-TotalPrice.
 
         " read transfered instances
-        READ ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             FIELDS ( OrderID TotalPrice )
             WITH CORRESPONDING #( keys )
           RESULT DATA(OnlineOrders).
@@ -823,8 +779,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
         ENDLOOP.
 
         "update instances
-        MODIFY ENTITIES OF zr_onlineshoptp_xxx IN LOCAL MODE
-          ENTITY OnlineShop
+        MODIFY ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
+          ENTITY ShoppingCart
             UPDATE FIELDS ( TotalPrice )
             WITH VALUE #( FOR OnlineOrder IN OnlineOrders (
                               %tky       = OnlineOrder-%tky
@@ -834,8 +790,8 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
       METHOD checkdeliverydate.
     *   " read transfered instances
-            read entities of zr_onlineshoptp_xxx in local mode
-              entity OnlineShop
+            read entities of zr_shopcarttp_### in local mode
+              entity ShoppingCart
                 fields ( DeliveryDate )
                 with corresponding #( keys )
               result data(OnlineOrders).
@@ -846,16 +802,16 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
 
           IF online_order-DeliveryDate IS INITIAL OR online_order-DeliveryDate = ' '.
-            APPEND VALUE #( %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #( %tky = online_order-%tky ) TO failed-shoppingcart.
             APPEND VALUE #( %tky         = online_order-%tky
                             %state_area   = 'VALIDATE_DELIVERYDATE'
                             %msg          = new_message_with_text(
                                     severity = if_abap_behv_message=>severity-error
                                     text     = 'Delivery Date cannot be initial' )
-                          ) TO reported-onlineshop.
+                          ) TO reported-shoppingcart.
 
           ELSEIF  ( ( online_order-DeliveryDate ) - creation_date ) < 14.
-            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-onlineshop.
+            APPEND VALUE #(  %tky = online_order-%tky ) TO failed-shoppingcart.
             APPEND VALUE #(  %tky          = online_order-%tky
                             %state_area   = 'VALIDATE_DELIVERYDATE'
                             %msg          = new_message_with_text(
@@ -863,14 +819,14 @@ In our scenario, we want to integrate the released purchase requisition API duri
                                     text     = 'Delivery Date should be atleast 14 days after the creation date'  )
 
                             %element-orderquantity  = if_abap_behv=>mk-on
-                          ) TO reported-onlineshop.
+                          ) TO reported-shoppingcart.
           ENDIF.
         ENDLOOP.
       ENDMETHOD.
 
     ENDCLASS.
 
-    CLASS lsc_ZR_ONLINESHOPTP_XXX DEFINITION INHERITING FROM cl_abap_behavior_saver.
+    CLASS lsc_ZR_SHOPCARTTP_### DEFINITION INHERITING FROM cl_abap_behavior_saver.
       PROTECTED SECTION.
 
         METHODS save_modified REDEFINITION.
@@ -879,42 +835,42 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
     ENDCLASS.
 
-    CLASS lsc_ZR_ONLINESHOPTP_XXX IMPLEMENTATION.
+    CLASS lsc_ZR_SHOPCARTTP_### IMPLEMENTATION.
 
       METHOD save_modified.
-        DATA : lt_online_shop_as TYPE STANDARD TABLE OF zaonlineshop_xxx,
-              ls_online_shop_as TYPE                   zaonlineshop_xxx.
-        IF create-onlineshop IS NOT INITIAL.
-          lt_online_shop_as = CORRESPONDING #( create-onlineshop MAPPING FROM ENTITY ).
-          INSERT zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
+        DATA : lt_shopping_cart_as TYPE STANDARD TABLE OF zashopcart_###,
+              ls_shopping_cart_as TYPE                   zashopcart_###.
+        IF create-shoppingcart IS NOT INITIAL.
+          lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
+          INSERT zashopcart_### FROM TABLE @lt_shopping_cart_as.
         ENDIF.
         IF update IS NOT INITIAL.
-          CLEAR lt_online_shop_as.
-          lt_online_shop_as = CORRESPONDING #( update-onlineshop MAPPING FROM ENTITY ).
-          LOOP AT update-onlineshop  INTO DATA(onlineshop) WHERE OrderUUID IS NOT INITIAL.
-            *           select * from zaonlineshop_xxx where order_uuid = @onlineshop-OrderUUID into @DATA(ls_onlineshop) .
-            *                      lt_online_shop_as = corresponding #( create-onlineshop MAPPING FROM ENTITY ).
+          CLEAR lt_shopping_cart_as.
+          lt_shopping_cart_as = CORRESPONDING #( update-shoppingcart MAPPING FROM ENTITY ).
+          LOOP AT update-shoppingcart  INTO DATA(shoppingcart) WHERE OrderUUID IS NOT INITIAL.
+    *           select * from zashopcart_### where order_uuid = @shoppingcart-OrderUUID into @DATA(ls_shoppingcart) .
+    *                      lt_shopping_cart_as = corresponding #( create-shoppingcart MAPPING FROM ENTITY ).
 
-            MODIFY zaonlineshop_xxx FROM TABLE @lt_online_shop_as.
-            *           endselect.
+            MODIFY zashopcart_### FROM TABLE @lt_shopping_cart_as.
+    *           endselect.
           ENDLOOP.
         ENDIF.
-        IF zbp_onlineshoptp_xxx=>mapped_purchase_requisition IS NOT INITIAL AND update IS NOT INITIAL.
-          LOOP AT zbp_onlineshoptp_xxx=>mapped_purchase_requisition-purchaserequisition ASSIGNING FIELD-SYMBOL(<fs_pr_mapped>).
+        IF zbp_shopcarttp_###=>mapped_purchase_requisition IS NOT INITIAL AND update IS NOT INITIAL.
+          LOOP AT zbp_shopcarttp_###=>mapped_purchase_requisition-purchaserequisition ASSIGNING FIELD-SYMBOL(<fs_pr_mapped>).
             CONVERT KEY OF i_purchaserequisitiontp FROM <fs_pr_mapped>-%pid TO DATA(ls_pr_key).
             <fs_pr_mapped>-purchaserequisition = ls_pr_key-purchaserequisition.
-            *        ZBP_ONLINESHOPTP_xxx=>cv_pr_pid = <fs_pr_mapped>-%pid.
+    *        ZBP_SHOPCARTTP_###=>cv_pr_pid = <fs_pr_mapped>-%pid.
           ENDLOOP.
-          LOOP AT update-onlineshop INTO  DATA(ls_online_shop) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+          LOOP AT update-shoppingcart INTO  DATA(ls_shopping_cart) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
             " Creates internal table with instance data
             DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-            *      update zaonlineshop_xxx from  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_online_shop-OrderID  ) ).
-            UPDATE zaonlineshop_xxx SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_online_shop-OrderUUID.
+    *      update zashopcart_### from  @( VALUE #(  purchase_requisition = ls_pr_key-purchaserequisition  pr_creation_date =  creation_date order_id = ls_shopping_cart-OrderID  ) ).
+            UPDATE zashopcart_### SET purchase_requisition = @ls_pr_key-purchaserequisition, pr_creation_date = @creation_date WHERE order_uuid = @ls_shopping_cart-OrderUUID.
           ENDLOOP.
         ENDIF.
-        LOOP AT delete-onlineshop INTO DATA(onlineshop_delete) WHERE OrderUUID IS NOT INITIAL.
-          DELETE FROM zaonlineshop_xxx WHERE order_uuid = @onlineshop_delete-OrderUUID.
-          DELETE FROM zdonlineshop_xxx WHERE orderuuid = @onlineshop_delete-OrderUUID.
+        LOOP AT delete-shoppingcart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
+          DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
+          DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
         ENDLOOP.
       ENDMETHOD.
 
@@ -928,8 +884,37 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
     >**HINT:** The option **internal** can be set before the action name to only provide an action for the same BO. An internal action can only be accessed from the business logic inside the business object implementation such as from a determination or from another action.
 
-   4. Go back to your behavior definition `ZR_ONLINESHOPTP_XXX` and activate it again, if needed. 
+   4. Go back to your behavior definition `ZR_SHOPCARTTP_###` and activate it again, if needed.
 
+### Open documentation
+
+You have 2 options to open the documentation inside ADT.
+
+> **Option 1**:
+
+>  1. Open your ABAP class **`zbp_shopcarttp_###`**, search for `i_purchaserequisitiontp`, press CTRL and click on it.
+      ![service](docunew.png)
+
+>  2. Now you are in the released object `i_purchaserequisitiontp`.
+     Click **Open Documentation** to open it.
+      ![service](docu2.png)
+
+>  3. Now you are able to read the documentation.
+      ![service](docunew2.png)
+
+> **HINT:** You can also open the Element Info by clicking `i_purchaserequisitiontp` and pressing **`F2`**.
+> ![service](docunew6.png)
+
+> You can also switch to different layers inside the Element Info.
+> ![service](docunew3.gif)
+
+> **Option 2**:
+
+> 1. Go back to tab `i_purchaserequisitiontp`. You are now able to see the behavior definition folder of the released object `i_purchaserequisitiontp`  in the project explorer. Now navigate to the documentation `i_purchaserequisitiontp` and open it.
+      ![service](docunew4.png)
+>**HINT**: You can also check the API State of released object and see its visibility by selecting the properties.
+> 2. Now you can see the documentation.
+      ![service](docunew5.png)
 
 ### Run SAP Fiori Elements preview
 
@@ -939,7 +924,7 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
  2. Now a purchase requisition item got created. Copy the purchase requisition item number for later use.
 
-     ![preview](sb7.png)
+     ![preview](uinew.png)
  
 
 
@@ -947,12 +932,12 @@ In our scenario, we want to integrate the released purchase requisition API duri
 
 
  1. In the Project Explorer, select your system and right click on **Properties**.
-
-     ![preview](properties.png)
+ 
+     ![preview](systemnew.png)
 
  1. Select **ABAP Development** and copy the system URL without `-api`, paste it in a browser and **log in**.
 
-     ![preview](logonflp2.png)
+     ![preview](systemnew2.png)
 
  2. Select the **Manage Purchase Requisitions** tile.
 

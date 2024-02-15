@@ -310,8 +310,6 @@ You can also debug your application, displayed in the SAP Fiori elements preview
 ### Test yourself
 
 
-
-
 ### More Information
 
 - [SAP Help Portal: SAP Cloud Platform (Concepts): ABAP Debugger](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/4ec365a66e391014adc9fffe4e204223.html)
