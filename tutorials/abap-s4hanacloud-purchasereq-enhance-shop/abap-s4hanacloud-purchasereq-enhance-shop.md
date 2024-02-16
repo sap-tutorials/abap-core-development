@@ -34,9 +34,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
 ### Enhance behavior definition of data model
 
-**Hint:** In case of S/4HANA 2022 `FPS01`, strict(1) mode must be used.
-
-**In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
+**In this tutorial example a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
 
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following statements to your behavior definition:
 
