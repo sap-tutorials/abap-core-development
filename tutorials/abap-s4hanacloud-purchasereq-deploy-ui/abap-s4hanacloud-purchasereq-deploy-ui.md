@@ -189,7 +189,7 @@ This step describes the deployment of the created application.
 
       ![deploy](new12.png) 
 
-### Check BSP library and SAP Fiori Launchpad app descriptor item in Eclipse
+### Check BSP library in Eclipse
 
 
   1. Open Eclipse and check the **BSP library** in your package **`$z_purchase_req_tier3_###`**. You can find your package under **Local Objects (`$TMP`)** > **User123**. If you are not able to see BSP applications and SAP Fiori Launchpad app description items, refresh your package by pressing `F5`.
