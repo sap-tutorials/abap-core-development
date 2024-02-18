@@ -85,11 +85,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       ![Add entity](iam9a.png)
 
- 11. To enable the user to see the changes in the app [**Business Configuration Change Logs**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/5c6cf20499894f1083e80dba7c5963d4.html), add an additional instance of the authorization object with **`Display change documents`** for the activity and the table names.
-
-      ![Select display change documents](iam9.png)
-
- 12. Save the IAM app. For more information about IAM apps, see [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
+ 11. Save the IAM app. For more information about IAM apps, see [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
 
 
 
@@ -120,25 +116,17 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 ### Assign Business Catalog to Business Role and maintain restrictions
 
 
-  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, start the SAP Build Work Zone. Or right-click on your ABAP system and select **Properties**.
+  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, launch the SAP Build Work Zone. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
 
-      ![Select properties](fiori.png)
-
-  2. Choose **ABAP Development** and click on the **system URL**.
-
-      ![Click on the system URL](fiori2.png)
-
-  3. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
-
-  4. Open the **Maintain Business Roles** app.
+  2. Open the **Maintain Business Roles** app.
 
       ![Start Maintain Business Roles app](fiori4.png)
 
-  5. Click **New** to create a new Business Role.
+  3. Click **New** to create a new Business Role.
 
       ![Create new Business Role](fiori5.png)
 
-  6. Create a new Business Role:
+  4. Create a new Business Role:
       - Business Role ID: **`ZBR_ERROR_CODES_EXPERT_###`**
       - Business Role Description: **`Error Codes Expert`**
 
@@ -146,26 +134,26 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       Click **Create**.
 
-  7. Select **Assigned Business Catalogs** and click **Add**.
+  5. Select **Business Catalogs** and click **Add**.
 
       ![Add Business Catalog](fiori7.png)
 
 
-  8. Search for `Z_ERROR_CODES_###`, select it and click **OK**.
+  6. Search for `Z_ERROR_CODES_###`, select it and click **OK**.
 
       ![Select Business Catalog](fiori8.png)
 
-  9. Select **General Role Details** and set Access Category **Write, Read, Value Help** to **`Unrestricted`**. If you set Access Category **Write, Read, Value Help** to **`No Access`**, the user can only read the content, but not change it.
+  7. Select **General Role Details** and set Access Category **Write, Read, Value Help** to **`Unrestricted`**. If you set Access Category **Write, Read, Value Help** to **`No Access`**, the user can only read the content, but not change it.
 
      ![Set Access Category to unrestricted](fiori9.png)
 
-10. Select **Assigned Business Users** and click **Add**.
+8. Select **Business Users** and click **Add**.
 
      ![Add Business User](fiori10.png)
 
-11. Select the user responsible for maintaining the error codes and click **OK**
+9. Select the user responsible for maintaining the error codes and click **OK**
 
-12. Click **Save** to save the Business Role
+10. Click **Save** to save the Business Role
 
 
 ### Test yourself

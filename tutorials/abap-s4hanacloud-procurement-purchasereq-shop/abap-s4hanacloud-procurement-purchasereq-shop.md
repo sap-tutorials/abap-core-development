@@ -140,6 +140,8 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
        Click **Next >**.
 
+       >Please be aware that the screenshot above pertains to the SAP S/4HANA 2022 release. In the SAP S/4HANA 2023 release the wizard looks slightly different: you will first select the **Generator** and in the following wizard page you will see the Package information.
+
   3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
      
      For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below, and press **Next >**.
@@ -174,9 +176,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
 ### Enhance behavior definition of data model
 
-**Hint:** In case of S/4HANA 2022 `FPS01`, strict(1) mode must be used. 
-
-**In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
+**In this tutorial example a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
   
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following read-only fields to your behavior definition:
 
@@ -194,7 +194,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
     ```ABAP
     managed implementation in class ZBP_SHOPCARTTP_### unique;
-    strict ( 1 );
+    strict ( 2 );
     with draft;
 
     define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
