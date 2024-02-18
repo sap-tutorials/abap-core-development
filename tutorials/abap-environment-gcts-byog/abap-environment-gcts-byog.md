@@ -54,7 +54,7 @@ However, you are not allowed to make code changes in your remote Git repository 
 
 ### Create remote repository
 
-First, open your preferred Git provider and create a new repository; here, we are using Github.
+First, open your preferred Git provider and create a new repository; here, we are using `Github`.
 
 > IMPORTANT: Create a branch at the same time. In `Github`, adding a readme file will automatically create a main branch for the repository.
 > 
