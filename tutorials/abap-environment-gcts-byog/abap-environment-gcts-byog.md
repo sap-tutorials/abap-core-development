@@ -195,7 +195,7 @@ The transport request number and the transported objects are now visible in your
 
 To import your released transport into a target system (e.g., your test or production system), you must clone the same repository into this target system. 
 
-1. Repeat step 3.2 to 3.4. The only difference is the “Repository Role”, which now must be set to “Target”. 
+1. Repeat step 3.2 to 3.4. The only difference is the "Repository Role", which now must be set to "Target".
 
     <!-- border -->
     ![step5a-clone-to-target](step5a-clone-to-target.png)
