@@ -10,25 +10,26 @@ author_profile: https://github.com/julieplummer20
 ---
 
 # Get Data from a Remote System Using a Remote Function Call (RFC): Scenario
+
 <!-- description --> Get data from an on-premise system, such as a SAP S/4HANA System, by calling a Remote Function Module in SAP BTP ABAP Environment
 
 ## Prerequisites
 
-- **IMPORTANT**: This tutorial cannot be completed on a trial account. If you want to explore some of the concepts of this mission on a trial account, using OData or SOAP rather than RFC, see the following workshop: [SAP BTP, ABAP Environment: Connectivity and Integration](https://github.com/SAP-samples/teched2020-DEV268).
 - You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
 - **Tutorial**: [Set Up SAP BTP, ABAP Environment and create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
--	You have rights to call the appropriate resources on an ABAP on-premise system. See step 2.4 for details. Examples of such on-premise systems include:
+-	You have a user in an ABAP on-premise system. Examples of such on-premise systems include:
     - [AS ABAP developer edition, latest version](https://blogs.sap.com/2019/07/01/as-abap-752-sp04-developer-edition-to-download/) or:
-    - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) or:
-    - [The SAP Gateway Demo System (ES5)](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
+    - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/)
 - You have connected **SAP Cloud Connector**, to your BTP subaccount
 - You have assigned the business role **`SAP_BR_DEVELOPER`** to your user; you will need it to create communication artifacts
 
   
-## You will learn 
-  
+## You will learn
+
   - How to create a secure RFC connection between your SAP BTP, ABAP Environment and an on-premise SAP System, e.g. SAP S/4HANA
   - How to test the connection using an ABAP handler class
+
+- **IMPORTANT**: This tutorial cannot be completed on a trial account. If you want to explore some of the concepts of this mission on a trial account, using OData or SOAP rather than RFC, see the following workshop: [SAP BTP, ABAP Environment: Connectivity and Integration](https://github.com/SAP-samples/teched2020-DEV268)
 
 This tutorial mission was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
@@ -44,13 +45,13 @@ There are two challenges when setting up connectivity between the SAP BTP, ABAP 
 **The solution:** 
 
 Set up a secure connection from the on-premise system to the SAP BTP, ABAP Environment.
-
-
-**Technical information:**
+Technically: 
 
 1. SAP Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL
 2. After the tunnel is established, it can be used for actual data connection using the RFC or HTTP(S) protocols. 
 
+<!-- border -->
+![step0-overview-2402](step0-overview-2402.png)
 
 ### Test yourself
 
