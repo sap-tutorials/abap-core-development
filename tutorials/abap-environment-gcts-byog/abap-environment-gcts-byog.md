@@ -54,9 +54,9 @@ However, you are not allowed to make code changes in your remote Git repository 
 
 ### Create remote repository
 
-First, open your preferred Git provider, such as GitHub, and create a new repository.
+First, open your preferred Git provider and create a new repository; here, we are using `Github`.
 
-> IMPORTANT: Create a branch at the same time. In Github, adding a readme file will automatically create a main branch for the repository.
+> IMPORTANT: Create a branch at the same time. In `Github`, adding a readme file will automatically create a main branch for the repository.
 > 
 <!-- border -->
 ![step1a-create-new-remote-repo](step1a-create-new-remote-repo.png)
@@ -69,7 +69,7 @@ First, open your preferred Git provider, such as GitHub, and create a new reposi
    - Namespace: *For test purposes, usually **Z**.*
    - Name: *Based on remote repo name, here **`BYOG_REPO_###`**.*
    - Description: Bring your own git
-   - Repository URL: *Github repo from previous step*
+   - Repository URL: *`Github` repo from previous step*
    - Type: **Development**
 
    <!-- border -->
@@ -100,7 +100,7 @@ When the cloning is finished, the status changes to **Success**.
 <!-- border -->
 ![step2e-clone-success](step2e-clone-success.png) 
 
-In the remote repository, a new commit has been generated  from noreply@example.com and a new file added.
+In the remote repository, a new commit has been generated from `noreply@example.com` and a new file added.
 
 <!-- border -->
 ![step2f-json-created](step2f-json-created.png) 
@@ -116,9 +116,9 @@ In the remote repository, a new commit has been generated  from noreply@example.
    
 3. Enter the following, then choose **Next**.
 
-    - Name: **`ZBYOG_TEST_GITHUB_###`** *if you are using Github*
-    - Description: **Test gCTS with GitHub**
-    - Superpackage: *Should be added automatically*
+    - Name: **`ZBYOG_TEST_GITHUB_###`** *if you are using `Github`*
+    - Description: **`Test gCTS with Github`**
+    - `Superpackage`: *Should be added automatically*
     - Package Type: Development
 
     <!-- border -->
@@ -140,7 +140,7 @@ In the remote repository, a new commit has been generated  from noreply@example.
 
 2. Enter the following for your class, then choose **Next**. 
     - Name: **`ZCL_HELLO_WORLD_###`**
-    - Description for your class, e.g. **Test gCTS with GitHub** 
+    - Description for your class, e.g. **`Test gCTS with Github`** 
     - Interface: **`if_oo_adt_classrun`**. *This enables you to run the class in the console.*
 
 3. Choose the same transport request.
@@ -195,7 +195,7 @@ The transport request number and the transported objects are now visible in your
 
 To import your released transport into a target system (e.g., your test or production system), you must clone the same repository into this target system. 
 
-1. Repeat step 3.2 to 3.4. The only difference is the “Repository Role”, which now must be set to “Target”. 
+1. Repeat step 3.2 to 3.4. The only difference is the "Repository Role", which now must be set to "Target".
 
     <!-- border -->
     ![step5a-clone-to-target](step5a-clone-to-target.png)
@@ -230,7 +230,7 @@ Deleting a tag will also delete the tag in the remote repository.
 
 ### Optional: Delete a software component
 
-Deleting a software component in **Manage Software Components** will unlink the component to the remote repository, but will **not** delete the remote repository in Github. The local software component will be marked as **not editable**; releasing transport requests will no longer be possible. 
+Deleting a software component in **Manage Software Components** will unlink the component to the remote repository, but will **not** delete the remote repository in `Github`. The local software component will be marked as **not editable**; releasing transport requests will no longer be possible. 
 
 > **Important**: Deleting the software component is an irreversible action. 
 
