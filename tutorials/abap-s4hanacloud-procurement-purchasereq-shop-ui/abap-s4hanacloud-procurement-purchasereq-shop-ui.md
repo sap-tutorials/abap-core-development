@@ -17,12 +17,11 @@ author_profile: https://github.com/mervey45
 - You have a license for SAP S/4HANA Cloud and have a developer user in it
 - You have installed the latest [Eclipse with ADT](abap-install-adt).
 - **Trial:** You need an SAP BTP [trial user](hcp-create-trial-account)
-- Business Catalog `SAP_CORE_BC_COM` must be assigned to business user
-- The user must have the same email address as the user from trial
+- Business Catalog `SAP_CORE_BC_COM` must be assigned to admin
+- The SAP S/4HANA Cloud system user must have the same email address as the user from trial
 
 ## You will learn
 
-- How to assign role collections
 - How to create dev spaces
 - How to set up organization and space
 - How to create list report object pages
@@ -37,7 +36,8 @@ author_profile: https://github.com/mervey45
 
 ---
 
-### Assign role collection to user
+
+### Create dev space
 
   1. Login to [SAP BTP Trial cockpit](https://cockpit.hanatrial.ondemand.com/) and click **Enter Your Trial Account**.
 
@@ -47,130 +47,19 @@ author_profile: https://github.com/mervey45
 
       ![assign role collection](bas2.png)
 
-  3. Now you are in the trial overview page. Click **Users** and **>**.
-
-      ![assign role collection](btp.png)
-
-  4. Select the menu and click **Assign Role Collection**.
-
-      ![assign role collection](btp2.png)
-
-      **Hint:** If you are using a licensed system, make sure you have the trust administrator role assigned to your user.
-
-  5. Select **`Business_Application_Studio_Developer`** and click **Assign Role Collection**.
-
-      ![assign role collection](btp3.png)
-
-  6. Check your result. Now your user should have the **`Business_Application_Studio_Developer`** role collection assigned.
-
-      ![assign role collection](btp4.png)
-
-### Configure destination
-
-  1. Select your subaccount **trial**.
-
-     ![assign role collection](bas2.png)
-
-  2. In the navigation pane expand the **Connectivity** section and select **Destinations**. Click **New Destination**.
-
-      ![assign role collection](destinations.png)
-
-      Configure the new destination with the following standard field values.
-
-    |  Field Name     | Value
-    |  :------------- | :-------------
-    |  Name           | **`System_###_SAML_ASSERTION`**
-    |  Type           | **`HTTP`**
-    |  Description    | **`SAML Assertion Destination to SAP S/4HANA ABAP Environment system_xxx`**
-    |  URL          | In the SAP S/4HANA Cloud tenant, navigate to the **Communication Systems** app and copy the **Host Name** from **Own System** = `Yes`<div><!-- border -->![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)</div> and paste it with prefix `https://` for example `https://my12345-api.s4hana.ondemand.com.`
-    |  Proxy Type   | **`Internet`**
-    |  Authentication | **`SAMLAssertion`**
-    |  Audience   | Enter the URL of your system and remove `-api`, for example `https://my12345.s4hana.ondemand.com`.
-    |  `AuthnContextClassRef` | **`urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`**
-
-    Select **New Property** and maintain the following **Additional Properties** and values.
-
-    |  Field Name     | Value          | Remark
-    |  :------------- | :------------- | :-------------
-    |  HTML5.DynamicDestination           | **`true`**   |&nbsp;
-    |  HTML5.Timeout           | **`60000`**   | value stated in milliseconds. 60000 equals 1 minute. Required as deployment needs longer than the standard of 30 seconds.
-    |  `WebIDEEnabled`    | **`true`**   |&nbsp;
-    |  `WebIDEUsage`          | **`odata_abap,dev_abap`**   |&nbsp;
-    |  `nameIDFormat`     | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**  | Required in case your subaccount sends mail address as SAML Name ID for authentication ( **Subject Name Identifier** in Identity Authentication tenant ), although SAP S/4HANA Cloud tenant expects user login by default. **That is the case with a trial Account.** This also requires the mail address to be maintained for SAP S/4HANA Cloud tenant business users.
-
-    Make sure that the **Use default JDK truststore** checkbox is ticked.
-
-      ![Configure Destination](new.png)
-
-    Click **Save**.
-
-  3. Click **Download Trust**.
-
-     ![assign role collection](new2.png)
-
-### Create communication system
-
-  1. Select your system and right-click **Properties**.
-
-      ![dev](new3.png)
-
-  2. Select **ABAP Development** and copy the **System URL** without the `-api`. Paste in a browser and log in to the system.
-
-      ![dev](new4.png)
-
-  3. In your SAP Fiori launchpad select **Communication Systems** under Communication Management.
-
-      ![dev](system.png)
-
-  4. Click **New**.
-
-      ![dev](system2.png)
-
-  5. Create a new communication system:
-       - System ID: **``BAS_TRIAL_###``**
-       - System Name: **``BAS_TRIAL_###``**
-
-       Click **Create**.
-
-     ![dev](new5.png)
-
-  6. Click the arrow and select **Technical Data**.
-
-      ![dev](new6.png)
-
-  7. Check **Inbound Only** in the general section. Set `SAML Bearer Assertion Provider` **ON** and click **Upload Signing Certificate**.
-
-      ![dev](new7.png)
-
-  8. Click **Browse** and select your trust configuration, then click **Upload**.
-
-      ![dev](new8.png)
-
-  9. Copy everything after **`CN=` of your signing certificate subject** and past it in **`SAML Bearer Issuer`**. Click **Save**.
-
-      ![dev](new9.png)
-
-      Now your communication system is set up.
-
-### Create dev space
-
-  1. Select **trial**.
-
-      ![dev](new10.png)
-
-  2. Select **Service Marketplace** and search for **SAP Business Application Studio**. Select actions and click **Go to Application**.
+  3. Select **Service Marketplace** and search for **SAP Business Application Studio**. Select actions and click **Go to Application**.
 
       ![dev](studio212.png)
 
-  3. Check the privacy statement and click **OK**.
+  4. Check the privacy statement and click **OK**.
 
       ![dev](studio2.png)
 
-  4. Now the SAP Business Application Studio has started. Click **Create Dev Space**.
+  5. Now the SAP Business Application Studio has started. Click **Create Dev Space**.
 
       ![dev](studio3.png)
 
-  5. Create a new dev space:
+  6. Create a new dev space:
        - Name: **Fiori**
        - Type: **SAP Fiori**
 
@@ -178,7 +67,7 @@ author_profile: https://github.com/mervey45
 
      ![dev](studio4.png)
 
-  6. When your status is **Running**, select your dev space **Fiori**.
+  7. When your status is **Running**, select your dev space **Fiori**.
 
       ![dev](studio5.png)
 
@@ -253,7 +142,7 @@ author_profile: https://github.com/mervey45
 
        - Semantic Object: `z_purchase_req_###`
        - Action: display
-       - Title: Shopping Cart XXX
+       - Title: Shopping Cart ###
 
       ![app](new15.png)
 
