@@ -29,9 +29,25 @@ In this tutorial you will take the wrapper that you created and you will integra
 - You will implement a validation for the status. When the status is "Submitted", the validation will call the BAPI in test mode via the wrapper. It will return any error message raised by the BAPI. These error messages are then returned to the end user.
 - You will adapt the RAP BO and turn it into a RAP BO with unmanaged save. In the corresponding `save_modified` method implementation, when the status of a business object instance is "Submitted", the wrapper will be called via the BAPI and a purchase requisition is created for that business object instance.
 
+### Switch to strict (1) mode
+
+Later in this tutorial we will implement a `save_modified` method in the RAP Business Object, which will invoke authorization checks during the save sequence. If the RAP behavior definition is implemented in ABAP for Cloud Development and the `strict(2)` mode is applied, this would lead to runtime errors. For this reason, we will switch to `strict(1)` mode. For more information, see [The RAP Transactional Model and the SAP LUW](https://help.sap.com/docs/abap-cloud/abap-rap/rap-transactional-model-and-sap-luw).
+
+Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO. Open the behavior definition `ZR_SHOPCARTTP_###` and change to `strict(1)` mode:
+
+![Switch strict mode](switch_strict_mode.png)
+
+Save and activate it.
+
+Open the behavior definition `ZC_SHOPCARTTP_###` and change to `strict(1)` mode there as well:
+
+![Switch strict mode](switch_strict_mode2.png)
+
+Save and activate it.
+
 ### Implement new action `createPurchRqnBAPISave`
 
-You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO. Open the behavior definition `ZR_SHOPCARTTP_###` and define a new action with the following code snippet:
+You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Open the behavior definition `ZR_SHOPCARTTP_###` and define a new action with the following code snippet:
 
 ```ABAP
   action ( features : instance ) createPurchRqnBAPISave result [1] $self;
