@@ -108,7 +108,7 @@ You will now implement the logic of the defined determination in the behavior po
 
     ```ABAP
     CONSTANTS:
-      BEGIN OF travel_status,
+      BEGIN OF travel_status, 
         open     TYPE c LENGTH 1 VALUE 'O', "Open
         accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
         rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
