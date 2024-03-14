@@ -73,7 +73,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
  3. At the top of the behavior definition, set the cursor on BO entity name ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and press **CTRL+1** to open the **Quick Assist** view.
 
-    Select the entry **Add method for operation `instance_features` of entity `zrap100_r_traveltp_###`** to add the required methods to the local handler class `lcl_handler` of your behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`**.
+    Select the entry **Add method for operation `instance_features` of entity `zrap100_r_traveltp_###`** to add the required methods to the local handler class `lcl_travel` of your behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`**.
 
     The result should look like this:
 
