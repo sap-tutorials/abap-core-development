@@ -10,7 +10,10 @@ author_profile: https://github.com/mervey45
 
 # Create a SAP Fiori App and Deploy it to SAP S/4HANA Cloud, ABAP Environment
 
-<!-- description --> Create a SAP Fiori app for a RAP business object in SAP Business Application Studio and deploy it to SAP S/4HANA Cloud, ABAP Environment.
+<!-- description --> As developer create an SAP Fiori app for a RAP business object in SAP Business Application Studio and deploy it to SAP S/4HANA Cloud, ABAP Environment. 
+
+**Additional Infos**
+> - If you want to create a custom SAP Fiori app with key user extensibility check out [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](https://developers.sap.com/group.abap-custom-ui-s4hana-cloud.html)
 
 ## Prerequisites
 
