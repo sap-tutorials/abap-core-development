@@ -16,23 +16,20 @@ author_profile: https://github.com/Liebherr
 
 
 ## You will learn  
-In the preceding tutorials you created a custom business object with a simple data structure and its persistence. Afterwards you generated an UI for this business object and exposed it as a Fiori Launchpad application.
+ - How to adapt an UI for all users in a system
 
-## Intro
-As the generated User Interfaces only lists all fields of a business object node, adapting the UI might be necessary to improve usability of it.
+**Additional Info**
 
->Before done **UI Generation** and here shown **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA Cloud system. They are key user functionality with limited possibilities. UI Adaptation has effect on all users in the system.
->
->Alternatively to UI Generation and Adaptation the more powerful **Side-By-Side Extensibility** via **SAP Cloud Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create Custom UI for SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
+In the preceding tutorials you created a custom business object with a simple data structure and its persistence. Afterwards you generated an UI for this business object and exposed it as a Fiori Launchpad application. As the generated User Interfaces only lists all fields of a business object node, adapting the UI might be necessary to improve usability of it.
+
+> - Before done **UI Generation** and here shown **UI Adaptation** are so called **In-App Extensibility** features done completely inside a S/4HANA Cloud system. They are key user functionality with limited possibilities. Alternatively to UI Generation and Adaptation an UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
+> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 **Our Example**
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
-
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
-
 
 
 ### Open the UI to be adapted
