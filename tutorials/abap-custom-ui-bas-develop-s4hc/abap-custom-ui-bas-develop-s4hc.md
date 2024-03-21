@@ -23,7 +23,7 @@ author_profile: https://github.com/Liebherr
   - This process of custom UI development is the way to go if the UI generated within the SAP S/4HANA Cloud system does not match your needs
 
 **Additional Info**
-> - This tutorial gives you an idea how to build a UI with all SAPUI5 options in SAP Business Application Studio, test it, and get it into the SAP S/4HANA Cloud system. If you only require a generated UI and maybe adapting it with restricted options within the SAP S/4HANA Cloud system (in-app-extensibility) check out [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation)
+> - This tutorial illustrates all the needed steps to build a UI with all SAPUI5 options in SAP Business Application Studio, test it, and get it into the SAP S/4HANA Cloud system. If you only require a generated UI and maybe adapting it with restricted options within the SAP S/4HANA Cloud system (in-app-extensibility) check out [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation)
 > - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
 > - Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
