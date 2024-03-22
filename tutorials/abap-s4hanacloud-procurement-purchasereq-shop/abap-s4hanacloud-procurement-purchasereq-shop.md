@@ -10,7 +10,6 @@ author_profile: https://github.com/mervey45
  
 # Create a Shopping Cart Business Object
 <!-- description --> Create a shopping cart business object with SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise.
-
  
 ## Prerequisites  
 - This tutorial can be used in the SAP S/4HANA Public Cloud. This tutorial can also be used in both SAP S/4HANA Cloud, private edition system and SAP S/4HANA on-premise system with release 2022 FPS01, in which case you will need to import the [SAP Note 3330593](https://launchpad.support.sap.com/#/notes/3330593) and [SAP Note 3280851](https://me.sap.com/notes/3280851) in your system. We suggest using a [Fully-Activated Appliance] (https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup.
@@ -103,7 +102,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
     key client            : abap.clnt not null;
     key order_uuid        : sysuuid_x16 not null;
     order_id              : abap.numc(8) not null;
-    ordered_item          : abap.char(10) not null;
+    ordered_item          : abap.char(40) not null;
     @Semantics.amount.currencyCode : 'zashopcart_###.currency'
     price                 : abap.curr(11,2);
     @Semantics.amount.currencyCode : 'zashopcart_###.currency'
@@ -140,7 +139,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
        Click **Next >**.
 
-       >Please be aware that the screenshot above pertains to the SAP S/4HANA 2022 release. In the SAP S/4HANA 2023 release the wizard looks slightly different: you will first select the **Generator** and in the following wizard page you will see the Package information.
+      > Please be aware that the screenshot above pertains to the SAP S/4HANA 2022 release. In the SAP S/4HANA 2023 release the wizard looks slightly different: you will first select the **Generator** and in the following wizard page you will see the Package information.
 
   3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
      
@@ -176,9 +175,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
 ### Enhance behavior definition of data model
 
-**Hint:** In case of S/4HANA 2022 `FPS01` and S/4HANA 2023 `FPS00`, strict(1) mode must be used. 
-
-**In this tutorial example, a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
+**In this tutorial example a SAP S/4HANA Cloud, ABAP environment system was used. The mode therefore is `strict (2)`.**
   
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following read-only fields to your behavior definition:
 
@@ -196,7 +193,7 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
     ```ABAP
     managed implementation in class ZBP_SHOPCARTTP_### unique;
-    strict ( 1 );
+    strict ( 2 );
     with draft;
 
     define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
