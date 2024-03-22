@@ -609,7 +609,7 @@ This data definition is needed to create a value help for products.
 
      ![preview](order.png)
 
- 3. Make use of the value help for orderered item and select one. Add also the ordered quantity and click **Create**.
+ 3. Make use of the value help for ordered item and select one. Add also the ordered quantity and click **Create**.
 
      ![preview](order2.png)
 
