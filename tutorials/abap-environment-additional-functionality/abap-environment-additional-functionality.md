@@ -9,17 +9,17 @@ author_profile: https://github.com/sepp4me
 ---
 
 # Explore additional features of the Custom Business Configurations app
-<!-- description --> Learn how to copy and paste data from spreadsheet applications. Learn how to use intent navigation.
+<!-- description --> Learn how to copy and paste data from spreadsheet applications. Learn how to create business configuration documentation and use intent navigation.
 
 ## Prerequisites  
 - You need an SAP BTP, ABAP environment license or a [trial user](abap-environment-trial-onboarding).
 - This tutorial also works in an SAP S/4HANA Cloud, public edition system.
 - This is the fourth tutorial of group [Create a SAP Fiori based Table Maintenance app](group.abap-env-factory). You must complete the tutorials in the given order.
 
-
 ## You will learn  
 - How to copy and paste data from spreadsheet applications
-- How to use intent navigation
+- How to create business configuration documentation
+- How to use of intent navigation
 
 ---
 ### Copy and paste data from spreadsheet applications
@@ -63,6 +63,34 @@ You can add multiple error codes by copying and pasting them from a [spreadsheet
 11. After the insertion, the new lines are displayed. Select a transport and click **Save**.
 
       ![Save new rows](spread8.png)
+
+
+### Create business configuration documentation
+
+You want to provide the user of the app **Custom Business Configurations** with detailed [documentation](https://help.sap.com/docs/btp/sap-business-technology-platform/custom-business-configurations-app#show-documentation) of the business configuration.
+
+  1. Open your ABAP package in ADT, right-click your Business Configuration Maintenance Object, and choose **New Knowledge Transfer Document**.
+
+      ![Select New Knowledge Transfer Document](knowledge.png)
+
+  2. Create a new knowledge transfer document called **`ZERRORCODE###`**
+
+  3. Complete the wizard.
+
+  4. Write the documentation in the markdown language.
+
+      ![Write documentation](knowledge4.png)
+
+  5. Activate the Knowledge Transfer Document.
+
+  6. Reload the **Custom Business Configurations** app. A new action is now displayed in the upper right corner.
+
+      ![New action visible](doc.png)
+
+  7. Click **Show Documentation**.
+
+      ![Show Documentation action](knowledge6.png)
+
 
 
 ### Make use of intent navigation

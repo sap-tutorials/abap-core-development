@@ -15,6 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 
 ## You will learn  
@@ -29,7 +31,8 @@ author_profile: https://github.com/mervey45
 ---
 
 ## Intro
->Reminder: Do not forget to replace the suffix placeholder ### with your chosen or assigned group ID in the exercise steps below.
+Reminder: Do not forget to replace the suffix placeholder ### with your chosen or assigned group ID in the exercise steps below.
+
 >**About: Determinations**  
 >
 > A determination is an optional part of the business object behavior that modifies instances of business objects based on trigger conditions. A determination is implicitly invoked by the RAP framework if the trigger condition of the determination is fulfilled. Trigger conditions can be modify operations and modified fields.   
@@ -70,7 +73,7 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
     Set the cursor on the determination name **`setStatusToOpen`** and press **Ctrl+1** to open the **Quick Assist** view and select the entry **Add method for determination `setStatusToOpen` of entity `zrap100_i_travel_###`** in the view.
 
-    As result, the `FOR DETERMINE` method **`setStatusToOpen`** will be added to the local handler class **`lcl_handler`** of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
+    As result, the `FOR DETERMINE` method **`setStatusToOpen`** will be added to the local handler class **`lcl_travel`** of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
 
     ![Travel BO Behavior Pool](p7.png)             
 
@@ -84,7 +87,7 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
 You will now implement the logic of the defined determination in the behavior pool.
 
- 1. First check the interface of the method **`setStatusToOpen`** in the declaration part of the local handler class `lcl_handler`.
+ 1. First check the interface of the method **`setStatusToOpen`** in the declaration part of the local handler class `lcl_travel`.
 
     For that, set the cursor on the method name, **`setStatusToOpen`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 
@@ -101,11 +104,11 @@ You will now implement the logic of the defined determination in the behavior po
 
      Now go ahead and implement the method in the implementation part of the local handler class.
 
- 2. Define the local constant **`travel_status`** to store the allowed value of the overall status of a **Travel** instance. Insert the following code snippet in the definition part of the local handler class **`lcl_handler`** as shown on the screenshot below.
+ 2. Define the local constant **`travel_status`** to store the allowed value of the overall status of a **Travel** instance. Insert the following code snippet in the definition part of the local handler class **`lcl_travel`** as shown on the screenshot below.
 
     ```ABAP
     CONSTANTS:
-      BEGIN OF travel_status,
+      BEGIN OF travel_status, 
         open     TYPE c LENGTH 1 VALUE 'O', "Open
         accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
         rejected TYPE c LENGTH 1 VALUE 'X', "Rejected

@@ -18,7 +18,6 @@ author_profile: https://github.com/sepp4me
 - Install [ABAP Development Tools](https://tools.hana.ondemand.com/#abap) (3.26.2 or higher). You can also follow **step 1** of this [tutorial](abap-install-adt) to install ADT.
 
 ## You will learn  
-- How to enable Log Changes
 - How to generate a Business Configuration Maintenance Object
 
 ## Intro
@@ -64,7 +63,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       ![Select Data Element](e2.png)
 
-  3. Create a data element. You use data elements instead of predefined ABAP types because the field labels on the user interface are derived from the data element definition. In addition, a data element is required to define a foreign key relationship between two tables.
+  3. Create a data element. You use data elements instead of predefined ABAP types because the field labels on the user interface are derived from the data element definition. In addition, a data element is required to define a foreign key relationship between two tables. Note: For character-like key fields, you must associate the data element with a domain. This ensures that case-sensitivity is applied correctly, thus avoiding problems when transporting the content.
      - Name: **`Z_ERROR_CODE_###`**
      - Description: **`Error Code`**
 
@@ -160,22 +159,6 @@ You first create the database tables and then use the [ABAP Repository Generator
   7. Save and activate.
 
 
-### Activate Log Changes
-
-
-To use the [**Business Configuration Change Logs**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/5c6cf20499894f1083e80dba7c5963d4.html) app, enable the Log Changes function to track configuration changes in your business configuration tables.
-
->In client-specific Customizing tables, buffering is usually switched on using a generic key with a number of key fields equal to 1. In client-specific Customizing text tables, buffering is usually switched on using a generic key with the number of key fields equal to 2 to include the language key field.
-
->Read operations on the CDS view entities do not benefit from the table buffer, but have their own buffer mechanism, see this [blog](https://blogs.sap.com/2022/01/27/buffering-cds-view-entities/). Consider reading directly from the buffered customizing tables in your application code.
-
-In the technical settings of the table, the indicator **Log Changes** must be activated:
-
-![Enable Log Changes](logc2.png)
-
-Save and activate.
-
-
 ### Create Business Configuration Maintenance Object
 
 
@@ -189,11 +172,11 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
       ![Start ABAP Repository Objects generator](bc.png)
 
-  2. Select **`Business Configuration Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
+  2. Select **`Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
 
      ![Select generator](bc2.png)
 
-  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/8b8f9d8f3cb948b2841d6045a255e503.html). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
 
 
       Click **Next >**.
@@ -204,14 +187,13 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
   5. Select a transport request and click **Finish**.
 
-  6. When the generation is complete, the new business configuration maintenance object is displayed. Refresh your Project Explorer and check the other generated objects. In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
+  6. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
 
   7. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
   Only if you have an SAP BTP trial account, you need to make the following adjustments because you cannot create customizing transport requests or business user roles. You can then also skip the following tutorial [Provide authorization control for a Business Configuration Maintenance Object](abap-environment-authorization-control) and continue with tutorial [Use Custom Business Configurations app](abap-environment-maintain-bc-app).
       - Edit class `ZBP_I_ERRORCODE###_S`, section **Local Types**. Delete the content of the following methods. Then save and activate the class.
         - `LHC_ZI_ERRORCODE###_S→GET_GLOBAL_AUTHORIZATIONS`
         - `LSC_ZI_ERRORCODE###_S→SAVE_MODIFIED`
-        - `LHC_ZI_ERRORCODE###→VALIDATETRANSPORTREQUEST`
         - `LHC_ZI_ERRORCODE###TEXT→VALIDATETRANSPORTREQUEST`
 
       - Delete the generated `Access Control` objects

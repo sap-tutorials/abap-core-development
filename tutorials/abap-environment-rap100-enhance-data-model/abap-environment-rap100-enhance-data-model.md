@@ -3,7 +3,6 @@ parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
 tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
-
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -16,6 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 
 ## You will learn   
@@ -52,9 +53,10 @@ Define and expose new associations in the base BO data model defined in the CDS 
     ```
 
     Your source code should look like this: 
-
-      ![association](newa.png)
     
+      ![association](association.png)
+    
+
   2. Expose the defined associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`** and **`_Currency`** in the selection list. For that, insert the code snippet provided below in the selection list between the curly brackets (`{...}`) as shown on the screenshot.
 
     ```ABAP
@@ -66,8 +68,7 @@ Define and expose new associations in the base BO data model defined in the CDS 
     _Currency
     ```
 
-     ![association](newa2.png)
-
+     ![association](association2.png)
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -107,7 +108,6 @@ The only things you will have to do in the RAP business object, is to specify th
      - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
      - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
      - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
-
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -198,7 +198,7 @@ For example, you will allow the full-text search on some elements, add new eleme
     @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' } }]
     ```
 
-    Alternatively, you can simply replace the source code of your BO projection view ![ddls icon](adt_ddls.png) **`ZRAP100_C_RAP_TRAVEL_###`** with the code provided in the source code document linked below and replace all occurrences of the placeholder **`###`** with your group ID using **CTRL+F**.
+    Alternatively, you can simply replace the source code of your BO projection view ![ddls icon](adt_ddls.png) **`ZRAP100_C_TRAVELTP_###`** with the code provided in the source code document linked below and replace all occurrences of the placeholder **`###`** with your group ID using **CTRL+F**.
 
     ![document](doc.png) **Source code document**: ![ddls icon](adt_ddls.png)[CDS projection view ZRAP100_C_TRAVELTP_###](EX2_DDLS_ZRAP100_C_TRAVELTP.txt). Format your source code with the ABAP Pretty Printer (Shift+F1). Your source code should look like this:
 

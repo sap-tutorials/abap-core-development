@@ -15,7 +15,9 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
+  
 ## You will learn  
   - How to create an ABAP package
   - How to create a database table
@@ -48,6 +50,7 @@ Create your exercise package. This ABAP package will contain all the artefacts y
       ![package](p.png)
 
 
+ 
 ### Create database table
 
 
@@ -91,12 +94,12 @@ A Travel entity defines general travel data, such as the agency ID or customer I
       attachment            : /dmo/attachment;
       mime_type             : /dmo/mime_type;
       file_name             : /dmo/filename;
-      created_by            : abp_creation_user;
+      created_by            : abp_creation_user;
       created_at            : abp_creation_tstmpl;
-      last_changed_by       : abp_locinst_lastchange_user;
-      last_changed_at       : abp_locinst_lastchange_tstmpl;
-      local_last_changed_at : abp_lastchange_tstmpl;
-    }      
+      local_last_changed_by : abp_locinst_lastchange_user;
+      local_last_changed_at : abp_locinst_lastchange_tstmpl;
+      last_changed_at       : abp_lastchange_tstmpl; 
+    }    
     ```
 
  6. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
@@ -123,7 +126,7 @@ Create an ABAP class![class](adt_class.png) to generate demo **travel** data.
 
     ```ABAP
     CLASS zcl_rap100_gen_data_### DEFINITION
-     PUBLIC
+    PUBLIC
       FINAL
       CREATE PUBLIC .
 
@@ -204,10 +207,17 @@ The generated business service will be transactional, draft-enabled, and enriche
  1. Right-click your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`**  and select **Generate ABAP Repository Objects** from the context menu.  
 
  2. Maintain the required information  (`###` is your group ID) and click **Next >**:
-      - Description: **`Travel App ###`**
-      - Generator: **`ABAP RESTful Application Programming Model: UI Service`**
+    - Description: **`Travel App ###`**
+    - Generator: **`ABAP RESTful Application Programming Model: UI Service`**
 
-    ![class](p6.png)
+    ![class](generate.png)
+
+    | **Generator: Cloud System**                                                   |  **Generator: On Premise System**      |   
+    |:----------------------------------------------------------------------------- |:-------------------------------------- |
+    |1. Select **OData UI Service** and click **Next >**.  ![table](newgenerator2.png) |1. Provide a description, select **ABAP RESTful Application Programming Model: UI Service** and click **Next >**. ![table](generatorxx1.png) |                       
+    |2. Click **Next >**. ![table](newgenerator3.png)    |    | 
+    |3. Enter a description. ![table](newgenerator3.png) |    |  
+        
 
  3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
 
@@ -216,9 +226,13 @@ The generated business service will be transactional, draft-enabled, and enriche
 
     Verify the maintained entries and press **Next >** to confirm. The needed artifacts will be generated.
 
-    > **Please note**: Error Invalid XML format.   
-    > If you receive an error message **Invalid XML format of the response**, this may be due to a bug in version 1.26 of the ADT tools.  
-    > An update of your ADT plugin to version 1.26.3 will fix this issue.
+    >**About Naming Conventions**
+      The main aspects of the naming conventions of SAP S/4HANA's Virtual Data Model (VDM) are used in this exercise.
+      More information on VDM can be found on the SAP Help portal: Here.
+
+    >**Attention**
+      Please make sure to replace all the name proposals in the wizard with the names provided below.
+      Doing this is important to ensure the correctness of the code snippets provided in the following exercises.
 
     | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
     |----------------------------------------|-------------------------|-----------------------------------------------------|
@@ -234,6 +248,7 @@ The generated business service will be transactional, draft-enabled, and enriche
     |                                        |                         | Binding Type: **`OData V4 - UI`**                   |
 
     ![class](new0.png)                     
+
 
  4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
 
@@ -323,6 +338,7 @@ Publish the local service endpoint of your service binding ![service binding](ad
 
 
 10. Check that your service bindings is now publish and choose the entity **Travel** and press the button **Preview**.
+
 
 ### Test yourself
 

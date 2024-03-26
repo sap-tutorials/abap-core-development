@@ -15,6 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 ## You will learn  
   - How to define validations
@@ -99,7 +101,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
      For that, set the cursor on one of the validation names and press **Ctrl+1** to open the **Quick Assist** view and select the entry **Add all 2 missing methods of entity `zrap100_i_travel_###`**.
 
-     As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
+     As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_travel` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
  
      ![Travel BO Behavior Pool](p10.png)  
 
@@ -114,7 +116,7 @@ Define the validations `validateCustomer` and `validateDates`.
 Implement the validation `validateCustomer` which checks if the customer ID (`CustomerID`) that is entered by the consumer is valid.   
 An appropriate message should be raised and displayed on the UI for each invalid value.
 
- 1. First, check the interface of the new methods in the declaration part of the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
+ 1. First, check the interface of the new methods in the declaration part of the local handler class `lcl_travel` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
 
     For that, set the cursor on the method name, **`validateCustomer`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 

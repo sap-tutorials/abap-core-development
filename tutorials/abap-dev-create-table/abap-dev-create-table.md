@@ -30,14 +30,16 @@ Tables are defined independently of the database in the ABAP Dictionary. When yo
 The table in this tutorial will store bank account details for customers. The table will have the following columns (or **fields**):
 
 - `client` (key field)
-- `account_number` (key account number)
+- `account_number` (key field)
+- `bank_name` (key field)
 - `bank_customer_id`
-- `bank_name`
 - `city`
 - `balance`
 - `currency`
 - `account_category`
 - `lastchangedat`
+
+> Throughout this tutorial, replace `###`, `000`, or `XXX` with your initials or group number.
 
 
 ---
@@ -53,7 +55,7 @@ Create a table in your package:
 
 2. Enter the filter text **Table > Database table**, then choose **Next**.
 
-3. Enter a name such as `ZACCOUNTS_XXX` - always replacing `XXX` with your initials - and a description, then choose **Next**.
+3. Enter a name such as `ZACCOUNTS_###` - always replacing `###` with your initials or group number - and a description, then choose **Next**.
 
     <!-- border -->
     ![step1b-table-name](step1b-table-name.png)
@@ -94,12 +96,12 @@ One key field has been added automatically:
 This specifies that the table is client-specific.
 Tables can be cross-client or client-specific. Each client is a self-contained unit within an organization, such as a subsidiary. For client-specific tables, the client is the first key field in the table.
 
-The field is also specified as `not null x`. This means that the field cannot be left blank. In this case, `abap.clnt` is automatically filled with the value of the current client (such as 001).
+The field is also specified as `not null`. This means that the field cannot be left blank. In this case, `abap.clnt` is automatically filled with the value of the current client (such as 001).
 
 
 ### Add field account number using primitive type
 
-Now you will add the field **`account_number`**, based on a primitive type.
+Now you will add the key field **`account_number`**, based on a primitive type.
 
 1. Enter the following (including the period), then choose **Code completion (Ctrl+Space)**:
 
@@ -107,9 +109,6 @@ Now you will add the field **`account_number`**, based on a primitive type.
       key account_number : abap.
 
     ```
-
-    <!-- border -->
-    ![step3a-create-accnum-field](step3a-create-accnum-field.png)
 
 2. From the dropdown list, choose `numc(len)` and specify `len` as 8. Also, specify this key field as not null:
   `key account_number : abap.numc(8) not null;`
@@ -131,86 +130,72 @@ Add a field based on a built-in domain.
     ```
 
 
-
-### Create domain
-
-1. From your package, select **Dictionary**, then choose **New > Domain** from the context menu.
-
-    <!-- border -->
-    ![step4a-new-domain](step4a-new-domain.png)
-
-2. Enter following, then choose **Next**.
-    - Name: **`Z_CHAR_32`**
-    - Description: **Character Domain of Length 32**,
-
-
-    <!-- border -->
-    ![step5b-domain-name](step5b-domain-name.png)
-
-3. Accept the default transport request and choose **Finish**.
-
-4. In the editor, enter the following and choose **Save ( Ctrl+S )**.
-    - Data Type: **`CHAR`**
-    - Length: **32**
-
-    <!-- border -->
-    ![step5c-domain-attributes](step5c-domain-attributes.png)
-
-
-
 ### Add field bank using new data element
 
-Now add the field **`bank`**, based on a new data element, `z_bank_name_xxx`. You will get an error, which you will also fix in this step.
+Now add the key field **`bank_name`**, based on a new data element, `z_bank_name_###`. You will get an error, which you will also fix in this step.
 
-1. Select the new data element and choose **Get Quick Fix (Ctrl+1)**. From the list, choose **Create data element …** :
+1. Enter the following: 
+
+    ```ABAP
+    
+    key field bank_name           : z_bank_name_###;
+
+    ```
+
+2. Select the new data element and choose **Get Quick Fix (Ctrl+1)**. From the list, choose **Create data element …** :
 
     <!-- border -->
     ![step5a-quick-fix-new-dtel](step5a-quick-fix-new-dtel.png)
 
-2. The Create data element wizard appears. Enter a name and description and choose **Next**:
+3. The Create data element wizard appears. Enter a name and description and choose **Next**:
 
     <!-- border -->
     ![step6a-new-dtel](step6a-new-dtel.png)
 
-3. Accept the default transport request and choose **Finish**:
+4. Accept the default transport request and choose **Finish**:
 
-4. You want your data element to have a character type. Enter the type name of your domain, by entering `Z_CHAR` and choosing **Auto-complete (`Ctrl+Space`)**:
+5. You want your data element to have a character type. Enter the following:
+
+    - Category  : **Predefined Type**
+    - Data Type : **`CHAR`**
+    - Length    : **`55`**
+
+6. Now enter the field labels and lengths:
 
     <!-- border -->
-    ![step6c-dtel-w-domain](step6c-dtel-w-domain.png)
+    ![step6b-dtel-details](step6b-dtel-details.png)
 
-5. Now enter the field labels and lengths:
+7. Save and activate the data element (`Ctrl+S, Ctrl+F3`).
 
-    <!-- border -->
-    ![step6d-field-labels](step6d-field-labels.png)
-
-6. Save and activate the data element (`Ctrl+S, Ctrl+F3`).
-
-
-### Remove error
-
-Go back to your table, **`ZACCOUNTS_XXX`**. Run a syntax check  with **`Ctrl+F2`**. The error should disappear.
+8. Go back to your table, **`ZACCOUNTS_###`**. Run a syntax check  with **`Ctrl+F2`**. The error should disappear.
 
 
 ### Add all other fields
 
-
   1. Now add other fields, so your code looks as follows. The field `Balance` will cause an error. Ignore this for now.
 
-    ```ABAP
-    define table ZACCOUNTS_TABLE_XXX {
+  ```ABAP
 
-      key client          : abap.clnt not null;
-      key account_number  : abap.numc(8) not null;
-      bank_customer_id    : /dmo/customer_id not null;
-      bank_name           : z_bank_name_xxx;
-      city                : /dmo/city;
-      balance             : abap.curr(16,2);
-      currency            : /dmo/currency_code;
-      account_category    : abap.numc(2);
-      lastchangedat       : timestampl;
-    }
-    ```
+      define table ZACCOUNTS_TABLE_### {
+
+      key client         : abap.clnt not null;
+      key account_number : abap.numc(8) not null;
+      key bank_name      : z_bank_name_###;
+      @AbapCatalog.foreignKey.keyType : #KEY
+      @AbapCatalog.foreignKey.screenCheck : false
+      bank_customer_id   : /dmo/customer_id not null
+      with foreign key [0..*,1] /dmo/customer
+      where customer_id = zaccounts_###.bank_customer_id;
+      city               : /dmo/city;
+      @Semantics.amount.currencyCode : 'zaccounts_###.currency'
+      balance            : abap.curr(16,2);
+      currency           : /dmo/currency_code;
+      account_category   : abap.numc(2);
+      lastchangedat      : timestampl;
+
+      }
+
+  ```
 
   2. Then choose Save (`Ctrl+S`) but **do not** activate your table yet.
 
@@ -252,14 +237,14 @@ Before you activate the table, change the technical settings at the top as follo
 
     - **`deliveryClass`** : `#A` = application table, which stores master data and transaction data (default)
 
-    - **`dataMaintenance`** : `#ALLOWED` = allows users to enter data manually in Table Maintenance (transaction SE16). (Generally, you would not do this, but it is useful for test purposes.)
+    - **`dataMaintenance`** : `#NOT_ALLOWED`
 
 ```ABAP
 @EndUserText.label : 'Bank Accounts'
 @AbapCatalog.enhancementCategory : #EXTENSIBLE_CHARACTER_NUMERIC
 @AbapCatalog.tableCategory : #TRANSPARENT
 @AbapCatalog.deliveryClass : #A
-@AbapCatalog.dataMaintenance : #ALLOWED
+@AbapCatalog.dataMaintenance : #NOT_ALLOWED
 ```
 
 
@@ -275,7 +260,7 @@ Now you will add a check table for the field `bank_customer_id`. This checks the
   1. Add the foreign key pointing to table `/dmo/customer`, where your field `bank_customer_id` points to the check table field `customer_id` :
 
     **`with foreign key [0..*,1] /dmo/customer
-    where customer_id = ZACCOUNTS_XXX.bank_customer_id;`**
+    where customer_id = ZACCOUNTS_###.bank_customer_id;`**
 
   2. Add the screen check, which checks user input against the values in `t000.mandt`:
   	`@AbapCatalog.foreignKey.keyType : #KEY
@@ -289,37 +274,35 @@ Now you will add a check table for the field `bank_customer_id`. This checks the
 
 bank_customer_id : /dmo/customer_id not null
   with foreign key [0..*,1] /dmo/customer
-    where customer_id = ZACCOUNTS_XXX.bank_customer_id;
+    where customer_id = ZACCOUNTS_###.bank_customer_id;
 ```
 
 
-### Save, activate, and check table code
+### Save and activate table code
 
 Now, save (`Ctrl+S`) and activate (`Ctrl+F3`) your table. Your code should look like this:
 
 ```ABAP
-@EndUserText.label : 'Bank Accounts'
+@EndUserText.label : 'Table of Bank Accounts'
 @AbapCatalog.enhancementCategory : #EXTENSIBLE_CHARACTER_NUMERIC
 @AbapCatalog.tableCategory : #TRANSPARENT
 @AbapCatalog.deliveryClass : #A
-@AbapCatalog.dataMaintenance : #LIMITED
-define table ZACCOUNTS_XXX {
-  key client           : mandt not null;
-  key account_number       : abap.numc(8) not null;
-
+@AbapCatalog.dataMaintenance : #NOT_ALLOWED
+define table zaccounts_### {
+  key client         : abap.clnt not null;
+  key account_number : abap.numc(8) not null;
   @AbapCatalog.foreignKey.keyType : #KEY
-  @AbapCatalog.foreignKey.screenCheck : true
-  bank_customer_id : /dmo/customer_id not null
+  @AbapCatalog.foreignKey.screenCheck : false
+  bank_customer_id   : /dmo/customer_id not null
     with foreign key [0..*,1] /dmo/customer
-      where customer_id = ZACCOUNTS_XXX.bank_customer_id;
-
-  bank_name            : z_bank_name_xxx;
-  city                 : /dmo/city;
-  @Semantics.amount.currencyCode : 'ZACCOUNTS_XXX.currency'
-  balance              : abap.curr(16,2);
-  currency             : /dmo/currency_code;
-  account_category     : abap.numc(2);
-  lastchangedat        : timestampl;
+      where customer_id = zaccounts_###.bank_customer_id;
+  bank_name          : z_bank_name_###;
+  city               : /dmo/city;
+  @Semantics.amount.currencyCode : 'zaccounts_###.currency'
+  balance            : abap.curr(16,2);
+  currency           : /dmo/currency_code;
+  account_category   : abap.numc(2);
+  lastchangedat      : timestampl;
 
 }
 
@@ -337,7 +320,7 @@ Finally, you will fill the table with three rows of test data:
 
     ![Image depicting step5-create-class](step5-create-class.png)
 
-2. Enter a name **`ZCL_FILL_ACCOUNTS_XXX`** and description for your class (replacing `XXX` with your group number or initials).
+2. Enter a name **`ZCL_FILL_ACCOUNTS_###`** and description for your class (replacing `###` with your group number or initials).
 
     <!-- border -->![step15b-name-class](step15b-name-class.png)
 
@@ -370,7 +353,7 @@ The class appears in a new editor.
 1. Add the following code to the method implementation:
 
     ```ABAP
-    DATA: lt_accounts type table of ZACCOUNTS_XXX.
+    DATA: lt_accounts type table of ZACCOUNTS_###.
 
     "read current timestamp
     GET TIME STAMP FIELD DATA(zv_tsl).
@@ -384,9 +367,9 @@ The class appears in a new editor.
     ).
 
     "Delete possible entries; insert new entries
-    DELETE FROM ZACCOUNTS_XXX.
+    DELETE FROM ZACCOUNTS_###.
 
-    INSERT ZACCOUNTS_XXX from table @lt_accounts.
+    INSERT ZACCOUNTS_### from table @lt_accounts.
 
     "Check result in console
     out->write( sy-dbcnt ).

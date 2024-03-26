@@ -15,7 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
-
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 ## You will learn  
   - How to define dynamic instance feature control
@@ -72,7 +73,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
  3. At the top of the behavior definition, set the cursor on BO entity name ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and press **CTRL+1** to open the **Quick Assist** view.
 
-    Select the entry **Add method for operation `instance_features` of entity `zrap100_r_traveltp_###`** to add the required methods to the local handler class `lcl_handler` of your behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`**.
+    Select the entry **Add method for operation `instance_features` of entity `zrap100_r_traveltp_###`** to add the required methods to the local handler class `lcl_travel` of your behavior pool ![class icon](adt_class.png) **`ZRAP100_BP_TRAVELTP_###`**.
 
     The result should look like this:
 
@@ -129,7 +130,7 @@ Define the dynamic instance feature control for the standard operations **`updat
     * Instance-based dynamic feature control
     **************************************************************************
       METHOD get_instance_features.
-       " read relevant travel instance data
+      " read relevant travel instance data
         READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
           ENTITY travel
             FIELDS ( TravelID OverallStatus )
@@ -142,25 +143,25 @@ Define the dynamic instance feature control for the standard operations **`updat
                           ( %tky                   = travel-%tky
 
                             %features-%update      = COND #( WHEN travel-OverallStatus = travel_status-accepted
-                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                                                            THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %features-%delete      = COND #( WHEN travel-OverallStatus = travel_status-open
-                                                             THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-                            %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
-                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                                                            THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
+    *                        %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
+    *                                                         THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
     *                        %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
     *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
     *                        %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
     *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %action-deductDiscount = COND #( WHEN travel-OverallStatus = travel_status-open
                                                               THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-                         ) ).
+                        ) ).
 
-      ENDMETHOD.
+      ENDMETHOD.    
     ```   
 
     Your source code should look like this:
 
-    ![Travel Behavior Pool](l3.png)
+    ![Travel Behavior Pool](instance_feature.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

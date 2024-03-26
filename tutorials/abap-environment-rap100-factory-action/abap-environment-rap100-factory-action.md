@@ -15,6 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 ## You will learn  
   - How to define factory action
@@ -220,7 +222,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
- 3. Now, declare the required method in behavior implementation class with the ADT Quick Fix. Set the cursor on one of the action names, `acceptTravel` or `rejectTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry **Add all 2 missing methods of entity `zrap100_r_traveltp_###`**  to add both methods to the `local handler class lcl_handler` of the behavior pool `ZRAP100_BP_TRAVELTP_###`.
+ 3. Now, declare the required method in behavior implementation class with the ADT Quick Fix. Set the cursor on one of the action names, `acceptTravel` or `rejectTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry **Add all 2 missing methods of entity `zrap100_r_traveltp_###`**  to add both methods to the `local handler class lcl_travel` of the behavior pool `ZRAP100_BP_TRAVELTP_###`.
 
     The result should look like this: 
 

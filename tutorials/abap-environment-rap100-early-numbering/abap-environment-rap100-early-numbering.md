@@ -15,6 +15,8 @@ author_profile: https://github.com/mervey45
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
+- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
 
 ## You will learn  
@@ -74,7 +76,7 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
  
     Set the cursor on the statement **`create;`** and press **Ctrl+1** to open the **Quick Assist** view.
 
-    Select the entry **Add `earlynumbering` method for create of entity `zrap100_i_travel_###` in local handler** from the dialog to add the **FOR NUMBERING** method **`earlynumbering_create`** to the local handler class **`lcl_handler`** of the behavior pool ![class icon](adt_class.png)  **`ZRAP100_BP_TRAVEL_###`**.
+    Select the entry **Add `earlynumbering` method for create of entity `zrap100_i_travel_###` in local handler** from the dialog to add the **FOR NUMBERING** method **`earlynumbering_create`** to the local handler class **`lcl_travel`** of the behavior pool ![class icon](adt_class.png)  **`ZRAP100_BP_TRAVEL_###`**.
 
     ![Travel BO behavior Definition](p3.png)
 
@@ -94,7 +96,7 @@ You will now implement the logic for the unmanaged internal early numbering in b
 >  Due to time constraints (and simplification reasons), the proper error handling when using number ranges is not part of this implementation example.
 >Nevertheless, you can find a more comprehensive implementation example of a managed BO with a number range object in the behavior implementation class `/DMO/BP_TRAVEL_M` located in the package `/DMO/FLIGHT_MANAGED`. A description of this implementation is provided in the RAP development guide [Developing Managed Transactional Apps](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/b5bba99612cf4637a8b72a3fc82c22d9.html) on the SAP Help Portal.
 
- 1. Check the method interface of the method **`earlynumbering_create`** in the declaration part of the local handler class `lcl_handler`.  
+ 1. Check the method interface of the method **`earlynumbering_create`** in the declaration part of the local handler class `lcl_travel`.  
 
     For that, set the cursor on the method name and press **F2** to open the **ABAP Element Info** view and examine the full method interface, for example, the importing and changing parameters. You can navigate to the different (derived) types.
 

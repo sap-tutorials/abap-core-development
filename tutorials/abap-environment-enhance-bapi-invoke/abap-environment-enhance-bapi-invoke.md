@@ -8,7 +8,7 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Enhance the Handler Class With Filtering
+# RFC: Enhance the Handler Class With Filtering
 <!-- description --> Add filtering by three values - product ID, supplier name, or category
 
 ## Prerequisites
@@ -24,11 +24,7 @@ author_profile: https://github.com/julieplummer20
 
 1. Select the class from the previous tutorial, [Get Data from a Remote System Using a Custom Entity](abap-environment-rfc-custom-entity), and choose **Duplicate...** from the context menu.
 
-<<<<<<< HEAD
-2. Enter a name for your duplicate class, **`ZCL_PRODUCT_W_FILTER_XXX`**, and choose **Finish**.
-=======
 2. Enter a name for your duplicate class, **`ZCL_PRODUCT_W_FILTER_000`**, and choose **Finish**.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 The duplicate class appears in a new editor.
 
@@ -160,11 +156,7 @@ Add the table parameters for these ranges tables to the `BAPI` call.
 ```ABAP
 
 CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
-<<<<<<< HEAD
-     DESTINATION lv_rfc_dest_name
-=======
      DESTINATION lv_destination
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
      EXPORTING
        max_rows   = lv_maxrows
      TABLES
@@ -178,11 +170,7 @@ selparamcategories    = lt_filter_ranges_category.
 
 ### Specify this new class in your custom entity
 
-<<<<<<< HEAD
-1. Open your custom entity, **`ZCE_PRODUCT_XXX`**.
-=======
 1. Open your custom entity, **`ZCE_PRODUCT_000`**.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 2. Change the following annotation to point to the new class:
 
@@ -197,11 +185,7 @@ selparamcategories    = lt_filter_ranges_category.
 
 1. **Save and activate ( `Ctrl+S, Ctrl+F3` )** the class.
 
-<<<<<<< HEAD
-2. Open your service binding, **`Z_BIND_PRODUCT_TEST_XXX`** , then choose **Preview...**.
-=======
 2. Open your service binding, **`Z_BIND_PRODUCT_TEST_000`** , then choose **Preview...**.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 3. In the Fiori Elements preview, enter a filter value, such as "Supplier Name = AVANTEL", then choose **Go**.
 

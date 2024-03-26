@@ -9,38 +9,33 @@ author_profile: https://github.com/mervey45
 ---
 
 
-# Install ABAP Development Tools (ADT) and abapGit Plugin
-<!-- description --> Install ABAP Development Tools (ADT) and abapGit plugin for ADT.
+# Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin
+<!-- description --> Download the Eclipse IDE and add the ABAP Development Tools (ADT) Plugin.
+
 
 ## You will learn
-- How to install ADT
-- How to install `abapGit` plugin
+- How do download the Eclipse IDE
+- How to add the ADT plugin to Eclipse
+
 
 ## Prerequisites
-- Operating System:
-      - Windows 10, or
-      - Apple Mac OS X 10.14 or higher
-- Microsoft VC Runtime:
-      - For Windows OS: [Microsoft Visual C++ 2013 (x64)](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) for communication with the back-end system is required.
-<<<<<<< HEAD
-- Java Runtime:
-      - ADT is validated and tested against OpenJDK and SapMachine JVMs (OpenJDK / [SapMachine](https://sap.github.io/SapMachine/)).
-      - Recent Eclipse packages already include an  AdoptOpenJDK. Any other JRE found on the system is not used. If this is not desired, see note [3035242](https://launchpad.support.sap.com/#/notes/3035242) on how to remove the bundled JRE and use a custom one.
-=======
-    >**Hint:** Precisely version Visual Studio 2013 (VC++ 12.0) x64 for communication with the back-end system is required.
+- Operating System: 
+      - Windows 10, or higher
+      - Apple macOS 10.15 or higher
+- Microsoft VC++ Runtime:
+      - For Windows: [Microsoft Visual C++ 2013 Redistributable (x64)](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2013-vc-120) 
+    >**Hint:** Precisely version Visual Studio 2013 (VC++ 12.0) x64 is required.
 -	Java Runtime:
-      -	ADT is validated and tested against Java versions 11 and 17 (Oracle Java and `OpenJDK`).
+      -	ADT is validated and tested against Java versions 17 and 21 (Oracle Java and `OpenJDK`).
       - The latest Eclipse packages are bundled with [`Eclipse Temurin`](https://adoptium.net/), an `OpenJDK` binary distribution provided by the [`Eclipse Adoptium`](https://projects.eclipse.org/projects/adoptium) project. Any other JRE found on the system is not used. If you want to remove the bundled JRE and use a custom one, see SAP note [3035242](https://launchpad.support.sap.com/#/notes/3035242).
-    >**Hint:** No manual installation of an JRE / JDK is required, since it's already bundled with the latest Eclipse packages which are downloadable as a ready-to-run zip-file. 
-
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+    >**Hint:** You do not need to manually install a JRE / JDK, since it is already bundled with the latest Eclipse packages, which are downloadable as a ready-to-run zip file. 
 
 ---
 
-### Install ABAP Development Tools (ADT)
 
+### Download and run Eclipse IDE
 
-  1. Open the [Eclipse download page](https://www.eclipse.org/downloads/packages/) to download the corresponding Eclipse version.
+  1. Open the [Eclipse download page](https://www.eclipse.org/downloads/packages/) to download the appropriate (usually latest) Eclipse version.
 
       ![eclipse](eclipse.png)
 
@@ -48,66 +43,69 @@ author_profile: https://github.com/mervey45
 
       ![eclipse](eclipse2.png)
 
-  3. Select **Show in folder** in your browser.
+  3. Click the **Download** icon of your browser and select the folder symbol.
 
-      ![eclipse](eclipse3.png)
+      ![eclipse](download0.png)
 
-  4. Extract the **Eclipse zip** file with right-click.
+  4. Extract the Eclipse file with right-click.
 
-      ![eclipse](eclipse4.png)
+      ![eclipse](download1.png)
 
-  5. Open the **Eclipse-Java** folder.
+  5. Click **Extract** in the wizard. 
+   
+      ![eclipse](download2.png)
+  
+  6. Open the **Eclipse-Java** folder.
+     
+      ![eclipse](download3.png)
 
-      ![eclipse](eclipse5.png)
-
-  6. Open the **Eclipse** folder.
+  7. Open the **Eclipse** folder.
 
       ![eclipse](eclipse6.png)
 
-  7. Double-click **`eclipse.exe`** to run the application.
+  8. Double-click **`eclipse.exe`** to run the application.
 
       ![eclipse](eclipse7.png)
 
-  8. Launch your workspace.
+  9.  Launch your workspace.
 
       ![eclipse](eclipse8.png)
 
-  9. Close both pages.
+  10. Close both pages.
 
       ![eclipse](eclipse9.png)
 
       ![eclipse](eclipse10.png)
 
-10. Select **Help** > **Install New Software**.
+
+### Add ADT plugin to Eclipse
+
+ 1. Select **Help** > **Install New Software**.
 
       ![eclipse](eclipse11.png)
 
-11. Enter the latest ADT URL **`https://tools.hana.ondemand.com/latest`** in the **Work with** section, press enter,  select **ABAP Development Tools** and click **Next >**.
+ 2. Enter the latest ADT URL **`https://tools.hana.ondemand.com/latest`** in the **Work with** section, press enter,  select **ABAP Development Tools** and click **Next >**.
 
-      ![eclipse](eclipse12.png)
+      ![eclipse](adt.png)
+
+ 3. Click **Next >**.
+
+      ![eclipse](adt2.png)
+
+ 4. Accept the **license agreement** and click **Finish**.
+
+      ![eclipse](adt3.png)
 
 
-12. Click **Next >**.
+ 5. Click **Select All** and **Trust Selected**.
 
-      ![eclipse](eclipse13.png)
+      ![eclipse](adt4.png)
 
-13. Accept the **license agreement** and click **Finish**.
-
-      ![eclipse](eclipse14.png)
-
-14. Now ADT will be installed. Select **Install anyway**.
-
-      ![eclipse](eclipse15.png)
-
-15. Click **Select All** and **Accept selected**.
-
-      ![eclipse](eclipse16.png)
-
-16. Click **Restart Now**.
+ 6. Click **Restart Now**.
 
       ![eclipse](eclipse17.png)
 
-17. Now ADT is installed. Switch to the ABAP perspective. Therefore select **Window** > **Perspective** > **Other Perspective** > **Other**.
+ 7. Now ADT is installed. Switch to the ABAP perspective. Therefore select **Window** > **Perspective** > **Other Perspective** > **Other**.
 
     ![eclipse](perspective.png)
 
@@ -115,51 +113,16 @@ author_profile: https://github.com/mervey45
 
       ![eclipse](perspective2.png)
 
-18. Check your result.
+ 8. Check your result.
 
       ![eclipse](eclipse18.png)
 
 
+### More information
 
-### Install abapGit plugin
+Following this tutorial you will be able to update the latest version of Eclipse and ADT when new releases are available.
 
-
->**HINT:** Step 2 is only mandatory for cloud users.
-
-To transfer your ABAP development objects from on-premise SAP systems to an SAP BTP, ABAP Environment instance, you can use the `abapGit` plugin.
-
-  1.  Open **Eclipse** and select **Help** > **Install New Software**.
-
-      ![plugin](eclipse11.png).
-
-  2. Enter the `abapGit` URL **`https://eclipse.abapgit.org/updatesite/`** in the **Work with** section, press enter,  select **`abapGit` for ABAP Development Tools (ADT)** and click **Next >**.
-
-      ![plugin](plugin2.png)
-
-  3. Click **Next >**.
-
-      ![plugin](plugin3.png)
-
-  4. Accept the **license agreement** and click **Finish**.
-
-      ![plugin](plugin4.png)
-
-  5. Now ADT will be installed. Select **Install anyway**.
-
-      ![plugin](plugin5.png)
-
-  6. Click **Restart Now**.
-
-      ![eclipse](plugin7.png)
-
-  7. Now `abapGit` for ADT is installed.
-
-      ![eclipse](plugin8.png)
-
-
-
-
->**HINT:** Following this tutorial you will be able to update the latest version of Eclipse and ADT when new releases are available.
+If you want to install the abapGit plugin for ADT, you can follow the [Install the abapGit Plugin](abap-install-abapgit-plugin) tutorial.
 
 ### Test yourself
 

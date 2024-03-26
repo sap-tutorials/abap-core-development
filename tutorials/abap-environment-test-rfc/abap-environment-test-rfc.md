@@ -6,10 +6,11 @@ tags: [ tutorial>intermediate, software-product>sap-btp--abap-environment, softw
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
+keyword: RFC
 ---
 
-# Call a Remote Function Module (RFC): Test the Connection to the Remote System
-<!-- description --> Test that the connection to the BAPI works via RFC.
+# RFC: Test the Business API (BAPI) with An ABAP Console App
+<!-- description --> Test that the connection to the BAPI works (A BAPI is a type of RFC).
 
 ## Prerequisites
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
@@ -28,6 +29,8 @@ The class:
 4. Outputs that local table to the ABAP Console.
 
 In future, we hope to provide a helper class that generates the appropriate DDL source code for a custom entity and associated type definition - for any BAPI in your backend system. In the meantime, I have provided all the necessary code to use with `BAPI_EPM_PRODUCT_GET_LIST` and `BAPI_EPM_PRODUCT_GET_DETAIL`.
+
+Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
 ---
 
@@ -101,10 +104,8 @@ Define the connection, replacing `000` in each artifact.
 ```ABAP
 
 DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
-                        service_id             = 'Z_OUTBOUND_RFC_000'           " Outbound service
-                        comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'      " Communication system
-
+                 comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+                 service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
                        ).
 
 DATA(lv_destination) = lo_destination->get_destination_name( ).
@@ -146,35 +147,30 @@ CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
 ```
 
 
-
 ### Add the exception handling statements
 
 1. Handle any exceptions that occur using a CASE statement.
 
     ```ABAP
-
     CASE sy-subrc.
-      WHEN 0.
-        LOOP AT lt_product INTO ls_product.
-          out->write( ls_product-name && ls_product-price && ls_product-currencycode ).
-        ENDLOOP.
-      WHEN 1.
-        out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
-      WHEN 2.
-        out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
-      WHEN 3.
-        out->write( |EXCEPTION OTHERS| ).
+        WHEN 0.
+          LOOP AT lt_product INTO ls_product.
+            out->write( ls_product-name && ls_product-price && ls_product-currencycode ).
+          ENDLOOP.
+        WHEN 1.
+          out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
+        WHEN 2.
+          out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
+        WHEN 3.
+          out->write( |EXCEPTION OTHERS| ).
     ENDCASE.
 
-```
+    ```
 
 2. Save and activate the class
 
 
-
-
 ### Check your code
-
 
 ```ABAP
 
@@ -223,10 +219,9 @@ CLASS ZCL_OUTPUT_TEST_000 IMPLEMENTATION.
     TRY.
 
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
-                        service_id             = 'Z_OUTBOUND_RFC_000'       " Outbound service
-                        comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_000'    " Communication system
-
+                            comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'     " Communication scenario
+                            service_id             = 'Z_OUTBOUND_RFC_000_SRFC'      " Outbound service
+                            comm_system_id         = 'Z_OUTBOUND_RFC_CSYS'          " Communication system
                         ).
 
     DATA(lv_destination) = lo_destination->get_destination_name( ).
@@ -279,6 +274,7 @@ ENDCLASS.
 Test the class in the ABAP Console by choosing **`F9`**.
 Your output should look like this:
 
+<!-- border -->
 ![Image depicting test-rfc-console](test-rfc-console.png)
 
 

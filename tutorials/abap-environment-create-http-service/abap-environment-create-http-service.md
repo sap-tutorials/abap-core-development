@@ -141,6 +141,7 @@ In the ABAP environment, you can only use whitelisted APIs. Therefore, for examp
 
 
 ### Test the service again (optional)
+
 Your output should look roughly like this:
 
 <!-- border -->
@@ -246,15 +247,14 @@ Your Communication Scenario appears.
     ![step10-b-publish-locally](step10-b-publish-locally.png)
 
 
-
 ### Create Communication Arrangement
 
-1. Open the dashboard for your system. You can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
+1. Open the SAP Fiori launchpad for your system. You can find the URL for this launchpad by selecting your system (that is, ABAP Project) in Project Explorer, then choosing **Properties > ABAP Development** from the context menu.
 
     <!-- border -->
     ![step11a-open-flp](step11a-open-flp.png)
 
-2. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
+2. From the launchpad, choose the Fiori app **Communication Arrangement**. Then choose **New**.
 
     <!-- border -->
     ![step11b-new](step11b-new.png)

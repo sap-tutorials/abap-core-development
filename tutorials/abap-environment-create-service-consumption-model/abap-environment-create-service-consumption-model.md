@@ -8,224 +8,214 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Create a Service Consumption Model
-<!-- description --> Create an OData service consumption model in an SAP Business Technology Platform, ABAP Environment instance. In a second instance, prepare it for consumption.
+# Prepare Consuming System and Service Consumption Model
+<!-- description --> In the consuming system, create the necessary artifacts for remote communication; then create a service consumption model from an XML metadata file; then test your connection to the provisioning system using an ABAP Console app.
 
-## Prerequisites  
+
+## Prerequisites 
+  
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
-- The service definition **`/DMO/TRAVEL_U`** is available in the **provisioning** system - You can download the service as part of the ABAP Flight Reference Scenario, see [Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
+- **IMPORTANT**: This tutorial is part two of a mission, [Connect Two Instances of SAP BTP, ABAP Environment](https://developers.sap.com/mission.abap-env-connect-2-environments.html). You cannot complete it standalone; it will not work
+
 
 ## You will learn
-  - How to create an XML file representing the remote service and save this locally
-  - How to create proxy artifacts representing the remote service in the client system, using this `metadata` file
+- In the **consuming** system: How to create a new destination with an HTTP connection, pointing to the provisioning system
+- How to create proxy artifacts representing the remote service, using the `metadata` file you created previously
 
-  This tutorial is based on:
+This tutorial mission was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
+The tutorial is based on:
 
-  - SAP Help Portal: [Preparing Access to the Remote OData Service](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/59a91c95137e4c42946d50b25dba3fd7.html)
-  - SAP Help Portal: [SAP Help Portal: Creating a Service Consumption Model](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/96132822b3554016b653d3601bb9ff1a.html)
+- SAP Help Portal: [Preparing Access to the Remote OData Service](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/59a91c95137e4c42946d50b25dba3fd7.html)
+- SAP Help Portal: [SAP Help Portal: Creating a Service Consumption Model](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/96132822b3554016b653d3601bb9ff1a.html)
+
+Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
 ---
 
-### Create package in provisioning system
 
-1. Create a new package for the mission, by:
-    - selecting your project
-    - selecting **ZLOCAL**
-    - if necessary, selecting your user package
-    - then choosing **New > ABAP Package** from the context menu.
+### Create package in consuming system in ADT
 
-2. Enter a name, **`Z_A4C_TO_A4C_XXX`**, and description, **Access service from ABAP `Environment`** and choose **Next**.
+1. As in the previous tutorial, create a package in your `ZLOCAL` package, this time in the **consuming** system: `Z_OUTBOUND_ODATA_###`.
 
-3. If asked, specify the software component **ZLOCAL** and choose **Next**.
+2. Create a new transport request.
 
-4. Accept or create a transport request and choose **Finish**.
-
-5. Add the package to **Favorite Packages** by choosing this from the context menu.
+3. Add it to **Favorite Packages**.
 
 
-### Create service binding
+### Create outbound service
 
-Now you need to access the OData service metadata. You derive this from the service URL, available from the service binding.
-Later you will use the service metadata to create the service consumption model file (`EDMX` file), for consumption on the client system.
+1. Select your package and choose **New > Other Repository Object...** from the context menu.
 
-1. First, create a new **Service Binding** from the Service Definition, **`/DMO/TRAVEL_U`**, by selecting **`/DMO/TRAVEL_U`** and choosing **New Service Binding** from the context menu. Search for this object by choosing **Open ABAP Development Object ( **`Ctrl+Sh+A`** ).
-
-    <!-- border -->![step2a-create-service-binding](step2a-create-service-binding.png)
-
-2. In the wizard:
-    - Choose the correct package, that is, **your** package, not **`/DMO/...`**
-    - Delete the namespace `/DMO/` and enter a name: **`Z_BIND_TRAVELS_XXX`** and description **Bind Travels Service**
-    - Enter the binding type: **`ODATA V2 - Web API`**
-    - Choose **Next**
-
-    <!-- border -->![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
-
-3. Accept the transport request and choose **Finish**.    
-
-The service binding opens in a new editor.
+2. Add the filter **outbound**, choose **Outbound Service**, then choose **Next**.  
 
 
+3. Enter the following, then choose **Next**.
+    - Outbound Service: **`Z_OUTBOUND_ODATA_###`**
+    - Description: **Get data from remote service via OData**
+    - Service Type: **HTTP Service**
+        <!-- border -->
+        ![step1b-outbound-service-details](step1b-outbound-service-details.png)
+ 
+4. Choose the transport request, then choose **Finish**.
 
-### Save service metadata file
-
-1. Choose **Activate**.
-
-    On the left is the Service Definition, `/DMO/TRAVEL_U`.
-    Now, on the right, is the active service, including the Entity Set and the Service URL.
-
-    <!-- border -->![step3a-service-binding](step3a-service-binding.png)
-
-2. Click on the link **Service URL**. The `XML` file is shown in the browser.
-
-3. Add the suffix **`/$metadata`** to the Service URL (deleting parameters, such as `sap-client`).
-
-    <!-- border -->![step2d-add-metadata-suffix](step2d-add-metadata-suffix.png)
-
-    The service metadata appears.
-
-4. Choose **Save As...** from the context menu. The file name should be pre-filled as **`$metadata.xml`**.
-
-5. Navigate to an appropriate folder and choose **Save**.
+Your service appears in a new editor. The system adds the suffix **`_REST`** automatically.
 
 
+### Create outbound Communication Scenario
+
+1. Select your package and choose **New > Other Repository Object...** from the context menu.
+
+2. Add the filter **`scen`**, choose **Communication Scenario**, then choose **Next**.
+
+3. Enter the following, choose a transport request, then choose **Finish**.
+    - Name: **`Z_OUTBOUND_ODATA_CSCEN_###`**
+    - Description **Get data from remote service via OData**
+    </br>       
+    Your Communication Scenario appears in a new editor.
+        <!-- border -->
+        ![step2a-new-outbound-comm-scen](step2a-new-outbound-comm-scen.png)
+
+4. On the **Overview** tab, select **Allowed Instances: One instance per client**.
+
+5. On the **Outbound** tab, add the authorization type **Basic**.
+
+6. Then, in the **Outbound Services** panel, choose **Add...**.
+
+    <!-- border -->
+    ![step2b-add-outbound-service](step2b-add-outbound-service.png)
 
 
-### Create package in client system
+6. Browse for your service, **`Z_OUTBOUND_ODATA_###_REST`**, (the suffix REST is added automatically), then choose **Finish**.
 
-1. As in step 1, create a package in your `ZLOCAL` package, in the **client** system: `Z_A4C_TO_A4C_XX2`.
+    The **Communication Scenario** appears in a new editor.
 
-2. Add it to **Favorite Packages**.
+7. Choose **Save**, then choose **Publish locally**.
+
+    <!-- border -->
+    ![step2c-publish-comm-scen](step2c-publish-comm-scen.png)
 
 
-### Create proxy artifacts
+### Create communication system in Fiori launchpad
 
-You will now use the `EDMX` file that you stored locally to create the necessary ABAP proxy artifacts in the client system.
+1. In Fiori launchpad, open the app **Communication Systems**, then choose **New**.
+
+    <!-- border -->
+    ![step3a-comm-sys](step3a-comm-sys.png)
+    </br>
+    <!-- border -->
+    ![step3b-new-comm-sys](step3b-new-comm-sys.png)   
+
+2. Enter a system ID, then accept the (identical) system name:
+    - **`Z###_TO_PRV_CSYS`** *where `PRV` is the name of your provisioning system*
+
+        <!-- border -->
+        ![step3b-new-comm-sys-id-name](step3b-new-comm-sys-id-name.png)
+
+ <!--  -->    
+
+3. In **Technical Data**:
+    - Switch **Destination Service** to **OFF**.
+
+    - In **Host Name**, enter the base URL of your provisioning system in the form **`<GUID>.abap.<region>.hana.ondemand.com`**. Again, you can find the URL for the dashboard by selecting your system (that is, ABAP Project in Project Explorer), then choosing **Properties > ABAP Development** from the context menu.
+
+        > IMPORTANT:  
+        </br>
+        Remove the protocol (e.g. `https://`) from the start and `/` from the end of the host name.
+        </br>
+        Make sure the domain starts with `abap`, not `abap-web`
+
+    - Port = **443**
+
+    <!-- border -->
+    ![step3c-comm-sys-general](step3c-comm-sys-general.png)  
+
+4. In **Users for Outbound Communication**, add a new user by choosing the **+** symbol.
+
+    <!-- border -->
+    ![step3d-add-comm-user](step3d-add-comm-user.png) 
+
+
+5. Choose the authentication method **User Name and Password**. 
+
+6. From the dropdown, choose the user from the provisioning system, **`INBOUND_TRAVELPRO`**; paste the password you generated previously (if necessary); then choose **Create**.
+
+    <!-- border -->
+    ![select-comm-user](select-comm-user.png)
+
+7. Choose **Save**.
+
+
+### Create communication arrangement
+
+1. Similarly, open the app **Communication Arrangements**, then choose **New**.
+
+2. From the dropdown, choose your **Communication Scenario**, **`Z_OUTBOUND_CSCEN_###`**; accept the generated (identical) **Arrangement Name**, then choose **Create**.
+
+3. From the dropdown, select your **Communication System**. 
+
+4. The system fills in the **User Name** and **Outbound Service** automatically. Choose **Save**.
+
+    <!-- border -->
+    ![step11c-comm-arr-complete](step11c-comm-arr-complete.png)
+
+5. In the **Outbound Services** panel, check the connection.
+
+    <!-- border -->
+    ![step11d-check-connection](step11d-check-connection.png)
+
+You should get a result like this.
+
+<!-- border -->
+![step11d-ping-successful](step11d-ping-successful.png)
+
+
+### Create Service Consumption Model in ADT
+
+You will now create the Service Consumption Model in ADT, using the `EDMX` file - i.e. the **`$metadata.xml`** file that you stored locally.
 
 1. Select your package and choose **New > Other ABAP Repository Object** from the context menu.
 
 2. Enter the filter text **service** and choose **Service Consumption Model**.
 
-3. Enter a name, **`Z_MODEL_TRAVELS_XXX`** , and description **Consumption model for Travels - client**.
+3. Enter the following and choose **Next**.
+        
+    - Name: **`Z###_MODEL_TRAVELS`**
+    - Description **`Model for Z_C_TRAVEL_U_SIMPLE_###`**
+    - Remote Consumption Mode: **`OData`**
 
-4. Using **Browse...**, navigate to your `$metadata` file, choose **Open**, then choose **Next**.
+    <!-- border -->
+    ![step5a-scm-new](step5a-scm-new.png)  
 
-5. Again, deselect all entity sets except **Travel**, make sure **`ETag` Support** is selected for it, then choose **Next**.
+4. Using **Browse...**, navigate to your `$metadata` file, choose **Open**, enter a **Class Name**, then choose **Next**. 
 
-6. The same list of ABAP artifacts appears. Choose **Next**.
+    <!-- border -->
+    ![step5b-scm2-metadata](step5b-scm2-metadata.png)
 
-7. Accept the transport request and choose **Finish**.
+5. The **Entity Set** and **Entity Type** appear; choose **Next**.
 
-Again, the Service Consumption Model appears in a new editor.
-
-
-
-### Check code
-
-The code for your abstract entity, **`ZTRAVEL** or **`ZTRAVEL<10-digit-GUID>`** should look like this:
-
-```CDS
-
-/********** GENERATED on 01/21/2020 at 12:05:38 by CB0000000016**************/
- @OData.entitySet.name: 'Travel'
- @OData.entityType.name: 'TravelType'
- define root abstract entity ZTRAVELF7FB77AE54 {
- key TravelID : abap.numc( 8 ) ;
- @Odata.property.valueControl: 'AgencyID_vc'
- AgencyID : abap.numc( 6 ) ;
- AgencyID_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'AgencyID_Text_vc'
- AgencyID_Text : abap.char( 80 ) ;
- AgencyID_Text_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'CustomerID_vc'
- CustomerID : abap.numc( 6 ) ;
- CustomerID_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'CustomerID_Text_vc'
- CustomerID_Text : abap.char( 40 ) ;
- CustomerID_Text_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'BeginDate_vc'
- BeginDate : RAP_CP_ODATA_V2_EDM_DATETIME ;
- BeginDate_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'EndDate_vc'
- EndDate : RAP_CP_ODATA_V2_EDM_DATETIME ;
- EndDate_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'BookingFee_vc'
- @Semantics.amount.currencyCode: 'CurrencyCode'
- BookingFee : abap.curr( 17, 3 ) ;
- BookingFee_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'TotalPrice_vc'
- @Semantics.amount.currencyCode: 'CurrencyCode'
- TotalPrice : abap.curr( 17, 3 ) ;
- TotalPrice_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'CurrencyCode_vc'
- @Semantics.currencyCode: true
- CurrencyCode : abap.cuky ;
- CurrencyCode_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'Memo_vc'
- Memo : abap.char( 1024 ) ;
- Memo_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'Status_vc'
- Status : abap.char( 1 ) ;
- Status_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- @Odata.property.valueControl: 'LastChangedAt_vc'
- LastChangedAt : tzntstmpl ;
- LastChangedAt_vc : RAP_CP_ODATA_VALUE_CONTROL ;
- ETAG__ETAG : abap.string( 0 ) ;
-
- }
-
-```
+    <!-- border -->
+    ![step5c-entity-set](step5c-entity-set.png)
 
 
+5 Choose **`ETag` Support**, then choose **Next**.
 
-### Create CDS custom entity
+1. Choose the above transport request and choose **Finish**.
 
-Since you are implementing the query manually, you need to use a custom entity as your data model.
+The Service Consumption Model appears in a new editor, showing the model class, entity set name, and sample code for 5 basic operations. 
 
-1. Select your package and choose **New > Other > Core Data Services > Data Definition** from the context menu.
+<!-- border -->
+![step5d-scm2-editor](step5d-scm2-editor.png)
 
-2. Enter a name, ``ZCE_TRAVEL_DATA_XXX``, and description, **Travel data custom entity - client**, then choose **Next**.
-
-3. Accept the transport request and choose **Next** (not **Finish**).
-
-4. Choose the template **Define custom entity with Parameters**, then choose **Finish**.
-
-    The CDS custom entity appears in a new editor.
-
-5. Remove the parameters statement and paste in the code below, between the curly brackets. Afterwards, your custom entity should now look as follows. Make sure the types of the fields match those in the abstract entity.
-
-    > Custom entities do not come with a select on the data source. Therefore, you will later implement the data retrieval logic in a new ABAP class, referenced in an entity annotation.
-
-
-    ```ABAP
-    @EndUserText.label: 'Travel data custom entity - client'
-    define custom entity ZCE_TRAVEL_DATA_XXX
-     {
-       key TravelID               : abap.numc( 8 ) ;
-          AgencyID               : abap.numc( 6 ) ;
-          CustomerID             : abap.numc( 6 ) ;
-          BeginDate              : rap_cp_odata_v2_edm_datetime ;
-          EndDate                : rap_cp_odata_v2_edm_datetime ;
-          @Semantics.amount.currencyCode: 'CurrencyCode'
-          BookingFee             : abap.dec( 17, 3 ) ;
-          @Semantics.amount.currencyCode: 'CurrencyCode'
-          TotalPrice             : abap.dec( 17, 3 ) ;
-          @Semantics.currencyCode: true
-          CurrencyCode           : abap.cuky( 5 ) ;
-          Description            : abap.char( 1024 ) ;   //renamed element
-          Status                 : abap.char( 1 );
-          LastChangedAt          : tzntstmpl ;
-
-          CalculatedEtag         : abap.string( 0 ) ;  
-    }
-
-    ```
-
+You will later create an ABAP class based on the operation **Read List**. The class will display the retrieved data to an ABAP Console application, then to a Fiori Elements preview.
 
 
 ### Test yourself
+<!-- Ask Bernhard -->
 
+### More Information
 
+- SAP Help Portal: [Service Consumption via Communication Arrangements](https://help.sap.com/docs/btp/sap-business-technology-platform/service-consumption-via-communication-arrangements)
 
-
+- SAP Community blog post: [Service Consumption Model 2 for OData Client Proxy](https://blogs.sap.com/2023/11/06/service-consumption-model-2-for-odata-client-proxy/)
 
 ---
