@@ -33,42 +33,42 @@ Navigate to the Maintain Business Roles application in the Fiori Launchpad of th
 Before we can assign roles to business users, we need to create employees in the system.  
 To do this, as the administrator, logon to the Fiori Launchpad for the consumer tenant using the URL shared by the provider (the route for the consumer)
 
-1. Open the Maintain Employees app
+Open the Maintain Employees app
+![Maintain Employees](MaintainEmployees.png)
 
-    ![Maintain Employees](MaintainEmployees.png)
+To create employees in the app, there are 2 options.
 
-2. To create employees in the app, there are 2 options.
+[OPTION BEGIN [Create Individual Employee Record]]
 
-    [OPTION BEGIN [Create Individual Employee Record]]
+The first option is to create individual employees
 
-    ![Create Employee](CreateEmployee.png)
+1. Click the Create button in the app.
 
-    The first option is to create individual employees
+2. Enter at least the mandatory fields in the form under both the "General Information" and "Contact Information" sections
 
-    1. Click the Create button in the app.
+3. Click "Create"
 
-    2. Enter at least the mandatory fields in the form under both the "General Information" and "Contact Information" sections
+![Create Employee](CreateEmployee.png)
 
-    3. Click "Create"
+[OPTION END]
 
-    [OPTION END]
+[OPTION BEGIN [Import Employee Records from Excel]]
 
-    [OPTION BEGIN [Import Employee Records from Excel]]
+The second option is to import employee records from Excel
 
-    The second option is to import employee records from Excel
-    ![Import Employees](ImportEmployees.png)
+![Import Employees](ImportEmployees.png)
 
-    1. Click the Import button in the app
+1. Click the Import button in the app
 
-    2. Download the template with a delimiter of your choice
+2. Download the template with a delimiter of your choice
 
-    3. Fill in the downloaded excel with employee details conforming to the template specified
+3. Fill in the downloaded excel with employee details conforming to the template specified
 
-    4. Use the browse button to find and upload the excel file
+4. Use the browse button to find and upload the excel file
 
-    5. Click Import
+5. Click Import
 
-    [OPTION END]
+[OPTION END]
 
 ### Create Business Users and Assign Business Roles
 
@@ -100,7 +100,7 @@ To handle business configuration entries, we have apps provided under the "Busin
 
 The users with assigned  SAP\_BR\_BPC\_EXPERT role should now be able to see the applications under the "Business Configuration" group of the Fiori Launchpad.
 
- ![Business Configuration](CustomBusinessConfig.png)
+![Business Configuration](CustomBusinessConfig.png)
 
 [OPTION BEGIN [Custom Business Configurations]]
 
