@@ -1,7 +1,7 @@
 ---
 parser: v2
 auto_validation: true
-time: 5
+time: 15
 tags: [ tutorial>beginner, programming-tool>abap-extensibility, programming-tool>abap-development, tutorial>license]
 primary_tag: software-product>sap-btp--abap-environment
 ---
