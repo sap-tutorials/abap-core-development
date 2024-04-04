@@ -44,7 +44,7 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
       ![Select business configuration](m2.png)
 
-  5. Click **Edit**.
+  5. Click **Edit**. When the Edit action is performed, a customizing transport request is determined automatically. You can find the determination logic in the ABAP documentation of method `get_transport_request` of interface `if_mbc_cp_rap_tdat_cts`.
 
       ![Click edit](m3.png)
 
@@ -60,9 +60,8 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
      ![Click save](m5.png)
 
-  8. If you only have a SAP BTP trial account and have made the code adjustments mentioned in the first tutorial, the save process is successful and you can now set this step to **Done** and proceed to the next step **Test yourself**. If not, you get an error message that the transport request is missing. Click **Close**.
-
-      ![Error message](m6.png)
+  8. If the system was able to automatically determine a customizing request, or if you only have a SAP BTP trial account and have made the code adjustments mentioned in the first tutorial, the save process is successful and you can now set this step to **Done** and proceed to the next step **Test yourself**. 
+  If not, you get an error message that the transport request is missing. Close the error message.
 
 9. Click on **Select Transport**. If a task of a modifiable transport request is assigned to your user, you can select the transport request and continue with saving. If this is not the case, you must first create a new one.
 
