@@ -222,9 +222,9 @@ The first step is to extend the extension data source. This has to be done in Ti
 
 1.	Open the extension data definition `E_SalesDocumentBasic`.
 
-    ![Create new ddls from I_SalesDOcumentBasic](ADT_DDLS_E_SD_Basic_New_DDLS.png)
-
 2.	Right-click the extension data definition in the navigation tree and choose **New Data Definition** from its context menu.
+
+    ![Create new ddls from I_SalesDOcumentBasic](ADT_DDLS_E_SD_Basic_New_DDLS.png)
  
     Give the package `$TMP`, the name `ZZ1_E_SALES_DOC_BASIC` and the description `I_SALESDOCUMENTBASIC extension`.
 
@@ -232,7 +232,7 @@ The first step is to extend the extension data source. This has to be done in Ti
  
 3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View**.
 
-    ![Select View Entity ddls template](ADT_DDLS_crt_tmpl_view_entity.png)
+    ![Select DDLS template Extend View](ADT_DDLS_crt_tmpl_extend.png)
  
     >If in contrast to `E_SalesDocumentBasic`, the extension data definition was a view entity, you had to choose **Extend View Entity** instead. Be aware that a view can still be migrated to a view entity by SAP. Migrate an existing Extend View to an Extend View Entity to avoid issues.
 
@@ -270,7 +270,9 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
  
     >Hint: If in contrast to `I_SALESORDER` the extensible data definition was released for extend (C0) in Cloud Development, the extending data definition of this step should be created in a Tier1 package.
 
-3.	Continue in the wizard until the Template selection dialog and choose **Extend View**.
+3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View**.
+
+    ![Select DDLS template Extend View](ADT_DDLS_crt_tmpl_extend.png)
 
     >Hint: If in contrast to `I_SALESORDER` the extensible data definition was a view entity, you had to choose **Extend View Entity** instead. Be aware that a view can still be migrated to a view entity by SAP. Migrate the existing Extend View to an Extend View Entity to avoid issues.
 
@@ -439,11 +441,11 @@ Since the tier 1 data source should provide the very same protection as the orig
 
     ![Set Attributes at ACL ZZ1_I_SO_PARTNER_ACL creation](ADT_ACL_Z_I_SO_PARTNER_crt_name_pckg.png)
  
-3.	Continue in the wizard until the **Templates** selection dialog and choose `Define Role with Inheriting Conditions`:
+3.	Continue in the wizard until the **Templates** selection dialog and choose **Define Role with Inheriting Conditions**:
 
     ![Select Template at ACL ZZ1_I_SO_PARTNER_ACL creation](ADT_ACL_crt_tmpl_inherited.png)
 
-    Implement the where clause by giving the source entity `I_SalesOrderPartner` and adding a replacement for the root with the wrapper association.
+    Implement the `where` clause by giving the source entity `I_SalesOrderPartner` and adding a replacement for the root with the wrapper association.
 
     ![ACL ZZ1_I_SO_PARTNER_ACL code](ADT_ACL_Z_I_SO_PARTNER_code.png)
 
@@ -503,7 +505,7 @@ If you want to restrict the use of the wrapper data source, you can protect it w
 
     ![Select ACL Template at ZZ1_W_VBPA_ACL creation](ADT_ACL_crt_tmpl_simple.png)
  
-6.	Within the code of the access control you've created, adapt the value for the label notation if the description was longer than 40 characters and add a where clause which will never be true:
+6.	Within the code of the access control you've created, adapt the value for the label notation if the description was longer than 40 characters and add a `where` clause which will never be true:
  
     ![ACL ZZ1_W_VBPA_ACL code](ADT_ACL_Z_W_VBPA_code.png)
     
