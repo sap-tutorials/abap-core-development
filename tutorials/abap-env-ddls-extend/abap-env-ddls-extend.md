@@ -224,7 +224,7 @@ The first step is to extend the extension data source. This has to be done in Ti
 
 2.	Right-click the extension data definition in the navigation tree and choose **New Data Definition** from its context menu.
 
-    ![Create new ddls from I_SalesDOcumentBasic](ADT_DDLS_E_SD_Basic_New_DDLS.png)
+    ![Create new data source from I_SalesDOcumentBasic](ADT_DDLS_E_SD_Basic_New_DDLS.png)
  
     Give the package `$TMP`, the name `ZZ1_E_SALES_DOC_BASIC` and the description `I_SALESDOCUMENTBASIC extension`.
 
@@ -238,7 +238,7 @@ The first step is to extend the extension data source. This has to be done in Ti
 
 4.	Complete the code of the data source by providing a value for annotation `@AbapCatalog.sqlViewAppendName` and add the field that you want to extend your extensible data source with.
 
-    ![ZZ1_E_SALES_DOC_BASIC ddls code](ADT_DDLS_Z_E_SD_Basic_code.png)
+    ![ZZ1_E_SALES_DOC_BASIC data source code](ADT_DDLS_Z_E_SD_Basic_code.png)
 
     ```ABAP
     @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SD_BASIC'
@@ -262,7 +262,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
 1. Right-click the interface data definition `I_SALESORDER` in the navigation tree and choose **New Data Definition** from its context menu.
 
-    ![Create new ddls from I_SalesOrder](ADT_DDLS_I_SO_New_DDLS.png)
+    ![Create new data source from I_SalesOrder](ADT_DDLS_I_SO_New_DDLS.png)
 
 2. Give the package `$TMP` the name `ZZ1_E_SALESORDER` and the description `I_SALEORDER extension`.
 
@@ -278,7 +278,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
 4.	Complete the code of the data source by providing a value for annotation `@AbapCatalog.sqlViewAppendName`. Define the field that the interface data source should get extended by. 
 
-    ![ZZ1_E_SALESORDER ddls code](ADT_DDLS_Z_E_SO_code.png)
+    ![ZZ1_E_SALESORDER data source code](ADT_DDLS_Z_E_SO_code.png)
 
     ```ABAP
     @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SO'
@@ -333,11 +333,11 @@ First, we create the data source that wraps the database table and exposes its m
  
 2.	Continue in the wizard until the **Templates** selection dialog and choose **Define View Entity**.
 
-    ![Select View Entity ddls template](ADT_DDLS_crt_tmpl_view_entity.png)
+    ![Select View Entity data source template](ADT_DDLS_crt_tmpl_view_entity.png)
  
 3.	Adapt the code of the data source by leaving only the key field `vbeln` and the field `knref` in the list of inserted fields. These two fields are the fields that the wrapper should expose to tier 1. Provide them with the human-readable aliases `SalesDocumentID` and `ZZ1_CustDescrOfPartnerPlant`.
 
-    ![ZZ1_W_VBPA ddls code](ADT_DDLS_Z_W_VBPA_code.png)
+    ![ZZ1_W_VBPA data source code](ADT_DDLS_Z_W_VBPA_code.png)
 
     ```ABAP
     @AbapCatalog.viewEnhancementCategory: [#NONE]
@@ -382,7 +382,7 @@ Next, we create the interface data source in Tier 1 which combines the original 
 
 3.	    Continue in the wizard and choose the template **Define View Entity**.
 
-    ![Select View Entity ddls template](ADT_DDLS_crt_tmpl_view_entity.png)
+    ![Select View Entity data source template](ADT_DDLS_crt_tmpl_view_entity.png)
 
 4.	    Adapt the code of the data source:
 
@@ -404,7 +404,7 @@ Next, we create the interface data source in Tier 1 which combines the original 
 
     4.5.    Expose the association alias of the original data source: `_I_SO_PARTNER`
 
-    ![ZZ1_I_SO_PARTNER ddls code](ADT_DDLS_Z_I_SO_PARTNER_code.png)
+    ![ZZ1_I_SO_PARTNER data source code](ADT_DDLS_Z_I_SO_PARTNER_code.png)
  
     ```ABAP
     @AccessControl.authorizationCheck: #CHECK
