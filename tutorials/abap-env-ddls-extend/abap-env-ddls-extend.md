@@ -114,15 +114,15 @@ A data source can be:
 
     The simplest case to extend a data source is if it's enabled for data source extensibility within key user extensibility. This is the case if the data source can be found in the **Custom Fields** app > **Data Source Extensions**.
 
-  1. Launch the **Custom Fields** app in the SAP Fiori Launchpad.
+    1. Launch the **Custom Fields** app in the SAP Fiori Launchpad.
 
-  2. Switch to the tab **Data Source Extensions**.
+    2. Switch to the tab **Data Source Extensions**.
 
-  3. Start creating a new data source extension, use the data source value help and search `I_GLAccountLineItem`. If it's found it's key user data source extensible
+    3. Start creating a new data source extension, use the data source value help and search `I_GLAccountLineItem`. If it's found it's key user data source extensible
 
         ![Data source extension value help search for I_GLAccountLineItem in FLP](FLP_ddls_ext_crt_GLA_LineItem_F4.png) 
 
-    In this case, the solution is to create a data source extension via key user app directly in tier 1. This will be shown in "Step 5: Case 1: Data Source is Key User Data Source extensible (Tier 1)".
+    In this case, the solution is to create a data source extension via key user app directly in tier 1. This will be shown in **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)**.
 
 - **Case 2: Released for Extend (C0 contract, but not key user data source extensible)**
 
@@ -134,7 +134,7 @@ A data source can be:
  
     There, you can see if a data source can be extended (Contract C0) in cloud development or key user apps. If at least one is true, it's enabled for extensibility with ADT.
 
-    In this case, the solution is to create data source extensions in ADT in tier 2. This will be shown in "Step 6: Case 2: Data Source is released for Extend (Tier 2)"
+    In this case, the solution is to create data source extensions in ADT in tier 2. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
 
     >If you want to freely browse through data sources released for extend, you can create a repository tree view on released data source objects (see [YouTube video: Repository Trees in ADT. Configure your Project Explorer](https://youtu.be/kAilhfl2_Yg&t=190s)).
     See also the documentation: [SAP - ABAP Development Tools: User Guide > Released APIs > Extend (C0)](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/extend-c0)
@@ -147,7 +147,7 @@ A data source can be:
 
     ![Not released for extend ADT property](ADT_DDLS_API_State_C0_not_released.png) 
     
-    In this case, the solution is to create a data source in ADT in tier 2 that is wrapping the database table and exposing its missing field. Release it for usage in tier 1 and create another data source in tier 1, which combines the non-extensible data source with the wrapping one. This way the combining data source can be used instead of the non-extensible one. This will be shown in "Step 9: Case 3: Data Source is not Released for Extend".
+    In this case, the solution is to create a data source in ADT in tier 2 that is wrapping the database table and exposing its missing field. Release it for usage in tier 1 and create another data source in tier 1, which combines the non-extensible data source with the wrapping one. This way the combining data source can be used instead of the non-extensible one. This will be shown in **Step 9: Case 3.1 - The Data Source is not Released for Extend** and following steps of case 3.
 
 >Be aware that only read access is recommended for the added field as SAP might have determination and validation logic that changes the field again or bypasses needed checks after you changed it. This means that especially data definitions for transactional processing processing like `R_InspectionLotTP` (`@VDM.viewType #TRANSACTIONAL`) must not be extended at all as their main purpose is to offer the entire business object functionality.
 
@@ -201,7 +201,7 @@ For more information, see also the documentation: [Creating Data Source Extensio
 
 In this example the data source `I_SalesOrder` is extended by `vbak` field `gwldt`.
 
-Remember (see "Step 4: Identify the Extension Case for a Data Source") that a data definition must not appear in the key user app for data source extensions for this to be the best approach. If it does appear there, follow "Step 5: Case 1: The Data Source is Key User Data Source Extensible (Tier 1)".
+Remember (see **Step 4: Identify the Extension Case for a Data Source**) that a data definition must not appear in the key user app for data source extensions for this to be the best approach. If it does appear there, follow **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)**.
 
 Contract C0-released implies that the extensible data source associates a so-called extension data source, in case of SAP data sources with name `E_*`.
 
@@ -258,7 +258,7 @@ For more information, see also the documentation: [CDS Views Extension](https://
 
 ### Case 2.3 - Extend the Extensible Data Source
 
-Follow the same steps as in "Step 7: Case 2.1: Extend the Extension Data Source" for the extensible data definition.
+Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Source** for the extensible data definition.
 
 1. Right-click the interface data definition `I_SALESORDER` in the navigation tree and choose **New Data Definition** from its context menu.
 
@@ -291,7 +291,7 @@ Follow the same steps as in "Step 7: Case 2.1: Extend the Extension Data Source"
 
 Now, data source `I_SalesOrder` will also return the database field.
 
-1.	Enhance the ABAP class from "Step 2: Read a Data Source in Cloud Development (Tier 1)" by a another read via data source `I_SalesOrder`
+1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (Tier 1)** by a another read via data source `I_SalesOrder`
 
     ```ABAP
     out->write( |\nCase 2 - I_SalesOrder + ZZ1_WarrantyStartDate  | ).
@@ -445,7 +445,7 @@ Since the tier 1 data source should provide the very same protection as the orig
 
     Implement the where clause by giving the source entity `I_SalesOrderPartner` and adding a replacement for the root with the wrapper association.
 
-    ![ACL ZZ1_I_SO_PARTNER_ACL code](ADT_ACL_Z_I_SO_code.png)
+    ![ACL ZZ1_I_SO_PARTNER_ACL code](ADT_ACL_Z_I_SO_PARTNER_code.png)
 
     ```ABAP
     @EndUserText.label: 'ACL for SO Partner + vbpa exposing DDLS '
