@@ -9,7 +9,7 @@ author_profile: https://github.com/Liebherr
 ---
 <!--DONE with E1Y-->
 # Connect SAP Business Application Studio and SAP S/4HANA Cloud System
-<!-- description --> Connect SAP Business Application Studio and an SAP S/4HANA Cloud system using SAML assertion authentication to develop custom UIs.
+<!-- description --> For key user extensibility connect SAP Business Application Studio and an SAP S/4HANA Cloud system using SAML assertion authentication to develop custom UIs.
 
 ## Prerequisites
  - You have an **SAP S/4HANA Cloud system** and a business user with **Communication Management** authorizations (this requires a business role with unrestricted write access containing business catalog `SAP_CORE_BC_COM` ).
@@ -18,6 +18,10 @@ author_profile: https://github.com/Liebherr
 ## You will learn
 - How to create an HTTP destination on SAP Business Technology Platform with SAML assertion authentication to an SAP S/4HANA Cloud system
 - How to create a communication system for an SAP Business Application Studio subaccount in an SAP S/4HANA Cloud system
+
+**Additional Infos**
+> - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
+> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 **Prerequisites for SAP BTP customer account**
 
@@ -34,10 +38,6 @@ To follow this tutorial, you can also use your customer account. However, for th
   - Assign the developer users permission for SAP Business Application Studio, see [SAP BTP, ABAP environment documentation: Assigning Permissions for SAP Business Application Studio](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/a08c1cb7def34798891b0a1ac6ddbd96.html)
 
 Alternatively, see [Integrating SAP Business Application Studio](https://help.sap.com/viewer/0f69f8fb28ac4bf48d2b57b9637e81fa/latest/en-US/22bc724fd51a4aa4a4d1c5854db7e026.html) documentation for this tutorial's content with a customer account.
-
-## Additional Information
-
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 ---
 

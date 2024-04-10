@@ -120,12 +120,6 @@ INTERFACE zif_wrap_bapi_pr_create_###
   TYPES:
     "! Purchase Req. - Item
     pr_items        TYPE STANDARD TABLE OF pr_item WITH KEY preq_item,
-    "! Purchase Req. - Acct Assignment
-    pr_item_accounts TYPE STANDARD TABLE OF pr_item_account WITH KEY preq_item,
-    "! Purchase Req. - Item Text
-    pr_item_texts   TYPE STANDARD TABLE OF pr_item_text WITH KEY preq_item,
-    "! Purchase Req. - Header Text
-    pr_header_texts  TYPE STANDARD TABLE OF pr_header_text WITH KEY preq_item,
     "! Table of BAPI return information
     pr_returns      TYPE bapirettab.
  
@@ -136,18 +130,12 @@ INTERFACE zif_wrap_bapi_pr_create_###
   "! <strong>Note</strong>: Using this method requires write authorization for authorization objects M_BANF_BSA, M_BANF_EKG, M_BANF_EKO, M_BANF_WRK
   "! @parameter pr_header | Purchase Req. - Header
   "! @parameter pr_items | Purchase Req. - Item
-  "! @parameter pr_item_accounts | Purchase Req. - Acct Assignment
-  "! @parameter pr_item_texts | Purchase Req. - Item Text
   "! @parameter result | Purchase Requisition Number
   METHODS create
     IMPORTING pr_header       TYPE pr_header
               pr_items        TYPE pr_items
-              pr_item_accounts TYPE pr_item_accounts
-              pr_item_texts   TYPE pr_item_texts
-              pr_header_texts TYPE pr_header_texts
     EXPORTING pr_returns      TYPE pr_returns
     RETURNING VALUE(result)   TYPE pr_number.
- 
  
  
   "! <p>This method checks purchase requsisitions data for validity, using BAPI_PR_CREATE test mode.
@@ -156,15 +144,10 @@ INTERFACE zif_wrap_bapi_pr_create_###
   "! <strong>Note</strong>: Using this method requires write authorization for authorization objects M_BANF_BSA, M_BANF_EKG, M_BANF_EKO, M_BANF_WRK
   "! @parameter pr_header | Purchase Req. - Header
   "! @parameter pr_items | Purchase Req. - Item
-  "! @parameter pr_item_accounts | Purchase Req. - Acct Assignment
-  "! @parameter pr_item_texts | Purchase Req. - Item Text
   "! @parameter result | Table of BAPI return information
   METHODS check
     IMPORTING pr_header       TYPE pr_header
               pr_items        TYPE pr_items
-              pr_item_accounts TYPE pr_item_accounts
-              pr_item_texts   TYPE pr_item_texts
-              pr_header_texts TYPE pr_header_texts
     RETURNING VALUE(result)   TYPE pr_returns.
  
  
@@ -288,15 +271,7 @@ CLASS zcl_bapi_pr_wrapper_### DEFINITION
     METHODS prepare_itemx IMPORTING pr_items       TYPE zif_wrap_bapi_pr_create_###=>pr_items
                           RETURNING VALUE(pritemx) TYPE ty_bapimereqitemx.
 
-    "! <p class="shorttext synchronized" lang="en">This method prepares accountx control structure</p>
-    "!
-    "! @parameter pr_item_accounts | Purchase Req. - Acct Assignment
-    "! @parameter praccountx | Purchase Req. - Account Assignment
-    METHODS prepare_accountx IMPORTING pr_item_accounts  TYPE zif_wrap_bapi_pr_create_###=>pr_item_accounts
-                             RETURNING VALUE(praccountx) TYPE ty_bapimereqaccountx.
-
 ENDCLASS.
-
 
 
 CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
@@ -346,29 +321,6 @@ CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD prepare_accountx.
-    FIELD-SYMBOLS <fieldx> TYPE any.
-    DATA(pr_item_account_struct) = CAST cl_abap_structdescr( cl_abap_typedescr=>describe_by_data( VALUE zif_wrap_bapi_pr_create_###=>pr_item_account(  ) ) ).
-
-    LOOP AT pr_item_accounts INTO DATA(pr_item_account).
-      DATA(praccountx_line) = VALUE  bapimereqaccountx( preq_item = pr_item_account-preq_item serial_no = pr_item_account-serial_no ).
-
-      LOOP AT pr_item_account_struct->components INTO DATA(component).
-        ASSIGN COMPONENT component-name OF STRUCTURE praccountx_line TO <fieldx>.
-
-        CASE component-name.
-          WHEN 'PREQ_ITEM'.
-          WHEN 'SERIAL_NO'.
-          WHEN OTHERS.
-            <fieldx> = abap_true.
-        ENDCASE.
-      ENDLOOP.
-
-      APPEND praccountx_line TO praccountx.
-    ENDLOOP.
-  ENDMETHOD.
-
-
   METHOD prepare_headerx.
     FIELD-SYMBOLS <fieldx> TYPE any.
 
@@ -406,13 +358,9 @@ CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
   METHOD zif_wrap_bapi_pr_create_###~check.
     DATA(prheader) = CORRESPONDING bapimereqheader( pr_header ).
     DATA(pritem) = CORRESPONDING ty_bapimereqitemimp( pr_items ).
-    DATA(pritemtext) = CORRESPONDING ty_bapimereqitemtext( pr_item_texts ).
-    DATA(prheadertext) = CORRESPONDING ty_bapimereqheadtext( pr_header_texts ).
-    DATA(praccount) = CORRESPONDING ty_bapimereqaccount( pr_item_accounts ).
 
     DATA(prheaderx) = me->prepare_headerx( pr_header ).
     DATA(pritemx) = me->prepare_itemx( pr_items ).
-    DATA(praccountx) = me->prepare_accountx( pr_item_accounts ).
 
     me->call_bapi_pr_create(
       EXPORTING
@@ -423,10 +371,6 @@ CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
         return                 = result
         pritem                 = pritem
         pritemx                = pritemx
-        praccount              = praccount
-        praccountx             = praccountx
-        pritemtext             = pritemtext
-        prheadertext           = prheadertext
     ).
   ENDMETHOD.
 
@@ -434,13 +378,9 @@ CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
   METHOD zif_wrap_bapi_pr_create_###~create.
     DATA(prheader) = CORRESPONDING bapimereqheader( pr_header ).
     DATA(pritem) = CORRESPONDING ty_bapimereqitemimp( pr_items ).
-    DATA(pritemtext) = CORRESPONDING ty_bapimereqitemtext( pr_item_texts ).
-    DATA(prheadertext) = CORRESPONDING ty_bapimereqheadtext( pr_header_texts ).
-    DATA(praccount) = CORRESPONDING ty_bapimereqaccount( pr_item_accounts ).
 
     DATA(prheaderx) = me->prepare_headerx( pr_header ).
     DATA(pritemx) = me->prepare_itemx( pr_items ).
-    DATA(praccountx) = me->prepare_accountx( pr_item_accounts ).
 
     me->call_bapi_pr_create(
       EXPORTING
@@ -453,10 +393,6 @@ CLASS ZCL_BAPI_PR_WRAPPER_### IMPLEMENTATION.
         return                 = pr_returns
         pritem                 = pritem
         pritemx                = pritemx
-        praccount              = praccount
-        praccountx             = praccountx
-        pritemtext             = pritemtext
-        prheadertext           = prheadertext
     ).
   ENDMETHOD.
 ENDCLASS.
@@ -570,22 +506,7 @@ DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->crea
               purch_org = '1010'
               short_text = 'ZPRINTER01'
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
-                preq_item = '00010'
-                costcenter = 'jwt-cost'
-                gl_account = '0000400000'
-                serial_no = '01'
-            ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
-              preq_item = '00010'
-              text_line = ' '
-              text_id   = 'b01'
-            ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
-              preq_item = '00010'
-              text_line = | { sy-uname } - { '00000001'  } |
-              text_id   = 'B01'
-            ) )
+
           IMPORTING
             pr_returns      = pr_returns
         ).
@@ -601,6 +522,8 @@ Save it.
 The class calls the wrapper factory class and, given some input parameter values like the delivery date and the item price, creates a purchase requisition for that specific item and prints the information to the console. Since the wrapper is not released for consumption in tier 1, when you try to activate the class you will get an error message.
 
 ![unreleased wrapper error](unreleased_wrapper_console_application.png)
+
+>The class calls the method `create` of the BAPI, which will create an instance of the Shopping Cart Business Object and the relative purchase requisition. In the context of this tutorial group, this is of course done for educational purposes, to show the creation of a purchase requsition and test the wrapper via console application. If for any reason you do not wish to create an instance of the Shopping Cart Business Object at this point, you can instead make use of the BAPI method `check`.
 
 ### Release the wrapper interface and factory class
 
@@ -618,7 +541,7 @@ Click on **Next**. The changes will be validated. No issues should arise:
 
 ![Release interface - 3](release_interface_3.png)
 
-Click on **Next**.
+Click on **Next** and then click on **Finish**.
 
 The API State tab will now show the new Release State:
 

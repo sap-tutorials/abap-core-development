@@ -8,8 +8,8 @@ author_name: Ulrike Liebherr
 author_profile: https://github.com/Liebherr
 ---
 
-# Create the UI for a Custom Business Object
-<!-- description -->Create an own application based on a Custom Business Object and a Custom Catalog Extension
+# Generate the UI for a Custom Business Object and grant Access
+<!-- description -->Generate an own application based on a Custom Business Object and grant access with a Custom Catalog Extension
 
 ## Prerequisites  
 - **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Catalog Extensions** (ID: `SAP_CORE_BC_EXT_CCE`) in your **SAP S/4HANA Cloud** system
@@ -19,17 +19,14 @@ author_profile: https://github.com/Liebherr
 In the preceding tutorial you created a custom business object with a simple data structure and its persistence.
 To be able to work with a business object you need a user interface. In this tutorial you will
 <ul>
-  <li>generate an User Interface (UI)
+  <li>generate a User Interface (UI)
   <li>expose that UI as an application with the use of Custom Catalog Extensions
 </ul>
 At the end you will have a running application that you can create, update and delete custom business object entities with.
 
-## Intro
->**UI Generation** and later done **UI Adaptation** are so called **In-App Extensibility** features done completely inside a SAP S/4HANA Cloud system. They are key user functionality with limited possibilities.
->
->Alternatively the more powerful **Side-By-Side Extensibility** via **SAP Business Technology Platform** could be done to develop an UI with all SAPUI5 options (see tutorial group [Create a SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
-
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
+**Additional Info**
+> - **UI Generation** and later done **UI Adaptation** are so called **In-App Extensibility** features done completely inside an SAP S/4HANA Cloud system. They are functionality with limited possibilities. Alternatively a UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
+> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
 
 **Our Example**
 

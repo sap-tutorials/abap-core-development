@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
   
-# Enhance the Behavior Definition and Behavior Implementation of the Shopping Cart Business Object
+# Create Value Help, Enhance the Behavior Definition and Behavior Implementation of the Shopping Cart Business Object
 <!-- description --> Create your first order in the shopping cart.
 
 In the shopping cart, customers can order various items. Once an item is ordered, a new purchase requisition is created via purchase requisitions API.
@@ -24,6 +24,7 @@ In the shopping cart, customers can order various items. Once an item is ordered
 
 ## You will learn  
 - How to enhance a behavior definition
+- How to create a value help
 - How to enhance a behavior implementation
 - How to run the SAP Fiori Elements Preview
 
@@ -127,7 +128,260 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
     
    4. Save and activate. 
 
- 
+
+### Create data definition for products
+
+This data definition is needed to create a value help for products.
+
+ 1. Right-click **Data Definitions** and select **New Data Definition**.
+  
+    ![projection](products.png) 
+
+ 2. Create a new data definition:
+    - Name: `ZI_Products_###`
+    - Description: data definition for products
+  
+      Click **Next >**.
+
+      ![projection](products2.png) 
+  
+ 3. Click **Finish**.  
+   
+      ![projection](products3.png) 
+
+ 4. In your data definition **`ZI_Products_###`** replace your code with following:
+
+    ```ABAP
+    @AbapCatalog.viewEnhancementCategory: [#NONE]
+    @AccessControl.authorizationCheck: #NOT_REQUIRED
+    @EndUserText.label: 'Value Help for I_PRODUCT'
+    @Metadata.ignorePropagatedAnnotations: true
+    @ObjectModel.usageType:{
+      serviceQuality: #X,
+      sizeCategory: #S,
+      dataClass: #MIXED
+    }
+    define view entity ZI_PRODUCTS_###
+      as select from I_Product
+    {
+      key Product                                                 as Product,
+          _Text[1: Language=$session.system_language].ProductName as ProductText,
+          @Semantics.amount.currencyCode: 'Currency'
+          case
+            when Product = 'D001' then cast ( 1000.00 as abap.dec(16,2) ) 
+            when Product = 'D002' then cast ( 499.00 as abap.dec(16,2) ) 
+            when Product = 'D003' then cast ( 799.00 as abap.dec(16,2) ) 
+            when Product = 'D004' then cast ( 249.00 as abap.dec(16,2) )
+            when Product = 'D005' then cast ( 1500.00 as abap.dec(16,2) ) 
+            when Product = 'D006' then cast ( 30.00 as abap.dec(16,2) ) 
+            else cast ( 100000.00 as abap.dec(16,2) ) 
+          end                                                     as Price,
+          
+          @UI.hidden: true
+          cast ( 'EUR' as abap.cuky( 5 ) )                        as Currency,
+
+          @UI.hidden: true
+          ProductGroup                                            as ProductGroup,
+
+          @UI.hidden: true
+          BaseUnit                                                as BaseUnit
+
+    }
+    where
+        Product = 'D001'
+      or Product = 'D002'
+      or Product = 'D003'
+      or Product = 'D004'
+      or Product = 'D005'
+      or Product = 'D006'
+    ```
+
+ 5. Save and activate.
+
+
+### Enhance metadata extension
+
+ 1. In your metadata extension **`ZC_SHOPCARTTP_###`** replace your code with following:
+
+    ```ABAP
+    @Metadata.layer: #CORE
+    @UI: {
+      headerInfo: {
+        typeName: 'ShoppingCart', 
+        typeNamePlural: 'ShoppingCarts'
+      , title: {
+          type: #STANDARD,
+          label: 'ShoppingCart',
+          value: 'orderid'
+        }
+      },
+      presentationVariant: [ {
+        sortOrder: [ {
+          by: 'orderid',
+          direction: #DESC
+        } ],
+        visualizations: [ {
+          type: #AS_LINEITEM
+        } ]
+      } ]
+    }
+    annotate view ZC_SHOPCARTTP_### with
+    {
+      @UI.facet: [ {
+        id: 'idIdentification', 
+        type: #IDENTIFICATION_REFERENCE, 
+        label: 'ShoppingCart', 
+        position: 10 
+      } ]
+      @UI.hidden: true
+      orderuuid;
+      
+      @UI.lineItem: [ {
+        position: 20 ,
+        importance: #HIGH,
+        label: 'OrderID'
+      } ] 
+      @UI.identification: [ {
+        position: 20 ,
+        label: 'OrderID'
+      } ]
+      @UI.selectionField: [ {
+        position: 20
+      } ]
+      orderid;
+      @Consumption.valueHelpDefinition: [{ entity: 
+                    {name: 'ZI_PRODUCTS_###' , element: 'ProductText' },
+                    additionalBinding: [{ localElement: 'price', element: 'Price', usage: #RESULT },
+                                        { localElement: 'currency', element: 'Currency', usage: #RESULT }
+                                                                          ]
+                    }]
+      
+      @UI.lineItem: [ {
+        position: 30 ,
+        importance: #HIGH,
+        label: 'Ordered Item'
+      } ]
+      @UI.identification: [ {
+        position: 30 ,
+        label: 'Ordered Item'
+      } ]
+      @UI.selectionField: [ {
+        position: 30
+      } ]
+      ordereditem;
+      
+      @UI.lineItem: [ {
+        position: 40 ,
+        importance: #HIGH,
+        label: 'Price'
+      } ]
+      @UI.identification: [ {
+        position: 40 ,
+        label: 'Price'
+      } ]
+      @UI.selectionField: [ {
+        position: 40
+      } ]
+      price;
+      
+      @UI.lineItem: [ {
+        position: 45 ,
+        importance: #HIGH,
+        label: 'Total Price'
+      } ]
+      @UI.identification: [ {
+        position: 45 ,
+        label: 'Total Price'
+      } ]
+      @UI.selectionField: [ {
+        position: 50
+      } ]
+      totalprice;
+      @Consumption.valueHelpDefinition: [ { entity: { name: 'I_Currency', element: 'Currency' } } ]
+      @UI.lineItem: [ {
+        position: 50 ,
+        importance: #HIGH,
+        label: 'currency'
+      } ]
+      @UI.identification: [ {
+        position: 50 ,
+        label: 'Currency'
+      } ]
+      @UI.selectionField: [ {
+        position: 60
+      } ]
+      currency;
+      
+      @UI.lineItem: [ {
+        position: 55 ,
+        importance: #HIGH,
+        label: 'Ordered Quantity'
+      } ]
+      @UI.identification: [ {
+        position: 55 ,
+        label: 'Ordered Quantity'
+      } ]
+      @UI.selectionField: [ {
+        position: 65
+      } ]
+      orderquantity;
+      
+      @UI.lineItem: [ {
+        position: 60 ,
+        importance: #HIGH,
+        label: 'Delivery Date'
+      } ]
+      @UI.identification: [ {
+        position: 60 ,
+        label: 'Delivery Date'
+      } ]
+      deliverydate;
+      @UI.lineItem: [ {
+        position: 65 ,
+        importance: #HIGH,
+        label: 'Overall Status'
+      } ]
+      @UI.identification: [ {
+        position: 65 ,
+        label: 'Overall Status'
+      } ]
+      overallstatus;
+    @UI.lineItem: [ {
+        position: 70 ,
+        importance: #HIGH,
+        label: 'Notes'
+      } ]
+      @UI.identification: [ {
+        position: 70 ,
+        label: 'Notes'
+      } ]
+      notes;
+      
+      @UI.hidden: true
+      locallastchangedat;
+      
+      @UI.lineItem: [ {
+        position: 70 ,
+        label: 'Purchase requisition number',
+        importance: #HIGH
+      }]
+      purchaserequisition;
+      
+      @UI.lineItem: [ {
+        position: 75 ,
+        importance: #HIGH,
+        label: 'PR Creation Date'
+      } ]
+      @UI.identification: [ {
+        position: 75 ,
+        label: 'PR Creation Date'
+      } ]
+      prcreationdate;
+    }
+    ```
+    
+ 2. Save and activate.
+   
 ### Enhance behavior implementation
 
 **Hint:** Please replace **`###`** with your ID. 
@@ -353,15 +607,15 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
  2. Click **Create** to create a new entry.
 
-     ![preview](uinew.png)
+     ![preview](order.png)
 
- 3. Fill in all mandatory fields like in the screenshot below and click **Create**.
+ 3. Make use of the value help for ordered item and select one. Add also the ordered quantity and click **Create**.
 
-     ![preview](sb4.png)
+     ![preview](order2.png)
 
- 4. Your order is now created.
+ 4. Your order is now created and the total price is calculated automatically.
 
-     ![preview](sb5.png)
+     ![preview](order3.png)
 
  
 ### Test yourself

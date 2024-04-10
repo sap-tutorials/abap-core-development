@@ -29,9 +29,25 @@ In this tutorial you will take the wrapper that you created and you will integra
 - You will implement a validation for the status. When the status is "Submitted", the validation will call the BAPI in test mode via the wrapper. It will return any error message raised by the BAPI. These error messages are then returned to the end user.
 - You will adapt the RAP BO and turn it into a RAP BO with unmanaged save. In the corresponding `save_modified` method implementation, when the status of a business object instance is "Submitted", the wrapper will be called via the BAPI and a purchase requisition is created for that business object instance.
 
+### Switch to strict (1) mode
+
+Later in this tutorial we will implement a `save_modified` method in the RAP Business Object, which will invoke authorization checks during the save sequence. If the RAP behavior definition is implemented in ABAP for Cloud Development and the `strict(2)` mode is applied, this would lead to runtime errors. For this reason, we will switch to `strict(1)` mode. For more information, see [The RAP Transactional Model and the SAP LUW](https://help.sap.com/docs/abap-cloud/abap-rap/rap-transactional-model-and-sap-luw).
+
+Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO. Open the behavior definition `ZR_SHOPCARTTP_###` and change to `strict(1)` mode:
+
+![Switch strict mode](switch_strict_mode.png)
+
+Save and activate it.
+
+Open the behavior definition `ZC_SHOPCARTTP_###` and change to `strict(1)` mode there as well:
+
+![Switch strict mode](switch_strict_mode2.png)
+
+Save and activate it.
+
 ### Implement new action `createPurchRqnBAPISave`
 
-You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Connect to your system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO. Open the behavior definition `ZR_SHOPCARTTP_###` and define a new action with the following code snippet:
+You will now create a whole new action in the RAP BO, called `createPurchRqnBAPISave`. Open the behavior definition `ZR_SHOPCARTTP_###` and define a new action with the following code snippet:
 
 ```ABAP
   action ( features : instance ) createPurchRqnBAPISave result [1] $self;
@@ -47,7 +63,7 @@ Save and activate it.
 Position the cursor on the newly defined action and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `add method for action createPurchRqnBAPISave of entity zr_shopcarttp_### in local class lhc_shopcart`. This will automatically create an empty method implementation in the `lhc_shopcart` class. Implement the method as follows:
 
 ``` ABAP
-  METHOD createpurchrqnbapisave.
+  METHOD createPurchRqnBAPISave.
   "read transfered order instances
   READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
     ENTITY ShoppingCart
@@ -83,7 +99,7 @@ This action will mark the orders where purchase requisition shall be created usi
 You now need to adapt the `get_instance_features` method in the `lhc_shopcart` class of the behavior implementation by adding the following code snippet:
 
 ```ABAP
-%action-createPurchRqnBAPISave 
+%action-createPurchRqnBAPISave
 = COND #( WHEN OnlineOrder-OverallStatus = c_overall_status-submitted OR OnlineOrder-%is_draft = if_abap_behv=>mk-on
           THEN if_abap_behv=>fc-o-disabled
           ELSE if_abap_behv=>fc-o-enabled )
@@ -140,22 +156,6 @@ Save and activate it. Then place the cursor on the newly created validation and 
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
-                preq_item = '00010'
-                costcenter = 'jwt-cost'
-                gl_account = '0000400000'
-                serial_no = '01'
-            ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
-              preq_item = '00010'
-              text_line = OnlineOrder-Notes
-              text_id   = 'b01'
-            ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
-              preq_item = '00010'
-              text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
-              text_id   = 'B01'
-            ) )
         ).
  
       LOOP AT pr_returns INTO DATA(pr_return_msg) WHERE type = 'E' OR type = 'W'.
@@ -183,6 +183,7 @@ Save and activate it. Then place the cursor on the newly created validation and 
     ENDLOOP.
   ENDMETHOD.
 ```
+
 The method reads the entities of the RAP BO, checks the entries and triggers the BAPI test mode call for those orders where a purchase requisition is being created. The method also takes care of error handling: it filters for any error or warning raised from the BAPI call and passes it on to the UI which would display a pop-up error message if needed.
 
 Save it and activate it.
@@ -269,22 +270,7 @@ Open the `lsc_zr_shopcarttp_###` class of the behavior implementation and naviga
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
-                preq_item = '00010'
-                costcenter = 'jwt-cost'
-                gl_account = '0000400000'
-                serial_no = '01'
-            ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
-              preq_item = '00010'
-              text_line = OnlineOrder-Notes
-              text_id   = 'b01'
-            ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
-              preq_item = '00010'
-              text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
-              text_id   = 'B01'
-            ) )
+
           IMPORTING
             pr_returns   = pr_returns
         ).
@@ -340,22 +326,7 @@ The `save_modified` method implementation should now look as follows:
               purch_org = '1010'
               short_text = OnlineOrder-OrderedItem
             ) )
-            pr_item_accounts = VALUE zif_wrap_bapi_pr_create_###=>pr_item_accounts( (
-                preq_item = '00010'
-                costcenter = 'jwt-cost'
-                gl_account = '0000400000'
-                serial_no = '01'
-            ) )
-            pr_item_texts    = VALUE zif_wrap_bapi_pr_create_###=>pr_item_texts( (
-              preq_item = '00010'
-              text_line = OnlineOrder-Notes
-              text_id   = 'b01'
-            ) )
-            pr_header_texts  = VALUE zif_wrap_bapi_pr_create_###=>pr_header_texts( (
-              preq_item = '00010'
-              text_line = | { sy-uname } - { OnlineOrder-OrderID  } |
-              text_id   = 'B01'
-            ) )
+
           IMPORTING
             pr_returns    = pr_returns
         ).
@@ -395,13 +366,13 @@ Open the Metadata Extension `ZC_SHOPCARTTP_###` and substitute all the metadata 
 
 ```ABAP
   @UI.lineItem: [ {
-    position: 100 ,
+    position: 70 ,
     label: 'Purchase requisition number',
     importance: #HIGH
   },
 
   { type: #FOR_ACTION, dataAction: 'createPurchRqnBAPISave', label: 'Create PR via BAPI in SAVE' } ]
-  @UI.identification: [ { position: 100, label: 'Purchase Requisition Number' } , { type: #FOR_ACTION, dataAction: 'createPurchRqnBAPISave', label: 'Create PR via BAPI in SAVE' } ]
+  @UI.identification: [ { position: 70, label: 'Purchase Requisition Number' } , { type: #FOR_ACTION, dataAction: 'createPurchRqnBAPISave', label: 'Create PR via BAPI in SAVE' } ]
   PurchaseRequisition;
 ```
 
