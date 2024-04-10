@@ -2,18 +2,14 @@
 parser: v2
 auto_validation: true
 time: 30
-tags: [ tutorial>intermediate, programming-tool>abap-development]
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp--abap-environment, programming-tool>abap-extensibility]
 primary_tag: software-product-function>s-4hana-cloud-abap-environment
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 
 ---
 
-<<<<<<< HEAD
-# Implement a Business Add-in (`BAdI`) To Check a Purchase Requisition 
-=======
 # Implement a Business Add-in (`BAdI`) To Check a Purchase Requisition
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 <!-- description --> Define and implement a developer extension (`BAdI`), which performs checks during creation of a purchase requisition item.
 
 ## Prerequisites 

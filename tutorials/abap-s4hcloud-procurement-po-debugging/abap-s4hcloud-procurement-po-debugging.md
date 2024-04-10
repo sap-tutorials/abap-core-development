@@ -4,7 +4,7 @@ title: Create and Debug a BAdI Implementation in S/4HANA Cloud ABAP Environment
 description: Create and Debug a BAdI Implementation in ABAP Development Tools (ADT)
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp--abap-environment]
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp--abap-environment, programming-tool>abap-extensibility]
 primary_tag: software-product-function>s-4hana-cloud-abap-environment
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
