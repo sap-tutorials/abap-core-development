@@ -157,7 +157,8 @@ You create a design-time destination to define the location from which the SAP B
 
     - Description: `Design-time destination for tutorial`
 
-    - URL: Use the service URL of section `Inbound Services` in the communication arrangement created in `Step 2` (Create the Communication Arrangement). Add suffix `entities`.
+    - URL: Use the service URL of Service *Inbound Service (`SAP_COM_0647`)* provided in section`Inbound Services` of the communication arrangement created in `Step 2` (Create the Communication Arrangement). Add suffix `entities`.
+    >**CAUTION:** *Do not* use the the service URL of the Inbound Service for Version 2.
 
     <!-- border -->![Service URL](4-Destination-service-url.png)
 

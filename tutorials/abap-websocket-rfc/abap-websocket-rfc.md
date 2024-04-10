@@ -4,12 +4,14 @@ auto_validation: true
 time: 40
 tags: [ tutorial>intermediate, topic>abap-development]
 primary_tag: topic>abap-connectivity
+author_name: Felix Draeger
+author_profile: https://github.com/felixdraeger
 ---
 # WebSocket RFC to Cloud
 <!-- description --> Learn how to establish a WebSocket RFC connection from an on-premise to a cloud system.
 
 ## You will learn
-- how to connect an on-premise system to cloud using WebSocket RFC.
+- How to connect an on-premise system to cloud using WebSocket RFC.
 
 
 
@@ -192,7 +194,7 @@ The connection test returns a ping result.
 
 ### Result
 
-You have sent a string (`Hello world!`) to the RFM in the provider system. The string is returned as `Hello world! How are you?` to the consumer system.
+You have sent a test string (`Hello world!`) to the RFM in the provider system. The string is returned as `Hello world! How are you?` to the consumer system.
 
 ### Test yourself
 

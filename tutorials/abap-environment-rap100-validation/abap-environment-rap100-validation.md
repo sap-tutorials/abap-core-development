@@ -101,7 +101,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
      For that, set the cursor on one of the validation names and press **Ctrl+1** to open the **Quick Assist** view and select the entry **Add all 2 missing methods of entity `zrap100_i_travel_###`**.
 
-     As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
+     As a result, the **`FOR VALIDATE ON SAVE`** methods **`validateCustomer`** and **`validateDates`** will be added to the local handler class `lcl_travel` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) `ZRAP100_BP_TRAVELTP_###`.       
  
      ![Travel BO Behavior Pool](p10.png)  
 
@@ -116,7 +116,7 @@ Define the validations `validateCustomer` and `validateDates`.
 Implement the validation `validateCustomer` which checks if the customer ID (`CustomerID`) that is entered by the consumer is valid.   
 An appropriate message should be raised and displayed on the UI for each invalid value.
 
- 1. First, check the interface of the new methods in the declaration part of the local handler class `lcl_handler` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
+ 1. First, check the interface of the new methods in the declaration part of the local handler class `lcl_travel` of the behavior pool of the **Travel** BO entity ![class icon](adt_class.png) **`ZRAP100_BP_TRAVEL_###`**.
 
     For that, set the cursor on the method name, **`validateCustomer`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 

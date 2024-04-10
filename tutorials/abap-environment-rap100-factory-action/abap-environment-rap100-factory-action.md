@@ -222,7 +222,7 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
- 3. Now, declare the required method in behavior implementation class with the ADT Quick Fix. Set the cursor on one of the action names, `acceptTravel` or `rejectTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry **Add all 2 missing methods of entity `zrap100_r_traveltp_###`**  to add both methods to the `local handler class lcl_handler` of the behavior pool `ZRAP100_BP_TRAVELTP_###`.
+ 3. Now, declare the required method in behavior implementation class with the ADT Quick Fix. Set the cursor on one of the action names, `acceptTravel` or `rejectTravel`, and press Ctrl+1 to open the Quick Assist view. Select the entry **Add all 2 missing methods of entity `zrap100_r_traveltp_###`**  to add both methods to the `local handler class lcl_travel` of the behavior pool `ZRAP100_BP_TRAVELTP_###`.
 
     The result should look like this: 
 

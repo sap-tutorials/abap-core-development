@@ -4,6 +4,8 @@ auto_validation: true
 time: 40
 tags: [ tutorial>intermediate, topic>abap-development]
 primary_tag: topic>abap-connectivity
+author_name: Felix Draeger
+author_profile: https://github.com/felixdraeger
 ---
 
 # WebSocket RFC to Cloud Using SAP Business Connector
@@ -20,15 +22,8 @@ primary_tag: topic>abap-connectivity
   - How to setup a WebSocket RFC connection from an on-premise system to a cloud system using SAP Business Connector.
 
 ## Intro
-<<<<<<< HEAD
-
 > In this tutorial, wherever **`XXX`** appears, use a number (e.g. **`000`**).
 
-
-=======
-> In this tutorial, wherever **`XXX`** appears, use a number (e.g. **`000`**).
-
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 ### Introduction
@@ -49,10 +44,6 @@ SAP BC acts as a middleware between the classic CPIC-based RFC protocol and the 
 > If the on-premise ABAP System is an S/4HANA version 1909 or newer, the underlying ABAP platform can perform WebSocket RFC calls without any additional component. The business connector is not required in this case.
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Setting up the source system
 
 
@@ -82,10 +73,6 @@ In the source system (the on-premise system), set up an RFC destination of type 
 
 > If there is already a line like `P TP=* HOST=*`, you can skip this step.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 1. Run transaction **`SMGW`**.
 2. Choose **`Goto` > Expert Functions > External Security > Maintain ACL Files**.
 3. Go to tab **`Reginfo File`**.
@@ -106,10 +93,7 @@ In the source system (the on-premise system), set up an RFC destination of type 
 > In releases older than 7.40 SP11, you have to change the `Reginfo` file manually. See [SAP Note 1989587](https://launchpad.support.sap.com/#/notes/1989587) for more information.
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ### Communication management in the target system
 
 To provide a service in the cloud system, you must create the following entities:
@@ -190,7 +174,7 @@ However, you can also use your remote-enabled function module with a custom comm
 
     If your corporate firewall requires an HTTP proxy for outbound connections, you need to make this proxy known to the SAP BC. For this, go to **Settings > Proxy Servers > Secure Proxy (HTTPS)** and enter the host, port, and, if necessary, user information of your proxy server. Here, only basic proxy authentication can be configured.
 
-6. Test the connection. Select the newly configured SAP server form the server list and choose **Test Connection**.
+6. Test the connection. Select the newly configured SAP server from the server list and choose **Test Connection**.
 
 
 ### Define connection parameters for the on-premise system in SAP BC
