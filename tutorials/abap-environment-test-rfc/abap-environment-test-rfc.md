@@ -9,7 +9,7 @@ author_profile: https://github.com/julieplummer20
 keyword: RFC
 ---
 
-# RFC: Test the Business API (BAPI) with An ABAP Console App
+# RFC: Test the Business API (BAPI) with An ABAP Console App 
 <!-- description --> Test that the connection to the BAPI works (A BAPI is a type of RFC).
 
 ## Prerequisites
