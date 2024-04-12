@@ -18,7 +18,6 @@ author_profile: https://github.com/mervey45
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 - Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
-
 ## You will learn   
   - How to enhance base business object data model
   - How to enhance projected business object data model
@@ -246,7 +245,7 @@ Enhance the metadata extension![ddlx icon](adt_ddlx.png) to change the appearanc
 Test the enhanced SAP Fiori elements application.
 
   1. Open your service binding ![servicebinding](adt_srvb.png) **`ZRAP100_UI_TRAVEL_O4_###`** and double-click the **Travel** entity set to open the SAP Fiori elements preview.
-
+ 
      ![package](preview4.png)
 
   2. Click **Go** on the app and check the result.
@@ -255,11 +254,11 @@ Test the enhanced SAP Fiori elements application.
 
      a. You will notice, that on the list report page there are nice descriptions and options to filter the result.
 
-     ![package](preview.png)
+     ![package](previewx.png)
 
      b. When you create a new entry or change an existing one you see that the values helps for the fields `Agency ID` and `Customer ID` offer an out of the box fronted validation.
 
-     ![package](preview22.png)
+     ![package](preview22x.png)
 
      c. In addition your application allows you to upload pictures of type **`jpg`** and **`png`**.
 

@@ -18,7 +18,6 @@ author_profile: https://github.com/mervey45
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 - Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
-
 ## You will learn  
   - How to define internal early numbering
   - How to implement internal early numbering
@@ -58,7 +57,15 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
     ![Travel BO Behavior Definition](p1.png)
 
- 3. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
+ 3. Delete following statement:
+   
+    ```ABAP 
+    field ( mandatory : create ) 
+    TravelID;
+    ```
+ 
+
+ 4. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
       Info: The static field control is used to restrict properties of particular fields.
 
       For that, replace the statement
@@ -68,11 +75,11 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
       ```
       You can use the ABAP Pretty Printer function (Shift+F1) to format the source code.
       
-      ![Travel BO Behavior Definition](p2x.png)
+      ![Travel BO Behavior Definition](readonly.png)
       
- 3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
+ 5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
- 4. To complete the definition, you need to declare the required method in behavior implementation class. You can use the ADT Quick Fix to do that.
+ 6. To complete the definition, you need to declare the required method in behavior implementation class. You can use the ADT Quick Fix to do that.
  
     Set the cursor on the statement **`create;`** and press **Ctrl+1** to open the **Quick Assist** view.
 
@@ -84,7 +91,7 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
     You are through with the definition of the early numbering and can now go ahead and implement its logic.     
 
- 5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
+ 7. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
 
 
@@ -223,11 +230,11 @@ You can now preview and test the changes by creating a new travel instance in th
 
   2. Create a new **Travel** instance. 
 
-     ![Travel App Preview](p4.png)
+     ![Travel App Preview](createx.png)
 
      No dialog for manually entering a Travel ID should be displayed now. The Travel ID will be assigned automatically by the logic you just implemented.
 
-     ![Travel App Preview](p5.png)
+     ![Travel App Preview](travelidx.png)
 
 
 ### Test yourself
