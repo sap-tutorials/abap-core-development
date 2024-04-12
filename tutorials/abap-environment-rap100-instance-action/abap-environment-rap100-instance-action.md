@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -17,6 +17,7 @@ author_profile: https://github.com/mervey45
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 - Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
+
 
 ## You will learn  
   - How to define actions
@@ -60,7 +61,7 @@ You will get familiar with both action implementations, i.e. action without and 
     ```ABAP
     action deductDiscount result [1] $self; 
     ```      
-    
+
      ![Travel BO Behavior Definition](pp.png)      
 
      **Short explanation**:  
@@ -396,7 +397,7 @@ You can now test the new behavior of the action button `Deduct Discount` on the 
 
     Check the result.
 
-    ![CDS BO Behavior Definition](nn17.png)
+    ![CDS BO Behavior Definition](nn17x.png)
 
     You can also repeat the test with an invalid value.
 
@@ -409,4 +410,4 @@ You can now test the new behavior of the action button `Deduct Discount` on the 
 
 
 ---
-
+ 

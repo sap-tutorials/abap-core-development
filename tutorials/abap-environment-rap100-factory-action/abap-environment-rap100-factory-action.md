@@ -52,7 +52,8 @@ Define the instance factory action `copyTravel` in the behavior definition
 
  1. Go to the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the action defined in the previous step.
 
- 2. Add following:
+
+2. Add following:
  
     ```ABAP  
     factory action copyTravel [1];
@@ -169,7 +170,6 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  2. Add following:
   
-
     ```ABAP
     use action copyTravel;
     ```
@@ -196,11 +196,11 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  5. Preview and test the enhanced SAP Fiori elements app. Select a travel instance and choose **Copy**.
 
-    ![Travel App Preview](nn9.png)  
+    ![Travel App Preview](nn9x.png)  
 
     An object page with the new travel instance opens.
 
-    ![Travel App Preview](nn10.png) 
+    ![Travel App Preview](nn10x.png) 
 
 ### Add instance actions acceptTravel and rejectTravel (optional)
 
@@ -354,7 +354,7 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     For example, select a travel record with the overall status open and press on the action button accept travel or reject travel. The overall status should now be accepted or rejected.
     
-    ![Travel App Preview](nn17.png)  
+    ![Travel App Preview](nn17x.png)  
 
 
 ### Test yourself 

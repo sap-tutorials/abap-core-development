@@ -66,7 +66,7 @@ Define the dynamic instance feature control for the standard operations **`updat
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
     ```
-    
+
     ![Travel Behavior Definition](p18.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.

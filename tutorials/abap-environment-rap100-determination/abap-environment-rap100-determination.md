@@ -18,7 +18,6 @@ author_profile: https://github.com/mervey45
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 - Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
 
-
 ## You will learn  
   - How to define determinations
   - How to implement determinations
@@ -61,7 +60,7 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
     ```ABAP
     determination setStatusToOpen on modify { create; }
     ```
-    
+
     ![Travel BO Definition](p6.png)
 
     **Short explanation**:  
@@ -108,7 +107,7 @@ You will now implement the logic of the defined determination in the behavior po
 
     ```ABAP
     CONSTANTS:
-      BEGIN OF travel_status, 
+      BEGIN OF travel_status,
         open     TYPE c LENGTH 1 VALUE 'O', "Open
         accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
         rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
