@@ -87,7 +87,7 @@ Implement the instance factory action `coyTravel` in the base BO behavior pool.
 
  2. Go to the declaration part of the local handler class of the behavior pool `ZRAP100_BP_TRAVELTP_###`, set the cursor on the method name, `copyTravel`, press F2, and examine the full method interface.
 
-    ![Travel BO Behavior Projection](nn4.png)
+    ![Travel BO Behavior Projection](nn4x.png)
 
  3. Implement the factory action `copyTravel` in the behavior pool class icon `ZRAP100_BP_TRAVELTP_###`. The implementation method of a factory action imports the parameter structure `%param` which has the component `%is_draft`. This component can be used by calling EML APIs to indicates the state of the new instance to be created:
     

@@ -146,12 +146,12 @@ Define the dynamic instance feature control for the standard operations **`updat
                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %features-%delete      = COND #( WHEN travel-OverallStatus = travel_status-open
                                                             THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-    *                        %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
-    *                                                         THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-    *                        %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
-    *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-    *                        %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
-    *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
+                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %action-deductDiscount = COND #( WHEN travel-OverallStatus = travel_status-open
                                                               THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
                         ) ).
@@ -181,13 +181,13 @@ For example, select a **travel** instance has the overall status **Accepted**, a
 
 Remember the implemented dynamic BO behavior expected on the UI:
 
-  If a **travel** instance has the overall status **Accepted** **(A)**  or **Rejected** **(X)**, then the button **Edit** and **Delete** must be disabled for the given instance.
+  If a **travel** instance has the overall status **Accepted** **(A)**  or **Rejected** **(X)**, then the button **Edit**, **Delete** and **Deduct Discount** must be disabled for the given instance.
 
   In addition, following toggle behavior (enable/disable) should be displayed for both instance actions:
     - If the overall status **Accepted** **(A)**, then the action **Accept Travel** must be disabled.
     - If the overall status **Rejected** **(X)**, then the action **Reject Travel** must be disabled
 
-   ![Travel App Preview](preview10.png)
+   ![Travel App Preview](preview10x.png)
  
 
 

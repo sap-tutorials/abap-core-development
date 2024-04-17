@@ -95,7 +95,7 @@ You will get familiar with both action implementations, i.e. action without and 
 
   6. In the declaration part set the cursor on the method name `deductDiscount`, press F2, and examine the full method interface.
   
-     ![Travel BO Behavior Pool](nn5.png)
+     ![Travel BO Behavior Pool](nn5x.png)
 
       Short explanation:
 
@@ -268,12 +268,12 @@ An abstract CDS entity defines the type properties of a CDS entity. Consequently
 
  1. Let's have a look at the abstract entity defined in the data definition `/DMO/A_Travel_Discount`. You can use the shortcut `Ctrl+Shift+A` to open the data definition.
 
-    ![CDS BO Behavior Definition](nn10.png)
+    ![CDS BO Behavior Definition](nn10x.png)
 
     Short explanation:
 
     - An abstract entity is defined by the statement define abstract entity followed by the CDS entity name.
-    - The current abstract entity defines a structure with only one field or element; The element name ( `discount_percent` ) and the element type ( `abap.int1` ) are specified.
+    - The current abstract entity defines a structure with only one field or element; The element name ( `discount_percent` ) and the element type ( `/DMO/BT_DiscountPercentage` ) are specified.
     - It is not here the case, but if required, it is possible to...
       - specify a label using the element annotation `@EndUserText.label`.
       - specify a value help using the element annotation `@Consumption.valueHelpDefinition`.
