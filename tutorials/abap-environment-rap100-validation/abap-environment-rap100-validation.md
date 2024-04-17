@@ -120,7 +120,7 @@ An appropriate message should be raised and displayed on the UI for each invalid
 
     For that, set the cursor on the method name, **`validateCustomer`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 
-    ![Travel BO Behavior Pool](v3.png)  
+    ![Travel BO Behavior Pool](v3x.png)  
 
      **Short explanation**:  
 

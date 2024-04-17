@@ -114,7 +114,7 @@ You will now implement the logic of the defined determination in the behavior po
       END OF travel_status.    
     ```
 
-    ![Travel BO Behavior Pool](s3.png)
+    ![Travel BO Behavior Pool](new10x.png)
 
  3. Now implement the method **`setStatusToOpen`** in the implementation part of the class.
 

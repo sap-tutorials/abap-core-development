@@ -107,7 +107,7 @@ You will now implement the logic for the unmanaged internal early numbering in b
 
     For that, set the cursor on the method name and press **F2** to open the **ABAP Element Info** view and examine the full method interface, for example, the importing and changing parameters. You can navigate to the different (derived) types.
 
-    ![Travel BO Behavior Pool](new10.png)
+    ![Travel BO Behavior Pool](new10x.png)
 
     Signature of the **FOR NUMBERING** method for managed business objects:
 
@@ -142,7 +142,7 @@ You will now implement the logic for the unmanaged internal early numbering in b
     DELETE entities_wo_travelid WHERE TravelID IS NOT INITIAL.
     ```
 
-    ![Travel BO Behavior Pool](n11.png)
+    ![Travel BO Behavior Pool](n11x.png)
 
  3. Get the exact number range for the new ID according to number of relevant **Travel** entity instances stored in the internal table **`entities_wo_travelid`** and determine the current max ID. The number range object **`/DMO/TRV_M`** of the **ABAP Flight Reference Scenario** (located in the package `/DMO/FLIGHT_REUSE`) is used in the example implementation provided below.
 
