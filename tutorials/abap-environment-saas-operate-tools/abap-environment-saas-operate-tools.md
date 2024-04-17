@@ -1,11 +1,11 @@
 ---
-author_name: Sumana Vasuki
+author name: Sumana Vasuki
 author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
 time: 10
 tags: [ tutorial>beginner, programming-tool>abap-development, programming-tool>abap-extensibility, tutorial>license]
-primary_tag: software-product>sap-btp--abap-environment
+primary_tag: sap-conversational-ai>sap-btp--abap-environment
 ---
 
 # Maintain and Support Your SaaS solution
@@ -21,8 +21,6 @@ primary_tag: software-product>sap-btp--abap-environment
 
 - About the available tools to support, maintain and operate the SaaS solution
 
----
-
 ### Create an updated version of your add-on product
 
 You can update your solution with patches, support packages, or new releases. Create a new branch from the main branch in test system TST in your 01 Develop subaccount for every support package or new release. For minor changes, continue developing in the respective active maintenance branch.
@@ -31,8 +29,8 @@ You can update your solution with patches, support packages, or new releases. Cr
 
   Patch versions are used to deliver unplanned and urgent corrections that are required to keep the application up and running.
 
-  1. Import maintenance branch v1.0.0 in ABAP correction system COR. This could be another system in the 01 Develop subaccount.
-
+  1. Import maintenance branch v1.0.0 in ABAP correction system COR. This could be another system in the 01 Develop subaccount. 
+  
   2. Implement the bug fix in the ABAP correction system.
 
   3. Import maintenance branch v1.0.0 in ABAP quality assurance system QAS. This could be another system in the 02 Test subaccount.
@@ -81,30 +79,29 @@ Release versions are used to deliver new major, planned functional enhancements.
 
 Navigate to the Landscape Portal as a Landscape Portal Admin.
 
-  1. Open the "Update Product Version" app
+1. Open the "Update Product Version" app
 
-  2. On the right side of the screen, you can see the Planning Calendar. The planning calendar gives an overview of planned and unplanned downtimes of service-relevant infrastructure as well as already scheduled product version updates. You can use the calendar to help you find a fitting time slot for your product version update so as to make sure that it doesn't conflict with other downtimes
+2. On the right side of the screen, you can see the Planning Calendar. The planning calendar gives an overview of planned and unplanned downtimes of service-relevant infrastructure as well as already scheduled product version updates. You can use the calendar to help you find a fitting time slot for your product version update so as to make sure that it doesn't conflict with other downtimes
 
-  3. On the left side, under Product and Product Version Selection, select which product and version you want to update from the drop-down menu
+3. On the left side, under Product and Product Version Selection, select which product and version you want to update from the drop-down menu.
 
-     > The product version can only be updated to a higher version. It is not possible to update the product version to a lower version.
+    >The product version can only be updated to a higher version. It is not possible to update the product version to a lower version
 
-  4. In the Available Systems section, select at least one system in which you want to update the product version. You can also select multiple systems at once
+4. In the Available Systems section, select at least one system in which you want to update the product version. You can also select multiple systems at once
 
-      ![Update Product Version](UpdateProductVersion.png)
+    ![Update Product Version](UpdateProductVersion.png)
 
-  5. Click the Update button. Fill in the required details in the dialog.
+5. Click the Update button. Fill in the required details in the dialog
 
-  6. Click Schedule
+6. Click Schedule
 
-     ![Schedule Product Version Update](ScheduleProductVersionUpdate.png)
+![Schedule Product Version Update](ScheduleProductVersionUpdate.png)
 
 ### Verify, update and monitor the process
 
 1. Navigate to the "Systems Overview" app in the Landscape Portal
 
-2. Click on the entry for the system that was created for your SaaS application. You could identify it from the system description "ABAP Solution System for `appname`" or via the SID. If a `sap_system_name` was defined in the configuration of the ABAP solution, systems are provisioned with same SID. If no `sap_system_name` was defined, systems are provisioned with SID = AST or SID = AMT, depending on whether the solution was created with tenant_mode = single or tenant_mode = multi.
-
+2. Click on the entry for the system that was created for your SaaS application You could identify it from the system description "ABAP Solution System for `appname`" or via the SID. If a `sap_system_name` was defined in the configuration of the ABAP solution, systems are provisioned with same SID. If no `sap_system_name` was defined, systems are provisioned with SID = AST or SID = AMT, depending on whether the solution was created with `tenant_mode`= single or `tenant_mode`= multi.
 
 3. Once the update scheduled in the previous step is complete, the "Software" section should reflect the new product version for the add-on
 
@@ -120,6 +117,7 @@ To monitor operations processes like add-on update or tenant provisioning in you
   2. Use the dropdown to select the system(s) for which you want to monitor operations.
   3. The Requests section displays a list of all requests triggered for your systems as well as their current status.
   4. In the Active Requests section, you can view all active processes, their request IDs, execution date, systems, and their progress bars
+
     ![Operations Dashboard](OperationsDashboard.png)
 
 ### Register systems for pre-upgrade
@@ -152,7 +150,7 @@ Only pre-upgrade dedicated test systems. Pre-upgrading development systems or sy
 
 5. Once the user creation is done, you can log on to the Fiori Launchpad of the tenant via the link in the tenants overview.
 
->Note: You need to subscribe to the service "Web Access for ABAP" on the BTP cockpit in order to gain access
+  > You need to subscribe to the service "Web Access for ABAP" on the BTP cockpit in order to gain access
 
   ![Request Support User](RequestSupportUser.png)
 
@@ -192,5 +190,3 @@ Use the created service key to login to the target tenant using an ABAP Cloud Pr
 [OPTION END]
 
 ### Test yourself
-
----
