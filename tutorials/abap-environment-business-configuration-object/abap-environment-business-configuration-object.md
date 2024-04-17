@@ -45,7 +45,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       ![Enter new package](p2.png)
 
-      Click **Next >**.
+      Click **Next >**. Confirm the basic package properties by clicking **Next >** again.
 
   3. Enter a new transport request and click **Finish**.
 
@@ -194,11 +194,13 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
       - Edit class `ZBP_I_ERRORCODE###_S`, section **Local Types**. Delete the content of the following methods. Then save and activate the class.
         - `LHC_ZI_ERRORCODE###_S→GET_GLOBAL_AUTHORIZATIONS`
         - `LSC_ZI_ERRORCODE###_S→SAVE_MODIFIED`
-        - `LHC_ZI_ERRORCODE###TEXT→VALIDATETRANSPORTREQUEST`
+        - `LHC_ZI_ERRORCODE###→VALIDATETRANSPORTREQUEST`
 
       - Delete the generated `Access Control` objects
-
-      ![Delete Access Controls](del-ddlx.png)
+        - `ZC_ERRORCODE###`
+        - `ZC_ERRORCODE###TEXT`
+        - `ZI_ERRORCODE###`
+        - `ZI_ERRORCODE###TEXT`
 
       - Publish the `Local Service Endpoint` of the `ZUI_ERRORCODE###_O4` service binding
 
