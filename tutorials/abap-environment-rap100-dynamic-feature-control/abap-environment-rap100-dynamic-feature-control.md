@@ -161,7 +161,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
     Your source code should look like this:
 
-    ![Travel Behavior Pool](instance_feature.png)
+    ![Travel Behavior Pool](instance_featurex.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -175,7 +175,7 @@ Now the SAP Fiori elements app can be tested.
 
 You can either refresh your application in the browser using **F5** if the browser is still open - or go to your service binding **`ZRAP100_UI_TRAVEL_O4_###`** and start the Fiori elements App preview for the **Travel** entity set.
 
-You can go ahead and test the logic of the dynamic feature control implemented in the backend.
+You can go ahead and test the logic of the dynamic feature control implemented in the backend. 
 
 For example, select a **travel** instance has the overall status **Accepted**, and check the state of the **Accepted**, the **Edit**, and the **Delete** buttons. They all shall be disable.
 
