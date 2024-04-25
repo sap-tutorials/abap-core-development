@@ -1,5 +1,5 @@
 ---
-author name: Sumana Vasuki
+author_name: Sumana Vasuki
 author_profile: https://github.com/Sumana-vasuki
 parser: v2
 auto_validation: true
@@ -29,7 +29,7 @@ You can update your solution with patches, support packages, or new releases. Cr
 
   Patch versions are used to deliver unplanned and urgent corrections that are required to keep the application up and running.
 
-  1. Import maintenance branch v1.0.0 in ABAP correction system COR. This could be another system in the 01 Develop subaccount. 
+  1. Import maintenance branch v1.0.0 in ABAP correction system COR. This could be another system in the 01 Develop subaccount.
   
   2. Implement the bug fix in the ABAP correction system.
 
