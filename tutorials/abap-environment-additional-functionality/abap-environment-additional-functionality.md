@@ -101,9 +101,9 @@ You want to navigate from your SAP Fiori app to the maintenance view of a busine
 For this [intent navigation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/76384d8e68e646d6ae5ce8977412cbb4.html#intent-navigation), you can use the parameter `TechnicalIdentifier` for the semantic object `BusinessConfiguration` with the action `maintain`.
 
 You can test this in the browser:
-  - `/ui#BusinessConfiguration-maintain` navigates to the List Report of the **Custom Business Configurations** app.
-  - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###` directly navigates to the maintenance view of the Business Configuration Maintenance Object `ZERRORCODE###`
 
+ - `/ui#BusinessConfiguration-maintain` navigates to the List Report of the **Custom Business Configurations** app
+ - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###` directly navigates to the maintenance view of the Business Configuration Maintenance Object `ZERRORCODE###`
 
 
 ### Test yourself
