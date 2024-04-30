@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: sap-conversational-ai>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-extensibility, programming-tool>abap-development, sap-conversational-ai>abap-platform, software-product-function>sap-s-4hana-cloud--abap-environment  ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, programming-tool>abap-development, software-product>abap-platform, software-product-function>sap-s-4hana-cloud--abap-environment ]
 time: 30
 author_name: Patrick Winkler
 author_profile: https://github.com/sepp4me
