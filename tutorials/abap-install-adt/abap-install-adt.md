@@ -24,7 +24,6 @@ author_profile: https://github.com/mervey45
       - Apple macOS 10.15 or higher
 - Microsoft VC++ Runtime:
       - For Windows: [Microsoft Visual C++ 2015-2022 Redistributable (x64)](https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) 
-    >**Hint:** Precisely version Visual Studio **2015-2022 (VC++ 14.0)** x64 is required.
 -	Java Runtime:
       -	ADT is validated and tested against Java versions 17 and 21 (Oracle Java and `OpenJDK`).
       - The latest Eclipse packages are bundled with [`Eclipse Temurin`](https://adoptium.net/), an `OpenJDK` binary distribution provided by the [`Eclipse Adoptium`](https://projects.eclipse.org/projects/adoptium) project. Any other JRE found on the system is not used. If you want to remove the bundled JRE and use a custom one, see SAP note [3035242](https://launchpad.support.sap.com/#/notes/3035242).
