@@ -209,6 +209,7 @@ Open the behavior definition `ZR_SHOPCARTTP_###` and change to strict(2) mode:
 Save and activate it.
 
 Open the behavior definition `ZC_SHOPCARTTP_###` and change to strict(2) mode there as well:
+
 <!-- border -->
 ![Behavior Definition Strict 2](bdef-c-strict2.png)
 
