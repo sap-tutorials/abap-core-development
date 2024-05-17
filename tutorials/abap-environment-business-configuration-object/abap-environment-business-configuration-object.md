@@ -172,24 +172,28 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
       ![Start ABAP Repository Objects generator](bc.png)
 
-  2. Select **`Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
+  2. Select **`Maintenance Object`** and click **Next >**.
 
      ![Select generator](bc2.png)
 
-  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  3. Enter the target package and click **Next >**.
+
+     ![Select package](bc4.png)     
+
+  4. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
 
 
       Click **Next >**.
 
       ![Generator proposal](bc3a.png)
 
-  4. The list of repository objects that are generated is displayed. Click **Next >**.
+  5. The list of repository objects that are generated is displayed. Click **Next >**.
 
-  5. Select a transport request and click **Finish**.
+  6. Select a transport request and click **Finish**.
 
-  6. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
+  7. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
 
-  7. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
+  8. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
   Only if you have an SAP BTP trial account, you need to make the following adjustments because you cannot create customizing transport requests or business user roles. You can then also skip the following tutorial [Provide authorization control for a Business Configuration Maintenance Object](abap-environment-authorization-control) and continue with tutorial [Use Custom Business Configurations app](abap-environment-maintain-bc-app).
       - Edit class `ZBP_I_ERRORCODE###_S`, section **Local Types**. Delete the content of the following methods. Then save and activate the class.
         - `LHC_ZI_ERRORCODE###_S→GET_GLOBAL_AUTHORIZATIONS`
@@ -205,6 +209,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
       - Publish the `Local Service Endpoint` of the `ZUI_ERRORCODE###_O4` service binding
 
       ![Publish Service Binding](publish-srvb.png)
+
 
 
 ### Test yourself
