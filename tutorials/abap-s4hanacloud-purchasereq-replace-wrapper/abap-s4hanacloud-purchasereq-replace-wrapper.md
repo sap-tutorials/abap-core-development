@@ -259,9 +259,9 @@ For simplicity and continuity, you will use the `Z_USER_###` user with the `ZR_S
 |              |                | 08
 |              | `WERKS`        | `$WERKS`
 
-2. Start transaction `SU22` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name (`ZUI_SHOPCART_WRAPPER_O4_###`) and click on the `Execute` button.
+2. Logon to the system via SAP GUI, start transaction `SU22` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name (`ZUI_SHOPCART_WRAPPER_O4_###`) and click on the `Execute` button.
 
-3. In this step switch to edit mode and click on `Object`-->`Add Objects (Manually)`. In the pop-up window add the needed authorization objects and click on `Continue`. The authorization objects will be added but you still need to maintain the relative Authorization Default Values (for more information, please refer to the Purchase Requisition API documentation). Do so and then save it. The service binding should now look like this:
+3. In this step switch to edit mode and click on `Object`-->`Add Objects (Manually)`. In the pop-up window add the needed authorization objects and click on `Continue`. The authorization objects will be added but you still need to maintain the relative Authorization Default Values (for more information, please refer to the Purchase Requisition API documentation). Do so and then save it. The warning, which is shown, indicates that Full authorization for authorization object `M_BANF_BSA` field `BSART` is granted. It can be ignored in the context of this tutorial. (For more explanation see the long text). The service binding should now look like this:
 
     <!-- border -->
     ![Service Binding Authorizations](service-binding-auth.PNG)
