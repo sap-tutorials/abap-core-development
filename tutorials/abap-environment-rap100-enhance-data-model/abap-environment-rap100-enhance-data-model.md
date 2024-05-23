@@ -173,7 +173,7 @@ For example, you will allow the full-text search on some elements, add new eleme
     ```ABAP
     @Search.defaultSearchElement: true
     @ObjectModel.text.element: ['AgencyName']
-    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency', element: 'AgencyID' } }]
+    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency', element: 'AgencyID' }, useForValidation: true }]
     ```
 
     For element **`CustomerID`**: Enable the full-text search, define a value help, and specified **`CustomerName`** as associated text.
@@ -181,20 +181,19 @@ For example, you will allow the full-text search on some elements, add new eleme
     ```ABAP
     @Search.defaultSearchElement: true
     @ObjectModel.text.element: ['CustomerName']
-    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Customer', element: 'CustomerID'  } }]
+    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Customer', element: 'CustomerID'  }, useForValidation: true }]
     ```
 
     For  element **`Currency Code`**: Define a value help.
 
     ```ABAP
-    @Consumption.valueHelpDefinition: [{ entity: {name: 'I_Currency', element: 'Currency' } }]
-    ```
+    @Consumption.valueHelpDefinition: [{ entity: {name: 'I_Currency', element: 'Currency' }, useForValidation: true }]
 
     For element **`OverallStatus`**: Define a value help and specified **`OverallStatusText`** as associated text.
 
     ```ABAP
     @ObjectModel.text.element: ['OverallStatusText']
-    @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' } }]
+    @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
     ```
 
     Alternatively, you can simply replace the source code of your BO projection view ![ddls icon](adt_ddls.png) **`ZRAP100_C_TRAVELTP_###`** with the code provided in the source code document linked below and replace all occurrences of the placeholder **`###`** with your group ID using **CTRL+F**.
