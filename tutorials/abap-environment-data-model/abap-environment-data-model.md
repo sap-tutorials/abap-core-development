@@ -277,7 +277,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
      - Name: `ZUI_C_TRAVEL_M_XXX`
      - Description: `Service binding for travel`
-     - Binding Type: `ODATA V2 - UI`
+     - Binding Type: `ODATA V4 - UI`
 
      Click **Next >**.
 
