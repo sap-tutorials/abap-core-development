@@ -9,10 +9,10 @@ author_profile: https://github.com/felixdraeger
 ---
 
 # Set Up Local Configuration in SOAMANAGER
-<!-- description --> Learn how to set up local configuration in ABAP Web services to create the runtime configuration for multiple proxy entities.
+<!-- description --> Learn how to set up local configuration in ABAP web services to create the runtime configuration for multiple proxy entities.
 
 ## Prerequisites
-- Basic knowledge about Web services and SOAMANAGER
+- Basic knowledge about web services and SOAMANAGER
 - User in two development systems with permission to run transaction SOAMANAGER
 - Two development systems in which no local configuration exists yet
 - Service definition and a service group containing a service consumer, e.g. `srt_test_group` and `srt_test_provider` (available in every ABAP system)
@@ -39,7 +39,7 @@ In general, endpoints and logical ports often rely on the same settings, such as
 
 A set of consumer proxies is collected within a service group. The service definitions in the underlying profile create a relationship between the service group. In result, they can automatically configure the corresponding endpoints for each service definition and the corresponding logical ports for each consumer proxy.
 
-Another advantage is that the local configuration of a service group makes it possible to define so-called logical receiver determinations to route Web service messages to different provider systems.
+Another advantage is that the local configuration of a service group makes it possible to define so-called logical receiver determinations to route web service messages to different provider systems.
 
 In older releases or documentation, local configuration is often called smart configuration or mass configuration.
 
