@@ -3,10 +3,9 @@ parser: v2
 auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp--abap-environment, programming-tool>abap-extensibility]
-primary_tag: software-product-function>s-4hana-cloud-abap-environment
+primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
-
 ---
 
 
@@ -175,7 +174,7 @@ Then choose the parameter **Purchase Order**.
 
 
 ### More information
-- SAP Help Portal: [Business Add-Ins (`BAdIs`)](https://help.sap.com/docs/ABAP_PLATFORM_2021/46a2cfc13d25463b8b9a3d2a3c3ba0d9/8ff2e540f8648431e10000000a1550b0.html?locale=en-US)
+- SAP Help Portal: [Business Add-Ins (`BAdIs`)](https://help.sap.com/docs/ABAP_PLATFORM_NEW/46a2cfc13d25463b8b9a3d2a3c3ba0d9/8ff2e540f8648431e10000000a1550b0.html?locale=en-US)
 - SAP Help Portal: ABAP Platform [App Implementation: Custom Logic Tracing](https://help.sap.com/docs/ABAP_PLATFORM_NEW/dd52b271fd064d84b4085a87209cb1bd/76099babb7c74f6d8c2ecdaf2c07fa14.html?locale=en-US)
 - SAP Help Portal: Sourcing and Procurement: [Adaptation of App Behavior (Overview and List of Available `BAdIs`)](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0e602d466b99490187fcbb30d1dc897c/259a396e6bdb4d08b130049880a3920f.html?locale=en-US)
 - Blog post: [Key User Extensibility...: Custom Field with ABAP implemented Value Help](https://blogs.sap.com/2022/07/26/sap-s-4hana-key-user-extensibility-powered-by-embedded-steampunk-custom-field-with-abap-implemented-value-help/)
