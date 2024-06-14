@@ -2,11 +2,7 @@
 parser: v2
 auto_validation: true
 time: 45
-<<<<<<< HEAD
 tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license]
-=======
-tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license, software-product-function>s-4hana-cloud-abap-environment ]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Niloofar Flothkoetter
 author_profile: https://github.com/niloofar-flothkoetter
@@ -25,15 +21,7 @@ author_profile: https://github.com/niloofar-flothkoetter
   - How to set up a channel to connect to SAP Event Mesh
 
 ## Intro
-<<<<<<< HEAD
->Always replace `####` with your initials or group number.
-=======
-This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
-
-Always replace `####` with your initials or group number.
-
----
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
+>Always replace `###` with your initials or group number.
 
 The ABAP RESTful Application Programming Model (RAP) now supports the native consumption and exposure of business events. For exposure, an event can be defined and raised in a RAP business object or in the behavior extension and then published via Event Bindings.
 
@@ -46,33 +34,32 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   2. If you do not have an **ABAP Package** create a new one. Please be sure if your package name is with **Z** like
 
-    - Name: `ZEVENT_EXPOSURE_####`
+    - Name: `ZEVENT_EXPOSURE_###`
     - Description: `define a RAP event`
 
     ![new](2-1.png)
 
   3. Right-click on your package and create a new database table
 
-    - Name: `ZONLINESHOP_####`
+    - Name: `ZONLINESHOP_###`
     - Description: `DB for onlineshop`
 
     ![database](2-2.png)
 
     ![database](2-3.png)
 
-  4. Copy the code below to the Database and replace `####` with your number
+  4. Copy the code below to the Database and replace `###` with your number
 
 
-    ```ZONLINESHOP_####
-      define table zonlineshop_#### {
-      key client     : abap.clnt not null;
-      key order_uuid : sysuuid_x16 not null;
-      order_id       : abap.char(10) not null;
-      ordereditem    : abap.char(10) not null;
-      deliverydate   : abap.dats;
-      creationdate   : abap.dats;
-      }
-
+    ```ZONLINESHOP_###
+    define table zonlineshop_### {
+    key client     : abap.clnt not null;
+    key order_uuid : sysuuid_x16 not null;
+    order_id       : abap.char(10) not null;
+    ordereditem    : abap.char(10) not null;
+    deliverydate   : abap.dats;
+    creationdate   : abap.dats;
+    }
     ```
 
   5. Save and activate your table.
@@ -84,18 +71,27 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   1. Right-click on your package and create a data definition
 
-    - Name: `ZI_ONLINE_SHOP_####`
+    - Name: `ZI_ONLINE_SHOP_###`
     - Description: `data model for online shop`
 
     ![cds](2-5.png)
 
     ![cds](2-6.png)
 
-  2. Copy the code below to your CDS data model and replace `####` with your number
+  2. Copy the code below to your CDS data model and replace `###` with your number
 
 
-    ```ZI_ONLINE_SHOP_####
-       define root view entity zi_online_shop_#### as select from zonlineshop_#### {
+    ```ZI_ONLINE_SHOP_###
+    @AbapCatalog.viewEnhancementCategory: [#NONE]
+    @AccessControl.authorizationCheck: #NOT_REQUIRED
+    @EndUserText.label: 'Data model for online shop'
+    @Metadata.ignorePropagatedAnnotations: true
+    @ObjectModel.usageType:{
+    serviceQuality: #X,
+    sizeCategory: #S,
+    dataClass: #MIXED
+    }
+       define root view entity zi_online_shop_### as select from zonlineshop_### {
        key order_uuid as Order_Uuid,
        order_id as Order_Id,
        ordereditem as Ordereditem,
@@ -110,7 +106,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   4. Right-click on your package and create a new data definition
 
-    - Name: `ZC_ONLINE_SHOP_####`
+    - Name: `ZC_ONLINE_SHOP_###`
     - Description: `projection view for online shop`
 
     ![def](2-8.png)
@@ -122,47 +118,47 @@ To produce and raise an event you need first to define your RAP Business Object 
     ![def](2-10.png)
 
 
-  6. Copy the code below to your projection view and replace `####` with your number.
+  6. Copy the code below to your projection view and replace `###` with your number.
 
 
-    ```ZC_ONLINE_SHOP_####
-      @EndUserText.label: 'projection view for online shop'
-      @AccessControl.authorizationCheck: #NOT_REQUIRED
-      @AbapCatalog.viewEnhancementCategory: [#NONE]
-      @Search.searchable: true
-      @UI: { headerInfo: { typeName: 'Online Shop',
-                         typeNamePlural: 'Online Shop',
-                         title: { type: #STANDARD, label: 'Online Shop', value: 'order_id' } },
+    ```ZC_ONLINE_SHOP_###
+    @EndUserText.label: 'projection view for online shop'
+    @AccessControl.authorizationCheck: #NOT_REQUIRED
+    @AbapCatalog.viewEnhancementCategory: [#NONE]
+    @Search.searchable: true
+    @UI: { headerInfo: { typeName: 'Online Shop',
+                        typeNamePlural: 'Online Shop',
+                        title: { type: #STANDARD, label: 'Online Shop', value: 'order_id' } },
 
-           presentationVariant: [{ sortOrder: [{ by: 'Creationdate',
-                                                 direction: #DESC }] }] }
-      define root view entity zc_online_shop_####
-      as projection on ZI_ONLINE_SHOP_####
-      {
-          @UI.facet: [          { id:                  'Orders',
-                                       purpose:         #STANDARD,
-                                       type:            #IDENTIFICATION_REFERENCE,
-                                       label:           'Order',
-                                       position:        10 }      ]
-      key Order_Uuid,
+          presentationVariant: [{ sortOrder: [{ by: 'Creationdate',
+                                                direction: #DESC }] }] }
+    define root view entity zc_online_shop_###
+    as projection on ZI_ONLINE_SHOP_###
+    {
+        @UI.facet: [          { id:                  'Orders',
+                                      purpose:         #STANDARD,
+                                      type:            #IDENTIFICATION_REFERENCE,
+                                      label:           'Order',
+                                      position:        10 }      ]
+    key Order_Uuid,
 
-          @UI: { lineItem:       [ { position: 10,label: 'order id', importance: #HIGH } ],
-                   identification: [ { position: 10, label: 'order id' } ] }
-          @Search.defaultSearchElement: true
-          Order_Id,
+        @UI: { lineItem:       [ { position: 10,label: 'order id', importance: #HIGH } ],
+                  identification: [ { position: 10, label: 'order id' } ] }
+        @Search.defaultSearchElement: true
+        Order_Id,
 
-          @UI: { lineItem:       [ { position: 20,label: 'Ordered item', importance: #HIGH } ],
-                  identification: [ { position: 20, label: 'Ordered item' } ] }
-          @Search.defaultSearchElement: true
-          Ordereditem,
+        @UI: { lineItem:       [ { position: 20,label: 'Ordered item', importance: #HIGH } ],
+                identification: [ { position: 20, label: 'Ordered item' } ] }
+        @Search.defaultSearchElement: true
+        Ordereditem,
 
-          Deliverydate as Deliverydate,
+        Deliverydate as Deliverydate,
 
-          @UI: { lineItem:       [ { position: 50,label: 'Creation date', importance: #HIGH },
-                                   { type: #FOR_ACTION, dataAction: 'update_inforecord', label: 'Update IR' } ],
-                 identification: [ { position: 50, label: 'Creation date' } ] }
-          Creationdate as Creationdate
-      }
+        @UI: { lineItem:       [ { position: 50,label: 'Creation date', importance: #HIGH },
+                                  { type: #FOR_ACTION, dataAction: 'update_inforecord', label: 'Update IR' } ],
+                identification: [ { position: 50, label: 'Creation date' } ] }
+        Creationdate as Creationdate
+    }
     ```
 
     >Add **root** in the line of **define view entity**
@@ -175,42 +171,43 @@ To produce and raise an event you need first to define your RAP Business Object 
 
 ### Create behavior definition for CDS data model
 
-  1. Right-click on your data definition `ZI_ONLINE_SHOP_####` and select **New Behavior Definition**.
+  1. Right-click on your data definition `ZI_ONLINE_SHOP_###` and select **New Behavior Definition**.
 
     ![behavior](2-12.png)    
 
     Event is triggered in a save sequence. So, to raise an event, you need to enhance the existing behavior definition further **with additional save** phrase.
-    Copy the copy below to your behavior definition and replace `####` with your number
+    Copy the copy below to your behavior definition and replace `###` with your number
 
-    ```ZI_ONLINE_SHOP_####
-      managed with additional save implementation  in class ZCL_online_shop_#### unique;
-      strict;
-      define behavior for ZI_online_shop_#### alias Online_Shop
-      persistent table ZONLINESHOP_####
-      lock master
-      authorization master ( instance )
-      {
-       field ( numbering : managed, readonly ) order_Uuid;
-       field ( mandatory ) Ordereditem;
-       field ( readonly ) Creationdate, order_id, deliverydate;
-       determination calculate_order_id on modify { create; }
+    ```ZI_ONLINE_SHOP_###
+    managed with additional save implementation  in class ZCL_online_shop_### unique;
+    strict;
+    define behavior for ZI_online_shop_### alias Online_Shop
+    persistent table ZONLINESHOP_###
+    lock master
+    authorization master ( instance )
+    {
+      field ( numbering : managed, readonly ) order_Uuid;
+      field ( mandatory ) Ordereditem;
+      field ( readonly ) Creationdate, order_id, deliverydate;
+      determination calculate_order_id on modify { create; }
 
-        create;
-        update;
-        delete;
-      }
-
+      create;
+      update;
+      delete;
+    }
     ```
 
   2. Now you add a new event to the business object as well. Here, you will create an event which is raised when a new item is ordered. You can call the event as `ItemIsOrdered`. To do so, add this code line to your behavior definition
 
     ```
-      event ItemIsOrdered parameter ZD_ItemOrdered_####;
+      event ItemIsOrdered parameter ZD_ItemOrdered_###;
     ```
 
     Your behavior definition will be looking like this:
 
     ![parameter](2-18.png)
+
+    Save, but don't activate your changes yet.
 
   3. In addition, you can  provide further information like the name of the item which is ordered in your message. This can be done via a parameter define as a data definition (abstract entity) called `ZD_ItemOrdered`.
 
@@ -220,23 +217,22 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   4. Copy the code below in this definition. Do not forget to save and activate.
 
-    ```ZD_ItemOrderd_####
-     @EndUserText.label: 'event parameter'
-     define abstract entity ZD_ItemOrderd_####
-     {
-       ItemName : abap.char(25);
-     }
-
+    ```ZD_ItemOrdered_###
+    @EndUserText.label: 'event parameter'
+    define abstract entity ZD_ItemOrdered_###
+    {
+      ItemName : abap.char(25);
+    }
     ```
 
     ![parameter](2-19.png)
 
-    Now create the implementation class in the next step.
+    Save and activate your data definition `ZD_ItemOrdered_###` and behavior definition `ZI_ONLINE_SHOP_###`.
 
 
 ### Create behavior implementation class
 
-  1. In your behavior definition `ZI_ONLINE_SHOP_####` set the cursor before the implementation class `ZCL_online_shop_####` and click **CTRL + 1**. Double-click on **Create behavior implementation class** `ZCL_online_shop_####` to create your implementation class.
+  1. In your behavior definition `ZI_ONLINE_SHOP_###` set the cursor before the implementation class `ZCL_online_shop_###` and click **CTRL + 1**. Double-click on **Create behavior implementation class** `ZCL_online_shop_###` to create your implementation class.
 
     ![class](5-3.png)
 
@@ -249,36 +245,36 @@ To produce and raise an event you need first to define your RAP Business Object 
     ![class](5-4.png)
 
     ```calculate_order_id
-      METHOD calculate_order_id.
-      DATA:
-      online_shops TYPE TABLE FOR UPDATE zi_online_shop_####,
-      online_shop  TYPE STRUCTURE FOR UPDATE zi_online_shop_####.
-      * delete from zonlineshop_#### UP TO 15 ROWS.
-      SELECT MAX( order_id ) FROM zonlineshop_#### INTO @DATA(max_order_id).
-      READ ENTITIES OF zi_online_shop_#### IN LOCAL MODE
-      ENTITY Online_Shop
-      ALL FIELDS
-      WITH CORRESPONDING #( keys )
-      RESULT DATA(lt_online_shop_result)
-      FAILED DATA(lt_failed)
-      REPORTED DATA(lt_reported).
-      DATA(today) = cl_abap_context_info=>get_system_date( ).
-      LOOP AT lt_online_shop_result INTO DATA(online_shop_read).
-        max_order_id += 1.
-        online_shop = CORRESPONDING #( online_shop_read ).
-        online_shop-order_id = max_order_id.
-        online_shop-Creationdate = today.
-        online_shop-Deliverydate = today + 10.
-        APPEND online_shop TO online_shops.
-      ENDLOOP.
+    METHOD calculate_order_id.
+    DATA:
+    online_shops TYPE TABLE FOR UPDATE zi_online_shop_###,
+    online_shop  TYPE STRUCTURE FOR UPDATE zi_online_shop_###.
+    * delete from zonlineshop_### UP TO 15 ROWS.
+    SELECT MAX( order_id ) FROM zonlineshop_### INTO @DATA(max_order_id).
+    READ ENTITIES OF zi_online_shop_### IN LOCAL MODE
+    ENTITY Online_Shop
+    ALL FIELDS
+    WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_online_shop_result)
+    FAILED DATA(lt_failed)
+    REPORTED DATA(lt_reported).
+    DATA(today) = cl_abap_context_info=>get_system_date( ).
+    LOOP AT lt_online_shop_result INTO DATA(online_shop_read).
+      max_order_id += 1.
+      online_shop = CORRESPONDING #( online_shop_read ).
+      online_shop-order_id = max_order_id.
+      online_shop-Creationdate = today.
+      online_shop-Deliverydate = today + 10.
+      APPEND online_shop TO online_shops.
+    ENDLOOP.
 
-      MODIFY ENTITIES OF zi_online_shop_#### IN LOCAL MODE
-      ENTITY Online_Shop UPDATE SET FIELDS WITH online_shops
-      MAPPED DATA(ls_mapped_modify)
-      FAILED DATA(lt_failed_modify)
-      REPORTED DATA(lt_reported_modify).
+    MODIFY ENTITIES OF zi_online_shop_### IN LOCAL MODE
+    ENTITY Online_Shop UPDATE SET FIELDS WITH online_shops
+    MAPPED DATA(ls_mapped_modify)
+    FAILED DATA(lt_failed_modify)
+    REPORTED DATA(lt_reported_modify). 
 
-      ENDMETHOD.
+    ENDMETHOD.
     ```
 
   3. Your class will look like the following:
@@ -288,14 +284,14 @@ To produce and raise an event you need first to define your RAP Business Object 
   3. Now implement the additional save method to raise the entity event.
 
     ```save
-      METHOD save_modified.
+    METHOD save_modified.
 
-      IF create-online_shop IS NOT INITIAL.
-        RAISE ENTITY EVENT ZI_online_shop_####~ItemOrdered
-      FROM VALUE #( FOR online_shop IN create-online_shop ( %key              = online_shop-%key
-                                                            %param-ItemName   = online_shop-Ordereditem ) ).
-      ENDIF.
-     ENDMETHOD.
+    IF create-online_shop IS NOT INITIAL.
+      RAISE ENTITY EVENT ZI_online_shop_###~ItemIsOrdered
+    FROM VALUE #( FOR online_shop IN create-online_shop ( %key              = online_shop-%key
+                                                          %param-ItemName   = online_shop-Ordereditem ) ).
+    ENDIF.
+    ENDMETHOD.
     ```
 
   3. Save and activate your class.
@@ -306,7 +302,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 ### Create behavior definition for projection view
 
 
-  1. Right-click on your data definition `ZC_ONLINE_SHOP_####` and select **New Behavior Definition**.
+  1. Right-click on your data definition `ZC_ONLINE_SHOP_###` and select **New Behavior Definition**.
 
     ![behavior](5-1.png)
 
@@ -322,7 +318,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   1. Right-click on **Business Services** > **New** > **Service Definition**.
 
-    - Name: `ZUI_ONLINE_SHOP_####`
+    - Name: `ZUI_ONLINE_SHOP_###`
     - Description: `service definition for online shop`
 
     ![def](6-1.png)
@@ -331,7 +327,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
     Click **Next** and after choosing a transport request click **Finish**.
 
-  2. Here you can expose your data definition `zc_online_shop_####`
+  2. Here you can expose your data definition `zc_online_shop_###`
 
     ![def](6-3.png)
 
@@ -339,10 +335,10 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   4. Right-click on your service definition and choose **New Service Binding**.
 
-    - Name: `ZUI_ONLINE_SHOP_####`
+    - Name: `ZUI_ONLINE_SHOP_###`
     - Description: `service Binding for online shop`
     - Binding Type: `OData V2 - UI`
-    - Service Definition: `ZUI_ONLINE_SHOP_####`
+    - Service Definition: `ZUI_ONLINE_SHOP_###`
 
     ![binding](6-4.png)
     ![binding](6-5.png)
@@ -359,7 +355,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   1. Right-click on your package and create an event binding
 
-    - Name: `ZEVENT_EXPOSURE_####`
+    - Name: `ZEVENT_EXPOSURE_###`
     - Description: `RAP business event`
 
     ![binding](7-1.png)
@@ -368,7 +364,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   3. Here fill all fields out, to get errors gone. You can freely choose these names to specify your event with some considerations explained below
 
-    - Namespace: `zevent####` (No camel case and no space)
+    - Namespace: `zevent###` (No camel case and no space)
     - Business Object: `OnlineShop` (No Space)
     - Business Object Operation: `create`
 
@@ -376,14 +372,14 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   4. Click **Add** to add items.
 
-    - Root Entity Name: `ZI_ONLINE_SHOP_####` (your behavior definition)
+    - Root Entity Name: `ZI_ONLINE_SHOP_###` (your behavior definition)
     - Entity Event Name: `ITEMISORDERED` (Event name in your behavior definition)
 
     ![item](7-4.png)
 
   5. Save and activate your event binding.
 
-  6. As you can see at the screenshot, **Type** (aka topic) is a concatenation of the three attributes (name space, business object, business object operation) and ends with the version of the event. The wildcard * points to the corresponding event e.g. created. This is relevant for addressing the events to the Event Mesh. Copy this address for later use `zevent####.OnlineShop.create.v*`.
+  6. As you can see at the screenshot, **Type** (aka topic) is a concatenation of the three attributes (name space, business object, business object operation) and ends with the version of the event. The wildcard * points to the corresponding event e.g. created. This is relevant for addressing the events to the Event Mesh. Copy this address for later use `zevent###.OnlineShop.create.v*`.
 
     ![type](7-5.png)
 
@@ -418,7 +414,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
     ![user](8-7.png)
 
-  5. Now change the **Arrangement Name** to `Z_EVT_0092_####` and replace `####` with your initials or group number. This Arrangement Name will also be the name of the channel which is used later to send events.
+  5. Now change the **Arrangement Name** to `Z_EVT_0092_###` and replace `###` with your initials or group number. This Arrangement Name will also be the name of the channel which is used later to send events.
 
     Click **Create** communication arrangement.
 
@@ -452,7 +448,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
       ![create](9-5.png)
 
-    In this popup search for `zevent####/OnlineShop/create/*` what you copied in step 8-5 and choose it. Replace `####` with your number.
+    In this popup search for `zevent###/OnlineShop/create/*` what you copied in step 8-5 and choose it. Replace `###` with your number.
 
       ![create](9-4.png)
 
@@ -480,7 +476,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   7. Enter a queue name and click **Create**.
 
-    - Queue Name: `onlineshop/####` (replace `####` with your number)
+    - Queue Name: `onlineshop/###` (replace `###` with your number)
 
     ![name](9-12.png)
 
@@ -498,7 +494,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   1. Open ADT and open your SAP BTP ABAP environment system.
 
-  2. Navigate to your service binding `ZUI_ONLINE_SHOP_####` and click **Preview** to open your application.
+  2. Navigate to your service binding `ZUI_ONLINE_SHOP_###` and click **Preview** to open your application.
 
     ![preview](11-1.png)
 
@@ -520,7 +516,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
 
   6. Click **Consume Message** to consume this event in your applications. Here you can see that you have the type which you have find in the event binding and the transported data is the parameter structure.
-
+ 
     ![message](11-7.png)
 
   You can also consume this event using [Event Consumption Model within a Business Application] (https://developers.sap.com/tutorials/abap-environment-event-enablement-consumption.html#top)
@@ -528,8 +524,3 @@ To produce and raise an event you need first to define your RAP Business Object 
 
 
 ### Test yourself
-<<<<<<< HEAD
-=======
-
----
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
