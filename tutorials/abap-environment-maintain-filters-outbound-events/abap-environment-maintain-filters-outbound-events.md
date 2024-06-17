@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: programming-tool>abap-development
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license]
 time: 25
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
