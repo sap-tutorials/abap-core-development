@@ -10,9 +10,8 @@ author_profile: https://github.com/anfisc
 
 
 # Generate your own custom UI Service based on a Business Object Interface
-<!-- description --> [Business Object Interfaces](https://help.sap.com/docs/abap-cloud/abap-rap/business-object-interface)  are provided by SAP in order to release business objects such as the business objects *SalesOrder* or *PurchaseRequistion* so that these business objects can used or extended by customers using the ABAP Cloud development model. By defining so called stability contracts it is thus possible to use such C1-released Business object interfaces within other software components. Also customers and partners can use this approach if they want to allow the usage of their business objects within other software components.
-In order to make it easier for customers to build custom UI's on top the aforementioned released business objects SAP has provided a wizard as part of the ABAP Development Tools (ADT). 
-This tutorial shows how you can use this wizard to generate your own custom UI on top of the SAP C1-released Business Object Interface `I_BankTP`. The same approach can be used for C1-released Business Object Interfaces that have been built by customers and partners.
+<!-- description -->Business Object Interfaces are provided by SAP in order to release business objects such as the business objects SalesOrder or PurchaseRequistion so that these business objects can used or extended by customers using the ABAP Cloud development model. By defining so called stability contracts it is thus possible to use such C1-released Business object interfaces within other software components. Also customers and partners can use this approach if they want to allow the usage of their business objects within other software components.
+In order to make it easier for customers to build custom UI's on top the aforementioned released business objects SAP has provided a wizard as part of the ABAP Development Tools (ADT). This tutorial shows how you can use this wizard to generate your own custom UI on top of the SAP C1-released Business Object Interface `I_BankTP`. The same approach can be used for C1-released Business Object Interfaces that have been built by customers and partners.
 
 
 ## You will learn
