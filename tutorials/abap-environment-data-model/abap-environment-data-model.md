@@ -270,7 +270,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 ### Create service binding
 
   1. Right-click on your service definition `ZUI_C_TRAVEL_M_XXX` and select **New Service Binding**.
-
+ 
       ![Create service binding](binding.png)
 
   2. Create a new service binding:
