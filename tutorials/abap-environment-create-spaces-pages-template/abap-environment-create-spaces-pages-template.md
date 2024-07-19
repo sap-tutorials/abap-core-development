@@ -12,7 +12,7 @@ author_profile: https://github.com/mervey45
 # Create SAP Fiori Launchpad Space and Page Templates
 <!-- description --> Deliver predefined SAP Fiori Launchpad spaces and pages for your app by developing templates.
 
-## You will learn
+## You will learn 
 - How to create a space template
 - How to create a page template
 - How to scope page and space template 
