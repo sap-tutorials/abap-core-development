@@ -270,18 +270,18 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 ### Create service binding
 
   1. Right-click on your service definition `ZUI_C_TRAVEL_M_XXX` and select **New Service Binding**.
-
+ 
       ![Create service binding](binding.png)
 
   2. Create a new service binding:
 
      - Name: `ZUI_C_TRAVEL_M_XXX`
      - Description: `Service binding for travel`
-     - Binding Type: `ODATA V4 - UI`
+     - Binding Type: `ODATA V2 - UI`
 
      Click **Next >**.
 
-      ![Create service binding](binding2x.png)
+      ![Create service binding](binding2xx.png)
 
   3. Click **Finish** to use your transport request.
 
@@ -289,7 +289,7 @@ In this tutorial, wherever XXX appears, use a number (e.g. 000).
 
   4. **Activate** your service binding and then **publish** it.
 
-      ![Create service binding](binding4x.png)
+      ![Create service binding](binding4xx.png)
 
      Now your service binding is created and you are able to see your service with its entities and associations.
 
