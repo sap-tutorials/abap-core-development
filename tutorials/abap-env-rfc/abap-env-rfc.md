@@ -399,6 +399,47 @@ endtry.
 ```    
 
 
+### Add error handling to the class for the RFC connection
+
+1. Go back to your RFC class. 
+
+    In the method implementation for `if_oo_adt_classrun~main`, add a DATA statement (before you call the function):
+
+    ```ABAP
+    
+    DATA msg TYPE c LENGTH 255.
+    
+    ```
+
+2. Now, in the function call for `RFC_GET_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_GET_SYSTEM_INFO`:
+
+    ```ABAP
+
+    EXCEPTIONS
+      system_failure        = 1 MESSAGE msg
+      communication_failure = 2 MESSAGE msg
+    OTHERS                    = 3.
+
+    ```
+
+2. Now evaluate `sy-subrc` by changing **`out->write( lv_result ).`** to include the following `CASE...ENDCASE` statement:
+
+    ```ABAP
+
+    CASE sy-subrc.
+       WHEN 0.
+         out->write( lv_result ).
+       WHEN 1.
+         out->write( | EXCEPTION SYSTEM_FAILURE | && msg ).
+       WHEN 2.
+         out->write( | EXCEPTION COMMUNICATION_FAILURE | && msg ).
+       WHEN 3.
+         out->write( | EXCEPTION OTHERS | ).
+    ENDCASE.
+
+    ```
+
+    
 ### Check your code
 
 Your code should look roughly like this:
@@ -476,47 +517,6 @@ ENDCLASS.
 
 
 ### Test yourself
-
-
-### Add error handling to the class for the RFC connection
-
-1. Go back to your RFC class. 
-
-    In the method implementation for `if_oo_adt_classrun~main`, add a DATA statement (before you call the function):
-
-    ```ABAP
-    
-    DATA msg TYPE c LENGTH 255.
-    
-    ```
-
-2. Now, in the function call for `RFC_GET_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_GET_SYSTEM_INFO`:
-
-    ```ABAP
-
-    EXCEPTIONS
-      system_failure        = 1 MESSAGE msg
-      communication_failure = 2 MESSAGE msg
-    OTHERS                    = 3.
-
-    ```
-
-2. Now evaluate `sy-subrc` by changing **`out->write( lv_result ).`** to include the following `CASE...ENDCASE` statement:
-
-    ```ABAP
-
-    CASE sy-subrc.
-       WHEN 0.
-         out->write( lv_result ).
-       WHEN 1.
-         out->write( | EXCEPTION SYSTEM_FAILURE | && msg ).
-       WHEN 2.
-         out->write( | EXCEPTION COMMUNICATION_FAILURE | && msg ).
-       WHEN 3.
-         out->write( | EXCEPTION OTHERS | ).
-    ENDCASE.
-
-    ```
 
 
 ### More Information
