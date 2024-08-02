@@ -3,8 +3,8 @@ auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
 primary_tag: programming-tool>abap-extensibility
-author_name: Arianna Musso Barcucci
-author_profile: https://github.com/AriannaMussoBarcucci
+author_name: Achim Seubert
+author_profile: https://github.com/AchimSeubert
 parser: v2
 ---
 
@@ -34,7 +34,7 @@ In this scenario you have a Shopping Cart RAP Business Object for an online shop
 
 ![Scenario overview](scenario_overview.png)
 
-For productive use, you would develop your RAP BO in the productive package `ZCUSTOM_DEVELOPMENT` in your SAP S/4HANA system as suggested in the Developer Extensibility guidelines [Create Structure Package](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/076bbbf3fe584439938b27f49daa6765.html?version=202210.000), and you would develop the wrapper in a dedicated package of software component `HOME`, for instance `ZAPI_DEVELOPMENT`. For the scope of this tutorial group we will follow a simplified approach, and you will use local development packages `ZLOCAL` and `$TMP` rather than productive packages.
+For productive use, you would develop your RAP BO in the productive package `ZCUSTOM_DEVELOPMENT` in your SAP S/4HANA system as suggested in the Developer Extensibility guidelines [Create Structure Package](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/076bbbf3fe584439938b27f49daa6765.html?version=202210.000), and you would develop the wrapper in a dedicated package of software component `HOME`, for instance `ZAPI_DEVELOPMENT`. For the scope of this tutorial group we will follow a simplified approach, and you will use local packages `ZLOCAL` and `$TMP` rather than productive packages.
 
 ### Verify technical requirements
 
@@ -44,9 +44,9 @@ The following requirements are needed for this tutorial group:
 - If your system is running on feature pack stack 0 (SAP S/4HANA 2023 release), you have imported the [SAP Note 3350873](https://launchpad.support.sap.com/#/notes/3350873)
 - [You are connected to your SAP S/4HANA system in the ABAP Development Tool (ADT) in Eclipse](abap-s4hanacloud-login)
 - You have a user in the system with full development authorizations.
-- You have set up developer extensibility as described in the official documentation [Set Up Developer Extensibility](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/31367ef6c3e947059e0d7c1cbfcaae93.html?version=202210.000). In particular: the `ZLOCAL` development package is available and you have set up an ABAP Test Cockpit check variant (we will refer to this as 'ATC Check Variant' throughout the tutorial group).
+- You have set up developer extensibility as described in the official documentation [Set Up Developer Extensibility](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/31367ef6c3e947059e0d7c1cbfcaae93.html?version=202210.000). In particular: the `ZLOCAL` structure package is available and you have set up an ABAP Test Cockpit check variant (we will refer to this as 'ATC Check Variant' throughout the tutorial group).
 
-> We suggest to follow this tutorial group using a [Fully-Activated Appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup, as the `ZLOCAL` development package is automatically available, as well as the needed ATC check variant and the material used for the gadget shopping cart entries.
+> We suggest to follow this tutorial group using a [Fully-Activated Appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup, as the `ZLOCAL` structure package is automatically available, as well as the needed ATC check variant and the material used for the gadget shopping cart entries.
 ### Test yourself
 
 ---

@@ -3,8 +3,8 @@ auto_validation: true
 time: 20
 tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Arianna Musso Barcucci
-author_profile: https://github.com/AriannaMussoBarcucci
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 parser: v2
 ---
 
