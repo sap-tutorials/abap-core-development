@@ -3,8 +3,8 @@ auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
 primary_tag: programming-tool>abap-extensibility
-author_name: Arianna Musso Barcucci
-author_profile: https://github.com/AriannaMussoBarcucci
+author_name: Achim Seubert
+author_profile: https://github.com/AchimSeubert
 parser: v2
 ---
 
@@ -171,13 +171,13 @@ you will see that all the authorization objects are automatically added and all 
 
 ![Create variant role - 6](create_variant_role_6.png)
 
-Now the shopping cart user has the role assigned, which contains the authorization default variant for the service binding, granting the necessary authorizations to create a purchase requsition via the BAPI wrapper.
+Now the shopping cart user has the role assigned, which contains the authorization default variant for the service binding, granting the necessary authorizations to create a purchase requisition via the BAPI wrapper.
 
 You can test it: open the service binding using the shopping cart user credentials (we suggest to open it in incognito mode, so that you will be prompted to log in) and try to create a purchase requisition by clicking on the `Create PR via BAPI in SAVE` button, it should work without errors:
 
 ![Shopping cart user create PR with variant](business_user_variant_test.png)
 
->After the `DO CHECK` use case test is succesfully done, remove the `ZR_SHOPCART_###` roles from the `Z_USER_###` (this can be done in transaction `SU01`) so that the shopping cart user is returned to its limited access state, and ready to be used in the next use case.
+>After the `DO CHECK` use case test is successfully done, remove the `ZR_SHOPCART_###` roles from the `Z_USER_###` (this can be done in transaction `SU01`) so that the shopping cart user is returned to its limited access state, and ready to be used in the next use case.
 
 ### Disable authorization check use case
 
@@ -193,11 +193,11 @@ To keep this tutorial clear and modular, we will create a new service binding to
 
 Click on **Next**. Select an existing transport request (or create a new one if needed) and click on **Finish**. Activate it. Publish the service binding as shown in a [previous tutorial](abap-s4hanacloud-procurement-purchasereq-shop) of this series.
 
-After the service binding has been published, logon to the backend of the system using the developer user credentials and, similar as what done in a previous step, create a new role (we suggest to name the role `ZR_SHOPCART_NCK_###`) and add the newly created `ZUI_SHOPCART_WRP_NCK_O4_###` service binding defaults in the **Menu** tab to gain access to the service. Assign the `Z_USER_###` user to role (do not forget to generate the authroization profile and do the user comparison). The shopping cart user should now have only two roles: `ZAP_BC_ABAP_DEVELOPER_5_###` and `ZR_SHOPCART_NCK_###`:
+After the service binding has been published, logon to the backend of the system using the developer user credentials and, similar as what done in a previous step, create a new role (we suggest to name the role `ZR_SHOPCART_NCK_###`) and add the newly created `ZUI_SHOPCART_WRP_NCK_O4_###` service binding defaults in the **Menu** tab to gain access to the service. Assign the `Z_USER_###` user to role (do not forget to generate the authorization profile and do the user comparison). The shopping cart user should now have only two roles: `ZAP_BC_ABAP_DEVELOPER_5_###` and `ZR_SHOPCART_NCK_###`:
 
 ![Remove role](remove_roles.png)
 
-At the moment, the newly created service binding `ZUI_SHOPCART_WRP_NCK_O4_###` would still perform authorization checks when creating a purchase requisition. You can test this using the `Z_USER_###` role: since this role does not have the required authorization, you will get an error when trying to create a purchase requsition from the service binding preview.
+At the moment, the newly created service binding `ZUI_SHOPCART_WRP_NCK_O4_###` would still perform authorization checks when creating a purchase requisition. You can test this using the `Z_USER_###` role: since this role does not have the required authorization, you will get an error when trying to create a purchase requisition from the service binding preview.
 
 Now, we will modify the service binding so that no authorization check is performed. Start transaction `SU24` and open the `ZUI_SHOPCART_WRP_NCK_O4_###` service binding. Similar to what done in the previous step, for the check authorization use case, switch to edit mode and add all the needed authorization objects.
 
