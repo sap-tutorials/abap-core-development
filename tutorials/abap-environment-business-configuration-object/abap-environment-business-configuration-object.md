@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: software-product>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, programming-tool>abap-development, software-product>abap-platform, software-product-function>sap-s-4hana-cloud--abap-environment ]
 time: 30
 author_name: Patrick Winkler
 author_profile: https://github.com/sepp4me
@@ -45,7 +45,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       ![Enter new package](p2.png)
 
-      Click **Next >**.
+      Click **Next >**. Confirm the basic package properties by clicking **Next >** again.
 
   3. Enter a new transport request and click **Finish**.
 
@@ -172,37 +172,44 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
       ![Start ABAP Repository Objects generator](bc.png)
 
-  2. Select **`Maintenance Object`** and click **Next >**. On the next screen, click **Next >** to confirm the target package.
+  2. Select **`Maintenance Object`** and click **Next >**.
 
      ![Select generator](bc2.png)
 
-  3. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  3. Enter the target package and click **Next >**.
+
+     ![Select package](bc4.png)     
+
+  4. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
 
 
       Click **Next >**.
 
       ![Generator proposal](bc3a.png)
 
-  4. The list of repository objects that are generated is displayed. Click **Next >**.
+  5. The list of repository objects that are generated is displayed. Click **Next >**.
 
-  5. Select a transport request and click **Finish**.
+  6. Select a transport request and click **Finish**.
 
-  6. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
+  7. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
 
-  7. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
+  8. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
   Only if you have an SAP BTP trial account, you need to make the following adjustments because you cannot create customizing transport requests or business user roles. You can then also skip the following tutorial [Provide authorization control for a Business Configuration Maintenance Object](abap-environment-authorization-control) and continue with tutorial [Use Custom Business Configurations app](abap-environment-maintain-bc-app).
       - Edit class `ZBP_I_ERRORCODE###_S`, section **Local Types**. Delete the content of the following methods. Then save and activate the class.
         - `LHC_ZI_ERRORCODE###_S→GET_GLOBAL_AUTHORIZATIONS`
         - `LSC_ZI_ERRORCODE###_S→SAVE_MODIFIED`
-        - `LHC_ZI_ERRORCODE###TEXT→VALIDATETRANSPORTREQUEST`
+        - `LHC_ZI_ERRORCODE###→VALIDATETRANSPORTREQUEST`
 
       - Delete the generated `Access Control` objects
-
-      ![Delete Access Controls](del-ddlx.png)
+        - `ZC_ERRORCODE###`
+        - `ZC_ERRORCODE###TEXT`
+        - `ZI_ERRORCODE###`
+        - `ZI_ERRORCODE###TEXT`
 
       - Publish the `Local Service Endpoint` of the `ZUI_ERRORCODE###_O4` service binding
 
       ![Publish Service Binding](publish-srvb.png)
+
 
 
 ### Test yourself

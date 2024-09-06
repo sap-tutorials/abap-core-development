@@ -66,7 +66,7 @@ Define the dynamic instance feature control for the standard operations **`updat
     action ( features : instance ) acceptTravel result [1] $self;
     action ( features : instance ) rejectTravel result [1] $self;  
     ```
-    
+
     ![Travel Behavior Definition](p18.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
@@ -146,12 +146,12 @@ Define the dynamic instance feature control for the standard operations **`updat
                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %features-%delete      = COND #( WHEN travel-OverallStatus = travel_status-open
                                                             THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-    *                        %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
-    *                                                         THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-    *                        %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
-    *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-    *                        %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
-    *                                                          THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                            %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
+                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
                             %action-deductDiscount = COND #( WHEN travel-OverallStatus = travel_status-open
                                                               THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
                         ) ).
@@ -161,7 +161,7 @@ Define the dynamic instance feature control for the standard operations **`updat
 
     Your source code should look like this:
 
-    ![Travel Behavior Pool](instance_feature.png)
+    ![Travel Behavior Pool](instance_featurex.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -175,19 +175,19 @@ Now the SAP Fiori elements app can be tested.
 
 You can either refresh your application in the browser using **F5** if the browser is still open - or go to your service binding **`ZRAP100_UI_TRAVEL_O4_###`** and start the Fiori elements App preview for the **Travel** entity set.
 
-You can go ahead and test the logic of the dynamic feature control implemented in the backend.
+You can go ahead and test the logic of the dynamic feature control implemented in the backend. 
 
 For example, select a **travel** instance has the overall status **Accepted**, and check the state of the **Accepted**, the **Edit**, and the **Delete** buttons. They all shall be disable.
 
 Remember the implemented dynamic BO behavior expected on the UI:
 
-  If a **travel** instance has the overall status **Accepted** **(A)**  or **Rejected** **(X)**, then the button **Edit** and **Delete** must be disabled for the given instance.
+  If a **travel** instance has the overall status **Accepted** **(A)**  or **Rejected** **(X)**, then the button **Edit**, **Delete** and **Deduct Discount** must be disabled for the given instance.
 
   In addition, following toggle behavior (enable/disable) should be displayed for both instance actions:
     - If the overall status **Accepted** **(A)**, then the action **Accept Travel** must be disabled.
     - If the overall status **Rejected** **(X)**, then the action **Reject Travel** must be disabled
 
-   ![Travel App Preview](preview10.png)
+   ![Travel App Preview](preview10x.png)
  
 
 

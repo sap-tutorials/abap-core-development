@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: software-product>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, programming-tool>abap-development, software-product>abap-platform, software-product-function>sap-s-4hana-cloud--abap-environment ]
 time: 30
 author_name: Patrick Winkler
 author_profile: https://github.com/sepp4me
@@ -49,7 +49,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
   3. Create new IAM app:
       - Name: **`Z_ERROR_CODES_###`**
       - Description: **`Error Codes - Maintenance`**
-      - Application Type: **`MBC - Business Configuration App`**
+      - Application Type: **`Business Configuration App`**
 
      ![Enter IAM app definition](iam2.png)
 
@@ -63,7 +63,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
   6. Select your service:
       - Service Type: **`OData V4`**
-      - Service Name: **`ZUI_ERRORCODE000_O4`**
+      - Service Name: **`ZUI_ERRORCODE###_O4`**
 
      ![Select service](iam5.png)
 
@@ -100,13 +100,9 @@ First, you create the IAM app yourself. As a next step, you create a business ca
       - Name: **`Z_ERROR_CODES_###`**
       - Description: **`Error Codes - Maintenance`**
 
-     ![Business Catalog definition](bc3.png)
-
   3. Select a Transport Request and click **Finish**.
 
-  4. Complete the wizard to create the Business Catalog App Assignment.
-
-      ![Business Catalog App Assignment](bc5.png)
+  4. The wizard for creating a Business Catalog App Assignment opens automatically. Click **Next >**. Select a Transport Request and click **Finish**.
 
   5. In the Business Catalog, click **Publish Locally** to be able to test your app in the development system.
 
@@ -129,8 +125,6 @@ First, you create the IAM app yourself. As a next step, you create a business ca
   4. Create a new Business Role:
       - Business Role ID: **`ZBR_ERROR_CODES_EXPERT_###`**
       - Business Role Description: **`Error Codes Expert`**
-
-      ![Business Role definition](fiori6.png)
 
       Click **Create**.
 

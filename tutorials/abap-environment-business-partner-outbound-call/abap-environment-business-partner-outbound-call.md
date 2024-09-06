@@ -3,8 +3,8 @@ auto_validation: true
 time: 10
 tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Arianna Musso Barcucci
-author_profile: https://github.com/AriannaMussoBarcucci
+author_name: Ulrike Liebherr
+author_profile: https://github.com/Liebherr
 parser: v2
 ---
 
@@ -74,7 +74,7 @@ Create a communication scenario and assign the outbound service to it. This will
     <ol type="a"><li>Name: `ZBPA2X_CS_BUPA`
     </li><li>Description: `Business Partner Outbound Service Call`
 
-    ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
+      ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
 
 3. Use the transport request created before and choose **Finish**
 

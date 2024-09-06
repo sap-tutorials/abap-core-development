@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: software-product>sap-btp--abap-environment
-tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, software-product>sap-btp--abap-environment, programming-tool>abap-development, software-product>abap-platform, software-product-function>sap-s-4hana-cloud--abap-environment ]
 time: 30
 author_name: Patrick Winkler
 author_profile: https://github.com/sepp4me
@@ -37,7 +37,7 @@ You can add multiple error codes by copying and pasting them from a [spreadsheet
 
   3. Click **Edit**.
 
-  4. Select **Export as**.
+  4. Click on the **spreadsheet icon** and select **Export as**.
 
       ![Export as](spread2.png)
 
@@ -100,25 +100,10 @@ You want to navigate from your SAP Fiori app to the maintenance view of a busine
 
 For this [intent navigation](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/76384d8e68e646d6ae5ce8977412cbb4.html#intent-navigation), you can use the parameter `TechnicalIdentifier` for the semantic object `BusinessConfiguration` with the action `maintain`.
 
-- You can test this in the browser:
-    - `/ui#BusinessConfiguration-maintain` navigates to the List Report of the **Custom Business Configurations** app.
-    - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###` directly navigates to the maintenance view of the Business Configuration Maintenance Object `ZERRORCODE###`
-- In your SAP Fiori app, one option is to use [cross application navigation](https://sapui5.hana.ondemand.com/sdk/#/api/sap.ushell.services.CrossApplicationNavigation):
+You can test this in the browser:
 
-
-```JavaScript
-sap.ushell.Container.getServiceAsync("CrossApplicationNavigation").then(function (oService) {
-    oService.toExternal({
-        target: {
-            semanticObject: "BusinessConfiguration",
-            action: "maintain"
-        },
-        params: {
-            TechnicalIdentifier: "ZERRORCODE###"
-        }
-    });
-});
-```
+ - `/ui#BusinessConfiguration-maintain` navigates to the List Report of the **Custom Business Configurations** app
+ - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###` directly navigates to the maintenance view of the Business Configuration Maintenance Object `ZERRORCODE###`
 
 
 ### Test yourself

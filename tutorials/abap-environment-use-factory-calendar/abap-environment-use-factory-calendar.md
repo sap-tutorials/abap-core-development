@@ -231,7 +231,9 @@ To link the scalar function definition to the actual logic a scalar function imp
 
 3. Maintain the required information:
     <ol type="a"><li>Name: `ZFACTORYORDER_SCALAR_###_SQL`
-    </li><li>Description: `Factory Calendar Tutorial – Scalar Function Impl. Ref.`</li></ol>
+    </li><li>Description: `Factory Calendar Tutorial – Scalar Function Impl. Ref.`
+    </li><li>Scalar Function Name: `ZFACTORYORDER_SCALAR_###`
+    </li><li>Engine: `SQL Engine`</li></ol>
     Click **Next**.
 
 4. Select a transport request and click **Finish**.
