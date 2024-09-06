@@ -24,11 +24,14 @@ author_profile: https://github.com/julieplummer20
 
   - How to connect your on-premise AS ABAP to a service in SAP BTP, ABAP Environment - specifically, the Custom Code Migration App. This app allows you to see whether your custom ABAP development objects are cloud-ready, or ready for SAP S/4HANA, and what exact changes you have to make
 
-<!--  
+
 ## Intro
 
 After you set up the connections, your landscape will look roughly like this:
--->
+
+<!-- border -->
+![overview-atc-2024](overview-atc-2024.png)
+
 
 Throughout this tutorial, replace the suffix `_000` or `_###` with your initials or group number.
 
@@ -123,7 +126,7 @@ Also, see SAP Note [2270689 Remote Analysis for source system](https://launchpad
 
 ### Create communication system for Custom Code Migration
 
-1. In our browser, open the SAP Fiori launchpad for your SAP BTP, ABAP Environment instance. To find the URL for this, from the subaccount overview, choose the relevant space, e.g. **`Dev`**, then choose **Service Instances > ABAP System > Your System > View Dashboard**. Log on.
+1. In our browser, open the SAP Fiori launchpad ("or dashboard") for your SAP BTP, ABAP Environment instance. To find the URL for this, from the subaccount overview, choose the relevant space, e.g. **`Dev`**, then choose **Service Instances > ABAP System > Your System > View Dashboard**. Log on.
 
     <!-- border -->
     ![step5b-choose-dev-space](step5b-choose-dev-space.png)
