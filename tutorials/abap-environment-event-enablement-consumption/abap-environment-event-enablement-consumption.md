@@ -2,18 +2,14 @@
 parser: v2
 auto_validation: true
 time: 45
-<<<<<<< HEAD
-tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license]
-=======
 tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license, software-product-function>s-4hana-cloud-abap-environment ]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Niloofar Flothkoetter
 author_profile: https://github.com/niloofar-flothkoetter
 
 ---
 
-# Event Consumption in ABAP Development Tools for Eclipse
+# Event Consumption in SAP BTP, ABAP Environment
 <!-- description --> Consume an Event using Event Consumption Model within a Business Application
 
 ## Prerequisites
@@ -28,14 +24,10 @@ author_profile: https://github.com/niloofar-flothkoetter
   - How to consume an Event.
 
 ## Intro
-<<<<<<< HEAD
->Always replace `####` with your initials or group number.
-=======
 This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
 Always replace `####` with your initials or group number.
 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
 
 ### Overview
@@ -453,10 +445,4 @@ In this section you will create a communication scenario for the previously gene
 ### Test yourself
 
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 ---
