@@ -12,7 +12,7 @@ author_profile: https://github.com/mervey45
 # Create SAP Fiori Launchpad Space and Page Templates
 <!-- description --> Deliver predefined SAP Fiori Launchpad spaces and pages for your app by developing templates.
 
-## You will learn 
+## You will learn
 - How to create a space template
 - How to create a page template
 - How to scope page and space template 
@@ -254,36 +254,70 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
      Now you are able to see the launchpad space.
 
 
+### Develop authorization template for space
+
+ Until now no business user can see the created predefined space and its page in their SAP Fiori Launchpad. An administrator could add the space to an existing business role like the one created before in tutorial [Integrate List Report into ABAP Fiori Launchpad](abap-environment-abap-flp).
+
+ Here we show how to provide authorization via a business role template instead. This has following advantages:
+
+ - Administrators do not have to build a business role on their own.
+ - Delivered changes get applied automatically to an inheriting business role and its assigned business users.
+ - Changes are delivered and transported together with the solution.
+
+  1. As Developer in ADT, right-click the **Identity and Access Management** folder in your project and choose **New** > **Business Role Template**
+
+     <!-- border -->
+     ![Create business role template from context menu](adt-brt-crt-ctxt-menu.png)
+
+  2. Enter **Name** `ZRAP100_BRT_###`, **Description** `Business Role Template for Travel Solution ###` and finish the wizard.
+
+     <!-- border -->
+     ![Give name and Description of business role template](adt-brt-crt-wizard-attributes.png)
+
+  3. Right-click the **Identity and Access Management** folder in your project again and choose **New** > **`Business Role Templ. - Launchpad Space Templ. Assignment`** now.
+      
+     <!-- border -->
+     ![Create business role template - launchpad space template assignment from context menu](adt-brt-spt-assign-crt-ctxt-menu.png)
+
+  4. Enter **Name** `ZRAP100_BRT_SPT_###`, **Description** `Assignment of space template to business role template ###`, finish the wizard and save (Ctrl + S).
+
+     <!-- border -->
+     ![Give name and Description of business role template - launchpad space template assignment](adt-brt-spt-assign-crt-wizard-attributes.png)
+
+  5. In the editor of the Assignment enter **Business Role Template** `ZRAP100_BRT_###`, **Launchpad Space Template** `ZRAP100_TRAVEL_###` and save (Ctrl + S).
+
+     <!-- border -->
+     ![Set business role template and launchpad space in assignment](adt-brt-spt-assign-set-gen-info.png)
+
+  6. Switch back to the editor of the business role template and press **Publish locally**
+  
 ### Authorize business user for space
+ 
+ Once a business role template was provided as part of a solution, an administrator can create a role which is based on a template and also gets updated from that if updates were delivered. For further information see documentation [SAP Business Technology Platform (SAP BTP) > SAP Business Technology Platform > Administration and Operations > Administration and Operations in the ABAP Environment > SAP Fiori Apps in the ABAP Environment > Identity and Access Management > Business Role Templates](https://help.sap.com/docs/btp/sap-business-technology-platform/business-role-templates).
 
-  1. Navigate to the **Home** screen, select **Administration** > **Identity and Access Management**.
+  1. As Administrator in SAP Fiori Launchpad open App **Maintain Business Roles**.
 
-      ![Navigate to identity and access management](launchpad28x.png)
+  2. Click the **Create From Template** button.
 
-  2. Open the **Maintain Business Roles** app.
-   
-      ![Select maintain business roles](launchpad29x.png)
-    
-  3. Search for your business role `BR_Z_Travel_###` and open it.
-   
-      ![Search for your business role](launchpad30x.png)
+     <!-- border -->
+     ![Create From Template button in Maintain Business Roles app](flp-br-crt-from-tmpl-btn.png)
 
-  4. Navigate to **Launchpad Spaces** tab and click **Edit**.
-   
-      ![Navigate to launchpad spaces](launchpad31x.png)
+  3. Use the value help for **Template** to set `ZRAP100_BRT_###`, delete `T` from the defaulted  **Name**, delete `Template` from the defaulted **Description**, leave all the other defaulted values and press **OK**. 
 
-  5. Click **Add**.
+     <!-- border -->
+     ![Pop up to create business role from template](flp-br-crt-from-tmpl-pop-up.png)
 
-      ![Click add](launchpad32x.png)
+  4. In the business role editor under **General Role Details** > **Access Categories** > **Write, Read, Value Help** set the value **Unrestricted**.
 
-  6. Add your predefined space **`ZRAP100_Travel_###`** to your business role and click **Assign Space**.
+     <!-- border -->
+     ![Business role access category](flp-br-crt-access-cat.png)
 
-      ![Click assign space](launchpad33x.png)
+  5. Afterwards switch to the **Business Users** tab, add your user and **Save** the business role.
 
-  7. Click **Save**.
+     <!-- border -->
+     ![Business role business users](flp-br-crt-business-users.png)
 
-      ![Save](launchpad34x.png)
-
+ 
 ### Open predefined space in SAP Fiori launchpad
  
   1. Go to your **Home** screen and select **`Travel ###`**.
