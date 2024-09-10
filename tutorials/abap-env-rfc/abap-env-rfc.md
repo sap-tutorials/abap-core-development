@@ -10,31 +10,18 @@ author_profile: https://github.com/julieplummer20
 ---
 
 # Connect to Your On-Premise System from SAP BTP, ABAP Environment Using RFC
+
 <!-- description --> Call a remote function module located in an on-premise system, such as a SAP S/4HANA System, from the ABAP Environment
-
-## Prerequisites 
-
-- **IMPORTANT**: This tutorial cannot be completed on a trial account. If you want to explore some of the concepts of this mission on a trial account, using OData or SOAP rather than RFC, see the following workshop: [SAP BTP, ABAP Environment: Connectivity and Integration](https://github.com/SAP-samples/teched2020-DEV268).
-- You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
-- **Tutorial**: [Set Up SAP BTP, ABAP Environment and create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
--	You have rights to call the appropriate resources on an ABAP on-premise system. See step 2.4 for details. Examples of such on-premise systems include:
-    - [ABAP Platform Trial, latest version](https://hub.docker.com/r/sapse/abap-platform-trial/tags) or:
-    - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) or:
-    - [The SAP Gateway Demo System (ES5)](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
-- You have connected **SAP Cloud Connector**, to your BTP subaccount
-- You have assigned the business roles **`SAP_BR_DEVELOPER`** and **`SAP_BR_ADMINISTRATOR`** to your user
 
   
 ## You will learn 
   
   - How to create a secure RFC connection between your SAP BTP, ABAP Environment and an on-premise SAP System, e.g. SAP S/4HANA
-  - How to test the connection using an ABAP handler class
+  - How to test the connection using an ABAP handler class. This class will retrieve system information using a Remote Function Call (RFC), `RFC_GET_SYSTEM_INFO`
 
 This tutorial mission was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
 Throughout this tutorial, replace `###` or `000` with your initials or group number.
-
-<!-- LATER: Overview graphic  -->
 
 ---
 
@@ -93,7 +80,7 @@ Now, in SAP BTP ABAP Environment, you need to create the necessary ABAP artifact
 1. In ABAP Development Tools (ADT), select the ABAP Cloud Project and choose **New > ABAP Package** from the context menu.
 
 2. Enter the following and choose **Next**:
-    - Name = **`Z_OUTBOUND_RFC_000`**
+    - Name = **`Z_OUTBOUND_RFC_###`**
     - Description = **Get product data from S/4HANA using RFC**
     - Package type = **Development**
 
@@ -119,7 +106,7 @@ Next, you will establish outbound communication from the BTP instance to the S/4
     ![step2a-new-outbound-service](step2a-new-outbound-service.png)
 
 2. Enter the following and choose **Next**.
-    - Outbound service: **`Z_OUTBOUND_RFC_000`**. The **`SRFC`** suffix will be added automatically.
+    - Outbound service: **`Z_OUTBOUND_RFC_###`**. The **`SRFC`** suffix will be added automatically.
     - Description: **Get product data from S/4HANA using RFC**
     - Service type: **RFC Service**
 
@@ -142,7 +129,7 @@ The outbound service appears. Optional: Add the relevant RFC, **`RFC_GET_SYSTEM_
     ![step3a-new-comm-scen](step3a-new-comm-scen.png)
 
 2. Enter the following and choose **Next**.
-    - Name: **`Z_OUTBOUND_RFC_000_CSCEN`**
+    - Name: **`Z_OUTBOUND_RFC_###_CSCEN`**
     - Description: **`Comm Scen: Call API from S/4HANA using RFC`**
 
     <!-- border -->
@@ -157,7 +144,7 @@ The outbound service appears. Optional: Add the relevant RFC, **`RFC_GET_SYSTEM_
         
 4. On the **Outbound** tab, add your service by choosing **Add**.
 
-5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_RFC_000_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
+5. Choose **Browse**, select your outbound service **`Z_OUTBOUND_RFC_###_SRFC`**, then choose **Finish**. The service type **RFC** is entered automatically.
 
 6. Choose **Finish**. Your communication scenario should look like this.
 
@@ -184,8 +171,8 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
 
 2. Enter the following and choose **Create**.
 
-    - System ID: **`Z_OUTBOUND_RFC_CSYS_000`**
-    - System Name: **`Z_OUTBOUND_RFC_CSYS_000`**
+    - System ID: **`Z_OUTBOUND_RFC_CSYS_###`**
+    - System Name: **`Z_OUTBOUND_RFC_CSYS_###`**
 
 3. In **General** and below, enter:
 
@@ -228,7 +215,7 @@ Next, you will create communication arrangement, pointing to the communication s
     <!-- border -->
     ![step4a-comm-management-tiles](step4a-comm-management-tiles.png)
 
-2. Choose your communication scenario, **`Z_OUTBOUND_RFC_000_CSCEN`**. This name is also entered automatically for the communication arrangement. You can accept this default.
+2. Choose your communication scenario, **`Z_OUTBOUND_RFC_###_CSCEN`**. This name is also entered automatically for the communication arrangement. You can accept this default.
 
     <!-- border -->
     ![step4a-new-comm-arr](step4a-new-comm-arr.png)
@@ -236,7 +223,7 @@ Next, you will create communication arrangement, pointing to the communication s
     <!-- border -->
     ![step4b-select-comm-scenario](step4b-select-comm-scenario.png)
 
-3. Choose the communication system you created, **`Z_OUTBOUND_RFC_CSYS_000`**.
+3. Choose the communication system you created, **`Z_OUTBOUND_RFC_CSYS_###`**.
     The other details, e.g. **Communication User**, **RFC Outbound Service**, and **RFC Function Module** are entered automatically.
 
 4. Check the connection.
@@ -252,11 +239,9 @@ For more information, see [Set Up SAP BTP, ABAP Environment and create Your Firs
 3. Create a new ABAP class: Choose **File > New > Other... > ABAP Class**.
 
 4. Enter the following for your class, then choose **Next**. 
-    - Name: **`ZCL_SYSTEM_INFO_RFC_000`**
+    - Name: **`ZCL_SYSTEM_INFO_RFC_###`**
     - Description for your class, e.g. **Test RFC BTP to on-premise** 
     - Interface: **`if_oo_adt_classrun`**. *This enables you to run the class in the console.*
-
-    Replace `000` with your group number or initials.
 
 5. Create or assign a transport request.
 
@@ -354,8 +339,8 @@ In the class implementation, in the method **`if_oo_adt_classrun~main`**, add th
     ```ABAP
     DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
-        comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-        service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
+        comm_scenario          = 'Z_OUTBOUND_RFC_###_CSCEN'   " Communication scenario
+        service_id             = 'Z_OUTBOUND_RFC_###_SRFC'    " Outbound service
 
                           ).
 
@@ -445,7 +430,7 @@ endtry.
 Your code should look roughly like this:
 
 ```ABAP
-CLASS ZCL_A4C_RFC_000 DEFINITION
+CLASS ZCL_SYSTEM_INFO_RFC_### DEFINITION
   public
   final
   create public .
@@ -457,13 +442,13 @@ protected section.
 private section.
 ENDCLASS.
 
-CLASS ZCL_A4C_RFC_000 IMPLEMENTATION.
+CLASS ZCL_SYSTEM_INFO_RFC_### IMPLEMENTATION.
   METHOD IF_OO_ADT_CLASSRUN~MAIN.
     TRY.
         DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
-            comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-            service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
+            comm_scenario          = 'Z_OUTBOUND_RFC_###_CSCEN'   " Communication scenario
+            service_id             = 'Z_OUTBOUND_RFC_###_SRFC'    " Outbound service
             comm_system_id         = 'Z_OUTBOUND_RFC_CSYS'        " Communication system
 
         ).

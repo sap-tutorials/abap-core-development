@@ -39,7 +39,7 @@ The table in this tutorial will store bank account details for customers. The ta
 - `account_category`
 - `lastchangedat`
 
-> Throughout this tutorial, replace `###`, `000`, or `XXX` with your initials or group number.
+> Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
 
 ---
