@@ -292,7 +292,7 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
   
 ### Authorize business user for space
  
- Once a business role template was provided as part of a solution, an administrator can create a role which is based on a template and also can get updated with app support from that if updates were delivered. For further information see documentation [SAP Business Technology Platform (SAP BTP) > SAP Business Technology Platform > Administration and Operations > Administration and Operations in the ABAP Environment > SAP Fiori Apps in the ABAP Environment > Identity and Access Management > Business Role Templates](https://help.sap.com/docs/btp/sap-business-technology-platform/business-role-templates).
+ Once a business role template was provided as part of a solution, an administrator can create a role which is based on a template. After that there is app support available to integrate changes provided to the business role template. For further information see documentation [SAP Business Technology Platform (SAP BTP) > SAP Business Technology Platform > Administration and Operations > Administration and Operations in the ABAP Environment > SAP Fiori Apps in the ABAP Environment > Identity and Access Management > Business Role Templates](https://help.sap.com/docs/btp/sap-business-technology-platform/business-role-templates).
 
   1. As Administrator in SAP Fiori Launchpad open App **Maintain Business Roles**.
 
