@@ -261,8 +261,7 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
  Here we show how to provide authorization via a business role template instead. This has following advantages:
 
  - Administrators do not have to build a business role on their own.
- - Delivered changes get applied automatically to an inheriting business role and its assigned business users.
- - Changes are delivered and transported together with the solution.
+ - Delivered changes can be applied with app support to inheriting business roles and their assigned business users.
 
   1. As Developer in ADT, right-click the **Identity and Access Management** folder in your project and choose **New** > **Business Role Template**
 
@@ -293,7 +292,7 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
   
 ### Authorize business user for space
  
- Once a business role template was provided as part of a solution, an administrator can create a role which is based on a template and also gets updated from that if updates were delivered. For further information see documentation [SAP Business Technology Platform (SAP BTP) > SAP Business Technology Platform > Administration and Operations > Administration and Operations in the ABAP Environment > SAP Fiori Apps in the ABAP Environment > Identity and Access Management > Business Role Templates](https://help.sap.com/docs/btp/sap-business-technology-platform/business-role-templates).
+ Once a business role template was provided as part of a solution, an administrator can create a role which is based on a template and also can get updated with app support from that if updates were delivered. For further information see documentation [SAP Business Technology Platform (SAP BTP) > SAP Business Technology Platform > Administration and Operations > Administration and Operations in the ABAP Environment > SAP Fiori Apps in the ABAP Environment > Identity and Access Management > Business Role Templates](https://help.sap.com/docs/btp/sap-business-technology-platform/business-role-templates).
 
   1. As Administrator in SAP Fiori Launchpad open App **Maintain Business Roles**.
 
