@@ -85,6 +85,8 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       ![Add entity](iam9a.png)
 
+      - (Optional) To display the [change logs](https://help.sap.com/docs/btp/sap-business-technology-platform/business-configuration-change-logs?version=Cloud) for tables, users must have the authorization for the object **`S_TABU_NAM`** with **`Display change documents`** for **ACTVT** and the name of the table for **TABLE**
+      - (Optional) To [upload content](https://help.sap.com/docs/btp/sap-business-technology-platform/upload-business-configuration?version=Cloud) for tables, users must have the authorization for the object **`S_TABU_NAM`** with **`Change`** for **ACTVT** and the name of the table for **TABLE**
  11. Save the IAM app. For more information about IAM apps, see [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
 
 
