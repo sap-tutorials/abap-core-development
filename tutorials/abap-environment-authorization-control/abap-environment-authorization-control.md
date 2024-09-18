@@ -114,7 +114,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 ### Assign Business Catalog to Business Role and maintain restrictions
 
 
-  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, launch the SAP Build Work Zone. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
+  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, launch the SAP Fiori Launchpad. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
 
   2. Open the **Maintain Business Roles** app.
 
