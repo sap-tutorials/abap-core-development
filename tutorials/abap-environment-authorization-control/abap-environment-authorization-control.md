@@ -85,6 +85,8 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       ![Add entity](iam9a.png)
 
+      - (Optional) To display the [change logs](https://help.sap.com/docs/btp/sap-business-technology-platform/business-configuration-change-logs?version=Cloud) for tables, users must have the authorization for the object **`S_TABU_NAM`** with **`Display change documents`** for **ACTVT** and the name of the table for **TABLE**
+      - (Optional) To [upload content](https://help.sap.com/docs/btp/sap-business-technology-platform/upload-business-configuration?version=Cloud) for tables, users must have the authorization for the object **`S_TABU_NAM`** with **`Change`** for **ACTVT** and the name of the table for **TABLE**
  11. Save the IAM app. For more information about IAM apps, see [here](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/032faaf4f9184484ba9295c81756e831.html).
 
 
@@ -112,7 +114,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 ### Assign Business Catalog to Business Role and maintain restrictions
 
 
-  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, launch the SAP Build Work Zone. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
+  1. To [create a Business Role](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/8ffb880eafec4078a1e5051227cb64b1.html) and assign it to your user, launch the SAP Fiori Launchpad. Log on with a user with the role `SAP_BR_ADMINISTRATOR - Administrator`
 
   2. Open the **Maintain Business Roles** app.
 

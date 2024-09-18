@@ -32,7 +32,7 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 ### Custom Business Configurations
 
 
-  1. Launch SAP Build Work Zone.
+  1. Launch SAP Fiori Launchpad.
 
   2. Log on with the user who is responsible for maintaining the error codes.
 
@@ -63,7 +63,7 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
     ![Select transport](m8.png)
 
-9. To create a transport request, return to the SAP Build Work Zone home page and choose the [**Export Customizing Transports**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) app.
+9. To create a transport request, return to the SAP Fiori Launchpad home page and choose the [**Export Customizing Transports**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) app.
 
      ![Start Export Customizing Transports app](m9.png)
 
