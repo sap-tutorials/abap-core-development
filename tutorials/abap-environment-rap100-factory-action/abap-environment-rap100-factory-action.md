@@ -52,7 +52,8 @@ Define the instance factory action `copyTravel` in the behavior definition
 
  1. Go to the behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`** and insert the following code snippet after the action defined in the previous step.
 
- 2. Add following:
+
+2. Add following:
  
     ```ABAP  
     factory action copyTravel [1];
@@ -86,7 +87,7 @@ Implement the instance factory action `coyTravel` in the base BO behavior pool.
 
  2. Go to the declaration part of the local handler class of the behavior pool `ZRAP100_BP_TRAVELTP_###`, set the cursor on the method name, `copyTravel`, press F2, and examine the full method interface.
 
-    ![Travel BO Behavior Projection](nn4.png)
+    ![Travel BO Behavior Projection](nn4x.png)
 
  3. Implement the factory action `copyTravel` in the behavior pool class icon `ZRAP100_BP_TRAVELTP_###`. The implementation method of a factory action imports the parameter structure `%param` which has the component `%is_draft`. This component can be used by calling EML APIs to indicates the state of the new instance to be created:
     
@@ -169,7 +170,6 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  2. Add following:
   
-
     ```ABAP
     use action copyTravel;
     ```
@@ -196,11 +196,11 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  5. Preview and test the enhanced SAP Fiori elements app. Select a travel instance and choose **Copy**.
 
-    ![Travel App Preview](nn9.png)  
+    ![Travel App Preview](nn9x.png)  
 
     An object page with the new travel instance opens.
 
-    ![Travel App Preview](nn10.png) 
+    ![Travel App Preview](nn10x.png) 
 
 ### Add instance actions acceptTravel and rejectTravel (optional)
 
@@ -354,7 +354,7 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     For example, select a travel record with the overall status open and press on the action button accept travel or reject travel. The overall status should now be accepted or rejected.
     
-    ![Travel App Preview](nn17.png)  
+    ![Travel App Preview](nn17x.png)  
 
 
 ### Test yourself 

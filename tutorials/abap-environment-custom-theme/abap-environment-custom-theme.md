@@ -5,8 +5,8 @@ auto_validation: true
 time: 20
 tags: [ tutorial>intermediate, software-product>sap-business-technology-platform]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Arianna Musso Barcucci
-author_profile: https://github.com/AriannaMussoBarcucci
+author_name: Achim Seubert
+author_profile: https://github.com/AchimSeubert
 parser: v2
 ---
 

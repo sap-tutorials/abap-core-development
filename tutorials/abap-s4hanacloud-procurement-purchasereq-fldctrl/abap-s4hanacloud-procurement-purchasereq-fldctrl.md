@@ -2,8 +2,8 @@
 parser: v2
 auto_validation: true
 time: 15
-tags: [ tutorial>intermediate, programming-tool>abap-development]
-primary_tag: software-product-function>s-4hana-cloud-abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, sap-conversational-ai>sap-business-technology-platform, sap-conversational-ai>sap-btp--abap-environment, programming-tool>abap-extensibility]
+primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 

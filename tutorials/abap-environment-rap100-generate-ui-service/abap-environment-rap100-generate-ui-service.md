@@ -17,7 +17,7 @@ author_profile: https://github.com/mervey45
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 - Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
-  
+
 ## You will learn  
   - How to create an ABAP package
   - How to create a database table
@@ -216,10 +216,10 @@ The generated business service will be transactional, draft-enabled, and enriche
     |:----------------------------------------------------------------------------- |:-------------------------------------- |
     |1. Select **OData UI Service** and click **Next >**.  ![table](newgenerator2.png) |1. Provide a description, select **ABAP RESTful Application Programming Model: UI Service** and click **Next >**. ![table](generatorxx1.png) |                       
     |2. Click **Next >**. ![table](newgenerator3.png)    |    | 
-    |3. Enter a description. ![table](newgenerator3.png) |    |  
         
 
  3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
+    Maintain the required information on the Configure Generator dialog to provide the name of your data model and generate them.
 
     For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below,
     and press **Next >**.
@@ -234,25 +234,27 @@ The generated business service will be transactional, draft-enabled, and enriche
       Please make sure to replace all the name proposals in the wizard with the names provided below.
       Doing this is important to ensure the correctness of the code snippets provided in the following exercises.
 
-    | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
-    |----------------------------------------|-------------------------|-----------------------------------------------------|
-    | **Business Object**                    |                         |                                                     |
-    |                                        | **Data Model**          | Data Definition Name: **`ZRAP100_R_TravelTP_###`**  |
-    |                                        |                         | Alias Name: **`Travel`**                            |  
-    |                                        | **Behavior**            | Implementation Class: **`ZRAP100_BP_TravelTP_###`** |
-    |                                        |                         | Draft Table Name: **`ZRAP100_DTRAV###`**            |  
-    | **Service Projection (BO Projection)** |                         | Name: **`ZRAP100_C_TravelTP_###`**                  |
-    | **Business Services**                  |                         |                                                     |
-    |                                        | **Service Definition**  | Name: **`ZRAP100_UI_Travel_###`**                   |
-    |                                        | **Service Binding**     | Name: **`ZRAP100_UI_Travel_O4_###`**                |
-    |                                        |                         | Binding Type: **`OData V4 - UI`**                   |
 
-    ![class](new0.png)                     
+    | **RAP Layer**                          | **Artefacts**                   | **Artefact Names**                                            |
+    |----------------------------------------|---------------------------------|---------------------------------------------------------------|
+    | **Business Object**                    |                                 |                                                               |
+    |                                        | **Data Model**                  | CDS Entity Name: **`ZRAP100_R_TRAVELTP_###`**                 |
+    |                                        |                                 | CDS Entity Name Alias: **`Travel`**                           |  
+    |                                        | **Behavior**                    | Implementation Behavior Class: **`ZRAP100_BP_TRAVELTP_###`**  |
+    |                                        |                                 | Draft Table Name: **`ZRAP100_DTRAV###`**                      |  
+    | **Service Projection**                 | **Service Projection Entity**   | CDS Entity Name: **`ZRAP100_C_TRAVELTP_###`**                 |
+    |                                        | **Service Projection Behavior** | Behavior Implementation Class: **`ZRAP100_BP_C_TRAVELTP_###`**|   
+    | **Business Service**                   |                                 |                                                               |
+    |                                        | **Service Definition**          | Service Definition Name: **`ZRAP100_UI_TRAVEL_###`**          |
+    |                                        | **Service Binding**             | Service Binding Name: **`ZRAP100_UI_TRAVEL_O4_###`**          |
+    |                                        |                                 | Binding Type: **`OData V4 - UI`**                             |
 
+    ![class](new0x.png)                     
+ 
 
  4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
 
-    ![class](new.png)
+    ![class](newx.png)
 
     Below is a brief explanation of the generated artefacts for the different RAP layers: Base BO, BO Projection, and Business Service.
 
@@ -271,6 +273,22 @@ The generated business service will be transactional, draft-enabled, and enriche
       ![class](tb4.png)
 
 
+### Adjust metadata extension
+
+ 1. Open your metadata extension **`ZRAP100_C_TRAVELTP_###`** and adjust it.
+
+    The field **attachment** is a raw string (data type `RAWSTRING`) and cannot be used in the filter bar, so the annotation **`@UI.selectionField`** is not allowed for this field and should be removed. Therefore, remove following annotation block for the field attachment:
+
+    ```ABAP
+    @UI.selectionField: [ {
+        position: 10 
+      } ]
+    ```
+
+     ![class](adjust.png)
+
+  
+  2. Save and activate.
 
 ### Preview travel app
 
@@ -290,7 +308,7 @@ Publish the local service endpoint of your service binding ![service binding](ad
 
  4. Check your result.
 
-     ![class](p9.png)
+     ![class](p9x.png)
 
 
 ### Preview the Travel App in SAP S/4HANA on premise (optional)

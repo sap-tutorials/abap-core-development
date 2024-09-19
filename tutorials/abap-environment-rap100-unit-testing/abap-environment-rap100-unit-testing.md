@@ -2,10 +2,10 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
 time: 20
 author_name: Merve Temel
-author_profile: https://github.com/mervey45 
+author_profile: https://github.com/mervey45
 ---
 
 # Write an ABAP Unit Test for the RAP Business Object
@@ -213,6 +213,7 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
     Your source code should look like this:
 
       ![Test Class](testclass05.png)
+
 
   4. Implement the special instance method **`setup`** which is used to reset the test doubles and insert the test data before the execution of the test method - or of each test method of a test class in general.    
 

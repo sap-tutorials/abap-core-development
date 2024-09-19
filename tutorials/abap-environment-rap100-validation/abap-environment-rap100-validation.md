@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform ]
 time: 15
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -120,7 +120,7 @@ An appropriate message should be raised and displayed on the UI for each invalid
 
     For that, set the cursor on the method name, **`validateCustomer`**, press **F2** to open the **ABAP Element Info** view, and examine the full method interface.
 
-    ![Travel BO Behavior Pool](v3.png)  
+    ![Travel BO Behavior Pool](v3x.png)  
 
      **Short explanation**:  
 
@@ -303,6 +303,7 @@ Implement the validation `validateDates` which checks the validity of entered be
 
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
+
 ### Preview and test the enhanced travel app
 
 Now the SAP Fiori elements app can be tested.
@@ -311,13 +312,13 @@ You can either refresh your application in the browser using **F5** if the brows
 
   1. Click **Create** to create a new entry.
 
-  2. Select an `Sunshine Travel (70001)` as Agency ID,  **12345** as Customer ID, Mar 16, 2022 as starting date and Mar 14, 2022 as end date and click **Create**.
+  2. Select an `Sunshine Travel (70001)` as Agency ID,  **`Theresia Buchholm`** as Customer ID, Mar 16, 2022 as starting date and Mar 14, 2022 as end date and click **Create**.
 
-       ![package](n3.png)
+       ![package](n3x.png)
 
   3. You should get following message displayed.
 
-      ![package](n4.png)
+      ![package](n4x.png)
 
 
 
