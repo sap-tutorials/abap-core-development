@@ -424,7 +424,7 @@ endtry.
 
     ```
 
-    
+
 ### Check your code
 
 Your code should look roughly like this:
