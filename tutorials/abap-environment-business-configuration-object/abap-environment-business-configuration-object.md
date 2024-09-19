@@ -181,6 +181,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
      ![Select package](bc4.png)     
 
   4. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
+  Only if you have an SAP BTP trial account, change the option **Transport selection** to **`No transport`** as you cannot create any customizing transport requests.
 
 
       Click **Next >**.
@@ -194,17 +195,11 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
   7. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
 
   8. If you have a license for SAP BTP, ABAP environment or you are working in an SAP S/4HANA Cloud, public edition system, you can now set this step to **Done** and continue with the next step **Test yourself**. 
-  Only if you have an SAP BTP trial account, you need to make the following adjustments because you cannot create customizing transport requests or business user roles. You can then also skip the following tutorial [Provide authorization control for a Business Configuration Maintenance Object](abap-environment-authorization-control) and continue with tutorial [Use Custom Business Configurations app](abap-environment-maintain-bc-app).
+  Only if you have an SAP BTP trial account, you need to make the following adjustments because you cannot create business user roles. You can then also skip the following tutorial [Provide authorization control for a Business Configuration Maintenance Object](abap-environment-authorization-control) and continue with tutorial [Use Custom Business Configurations app](abap-environment-maintain-bc-app).
       - Edit class `ZBP_I_ERRORCODE###_S`, section **Local Types**. Delete the content of the following methods. Then save and activate the class.
         - `LHC_ZI_ERRORCODE###_S→GET_GLOBAL_AUTHORIZATIONS`
-        - `LSC_ZI_ERRORCODE###_S→SAVE_MODIFIED`
-        - `LHC_ZI_ERRORCODE###→VALIDATETRANSPORTREQUEST`
 
-      - Delete the generated `Access Control` objects
-        - `ZC_ERRORCODE###`
-        - `ZC_ERRORCODE###TEXT`
-        - `ZI_ERRORCODE###`
-        - `ZI_ERRORCODE###TEXT`
+      - Set the annotation **@AccessControl.authorizationCheck** in all generated CDS views to `#NOT_ALLOWED`. Save and activate.
 
       - Publish the `Local Service Endpoint` of the `ZUI_ERRORCODE###_O4` service binding
 

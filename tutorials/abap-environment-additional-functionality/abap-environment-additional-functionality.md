@@ -60,7 +60,7 @@ You can add multiple error codes by copying and pasting them from a [spreadsheet
 
 10. When prompted, click **Allow**.
 
-11. After the insertion, the new lines are displayed. Select a transport and click **Save**.
+11. After the insertion, the new lines are displayed. Click **Save** and select a transport request when prompted.
 
       ![Save new rows](spread8.png)
 

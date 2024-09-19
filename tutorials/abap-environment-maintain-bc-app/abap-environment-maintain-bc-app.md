@@ -44,7 +44,7 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
       ![Select business configuration](m2.png)
 
-  5. Click **Edit**. When the Edit action is performed, a customizing transport request is determined automatically. You can find the determination logic in the ABAP documentation of method `get_transport_request` of interface `if_mbc_cp_rap_tdat_cts`.
+  5. Click **Edit**. When the Edit action is performed, a customizing transport request is determined automatically. You can see the determined transport request in the header area. You can find the determination logic in the ABAP documentation of method `get_transport_request` of interface `if_mbc_cp_rap_tdat_cts`.
 
       ![Click edit](m3.png)
 
@@ -56,12 +56,12 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
      Click **Save**.
 
-  7. If the system was able to automatically determine a customizing request, or if you only have a SAP BTP trial account and have made the code adjustments mentioned in the first tutorial, the save process is successful and you can now set this step to **Done** and proceed to the next step **Test yourself**. 
-  If not, you get an error message that the transport request is missing. Close the error message.
+  7. If the system was able to automatically determine a customizing request, or if you only have a SAP BTP trial account and have made the adjustments mentioned in the first tutorial, the save process is successful and you can now set this step to **Done** and proceed to the next step **Test yourself**. 
+  If not, you are prompted to select a transport request.
 
-8. Click on **Select Transport**. If a task of a modifiable transport request is assigned to your user, you can select the transport request and continue with saving. If this is not the case, you must first create a new one.
+8. Click on the input help button. If a task of a modifiable transport request is assigned to your user, you can select the transport request and then continue with saving by clicking on **Select Transport Request**. If this is not the case, you must first create a new one.
 
-    ![Select transport](m8.png)
+     ![Input help button](m8.png)
 
 9. To create a transport request, return to the SAP Fiori Launchpad home page and choose the [**Export Customizing Transports**](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/fa7366c3888848bd94566104ac52e627.html) app.
 
@@ -77,11 +77,11 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
     Click **Create**.
 
-12. In the **Custom Business Configurations** app, click the **Select Transport** action again. Use the input help to select a transport request. Then click **Select Transport**. The selected transport request is now displayed in the **Transport** section. If you do not find a transport request, try reloading the **Custom Business Configurations** app.
+12. In the **Custom Business Configurations** app, save again. Use the input help to select a transport request. Then click **Select Transport Request**. If you do not find a transport request, try reloading the **Custom Business Configurations** app.
 
     ![Select transport request in Custom Business Configurations app](m16.png)
 
-13. Click **Save**. The data was recorded on the transport request. Business configuration content can be recorded in both business configuration and development software components. The former is recommended, see also [Business Configuration for SAP Cloud Platform ABAP Environment | SAP Blogs](https://blogs.sap.com/2019/12/20/business-configuration-for-sap-cloud-platform-abap-environment/). For the transport request, the attribute `SAP_CUS_TRANSPORT_CATEGORY` must be set to `DEFAULT_CUST` or `MANUAL_CUST`.
+13. The data was recorded on the transport request. Business configuration content can be recorded in both business configuration and development software components. For the transport request, the attribute `SAP_CUS_TRANSPORT_CATEGORY` must be set to `DEFAULT_CUST` or `MANUAL_CUST`.
 
 
 
