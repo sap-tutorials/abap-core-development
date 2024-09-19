@@ -19,9 +19,8 @@ time: 75
 
 ## You will learn  
 - How to create a table in ABAP, representing a table in your database
-- How to create a reusable **domain**, which provides technical attributes for data elements
+<!-- - How to create a reusable **domain**, which provides technical attributes for data elements -->
 - How to create an elementary data type, or **data element**
-- How to add an input check to a field. You can use this, for example, to check that the user is working in the correct client
 - How to fill the table with three rows of test data
 
 ## Intro
@@ -96,7 +95,7 @@ One key field has been added automatically:
 This specifies that the table is client-specific.
 Tables can be cross-client or client-specific. Each client is a self-contained unit within an organization, such as a subsidiary. For client-specific tables, the client is the first key field in the table.
 
-The field is also specified as `not null`. This means that the field cannot be left blank. In this case, `abap.clnt` is automatically filled with the value of the current client (such as 001).
+The field is also specified as `not null`. This means that the type-dependent initial value is automatically assigned to this field for all newly created records.
 
 
 ### Add field account number using primitive type
@@ -115,8 +114,6 @@ Now you will add the key field **`account_number`**, based on a primitive type.
 
 
 ### Add field city using existing data element
-
-Add a field based on a built-in domain.
 
 1. In the editor, enter the name for your field, followed by a colon:  **city:**. Ignore the error for now.
 
@@ -172,7 +169,7 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
 
 ### Add all other fields
 
-  1. Now add other fields, so your code looks as follows. The field `Balance` will cause an error. Ignore this for now.
+  Now add other fields, so your code looks as follows. The field `Balance` will cause an error. Ignore this for now.
 
   ```ABAP
 
@@ -183,11 +180,8 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
       key bank_name      : z_bank_name_###;
       @AbapCatalog.foreignKey.keyType : #KEY
       @AbapCatalog.foreignKey.screenCheck : false
-      bank_customer_id   : /dmo/customer_id not null
-      with foreign key [0..*,1] /dmo/customer
-      where customer_id = zaccounts_###.bank_customer_id;
+      bank_customer_id   : /dmo/customer_id not null;
       city               : /dmo/city;
-      @Semantics.amount.currencyCode : 'zaccounts_###.currency'
       balance            : abap.curr(16,2);
       currency           : /dmo/currency_code;
       account_category   : abap.numc(2);
@@ -200,7 +194,7 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
   2. Then choose Save (`Ctrl+S`) but **do not** activate your table yet.
 
 
-### Fix error
+### Fix the error with the field `Balance`
 
 You will now fix the error caused by the field `Balance`:
 
@@ -248,38 +242,8 @@ Before you activate the table, change the technical settings at the top as follo
 ```
 
 
-### Save and activate
-
-Save (`Ctrl+S`) and activate (`Ctrl+F3`) your table.
-
-
-### Add check table
-
-Now you will add a check table for the field `bank_customer_id`. This checks the value of `bank_customer_id` against the field `customer_id` of the table `/dmo/customer`, using a foreign key relationship.
-
-  1. Add the foreign key pointing to table `/dmo/customer`, where your field `bank_customer_id` points to the check table field `customer_id` :
-
-    **`with foreign key [0..*,1] /dmo/customer
-    where customer_id = ZACCOUNTS_###.bank_customer_id;`**
-
-  2. Add the screen check, which checks user input against the values in `t000.mandt`:
-  	`@AbapCatalog.foreignKey.keyType : #KEY
-     @AbapCatalog.foreignKey.screenCheck : true`
-
-  3. Your code should look like this:
-
-```ABAP
-@AbapCatalog.foreignKey.keyType : #KEY
-@AbapCatalog.foreignKey.screenCheck : true
-
-bank_customer_id : /dmo/customer_id not null
-  with foreign key [0..*,1] /dmo/customer
-    where customer_id = ZACCOUNTS_###.bank_customer_id;
-```
-
-
 ### Save and activate table code
-
+<!-- remove for key -->
 Now, save (`Ctrl+S`) and activate (`Ctrl+F3`) your table. Your code should look like this:
 
 ```ABAP
@@ -294,12 +258,12 @@ define table zaccounts_### {
   @AbapCatalog.foreignKey.keyType : #KEY
   @AbapCatalog.foreignKey.screenCheck : false
   bank_customer_id   : /dmo/customer_id not null
-    with foreign key [0..*,1] /dmo/customer
-      where customer_id = zaccounts_###.bank_customer_id;
   bank_name          : z_bank_name_###;
   city               : /dmo/city;
+
   @Semantics.amount.currencyCode : 'zaccounts_###.currency'
   balance            : abap.curr(16,2);
+  
   currency           : /dmo/currency_code;
   account_category   : abap.numc(2);
   lastchangedat      : timestampl;
