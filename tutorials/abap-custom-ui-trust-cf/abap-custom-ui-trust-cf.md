@@ -117,7 +117,7 @@ Now you have to configure which attribute is used to identify users during `SAML
     <!--border-->
     ![Open Subject Name Identifier configuration](IAS_openSubjectNameID_attributeConfig.png)
 
-2. Under **Primary Attribute** leave **Identity Directory** as **Source**, choose **Login Name** as **Value** and save your changes.
+2. Under **Primary Attribute** use **Identity Directory** as **Source**, choose **Login Name** as **Value** and save your changes.
 
     <!--border-->
     ![Set Login Name as application' s Subject Name Identifier](IAS_subjectNameID_attribute_setLoginName.png)
@@ -153,15 +153,15 @@ To set the SAP Cloud Identity Services tenant as trusted identity provider in th
 
 4. Open **SAML 2.0 Configuration**
 
-5. Click the **Download Metadata file** area
+5. Click the **Download Metadata file** button
    
     <!--border-->
-    ![Download SAP Cloud Identity Services tenant's SAML 2.0 metadata](IAS-download-metadata-area.png)
+    ![Button to start download of SAML 2.0 Metadata](IAS-download-metadata-button.png)
 
-6. In the pop-up that opens, leave the selection **Default certificate** and press the **Download** button.
+6. In the pop-up that opens, use **Default certificate** and press the **Download** button.
 
     <!--border-->
-    ![Download SAP Cloud Identity Services tenant's SAML 2.0 metadata](IAS-download-metadata-popup.png)
+    ![Pop-up to download SAML 2.0 Metadata](IAS-download-metadata-popup.png)
 
 >Alternatively you can open the metadata XML by entering your tenant's web address for it which follows pattern `https://<YOUR_TENANTS_ID>.accounts.ondemand.com/saml2/metadata` and saving that XML to a file.
 
