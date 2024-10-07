@@ -36,7 +36,7 @@ The required business catalog is included in the `SAP_BR_BPC_EXPERT (Configurati
 
   2. Log on with the user who is responsible for maintaining the error codes.
 
-  3. Select **Custom Business Configurations** tile.
+  3. Select **Custom Business Configurations** tile. If you cannot find the tile, use the [search function](https://help.sap.com/docs/btp/sap-fiori-launchpad-for-sap-btp-abap-environment/searching-for-business-objects-and-apps?version=Cloud) and enter **Custom Business Configurations**. You can also use the [app finder](https://help.sap.com/docs/btp/sap-fiori-launchpad-for-sap-btp-abap-environment/app-finder?version=Cloud).
 
       ![Start Custom Business Configurations app](m.png)
 
