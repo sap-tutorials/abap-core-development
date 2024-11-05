@@ -32,7 +32,7 @@ In summary, based on existing persistent data sources, you will create and imple
 
 <!-- border -->![final-app-create](final-app-create.png)
 
-Throughout this tutorial, object names may include a suffix or group number, such as `XXX`. Always replace this with your own group number or initials.
+Throughout this tutorial, object names may include a suffix or group number, such as `_###` or `000`. Always replace this with your own group number or initials.
 
 For more information on creating a read-only app, see the SAP Help Portal: [Developing Read-Only List Reporting Apps](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/504035c0850f44f787f5b81e35791d10.html)
 
@@ -45,7 +45,7 @@ For more information on creating a read-only app, see the SAP Help Portal: [Deve
     <!-- border -->![step1a-new-package](step1a-new-package.png)
 
     2. Enter the following then follow the wizard, choosing a **new** transport request:
-    - Name: **`Z_ENHANCE_CDS_XXX`**
+    - Name: **`Z_ENHANCE_CDS_###`**
     - Description **Enhance CDS Tutorial 2020**
 
         <!-- border -->![step1a-create-package](step1a-create-package.png)
@@ -59,7 +59,7 @@ For more information on creating a read-only app, see the SAP Help Portal: [Deve
     <!-- border -->![step2a-new-cds](step2a-new-cds.png)
 
     2. Add the following:
-        - Name: **`Z_I_TRAVEL_R_XXX`**
+        - Name: **`Z_I_TRAVEL_R_###`**
         - Description: **`Travel Model View Entity - Read Only`**
         - Referenced object: **`/DMO/I_TRAVEL_U`**
 
@@ -105,7 +105,7 @@ Your CDS entity appears in a new editor, with the elements (fields and associati
   dataClass: #MIXED
 }
 
-define view entity Z_I_TRAVEL_R_XXX
+define view entity Z_I_TRAVEL_R_###
   as select from /DMO/I_Travel_U as Travel
 
 {
@@ -173,7 +173,7 @@ For more information, see:
     <!-- border -->![step4a-new-sd](step4a-new-sd.png)
 
 2. Choose a name and description:
-    - **`Z_EXPOSE_TRAVEL_R_XXX`**
+    - **`Z_EXPOSE_TRAVEL_R_###`**
     - **Service exposes Travel data**
 
     <!-- border -->![step4b-sd-travel-data](step4b-sd-travel-data.png)
@@ -187,7 +187,7 @@ For more information, see:
 5. To make the service definition more readable, add an alias to the **expose** statement:
 
     ```CDS
-    expose Z_I_TRAVEL_R_XXX as Travel;
+    expose Z_I_TRAVEL_R_### as Travel;
 
     ```
 
@@ -201,10 +201,10 @@ For more information, see:
     <!-- border -->![step5a-new-sb](step5a-new-sb.png)
 
 2. Choose:
-    - Name = **`Z_BIND_TRAVEL_R_XXX`**
+    - Name = **`Z_BIND_TRAVEL_R_###`**
     - Description = **Service binding for Travel data**
     - Binding Type = **ODATA V2 (UI...)**
-    - Service Definition = **`Z_EXPOSE_TRAVEL_R_XXX`**
+    - Service Definition = **`Z_EXPOSE_TRAVEL_R_###`**
 
       <!-- border -->![step5b-create-service-binding](step5b-create-service-binding.png)
 
@@ -229,7 +229,7 @@ The service binding automatically references the service definition and thus the
 
     <!-- border -->![step13e-service-xml-in-browser](step13e-service-xml-in-browser.png)
 
-4. In the browser, you can also see the **Metadata Document** of the Business Service by adding $metadata to the URL: `/sap/opu/odata/sap/Z_BIND_TRAVEL_R_XXX/$metadata`.
+4. In the browser, you can also see the **Metadata Document** of the Business Service by adding $metadata to the URL: `/sap/opu/odata/sap/Z_BIND_TRAVEL_R_###/$metadata`.
 
     <!-- border -->![step13f-service-metadata-in-browser](step13f-service-metadata-in-browser.png)
 
@@ -255,7 +255,7 @@ The service binding automatically references the service definition and thus the
 
 ### Add annotation for automatic display
 
-1. It would be nice if at least some fields were displayed immediately for the user. To do this, simply add the following annotation to the relevant fields in **`Z_I_TRAVEL_R_XXX`**. The start of the CDS view will then look like this.
+1. It would be nice if at least some fields were displayed immediately for the user. To do this, simply add the following annotation to the relevant fields in **`Z_I_TRAVEL_R_###`**. The start of the CDS view will then look like this - for now. (Please note that you will add more annotations later on.)
 
     > `BookingFee` is not automatically displayed. The numbers for each field are relative to the other fields and are responsive - they do not refer to a specific pixel position or similar. For larger entities, you can specify *HIGH*,*MEDIUM*, or *LOW*, so that less important fields are automatically hidden on a smaller screen, such as a mobile phone.
 
@@ -263,7 +263,7 @@ The service binding automatically references the service definition and thus the
     @UI           : {
     lineItem      : [{position: 10, importance: #HIGH}]
     }
-    key TravelID;
+    key TravelID,
 
     @UI           : {
           lineItem      : [{position: 15, importance: #HIGH}]
@@ -308,8 +308,8 @@ At present, you only have minimal annotations. As you add more, your CDS view wi
 
 3. Enter a name and description for your metadata extension object, clearly similar to your CDS view name, and choose **Next**:
 
-    - **`Z_MDE_TRAVEL_XXX`**
-    - **`Metadata for Z_I_TRAVEL_R_XXX`**
+    - **`Z_MDE_TRAVEL_###`**
+    - **`Metadata for Z_I_TRAVEL_R_###`**
 
 4. Accept the transport request, choose **Next**, select all elements, then choose **Finish**.
 
@@ -481,7 +481,7 @@ Your CDS entity code should look like this:
   sizeCategory: #S,
   dataClass: #MIXED
 
-define view Z_I_TRAVEL_R_XXX as Travel
+define view entity Z_I_TRAVEL_R_### as Travel
   as select from /DMO/I_Travel_U  as Travel
 
 {
@@ -525,7 +525,7 @@ Your MDE code should look like this:
 
 ```CDS
 @Metadata.layer: #CORE
-annotate view Z_I_TRAVEL_R_XXX with
+annotate view Z_I_TRAVEL_R_### with
 {
 
 @UI           : {
