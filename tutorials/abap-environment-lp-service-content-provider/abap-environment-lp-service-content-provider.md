@@ -89,13 +89,21 @@ primary_tag: software-product>sap-btp--abap-environment
 
 1. In the `Maintain Business Roles` app, search for business role ID `SAP_BR_ADMINISTRATOR`.
 
-2. Open business role `SAP_BR_ADMINISTRATOR`.
+2. Copy business role `SAP_BR_ADMINISTRATOR` to
 
-3. Choose `Edit`.
+    - New Business Role ID: `ZSAP_BR_ADMINISTRATOR`.
 
-4. Mark `Exposed to SAP BTP`.
+    - Description: `Tutorial: Federated Administrator`.
 
-    <!-- border -->![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
+    - Choose: Copy from Source `Assigned Launchpad Spaces`.
+
+    <!-- border -->![Copy Business Role](copy-sap_br_administrator.png)
+
+    - Choose button `OK`.
+
+3. Mark `Exposed to SAP BTP`.
+
+4. Choose `Save`.
 
 > The content related to the exposed business role, such as groups, catalogs, pages, or spaces, can be consumed by the SAP Build Work Zone, standard edition as soon as the job, which you have configured in the previous step, has run successfully.
 
@@ -186,7 +194,9 @@ You create a design-time destination to define the location from which the SAP B
 
     - Description: `Tutorial: Runtime destination for ressources`
 
-    - URL: Fiori Launchpad URL of the SAP BTP, ABAP environment system
+    - URL: Fiori Launchpad URL of the SAP BTP, ABAP environment system without the `/ui` path.
+        
+        Format: https://<`tenant`>.**`abap-web`**.<`region`>.hana.ondemand.com
 
     - Proxy Type: `Internet`
 
@@ -215,7 +225,9 @@ Finally the destination should look like this:
 
     - Description: `Tutorial: Dynamic runtime destination for OData access`
 
-    - URL: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system. Replace `abap-web` with `abap`. Format: https://<`tenant`>.**`abap`**.<`region`>.hana.ondemand.com
+    - URL: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system. Replace `abap-web` with `abap` and remove the `/ui` path.
+        
+        Format: https://<`tenant`>.**`abap`**.<`region`>.hana.ondemand.com
 
     - Proxy Type: `Internet`
 
@@ -325,7 +337,7 @@ The destination should look like this:
 
 4. Choose `Assign Role Collection` in the `Role Collection` section (depending on your window size, you might have to select `...` first).
 
-5. Assign the created role collection `~tutorial_SAP_BR_ADMINISTRATOR` to the user.
+5. Assign the created role collection `~tutorial_ZSAP_BR_ADMINISTRATOR` to the user.
 
     <!-- border -->![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
 
