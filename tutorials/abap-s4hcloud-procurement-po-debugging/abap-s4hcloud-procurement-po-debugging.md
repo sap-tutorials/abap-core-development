@@ -4,7 +4,7 @@ title: Create and Debug a BAdI Implementation in S/4HANA Cloud ABAP Environment
 description: Create and Debug a BAdI Implementation in ABAP Development Tools (ADT)
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, programming-tool>abap-development, sap-conversational-ai>sap-business-technology-platform, sap-conversational-ai>sap-btp--abap-environment, programming-tool>abap-extensibility]
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp--abap-environment, programming-tool>abap-extensibility]
 primary_tag: software-product-function>sap-s-4hana-cloud--abap-environment
 author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
@@ -289,6 +289,9 @@ The ABAP Debugger stops as soon as the value of the variable is changed after a 
 ### More information
 - SAP Help Portal: [SAP Cloud Platform Concepts: ABAP Debugger](https://help.sap.com/docs/BTP/5371047f1273405bb46725a417f95433/4ec365a66e391014adc9fffe4e204223.html)
 - SAP Help Portal: [SAP Cloud Platform Tasks: Debugging ABAP Code in ADT](https://help.sap.com/docs/BTP/5371047f1273405bb46725a417f95433/4ec33a996e391014adc9fffe4e204223.html)
+
+<!-- 
 - You can also see a demo in this video: [Running ABAP Cross Trace with a `BAdI`](https://video.sap.com/media/t/1_4aps5ak1)
+ -->
 
 ---
