@@ -107,22 +107,21 @@ Use the **Generate ABAP Repository Objects Wizard** built into ADT to create a b
 1. Right-click on your database table and select **Generate ABAP Repository Objects**.
 2. Select option **OData UI Service** and click **Next**.
 3. Choose the previously created package and click **Next**.
-4. Maintain the following description and names for the objects that will be generated:
 4. Maintain the following names for the objects that will be generated:
 
-    |  Section                    |  Subsection                 |  Field                      | Name                     |
-    |  :--------------------------|  :--------------------------|  :--------------------------| :-------------------------|
-    |  General                    |                             |  Project Name               | `FACTORYORDER_###`        |
-    |  General                    |                             |  Artifacts Prefix           |                |
-    |  General                    |                             |  Artifacts Suffix           |                |
-    |  Business Object            |  Data Model                 |  CDS Entity Name            | `ZR_FACTORYORDER_###`     |
-    |  Business Object            |  Data Model                 |  CDS Entity Alias           | `FactoryOrder`            |
+    |  Section                    |  Subsection                 |  Field                      | Name                        |
+    |  :--------------------------|  :--------------------------|  :--------------------------| :---------------------------|
+    |  General                    |                             |  Project Name               | `FACTORYORDER_###`          |
+    |  General                    |                             |  Artifacts Prefix           |                             |
+    |  General                    |                             |  Artifacts Suffix           |                             |
+    |  Business Object            |  Data Model                 |  CDS Entity Name            | `ZR_FACTORYORDER_###`       |
+    |  Business Object            |  Data Model                 |  CDS Entity Alias           | `FactoryOrder`              |
     |  Business Object            |  Behavior                   |  Behavior Implementation Class | `ZBP_R_FACTORYORDER_###` |
-    |  Business Object            |  Behavior                   |  Draft Table Name           | `ZFACTORYORDD_###` |
+    |  Business Object            |  Behavior                   |  Draft Table Name           | `ZFACTORYORDD_###`          |
     |  Service projection         |  Service projection Entity  |  CDS Entity Name            | `ZC_FACTORYORDER_###`       |
-    |  Service Projection         |  Service Projection Behavior|  Behavior Implementation Class | `ZBP_C_FACTORYORDER_###`    |
-    |  Business Service           |  Service Definition         |  Service Definition Name    | `ZUI_FACTORYORDER_###_O4` |
-    |  Business Service           |  Service Binding Name       |  Service Binding Name       | `ZUI_FACTORYORDER_###_O4` |
+    |  Service Projection         |  Service Projection Behavior|  Behavior Implementation Class | `ZBP_C_FACTORYORDER_###` |
+    |  Business Service           |  Service Definition         |  Service Definition Name    | `ZUI_FACTORYORDER_###_O4`   |
+    |  Business Service           |  Service Binding Name       |  Service Binding Name       | `ZUI_FACTORYORDER_###_O4`   |
 
     Click **Next**, review the objects that will be created, and click **Next** again.
 
