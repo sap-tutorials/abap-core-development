@@ -11,15 +11,15 @@ time: 75
 
 ## Prerequisites  
 - You have a valid instance of one of the following:
-    - SAP Business Technology Platform (BTP) ABAP Environment. For more information, see **Tutorial**: [Create Your First ABAP Console Application](abap-environment-console-application), steps 1-2. On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see [ Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
-    - On-premise [SAP AS ABAP Platform 1909, developer edition in SAP Cloud Appliance Library (CAL)](https://cal.sap.com/subscription?sguid=7bd4548f-a95b-4ee9-910a-08c74b4f6c37)
+    - SAP Business Technology Platform (BTP) ABAP Environment. For more information, see **Tutorial**: [Create Your First ABAP Console Application](abap-environment-console-application), steps 1-2. 
+    - On-premise, .e.g. [ABAP Cloud Developer Trial, 2022](https://community.sap.com/t5/technology-blogs-by-sap/abap-cloud-developer-trial-2022-available-now/ba-p/13598069)
 - **Tutorial**: [Create an ABAP Project in ABAP Development Tools (ADT)](abap-create-project)
-
+- On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see [Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
 
 
 ## You will learn  
 - How to create a table in ABAP, representing a table in your database
-<!-- - How to create a reusable **domain**, which provides technical attributes for data elements -->
+- How to create a reusable **domain**, which provides technical attributes for data elements
 - How to create an elementary data type, or **data element**
 - How to fill the table with three rows of test data
 
@@ -40,8 +40,6 @@ The table in this tutorial will store bank account details for customers. The ta
 
 > Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
-
----
 
 ### Create table
 
@@ -79,7 +77,7 @@ There are 3 ways to create a field for a database table:
 
   - Use an **existing data element**: The most powerful: A data element describes both the technical and semantic attributes of a field, such as a currency, or a customer name. You can define properties such as search help and (translatable) column header, and then use the same data element in many contexts. You often define the technical attributes of the data element in a domain, so they can be reused.
 
-  - Create a **new data element**: If you want to reuse the benefits of data elements - i.e. semantic attributes such as reuse of translatable column headers or a check table, but a suitable one does not exist yet.
+  - Create a **new data element**: If you want to reuse the benefits of a data element - that is, semantic attributes, such as reuse of translatable column headers - but a suitable one does not exist yet.
 
     <!-- border -->
     ![overview-domain-dtel](overview-domain-dtel.png)
@@ -178,8 +176,6 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
       key client         : abap.clnt not null;
       key account_number : abap.numc(8) not null;
       key bank_name      : z_bank_name_###;
-      @AbapCatalog.foreignKey.keyType : #KEY
-      @AbapCatalog.foreignKey.screenCheck : false
       bank_customer_id   : /dmo/customer_id not null;
       city               : /dmo/city;
       balance            : abap.curr(16,2);
@@ -243,7 +239,7 @@ Before you activate the table, change the technical settings at the top as follo
 
 
 ### Save and activate table code
-<!-- remove for key -->
+
 Now, save (`Ctrl+S`) and activate (`Ctrl+F3`) your table. Your code should look like this:
 
 ```ABAP
@@ -255,8 +251,6 @@ Now, save (`Ctrl+S`) and activate (`Ctrl+F3`) your table. Your code should look 
 define table zaccounts_### {
   key client         : abap.clnt not null;
   key account_number : abap.numc(8) not null;
-  @AbapCatalog.foreignKey.keyType : #KEY
-  @AbapCatalog.foreignKey.screenCheck : false
   bank_customer_id   : /dmo/customer_id not null
   bank_name          : z_bank_name_###;
   city               : /dmo/city;
@@ -286,7 +280,8 @@ Finally, you will fill the table with three rows of test data:
 
 2. Enter a name **`ZCL_FILL_ACCOUNTS_###`** and description for your class (replacing `###` with your group number or initials).
 
-    <!-- border -->![step15b-name-class](step15b-name-class.png)
+    <!-- border -->
+    ![step15b-name-class](step15b-name-class.png)
 
 3. Assign a transport request and choose **Finish**.
 
