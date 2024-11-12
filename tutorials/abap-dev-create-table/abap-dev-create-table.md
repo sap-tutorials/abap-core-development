@@ -14,7 +14,8 @@ time: 75
     - SAP Business Technology Platform (BTP) ABAP Environment. For more information, see **Tutorial**: [Create Your First ABAP Console Application](abap-environment-console-application), steps 1-2. 
     - On-premise, .e.g. [ABAP Cloud Developer Trial, 2022](https://community.sap.com/t5/technology-blogs-by-sap/abap-cloud-developer-trial-2022-available-now/ba-p/13598069)
 - **Tutorial**: [Create an ABAP Project in ABAP Development Tools (ADT)](abap-create-project)
-- On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see [Downloading the ABAP Flight Reference Scenario](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/def316685ad14033b051fc4b88db07c8.html)
+- On this instance, you have pulled the SAP ABAP Flight Reference Scenario. To pull this reference scenario from `Github`, see:
+ [Downloading the ABAP Flight Reference Scenario](https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/def316685ad14033b051fc4b88db07c8.html)
 
 
 ## You will learn  
@@ -227,14 +228,14 @@ Before you activate the table, change the technical settings at the top as follo
 
     - **`deliveryClass`** : `#A` = application table, which stores master data and transaction data (default)
 
-    - **`dataMaintenance`** : `#NOT_ALLOWED`
+    - **`dataMaintenance`** : `#RESTRICTED`
 
 ```ABAP
 @EndUserText.label : 'Bank Accounts'
 @AbapCatalog.enhancementCategory : #EXTENSIBLE_CHARACTER_NUMERIC
 @AbapCatalog.tableCategory : #TRANSPARENT
 @AbapCatalog.deliveryClass : #A
-@AbapCatalog.dataMaintenance : #NOT_ALLOWED
+@AbapCatalog.dataMaintenance : #RESTRICTED
 ```
 
 
@@ -247,7 +248,7 @@ Now, save (`Ctrl+S`) and activate (`Ctrl+F3`) your table. Your code should look 
 @AbapCatalog.enhancementCategory : #EXTENSIBLE_CHARACTER_NUMERIC
 @AbapCatalog.tableCategory : #TRANSPARENT
 @AbapCatalog.deliveryClass : #A
-@AbapCatalog.dataMaintenance : #NOT_ALLOWED
+@AbapCatalog.dataMaintenance : #RESTRICTED
 define table zaccounts_### {
   key client         : abap.clnt not null;
   key account_number : abap.numc(8) not null;
