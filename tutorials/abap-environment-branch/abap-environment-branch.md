@@ -199,7 +199,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
 ### More Information
 
-- [Git-Enabled Change and Transport System (gCTS) | SAP Help](https://help.sap.com/docs/ABAP_PLATFORM_NEW/4a368c163b08418890a406d413933ba7/f319b168e87e42149e25e13c08d002b9.html)
+- [Git-Enabled Change and Transport System (`gCTS`) | SAP Help](https://help.sap.com/docs/ABAP_PLATFORM_NEW/4a368c163b08418890a406d413933ba7/f319b168e87e42149e25e13c08d002b9.html)
 
 
 
