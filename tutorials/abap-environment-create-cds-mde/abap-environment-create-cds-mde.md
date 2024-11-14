@@ -85,7 +85,7 @@ Your CDS entity appears in a new editor, with the elements (fields and associati
 ![step2b-cds-editor](step2b-cds-editor.png)
 
 
-
+<!-- step 3 -->
 ### Define CDS View
 
 1. You will see an error - at `BookingFee`. Add the following annotations:
@@ -146,6 +146,10 @@ define view entity Z_I_TRAVEL_R_###
 > If you define currency amounts and currency codes semantically, then the system will apply specific rules to handle these fields appropriately.
 For example, in this tutorial, if you define `TotalPrice` as a currency amount, then the system will add the appropriate currency to the `TotalPrice` column automatically. There is no need to display `CurrencyCode` as a separate column.
 
+Later, in the Fiori Elements preview, or your Fiori app, the **Total Price** column will look like this.
+
+    <!-- border -->
+    ![step10a-currency-code](step10a-currency-code.png)
 
 ### Display in Data Preview
 
@@ -158,7 +162,6 @@ For example, in this tutorial, if you define `TotalPrice` as a currency amount, 
 
     <!-- border -->
     ![step4b-data-preview](step4b-data-preview.png)
-
 
 
 ### Create a service definition
@@ -200,6 +203,7 @@ For more information, see:
 6. Format, save, and activate ( **`Shift+F1, Ctrl+S, Ctrl+F3`** ) the service definition.
 
 
+<!-- step 6 -->
 ### Create service binding
 
 1. Select your service definition, then choose **Service Binding** from the context menu, then choose **Next**.
@@ -270,6 +274,7 @@ The service binding automatically references the service definition and thus the
     ![step7d-fep-w-data](step7d-fep-w-data.png)
 
 
+<!-- step 9 -->
 ### Add annotation for automatic display
 
 1. It would be nice if at least some fields were displayed immediately for the user. To do this, simply add the following annotation to the relevant fields in **`Z_I_TRAVEL_R_###`**. The start of the CDS view will then look like this - for now. (Please note that you will add more annotations later on.)
@@ -302,8 +307,11 @@ The service binding automatically references the service definition and thus the
           }
     EndDate,
 
+
+    @Semantics.amount.currencyCode: 'CurrencyCode'
     BookingFee,
 
+    @Semantics.amount.currencyCode: 'CurrencyCode'
     @UI           : {
           lineItem      : [{position: 50, importance: #HIGH}]
           }
@@ -344,30 +352,6 @@ At present, you only have minimal annotations. As you add more, your CDS view wi
     > The metadata extensions are evaluated in a specific order. For more information, see [Annotation Propagation](https://help.sap.com/viewer/f859579898c7494dbe2449bb7f278dcc/Cloud/en-US/df5d534075254682a81b59fb67ebd686.html).
 
 6. Format, save, and activate ( **`Shift+F1, Ctrl+S, Ctrl+3`** ).
-
-
-### Add semantic metadata
-
-If you define currency amounts and currency codes semantically, then the system will apply specific rules to handle these fields appropriately.
-For example, in this tutorial, if you define `TotalPrice` as a currency amount, and define `CurrencyCode` as a currency code field, then the system will add the appropriate currency to the `TotalPrice` column automatically. There is no need to display `CurrencyCode` as a separate column.
-
-1. To do this, add the following two annotations to your CDS view:
-
-    ```CDS
-
-    @Semantics.amount.currencyCode: 'CurrencyCode'        
-    TotalPrice,
-
-    @Semantics.currencyCode
-    CurrencyCode,
-
-    ```
-2. Format, save, and activate ( **`Shift+F1, Ctrl+S, Ctrl+3`** ).
-
-3. If you refresh the Fiori Elements preview, the **Total Price** column now looks like this.
-
-    <!-- border -->
-    ![step10a-currency-code](step10a-currency-code.png)
 
 
 ### Add search field
@@ -416,6 +400,7 @@ You will now add a fuzzy search capability.
     ![step11b-miami-70](step11b-miami-70.png)
 
 
+<!-- step 12 -->
 ### Add selection fields
 
 As well as search fields, you can filter the list using an input field. In the next tutorial, you will provide input value help for these fields.
