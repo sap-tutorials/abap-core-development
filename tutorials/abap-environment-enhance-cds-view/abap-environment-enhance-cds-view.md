@@ -240,7 +240,8 @@ It would be nice to find out how much money each **Agency** has received in tota
     ```
 5. Optional: Test in the Fiori Elements preview. Your app should look like this:
 
-    <!-- border -->![step16b-convert-to-dollars](step16b-convert-to-dollars.png)    
+    <!-- border -->
+    ![step16b-convert-to-dollars](step16b-convert-to-dollars.png)    
 
 
 ### Check code for CDS entity
@@ -317,7 +318,7 @@ define view entity Z_I_TRAVEL_R_ENHANCED as select from /DMO/I_Travel_U
 
 ```
 
-
+<!-- step 6 -->
 ### Test yourself
 
 
@@ -336,7 +337,8 @@ For more information on object pages, see SAP Help Portal: [Defining UI Annotati
                     position:        10 } ]
 
     ```
-    <!-- border -->![step6a-add-ui-facet](step6a-add-ui-facet.png)
+    <!-- border -->
+    ![step6a-add-ui-facet](step6a-add-ui-facet.png)
 
 2. You then specify which elements you want to include in the object page. Since the facet type is `#IDENTIFICATION_REFERENCE`, you use the **identification** annotation, so that the complete annotation plus element now looks like this:
 
@@ -348,67 +350,112 @@ For more information on object pages, see SAP Help Portal: [Defining UI Annotati
 
     ```
 
-3. Add the following to the other elements, so that your metadata extension looks like this:
-
-    ```CDS
-    @UI: { lineItem:     [ {  position: 20, label: 'Agency', importance: #HIGH } ],
-         identification: [ { position: 20 } ],
-         selectionField: [{position: 20  }]
-        }
-    AgencyID;
-
-
-    @UI: { lineItem:        [ {  position: 30, label: 'Customer', importance: #HIGH  } ]
-           ,identification: [ { position: 30 } ]
-           ,selectionField: [ { position: 30 }]
-          }
-    CustomerID;
-
-
-    @UI: {  lineItem: [ { position: 40 } ],
-            identification: [ { position: 40 } ],
-            selectionField: [ { position: 40 }]
-          }
-    BeginDate;
-
-
-    @UI: {  lineItem: [ { position: 50 } ],
-            identification: [ { position: 50 } ]
-           ,selectionField: [ { position: 50 }]
-          }
-    EndDate;
-
-
-    @UI: { lineItem: [ { position: 60 } ],
-            identification: [ { position: 50 } ]
-
-           }
-    TotalPrice;
-
-    ```
+3. Add a similar annotation for each of the other elements; see step 7.5 below for complete code:
 
 4. Finally, add a header to your object page, just after the layer annotation (before the `annotate view...` statement):
 
     ```CDS
     @UI: {
-      headerInfo: {
-        typeName: 'Travel',
-        typeNamePlural: 'Travels',
-        title: {
-          type: #STANDARD,
-          label: 'Travel',
-          value: 'TravelID'
+            headerInfo: {
+            typeName: 'Travel',
+            typeNamePlural: 'Travels',
+            title: {
+                type: #STANDARD,
+                label: 'Travel',
+                value: 'TravelID'
+            }
         }
-      }
     }
 
     ```
 
-      <!-- border -->![step6c-header](step6c-header.png)
+5. Your complete code should look like this:
 
-5. Test your object page in the Fiori Elements preview. It should look roughly like this:
+    ```CDS
+    @Metadata.layer: #CORE
 
-    <!-- border -->![step6b-fep-preview-object-page](step6b-fep-preview-object-page.png)
+    @UI: {
+        headerInfo: {
+            typeName: 'Travel',
+            typeNamePlural: 'Travels',
+            title: {
+            type: #STANDARD,
+            label: 'Travel',
+            value: 'TravelID'
+            }
+        }
+    }
+
+    annotate view Z_I_TRAVEL_R_000 with
+    {
+
+    @UI.facet: [ { id:              'Travel',
+                    purpose:         #STANDARD,
+                    type:            #IDENTIFICATION_REFERENCE,
+                    label:           'Travel',
+                    position:        10 } ]
+
+
+    @UI           : {
+            lineItem      : [{position: 15, label: 'Agency', importance: #HIGH}],
+            identification: [{position: 15 }],
+            selectionField: [{position: 15 }]
+            }
+    AgencyID;
+
+    @UI           : {
+            lineItem      : [{position: 20, importance: #HIGH}],
+            identification: [{position: 20 }],
+            selectionField: [{position: 20 }]
+            }
+    CustomerID;
+
+    @UI           : {
+            lineItem      : [{position: 10, importance: #HIGH}],
+            identification: [{position: 10, label: 'Travel' }],
+            selectionField: [{position: 10 }]
+            }
+    TravelID;
+
+    @UI           : {
+            lineItem      : [{position: 30, importance: #HIGH}],
+            identification: [{position: 30 }],
+            selectionField: [{position: 30 }]
+            }
+    BeginDate;
+
+    @UI           : {
+            lineItem      : [{position: 40, importance: #HIGH}],
+            identification: [{position: 40 }],
+            selectionField: [{position: 40 }]
+            }
+    EndDate;
+
+    @UI           : {
+            lineItem      : [{position: 50, importance: #HIGH}],
+            identification: [{position: 50 }]
+            }
+    TotalPrice;
+
+    @UI           : {
+            lineItem      : [{position: 50, importance: #HIGH}]
+            }
+    Memo;
+
+    @UI           : {
+        lineItem      : [{position: 60, importance: #HIGH}],
+        selectionField: [{position: 60 }]
+        }
+    Status;
+
+    }
+
+    ```
+
+6. Test your object page in the Fiori Elements preview. It should look roughly like this:
+
+    <!-- border -->
+    ![step6b-fep-preview-object-page](step6b-fep-preview-object-page.png)
 
 
 
@@ -423,7 +470,8 @@ For more information on this relationship, see [Defining the Data Model in CDS V
 
 1. In the Package Explorer, select **Data Definition**, then choose **New Data Definition** from the context menu.
 
-    <!-- border -->![step7a-new-cds](step7a-new-cds.png)
+    <!-- border -->
+    ![step7a-new-cds](step7a-new-cds.png)
 
 2. Enter the following:
     - Name = **`Z_I_BOOKING_R_000`**
@@ -439,6 +487,7 @@ Your CDS entity appears in a new editor. We will fix the errors now.
 6. Change the `@AccessControl.authorizationCheck:` to **`#NOT_REQUIRED`**.
 
 
+<!-- step 9 -->
 ### Specify hierarchy
 
 1. Add the following to **`Z_I_BOOKING_000`**, using Auto-complete (`Ctrl+Space`).
@@ -462,11 +511,13 @@ Then **Save**, but **DO NOT yet activate your entity**.
 
 3. Now, choose **Activate All `(Shift+Ctrl+F3)`**.
 
-    <!-- border -->![step10a-activate-all-toolbar](step10a-activate-all-toolbar.png)
+    <!-- border -->
+    ![step10a-activate-all-toolbar](step10a-activate-all-toolbar.png)
 
 4. Choose **Deselect All**, then choose your two entities `Z_I_TRAVEL_R_000` and `Z_I_BOOKING_000`, then choose **Activate**.
 
-    <!-- border -->![step10-activate-all](step10-activate-all.png)
+    <!-- border -->
+    ![step10-activate-all](step10-activate-all.png)
 
 5. Change the `@AccessControl.authorizationCheck:` to **`#NOT_REQUIRED`**.
 
@@ -567,25 +618,25 @@ Then **Save**, but **DO NOT yet activate your entity**.
 4. Format, save, and activate the metadata extension (**`Shift+F1, Ctrl+S, Ctrl+F3`**).
 
 
-
 ### Add association from Travel to Booking
 
 1. Also, add the entity **`Z_I_BOOKING_R_000`** to the service definition **`Z_EXPOSE_TRAVEL_R_000`**:
 
-```CDS
-@EndUserText.label: 'Expose travel Service 000'
-define service Z_EXPOSE_TRAVEL_R_000 {
-  expose Z_I_TRAVEL_R_000 as Travel;
-  expose Z_I_BOOKING_R_000 as Booking;
-}
+    ```CDS
+    @EndUserText.label: 'Expose travel Service 000'
+    define service Z_EXPOSE_TRAVEL_R_000 {
+    expose Z_I_TRAVEL_R_000 as Travel;
+    expose Z_I_BOOKING_R_000 as Booking;
+    }
 
-```
+    ```
 
 2. Format, save, and activate (**`Shift+F1, Ctrl+S, Ctrl+F3`**).
 
 3. Check the service binding. It should now include a `to_Booking` association, like this. If not, try choosing **Unpublish**, then **Publish** again.
 
-    <!-- border -->![step10a-sb-w-booking-association](step10a-sb-w-booking-association.png)
+    <!-- border -->
+    ![step10a-sb-w-booking-association](step10a-sb-w-booking-association.png)
 
 
 
@@ -609,7 +660,8 @@ define service Z_EXPOSE_TRAVEL_R_000 {
 
     ```
 
-    <!-- border -->![step9a-add-facet-booking](step9a-add-facet-booking.png)
+    <!-- border -->
+    ![step9a-add-facet-booking](step9a-add-facet-booking.png)
 
 2. Now, in the metadata extension **`ZMDE_BOOKING_R_000`**, specify which fields from Booking you want to include in the object page, again using an `identification` annotation as follows:
 
@@ -642,7 +694,8 @@ define service Z_EXPOSE_TRAVEL_R_000 {
     ```
 3. Test your new facet in the Fiori Elements preview. It should look like this:
 
-    <!-- border -->![step9b-fep-booking-facet](step9b-fep-booking-facet.png)
+    <!-- border -->
+    ![step9b-fep-booking-facet](step9b-fep-booking-facet.png)
 
 
 
@@ -677,7 +730,8 @@ You can also display information from another entity using an association.
 
 4. Optional: Test your Fiori Elements preview again. It should look like this:
 
-    <!-- border -->![step12a-fep-plus-connection](step12a-fep-plus-connection.png)
+    <!-- border -->
+    ![step12a-fep-plus-connection](step12a-fep-plus-connection.png)
 
 
 
@@ -703,13 +757,15 @@ You can also display information from another entity using an association.
 
     ```
 
-    <!-- border -->![step13b-add-where-clause](step13b-add-where-clause.png)
+    <!-- border -->
+    ![step13b-add-where-clause](step13b-add-where-clause.png)
 
 3. Format, save, and activate the CDS entity.
 
-4. Test your Fiori Elements preview again. It should look like this:
+4. Test your Fiori Elements preview again. It should roughly look like this:
 
-    <!-- border -->![step13c-fep-CASE](step13c-fep-CASE.png)
+    <!-- border -->
+    ![step13c-fep-CASE](step13c-fep-CASE.png)
 
 
 ### More Information
