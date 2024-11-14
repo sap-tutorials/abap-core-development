@@ -151,6 +151,7 @@ For more information, see:
       ![step2b-associations-added](step2b-associations-added.png)
 
 
+<!-- step 3 -->
 ### Merge two fields
 
 ABAP has many built-in SQL functions for both numeric and string fields.
@@ -257,11 +258,10 @@ The code for your CDS entity should look like this:
   serviceQuality: #X,
   sizeCategory: #S,
   dataClass: #MIXED
+}
+define view entity Z_I_TRAVEL_R_ENHANCED as select from /DMO/I_Travel_U
 
-define view entity Z_I_TRAVEL_R_000
-  as select from /DMO/I_Travel_U
-
-  association [1..1] to /DMO/I_Agency   as _Agency       on $projection.AgencyID = _Agency.AgencyID
+ association [1..1] to /DMO/I_Agency   as _Agency       on $projection.AgencyID = _Agency.AgencyID
   association [1..1] to /DMO/I_Customer as _Customer     on $projection.CustomerID = _Customer.CustomerID
 
 {
@@ -280,12 +280,15 @@ define view entity Z_I_TRAVEL_R_000
       concat_with_space(_Customer.Title, _Customer.LastName, 1) as Addressee,
       BeginDate,
       EndDate,
+      
+      @Semantics.amount.currencyCode: 'CurrencyCode'      
       BookingFee,
 
       @Semantics.amount.currencyCode: 'CurrencyCode'
       TotalPrice,
 
       //Currency Conversion
+      @Semantics.amount.currencyCode: 'CurrencyCode'
       currency_conversion(
       amount => TotalPrice,
       source_currency => CurrencyCode,
@@ -294,10 +297,7 @@ define view entity Z_I_TRAVEL_R_000
       exchange_rate_date => cast('20200429' as abap.dats),
       error_handling => 'SET_TO_NULL' )                         as PriceInUSD,
 
-      @ObjectModel.text.association: '_CurrencyText'
       CurrencyCode,
-
-
 
       @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.90
@@ -310,8 +310,6 @@ define view entity Z_I_TRAVEL_R_000
       _Agency,
       _Booking,
       _Currency,
-      _Customer,
-      _CurrencyText,
       _Customer,
       _TravelStatus
 
