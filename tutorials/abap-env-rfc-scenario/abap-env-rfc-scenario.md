@@ -21,7 +21,8 @@ author_profile: https://github.com/julieplummer20
     - [AS ABAP developer edition, latest version](https://blogs.sap.com/2019/07/01/as-abap-752-sp04-developer-edition-to-download/) or:
     - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/)
 - You have connected **SAP Cloud Connector**, to your BTP subaccount
-- You have assigned the business role **`SAP_BR_DEVELOPER`** to your user; you will need it to create communication artifacts
+- You have assigned the business catalog **``**SAP_CORE_BC_COM** in a business role assigned to your user, e.g. **`SAP_BR_ADMINISTRATOR (Administrator)`**; you will need it to create communication artifacts
+- You may need to define the relevant homepage structure that should be exposed to the launchpad. In Manage Launchpad Settings, set the relevant value for EXPOSURE_HOMEPAGE_STRUCTURE. See Manage Launchpad Settings
 
   
 ## You will learn
@@ -39,7 +40,7 @@ Throughout this tutorial, replace `000` with your initials or group number.
 
 There are two challenges when setting up connectivity between the SAP BTP, ABAP Environment and an on-premise ABAP System:
 
-- The ABAP Environment "lives" in the Internet, but customer on-premise systems are behind a firewall
+- The ABAP Environment is generally located in front of any firewall, but customer on-premise systems are generally behind it
 - Remote Function Call (RFC) is not internet-enabled
 
 **The solution:** 

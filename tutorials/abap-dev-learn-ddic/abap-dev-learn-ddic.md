@@ -46,7 +46,7 @@ Before you start exploring the Dictionary objects, you will add the relevant pac
 
 The package is added to your favorites:
 
-    ![Image depicting step1d-fave-package-added](step1d-fave-package-added.png)
+![Image depicting step1d-fave-package-added](step1d-fave-package-added.png)
 
 
 ### Expand package

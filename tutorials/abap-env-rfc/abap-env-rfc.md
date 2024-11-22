@@ -23,6 +23,8 @@ This tutorial mission was written for SAP BTP ABAP Environment. However, you sho
 
 Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
+> This tutorial is part of a mission, [Get Data from an On-Premise System Using a Remote Function Call - RFC](mission.abap-env-connect-onpremise). Make sure you have fulfilled the prerequisites in the previous tutorial and that you follow each tutorial in order.
+
 ---
 
 

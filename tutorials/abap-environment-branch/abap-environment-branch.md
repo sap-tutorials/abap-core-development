@@ -1,18 +1,13 @@
 ---
 parser: v2
 auto_validation: true
-<<<<<<< HEAD
-primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, products>sap-business-technology-platform, tutorial>license ]
-=======
 primary_tag: software-product>sap-btp--abap-environment
 tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license ]
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 time: 20
 ---
 
-# Create Branches with SAP BTP, ABAP Environment
-<!-- description --> Create your own branch with SAP BTP, ABAP environment.
+# Transport ABAP Objects Using git-based Change and Transport System (gCTS)
+<!-- description --> Transport ABAP development objects using gCTS and the Manage Software Components app. Each software component has a 1:1 relationship with a git repo.
 
 ## Prerequisites  
   - SAP BTP, ABAP environment user
@@ -23,8 +18,8 @@ time: 20
   - How to create software component
   - How to pull software component
   - How to release transport request
-  - How to create master branch
-  - How to create branches
+  - How to create main branch
+  - How to create other branches
 
 ## Intro
 In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
@@ -66,7 +61,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
     ![Pull software component](pull.png)
 
-    Note:  In the initial system, the 'master' branch will not be visible until you've released a transport request. If you are pulling in the production system, all branches will be available before you've released an ABAP transport request.
+    Note:  In the initial system, the 'main' branch will not be visible until you've released a transport request. If you are pulling in the production system, all branches will be available before you've released an ABAP transport request.
 
 2. Click **OK**.
 
@@ -182,7 +177,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
       ![Create new branch](branch.png)
 
-  3. Select your master branch and click **`+`** to create a new branch.
+  3. Select your main branch and click **`+`** to create a new branch.
 
       ![Create new branch](branch2.png)
 
@@ -200,6 +195,11 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
 
 ### Test yourself
+
+
+### More Information
+
+- [Git-Enabled Change and Transport System (`gCTS`) | SAP Help](https://help.sap.com/docs/ABAP_PLATFORM_NEW/4a368c163b08418890a406d413933ba7/f319b168e87e42149e25e13c08d002b9.html)
 
 
 
