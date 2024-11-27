@@ -4,8 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 10
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 
 # Adapt the UI of a Business Object
@@ -23,7 +23,7 @@ author_profile: https://github.com/Liebherr
 In the preceding tutorials you created a custom business object with a simple data structure and its persistence. Afterwards you generated an UI for this business object and exposed it as a Fiori Launchpad application. As the generated User Interfaces only lists all fields of a business object node, adapting the UI might be necessary to improve usability of it.
 
 > - The **UI Generation** done in a previous tutorial and the **UI Adaptation** shown in this tutorial are so called **In-App Extensibility** features done completely inside a S/4HANA Cloud system. They are key user functionality with limited possibilities. Alternatively to UI Generation and Adaptation a UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
-> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
+> - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 **Our Example**
 
@@ -56,7 +56,7 @@ This is the screen that will be adapted.
 ![Open User Settings and Adapt UI](UI_userProfileAdaptUI.png)
 
 
-### Create an UI group
+### Create a UI group
 
 
 Editable UI elements can be recognized by getting a border when hovering over them.
@@ -101,17 +101,22 @@ Last you make the UI adaptations available to all users in the system.
 
 Click the activation button (wand icon).
 
+<!--border-->
 ![Activate UI changes](UI_activate.png)
 
 In the opening pop up give a name for the new version and **Confirm** that.
 
 ![Give Version name during activation](UI_activateGiveVersionConfirm.png)
 
-Click the Publishing button (truck icon).
+Click the Publishing button (truck icon) to make the last activated layout version available to all users in the system.
 
+<!--border-->
 ![Publish UI version](UI_publish.png)
 
-Finally you only need to **Save & Exit** to make the last published layout version available to all users in the system.
+Finally exit adaptation mode (cross icon). 
+
+<!--border-->
+![Exit UI Adaptation mode](UI_exit.png)
 
 
 ### Test yourself

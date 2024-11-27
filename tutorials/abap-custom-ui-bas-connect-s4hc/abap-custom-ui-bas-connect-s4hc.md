@@ -4,10 +4,10 @@ auto_validation: true
 time: 20
 tags: [ tutorial>beginner, topic>cloud, tutorial>license, products>sap-business-technology-platform, products>sap-business-application-studio  ]
 primary_tag: topic>abap-extensibility
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
-<!--DONE with E1Y-->
+<!--DONE with E1Y (https://dlm.wdf.sap.corp/launchpad/portal/#/Search/e1y -> https://my300098.s4hana.ondemand.com/ and btp trial -->
 # Connect SAP Business Application Studio and SAP S/4HANA Cloud System
 <!-- description --> For key user extensibility connect SAP Business Application Studio and an SAP S/4HANA Cloud system using SAML assertion authentication to develop custom UIs.
 
@@ -21,7 +21,7 @@ author_profile: https://github.com/Liebherr
 
 **Additional Infos**
 > - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
+> - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 **Prerequisites for SAP BTP customer account**
 
@@ -71,24 +71,24 @@ Although this tutorial describes the flow with a trial account, the sequence is 
 
     |  Field Name     | Value
     |  :------------- | :-------------
-    |  Name           | **`<YOUR_SYSTEMS_ID>_SAML_ASSERTION`**
-    |  Type           | **`HTTP`**
-    |  Description    | **`SAML Assertion Destination to SAP S/4HANA Cloud system <YOUR_SYSTEMS_ID>`**
-    |  URL          | In the SAP S/4HANA Cloud system, navigate to the **Communication Systems** app and copy the **Host Name** from **Own SAP Cloud System** = `Yes`<div>![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)</div> and paste it with prefix `https://` for example `https://my12345-api.s4hana.ondemand.com.`
-    |  Proxy Type   | **`Internet`**
-    |  Authentication | **`SAMLAssertion`**
-    |  Audience   | Enter the URL of your system and remove `-api`, for example `https://my12345.s4hana.ondemand.com`.
+    |  `Name`           | **`<YOUR_SYSTEMS_ID>_SAML_ASSERTION`**
+    |  `Type`           | **`HTTP`**
+    |  `Description`    | **`SAML Assertion Destination to SAP S/4HANA Cloud system <YOUR_SYSTEMS_ID>`**
+    |  `URL`          | In the SAP S/4HANA Cloud system, navigate to the **Communication Systems** app, click the **Own SAP Cloud System** button, copy the **Host Name** <div>![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)</div> and paste it with prefix `https://` for example `https://my12345-api.s4hana.ondemand.com.`
+    |  `Proxy Type`   | **`Internet`**
+    |  `Authentication` | **`SAMLAssertion`**
+    |  `Audience`   | Copy and paste the `OAuth 2.0 SAML2 Audience` from the **Own SAP Cloud System**.
     |  `AuthnContextClassRef` | **`urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`**
 
     Select **New Property** and maintain the following **Additional Properties** and values.
 
     |  Field Name     | Value          | Remark
     |  :------------- | :------------- | :-------------
-    |  HTML5.DynamicDestination           | **`true`**   |&nbsp;
-    |  HTML5.Timeout           | **`60000`**   | value stated in milliseconds. 60000 equals 1 minute. Required as deployment needs longer than the standard of 30 seconds.
+    |  `HTML5.DynamicDestination`           | **`true`**   |&nbsp;
+    |  `HTML5.Timeout`           | **`60000`**   | value stated in milliseconds. 60000 equals 1 minute. Required as deployment needs longer than the standard of 30 seconds.
     |  `WebIDEEnabled`    | **`true`**   |&nbsp;
     |  `WebIDEUsage`          | **`odata_abap,dev_abap`**   |&nbsp;
-    |  `nameIDFormat`     | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**  | Required in case your subaccount sends the e-mail address as SAML Subject Name Identifier for authentication (configured as **Subject Name Identifier** in its SAP Cloud Identity Service Application, see [Tutorial: SAP Business Technology Platform Neo Environment](abap-custom-ui-trust-settings)), although SAP S/4HANA Cloud system expects user login by default. **That is the case with a trial Account.** This also requires the e-mail address to be maintained for SAP S/4HANA Cloud system business users.
+    |  `nameIDFormat`     | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**  | Required in case your subaccount sends the e-mail address as SAML Subject Name Identifier for authentication (configured as **Subject Name Identifier** in its SAP Cloud Identity Service Application, see [Tutorial: Set Up Trust Between SAP Cloud Identity Services and SAP BTP Cloud Foundry Environment](abap-custom-ui-trust-cf)), although SAP S/4HANA Cloud system expects user login by default. **That is the case with a trial Account.** This also requires the e-mail address to be maintained for SAP S/4HANA Cloud system business users.
 
 8.  Make sure that the **Use default JDK truststore** checkbox is ticked.
 

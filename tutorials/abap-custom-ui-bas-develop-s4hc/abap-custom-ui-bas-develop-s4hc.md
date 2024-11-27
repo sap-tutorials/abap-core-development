@@ -4,8 +4,8 @@ auto_validation: true
 time: 25
 tags: [ tutorial>beginner, topic>cloud, tutorial>license, products>sap-business-technology-platform, products>sap-business-application-studio  ]
 primary_tag: topic>abap-extensibility
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 
 # Develop a Custom UI for an SAP S/4HANA Cloud System
@@ -25,7 +25,7 @@ author_profile: https://github.com/Liebherr
 **Additional Info**
 > - This tutorial illustrates all the needed steps to build a UI with all SAPUI5 options in SAP Business Application Studio, test it, and get it into the SAP S/4HANA Cloud system. If you only require a generated UI and maybe adapting it with restricted options within the SAP S/4HANA Cloud system (in-app-extensibility) check out [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation)
 > - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
+> - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 ---
 
@@ -62,21 +62,22 @@ SAP Business Application Studio offers UI generators with a wizard approach to c
 
     ![Open Dev Space](bas-dev-space-open.png)
 
-3. Go to **View > Command Palette...**.
+3. Click the three lines on top of the navigation to open **View > Command Palette...**.
 
     ![Open "Find Command"](bas-command-palette.png)
 
-4. Search for command **Fiori: Open Application Generator** and select it.
+4. Search for command **>Fiori: Open Application Generator** and execute it.
 
     ![search and choose "Fiori: Open Application Generator" command](bas-command-palette-fiori-app-gen.png)
 
 
 
-### Select floorplan
+### Select UI Project Template
 
-For **Template Type**, select the default  **SAP Fiori** (1), choose **List Report Page** (2) as **Floorplan** and click **Next** (3).
+As UI project template choose **List Report Page** (1) and click **Next** (2).
 
-![UI Wizard: Floorplan Selection](bas-appgen-floorplan-sel.png)
+<!--border-->
+![UI Wizard: UI Project Template Selection](bas-appgen-floorplan-sel.png)
 
 
 ### Select Data Source
@@ -98,6 +99,7 @@ During the **Data Source and Service Selection** step, you define which system a
 
 In this step you define the root node for your UI in the OData service.
 
+<!--border-->
 ![UI Wizard: Select Entity](bas-appgen-entity-sel.png)
 
 1. As **Main Entity**, select the custom business object root node `YY1_BONUSPLAN`.
@@ -109,6 +111,7 @@ In this step you define the root node for your UI in the OData service.
 
 In this step, you set project attributes and choose to add further optional configurations.
 
+<!--border-->
 ![UI Wizard: Set Project Attributes](bas-appgen-proj-attrs.png)
 
 1. Define a **Module name**, which will later be the folder name of the UI Project and - in combination with optional namespace - the application ID in SAP S/4HANA Cloud system. Example: `bonusplans`
@@ -126,6 +129,7 @@ In this step, you set project attributes and choose to add further optional conf
 
 In this step, you define where you want the UI project to be deployed to as a runnable application.
 
+<!--border-->
 ![UI Wizard: Configure Deployment Settings](bas-appgen-deploy-config.png)
 
 1. Leave the default `ABAP` as **target** platform and as **Destination** the one you have created earlier (see [Connect SAP Business Application Studio and SAP S/4HANA Cloud system](abap-custom-ui-bas-connect-s4hc)).
@@ -146,6 +150,7 @@ npx fiori add deploy-config
 
 The SAP Fiori launchpad (FLP) configuration is required to embed your application as a tile into the FLP.
 
+<!--border-->
 ![UI Wizard: Configure FLP settings](bas-appgen-flp-config-finish.png)
 
 1. Set a **Semantic Object**, for example `bonusplan`
@@ -161,9 +166,10 @@ The UI project is now being generated and dependencies are being installed. This
 
 ![Installation toast on bottom Right](bas-appgen-installing-after-finish.png)
 
-Once the generation finished a pop up appears to ask if and how to open it. Choose **Open Folder**
+Once the generation finished a pop up appears to ask if and how to open it. Choose **Add project to workspace**
 
-![Open project folder pop up](bas-appgen-open-folder-after-finish.png)
+<!--border-->
+![Add project to workspace pop up](bas-appgen-open-folder-after-finish.png)
 
 >Note that you can also configure the launchpad later via the command line interface by using the following command:
 ```Shell/Bash
@@ -171,11 +177,11 @@ npx fiori add flp-config
 ```
 
 
-### Open UI project folder
+### Open UI project folder (optional)
 
-In case your SAP Business Application Studio's explorer does not show the project, do the following. 
+In case your SAP Business Application Studio's explorer does not show the project, do the following.
 
-1. To view the newly created project in the explorer, select **Open Folder**.
+1. To view the newly created project in the explorer with all features, select **Open Folder**.
 
     ![Choose Open Folder Option](bas-open-folder.png)
 
@@ -189,22 +195,46 @@ In case your SAP Business Application Studio's explorer does not show the projec
 
 In this step, you can test the UI with the preview functionality.
 
-1. Right-click the project folder and choose **Preview Application** from the context menu.
+1. After Opening the project, Business Application Studio also opens an **Application Info** tab. In its **What you can do** section click the **Preview Application** tile.
 
+    <!--border-->
     ![Start Preview](bas-preview-start.png)
+
+    > Note that in case there is no Application Info tab you can open it from the context menu of the project
+    >
+    > <!--border-->
+    > ![Open Application Info tab](bas-open-appl-info.png)
 
 2. Select the `start` option, which will perform a preview based on the configured data source system, retrieve real data and enable you to create, edit and delete data in that system.
 
+    <!--border-->
     ![Choose start preview option](bas-preview-system-data.png)
 
     A terminal is opened that automatically executes the underlying command.
 
+    <!--border-->
     ![At preview opening terminal](bas-preview-terminal.png)
 
     Once the command has reached the required state, a new browser tab with the preview is opened.
 
+    > Alternatively to Preview from Application Info tab, you can open a terminal for your project by right-clicking it and choosing **Open in Integrated Terminal** from the context menu.
+    >
+    >![Open Project in Integrated Terminal](bas-open-project-in-terminal.png)
+    >
+    > In the `cli` (command line interface) terminal, enter the following command:
+    >
+    >```Shell/Bash
+    >npm run start
+    >```
+    >
+    ><!--border-->
+    >![Enter preview command in cli](bas-cli-enter-preview-command.png)
+    >
+    >Press return.
+
 3. To view existing entries, select **GO** or **Create** to add a new entry.
 
+    <!--border-->
     ![Resulting preview browser tab](bas-preview-result.png)
 
 
@@ -213,28 +243,30 @@ In this step, you can test the UI with the preview functionality.
 
 Once the UI is set up to your needs, you can deploy it to the development SAP S/4HANA Cloud system, where it can be tested and transported to test or productive tenants.
 
-1. Open a terminal for your project by right-clicking it and choosing **Open in Integrated Terminal** from the context menu.
+1. In the **Application Info** tab, section **What you can do** click the **Deploy** tile
 
-    ![Open Project in Integrated Terminal](bas-open-project-in-terminal.png)
+    <!--border-->
+    ![Start Preview](bas-deploy-start.png)
 
-2. In the `cli` (command line interface) terminal, enter the following command:
+    > Alternatively to Application Info, in the `cli` (command line interface) terminal, enter the following command:
+    >
+    >```Shell/Bash
+    >npm run start
+    >```
+    >
+    >![Enter deploy command in cli](bas-cli-enter-deploy-command.png)
+    >
+    >Press return.
 
-    ```Shell/Bash
-    npm run deploy
-    ```
-    ![Enter deploy command in cli](bas-cli-enter-deploy-command.png)
-
-    Press return.
-
-3. Check the deployment configuration.
+2. Check the deployment configuration.
 
     ![Check deployment configuration in command output](bas-cli-check-deploy-config.png)
 
-4. Confirm the deployment by entering `y`
+3. Confirm the deployment by entering `y`
 
     ![Confirm deployment configuration](bas-cli-confirm-deployment.png)
 
-5. Deployment will start, which might take a while.
+4. Deployment will start, which might take a while.
 
     ![Deployment log](bas-cli-deployment-log.png)
 

@@ -4,6 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 15
+author_name: Raz Korn
+author_profile: https://github.com/raz-korn
 ---
 
 # Maintain Platform Subaccounts and SAP Web IDE Permissions

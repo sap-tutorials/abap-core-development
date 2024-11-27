@@ -4,8 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, tutorial>license, topic>abap-development, topic>abap-extensibility ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 
 <!--a lot in common with abap-extensibility-cbo-ui-generation -->
@@ -22,7 +22,7 @@ author_profile: https://github.com/Liebherr
 ## Intro
 As application availability in Fiori Launchpad and authorization for it is managed via authorizing Business Catalogs, you will see how to extend such a business catalog with your new app.
 
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
+>Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 ---
 

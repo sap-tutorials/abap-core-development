@@ -4,8 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, tutorial>license, topic>abap-development, topic>abap-extensibility  ]
 time: 25
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 <!--done with [Global Account: ABAP Environment Staging Consump > Subaccount: Integration Tests Staging (CF)](https://canary.cockpit.btp.int.sap/cockpit/#/globalaccount/2fcd6ac6-b8e0-40e8-aa71-a357aa99585e/subaccount/f57f211e-2733-4cc6-b645-74f02d034a58/subaccountoverview) and IdP abapcp-staging.accounts400.ondemand.com -->
 # Set Up Trust Between SAP Cloud Identity Services and SAP BTP, Cloud Foundry environment
@@ -48,8 +48,7 @@ author_profile: https://github.com/Liebherr
 
 
 ---
-<!--tested with https://canary.cockpit.btp.int.sap/cockpit/#/globalaccount/2fcd6ac6-b8e0-40e8-aa71-a357aa99585e/subaccount/f57f211e-2733-4cc6-b645-74f02d034a58/subaccountoverview (ABAP Environment Staging Consump -> Integration Tests Staging (CF))
-referred to on https://developers.sap.com/tutorials/abap-custom-ui-bas-connect-s4hc.html-->
+<!--tested with https://canary.cockpit.btp.int.sap/cockpit/#/globalaccount/2fcd6ac6-b8e0-40e8-aa71-a357aa99585e/subaccount/f57f211e-2733-4cc6-b645-74f02d034a58/subaccountoverview (ABAP Environment Staging Consump -> Integration Tests Staging (CF)) and IAS abapcp-staging.accounts400.ondemand.com; referred to on https://developers.sap.com/tutorials/abap-custom-ui-bas-connect-s4hc.html-->
 
 ### Get SAML metadata of SAP BTP subaccount
 
