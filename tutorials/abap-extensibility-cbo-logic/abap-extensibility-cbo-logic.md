@@ -4,8 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 20
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 
 # Implement Logic for a Custom Business Object
@@ -32,7 +32,7 @@ A several tutorials spanning example will show extensibility along custom Bonus 
 
 In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
 
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
+>Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 ---
 ### Make key field Read-Only

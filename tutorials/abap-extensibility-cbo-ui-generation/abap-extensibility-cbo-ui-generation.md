@@ -4,8 +4,8 @@ primary_tag: topic>abap-extensibility
 tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 auto_validation: true
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
 
 # Generate the UI for a Custom Business Object and grant Access
@@ -26,7 +26,7 @@ At the end you will have a running application that you can create, update and d
 
 **Additional Info**
 > - **UI Generation** and later done **UI Adaptation** are so called **In-App Extensibility** features done completely inside an SAP S/4HANA Cloud system. They are functionality with limited possibilities. Alternatively a UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
-> - Tutorial last updated with SAP S/4HANA Cloud Release 2302
+> - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
 
 **Our Example**
 
@@ -81,7 +81,7 @@ This step takes some minutes, the screen refreshes automatically and once the st
 ### Test Bonus Plan application
 
 
-Start typing **Bonus Plans** in the Launchpad search and open the App from the results.
+Refresh the browser window, start typing **Bonus Plans** in the Launchpad search and open the App from the results.
 
 ![Bonus Plans application from search results](FLP_search_resultBonusPlans.png)
 
