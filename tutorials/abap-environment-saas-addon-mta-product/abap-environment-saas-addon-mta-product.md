@@ -6,7 +6,7 @@ tags: [ tutorial>beginner, programming-tool>abap-extensibility, programming-tool
 primary_tag: software-product>sap-btp--abap-environment
 ---
 
-# SaaS enable your add-on product with standard configuration using the maintain solution application.  
+# SaaS Enable Your Add-On Product With Standard Configuration Using The Maintain Solution Application.  
 
 <!-- description --> The Maintain Solution app guides you, as provider, through the SaaS solution configuration process. It also enables you to trigger and monitor the deployment of your SaaS solution
 
