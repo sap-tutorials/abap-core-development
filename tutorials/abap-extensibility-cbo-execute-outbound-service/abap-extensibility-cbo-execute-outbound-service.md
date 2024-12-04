@@ -4,10 +4,10 @@ auto_validation: true
 primary_tag: programming-tool>abap-extensibility
 tags: [  tutorial>intermediate, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
-<!--DONE in E1Y-->
+<!--DONE in E1Y (https://dlm.wdf.sap.corp/launchpad/portal/#/Search/e1y -> https://my300098.s4hana.ondemand.com/)-->
 # Execute an Outbound Service from Custom Business Object Logic
 <!-- description --> Call an external service of SAP Business Accelerator Hub from inside the logic implementation of a custom business object.
 
@@ -27,16 +27,17 @@ author_profile: https://github.com/Liebherr
 The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
 > Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
 
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
+>Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2408
   
 ---
 ### Excursus - Try out the service in SAP Business Accelerator Hub
 
 To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
 
-1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
+<!--border-->
+![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
 
-    ![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
+1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
 
 2. Expand the **Translate** operations section .
 
@@ -178,7 +179,7 @@ Define the external SAP Business Accelerator Hub service as an available Communi
 
 Create a Communication Arrangement to link the scenario with the communication system.
 
-1. Start typing **Custom Communication Arrangements** in the Launchpad search and open the App from the results.
+1. Start typing **Communication Arrangements** in the Launchpad search and open the App from the results.
 
     ![Custom Communication Arrangements application from search results](FLP_searchResult_CA.png)
 
@@ -287,6 +288,7 @@ Now as the business object has just been published, the logic can be enhanced by
             }
         ]
     }
+
     ```
 
     In the custom business object logic you have to supply this request as string. The `sourceLanguage` and `value` values have to be replaced with variables by string concatenation.
@@ -338,17 +340,19 @@ Now as the business object has just been published, the logic can be enhanced by
 
         ```json
         {
-            "units": [
+        "units": [
+            {
+            "value": "Su texto a traducir",
+            "translations": [
                 {
-                    "value": "Su texto a traducir",
-                    "translations": [
-                        {
-                            "language": "en",
-                            "value": "Your text to translate"
-                        }
-                    ]
+                "language": "en",
+                "value": "Your text to translate",
+                "translationProvider": 1,
+                "qualityIndex": 25
                 }
             ]
+            }
+        ]
         }
         ```
 
@@ -398,6 +402,8 @@ Now as the business object has just been published, the logic can be enhanced by
     | :------------- | :--------------------------- |
     | Feedback | **`Su texto a traducir`** |
     | Feedback's Language | **`es`** |
+
+    > Please note that the language code must be entered in lower case to ensure that the service call is successful.
 
 5. **Save** the Bonus Entitlement. The translation will get filled.
 
