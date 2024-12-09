@@ -7,7 +7,7 @@ time: 75
 ---
 
 # Create an ABAP Database Table and Relevant ABAP Dictionary Objects
-<!-- description --> Create a database table from scratch using the ABAP Development Tools (ADT); use different Data Dictionary objects to define the fields; then fill the table with test data.
+<!-- description --> Create a database table from scratch using ABAP development tools for Eclipse (ADT); use different Data Dictionary objects to define the fields; then fill the table with test data.
 
 ## Prerequisites  
 - You have a valid instance of one of the following:
@@ -74,7 +74,7 @@ In the next step, you will define the table fields. First you need to understand
 
 There are 3 ways to create a field for a database table:
 
-  - **Built-in type**: The quickest: You specify a (pre-defined) primitive type, length, and description, but no more. You cannot then reuse this field. For more information, see [ABAP Keyword Documentation: Predefined Dictionary Types](https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/index.htm?file=abenddic_builtin_types.htm).
+  - **Built-in type**: The quickest: You specify a built-in type, length, and description, but no more. You cannot then reuse this field. For more information, see [ABAP Keyword Documentation: Predefined Dictionary Types](https://help.sap.com/doc/abapdocu_752_index_htm/7.52/en-US/index.htm?file=abenddic_builtin_types.htm).
 
   - Use an **existing data element**: The most powerful: A data element describes both the technical and semantic attributes of a field, such as a currency, or a customer name. You can define properties such as search help and (translatable) column header, and then use the same data element in many contexts. You often define the technical attributes of the data element in a domain, so they can be reused.
 
@@ -91,15 +91,15 @@ One key field has been added automatically:
 
 `client : abap.clnt;`
 
-This specifies that the table is client-specific.
-Tables can be cross-client or client-specific. Each client is a self-contained unit within an organization, such as a subsidiary. For client-specific tables, the client is the first key field in the table.
+This specifies that the table is client-dependent.
+Tables can be client-dependent or client-independent. Each client is a self-contained unit within an organization, such as a subsidiary. For client-dependent tables, the client is the first key field in the table.
 
 The field is also specified as `not null`. This means that the type-dependent initial value is automatically assigned to this field for all newly created records.
 
 
-### Add field account number using primitive type
+### Add field account number using built-in type
 
-Now you will add the key field **`account_number`**, based on a primitive type.
+Now you will add the key field **`account_number`**, based on a built-in type.
 
 1. Enter the following (including the period), then choose **Code completion (Ctrl+Space)**:
 
@@ -298,7 +298,7 @@ The class appears in a new editor.
      interfaces if_oo_adt_classrun.
     ```
 
-    This interface provides a light-weight solution for executing an ABAP program without launching a full user interface.
+    This interface provides a lightweight solution for executing an ABAP program without launching a full user interface.
     It also lets you display text or data in the ABAP Console.
 
 2. Add the implementation for the **`main`** method of this interface by selecting the interface name and choosing **Add implementation...** from the context menu.
