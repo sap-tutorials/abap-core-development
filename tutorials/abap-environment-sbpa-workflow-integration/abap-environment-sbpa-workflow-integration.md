@@ -33,7 +33,7 @@ Basic Travel Application will be created in SAP BTP ABAP Environment. On Creatin
 This workflow process in SAP Build Process Automation will create a task in the approver’s Inbox, which can be accessed from “My Inbox” Application integrated in SAP Build Process Automation. 
 Once the Approver actions the task i.e. (Accepts/ Rejects) a callback will be made to SAP BTP ABAP Environment notifying the Outcome of workflow completion.
 BTP ABAP Environment will use the Notification to further set the status of Travel to Accepted/ Rejected in the Travel Application.
- 
+
  ![Scenario](Scenario.png)
 
 
