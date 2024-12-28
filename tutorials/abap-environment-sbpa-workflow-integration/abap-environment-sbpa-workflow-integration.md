@@ -34,7 +34,7 @@ This workflow process in SAP Build Process Automation will create a task in the 
 Once the Approver actions the task i.e. (Accepts/ Rejects) a callback will be made to SAP BTP ABAP Environment notifying the Outcome of workflow completion.
 BTP ABAP Environment will use the Notification to further set the status of Travel to Accepted/ Rejected in the Travel Application.
 
- ![Scenario](Scenario.png)
+![Scenario](Scenario.png)
 
 
 ### Overview
