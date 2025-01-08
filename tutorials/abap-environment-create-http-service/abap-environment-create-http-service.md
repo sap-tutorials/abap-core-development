@@ -12,21 +12,18 @@ author_profile: https://github.com/julieplummer20
 # Create an HTTP Service in SAP BTP ABAP Environment
 <!-- description --> Create an HTTP service in SAP BTP ABAP environment that can be called from the browser.
 
-##Prerequisites
+## Prerequisites
+
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
 - You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
 - **Tutorial**: [Create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
 - You have installed [ABAP Development Tools](https://tools.hana.ondemand.com/#abap), latest version
 
 
-
 ## You will learn  
   - How to create an HTTP service that can be accessed from a browser
   -	How to return system data using a (whitelisted) ABAP utility class
   - How to expose the service for external consumption, by defining the necessary inbound communication artifacts
-
-
-This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
 Throughout this tutorial, replace `XXX` or `000` with your initials or group number.
 
