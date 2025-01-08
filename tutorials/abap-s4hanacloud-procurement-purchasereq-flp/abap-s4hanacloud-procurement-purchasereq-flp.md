@@ -15,12 +15,13 @@ author_profile: https://github.com/mervey45
 ## Prerequisites
 
 - You have a license for SAP S/4HANA Cloud and have a developer user in it
-- You have installed the latest [Eclipse with ADT](abap-install-adt).
-- You need to have following business role assigned for your business user `SAP_BR_DEVELOPER` and `SAP_BR_BPC_EXPERT`.
-- You need to have business catalog `SAP_CORE_BC_UI_FLD` assigned for the usage of manage launchpad space.
-- You need to have business catalog `SAP_CORE_BC_UI` assigned for the usage of manage launchpad settings.
-- You need to have business catalog `SAP_CORE_BC_BCT_TRN_MNG_PC` and `SAP_CORE_BC_BCT_TRN_REL_PC` assigned to your user to see the app.
-- You need to [enable spaces layout](https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/64a5e1675ce7413791a654d2228a90be.html?locale=en-US&state=TEST&version=2208.502) in SAP Fiori launchpad to see the app tiles, that are added to spaces or pages.
+- You have installed the latest version of [ABAP in Eclipse](https://tools.eu1.hana.ondemand.com/#abap), i.e. ADT
+- You need to have following business role assigned for your business user `SAP_BR_DEVELOPER` and `SAP_BR_BPC_EXPERT`
+- You need to have business catalog `SAP_CORE_BC_UI_FLD` assigned for the usage of manage launchpad space
+- You need to have business catalog `SAP_CORE_BC_UI` assigned for the usage of manage launchpad settings
+- You need to have business catalog `SAP_CORE_BC_BCT_TRN_MNG_PC` and `SAP_CORE_BC_BCT_TRN_REL_PC` assigned to your user to see the app
+- You need to [enable spaces layout](https://help.sap.com/docs/SAP_S4HANA_CLOUD/4fc8d03390c342da8a60f8ee387bca1a/64a5e1675ce7413791a654d2228a90be.html?locale=en-US&state=TEST&version=2208.502) in SAP Fiori launchpad to see the app tiles, that are added to spaces or pages
+
 
 ## You will learn
 
@@ -28,6 +29,7 @@ author_profile: https://github.com/mervey45
 - How to create business roles
 - How to manage launchpad spaces and assign business role
 - How to assign and manage launchpad spaces
+
 
 ## Intro
 
@@ -39,39 +41,45 @@ author_profile: https://github.com/mervey45
 
   1. Open ADT, select your package `Z_PURCHASE_REQ_###` and open your IAM App `ZSHOPCART_IAM_###`. Add the UI5 application ID to your IAM app and activate it.
 
+     <!-- border -->
      ![iamapp](new2.png)
 
-      If you don't have any IAM App created yet. Please create an IAM App and add the UI5 application to it.
+      If you don't have an IAM App created yet. Please create an IAM App and add the UI5 application to it.
 
   2. **Publish** your IAM App.
 
+     <!-- border -->
      ![iamapp](new3.png)
 
   3. Make use of your business catalog `ZSHOPCART_BC_###`.
+    
+    <!-- border -->
+    ![businesscatalog](new4.png)
 
-     ![businesscatalog](new4.png)
-
-      If you don't have created a business catalog yet, please create one and publish it locally.
+    If you have not yet created a business catalog, please create one and publish it locally.
 
 ### Create business role
 
   1. Log in to your **S/4HANA Cloud ABAP environment customizing system**.
 
-     ![login](login.png)
+    <!-- border -->
+    ![login](login.png)
 
   2. Select **Maintain Business Roles**.
 
-      ![role](role.png)
+    <!-- border -->
+    ![role](role.png)
 
   3. Click **New**.
-
-      ![role2](role2.png)
+    <!-- border -->
+    ![role2](role2.png)
 
   4. Create new business role:
       - Business Role ID: `BR_Z_SHOPCART_###`
       - Business Role Description: Business role for shopping cart
 
-       ![role3](new5.png)
+        <!-- border -->
+        ![role3](new5.png)
 
       Click **Create**.
 
