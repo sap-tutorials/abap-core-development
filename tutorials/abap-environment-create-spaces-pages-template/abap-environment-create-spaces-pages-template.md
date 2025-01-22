@@ -21,7 +21,7 @@ author_profile: https://github.com/mervey45
 
 
 ## Prerequisites
-- You need an SAP BTP, ABAP environment license.
+- You need an SAP BTP, ABAP environment licensed version (not a trial version).
 - You have followed the group [Build an SAP Fiori elements App Using the ABAP RESTful Application Programming Model (RAP) – Beginner [RAP100]](group.abap-build-fiori-element-rap) in a licensed system.
 - You have followed the group [Create, Deploy and Integrate an SAP Fiori elements App into SAP Fiori Launchpad for SAP BTP, ABAP Environment [RAP100]](group.abap-create-fiori-element-btp) in a licensed system.
   - To manage the predefined launchpad pages and spaces in Fiori Launchpad and maintain business roles, you need to have a role with business catalogs **User Interface - Fiori Launchpad Design** (ID: `SAP_CORE_BC_UI_FLD`) and **Identity and Access Management - Role Management** (ID: `SAP_CORE_BC_IAM_RM`)
@@ -32,6 +32,8 @@ author_profile: https://github.com/mervey45
 Replace ### with your own ID.
 
 ### Create launchpad page template
+
+> **IMPORTANT**: You cannot complete this step (or this tutorial) with a trial license.
 
  1. Open your package **`ZRAP100_###`** in ADT, right-click **Fiori User Interface** and select **New** > **Launchpad Page Template**.
 
