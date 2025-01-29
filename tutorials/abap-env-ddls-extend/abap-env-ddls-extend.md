@@ -127,17 +127,17 @@ A data source can be:
 
 - **Case 2: Released for Extend (C0 contract, but not key user data source extensible)**
 
-    Even though a data source is not enabled for key user data source extensibility, you can still extend it using ADT if it's released for extend (C0 contract).
+    If the data source is not enabled for key user data source extensibility, but is released for EXTEND (Contract C0) for use in cloud development or key user apps, then you can add the missing database field to the data source by creating a corresponding extension field from ADT in tier 2 using classic extensibility. 
 
-    You can check that at the API release state of a data source as for `I_SalesOrder` in ADT.
+    You can check if the data source is released for extend at the API state of a data source in ADT - as for `I_SalesOrder`.  
 
     Go to its properties and open API State.
 
     ![Released for extend ADT property](ADT_DDLS_API_state_C0_released.png) 
  
-    There, you can see if a data source can be extended (Contract C0) in cloud development or key user apps. If at least one is true, it's enabled for extensibility with ADT.
-
-    In this case, the solution is to create data source extensions in ADT in tier 2. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
+    There, you can see if the data source is released for EXTEND (Contract C0) for use in cloud development or key user apps. If at least one is true, then the data source associates a so-called extension data source. 
+    
+    The solution is to create an extension for the extension data source and add this as extension to the actual data source in ADT using classic extensibility. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
 
     >If you want to freely browse through data sources released for extend, you can create a repository tree view on released data source objects (see [YouTube video: Repository Trees in ADT. Configure your Project Explorer](https://youtu.be/kAilhfl2_Yg&t=190s)).
     See also the documentation: [SAP - ABAP Development Tools: User Guide > Released APIs > Extend (C0)](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/extend-c0)
