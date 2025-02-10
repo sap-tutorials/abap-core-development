@@ -159,6 +159,18 @@ A data source can be:
 >For more information, see also the documentation: [SAP - ABAP RESTful Application Programming Model > Extensibility Architecture Overview](https://help.sap.com/docs/abap-cloud/abap-rap/extensibility-architecture-overview?version=s4_hana)
 
 
+**Wrap-Up**
+
+If a C1-released SAP Data Source (CDS View) does not include a standard field (delivered by SAP) but is required in tier 1, then you have the following options to add the field (in order of recommendation).
+
+| Characteristic of the data source | Recommended Extension Technique | 
+| -------- | -------- | 
+| The data source is enabled for data source extensibility. You can see this in the Custom Fields app. You cannot see in ADT if the data source is enabled for data source extensibility. | Use the Custom Fields app to create a data source extension in Tier 1.
+| The data source is enabled for custom field extensibility. You can see this in ADT on the API State tab: the data source needs to be released for Extend (Contract C0) for use in cloud development or use in key user apps | In Tier 2, extend the  extension data source (E_) by creating a view extension and add the missing standard field. In Tier 2, create a view extension for the extensible data source and expose the new field that was added to the "Extension data source (E_)". |
+The data source is neither enabled for data source nor custom field extensibility   | In Tier 2, create a wrapper for the data source that contains the missing field and release it for usage In Tier 1, create a new data source combining the non-extensible data source with the wrapper. |
+ 
+
+
 ### Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)
 
 In this example the data source `I_GLAccountingLineItem` is extended by the company's country code.
