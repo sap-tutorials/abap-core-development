@@ -55,26 +55,32 @@ This tutorial is part of a 3-part series of SAP BTP, ABAP Environment tutorials,
     ![Select ABAP Trial](boosters.png)
 
 4. Search the **Prepare an Account for ABAP Trial** tile and press **Start** to start your booster.
-  If you already created a service instance and service key, then please skip this step and move on with Step 2.
+  If you already created a service instance then please skip this step and go to step 2, **Test yourself**.
   Only one service instance can be created at a time.
 
     ![Select ABAP Trial](boosters2.png)
+    
 
-5. Now the service instance and service key will be created for the ABAP trial user. The service key can be found inside the service instance.
+5. Now the service instance will be created for the ABAP trial user. 
 
     ![Select ABAP Trial](boosters3.png)
 
-6. The booster is now executed successfully. Download your service key for later use.
-
-    ![Select ABAP Trial](downloadkey.png)
+6. The booster is now executed successfully.
 
 
-    >**Hint:** You can also download the service key manually by navigating to **Instances and Subcriptions**.
-    > Therefore navigate to your **Global Account** > **Trial Subaccount** > **Instances and Subcriptions** and select there **`default_abap-trial`**. On the right side scroll down to **Service Keys**, select **`defaultKey_..`** and select the option **Download**.
-    >  ![Select ABAP Trial](sk.png)
+### Download ABAP service instance URL
+
+1. Go to your trial instance, by choosing **Go to instance**.
+
+    ![step2a-go-to-instance](step2a-go-to-instance.png)
+
+2. Select the instance name and choose **Copy link** from the context menu.
+**IMPORTANT** save this link in a text file, since you will need it later.
+
+    ![step3a-copy-link](step3a-copy-link.png)
 
 
-Move on with [Create an ABAP Cloud Project](abap-environment-create-abap-cloud-project) to create an ABAP cloud project.
+You can now [Create an ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 
 
 ### Test yourself
