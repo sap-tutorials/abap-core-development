@@ -260,7 +260,7 @@ For readability and reuse, you will create these in an interface.
 
 2. Enter the following and choose **Next**.
 
-  - Name: **`IF_TYPES_FOR_SYSTEM_INFO`**
+  - Name: **`ZIF_TYPES_FOR_SYSTEM_INFO`**
   - Description: **`Types for RFC_GET_SYSTEM_INFO`**
   
 3. Choose the transport request, then choose **Finish**.
@@ -348,7 +348,7 @@ In the class implementation, in the method **`if_oo_adt_classrun~main`**, add th
 
     DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-    DATA lv_result type IF_TYPES_FOR_SYSTEM_INFO=>rfcsi.
+    DATA lv_result type ZIF_TYPES_FOR_SYSTEM_INFO=>rfcsi.
     DATA msg TYPE c LENGTH 255.
 
     ```
@@ -451,13 +451,13 @@ CLASS ZCL_SYSTEM_INFO_RFC_### IMPLEMENTATION.
 
             comm_scenario          = 'Z_OUTBOUND_RFC_###_CSCEN'   " Communication scenario
             service_id             = 'Z_OUTBOUND_RFC_###_SRFC'    " Outbound service
-            comm_system_id         = 'Z_OUTBOUND_RFC_CSYS'        " Communication system
+            comm_system_id         = 'Z_OUTBOUND_RFC_CSYS_###'        " Communication system
 
         ).
 
         DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-        DATA lv_result TYPE if_types_for_system_info=>RFCSI.
+        DATA lv_result TYPE ZIF_TYPES_FOR_SYSTEM_INFO=>RFCSI.
         DATA msg TYPE c LENGTH 255.
 
         CALL FUNCTION 'RFC_GET_SYSTEM_INFO'
