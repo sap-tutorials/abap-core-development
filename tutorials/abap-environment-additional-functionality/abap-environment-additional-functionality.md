@@ -104,6 +104,7 @@ You can test this in the browser:
 
  - `/ui#BusinessConfiguration-maintain` navigates to the List Report of the **Custom Business Configurations** app
  - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###` directly navigates to the maintenance view of the Business Configuration Maintenance Object `ZERRORCODE###`
+ - `/ui#BusinessConfiguration-maintain?TechnicalIdentifier=ZERRORCODE###&ErrorCode=401` directly navigates to the object page of entity `401` of BC Object `ZERRORCODE###`
 
 
 ### Test yourself
