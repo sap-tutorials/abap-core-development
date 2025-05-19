@@ -33,7 +33,7 @@ Always replace `####` with your initials or group number.
 The new **RAP based InA service exposure** enables the SAP Business Technology Platform ABAP Environment developers to develop analytical queries(based on ABAP-CDS analytical data models) and expose them via the `InA` (Information Access) service protocol. In this Tutorial you will create a complete Analytical Data Model for Booking data. This consists out of dimensions for Carrier, Customer, Connection and Agency data, as well as an interface CDS view for Booking data which acts as a data source for the cube and query.
 These analytical queries can be further consumed in the SAP Analytics cloud to create analytical models, stories, multi-dimensional reports and more.
 
-![overview](1.png)
+![overview](0010.png)
 
 
 ### Import templates for Analytical CDS views
@@ -491,7 +491,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
      - **Name**: `ZRAP500_I_BookingCube_####`
      - **Description**: `Booking Cube`
-     - **Referenced Object**: `ZRAP_I_BOOKING_####` (The booking interface view)
+     - **Referenced Object**: `ZRAP500_I_BOOKING_####` (The booking interface view)
 
      ![new cube](1270.png)
 
@@ -525,7 +525,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
 6. Comment out both lines of annotation `@Semantics.amount.currencyCode` and the property **Flight Price**.
 
-7. Add the following two fields alongside with a foreign key association
+7. Add the following two fields alongside with a foreign key association 
 
     ```foreignKey
         @ObjectModel.foreignKey.association: '_CustomerCountry'
@@ -636,7 +636,7 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 ### Implement query as CDS view entity
 
 
-Since a query belongs to the projection layer (formerly known as consumption layer) it must have a **C** in its name according to the naming convention used in the Virtual Data Model (VDM) used in SAP S/4HANA. To create a query, there is a mandatory header annotation: **@Analytics.query: true**
+Since a query belongs to the projection layer (formerly known as consumption layer) it must have a **C** in its name according to the naming convention used in the Virtual Data Model (VDM) used in SAP S/4HANA.
 
 Again you can use a template that you have imported at the beginning of this tutorial.
 
@@ -657,9 +657,9 @@ Again you can use a template that you have imported at the beginning of this tut
 
       ![template query](1130.png)
 
-  5. Edit the code of your query and add the annotation **@AnalyticsDetails.query.axis** to all properties except the two measures `FlightPrice` and `TotalOfBookings`. All fields beside the field `CustomerCountry` get the annotation **@AnalyticsDetails.query.axis: #ROWS**, whereas the field `CustomerCountry` gets the annotation **@AnalyticsDetails.query.axis: #COLUMN**.
+  5. Edit the code of your query with removing **KEY** from `TravelID` and `BookingID`, add the annotation **@AnalyticsDetails.query.axis** to all properties except the two measures `FlightPrice` and `TotalOfBookings`. All fields beside the field `CustomerCountry` get the annotation **@AnalyticsDetails.query.axis: #ROWS**, whereas the field `CustomerCountry` gets the annotation **@AnalyticsDetails.query.axis: #COLUMN**.
 
-  6. You add a currency conversion to the field `FlightPrice` to be able to comparison all flight prices in a single currency.    
+  6. You add a currency conversion to the field `FlightPrice` to be able to comparison all flight prices in a single currency.
 
         ```
               @Semantics.amount.currencyCode: 'CurrencyCode'
@@ -676,25 +676,22 @@ Again you can use a template that you have imported at the beginning of this tut
 
       ![ADTquery](1131.png)
 
-    > Using the template the mandatory annotations for query is set automatically.
-    > **@Analytics.query: true**
     > With the annotation **@AnalyticsDetails.query.axis:<VALUE>**, the elements of the view can be positioned on multiple axes: Rows, Columns and Free. The elements can be directly annotated with their axis. All measures (elements which can be aggregated) need to be on the same axis. The annotation of the first measure will therefore be used for all measures of the query. If **@AnalyticsDetails.query.axis:<VALUE>** is not found, the system positions the measures on the columns.
 
   8. Your final code should look like the following:
 
     ```ZRAP500_C_BOOKINGQUERY_####
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Query for Booking'
+    @EndUserText.label: 'Flights Query'
+    @AccessControl.authorizationCheck: #NOT_ALLOWED
 
-
-    @Analytics.query: true
-
-
-    define view entity ZRAP500_C_BOOKINGQUERY_#### as select from ZRAP500_I_BookingCube_#### {
+    define transient view entity DEF23_Flights_Query
+      provider contract analytical_query
+      as projection on DEF23_Flights_Cube
+    {
     @AnalyticsDetails.query.axis: #ROWS
-    key TravelID,
+    TravelID,
     @AnalyticsDetails.query.axis: #ROWS
-    key BookingID,
+    BookingID,
     @AnalyticsDetails.query.axis: #ROWS
     BookingDate,
     @AnalyticsDetails.query.axis: #ROWS
@@ -733,8 +730,7 @@ Again you can use a template that you have imported at the beginning of this tut
 
 ### Data preview
 
-
-Similar to the SAP Fiori Elements preview which is offered for OData V2 UI and OData V4 UI service bindings there is now an Analytical Data Preview available. This can be used by the ABAP developer to test the implementation of an Analytical Query since the preview uses the InA protocol.
+Similar to the SAP Fiori Elements preview which is offered for OData V2 UI and OData V4 UI service bindings there is now an Analytical Data Preview available. This can be used by the ABAP developer to test the implementation of an Analytical Query since the preview uses the InA protocol. 
 
 Now that you have created the query it is possible to use a data preview to test our implementation.
 
