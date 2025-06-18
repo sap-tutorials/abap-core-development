@@ -57,7 +57,7 @@ However, you are not allowed to make code changes in your remote Git repository 
 First, open your preferred Git provider and create a new repository; here, we are using `Github`.
 
 > IMPORTANT: Create a branch at the same time. In `Github`, adding a readme file will automatically create a main branch for the repository.
-> 
+
 <!-- border -->
 ![step1a-create-new-remote-repo](step1a-create-new-remote-repo.png)
 
@@ -206,7 +206,7 @@ To import your released transport into a target system (e.g., your test or produ
     ![step5b-objects-in-target-system](step5b-objects-in-target-system.png)
 
 
-### Optional: Create a branch
+### Create a branch (Optional)
 
 Currently, creating a new branch for BYOG is not supported in **Manage Software Components**.  Therefore, create the branch using the native interface of your git provider linked to your repository.
 
@@ -219,7 +219,7 @@ In **Manage Software Components**, you can see the new branch by refreshing the 
 ![step3b-branch-success](step3b-branch-success.png)
 
 
-### Optional: Create a tag
+### Create a tag (Optional)
 
 The **Tag** function is the same as in non BYOG software components.
 
@@ -228,7 +228,7 @@ The created tag will also be visible on your remote repository.
 Deleting a tag will also delete the tag in the remote repository.
 
 
-### Optional: Delete a software component
+### Delete a software component (Optional)
 
 Deleting a software component in **Manage Software Components** will unlink the component to the remote repository, but will **not** delete the remote repository in `Github`. The local software component will be marked as **not editable**; releasing transport requests will no longer be possible. 
 
