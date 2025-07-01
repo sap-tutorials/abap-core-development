@@ -18,6 +18,7 @@ parser: v2
 -- SAP Note 3457580 - SAP ACO - Duplicate Types for Table Parameters
 -- SAP Note 3518177 - SAP ACO Proxy Improvements
 -- SAP Note 3519098 - F4: fix function module value help (only relevant for SAP S/4 HANA 2023)
+-- SAP Note 3565942 - ATC Checks "Usage of APIs" and "Allowed Enhancement Technologies"
 
 ## You will learn
 - How to generate a wrapper interface, a wrapper class and a factory class for the `BAPI_PR_CREATE` using transaction `ACO_PROXY`.
@@ -258,28 +259,28 @@ Repeat the same steps to release the factory class you created:
 
 >You will not release the wrapper class.
 
-### Run ATC checks and request exemptions
-> Note: The following step describes how to request ATC exemptions for your created wrapper objects. This step should only be carried out if a non classic API is used. An exemption does not need to be requested for a classic API. Please refer to the following [note 3565942](https://me.sap.com/notes/3565942).
+### Optional Step - Run ATC checks and request exemptions
+> Note: The next step is **not** required for this tutorial. It outlines the procedure for requesting ATC exemptions for your created wrapper objects, which is only applicable when using a non-classic API—**not applicable in this tutorial**. There is no need to request an exemption for a classic API. For more information, please refer to [note 3565942](https://me.sap.com/notes/3565942). This step is provided solely to illustrate the process that would be necessary if a non-classic API were used.
 
-You will now need to run ATC checks on the objects you created and request exemptions to use the unreleased API.
+> You will need to run ATC checks on the objects you created and request exemptions to use the non classic API.
 
-To run the ATC checks right click on the `$Z_PURCHASE_REQ_TIER2_###` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
+> To run the ATC checks right click on the `$Z_PURCHASE_REQ_TIER2_###` package and select **Run As** > **ABAP Test Cockpit With...** and select your ATC check variant. Confirm by clicking on **OK**. The result of the ATC check will appear in the ATC Problems tab. As expected, you will get ATC check errors because you are using an unreleased API:
 
-![ATC checks - interface error](interface_atc_checks.png)
+>![ATC checks - class error](class_atc_checks.png)
 
->Note that there are ATC checks errors for both the interface and the wrapper class. You will need to request an exemption for each of the two objects.
+> Note that there are ATC checks errors for both the interface and the wrapper class. You will need to request an exemption for each of the two objects.
 
-Right click on any one of the interface related errors in the ATC Problems tab and choose **Request Exemption**. You can then request an exemption for the whole interface by selecting `Interface (ABAP Objects)` under the `Apply exemption To` tab:
+> Right click on any one of the class related errors in the ATC Problems tab and choose **Request Exemption**. You can then request an exemption for the whole class by selecting `Class (ABAP Objects)` under the `Apply exemption To` tab:
 
-![Request exemptions for the whole interface](interface_request_exemption.png)
+>![Request exemptions for the whole class](class_request_exemption.png)
 
-Click **Next**, choose a valid approver, a reason to request the exemptions and input a justification for it. Then click on **Finish**.
+> Click **Next**, choose a valid approver, a reason to request the exemptions and input a justification for it. Then click on **Finish**.
 
-![Approver and justification](approver_and_justification.png)
+>![Approver and justification](approver_and_justification.png)
 
-Proceed in the same way to request an exemption for the whole wrapper class.
+> Proceed in the same way to request an exemption for the whole wrapper class.
 
->How to maintain approvers and how to approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemptions, you can verify it by running ATC checks again in ADT: no issue should arise.
+> How to maintain approvers and how to approve exemptions is beyond the scope of this tutorial. After a maintained approver has approved the exemptions, you can verify it by running ATC checks again in ADT: no issue should arise.
 
 ### Test released wrapper with console application in tier 1
 
