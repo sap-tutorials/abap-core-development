@@ -9,7 +9,7 @@ author_profile: https://github.com/julieplummer20
 ---
 
 # Enable connection from  a remote instance of SAP BTP, ABAP Environment
-<!-- description --> Enable another system, such as STP, to securely access data by creating: an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment; and by providing a   
+<!-- description --> Enable another system, such as STP, to securely access data by creating: an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment; and by providing a  service metadata file 
 
 
 
