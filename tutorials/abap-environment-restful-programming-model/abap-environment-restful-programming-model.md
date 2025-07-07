@@ -91,6 +91,11 @@ To develop additional custom logic such as validations and actions the steps in 
 ### Test yourself
 
 
+### Next steps
+You can now start creating Fiori elements app using these concepts, for example in the tutorial:
+[Build an SAP Fiori elements App Using the ABAP RESTful Application Programming Model (RAP) – Beginner [RAP100]](https://developers.sap.com/group.abap-build-fiori-element-rap.html)
+
+
 
 
 
