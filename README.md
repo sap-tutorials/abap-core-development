@@ -6,7 +6,7 @@ Default templates for SAP open source repositories, including LICENSE, .reuse/de
 
 ## To-Do
 
-In case you are the maintainer of a new SAP-toturials open source project, these are the steps to do with the template files:
+If you are the maintainer of a new SAP-toturials open source project, these are the steps to do with the template files:
 
 - Check if the default license (Apache 2.0) also applies to your project. A license change should only be required in exceptional cases. If this is the case, please change the [license file](LICENSE).
 - Enter the correct metadata for the REUSE tool. See our [wiki page](https://wiki.wdf.sap.corp/wiki/display/ospodocs/Using+the+Reuse+Tool+of+FSFE+for+Copyright+and+License+Information) for details how to do it. You can find an initial .reuse/dep5 file to build on. Please replace the parts inside the single angle quotation marks < > by the specific information for your repository and be sure to run the REUSE tool to validate that the metadata is correct.

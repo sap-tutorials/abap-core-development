@@ -4,10 +4,10 @@ auto_validation: true
 primary_tag: programming-tool>abap-extensibility
 tags: [  tutorial>intermediate, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
 time: 15
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Peter Persiel
+author_profile: https://github.com/peterpersiel
 ---
-<!--DONE in E1Y-->
+<!--DONE in E1Y (https://dlm.wdf.sap.corp/launchpad/portal/#/Search/e1y -> https://my300098.s4hana.ondemand.com/)-->
 # Execute an Outbound Service from Custom Business Object Logic
 <!-- description --> Call an external service of SAP Business Accelerator Hub from inside the logic implementation of a custom business object.
 
@@ -27,16 +27,17 @@ author_profile: https://github.com/Liebherr
 The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
 > Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
 
->Tutorial last updated with SAP S/4HANA Cloud Release 2302
+>Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2408
   
 ---
 ### Excursus - Try out the service in SAP Business Accelerator Hub
 
 To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
 
-1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
+<!--border-->
+![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
 
-    ![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
+1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
 
 2. Expand the **Translate** operations section .
 
@@ -48,15 +49,15 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
 
     ```json
     {
-      "sourceLanguage": "en",
-      "targetLanguages": [
-        "es"
-      ],
-      "units": [
-        {
-          "value": "Your text to be translated"
-        }
-      ]
+        "sourceLanguage": "en",
+        "targetLanguages": [
+            "es"
+        ],
+        "units": [
+            {
+                "value": "Your text to be translated"
+            }
+        ]
     }
     ```
 
@@ -178,7 +179,7 @@ Define the external SAP Business Accelerator Hub service as an available Communi
 
 Create a Communication Arrangement to link the scenario with the communication system.
 
-1. Start typing **Custom Communication Arrangements** in the Launchpad search and open the App from the results.
+1. Start typing **Communication Arrangements** in the Launchpad search and open the App from the results.
 
     ![Custom Communication Arrangements application from search results](FLP_searchResult_CA.png)
 
@@ -283,17 +284,34 @@ Now as the business object has just been published, the logic can be enhanced by
         ],
         "units": [
             {
-            "value": "Su texto a traducir"
+                "value": "Su texto a traducir"
             }
         ]
     }
     ```
 
-    In the custom business object logic you have to supply this request as string. The `sourceLanguage` and `value` values have to be replaced with variables by string concatenation.
+    In the custom business object logic you have to supply this request as string. The `sourceLanguage` and `value` values have to be replaced with variables. The [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=2408.500) as part of the key user (KU) edition of the XCO library can be used to create the JSON string for the request body according to the required format.
 
     ```abap
-    DATA lv_request_body TYPE string.
-    CONCATENATE '{"sourceLanguage": "' bonusentitlement-feedbackslanguage '","targetLanguages": ["en"],"units": [{"value": "' bonusentitlement-feedback '"}]}' INTO lv_request_body.
+    * Create request body json string
+    DATA(lo_json_builder) = xco_ku_json=>data->builder( ).
+    lo_json_builder->begin_object(
+        )->add_member( 'sourceLanguage'
+            )->add_string( bonusentitlement-feedbackslanguage
+        )->add_member( 'targetLanguages'
+            )->begin_array(
+                )->add_string( 'en'
+            )->end_array(
+        )->add_member( 'units'
+            )->begin_array(
+                )->begin_object(
+                    )->add_member( 'value'
+                        )->add_string( bonusentitlement-feedback
+                )->end_object(
+            )->end_array(
+    )->end_object( ).
+    
+    DATA(lv_request_body) = lo_json_builder->get_data( )->to_string( ).
     ```
     
 5. Code service request creation
@@ -302,20 +320,12 @@ Now as the business object has just been published, the logic can be enhanced by
 
     ```abap
     * Creation of the service request
-    DATA(request) = cl_ble_http_request=>create(
-    * method that is used for the service call
-    )->set_method(
-        if_ble_http_request=>co_method-post
+    DATA(request) = cl_ble_http_request=>create( ).
+    request->set_method( if_ble_http_request=>co_method-post
     )->set_body( lv_request_body
-    )->set_header_parameter(
-    EXPORTING
-        name  = 'APIkey'
-        value = '< YOUR API KEY >' "the key you got with Step 2
-    )->set_header_parameter(
-    EXPORTING
-        name  = 'Content-Type' "Content type the bodies of request and response are formatted as
-        value = 'application/json; charset=utf-8'
-        ).
+    )->set_header_parameter( name  = 'APIKey'
+                             value = '< YOUR API KEY >'
+    )->set_content_type( 'application/json; charset=utf-8' ).
     ```
 
 6. Code request sending and response processing
@@ -324,14 +334,14 @@ Now as the business object has just been published, the logic can be enhanced by
 
         ```abap
         * Send a request and receive a response.
-	        DATA(response) = lo_client->send( request ).
+        DATA(response) = lo_client->send( request ).
         ```
     
     2. Implement getting the response body from the response.
 
         ```abap
         * Get the body of the response.
-    	    DATA(lv_body) = response->get_body( ).
+        DATA(lv_response_body) = response->get_body( ).
         ```
     
     3. The response body in JSON format will look like this
@@ -344,7 +354,9 @@ Now as the business object has just been published, the logic can be enhanced by
                     "translations": [
                         {
                             "language": "en",
-                            "value": "Your text to translate"
+                            "value": "Your text to translate",
+                            "translationProvider": 1,
+                            "qualityIndex": 25
                         }
                     ]
                 }
@@ -352,14 +364,34 @@ Now as the business object has just been published, the logic can be enhanced by
         }
         ```
 
-    4. Implement getting the translation part from the JSON string by the help of string operations.
+    4. Implement getting the translation part from the JSON string by the help of the [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=2408.500)
 
         ```abap  
         * Get translation from response
-            DATA(lv_translation) = substring_before( val = substring_after( val = lv_body sub = '"en","value":"') sub = '"' ).
+        TYPES:
+            BEGIN OF ts_translation,
+                language             TYPE c LENGTH 2,
+                value                TYPE string,
+                translation_provider TYPE i,
+                quality_index        TYPE i,
+            END OF ts_translation,
+            BEGIN OF ts_unit,
+                value        TYPE string,
+                translations TYPE STANDARD TABLE OF ts_translation WITH NON-UNIQUE DEFAULT KEY,
+            END OF ts_unit,
+            BEGIN OF ts_response,
+                units TYPE STANDARD TABLE OF ts_unit WITH NON-UNIQUE DEFAULT KEY,
+            END OF ts_response.
+        DATA ls_response TYPE ts_response.
 
-            bonusentitlement-feedbackinenglish = lv_translation.
+        xco_ku_json=>data->from_string( lv_response_body )->apply( VALUE #(
+            ( xco_ku_json=>transformation->pascal_case_to_underscore )
+        ) )->write_to( REF #( ls_response ) ).
+
+        bonusentitlement-feedbackinenglish = ls_response-units[ 1 ]-translations[ 1 ]-value.
         ```
+
+        The response of the service call is translated into a corresponding ABAP structure. With help of the built-in Camel case/Pascal case to underscore transformation the JSON data is adjusted to ABAP requirements.
 
     5. Implement error handling
         
@@ -372,12 +404,12 @@ Now as the business object has just been published, the logic can be enhanced by
 
     	    CATCH cx_ble_http_exception INTO DATA(lx).
         * The http status code can be checked.
-    	    CASE lx->status_code.
-    	    WHEN 404.
+                CASE lx->status_code.
+                    WHEN 404.
         * Error handling
-    	    WHEN OTHERS.
+                    WHEN OTHERS.
         * Error handling
-    	    ENDCASE.
+                ENDCASE.
         ENDTRY.
         ```
 
@@ -398,6 +430,8 @@ Now as the business object has just been published, the logic can be enhanced by
     | :------------- | :--------------------------- |
     | Feedback | **`Su texto a traducir`** |
     | Feedback's Language | **`es`** |
+
+    > Please note that the language code must be entered in lower case to ensure that the service call is successful.
 
 5. **Save** the Bonus Entitlement. The translation will get filled.
 

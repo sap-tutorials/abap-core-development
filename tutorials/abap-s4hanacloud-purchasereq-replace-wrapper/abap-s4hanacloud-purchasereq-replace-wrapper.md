@@ -267,15 +267,15 @@ For simplicity and continuity, you will use the `Z_USER_###` user with the `ZR_S
     <!-- border -->
     ![Service Binding Authorizations](service-binding-auth.PNG)
 
-4. Start transaction `SU24` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name (`ZUI_SHOPCART_WRAPPER_O4_###`) and click on the `Execute` button. Switch to edit mode and click on the `SAP Data` icon (1), mark the needed authorization objects (2), and then click on `Copy SAP Data to SU24` icon (3) in the Maintenance Status for Authorization Objects tab .
+4. Start transaction `SU24` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name (`ZUI_SHOPCART_WRAPPER_O4_###`) and click on the `Execute` button. Switch to edit mode and click on the `SAP Data` icon (1), mark the needed authorization objects (2), and then click on `Copy SAP Data to SU24` icon (3) in the Maintenance Status for Authorization Objects tab. This will copy the authorization objects, but you still need to copy the authorization defaults values for each object.
+
     <!-- border -->
     ![Maintain SU24 Data](su24-copy-sap-data.PNG)
-This will copy the authorization objects, but you still need to copy the authorization defaults values for each object. To do this, click on the `Synchronize with SAP data` icon (1) for all the authorization objects and then click on the `Copy SAP Data to SU24` icon (2) in the `Authorization Default Values` tab.
+  To do this, click on the `Synchronize with SAP data` icon (1) for all the authorization objects or click on the `Copy SAP Data to SU24` icon (2) in the `Authorization Default Values` tab.
 
     <!-- border -->
     ![Maintain Authorization Default Values](su24-maintain-auth-default-values.PNG)
-
-    Save it and select a suitable transport request (or create a new one if needed).
+  Save it and select a suitable transport request (or create a new one if needed).
 
 5. Start transaction `PFCG`, open the role `ZR_SHOPCART_###` in Edit mode, navigate to the `Authorizations` tab and click on `Expert Mode for Profile Generation` and in the pop-up select `Read old status and merge with new data` and click on `execute`. You will see that all the authorization objects are automatically added and all the field values are set. Save (1) and then click on the `Generate` (2) icon to generate the authorization profile.
 

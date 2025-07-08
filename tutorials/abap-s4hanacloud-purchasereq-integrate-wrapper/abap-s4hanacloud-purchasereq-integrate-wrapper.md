@@ -211,7 +211,9 @@ with unmanaged save
 
 ![Add unmanaged save](add_unmanaged_save.png)
 
-Save and activate it. Position the cursor on the `with unmanaged save` statement and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add required method save_modified in new local saver class` to automatically create an empty implementation for the method. Implement it as follows:
+Save and activate it.
+
+Position the cursor on the `with unmanaged save` statement and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add required method save_modified in new local saver class` to automatically create an empty implementation for the method. Implement it as follows:
 
 ```ABAP
   METHOD save_modified.

@@ -4,6 +4,8 @@ auto_validation: true
 primary_tag: topic>abap-development
 tags: [  tutorial>beginner, topic>abap-development, topic>abap-extensibility ]
 time: 25
+author_name: Raz Korn
+author_profile: https://github.com/raz-korn
 ---
 
 #  Create Custom UI for S/4HANA on SAP Business Technology Platform
