@@ -106,10 +106,82 @@ A Travel entity defines general travel data, such as the agency ID or customer I
  6. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
 
+### Generate transactional UI services
 
+
+Create your OData v4 based UI services with the built-in ADT generator.   
+The generated business service will be transactional, draft-enabled, and enriched with UI semantics for the generation of the Fiori elements app.
+
+
+ 1. Right-click your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`**  and select **Generate ABAP Repository Objects** from the context menu.  
+
+ 2. Maintain the required information  (`###` is your group ID) and click **Next >**:
+    - Description: **`Travel App ###`**
+    - Generator: **`ABAP RESTful Application Programming Model: UI Service`**
+
+    ![class](generate.png)
+
+    | **Generator: Cloud System**                                                   |  **Generator: On Premise System**      |   
+    |:----------------------------------------------------------------------------- |:-------------------------------------- |
+    |1. Select **OData UI Service** and click **Next >**.  ![table](newgenerator2.png) |1. Provide a description, select **ABAP RESTful Application Programming Model: UI Service** and click **Next >**. ![table](generatorxx1.png) |                       
+    |2. Click **Next >**. ![table](newgenerator3.png)    |    | 
+        
+
+ 3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
+
+
+    For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below,
+    and press **Next >**.
+
+    Verify the maintained entries and press **Next >** to confirm. The needed artifacts will be generated.
+
+    >**About Naming Conventions**
+      The main aspects of the naming conventions of SAP S/4HANA's Virtual Data Model (VDM) are used in this exercise.
+      More information on VDM can be found on the SAP Help portal: Here.
+
+    >**Attention**
+      Please make sure to replace all the name proposals in the wizard with the names provided below.
+      Doing this is important to ensure the correctness of the code snippets provided in the following exercises.
+
+
+    | **RAP Layer**                          | **Artefacts**                   | **Artefact Names**                                            |
+    |----------------------------------------|---------------------------------|---------------------------------------------------------------|
+    | **Business Object**                    |                                 |                                                               |
+    |                                        | **Data Model**                  | CDS Entity Name: **`ZRAP100_R_TRAVELTP_###`**                 |
+    |                                        |                                 | CDS Entity Name Alias: **`Travel`**                           |  
+    |                                        | **Behavior**                    | Implementation Behavior Class: **`ZRAP100_BP_TRAVELTP_###`**  |
+    |                                        |                                 | Draft Table Name: **`ZRAP100_DTRAV###`**                      |  
+    | **Service Projection**                 | **Service Projection Entity**   | CDS Entity Name: **`ZRAP100_C_TRAVELTP_###`**                 |
+    |                                        | **Service Projection Behavior** | Behavior Implementation Class: **`ZRAP100_BP_C_TRAVELTP_###`**|   
+    | **Business Service**                   |                                 |                                                               |
+    |                                        | **Service Definition**          | Service Definition Name: **`ZRAP100_UI_TRAVEL_###`**          |
+    |                                        | **Service Binding**             | Service Binding Name: **`ZRAP100_UI_TRAVEL_O4_###`**          |
+    |                                        |                                 | Binding Type: **`OData V4 - UI`**                             |
+
+    ![class](new0x.png)                     
+ 
+
+ 4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
+
+    ![class](newx.png)
+
+    Below is a brief explanation of the generated artefacts for the different RAP layers: Base BO, BO Projection, and Business Service.
+
+    **Base Business Object (BO) `ZRAP100_I_TRAVEL_###`**
+
+      ![class](tb2.png)
+
+    **BO Projection `ZRAP100_C_TRAVEL_###`**
+
+    The BO projection represents the consumption specific view on the BO data model and behavior.
+
+      ![class](tb3.png)
+
+    **Business Service**
+
+      ![class](tb4.png)
 
 ### Create data generator class
-
 
 Create an ABAP class![class](adt_class.png) to generate demo **travel** data.
 
@@ -196,82 +268,6 @@ Create an ABAP class![class](adt_class.png) to generate demo **travel** data.
   7. Open your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`** and press **F8** to start the data preview and display the filled database entries, i.e. **travel** data.
 
       ![class](p5.png)   
-
-
-### Generate transactional UI services
-
-
-Create your OData v4 based UI services with the built-in ADT generator.   
-The generated business service will be transactional, draft-enabled, and enriched with UI semantics for the generation of the Fiori elements app.
-
-
- 1. Right-click your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`**  and select **Generate ABAP Repository Objects** from the context menu.  
-
- 2. Maintain the required information  (`###` is your group ID) and click **Next >**:
-    - Description: **`Travel App ###`**
-    - Generator: **`ABAP RESTful Application Programming Model: UI Service`**
-
-    ![class](generate.png)
-
-    | **Generator: Cloud System**                                                   |  **Generator: On Premise System**      |   
-    |:----------------------------------------------------------------------------- |:-------------------------------------- |
-    |1. Select **OData UI Service** and click **Next >**.  ![table](newgenerator2.png) |1. Provide a description, select **ABAP RESTful Application Programming Model: UI Service** and click **Next >**. ![table](generatorxx1.png) |                       
-    |2. Click **Next >**. ![table](newgenerator3.png)    |    | 
-        
-
- 3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
-
-
-    For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below,
-    and press **Next >**.
-
-    Verify the maintained entries and press **Next >** to confirm. The needed artifacts will be generated.
-
-    >**About Naming Conventions**
-      The main aspects of the naming conventions of SAP S/4HANA's Virtual Data Model (VDM) are used in this exercise.
-      More information on VDM can be found on the SAP Help portal: Here.
-
-    >**Attention**
-      Please make sure to replace all the name proposals in the wizard with the names provided below.
-      Doing this is important to ensure the correctness of the code snippets provided in the following exercises.
-
-
-    | **RAP Layer**                          | **Artefacts**                   | **Artefact Names**                                            |
-    |----------------------------------------|---------------------------------|---------------------------------------------------------------|
-    | **Business Object**                    |                                 |                                                               |
-    |                                        | **Data Model**                  | CDS Entity Name: **`ZRAP100_R_TRAVELTP_###`**                 |
-    |                                        |                                 | CDS Entity Name Alias: **`Travel`**                           |  
-    |                                        | **Behavior**                    | Implementation Behavior Class: **`ZRAP100_BP_TRAVELTP_###`**  |
-    |                                        |                                 | Draft Table Name: **`ZRAP100_DTRAV###`**                      |  
-    | **Service Projection**                 | **Service Projection Entity**   | CDS Entity Name: **`ZRAP100_C_TRAVELTP_###`**                 |
-    |                                        | **Service Projection Behavior** | Behavior Implementation Class: **`ZRAP100_BP_C_TRAVELTP_###`**|   
-    | **Business Service**                   |                                 |                                                               |
-    |                                        | **Service Definition**          | Service Definition Name: **`ZRAP100_UI_TRAVEL_###`**          |
-    |                                        | **Service Binding**             | Service Binding Name: **`ZRAP100_UI_TRAVEL_O4_###`**          |
-    |                                        |                                 | Binding Type: **`OData V4 - UI`**                             |
-
-    ![class](new0x.png)                     
- 
-
- 4. Go to the **Project Explorer**, select your package ![package](adt_package.png) **`ZRAP100_###`**, refresh it by pressing **F5**, and check all generated ABAP repository objects
-
-    ![class](newx.png)
-
-    Below is a brief explanation of the generated artefacts for the different RAP layers: Base BO, BO Projection, and Business Service.
-
-    **Base Business Object (BO) `ZRAP100_I_TRAVEL_###`**
-
-      ![class](tb2.png)
-
-    **BO Projection `ZRAP100_C_TRAVEL_###`**
-
-    The BO projection represents the consumption specific view on the BO data model and behavior.
-
-      ![class](tb3.png)
-
-    **Business Service**
-
-      ![class](tb4.png)
 
 
 ### Preview travel app
