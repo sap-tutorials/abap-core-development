@@ -46,6 +46,8 @@ Create a communication user in SAP S/4HANA Cloud, public edition. This technical
 
     ![Create Communication User](create_communication_user.png)
 
+7. Choose button **Create**
+
 ### Create a Communication System in SAP S/4HANA Cloud, public edition
 
 Create a communication system in SAP S/4HANA Cloud, public edition. This is used to model the external communication partner and to specify the authentication methods and users which are allowed.
