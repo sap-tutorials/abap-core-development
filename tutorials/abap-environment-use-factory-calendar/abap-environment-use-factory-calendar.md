@@ -51,9 +51,9 @@ Create your exercise package. This ABAP package will contain all the artefacts t
 
     Click **Next**.
 
-3. An application component is not needed. Click **Next**.
+3. The ABAP Package properties remain as is. Click **Next**.
 
-4. Select an existing transport request or create a new one and click **Finish**.
+4. No transport request is necessary, as change recording is not enabled. Click **Finish**.
 
 ### Create a Database Table
 
@@ -70,7 +70,7 @@ Create a database table to store the underlying data of the order application.
 
     Click **Next**.
 
-4. Select a transport request and click **Finish**.
+4. No transport request is necessary, as change recording is not enabled. Click **Finish**.
 
 5. Replace the default code with the code snippet provided below (make sure to replace the placeholder ###):
 
@@ -125,7 +125,7 @@ Use the **Generate ABAP Repository Objects Wizard** built into ADT to create a b
 
     Click **Next**, review the objects that will be created, and click **Next** again.
 
-5. Select a transport request and click **Finish**.
+5. No transport request is necessary, as change recording is not enabled. Click **Finish**.
 6. Publish the generated Service Binding.
 7. Select the entity set **`FactoryOrder`** and launch the **Preview**. Create a new factory order to get familiar with the initial state of your application.
 
@@ -209,7 +209,7 @@ Each factory order receives a production start date and the required production 
     <ol type="a"><li>Name: `ZFACTORYORDER_SCALAR_###`
     </li><li>Description: `Factory Calendar Tutorial – Scalar Function Definition`</li></ol>
     Click **Next**.
-4. Select a transport request and click **Next**.
+4. No transport request is necessary, as change recording is not enabled. Click **Next**.
 5. Choose template `defineScalarFunction` and click **Finish**.
 6. Replace the generated code with the following code:
 
@@ -239,7 +239,7 @@ To link the scalar function definition to the actual logic a scalar function imp
     </li><li>Engine: `SQL Engine`</li></ol>
     Click **Next**.
 
-4. Select a transport request and click **Finish**.
+4. No transport request is necessary, as change recording is not enabled. Click **Finish**.
 
 5. Maintain `ZCL_FACTORYORDER_###=>CALCULATE_PRODUCTION_END_DATE` for the **AMDP Reference** field.
 
@@ -259,7 +259,7 @@ You will now implement the actual logic for the scalar function, which will be c
     </li><li>Add interface `if_amdp_marker_hdb`</li></ol>
     Click **Next**.
 
-3. Select a transport request and click **Finish**.
+3. No transport request is necessary, as change recording is not enabled. Click **Finish**.
 
 4. Declare and implement a new class method as shown in the code snippet below:
 
