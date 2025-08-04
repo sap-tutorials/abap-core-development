@@ -12,19 +12,21 @@ parser: v2
 ---
 
 ## Prerequisites
- - You have access to a SAP BTP Subaccount with a SAP Business Application Studio subscription.
- - You have access to a SAP BTP ABAP Environment in a Cloud Foundry space in the subaccount.
- - You have connected SAP Business Application Studio to your SAP BTP ABAP Environment via destination.
- - You have a user in the subaccount, with `Business_Application_Studio_Developer` role collection.
- - You are a member of the Cloud Foundry space where your SAP BTP ABAP Environment resides, and you have **Space Developer** role.
- - You have a user in your SAP BTP ABAP Environment with the following roles: `SAP_BR_ADMINISTRATOR` and `SAP_BR_DEVELOPER`.
- - You are connected to your SAP BTP ABAP Environment in the ABAP Development Tool (ADT) in Eclipse.
+
+- You have access to a SAP BTP Subaccount with a SAP Business Application Studio subscription.
+- You have access to a SAP BTP ABAP Environment in a Cloud Foundry space in the subaccount.
+- You have connected SAP Business Application Studio to your SAP BTP ABAP Environment via destination.
+- You have a user in the subaccount, with `Business_Application_Studio_Developer` role collection.
+- You are a member of the Cloud Foundry space where your SAP BTP ABAP Environment resides, and you have **Space Developer** role.
+- You have a user in your SAP BTP ABAP Environment with the following roles: `SAP_BR_ADMINISTRATOR` and `SAP_BR_DEVELOPER`.
+- You are connected to your SAP BTP ABAP Environment in the ABAP Development Tool (ADT) in Eclipse.
 
 >This tutorial was written for SAP BTP ABAP Environment. However, you should be able to use it in SAP S/4HANA Cloud Environment in the same way.
 
 >Throughout this tutorial, you will create various development objects and UI components. Wherever the suffix `###` or `000` is used, please replace it with your initials or group number.
 
 ## You will learn
+
 - How to create a custom shell plug-in.
 - How to deploy the shell plug-in to your SAP BTP ABAP Environment as part of a SAP Fiori Application.
 - How to create a Business Catalog and Business Role to regulate access to the SAP Fiori Application.
@@ -103,17 +105,19 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
     ![Create SAP Fiori application - Project attributes](create_SAPUI5_project_5.png)
 
+    >Ensure that **Use Virtual Endpoints for Local Preview** remains set to **No**.
+
 9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Select **Enter manually** and Input the **Transport Request** number you created in the previous step. Click on **Next**.
 
     <!--border-->
     ![Create SAP Fiori application - Deployment configuration](create_SAPUI5_project_6.png)
 
-10. Fiori Launchpad Configuration: In the **Semantic Object** field input `Shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
+10. Fiori Launchpad Configuration: In the **Semantic Object** field input `shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
 
     <!--border-->
     ![Create SAP Fiori application - Fiori Launchpad Configuration](create_SAPUI5_project_7.png)
 
-    >Make sure to input the fields with the correct cases: `shell` must start with an lower case and `plugin` must start with a lower case.
+    >Make sure to input the fields with the correct cases: `Shell` must start with an upper case and `plugin` must start with a lower case.
 
 ### Adjust your SAPUI5 Project
 
@@ -127,7 +131,7 @@ The application project is automatically initialized with several basic folders,
      - Under the `"sap.app"` configuration adjust the `"type"` property value to `"component"`.
      - Under the `"crossNavigation"` configuration remove the `"title": "{{flpTitle}}"` property and add the property `"hideLauncher": true`.
      - Remove the blocks for the `"routing"` configuration and the `"rootView"` definition.
-     - At the end of the file, behind the third last `}`, insert the following code snippet: `,"sap.flp": {"type": "plugin"}`.
+     - At the end of the file, behind the second last `}`, insert the following code snippet: `,"sap.flp": {"type": "plugin"}`.
      
      At the end your **`mainfest.json`** file should look like the following (certain properties are project-dependent and might therefore have different values for you. For this reason, you should use this code snippet as a guide, and manually adjust your **`mainfest.json`** file (rather than simply copy and paste this code snippet)):
 
@@ -151,9 +155,9 @@ The application project is automatically initialized with several basic folders,
             },
             "crossNavigation": {
                 "inbounds": {
-                "Shell-plugin": {
+                "Shell000-plugin": {
                     "hideLauncher": true,
-                    "semanticObject": "Shell",
+                    "semanticObject": "shell000",
                     "action": "plugin",
                     "signature": {
                     "parameters": {},
@@ -228,13 +232,14 @@ The application project is automatically initialized with several basic folders,
 
     ![Delete view folder content](delete_view_content.png)
 
-5. Open the **`Component.js`** file in the **`webapp`** folder. Delete the entire content of the file, and replace it with the following code:
+5. Open the **`Component.js`** file in the **`webapp`** folder. You should use this code snippet as a guide, and manually adjust your Component.js  file (rather than simply copy and paste this code snippet):
 
     ``` JavaScript
     sap.ui.define([
             "sap/ui/core/UIComponent"
+            "zplugin000/model/models"
         ],
-        function (UIComponent) {
+        function (UIComponent, models) {
             "use strict";
 
             return UIComponent.extend("zplugin###.Component", {
@@ -307,6 +312,8 @@ You can now deploy your SAPUI5 Component on with a basic (empty) shell plug-in t
 1. In Business Application Studio, in the **Application Info** view, click on the **Deploy** tile:
 
     ![Deploy application](deploy_application.png)
+
+    >In case the Deploy tile is not visible in the Application Info, right-click the ui5-deploy.yaml file, select Open in Integrated Terminal, and execute the command **npm run deploy**. 
 
 2. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
 `Deployment Successful`. You can now close the terminal window.
