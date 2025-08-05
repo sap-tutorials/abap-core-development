@@ -35,7 +35,7 @@ parser: v2
 
 ### Create a Package in ABAP Developer Tool in Eclipse
 
-The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component.
+The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component. 
 
 1. Access ABAP Developer Tool in Eclipse and connect to your SAP BTP ABAP Environment.
 
