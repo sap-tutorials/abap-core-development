@@ -112,7 +112,7 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
     <!--border-->
     ![Create SAP Fiori application - Deployment configuration](create_SAPUI5_project_6.png)
 
-10. Fiori Launchpad Configuration: In the **Semantic Object** field input `shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
+10. Fiori Launchpad Configuration: In the **Semantic Object** field input `Shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
 
     <!--border-->
     ![Create SAP Fiori application - Fiori Launchpad Configuration](create_SAPUI5_project_7.png)
@@ -157,7 +157,7 @@ The application project is automatically initialized with several basic folders,
                 "inbounds": {
                 "Shell000-plugin": {
                     "hideLauncher": true,
-                    "semanticObject": "shell000",
+                    "semanticObject": "Shell000",
                     "action": "plugin",
                     "signature": {
                     "parameters": {},
