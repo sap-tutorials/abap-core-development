@@ -12,12 +12,12 @@ author_profile: https://github.com/julieplummer20
 # Create an HTTP Service in SAP BTP ABAP Environment
 <!-- description --> Create an HTTP service in SAP BTP ABAP environment that can be called from the browser.
 
-##Prerequisites
+## Prerequisites
+
 - **IMPORTANT**: This tutorial cannot be completed on a trial account
 - You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
 - **Tutorial**: [Create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
 - You have installed [ABAP Development Tools](https://tools.hana.ondemand.com/#abap), latest version
-
 
 
 ## You will learn  
@@ -25,8 +25,11 @@ author_profile: https://github.com/julieplummer20
   -	How to return system data using a (whitelisted) ABAP utility class
   - How to expose the service for external consumption, by defining the necessary inbound communication artifacts
 
+Important: This tutorial is not suitable for SAP S/4HANA Cloud, private edition. If you would like to enable HTTP consumption from S/4HANA Cloud, private edition, see:
 
-This tutorial was written for SAP BTP ABAP Environment. However, you should also be able to use it in SAP S/4HANA Cloud Environment in the same way.
+- [Developing External Service Consumption - Outbound Communication](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/f871712b816943b0ab5e04b60799e518.html)
+- [Enable HTTP Communication in Your ABAP Code](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/cef1ada754154d11b5701ab60e6ab412.html?version=202310.002)
+
 
 Throughout this tutorial, replace `XXX` or `000` with your initials or group number.
 
@@ -112,13 +115,12 @@ In the ABAP environment, you can only use whitelisted APIs. Therefore, for examp
 
     ```ABAP
 
-    DATA(user_formatted_name) = cl_abap_context_info=>get_user_formatted_name( ).
     DATA(system_date) = cl_abap_context_info=>get_system_date( ).
 
     ui_html =  |<html> \n| &&
     |<body> \n| &&
     |<title>General Information</title> \n| &&
-    |<p style="color:DodgerBlue;"> Hello there, { user_formatted_name } </p> \n | &&
+    |<p style="color:DodgerBlue;"> Hello there </p> \n | &&
     |<p> Today, the date is:  { system_date }| &&
     |<p> | &&
     |</body> \n| &&
@@ -177,13 +179,12 @@ CLASS Z_GET_DATE_HTTP_000 IMPLEMENTATION.
 
   METHOD get_html.
 
-    DATA(user_formatted_name) = cl_abap_context_info=>get_user_formatted_name( ).
     DATA(system_date) = cl_abap_context_info=>get_system_date( ).
 
     ui_html =  |<html> \n| &&
     |<body> \n| &&
     |<title>General Information</title> \n| &&
-    |<p style="color:DodgerBlue;"> Hello there, { user_formatted_name } </p> \n | &&
+    |<p style="color:DodgerBlue;"> Hello there.</p> \n | &&
     |<p> Today, the date is:  { system_date }| &&
     |<p> | &&
     |</body> \n| &&

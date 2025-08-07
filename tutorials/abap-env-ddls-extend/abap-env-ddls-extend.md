@@ -4,15 +4,16 @@ auto_validation: true
 time: 30
 tags: [ tutorial>intermediate, programming-tool>abap-development]
 primary_tag: software-product>sap-s-4hana
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Matthäus Schüle
+author_profile: https://github.com/MatthaeusSchuele
 ---
 
 # Extend Released Data Sources by Database Fields That Are Not Exposed
+<!--Done with temporary CAL instance of latest GOLDEN template, see [Wiki@SAP: CAL - How to create an appliance](https://wiki.one.int.sap/wiki/x/mVrt2Q) -->
 <!-- description --> Find out what to do if a C1-released SAP data source (aka CDS view) does not expose a required database table field that you want to read in Cloud Development (Tier 1). For example, data source I_SalesOrder only exposes roughly half of the fields of database table vbak.
 
 ## Prerequisites
-- You have a license for an SAP S/4HANA or SAP S/4HANA Cloud, private edition release 2022 (both referred to as SAP S/4HANA from now on)
+- You have a license for an SAP S/4HANA or SAP S/4HANA Cloud, private edition release 2023 (both referred to as SAP S/4HANA from now on)
 - You have a user in the system with full development authorizations and business role `SAP_BR_SALES_MANAGER`.
 - [You are connected to your SAP S/4HANA system in ABAP Development Tools for Eclipse (ADT)](abap-s4hanacloud-login)
 - You understand the 3-tier extensibility model, see SAP blog [How to use Embedded Steampunk in SAP S/4HANA Cloud, private edition and in on-premise – The new ABAP extensibility guide](https://blogs.sap.com/2022/10/25/how-to-use-embedded-steampunk-in-sap-s-4hana-cloud-private-edition-and-in-on-premise-the-new-abap-extensibility-guide/).
@@ -29,12 +30,12 @@ author_profile: https://github.com/Liebherr
 - How to extend a data source that is not released for extend (case 3)
 
 **Additional info**
->Tutorial last updated with SAP S/4HANA release 2022
+>Tutorial last updated with SAP S/4HANA release 2023 FPS01
 
 ---
 
 ### Verify that a Data Source is Usable in Cloud Development
-Data sources that you want to use in cloud development (tier 1) need to have API State: Use System-Internally (Contract C1): Use in Cloud Development: Yes. This information can be found in the object's properties in ADT as in this example for `I_SalesOrder`.
+Data sources that you want to use in cloud development (tier 1) need to have API State: Use System-Internally (Contract C1): Use in Cloud Development: Yes. This information can be found in the object's properties in ADT as in this example for data definition `I_SalesOrder`.
 
 ![Released for use in cloud development ADT property](ADT_DDLS_API_State_C1_cloud_dev.png)
 
@@ -126,15 +127,17 @@ A data source can be:
 
 - **Case 2: Released for Extend (C0 contract, but not key user data source extensible)**
 
-    Even though a data source is not enabled for key user data source extensibility, you can still extend it using ADT if it's released for extend (C0 contract).
-    You can check that at the API release state of a data source as for `I_SalesOrder` in ADT.
+    If the data source is not enabled for key user data source extensibility, but is released for EXTEND (Contract C0) for use in cloud development or key user apps, then you can add the missing database field to the data source by creating a corresponding extension field from ADT in tier 2 using classic extensibility. 
+
+    You can check if the data source is released for extend at the API state of a data source in ADT - as for `I_SalesOrder`.  
+
     Go to its properties and open API State.
 
     ![Released for extend ADT property](ADT_DDLS_API_state_C0_released.png) 
  
-    There, you can see if a data source can be extended (Contract C0) in cloud development or key user apps. If at least one is true, it's enabled for extensibility with ADT.
-
-    In this case, the solution is to create data source extensions in ADT in tier 2. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
+    There, you can see if the data source is released for EXTEND (Contract C0) for use in cloud development or key user apps. If at least one is true, then the data source associates a so-called extension data source. 
+    
+    The solution is to create an extension for the extension data source and add this as extension to the actual data source in ADT using classic extensibility. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
 
     >If you want to freely browse through data sources released for extend, you can create a repository tree view on released data source objects (see [YouTube video: Repository Trees in ADT. Configure your Project Explorer](https://youtu.be/kAilhfl2_Yg&t=190s)).
     See also the documentation: [SAP - ABAP Development Tools: User Guide > Released APIs > Extend (C0)](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/extend-c0)
@@ -156,11 +159,23 @@ A data source can be:
 >For more information, see also the documentation: [SAP - ABAP RESTful Application Programming Model > Extensibility Architecture Overview](https://help.sap.com/docs/abap-cloud/abap-rap/extensibility-architecture-overview?version=s4_hana)
 
 
+**Wrap-Up**
+
+If a C1-released SAP Data Source (CDS View) does not include a standard field (delivered by SAP) but is required in tier 1, then you have the following options to add the field (in order of recommendation).
+
+| Characteristic of the data source | Recommended Extension Technique | 
+| -------- | -------- | 
+| The data source is enabled for data source extensibility. You can see this in the Custom Fields app. You cannot see in ADT if the data source is enabled for data source extensibility. | Use the Custom Fields app to create a data source extension in Tier 1.
+| The data source is enabled for custom field extensibility. You can see this in ADT on the API State tab: the data source needs to be released for Extend (Contract C0) for use in cloud development or use in key user apps | In Tier 2, extend the  extension data source (E_) by creating a view extension and add the missing standard field. In Tier 2, create a view extension for the extensible data source and expose the new field that was added to the "Extension data source (E_)". |
+The data source is neither enabled for data source nor custom field extensibility   | In Tier 2, create a wrapper for the data source that contains the missing field and release it for usage In Tier 1, create a new data source combining the non-extensible data source with the wrapper. |
+ 
+
+
 ### Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)
 
 In this example the data source `I_GLAccountingLineItem` is extended by the company's country code.
 
->Disclaimer: Be aware that for this example you should not don't necessarily need to work with this approach, as the field could be read via association with `\_CompanyCode-Country` as well.  We'll work with this example for demonstration purposes.
+>Disclaimer: Be aware that for this example you should not need to work with this approach, as the field could be read via association with `\_CompanyCode-Country` as well.  We'll work with this example for demonstration purposes.
 
 1.	Launch the **Custom Fields** app in the SAP Fiori launchpad.
 
@@ -190,6 +205,7 @@ Now, you can make use of this field in read operations with the extended data so
     ```
 
 2.	Run the ABAP class as Application and check that data is retrieved.
+
     In the output you can see data for the added field:
 
     ![Console Output for data source I_GLAccountingLineItem in FLP](ADT_CL_Console_Output_ZZ1_GLA_LineItem.png)
@@ -211,6 +227,7 @@ Open data source definition `I_SalesOrder` in ADT and search for `E_`. You will 
  
 Open `E_SalesDocumentBasic`. 
 
+<!--border-->
 ![Extension Association in data source I_SalesOrder code](ADT_DDLS_E_SD_Basic_code.png)
 
 This extension data source is of `@VDM.viewType #EXTENSION`. It exposes the database table `vbak`. You can choose additional fields from this database to extend the extensible data sources. The extension data source defines the alias `Persistence` for `vbak`.
@@ -226,24 +243,24 @@ The first step is to extend the extension data source. This has to be done in Ti
 
     ![Create new data source from I_SalesDOcumentBasic](ADT_DDLS_E_SD_Basic_New_DDLS.png)
  
-    Give the package `$TMP`, the name `ZZ1_E_SALES_DOC_BASIC` and the description `I_SALESDOCUMENTBASIC extension`.
+    Give the package `$TMP`, the name `ZZ1_E_SALES_DOC_BASIC`, the description `I_SALESDOCUMENTBASIC extension` and click **Next**.
 
+    <!--border-->
     ![Set Attributes at ZZ1_E_SALES_DOC_BASIC creation](ADT_DDLS_Z_E_SD_Basic_crt_name_pckg.png)
  
-3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View**.
+3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View Entity**.
 
-    ![Select DDLS template Extend View](ADT_DDLS_crt_tmpl_extend.png)
+    ![Select DDLS template Extend View Entity](ADT_DDLS_crt_tmpl_extend_view_entity.png)
  
-    >If in contrast to `E_SalesDocumentBasic`, the extension data definition was a view entity, you had to choose **Extend View Entity** instead. Be aware that a view can still be migrated to a view entity by SAP. Migrate an existing Extend View to an Extend View Entity to avoid issues.
+    >Hint: If in contrast to `E_SalesDocumentBasic`, the extension data definition was a view and not a view entity, you could also choose **Extend View** instead. Be aware that a view can still be migrated to a view entity by SAP. Migrate an existing Extend View to an Extend View Entity to avoid issues.
 
-4.	Complete the code of the data source by providing a value for annotation `@AbapCatalog.sqlViewAppendName` and add the field that you want to extend your extensible data source with.
+4.	Complete the code of the data source by adding the field that you want to extend your extensible data source with.
 
+    <!--border-->
     ![ZZ1_E_SALES_DOC_BASIC data source code](ADT_DDLS_Z_E_SD_Basic_code.png)
 
     ```ABAP
-    @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SD_BASIC'
-    @EndUserText.label: 'I_SALESDOCUMENTBASIC extension'
-    extend view E_SalesDocumentBasic with ZZ1_E_SALES_DOC_BASIC
+    extend view entity E_SalesDocumentBasic with ZZ1_E_SALES_DOC_BASIC
     {
         Persistence.gwldt as ZZ1_WarrantyStartDate
     }
@@ -272,7 +289,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
 3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View**.
 
-    ![Select DDLS template Extend View](ADT_DDLS_crt_tmpl_extend.png)
+    ![Select DDLS template Extend View](ADT_DDLS_crt_tmpl_extend_view.png)
 
     >Hint: If in contrast to `I_SALESORDER` the extensible data definition was a view entity, you had to choose **Extend View Entity** instead. Be aware that a view can still be migrated to a view entity by SAP. Migrate the existing Extend View to an Extend View Entity to avoid issues.
 
@@ -283,7 +300,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
     ```ABAP
     @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SO'
     @EndUserText.label: 'I_SALESORDER extension'
-    extend view I_SalesOrder with ZZ1_E_SALESORDER
+    extend view entity I_SalesOrder with ZZ1_E_SALESORDER
     {
         _Extension.ZZ1_WarrantyStartDate as ZZ1_WarrantyStartDate
     }
@@ -407,8 +424,15 @@ Next, we create the interface data source in Tier 1 which combines the original 
     ![ZZ1_I_SO_PARTNER data source code](ADT_DDLS_Z_I_SO_PARTNER_code.png)
  
     ```ABAP
+    @AbapCatalog.viewEnhancementCategory: [#NONE]
     @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: I_SO_PARTNER with vbpa wrapper/exposure'
+    @EndUserText.label: 'comb I_SO_PARTNER+vbpa wrapper/exposure'
+    @Metadata.ignorePropagatedAnnotations: true
+    @ObjectModel.usageType:{
+        serviceQuality: #X,
+        sizeCategory: #S,
+        dataClass: #MIXED
+    }
     define view entity ZZ1_I_SO_PARTNER
     as select from I_SalesOrderPartner
     association to I_SalesOrderPartner as _I_SO_PARTNER on $projection.SalesOrder = _I_SO_PARTNER.SalesOrder

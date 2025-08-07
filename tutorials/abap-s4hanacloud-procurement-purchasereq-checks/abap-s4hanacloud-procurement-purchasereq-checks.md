@@ -317,9 +317,6 @@ Your new order appears in the Overview List.
 
 
 
-
----
-
 ### More information
 - Start here: SAP blog post: [How to Extend SAP Standard Using ADT](https://blogs.sap.com/2020/08/05/how-to-extend-sap-standard-using-adt/)
 - SAP Help Portal: ABAP Development User Guide: [Working with Business Add-Ins (`BAdIs`)](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/04a1d9415efd4e4fbc58534c99c3a0d3.html)

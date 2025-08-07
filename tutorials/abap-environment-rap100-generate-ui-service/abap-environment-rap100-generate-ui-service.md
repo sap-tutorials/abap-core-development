@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: products>sap-btp--abap-environment
-tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform ]
+tags: [  tutorial>beginner, topic>abap-development, software-product>sap-business-technology-platform, software-product>sap-s-4hana-cloud ]
 time: 20
 author_name: Merve Temel
 author_profile: https://github.com/mervey45
@@ -13,10 +13,11 @@ author_profile: https://github.com/mervey45
 
 ## Prerequisites
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
-  For example, you can create free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
+  For example, you can create a free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an [ABAP Cloud Project](abap-environment-create-abap-cloud-project).
-- Make sure, your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
+- Your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
+- You have read and understood the tutorial [Get to Know the ABAP RESTful Application Programming Model](https://developers.sap.com/tutorials/abap-environment-restful-programming-model.html).
 
 ## You will learn  
   - How to create an ABAP package
@@ -105,98 +106,6 @@ A Travel entity defines general travel data, such as the agency ID or customer I
  6. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
 
-
-
-### Create data generator class
-
-
-Create an ABAP class![class](adt_class.png) to generate demo **travel** data.
-
-  1. Right-click your ABAP package **`ZRAP100_###`** and select **New** > **ABAP Class** from the context menu.
-
-  2. Maintain the required information (`###` is your group ID) and click **Next >**.
-      - Name: **`ZCL_RAP100_GEN_DATA_###`**
-      - Description: **Generate demo data**      
-
-      ![class](demo.png)
-
-  3. Select a transport request and click **Finish** to create the class.
-
-  4. Replace the default code with the code snippet provided in the source code document **`ZRAP100_GEN_DATA_###`** linked below and replace all occurrences of the placeholder **`###`** with your group ID using the **Replace All** function (CTRL+F).
-
-    ```ABAP
-    CLASS zcl_rap100_gen_data_### DEFINITION
-    PUBLIC
-      FINAL
-      CREATE PUBLIC .
-
-      PUBLIC SECTION.
-
-        INTERFACES if_oo_adt_classrun.
-      PROTECTED SECTION.
-      PRIVATE SECTION.
-    ENDCLASS.
-
-    CLASS zcl_rap100_gen_data_### IMPLEMENTATION.
-
-      METHOD if_oo_adt_classrun~main.
-        DATA:
-          group_id   TYPE string VALUE '###',
-          attachment TYPE /dmo/attachment,
-          file_name  TYPE /dmo/filename,
-          mime_type  TYPE /dmo/mime_type.
-
-    *   clear data
-        DELETE FROM zrap100_atrav###.
-    *    DELETE FROM zrap100_dtrav###.
-
-        "insert travel demo data
-        INSERT zrap100_atrav###  FROM (
-            SELECT
-              FROM /dmo/travel AS travel
-              FIELDS
-                travel~travel_id        AS travel_id,
-                travel~agency_id        AS agency_id,
-                travel~customer_id      AS customer_id,
-                travel~begin_date       AS begin_date,
-                travel~end_date         AS end_date,
-                travel~booking_fee      AS booking_fee,
-                travel~total_price      AS total_price,
-                travel~currency_code    AS currency_code,
-                travel~description      AS description,
-                CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
-                  WHEN 'N' THEN 'O'
-                  WHEN 'P' THEN 'O'
-                  WHEN 'B' THEN 'A'
-                  ELSE 'X'
-                END                     AS overall_status,
-                @attachment             AS attachment,
-                @mime_type              AS mime_type,
-                @file_name              AS file_name,
-                travel~createdby        AS created_by,
-                travel~createdat        AS created_at,
-                travel~lastchangedby    AS last_changed_by,
-                travel~lastchangedat    AS last_changed_at,
-                travel~lastchangedat    AS local_last_changed_at
-                ORDER BY travel_id UP TO 10 ROWS
-          ).
-        COMMIT WORK.
-        out->write( |[RAP100] Demo data generated for table ZRAP100_ATRAV{ group_id }. | ).
-      ENDMETHOD.
-    ENDCLASS.
-    ```
-
-  5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
-
-  6. Run your console application. For that, select your ABAP class ![class](adt_class.png) **`ZCL_RAP100_GEN_DATA_###`**, select the run button > **Run As** > **ABAP Application (Console) F9** or press **F9**. A message will be displayed **ABAP Console**.
-
-      ![class](p4.png)  
-
-  7. Open your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`** and press **F8** to start the data preview and display the filled database entries, i.e. **travel** data.
-
-      ![class](p5.png)   
-
-
 ### Generate transactional UI services
 
 
@@ -219,7 +128,7 @@ The generated business service will be transactional, draft-enabled, and enriche
         
 
  3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
-    Maintain the required information on the Configure Generator dialog to provide the name of your data model and generate them.
+
 
     For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below,
     and press **Next >**.
@@ -272,23 +181,94 @@ The generated business service will be transactional, draft-enabled, and enriche
 
       ![class](tb4.png)
 
+### Create data generator class
 
-### Adjust metadata extension
+Create an ABAP class![class](adt_class.png) to generate demo **travel** data.
 
- 1. Open your metadata extension **`ZRAP100_C_TRAVELTP_###`** and adjust it.
+  1. Right-click your ABAP package **`ZRAP100_###`** and select **New** > **ABAP Class** from the context menu.
 
-    The field **attachment** is a raw string (data type `RAWSTRING`) and cannot be used in the filter bar, so the annotation **`@UI.selectionField`** is not allowed for this field and should be removed. Therefore, remove following annotation block for the field attachment:
+  2. Maintain the required information (`###` is your group ID) and click **Next >**.
+      - Name: **`ZCL_RAP100_GEN_DATA_###`**
+      - Description: **Generate demo data**      
+
+      ![class](demo.png)
+
+  3. Select a transport request and click **Finish** to create the class.
+
+  4. Replace the default code with the code snippet provided in the source code document **`ZRAP100_GEN_DATA_###`** linked below and replace all occurrences of the placeholder **`###`** with your group ID using the **Replace All** function (CTRL+F).
 
     ```ABAP
-    @UI.selectionField: [ {
-        position: 10 
-      } ]
+    CLASS zcl_rap100_gen_data_### DEFINITION
+    PUBLIC
+      FINAL
+      CREATE PUBLIC .
+
+      PUBLIC SECTION.
+
+        INTERFACES if_oo_adt_classrun.
+      PROTECTED SECTION.
+      PRIVATE SECTION.
+    ENDCLASS.
+
+    CLASS zcl_rap100_gen_data_### IMPLEMENTATION.
+
+      METHOD if_oo_adt_classrun~main.
+        DATA:
+          group_id   TYPE string VALUE '###',
+          attachment TYPE /dmo/attachment,
+          file_name  TYPE /dmo/filename,
+          mime_type  TYPE /dmo/mime_type.
+
+    *   clear data
+        DELETE FROM zrap100_atrav###.
+        DELETE FROM zrap100_dtrav###.
+
+        "insert travel demo data
+        INSERT zrap100_atrav###  FROM (
+            SELECT
+              FROM /dmo/travel AS travel
+              FIELDS
+                travel~travel_id        AS travel_id,
+                travel~agency_id        AS agency_id,
+                travel~customer_id      AS customer_id,
+                travel~begin_date       AS begin_date,
+                travel~end_date         AS end_date,
+                travel~booking_fee      AS booking_fee,
+                travel~total_price      AS total_price,
+                travel~currency_code    AS currency_code,
+                travel~description      AS description,
+                CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
+                  WHEN 'N' THEN 'O'
+                  WHEN 'P' THEN 'O'
+                  WHEN 'B' THEN 'A'
+                  ELSE 'X'
+                END                     AS overall_status,
+                @attachment             AS attachment,
+                @mime_type              AS mime_type,
+                @file_name              AS file_name,
+                travel~createdby        AS created_by,
+                travel~createdat        AS created_at,
+                travel~lastchangedby    AS last_changed_by,
+                travel~lastchangedat    AS last_changed_at,
+                travel~lastchangedat    AS local_last_changed_at
+                ORDER BY travel_id UP TO 10 ROWS
+          ).
+        COMMIT WORK.
+        out->write( |[RAP100] Demo data generated for table ZRAP100_ATRAV{ group_id }. | ).
+      ENDMETHOD.
+    ENDCLASS.
     ```
 
-     ![class](adjust.png)
+  5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
-  
-  2. Save and activate.
+  6. Run your console application. For that, select your ABAP class ![class](adt_class.png) **`ZCL_RAP100_GEN_DATA_###`**, select the run button > **Run As** > **ABAP Application (Console) F9** or press **F9**. A message will be displayed **ABAP Console**.
+
+      ![class](p4.png)  
+
+  7. Open your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`** and press **F8** to start the data preview and display the filled database entries, i.e. **travel** data.
+
+      ![class](p5.png)   
+
 
 ### Preview travel app
 

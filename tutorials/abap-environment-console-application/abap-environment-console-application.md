@@ -38,69 +38,57 @@ For more information, see:
 
 Open the ADT and change to the ABAP perspective, using the menu.
 
- ![adt-abap-menu](adt-abap-menu.png)
+ <!-- border -->
+ ![ABAP menu](adt-abap-menu.png)
 
-And select **ABAP** and click **Open**.
+And select **ABAP** and choose **Open**.
 
- ![perspective](perspective.png)
+  <!-- border -->
+  ![perspective](perspective.png)
 
 Or select the icon.
 
- ![adt-abap-icon](adt-abap-icon.png)
+  <!-- border -->
+  ![ADT ABAP icon](adt-abap-icon.png)
 
 
 ### Create an ABAP Cloud project
 
 1. In the ADT, select the menu path **File** > **New** > **Other**.
 
+    <!-- border -->
     ![Create an ABAP Cloud project in ADT](other.png)
 
-2. Search for ABAP Cloud Project, select it and click **Next**.
+2. Search for ABAP Cloud Project, select it and choose **Next**.
 
+    <!-- border -->
     ![Select ABAP Cloud Project](abap.png)
 
-3. Select **Use Cloud Foundry Environment** in section **SAP BTP Cloud Foundry Environment** and click **Next >**
+3. Paste the URL of your ABAP instance in **Service URL** and choose **Next**.
 
-    ![Create ABAP cloud project](servicekey.png)
+    <!-- border -->
+    ![step2c-enter-URL](step2c-enter-URL.png)
 
-4. Enter your **connection settings**:
-     - Region: choose your SAP BTP Cloud Foundry Environment region, for e.g. Europe (Frankfurt)
-     - Email: your email address
-     - Password: your password    
+5. choose **Open Logon Page in Browser**.
 
-    ![Create ABAP cloud project](projectx12.png)
-
-      Click **Next >**.
-
-5. Set your **service instance details**:                                                                                             
-     - Organization: `<your_organization>`
-     - Space: dev
-     - Service instance: `<your_service_instance>`
-
-    ![Create ABAP cloud project](projectx22.png)
-
-    Click **Next >**.
-
-    >**HINT:** Your service instance is **`default_abap-trial`** when you use the **ABAP trial booster** on SAP BTP. If you create a manual instance, use your own instance name.
-
-6. Click **Open Logon Page in Browser**.
-
+    <!-- border -->
     ![Create ABAP cloud project](project4.png)
 
-7. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to create your trial account on SAP BTP.
+6. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to create your trial account on SAP BTP.
 
-    Go back to ADT.
+7. Go back to ADT and choose **Finish**.
 
+    <!-- border -->
     ![Create ABAP cloud project](project52.png)
 
-    Click **Finish**.
+    Choose **Finish**.
 
 
 
 
 ### Create ABAP package
 
-  1. Right-click on the `ZLOCAL` and select **New** > **ABAP Package** from the context menu.
+  1. Right-click on the package `ZLOCAL` and select **New** > **ABAP Package** from the context menu.
 
       ![Add ABAP package](package.png)
 
@@ -111,9 +99,9 @@ Or select the icon.
 
       ![Create ABAP package](abappackage.png)
 
-      Click **Next >**.
+      Choose **Next >**.
 
-  3. Create a new request and click **Finish**.
+  3. Create a new request and choose **Finish**.
 
       ![Select transport request](transport.png)
 
@@ -126,15 +114,13 @@ Or select the icon.
 
       ![Add new ABAP class](class.png)
 
-  2. Maintain the required information and click **Next** to move on:   
+  2. Maintain the required information and choose **Next** twice:   
       - Name: **`Z_CLASS_XXX`**
       - Description: My class XXX
 
       ![Add new ABAP class](abapclass.png)
 
-      Click **Next >**.
-
-  3. Click **Finish**.
+  3. choose **Finish**.
 
       ![Select transport request](request.png)
 
@@ -145,7 +131,7 @@ Or select the icon.
 
 ### Implement Interface
 
-  1. In the class definition, specify the interface `IF_OO_ADT_CLASSRUN` in the public section as shown on the screenshot. Now go to the class implementation and provide the implementation of the method `IF_OO_ADT_CLASSRUN~MAIN`. As shown on the screenshot, it should output the text Hello World! using the code line below
+  1. In the class definition, specify the interface `IF_OO_ADT_CLASSRUN` in the public section as shown on the screenshot. Now go to the class implementation and provide the implementation of the method `IF_OO_ADT_CLASSRUN~MAIN`. As shown on the screenshot, it should output the text Hello World! using the code line below 
 `out->write('Hello World!').`
 
     ```ABAP

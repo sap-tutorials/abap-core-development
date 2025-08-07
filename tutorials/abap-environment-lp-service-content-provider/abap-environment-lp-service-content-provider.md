@@ -109,11 +109,11 @@ primary_tag: software-product>sap-btp--abap-environment
 
 ### Configure Communication between the SAP BTP Subaccount and the SAP BTP, ABAP Environment System
 
-1. In the SAP BTP cockpit, download the trust certificate of the subaccount runtime destinations by navigating to `Connectivity` > `Destinations`.
+1. In the SAP BTP cockpit, download the trust certificate of the subaccount runtime destinations by navigating to `Connectivity` > `Destination Trust`.
 
-2. Select `Download Trust`.
+2. Select `Export` of the Active Trust Certificate.
 
-    <!-- border -->![Download trust](4-Destination-Trust.png)
+    <!-- border -->![Download trust](4-Destination-Trust-1.png)
 
 3. Open the `Communication Systems` app from the SAP Fiori launchpad in your SAP BTP, ABAP environment system.
 
@@ -180,7 +180,7 @@ You create a design-time destination to define the location from which the SAP B
 
     The destination should look like this:
 
-    <!-- border -->![Settings for new Destination](1-Destination-settings.png)
+    <!-- border -->![Settings for new Destination](1-Design-Time-Destination-settings.png)
 
 4. Select `Save`.
 
@@ -195,7 +195,7 @@ You create a design-time destination to define the location from which the SAP B
     - Description: `Tutorial: Runtime destination for ressources`
 
     - URL: Fiori Launchpad URL of the SAP BTP, ABAP environment system without the `/ui` path.
-        
+
         Format: https://<`tenant`>.**`abap-web`**.<`region`>.hana.ondemand.com
 
     - Proxy Type: `Internet`
@@ -213,41 +213,45 @@ You create a design-time destination to define the location from which the SAP B
 Finally the destination should look like this:
 
 <!-- border -->
-![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
+![Settings for Runtime iFrame integration](3-Runtime-Destination-iFrame.png)
 
 ### Create Runtime Destination for Dynamic OData access
 
-1. Create a new destination.
+1. Create a new destination with the following data
 
-    - Name: `Tutorial_dynamic_OData_rt`
+    - Main Properties
 
-    - Type: `HTTP`
+        - Name: `Tutorial_dynamic_OData_rt`
 
-    - Description: `Tutorial: Dynamic runtime destination for OData access`
+        - Type: `HTTP`
 
-    - URL: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system. Replace `abap-web` with `abap` and remove the `/ui` path.
-        
+        - Description: `Tutorial: Dynamic runtime destination for OData access`
+
+        - Proxy Type: `Internet`
+
+        - URL: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system. Replace `abap-web` with `abap` and remove the `/ui` path.
+
         Format: https://<`tenant`>.**`abap`**.<`region`>.hana.ondemand.com
-
-    - Proxy Type: `Internet`
 
     - Authentication: `SAMLAssertion`
 
-    - Audience: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system
+    - SAML Properties
 
-    - `AuthnContextClassRef`: `urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`
+        - `AuthnContextClassRef`: `urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`
 
-    - Additional Properties: (Select `New Property` to add new items)
-
-        - HTML5.DynamicDestination: `true`
+        - Audience: SAP Fiori Launchpad URL of the SAP BTP, ABAP environment system
 
         - `nameIdFormat`: `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`
+
+    - Additional Properties: (Select `Add Property` to add new items)
+
+        - HTML5.DynamicDestination: `true`
 
 2. Select `Save`.
 
 The destination should look like this:
 
-<!-- border -->![Settings for dynamic Runtime Destination](2-Destination-oData.png)  
+<!-- border -->![Settings for dynamic Runtime Destination](2-Dynamic-Runtime-Destination-oData.png)  
 
 ### Create Content Provider
 
@@ -261,7 +265,7 @@ The destination should look like this:
 
 5. Create a new content provider.
 
-    <!-- border -->![Workflow](3-cp-overview.png)
+    <!-- border -->![Workflow](3-content-provider-overview.png)
 
 6. Add title, description, ID, and the destinations created in `Step 6-8` (Create Design-Time / Runtime destination) accordingly:
 
@@ -311,17 +315,17 @@ The destination should look like this:
 
 3. Choose a site name and select `Create`.
 
-4. Select `Edit` and move your cursor to the search box to `Search for items to assign`.
+4. In section `Role Assignments` select `Edit` and move your cursor to the search box on the upper right part of the screen.
 
-    <!-- border -->![Create Launchpad Site](2-1-create-site.png)
+    <!-- border -->![Create Launchpad Site](2-1-create-lp-site-1.png)
 
-5. Choose the `Administrator` role (select `+`).
+5. Choose the `Administrator` role (select `-`).
 
 6. Select `Save`.
 
-7. Copy and store the URL of the launchpad for later use.
+7. Navigate to `Site Settings`section. Copy and store the URL of the launchpad for later use.
 
-    <!-- border -->![Launchpad URL](9-copy-launchpad-url.png)
+    <!-- border -->![Launchpad URL](9-copy-launchpad-url-1.png)
 
 > Now you have assigned the business role, that is exposed to the SAP Build Work Zone, standard edition, to your launchpad site. With the business role all apps that are related to this business role will be available on the launchpad site. Also, a role collection is created, which is labeled according to this format: `<Content Provider name>_<Business Role name>`
 
@@ -331,7 +335,7 @@ The destination should look like this:
 
 1. Open the SAP BTP Cockpit and navigate to the subaccount of the SAP Build Work Zone, standard edition.
 
-2. Navigate to the `Users` menu.
+2. In the `Security` section, navigate to the `Users` menu.
 
 3. Search for your user and select it.
 
