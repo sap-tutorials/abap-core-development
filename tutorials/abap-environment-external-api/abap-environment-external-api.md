@@ -7,7 +7,7 @@ time: 20
 tags: [ tutorial>intermediate, software-product-function>sap-s-4hana-cloud--abap-environment, software-product>sap-business-technology-platform, software-product-function>s-4hana-cloud-abap-environment, tutorial>license]
 primary_tag: programming-tool>abap-development
 author_name: Julie Plummer
-author_profile: https://github.com/julieplummer20 
+author_profile: https://github.com/julieplummer20  
 ---
 
 
