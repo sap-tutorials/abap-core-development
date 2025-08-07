@@ -4,11 +4,12 @@ auto_validation: true
 time: 20
 tags: [ tutorial>beginner, software-product>identity-authentication, topic>cloud, tutorial>license]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Ulrike Liebherr
-author_profile: https://github.com/Liebherr
+author_name: Luis Maier
+author_profile: https://github.com/LuisMaier
 ---
 
 # Provision Users into your SAP BTP ABAP Environment
+<!--done in https://rapworkshop.accounts.ondemand.com/admin with D20 (not existing any more) -->
 <!-- description --> Provision and authorize users for ABAP development via Cloud Identity Services in one or more target systems
 
 ## Prerequisites
@@ -51,7 +52,7 @@ As the SAP Cloud Identity service tenant serves as the identity provider, we fir
 
 3. Select **Add** to start the creation process of a user.
    
-4. Fill the personal information for the user and select **Save**.
+4. Fill the personal information for the user and select **Add**.
 
     ![Configure properties of new user](IAS_user_add_save.png)
 
@@ -66,25 +67,25 @@ As the SAP Cloud Identity service tenant serves as the identity provider, we fir
 
 To bundle developer users, create a corresponding user group in the SAP Cloud Identity Services tenant and assign the users to it.
 
-1. Navigate to **Users & Authorizations** > **User Groups** and select **Create**.
+1. Navigate to **Users & Authorizations** > **Groups** and select **Create**.
 
     ![Start User Group creation](IAS_group_create.png)
 
-2. In the Create Group dialog enter a **Name** and **Display Name** and select **Create**.
+2. In the Create Group dialog enter a **Name** and **Display Name** and select **Next Step**.
 
     > For the group name, please use the identical name you have set for the business role in your SAP BTP ABAP Environment (created from template `SAP_BR_DEVELOPER`, see prerequisites).
 
     ![Configure properties of new group](IAS_group_configure_new.png)
-
-3. To add users to the group select **Add**.
+3. Leave Application details empty and select **Next Step**
+4. To add users to the group select **Add**.
 
     ![Start user adding to group](IAS_group_add_user.png)
 
-4. Search for the user that you have created earlier, select it, and choose **Save**.
+5. Search for the user that you have created earlier, select it, and choose **Add**.
 
     ![Save User Group](IAS_group_add_user_save.png)
 
-5. The user is now displayed in the user group list.
+6. The user is now displayed in the user group list.
 
     ![List entry for user in group](IAS_group_add_user_result.png)
 
@@ -337,7 +338,7 @@ Now you can run the Identity provisioning.
 
 4. Choose **Run Now**.
 
-5. To check the status of the job run, select **Identity Provisioning** > **Job Logs** from the navigation pane.
+5. To check the status of the job run, select **Identity Provisioning** > **Provisioning Logs** from the navigation pane.
 
     ![Job Logs](IPS_Job_log.png)
 
