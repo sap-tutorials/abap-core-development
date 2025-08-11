@@ -6,8 +6,8 @@ auto_validation: true
 time: 45
 tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>sap-s-4hana-cloud--abap-environment]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Ingo Bräuninger
-author_profile: https://github.com/ibraeuninger
+author_name: Tolgonai Muratbekova
+author_profile: https://github.com/TolgonaiMuratbekova
 parser: v2
 ---
 
