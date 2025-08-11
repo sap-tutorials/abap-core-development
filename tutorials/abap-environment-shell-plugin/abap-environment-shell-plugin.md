@@ -6,8 +6,8 @@ auto_validation: true
 time: 45
 tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-application-studio, software-product-function>sap-s-4hana-cloud--abap-environment]
 primary_tag: software-product>sap-btp--abap-environment
-author_name: Ingo Bräuninger
-author_profile: https://github.com/ibraeuninger
+author_name: Tolgonai Muratbekova
+author_profile: https://github.com/TolgonaiMuratbekova
 parser: v2
 ---
 
@@ -35,7 +35,7 @@ parser: v2
 
 ### Create a Package in ABAP Developer Tool in Eclipse
 
-The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component. 
+The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component.
 
 1. Access ABAP Developer Tool in Eclipse and connect to your SAP BTP ABAP Environment.
 
