@@ -7,34 +7,34 @@ time: 20
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-
+<!--DONE with FYZ/100 -->
 # Implement Logic for a Custom Business Object
+
 <!-- description -->Control your custom business object application with ABAP logic
 
-## Prerequisites  
-- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **SAP S/4HANA Cloud** system
-
-
 ## You will learn  
+
 - How to enable logic implementation for a custom business object
 - How to implement changing custom business object database
 - How to implement checking a custom business object before save
 - How to implement saving or reject saving of a custom business object
 - How to implement informing the end user about save
-- How to ease development and test already while doing it
+- How to ease development and test already during implementation
 
-## Intro
-At the end your application will set some data automatically and reject a save with an error message for the causing inconsistencies.
+## Prerequisites  
 
-**Our Example**
+- **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **SAP S/4HANA Cloud** system
+
+#### Our Example
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
-In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is there to save employee specific rules for bonus entitlement.
+In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is used to save employee specific rules for bonus entitlement.
 
->Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2408
+>Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
 
 ---
+
 ### Make key field Read-Only
 
 As there was no backend implementation to set the mandatory key field **`ID`** so far, we were forced to set it from the UI to be able to save instances. Now, as we will implement the logic to set the ID in backend and nowhere else, we will set that key field to Read-Only for the UI.
@@ -44,9 +44,9 @@ As there was no backend implementation to set the mandatory key field **`ID`** s
 2. Start typing **Custom Business Objects** in the Launchpad search and open the App from the results.
 
     ![Custom Business Objects application from search results](FLP_search_resultCBO.png)
-    
+
 3. Select the business object **Bonus Plan** in Custom Business Objects application
-   
+
 4. Start Edit Mode by executing the **Edit Draft** action.
 
 5. Switch to **Fields** section.
@@ -55,9 +55,7 @@ As there was no backend implementation to set the mandatory key field **`ID`** s
 
     ![Check Read-Only box](CBO_checkReadOnly.png)
 
-
 ### Enable logic development
-
 
 1. Switch to **General Information** section.
 
@@ -69,17 +67,16 @@ As there was no backend implementation to set the mandatory key field **`ID`** s
 
 Now you are enabled to implement **Determination** logic which is called **after each modification** to a Bonus Plan instance from the UI, as well as **Validation** logic which is called **before each save** of an instance. Only in Determination logic you are able to change custom business object data. Validation logic is intended to check the business object, decide whether a save can be performed and provide the end user a message with helpful information like successful save or the reason for which a save had to be rejected.  
 
-
 ### Implement After Modification logic
 
 For **published** Custom Business Objects **without a Draft version** you can implement logic.
 
 1. Switch to **Logic** section.
-   
+
     ![Switch to Logic section](CBO_LogicSection.png)
 
 2. Enter the After Modification Event Logic which is a Determination Logic.
-   
+
     ![Enter After Modification logic](CBO_go2AfterModify.png)
 
 3. In the **Develop** section click on **Edit** to change the currently published logic (which is empty still).
@@ -92,7 +89,7 @@ For **published** Custom Business Objects **without a Draft version** you can im
 
         >**Hint:** Changing Parameter `bonusplan` enables you to read current node data and change it.
         >
-        >**Hint:** You can read existing Bonus Plan data via the CDS View that is named as the Business Object's Identifier (here: `YY1_BONUSPLAN`).
+        >**Hint:** You can access existing Bonus Plan data through the CDS View that corresponds to the Business Object's identifier. (here: `YY1_BONUSPLAN`).
         >
         >**Hint:** With the key combination **CTRL + Space** you can access the very helpful code completion.
         >
@@ -106,11 +103,11 @@ For **published** Custom Business Objects **without a Draft version** you can im
         ENDIF.
         ```
 
-    - Set the Unit of Measure for the Bonus Percentages to `P1` which is the code for % (percent)
+    - Set the Unit of Measure for the Bonus Percentages to `%` which is the unit for percentage
 
         ```ABAP
         * set percentage unit
-        bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = 'P1'.
+        bonusplan-lowbonuspercentage_u = bonusplan-highbonuspercentage_u = '%'.
         ```
 
     - Set the Employee Name from the Employee ID
@@ -155,7 +152,6 @@ For **published** Custom Business Objects **without a Draft version** you can im
 
     ![Save logic without publishing](CBO_logicSave.png)
 
-
 Alternatively you can also change the logic in the **Compare** section which allows you to see for example the Draft Version and Latest Published Version next to each other.
 
 ![View Draft and/or Published Version of logic](CBO_logicCompareVersions.png)
@@ -172,17 +168,17 @@ In the **Test** section you can test the draft or latest published version of th
 
 4. Enter following data to the **Value In** column
 
-    | Field	Name | Field Value |
-    |------------|-------------|
-    | `validitystartdate` | `2017-01-01` |
-    | `validityenddate` | `2017-12-31` |
-    | `targetamount_v` | `1000` |
-    | `targetamount_c` | `EUR` |
-    | `lowbonusassignmentfactor` | `1` |
-    | `highbonusassignmentfactor` | `3` |
-    | `lowbonuspercentage_v` | `10` |
-    | `highbonuspercentage_v` | `20` |
-    | `employeeid` | `<any>` |
+    | Field Name                  | Field Value  |
+    |-----------------------------|--------------|
+    | `validitystartdate`         | `2017-01-01` |
+    | `validityenddate`           | `2017-12-31` |
+    | `targetamount_v`            | `1000`       |
+    | `targetamount_c`            | `EUR`        |
+    | `lowbonusassignmentfactor`  | `1`          |
+    | `highbonusassignmentfactor` | `3`          |
+    | `lowbonuspercentage_v`      | `10`         |
+    | `highbonuspercentage_v`     | `20`         |
+    | `employeeid`                | `<any>`      |
 
     `employeeid` `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
 
@@ -198,16 +194,17 @@ In the **Test** section you can test the draft or latest published version of th
 
 Go back to **Develop** section and **Publish** the After Modification Logic.
 
-
 ### Implement Before Save logic
 
 1. Being in After Modification logic you can get to Before Save Logic this way:
 
     - Go Back in application
-     
+
         ![Go Back in application](CBO_applicationBack.png)
 
     - In Tab "Logic", go to section "Determination and Validation"
+
+    - Enter the Before Save Event Logic which is a Validation Logic
 
 2. **Implement** Before Save event with following functionality
 
@@ -224,8 +221,7 @@ Go back to **Develop** section and **Publish** the After Modification Logic.
         ENDIF.
         ```
 
-    - If the bonus plan is not consistent, write the first found error into the message and end the logic processing.
-    These are the possible errors in detail:
+    - If the bonus plan is not consistent, write the first found error into the message and end the logic processing. These are the possible errors in detail:
         - `ValidityStartDate` and `ValidityEndDate` must be set
         - `ValidityStartDate` must be earlier in time than `ValidityEndDate`
         - Factors and Percentages must be > 0
@@ -283,8 +279,7 @@ Go back to **Develop** section and **Publish** the After Modification Logic.
         * consistency error message  END
         ```
 
-3. **Test** and **Publish** the Before Save Logic
-
+3. **Save**, **Test**, and **Publish** the Before Save Logic
 
 ### Test via the UI
 
@@ -294,13 +289,10 @@ Once ensured that both logic implementations were successfully published you can
 2. **Open** the Bonus Plan with ID `1`
 3. **Edit** this Bonus Plan
 4. **Enter** value `10` into field **Low Bonus Percentage**
-5. **Save** the Bonus plan. You can see that your business logic works as the Percentage Units and the Employee Name get filled, but save fails due to the validation error messages for missing percentages.
+5. **Save** the Bonus plan. You can see that your business logic works as save fails due to the validation error message for missing percentage.
 6. **Enter** value `20` into field **High Bonus Percentage**
-7. **Save** the Bonus Plan. Now it will not be rejected.
-
+7. **Save** the Bonus Plan. Now it will not be rejected and missing values will be filled by determination logic.
 
 ### Test yourself
-
-
 
 ---
