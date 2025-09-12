@@ -247,7 +247,7 @@ Once the UI is set up to your needs, you can deploy it to the development SAP S/
 1. In the **Application Info** tab, click the **Deploy** tile
 
     <!--border-->
-    ![Start Preview](bas-deploy-start.png)
+    ![Start Deploy](bas-deploy-start.png)
 
     > Alternatively to Application Info, in the `cli` (command line interface) terminal, enter the following command:
     >
