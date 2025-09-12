@@ -1,0 +1,20 @@
+{
+  "exportTime": "2025-09-05 14:30:04.933832067",
+  "destination": {
+    "Name": "YOUR_SYSTEMS_ID_SAML_ASSERTION",
+    "Type": "HTTP",
+    "Description": "SAML Assertion Destination to SAP S/4HANA Cloud system <YOUR_SYSTEMS_ID>",
+    "URL": "https://my12345-api.s4hana.cloud.sap",
+    "ProxyType": "Internet",
+    "Authentication": "SAMLAssertion",
+    "authnContextClassRef": "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession",
+    "audience": "https://my12345.s4hana.cloud.sap",
+    "skipUserAttributesPrefixInSAMLAttributes": "false",
+    "includeSigningCertificateInSAMLAssertion": "false",
+    "skipUserUuidInSAMLAttributes": "false",
+    "HTML5.DynamicDestination": "true",
+    "HTML5.Timeout": "60000",
+    "WebIDEEnabled": "true",
+    "WebIDEUsage": "odata_abap,dev_abap"
+  }
+}
