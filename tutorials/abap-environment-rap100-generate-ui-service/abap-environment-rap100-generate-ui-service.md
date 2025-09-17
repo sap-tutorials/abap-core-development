@@ -106,12 +106,11 @@ A Travel entity defines general travel data, such as the agency ID or customer I
  6. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
 
-### Generate transactional UI services
+### Generate transactional UI service
 
 
-Create your OData v4 based UI services with the built-in ADT generator.   
+Create your OData v4 based UI service with the built-in ADT generator.   
 The generated business service will be transactional, draft-enabled, and enriched with UI semantics for the generation of the Fiori elements app.
-
 
  1. Right-click your database table ![table](adt_tabl.png) **`ZRAP100_ATRAV###`**  and select **Generate ABAP Repository Objects** from the context menu.  
 
@@ -128,7 +127,6 @@ The generated business service will be transactional, draft-enabled, and enriche
         
 
  3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
-
 
     For that, navigate through the wizard tree **(Business Objects, Data Model, etc...)**, maintain the artefact names provided in the table below,
     and press **Next >**.
@@ -180,6 +178,7 @@ The generated business service will be transactional, draft-enabled, and enriche
     **Business Service**
 
       ![class](tb4.png)
+
 
 ### Create data generator class
 
