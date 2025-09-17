@@ -83,7 +83,6 @@ author_profile: https://github.com/mervey45
 
 ### Set up organization and space
 
-
   1. Now you are in your **Fiori** dev space in SAP Business Application Studio.
      Select the menu on the left side and click **Open Folder** to set your workspace.
 
@@ -91,19 +90,16 @@ author_profile: https://github.com/mervey45
 
   2. Select **`/home/user/projects/`** and click **OK**.
 
-      ![organization](studio7.png)
+  <!-- In S4C : You don't switch back to Trial (!)
+   -->
 
   3. Switch to SAP BTP Trial and select your trial subaccount.
-
-      ![organization](api.png)
 
   4. Copy your **Cloud Foundry Environment API endpoint** for later use.      
 
       ![organization](api2.png)
 
   5. Switch to **SAP Business Application Studio**, select the menu on the left side and click **View > Command Palette**.
-
-      ![organization](s8.png)
 
   6. Search for **CF: Login to Cloud Foundry** and select it.
 
@@ -113,7 +109,7 @@ author_profile: https://github.com/mervey45
 
       ![organization](s10.png)
 
-  8. Now you can see, that you are logged in. Set now your cloud foundry target:
+  8. Now you can see that you are logged in. Set now your cloud foundry target:
 
      - Cloud Foundry Organization: `<your_global_account>`
      - Cloud Foundry Space: dev
