@@ -28,7 +28,7 @@ author_profile: https://github.com/peterpersiel
 #### Additional Info
 
 - This tutorial illustrates all the needed steps to build a UI with all SAPUI5 options in SAP Business Application Studio, how to test it, and how deploy it into the SAP S/4HANA Cloud system. If your goal is simply to generate a user interface and make limited adjustments within the SAP S/4HANA Cloud system using in-app extensibility, refer to [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation).
-- If you want to create a custom SAP Fiori app with developer extensibility check out [Create a Shopping Cart Business Object](abap-s4hanacloud-procurement-purchasereq-shop)
+- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
 - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
 
 ---
