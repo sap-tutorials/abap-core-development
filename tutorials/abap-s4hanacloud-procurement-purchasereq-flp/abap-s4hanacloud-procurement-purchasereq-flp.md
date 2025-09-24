@@ -167,7 +167,7 @@ Option 1:
 
       ![transport](new19.png)
 
-  12. Open the Mange Launchpad Pages tile.
+  12. Open the Manage Launchpad Pages tile.
 
       ![transport](managespaces.png)
 
@@ -234,7 +234,7 @@ Option 2:
 
        ![transport](new31.png)
 
-  7. Open the Mange Launchpad Pages tile.
+  7. Open the Manage Launchpad Pages tile.
 
       ![transport](managespaces.png)
 
