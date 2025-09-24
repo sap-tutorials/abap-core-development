@@ -10,7 +10,7 @@ author_profile: https://github.com/mervey45
 
 # Create Database Table and Generate UI Service
 <!-- description --> Create a database table and generate UI services with SAP BTP ABAP environment.
-
+ 
 ## Prerequisites
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2022 or higher) system. 
   For example, you can create a free [trial user](abap-environment-trial-onboarding) on SAP BTP, ABAP environment.
