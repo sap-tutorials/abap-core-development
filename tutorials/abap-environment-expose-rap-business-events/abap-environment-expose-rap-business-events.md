@@ -155,8 +155,8 @@ author_profile: https://github.com/julieplummer20
 
   4. In your channel click on **Metadata**, download the AsyncAPI json file, open it to copy the channels data for later use.
 
-   <!-- border -->
-   ![metadata](9-8.png)
+  <!-- border -->
+  ![metadata](9-8.png)
 
  
   5. Open your cloud system cockpit and navigate to **Instances and Subscriptions** and open **Integration Suite** application. Then click on Manage Business Events- Configure Events
