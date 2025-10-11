@@ -47,7 +47,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       Click **Next >**. Confirm the basic package properties by clicking **Next >** again.
 
-  3. Enter a new transport request and click **Finish**.
+  3. Enter a new transport request and click **Finish**. If change recording is not enabled, you cannot enter a new transport request. Instead, simply click **Finish**.
 
       ![Create new Transport Request](p3.png)
 
