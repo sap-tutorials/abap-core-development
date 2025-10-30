@@ -1,7 +1,7 @@
 ---
-parser: v2 
+parser: v2
 auto_validation: true
-primary_tag: software-product>sap-btp--abap-environment
+primary_tag: software-product>sap-btp-abap-environment
 tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform]
 time: 30
 author_name: Shilpa Shankar
@@ -41,12 +41,12 @@ Always replace `###` with your initials or group number.
   3. Create your own ABAP development package `Z_Travel_###` as a sub package of `ZLOCAL`.
       - Name: `Z_Travel_###`
       - Description: `My travel package`
+      - Select the **Add to favorite packages** box
 
   4. Click **Next**.
  
       ![Create ABAP package](Picture1.png)
 
-      - Add your package to **Favorite Packages**.
 
   5. Select package properties and click **Next**.
       - Software Component: `ZLOCAL`
@@ -124,7 +124,6 @@ Create a database table to store the Travel data. This Travel table contains `Tr
       include ztravel_struc_###;
 
     }
-
     ```
 
   6. Save ![save icon](save.png) and activate ![activate icon](activate.png) the changes.
@@ -392,7 +391,6 @@ You will expose `FlightDate` field from `/DMO/I_BOOKING_U` and calculate the num
         else 0
         end                      as ZZDaysRemainingZAC
       }
-      
     ```
 
 3. Save ![save icon](save.png) and activate ![activate icon](activate.png) the changes. 
