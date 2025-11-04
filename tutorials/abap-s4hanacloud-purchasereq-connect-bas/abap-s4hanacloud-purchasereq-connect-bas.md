@@ -138,7 +138,7 @@ author_profile: https://github.com/mervey45
       Now your communication system is set up.
 
 
-### Assign role collection to user <!-- LAST? -->
+### Assign role collection to user 
 
   1. Login to [SAP BTP Trial cockpit](https://cockpit.hanatrial.ondemand.com/) and click **Enter Your Trial Account**.
 
