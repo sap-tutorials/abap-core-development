@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 ---
 
-# Connect SAP Business Application Studio (SAP BAS) and SAP S/4HANA Cloud ABAP Environment
+# Connect SAP Business Application Studio (SAP BAS) and SAP S/4HANA Cloud ABAP Environment 
 
 <!-- description --> Connect SAP Business Application Studio and SAP S/4HANA Cloud, ABAP Environment system using SAML assertion authentication to develop custom UIs.
 
