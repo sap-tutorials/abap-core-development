@@ -260,7 +260,7 @@ Repeat the same steps to release the factory class you created:
 >You will not release the wrapper class.
 
 ### Optional Step - Run ATC checks and request exemptions
-> Note: The next step is **not** required for this tutorial. It outlines the procedure for requesting ATC exemptions for your created wrapper objects, which is only applicable when using a non-classic API—**not applicable in this tutorial**. There is no need to request an exemption for a classic API. For more information, please refer to [note 3565942](https://me.sap.com/notes/3565942). This step is provided solely to illustrate the process that would be necessary if a non-classic API were used.
+> Note: The next step is **not** required for this tutorial. It outlines the procedure for requesting ATC exemptions for your created wrapper objects, which is only applicable when using a non-classic API **not applicable in this tutorial**. There is no need to request an exemption for a classic API. For more information, please refer to [note 3565942](https://me.sap.com/notes/3565942). This step is provided solely to illustrate the process that would be necessary if a non-classic API were used.
 
 > You will need to run ATC checks on the objects you created and request exemptions to use the non classic API.
 
