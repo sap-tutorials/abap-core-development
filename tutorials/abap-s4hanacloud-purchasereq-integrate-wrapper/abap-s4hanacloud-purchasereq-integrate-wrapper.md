@@ -60,7 +60,7 @@ Your behavior definition should look as follows:
 
 Save and activate it.
 
-Position the cursor on the newly defined action and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `add method for action createPurchRqnBAPISave of entity zr_shopcarttp_### in local class lhc_shopcart`. This will automatically create an empty method implementation in the `lhc_shopcart` class. Implement the method as follows:
+Position the cursor on the newly defined action and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add missing method for action createpurchrqnbapisave of entity zr_shopcarttp_### in local handler class lhc_shopcart inside global class zbp_shopcarttp_001`. This will automatically create an empty method implementation in the `lhc_shopcart` class. Implement the method as follows:
 
 ``` ABAP
   METHOD createPurchRqnBAPISave.
@@ -126,39 +126,86 @@ Open the behavior definition `ZR_SHOPCARTTP_###` and implement a new validation 
 
 ![Add validation](add_validation.png)
 
-Save and activate it. Then place the cursor on the newly created validation and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add method for validation checkpurchaserequisition of entity zr_shopcarttp_### in local class lhc_shopcart` and implement the method as follows:
+Save and activate it. Then place the cursor on the newly created validation and use the shortcut `ctrl + 1` to load the quick assist proposals, then double-click on `Add missing method for validation checkpurchaserequisition of entity zr_shopcarttp_### in local handler class lhc_shopcart inside global class zbp_shopcarttp_001` and implement the method as follows:
 
 ``` ABAP
-  METHOD checkpurchaserequisition.
+  METHOD checkPurchaseRequisition.
+
+    DATA prheader TYPE zif_wrap_bapi_pr_create_###=>bapimereqheader .
+    DATA prheaderx TYPE zif_wrap_bapi_pr_create_###=>bapimereqheaderx .
+    DATA pritem  TYPE zif_wrap_bapi_pr_create_###=>_bapimereqitemimp .
+    DATA pritemx  TYPE zif_wrap_bapi_pr_create_###=>_bapimereqitemx  .
+    DATA prheaderexp  TYPE zif_wrap_bapi_pr_create_###=>bapimereqheader .
+    DATA  return  TYPE zif_wrap_bapi_pr_create_###=>_bapiret2 .
+
+    DATA number  TYPE banfn  .
+
+    "if the data element banfn is not released for the use in cloud develoment in your system
+    "you have to use the shadow type zif_wrap_bapi_pr_create_###=>banfn
+
+    "DATA number  TYPE zif_wrap_bapi_pr_create_###=>banfn  .
+
     "read relevant order instance data
     READ ENTITIES OF zr_shopcarttp_### IN LOCAL MODE
       ENTITY ShoppingCart
         ALL FIELDS WITH
         CORRESPONDING #( keys )
       RESULT DATA(OnlineOrders).
- 
+
+    prheader = VALUE #( pr_type = 'NB' ).
+    prheaderx = VALUE #( pr_type = 'X' ).
+
     LOOP AT OnlineOrders INTO DATA(OnlineOrder) WHERE OverallStatus = c_overall_status-submitted.
-      DATA(pr_returns) = zcl_bapi_wrap_factory_###=>create_instance( )->check(
+
+      pritem           = VALUE #( (
+                           preq_item  = '00010'
+                           plant      = '1010'
+                           acctasscat = 'U'
+                           currency   = OnlineOrder-Currency
+                           deliv_date = OnlineOrder-DeliveryDate
+                           material    = OnlineOrder-OrderedItem "'ZPRINTER01'
+                           matl_group  = 'L001'
+                           preq_price = OnlineOrder-Price
+                           quantity   = OnlineOrder-OrderQuantity
+                           unit       = 'ST'
+                           pur_group = '001'
+                           purch_org = '1010'
+                           short_text =  OnlineOrder-OrderedItem
+                         ) ).
+
+      pritemx           = VALUE #( (
+                        preq_item  = '00010'
+                        plant      = 'X'
+                        acctasscat = 'X'
+                        currency   = 'X'
+                        deliv_date = 'X'
+                        material   = 'X'
+                        matl_group = 'X'
+                        preq_price = 'X'
+                        quantity   = 'X'
+                        unit       = 'X'
+                        pur_group = 'X'
+                        purch_org = 'X'
+                        short_text = 'X'
+                      ) ).
+
+
+      zcl_bapi_wrap_factory_###=>create_instance( )->bapi_pr_create(
           EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
-              preq_item  = '00010'
-              plant      = '1010'
-              acctasscat = 'U'
-              currency   = OnlineOrder-Currency
-              deliv_date = OnlineOrder-DeliveryDate
-              material   = 'ZPRINTER01'
-              matl_group = 'A001'
-              preq_price = OnlineOrder-Price
-              quantity   = OnlineOrder-OrderQuantity
-              unit       = 'ST'
-              pur_group = '001'
-              purch_org = '1010'
-              short_text = OnlineOrder-OrderedItem
-            ) )
-        ).
- 
-      LOOP AT pr_returns INTO DATA(pr_return_msg) WHERE type = 'E' OR type = 'W'.
+            prheader = prheader
+            prheaderx = prheaderx
+            testrun = abap_true
+          IMPORTING
+            number   = number
+            prheaderexp = prheaderexp
+          CHANGING
+            pritem          = pritem
+            pritemx         = pritemx
+            return          = return
+            )
+        .
+
+      LOOP AT return INTO DATA(pr_return_msg) WHERE type = 'E' OR type = 'W'.
         APPEND VALUE #(
           orderuuid = OnlineOrder-OrderUUID
           %msg = new_message(
@@ -174,7 +221,7 @@ Save and activate it. Then place the cursor on the newly created validation and 
           %element-purchaserequisition = if_abap_behv=>mk-on
           %action-createPurchRqnBAPISave = if_abap_behv=>mk-on
            ) TO reported-shoppingcart.
- 
+
         APPEND VALUE #(
          orderuuid = OnlineOrder-OrderUUID
          %fail = VALUE #( cause = if_abap_behv=>cause-unspecific )
@@ -251,104 +298,103 @@ As a final step, you now need to modify the `save_modified` method of the saver 
 Open the `lsc_zr_shopcarttp_###` class of the behavior implementation and navigate to the `save_modified` method. Add the following code snippet:
 
 ```ABAP
-    IF update IS NOT INITIAL.
-      LOOP AT update-shoppingcart INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
-        DATA pr_returns TYPE zif_wrap_bapi_pr_create_###=>pr_returns.
-        DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->create(
-          EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
-              preq_item  = '00010'
-              plant      = '1010'
-              acctasscat = 'U'
-              currency   = OnlineOrder-Currency
-              deliv_date = OnlineOrder-DeliveryDate
-              material   = 'ZPRINTER01'
-              matl_group = 'A001'
-              preq_price = OnlineOrder-Price
-              quantity   = OnlineOrder-OrderQuantity
-              unit       = 'ST'
-              pur_group = '001'
-              purch_org = '1010'
-              short_text = OnlineOrder-OrderedItem
-            ) )
+ METHOD save_modified.
 
-          IMPORTING
-            pr_returns   = pr_returns
-        ).
-
-        ASSERT NOT line_exists( pr_returns[ type = 'E' ] ).
-
-        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-
-        UPDATE zashopcart_###
-        SET purchase_requisition = @purchase_requisition,
-            pr_creation_date = @creation_date
-        WHERE order_uuid = @OnlineOrder-OrderUUID.
-      ENDLOOP.
-    ENDIF.
-```
-
-The `save_modified` method implementation should now look as follows:
-
-```ABAP
-  METHOD save_modified.
-    DATA : lt_shopping_cart_as        TYPE STANDARD TABLE OF zashopcart_###,
-           ls_shoppingcart_as        TYPE                   zashopcart_###.
     IF create-shoppingcart IS NOT INITIAL.
-      lt_shopping_cart_as = CORRESPONDING #( create-shoppingcart MAPPING FROM ENTITY ).
-      INSERT zashopcart_### FROM TABLE @lt_shopping_cart_as.
-    ENDIF.
-    IF update IS NOT INITIAL.
-      CLEAR lt_shopping_cart_as.
-      lt_shopping_cart_as = CORRESPONDING #( update-shoppingcart MAPPING FROM ENTITY ).
-      LOOP AT update-shoppingcart  INTO DATA(shoppingcart) WHERE OrderUUID IS NOT INITIAL.
-        MODIFY zashopcart_### FROM TABLE @lt_shopping_cart_as.
-      ENDLOOP.
+      INSERT zashopcart_### FROM TABLE @create-shoppingcart  MAPPING FROM ENTITY .
     ENDIF.
 
     IF update IS NOT INITIAL.
-      LOOP AT update-shoppingcart INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
-        DATA pr_returns TYPE zif_wrap_bapi_pr_create_###=>pr_returns.
-        DATA(purchase_requisition) = zcl_bapi_wrap_factory_###=>create_instance( )->create(
-          EXPORTING
-            pr_header        = VALUE zif_wrap_bapi_pr_create_###=>pr_header( pr_type = 'NB' )
-            pr_items         = VALUE zif_wrap_bapi_pr_create_###=>pr_items( (
-              preq_item  = '00010'
-              plant      = '1010'
-              acctasscat = 'U'
-              currency   = OnlineOrder-Currency
-              deliv_date = OnlineOrder-DeliveryDate
-              material   = 'ZPRINTER01'
-              matl_group = 'A001'
-              preq_price = OnlineOrder-Price
-              quantity   = OnlineOrder-OrderQuantity
-              unit       = 'ST'
-              pur_group = '001'
-              purch_org = '1010'
-              short_text = OnlineOrder-OrderedItem
-            ) )
-
-          IMPORTING
-            pr_returns    = pr_returns
-        ).
-
-        ASSERT NOT line_exists( pr_returns[ type = 'E' ] ).
-
-        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
-
-        UPDATE zashopcart_###
-        SET purchase_requisition = @purchase_requisition,
-            pr_creation_date = @creation_date
-        WHERE order_uuid = @OnlineOrder-OrderUUID.
-      ENDLOOP.
+      UPDATE zashopcart_### FROM TABLE @update-shoppingcart
+         INDICATORS SET STRUCTURE %control MAPPING FROM ENTITY.
     ENDIF.
 
     LOOP AT delete-shoppingcart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
       DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
       DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
     ENDLOOP.
-  ENDMETHOD.
+
+    DATA : prheader    TYPE zif_wrap_bapi_pr_create_###=>bapimereqheader,
+           prheaderx   TYPE zif_wrap_bapi_pr_create_###=>bapimereqheaderx,
+           pritem      TYPE zif_wrap_bapi_pr_create_###=>_bapimereqitemimp,
+           pritemx     TYPE zif_wrap_bapi_pr_create_###=>_bapimereqitemx,
+           prheaderexp TYPE zif_wrap_bapi_pr_create_###=>bapimereqheader,
+           pr_return   TYPE zif_wrap_bapi_pr_create_###=>_bapiret2.
+
+    DATA number  TYPE banfn  .
+
+    "if the data element banfn is not released for the use in cloud develoment in your system
+    "you have to use the shadow type zif_wrap_bapi_pr_create_###=>banfn
+
+    "DATA number  TYPE zif_wrap_bapi_pr_create_###=>banfn  .****
+
+    prheader = VALUE #( pr_type = 'NB' ).
+    prheaderx = VALUE #( pr_type = 'X' ).
+
+    IF update IS NOT INITIAL.
+      LOOP AT update-shoppingcart INTO DATA(OnlineOrder) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+
+        pritem           = VALUE #( (
+                              preq_item  = '###10'
+                              plant      = '1010'
+                              acctasscat = 'U'
+                              currency   = OnlineOrder-Currency
+                              deliv_date  = OnlineOrder-DeliveryDate
+                              material    = 'ZPRINTER01'
+                              matl_group  = 'A001'
+                              preq_price  = OnlineOrder-Price
+                              quantity    = OnlineOrder-OrderQuantity
+                              unit        = 'ST'
+                              pur_group   = '001'
+                              purch_org   = '1010'
+                              short_text = OnlineOrder-OrderedItem
+                            ) ).
+
+        pritemx           = VALUE #( (
+                          preq_item  = '###10'
+                          plant      = 'X'
+                          acctasscat = 'X'
+                          currency   = 'X'
+                          deliv_date = 'X'
+                          material   = 'X'
+                          matl_group = 'X'
+                          preq_price = 'X'
+                          quantity   = 'X'
+                          unit       = 'X'
+                          pur_group  = 'X'
+                          purch_org  = 'X'
+                          short_text = 'X'
+                        ) ).
+
+
+        DATA(myclass) = zcl_bapi_wrap_factory_###=>create_instance( ).
+
+        myclass->bapi_pr_create(
+          EXPORTING
+            prheader    = prheader
+            prheaderx   = prheaderx
+            testrun     = abap_false
+          IMPORTING
+            number      = number
+            prheaderexp = prheaderexp
+          CHANGING
+            pritem      = pritem
+            pritemx     = pritemx
+            return      = pr_return
+          ).
+
+        ASSERT NOT line_exists( pr_return[ type = 'E' ] ).
+
+        DATA(creation_date) = cl_abap_context_info=>get_system_date(  ).
+
+        UPDATE zashopcart_###
+        SET purchase_requisition = @number,
+            pr_creation_date = @creation_date
+        WHERE order_uuid = @OnlineOrder-OrderUUID.
+
+      ENDLOOP.
+    ENDIF.
+ENDMETHOD.
 ```
 Save and activate it.
 
