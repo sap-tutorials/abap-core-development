@@ -11,13 +11,15 @@ parser: v2
 ---
 
 ## Prerequisites
- - [You have set up the SAP Build Work Zone, standard edition](btp-app-work-zone-subscribe)
- - You have a user with the **Subaccount Administrator** role collection in the subaccount where you set up the SAP Launchpad Service.
- - You have access to a SAP BTP ABAP Environment in a Cloud Foundry space.
- - You are a member of the Cloud Foundry space where your SAP BTP ABAP Environment resides, and you have **Space Developer** role.
- - You have a user in your SAP BTP ABAP Environment with the following business catalogs: `SAP_CORE_BC_SEC` and `SAP_CORE_BC_COM`.
+
+- You have set up the SAP Build Work Zone, standard edition
+- You have a user with the **Subaccount Administrator** role collection in the subaccount where you set up the SAP Launchpad Service.
+- You have access to a SAP BTP ABAP Environment in a Cloud Foundry space.
+- You are a member of the Cloud Foundry space where your SAP BTP ABAP Environment resides, and you have **Space Developer** role.
+- You have a user in your SAP BTP ABAP Environment with the following business catalogs: `SAP_CORE_BC_SEC` and `SAP_CORE_BC_COM`.
 
 ## You will learn
+
 - How to integrate the Theme Designer with your SAP BTP ABAP Environment.
 - How to use the Theme Designer to create and maintain custom themes.
 - How to enable the usage of custom themes in your SAP BTP ABAP Environment.
@@ -83,7 +85,8 @@ You now need to setup a communication between your SAP BTP ABAP Environment and 
 The communication scenario created in the previous step allows you to maintain both a default custom theme, as well as further additional custom themes that shall be available to business users.
 
 1. Navigate to the **Communication Arrangements** Fiori app and click on the communication arrangement created in the previous step. Click on **Edit**.
-2. You can now maintain the desired custom themes adding the corresponding theme ID's in the **Additional Properties** section of the communication arrangement. ![Maintain custom themes](6-maintain-custom-themes.png)
+2. You can now maintain the desired custom themes adding the corresponding theme ID's in the **Additional Properties** section of the communication arrangement.
+![Maintain custom themes](6-maintain-custom-themes.png)
 For the scope of this tutorial, the custom theme with ID `custome_theme_000` is added in the **Additional Theme IDs** section.
 >You can add as many custom themes as you want in the **Additional Theme IDs** section. You can also add one custom theme ID in the **Default Theme ID** section, but be aware that this custom theme is then automatically applied to all users except those that have already manually chosen a different theme.
 
@@ -97,7 +100,7 @@ In order to be able to correctly display custom themes, the host name of the the
 2. Select the **Trusted Sites** tab and click on the **`UI_RESOURCE_FONTS`** allowlist.
 3. Click **Add**, scroll down to the **Managed by Customer** section and click **New**. Input the theming runtime host name for your landscape and click **Save**. ![Maintain content security policy](7-maintain-content-security-policy.png)
 
->The theming runtime host name can be retrieved from the service key of the **UI Theme Designer** service instance: it is the value of the **endpoint** → **runtime** property.
+>The theming runtime host name can be retrieved from the service key of the **UI Theme Designer** service instance: it is the value of the **endpoints** → **runtime** property.
 
 ### Select the custom theme
 

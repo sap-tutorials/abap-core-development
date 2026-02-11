@@ -33,7 +33,7 @@ Create your own ABAP development package, which will serve as the basis for the 
 
 2. Right click the main package `ZLOCAL` and choose **New > ABAP Package**.
 
-3. Create your own ABAP development package as a sub package of `ZLOCAL` using Software Component `ZLOCAL`. Create a new Transport Request for this purpose.
+3. Create your own ABAP development package as a sub package of `ZLOCAL` using Software Component `ZLOCAL`. No transport request is necessary, as change recording is not enabled.
     <ol type="a"><li>Name: `ZBPA2X`
     </li><li>Description: `BP A2X Outbound Call Tutorial`</li></ol>
 
@@ -54,9 +54,9 @@ Create an outbound service object, which models the outbound call that will be i
 
 3. Choose **Next**
 
-4. Use the transport request created before and choose **Finish**.
+4. No transport request is necessary, as change recording is not enabled. Choose **Finish**.
 
-5. In the newly created Outbound Service set the **Default Path Prefix** parameter to `/sap/opu/odata/sap/API_BUSINESS_PARTNER`
+5. In the newly created Outbound Service set the **Default Path Prefix** parameter to `/sap/opu/odata/sap/API_BUSINESS_PARTNER` and save the Outbound Service.
 
     ![Set Path](set_path.png)
 
@@ -76,7 +76,7 @@ Create a communication scenario and assign the outbound service to it. This will
 
       ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
 
-3. Use the transport request created before and choose **Finish**
+3. No transport request is necessary, as change recording is not enabled. Choose **Finish**
 
 4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
 
@@ -133,11 +133,11 @@ Create a service consumption model for the targeted OData service from the metad
 
 7. On the **ETag Support** screen, choose **Next**
 
-8. Select a transport request and choose **Finish**
+8. No transport request is necessary, as change recording is not enabled. Choose **Finish**
 
 The creation of the Service Consumption Model can take a few seconds. Save and activate the Service Consumption Model.
 
-### Create Console Application
+### Create ABAP Console Application
 
 Create a console application, which consists of an ABAP class implementing the interface `if_oo_adt_classrun`. The distinctive feature of this interface is that it allows to execute code directly in ADT.
 
@@ -154,9 +154,9 @@ Create a console application, which consists of an ABAP class implementing the i
 
 3. Choose **Next**
 
-4. Select a Transport Request and choose **Finish**
+4. No transport request is necessary, as change recording is not enabled. Choose **Finish**
 
-### Implement Business Partner Service Call
+### Implement Business Partner Service Call Using OData Proxy Client
 
 You will now implement the outbound service call in your console application. The previously maintained communication artifacts are used together with the service consumption model to create compact and understandable code.
 

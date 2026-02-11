@@ -290,9 +290,4 @@ author_profile: https://github.com/mervey45
 ### Test yourself
 
 
-
-
-
-## More Information
-- [SAP Help Portal: Introduction](https://help.sap.com/viewer/454b7fb9aacd4e369e5be8f7e909d3ec/Latest/en-US/fd9e32d52c9e46e4ba77aba343656610.html)
 ---

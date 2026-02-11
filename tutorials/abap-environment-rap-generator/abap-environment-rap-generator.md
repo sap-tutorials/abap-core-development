@@ -30,19 +30,19 @@ For more information, see the links at the end of this tutorial.
 
 1. Create a new package for this tutorial, by choosing **New > ABAP Package**.
 
-    <!-- border -->![step1a-new-package](step1a-new-package.png)
+    <!-- border -->
+    ![step1a-new-package](step1a-new-package.png)
 
 2. Enter the following then follow the wizard, choosing a **new** transport request:
     - Name: **`ZRAP_TRAVEL_####`**
     - Description: **Travel data generated**
     - Request description: **Travel service RAP Generator**
 
-    <!-- border -->![step1a-create-package](step1a-create-package.png)
-<<<<<<< HEAD
-=======
+    <!-- border -->
+    ![step1a-create-package](step1a-create-package.png)
     &nbsp;
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
-    <!-- border -->![step1b-new-tr](step1b-new-tr.png)
+    <!-- border -->
+    ![step1b-new-tr](step1b-new-tr.png)
 
 
 
@@ -50,11 +50,13 @@ For more information, see the links at the end of this tutorial.
 
 1. Choose your package, then choose **New > Other Repository Object** from the context menu.
 
-    <!-- border -->![step2a-choose-other](step2a-choose-other.png)
+    <!-- border -->
+    ![step2a-choose-other](step2a-choose-other.png)
 
 2. Choose **Database Table** then **Next**.
 
-    <!-- border -->![step2b-choose-table](step2b-choose-table.png)
+    <!-- border -->
+    ![step2b-choose-table](step2b-choose-table.png)
 
 3. Enter the following, then choose **Next**.
     - Name: **`zrap_travel_####`**
@@ -95,7 +97,8 @@ For more information, see the links at the end of this tutorial.
 
 8. Optional: Check your table by clicking in the editor and choosing **Open With > Data Preview**.
 
-    <!-- border -->![step2c-data-preview](step2c-data-preview.png)
+    <!-- border -->
+    ![step2c-data-preview](step2c-data-preview.png)
 
     > You must include a key field `client` with the type `abap.clnt`.
 
@@ -124,7 +127,8 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
 
 1. Select your table and choose **Generate ABAP Repository objects...** from the context menu.
 
-    <!-- border -->![step3a-choose-rap-gen](step3a-choose-rap-gen.png)
+    <!-- border -->
+    ![step3a-choose-rap-gen](step3a-choose-rap-gen.png)
 
 2. Enter the following and choose **Next**.
 
@@ -133,14 +137,11 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
 
 3. Enter the following:
 
-<<<<<<< HEAD
-    - Data definition name: **`ZI_TRAVEL_####X`**
-=======
     - Data definition name: **`ZI_TRAVEL_####`**
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     - Alias name: **Travel**
 
-    <!-- border -->![step3b-enter-data-def](step3b-enter-data-def.png)
+    <!-- border -->
+    ![step3b-enter-data-def](step3b-enter-data-def.png)
 
 4. Enter the following information for each artifact, then choose **Next**:
 
@@ -148,11 +149,7 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
     |  Artifact                   | Value     	        | Naming convention
     |  :--------------------------| :-------------------|:-----------------
     |  ABAP implementation class  | `ZBP_I_TRAVEL_####`  | `ZBP_I_<entity>_<suffix>` (BP = Behavior pool; I = interface view)   
-<<<<<<< HEAD
-    |  Draft Table Name:          | `ZRAP_TRAVEL_D_####X` | `Z<prefix>__<entity>_<suffix>` (underscore is not permitted as a second or third character)
-=======
     |  Draft Table Name:          | `ZRAP_TRAVEL_D_####` | `Z<prefix>__<entity>_<suffix>` (underscore is not permitted as a second or third character)
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
     |  CDS projection view entity | `ZC_TRAVEL_####`     | `ZC__<entity>_<suffix>` (C = consumption view)
     |  CDS service definition     | `ZUI_TRAVEL_####`    | `ZUI_<entity>_<suffix>` (UI for e.g. Fiori app as opposed to a Web API)
     |  CDS service binding        | `ZUI_TRAVEL_O4_####` | `ZUI_<entity>_<OData version>_<suffix>`
@@ -165,13 +162,15 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
 
 5. The system displays a list of objects that will be generated. Choose **Next**
 
-    <!-- border -->![step3c-preview-gen-output](step3c-preview-gen-output.png)
+    <!-- border -->
+    ![step3c-preview-gen-output](step3c-preview-gen-output.png)
 
 6. Choose the transport request, then choose **Finish**.
 
 The artifacts are generated. You can now see them in the **Project Explorer**.
 
-<!-- border -->![step3d-artifacts-in-project-explorer](step3d-artifacts-in-project-explorer.png)
+<!-- border -->
+![step3d-artifacts-in-project-explorer](step3d-artifacts-in-project-explorer.png)
 
 
 
@@ -179,17 +178,16 @@ The artifacts are generated. You can now see them in the **Project Explorer**.
 
 1. The service binding appears automatically in a new editor.
 
-    <!-- border -->![step4a-service-binding-unpublished](step4a-service-binding-unpublished.png)
+    <!-- border -->
+    ![step4a-service-binding-unpublished](step4a-service-binding-unpublished.png)
 
 2. Publish the service binding.
 
-    <!-- border -->![step4a-activate](step4a-activate.png)
-<<<<<<< HEAD
-    .
-=======
+    <!-- border -->
+    ![step4a-activate](step4a-activate.png)
     &nbsp;
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
-    <!-- border -->![step4c-sb-publish](step4c-sb-publish.png)
+    <!-- border -->
+    ![step4c-sb-publish](step4c-sb-publish.png)
 
 
 3. You now have a fully-fledged business service for which a Fiori app (based on the Fiori Elements List Reporting template) can be generated. Test this in the Fiori Elements preview, by choosing the **Travel** entity set from the service binding, then choosing **Preview**.
@@ -200,32 +198,19 @@ The service appears in the Fiori Elements preview.
 
 The table does not yet contain any data.
 
-<<<<<<< HEAD
-You can create a new **Travel** - but of course there is no value help or validation checks.
-=======
 You can create a new **Travel**.
 IMPORTANT: There is no value help or any validation check. You need to build these manually. For more information, see the following tutorial group: [SAP BTP ABAP Environment: Create and Expose a CDS-Based Data Model](group.abap-env-expose-cds-travel-model.html), parts three and four.
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 > IMPORTANT: If you later add a new CDS view entity to the compositional structure of the data model, make sure that you also extend the behavior definition for the new BO entities. Otherwise your business service will show errors.
-
 
 
 ### Test yourself
 
 
-
-
-
-
 ### More information
 - SAP Help Portal: [Generating a RAP Business Service with the Generate ABAP Repository Objects Wizard](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/945d84d4981b427ab5ea9129d344c8d8.html)
 - SAP Help Portal: [Generating ABAP Repository Objects](https://help.sap.com/viewer/5371047f1273405bb46725a417f95433/Cloud/en-US/7920415d9c8d43cfb11b8aa0724e7773.html)
-<<<<<<< HEAD
-- [Technical description of the sample code](https://github.com/SAP-samples/cloud-abap-rap)
-=======
 - [SAP ABAP Repository Objects wizard: Technical description of the sample code](https://github.com/SAP-samples/cloud-abap-rap)
 
->>>>>>> 59f95048a11e62962d5c8eb49e89b6f027533a25
 
 ---

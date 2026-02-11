@@ -10,15 +10,15 @@ author_profile: https://github.com/MatthaeusSchuele
 
 # Extend Released Data Sources by Database Fields That Are Not Exposed
 <!--Done with temporary CAL instance of latest GOLDEN template, see [Wiki@SAP: CAL - How to create an appliance](https://wiki.one.int.sap/wiki/x/mVrt2Q) -->
-<!-- description --> Find out what to do if a C1-released SAP data source (aka CDS view) does not expose a required database table field that you want to read in Cloud Development (Tier 1). For example, data source I_SalesOrder only exposes roughly half of the fields of database table vbak.
+<!-- description --> Find out what to do if a C1-released SAP data source (aka CDS view) does not expose a required database table field that you want to read in Cloud Development (ABAP Cloud Development). For example, data source I_SalesOrder only exposes roughly half of the fields of database table vbak.
 
 ## Prerequisites
 - You have a license for an SAP S/4HANA or SAP S/4HANA Cloud, private edition release 2023 (both referred to as SAP S/4HANA from now on)
-- You have a user in the system with full development authorizations and business role `SAP_BR_SALES_MANAGER`.
+- You have a user in the system with full development authorizations and business role `SAP_BR_SALES_MANAGER`
 - [You are connected to your SAP S/4HANA system in ABAP Development Tools for Eclipse (ADT)](abap-s4hanacloud-login)
-- You understand the 3-tier extensibility model, see SAP blog [How to use Embedded Steampunk in SAP S/4HANA Cloud, private edition and in on-premise – The new ABAP extensibility guide](https://blogs.sap.com/2022/10/25/how-to-use-embedded-steampunk-in-sap-s-4hana-cloud-private-edition-and-in-on-premise-the-new-abap-extensibility-guide/).
+- You understand the Clean Core Extensibility Guide, see SAP blog [ABAP Extensibility Guide – Clean Core for SAP S/4HANA Cloud - August 2025 Update](https://community.sap.com/t5/technology-blog-posts-by-sap/abap-extensibility-guide-clean-core-for-sap-s-4hana-cloud-august-2025/ba-p/14175399)
 - You have set up developer extensibility as described in the official documentation [Set Up Developer Extensibility](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/31367ef6c3e947059e0d7c1cbfcaae93.html?version=202210.000). In particular: the `ZLOCAL` structure package is available.
-- For productive use, you would develop your data source consumption in a development package below the productive structure package `ZCUSTOM_DEVELOPMENT` (ABAP for Cloud Development Language Version, Tier 1) in your SAP S/4HANA system as suggested in the Developer Extensibility guidelines to [Create Structure Package](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/076bbbf3fe584439938b27f49daa6765.html?version=202210.000). Extensions you would develop in a dedicated development package of software component `HOME` (Standard ABAP Language Version, Tier 2), for instance below structure package `ZAPI_ENABLEMENT`. For the scope of this tutorial, we follow a simplified approach using local development packages `ZMYLOCAL` within structure package `ZLOCAL` and `$TMP` rather than productive packages.
+- For productive use, you would develop your data source consumption in a development package below the productive structure package `ZCUSTOM_DEVELOPMENT` (ABAP for Cloud Development Language Version, ABAP Cloud Development) in your SAP S/4HANA system as suggested in the Developer Extensibility guidelines to [Create Structure Package](https://help.sap.com/docs/ABAP_PLATFORM_NEW/b5670aaaa2364a29935f40b16499972d/076bbbf3fe584439938b27f49daa6765.html?version=202210.000). Extensions you would develop in a dedicated development package of software component `HOME` (Standard ABAP Language Version, Custom Wrapper), for instance below structure package `ZAPI_ENABLEMENT`. For the scope of this tutorial, we follow a simplified approach using local development packages `ZMYLOCAL` within structure package `ZLOCAL` and `$TMP` rather than productive packages.
 
 >We suggest following this tutorial using a [Fully-Activated Appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time) in SAP Cloud Appliance Library for an easy start without the need for system setup, as the `ZLOCAL` structure package is automatically available.
 
@@ -30,20 +30,20 @@ author_profile: https://github.com/MatthaeusSchuele
 - How to extend a data source that is not released for extend (case 3)
 
 **Additional info**
->Tutorial last updated with SAP S/4HANA release 2023 FPS01
+>Tutorial last updated with SAP S/4HANA release 2023 FPS03
 
 ---
 
 ### Verify that a Data Source is Usable in Cloud Development
-Data sources that you want to use in cloud development (tier 1) need to have API State: Use System-Internally (Contract C1): Use in Cloud Development: Yes. This information can be found in the object's properties in ADT as in this example for data definition `I_SalesOrder`.
+Data sources that you want to use in cloud development (ABAP Cloud Development) need to have API State: Use System-Internally (Contract C1): Use in Cloud Development: Yes. This information can be found in the object's properties in ADT as in this example for data definition `I_SalesOrder`.
 
 ![Released for use in cloud development ADT property](ADT_DDLS_API_State_C1_cloud_dev.png)
 
 See also the documentation: [SAP - ABAP Development Tools: User Guide > Released APIs > Use System-Internally (C1)](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/use-system-internally-c1)
 
-### Read a Data Source in Cloud Development (Tier 1)
+### Read a Data Source in Cloud Development (ABAP Cloud Development)
 
-To test the consumption of the data source from Tier 1 we call it in a `classrun`.
+To test the consumption of the data source from ABAP Cloud Development we call it in a `classrun`.
 
 1.	In package `ZMYLOCAL` create an ABAP class with name `ZCL_USE_EXTENDED_DDLS` that is implementing interface `IF_OO_ADT_CLASSRUN` and give the description `class to test calling extended data sources`.
     
@@ -123,11 +123,11 @@ A data source can be:
 
         ![Data source extension value help search for I_GLAccountLineItem in FLP](FLP_ddls_ext_crt_GLA_LineItem_F4.png) 
 
-    In this case, the solution is to create a data source extension via key user app directly in tier 1. This will be shown in **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)**.
+    In this case, the solution is to create a data source extension via key user app directly in ABAP Cloud Development. This will be shown in **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (ABAP Cloud Development)**.
 
 - **Case 2: Released for Extend (C0 contract, but not key user data source extensible)**
 
-    If the data source is not enabled for key user data source extensibility, but is released for EXTEND (Contract C0) for use in cloud development or key user apps, then you can add the missing database field to the data source by creating a corresponding extension field from ADT in tier 2 using classic extensibility. 
+    If the data source is not enabled for key user data source extensibility, but is released for EXTEND (Contract C0) for use in cloud development or key user apps, then you can add the missing database field to the data source by creating a corresponding extension field from ADT in a Custom Wrapper using classic extensibility. 
 
     You can check if the data source is released for extend at the API state of a data source in ADT - as for `I_SalesOrder`.  
 
@@ -137,7 +137,7 @@ A data source can be:
  
     There, you can see if the data source is released for EXTEND (Contract C0) for use in cloud development or key user apps. If at least one is true, then the data source associates a so-called extension data source. 
     
-    The solution is to create an extension for the extension data source and add this as extension to the actual data source in ADT using classic extensibility. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Tier 2)** and following steps for case 2.
+    The solution is to create an extension for the extension data source and add this as extension to the actual data source in ADT using classic extensibility. This will be shown in **Step 6: Case 2.1 - The Data Source is Released for Extend (Custom Wrapper)** and following steps for case 2.
 
     >If you want to freely browse through data sources released for extend, you can create a repository tree view on released data source objects (see [YouTube video: Repository Trees in ADT. Configure your Project Explorer](https://youtu.be/kAilhfl2_Yg&t=190s)).
     See also the documentation: [SAP - ABAP Development Tools: User Guide > Released APIs > Extend (C0)](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/extend-c0)
@@ -150,7 +150,7 @@ A data source can be:
 
     ![Not released for extend ADT property](ADT_DDLS_API_State_C0_not_released.png) 
     
-    In this case, the solution is to create a data source in ADT in tier 2 that is wrapping the database table and exposing its missing field. Release it for usage in tier 1 and create another data source in tier 1, which combines the non-extensible data source with the wrapping one. This way the combining data source can be used instead of the non-extensible one. This will be shown in **Step 9: Case 3.1 - The Data Source is not Released for Extend** and following steps of case 3.
+    In this case, the solution is to create a data source in ADT in a Custom Wrapper that is wrapping the database table and exposing its missing field. Release it for usage in ABAP Cloud Development and create another data source in ABAP Cloud Development, which combines the non-extensible data source with the wrapping one. This way the combining data source can be used instead of the non-extensible one. This will be shown in **Step 9: Case 3.1 - The Data Source is not Released for Extend** and following steps of case 3.
 
 >Be aware that only read access is recommended for the added field as SAP might have determination and validation logic that changes the field again or bypasses needed checks after you changed it. This means that especially data definitions for transactional processing processing like `R_InspectionLotTP` (`@VDM.viewType #TRANSACTIONAL`) must not be extended at all as their main purpose is to offer the entire business object functionality.
 
@@ -161,17 +161,17 @@ A data source can be:
 
 **Wrap-Up**
 
-If a C1-released SAP Data Source (CDS View) does not include a standard field (delivered by SAP) but is required in tier 1, then you have the following options to add the field (in order of recommendation).
+If a C1-released SAP Data Source (CDS View) does not include a standard field (delivered by SAP) but is required for ABAP Cloud Development, then you have the following options to add the field (in order of recommendation).
 
 | Characteristic of the data source | Recommended Extension Technique | 
 | -------- | -------- | 
-| The data source is enabled for data source extensibility. You can see this in the Custom Fields app. You cannot see in ADT if the data source is enabled for data source extensibility. | Use the Custom Fields app to create a data source extension in Tier 1.
-| The data source is enabled for custom field extensibility. You can see this in ADT on the API State tab: the data source needs to be released for Extend (Contract C0) for use in cloud development or use in key user apps | In Tier 2, extend the  extension data source (E_) by creating a view extension and add the missing standard field. In Tier 2, create a view extension for the extensible data source and expose the new field that was added to the "Extension data source (E_)". |
-The data source is neither enabled for data source nor custom field extensibility   | In Tier 2, create a wrapper for the data source that contains the missing field and release it for usage In Tier 1, create a new data source combining the non-extensible data source with the wrapper. |
+| The data source is enabled for data source extensibility. You can see this in the Custom Fields app. You cannot see in ADT if the data source is enabled for data source extensibility. | Use the Custom Fields app to create a data source extension in ABAP Cloud Development.
+| The data source is enabled for custom field extensibility. You can see this in ADT on the API State tab: the data source needs to be released for Extend (Contract C0) for use in cloud development or use in key user apps | Extend the extension data source (E_) by creating a view extension and add the missing standard field. In Custom Wrapper, create a view extension for the extensible data source and expose the new field that was added to the "Extension data source (E_)". |
+The data source is neither enabled for data source nor custom field extensibility   | Create a wrapper for the data source that contains the missing field and release it for usage for ABAP Cloud Development, create a new data source combining the non-extensible data source with the wrapper. |
  
 
 
-### Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)
+### Case 1 - The Data Source is Key User Data Source Extensible (ABAP Cloud Development)
 
 In this example the data source `I_GLAccountingLineItem` is extended by the company's country code.
 
@@ -193,7 +193,7 @@ In this example the data source `I_GLAccountingLineItem` is extended by the comp
  
 Now, you can make use of this field in read operations with the extended data source.
 
-1.	Enhance the ABAP class from **Read a Data Source in Cloud Development (Tier 1)** by a read via data source `I_GLAccountLineItem`
+1.	Enhance the ABAP class from **Read a Data Source in Cloud Development (ABAP Cloud Development)** by a read via data source `I_GLAccountLineItem`
 
     ```ABAP
     out->write( |\nCase 1 - Key User extensibility on I_GLAccountLineItem + ZZ1_CompanyCountry | ).
@@ -213,11 +213,11 @@ Now, you can make use of this field in read operations with the extended data so
 For more information, see also the documentation: [Creating Data Source Extensions](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/04cc9e89e0214fb3b9ae29e3b5854f4e.html).
 
 
-### Case 2.1 - The Data Source is Released for Extend (Tier 2)
+### Case 2.1 - The Data Source is Released for Extend (Custom Wrapper)
 
 In this example the data source `I_SalesOrder` is extended by `vbak` field `gwldt`.
 
-Remember (see **Step 4: Identify the Extension Case for a Data Source**) that a data definition must not appear in the key user app for data source extensions for this to be the best approach. If it does appear there, follow **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (Tier 1)**.
+Remember (see **Step 4: Identify the Extension Case for a Data Source**) that a data definition must not appear in the key user app for data source extensions for this to be the best approach. If it does appear there, follow **Step 5: Case 1 - The Data Source is Key User Data Source Extensible (ABAP Cloud Development)**.
 
 Contract C0-released implies that the extensible data source associates a so-called extension data source, in case of SAP data sources with name `E_*`.
 
@@ -235,7 +235,7 @@ This extension data source is of `@VDM.viewType #EXTENSION`. It exposes the data
 
 ### Case 2.2 - Extend the Extension Data Source
 
-The first step is to extend the extension data source. This has to be done in Tier 2 as database tables like `vbak` are not released for use in cloud development.
+The first step is to extend the extension data source. This has to be done in a Custom Wrapper as database tables like `vbak` are not released for use in cloud development.
 
 1.	Open the extension data definition `E_SalesDocumentBasic`.
 
@@ -260,7 +260,7 @@ The first step is to extend the extension data source. This has to be done in Ti
     ![ZZ1_E_SALES_DOC_BASIC data source code](ADT_DDLS_Z_E_SD_Basic_code.png)
 
     ```ABAP
-    extend view entity E_SalesDocumentBasic with ZZ1_E_SALES_DOC_BASIC
+    extend view entity E_SalesDocumentBasic with
     {
         Persistence.gwldt as ZZ1_WarrantyStartDate
     }
@@ -285,7 +285,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
     ![Set Attributes at ZZ1_E_SALESORDER creation](ADT_DDLS_Z_E_SO_crt_name_pckg.png)
  
-    >Hint: If in contrast to `I_SALESORDER` the extensible data definition was released for extend (C0) in Cloud Development, the extending data definition of this step should be created in a Tier1 package.
+    >Hint: If in contrast to `I_SALESORDER` the extensible data definition was released for extend (C0) in Cloud Development, the extending data definition of this step should be created in an ABAP Cloud Development package.
 
 3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View**.
 
@@ -300,7 +300,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
     ```ABAP
     @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SO'
     @EndUserText.label: 'I_SALESORDER extension'
-    extend view entity I_SalesOrder with ZZ1_E_SALESORDER
+    extend view I_SalesOrder with ZZ1_E_SALESORDER
     {
         _Extension.ZZ1_WarrantyStartDate as ZZ1_WarrantyStartDate
     }
@@ -310,7 +310,7 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
 Now, data source `I_SalesOrder` will also return the database field.
 
-1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (Tier 1)** by a another read via data source `I_SalesOrder`
+1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (ABAP Cloud Development)** by a another read via data source `I_SalesOrder`
 
     ```ABAP
     out->write( |\nCase 2 - I_SalesOrder + ZZ1_WarrantyStartDate  | ).
@@ -333,14 +333,14 @@ In this example the data source `I_SalesOrderPartner` is missing `vbpa` field `k
 
 Although this data source is not released for Extend (no C0 contract), you can still achieve an extension.
 
-The approach is to wrap the database table in our data source in Tier 2, expose the missing fields in that data source and release it for system-internal usage (Contract C1) in ABAP Cloud Development. Afterwards, a Tier 1 data source is created which combines the original data source (missing a field) with the wrapper data source (exposing the missing field). With this, you can use the Tier 1 data source instead of the original one to get all its fields, adding the one that you've put in the wrapper.
+The approach is to wrap the database table in our data source in a Custom Wrapper, expose the missing fields in that data source and release it for system-internal usage (Contract C1) for ABAP Cloud Development. Afterwards, an ABAP Cloud Development data source is created which combines the original data source (missing a field) with the wrapper data source (exposing the missing field). With this, you can use the ABAP Cloud Development data source instead of the original one to get all its fields, adding the one that you've put in the wrapper.
 
-![Solution graph for not extensible data sources](Solution_graph_not_extensible_ddls.png)
+![Solution graph for not extensible data sources](Solution_graph_not_extensible_ddls_NEW.png)
  
 This approach may require an object of type access control for the newly created combining data sources.
 
 
-### Case 3.2 - Create the Database Wrapper (Tier 2)
+### Case 3.2 - Create the Database Wrapper (Custom Wrapper)
 
 First, we create the data source that wraps the database table and exposes its missing field.
 
@@ -352,7 +352,7 @@ First, we create the data source that wraps the database table and exposes its m
 
     ![Select View Entity data source template](ADT_DDLS_crt_tmpl_view_entity.png)
  
-3.	Adapt the code of the data source by leaving only the key field `vbeln` and the field `knref` in the list of inserted fields. These two fields are the fields that the wrapper should expose to tier 1. Provide them with the human-readable aliases `SalesDocumentID` and `ZZ1_CustDescrOfPartnerPlant`.
+3.	Adapt the code of the data source by leaving only the key field `vbeln` and the field `knref` in the list of inserted fields. These two fields are the fields that the wrapper should expose to ABAP Cloud Development. Provide them with the human-readable aliases `SalesDocumentID` and `ZZ1_CustDescrOfPartnerPlant`.
 
     ![ZZ1_W_VBPA data source code](ADT_DDLS_Z_W_VBPA_code.png)
 
@@ -387,9 +387,9 @@ First, we create the data source that wraps the database table and exposes its m
     Continue in the wizard and click **Finish**.
 
 
-### Case 3.3 - Create the Combining Data Source (Tier 1)
+### Case 3.3 - Create the Combining Data Source (ABAP Cloud Development)
 
-Next, we create the interface data source in Tier 1 which combines the original and the wrapping/exposing data source and with that, exposes the fields of both.
+Next, we create the interface data source for ABAP Cloud Development which combines the original and the wrapping/exposing data source and with that, exposes the fields of both.
 
 1.      Select **New Data Definition** from the context menu of the original data source `I_SalesOrderPartner` that's missing the database field we need. 
 
@@ -455,9 +455,9 @@ Next, we create the interface data source in Tier 1 which combines the original 
 
 ### Case 3.4 - Protect the Combining Data Source
 
-Since the tier 1 data source should provide the very same protection as the original data source, we'll now create an access control for it. This access control will simply inherit the access control from the original data source.
+Since the ABAP Cloud Development data source should provide the very same protection as the original data source, we'll now create an access control for it. This access control will simply inherit the access control from the original data source.
 
-1.	Create an access control from the context menu of the tier 1 data definition `ZZ1_I_SO_PARTNER`.
+1.	Create an access control from the context menu of the ABAP Cloud Development data definition `ZZ1_I_SO_PARTNER`.
 
     ![Create ACL from DDLS ZZ1_I_SO_PARTNER](ADT_DDLS_Z_I_SO_PARTNER_crt_acl.png)
  
@@ -491,7 +491,7 @@ Since the tier 1 data source should provide the very same protection as the orig
 
 The data source `ZZ1_I_SO_PARTNER` will also return the database field. 
 
-1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (Tier 1)** by a read via data source `ZZ1_I_SO_PARTNER`
+1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (ABAP Cloud Development)** by a read via data source `ZZ1_I_SO_PARTNER`
 
     ```ABAP
     out->write( |\nCase 3 - ZZ1_I_SO_PARTNER associating I_SO_PARTNER and exposing Wrapper | ).

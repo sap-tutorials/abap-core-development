@@ -12,14 +12,14 @@ author_profile: https://github.com/mervey45
 <!-- description --> Create a shopping cart business object with SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-premise.
  
 ## Prerequisites  
-- This tutorial can be used in the SAP S/4HANA Public Cloud. This tutorial can also be used in both SAP S/4HANA Cloud, private edition system and SAP S/4HANA on-premise system with release 2022 FPS01, in which case you will need to import the [SAP Note 3330593](https://launchpad.support.sap.com/#/notes/3330593) and [SAP Note 3280851](https://me.sap.com/notes/3280851) in your system. We suggest using a [Fully-Activated Appliance] (https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup.
+- This tutorial can be used in the SAP S/4HANA Public Cloud. This tutorial can also be used in both SAP S/4HANA Cloud, private edition system and SAP S/4HANA on-premise system with release 2023 FPS03. We suggest using a [Fully-Activated Appliance] (https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/) in SAP Cloud Appliance Library for an easy start without the need for system setup.
 - For SAP S/4HANA on-premise, create developer user with full development authorization 
 - You have installed the latest [Eclipse with ADT](abap-install-adt).
-- Use Starter Development Tenant in S/4HANA Cloud for the tutorial to have necessary sample data in place. See [3-System Landscape and Transport Management](https://help.sap.com/docs/SAP_S4HANA_CLOUD/a630d57fc5004c6383e7a81efee7a8bb/e022623ec1fc4d61abb398e411670200.html?state=DRAFT&version=2208.503).
+- Use Starter Development Tenant in S/4HANA Cloud for the tutorial to have necessary sample data in place.
 - Business role `SAP_BR_PURCHASER` needs to be assigned to your business user
 - In case the CAL instance is not used, please set up for developer extensibility to get `ZLOCAL` package.
- - Create software component for local cloud-ready development with `ZLOCAL`
- - Create a structure package with `ZLOCAL`
+- Create software component for local cloud-ready development with `ZLOCAL`
+- Create a structure package with `ZLOCAL`
 - You are already logged into SAP S/4HANA Cloud, ABAP Environment or SAP S/4HANA on-Premise. If not, please complete the [login tutorial](abap-s4hanacloud-login).
 
 ## You will learn  
@@ -135,11 +135,9 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
   2. Create new **ABAP repository object**:
      - Generator: **ABAP RESTful Application Programming Model: UI Service**
 
-      ![cds](generator2.png)
+      ![cds](generator2_new.png)
 
        Click **Next >**.
-
-      > Please be aware that the screenshot above pertains to the SAP S/4HANA 2022 release. In the SAP S/4HANA 2023 release the wizard looks slightly different: you will first select the **Generator** and in the following wizard page you will see the Package information.
 
   3. Maintain the required information on the **Configure Generator** dialog to provide the name of your data model and generate them.         
      
@@ -218,7 +216,6 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
     field ( numbering : managed )
        OrderUUID;
 
-
     create;
     update;
     delete;
@@ -248,8 +245,8 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
        LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
        PurchaseRequisition = PURCHASE_REQUISITION;
        PrCreationDate = PR_CREATION_DATE;
-    }
-    }    
+    } 
+    }       
     ```
 
    3. Save and activate.  

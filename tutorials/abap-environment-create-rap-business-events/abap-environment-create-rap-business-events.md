@@ -1,526 +1,403 @@
 ---
 parser: v2
+keywords: tutorial
 auto_validation: true
 time: 45
-tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, tutorial>license]
+tags: [tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform]
 primary_tag: software-product>sap-btp--abap-environment
 author_name: Niloofar Flothkoetter
 author_profile: https://github.com/niloofar-flothkoetter
+
 ---
 
-# How to Create RAP Business Events in SAP BTP ABAP Environment
-<!-- description --> Create and exposure of business events in SAP BTP ABAP Environment
+
+# Create a RAP Business Event in SAP BTP ABAP Environment
+<!-- description --> Create a RAP business event in SAP BTP ABAP Environment and test it using a local event handler
 
 ## Prerequisites
- - You need to have access to a SAP BTP ABAP environment system.
- - You need to prepare an event mesh instance in your SAP business technology platform system and download the service key of this instance. For more information see the [Create Instance of SAP Event Mesh] (https://developers.sap.com/tutorials/cp-enterprisemessaging-instance-create.html)
- - You need a user with access to maintain communication arrangement.
+- You have access to a SAP BTP ABAP environment system, either free-tier or you have a license.
 
-## You will learn
-  - How to create RAP Events Business
-  - How to set up a channel to connect to SAP Event Mesh
+ For more information, see:
 
-## Intro
->Always replace `###` with your initials or group number.
+- [Get started with SAP BTP ABAP Environment: Trial Account vs. Free Tier Option | SAP Community](https://community.sap.com/t5/technology-blogs-by-sap/get-started-with-sap-btp-abap-environment-trial-account-vs-free-tier-option/ba-p/13663694)
+- [Try and buy SAP Business Technology Platform](https://www.sap.com/products/technology-platform/pricing.html)
+
+
+## You will learn 
+  - How to create a RAP Business Event inSAP BTP ABAP Environment
+  - How to create a local event handler class for local consumption of the event created
+
+## Introduction
 
 The ABAP RESTful Application Programming Model (RAP) now supports the native consumption and exposure of business events. For exposure, an event can be defined and raised in a RAP business object or in the behavior extension and then published via Event Bindings.
 
+Always replace `###` with your initials or group number.
 
-### Create database table
+---
 
-To produce and raise an event you need first to define your RAP Business Object which produce the event. For this, you will create a simple online shop application. The event will be sent whenever a new order is created.
+### Create package and database table for RAP business object
 
-1. Open ADT and open your SAP BTP ABAP environment system.
+To produce and raise an event you need first to define your RAP Business Object (BO) that produces the event. For this, you will create a simple online shop application. The event will be sent whenever a new order is created.
+  
+1. In ADT, open your SAP BTP ABAP environment system and create a new package for this tutorial, by choosing **New > ABAP Package**.
 
-2. If you do not have an **ABAP Package** create a new one. Please be sure if your package name is with **Z** like
+    <!-- border -->
+    ![step1a-new-package](step1a-new-package.png)
 
-  - Name: `ZEVENT_EXPOSURE_###`
-  - Description: `define a RAP event`
+2. Enter the following, then follow the wizard, choosing a **new** transport request:
 
-    ![new](2-1.png)
+    - Name: **`Z_BUSINESS_EVENT_###`**
+    - Description **Define a Business Event**
 
-3. Right-click on your package and create a new database table
+      <!-- border -->
+      ![step1b-create-package](step1b-create-package.png)
+      <!-- border -->
+      ![step1c-new-tr](step1c-new-tr.png)
 
-  - Name: `ZONLINESHOP_###`
-  - Description: `DB for onlineshop`
+  3. Select your package and choose **New > Other Repository object > Database table** from the context menu. Enter the following.
 
-  ![database](2-2.png)
+      - Name: `ZONLINESHOP_###`
+      - Description: `Database table for Online Shop`
 
-  ![database](2-3.png)
+      <!-- border -->
+      ![step1d-create-db-table](step1d-create-db-table.png)
 
-4. Copy the code below to the Database and replace `###` with your number
+
+  4. Copy the code below to the Database and replace `###` with your number. 
+      
+  > You need the Admin field(s) for `local_last_changed` and `last_changed` in the table, in order to use the ABAP Repository Objects Generator later. These fields are used to provide optimistic concurrency control, using ETags. For more information, see: [ETag Definition | SAP Help](https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/74b16803910d4939a83f354259fca4fc.html)
+
+      ```ABAP
+    
+      define table zonlineshop_### {
+      key client     : abap.clnt not null;
+      key order_uuid : sysuuid_x16 not null;
+      order_id       : abap.char(10) not null;
+      ordereditem    : abap.char(10) not null;
+      deliverydate   : abap.dats;
+      creationdate   : abap.dats;
+      local_created_by      : abp_creation_user;
+      local_created_at      : abp_creation_tstmpl;
+      local_last_changed_by : abp_locinst_lastchange_user;
+      local_last_changed_at : abp_locinst_lastchange_tstmpl;
+      last_changed_at       : abp_lastchange_tstmpl;
+
+      }
+
+    ```
+
+5. Format, save, and activate your table ( `Shift+F1, Ctrl+S, Ctrl+F3` ).
 
 
-  ```ZONLINESHOP_###
-  define table zonlineshop_### {
-  key client     : abap.clnt not null;
-  key order_uuid : sysuuid_x16 not null;
-  order_id       : abap.char(10) not null;
-  ordereditem    : abap.char(10) not null;
-  deliverydate   : abap.dats;
-  creationdate   : abap.dats;
-  }
+### Generate RAP BO and UI service from table
+
+You can avoid many manual steps by applying the wizard **Generate ABAP Repository Objects** to your database table.
+The end result is a full-blown RAP UI service or Web API.
+
+1. Select your table **'zonlineshop_###'** and choose **Generate ABAP Repository Objects** from the context menu.
+
+    <!-- border -->
+    ![step2a-open-generator](step2a-open-generator.png)
+
+2. Since you later want to create a Fiori app, i.e. a user interface, choose **OData UI Service**.
+
+    <!-- border -->
+    ![step2b-odata-ui-service](step2b-odata-ui-service.png)
+
+3. Enter a package, e.g. **`Z_BUSINESS_EVENT_###`**.
+
+4. Since the prefix `Z_` and the suffix `_000` will be added automatically, leave these fields blank.
+
+    <!-- border -->
+    ![step2c-config-generator](step2c-config-generator.png)
+
+5. The next step in the wizard shows you the objects that will be generated, along with previews for some. At present, you cannot change individual names. Choose **Next**.
+
+    <!-- border -->
+    ![step2d-object-names](step2d-object-names.png)
+
+6. Follow the instructions in the wizard, choose your existing transport request, then choose **Finish**.
+
+The wizard generates the objects; you can display them in the Project Explorer.
+
+<!-- border -->
+![step2e-objects-finished](step2e-objects-finished.png)
+
+
+<!-- 
+    (Optional): Test generated app
+
+    1. Open the service binding. 
+
+    2. Choose **Publish**.
+
+    3. Select the entity, then choose **Fiori Preview**.
+
+    SHOTS
+ -->
+
+### Define business event in behavior definition
+
+You will now enhance the behavior definition of the BO entity, by adding the business event `ItemIsOrdered`. This event will be raised to send a message each time a new item is created in an order.
+
+1. First create a parameter, **`ZA_ItemOrdered_###`** as a data definition (abstract entity). You can then provide more information in the message, such as the name of the item ordered. To do this, select **Core Data Services > Data Definition** in your package, choose **New > Data Definition** from the context menu. Then enter the following.
+
+  - Name: **`ZA_ItemOrdered_###`**
+  - Description: **Item Ordered Abstract Entity**
+
+2. Copy the code below in this definition. Save and activate.
+
+    ```CDS
+      @EndUserText.label: 'event parameter'
+      define abstract entity ZA_ItemOrdered_###
+      {
+        ItemName : abap.char(25);
+        created_at : abp_creation_tstmpl;
+      }
+    ```
+
+3. Select the behavior definition **`ZR_ONLINESHOP_###`**    
+
+    Business events must be raised in the save sequence at runtime. Therefore, you need to enable the additional save for our managed BO by adding the statement **with additional save**. You will also add the keywords **with full data** to  always have access to all the data of the relevant `OnlineShop` entity instances without having to read them.
+    Replace the code in the business definition with the code below; replace `###` with your number or initials.
+   
+
+    ```CDS     
+      managed with additional save with full data
+      implementation in class ZBP_R_ONLINESHOP_### unique;
+      strict ( 2 );
+      with draft;
+
+      define behavior for ZR_ONLINESHOP_### alias ZrOnlineshop###
+      persistent table ZONLINESHOP_###
+      draft table ZONLNESHOP_###_D
+      etag master LocalLastChangedAt
+      lock master total etag LastChangedAt
+      authorization master( global )
+
+      {
+        field ( readonly )
+        Creationdate, orderId, deliverydate,
+        LocalCreatedBy,
+        LocalCreatedAt,
+        LocalLastChangedBy,
+        LocalLastChangedAt,
+        LastChangedAt;
+
+        field ( numbering : managed, readonly )
+        OrderUuid;
+
+        field ( mandatory )
+        OrderedItem;
+
+        create;
+        update;
+        delete;
+
+        draft action Activate optimized;
+        draft action Discard;
+        draft action Edit;
+        draft action Resume;
+        draft determine action Prepare;
+
+        mapping for ZONLINESHOP_###
+        {
+          OrderUuid = order_uuid;
+          OrderId = order_id;
+          Ordereditem = ordereditem;
+          Deliverydate = deliverydate;
+          Creationdate = creationdate;
+          LocalCreatedBy = local_created_by;
+          LocalCreatedAt = local_created_at;
+          LocalLastChangedBy = local_last_changed_by;
+          LocalLastChangedAt = local_last_changed_at;
+          LastChangedAt = last_changed_at;
+        }
+      }
+    ```
+
+4. Now add a new event with a parameter, **`ItemIsOrdered_###`**  to the business object. 
+This event will be raised when a new item is ordered and will pass the values in the parameter `ZA_ItemOrdered_###`. 
+
+Add the following code, just after `delete;` and before `draft action Activate optimized:`
+
+  ```
+  event ItemIsOrdered parameter ZA_ItemOrdered_###;
   ```
 
-5. Save and activate your table.
 
-  ![database](2-4.png)
-
-
-### Create CDS data model and projection view
-
-1. Right-click on your package and create a data definition
-
-  - Name: `ZI_ONLINE_SHOP_###`
-  - Description: `data model for online shop`
-
-  ![cds](2-5.png)
-
-  ![cds](2-6.png)
-
-2. Copy the code below to your CDS data model and replace `###` with your number
+Save and activate your behavior definition **`ZR_ONLINE_SHOP_###`**.
 
 
-  ```ZI_ONLINE_SHOP_###
-  @AbapCatalog.viewEnhancementCategory: [#NONE]
-  @AccessControl.authorizationCheck: #NOT_REQUIRED
-  @EndUserText.label: 'Data model for online shop'
-  @Metadata.ignorePropagatedAnnotations: true
-  @ObjectModel.usageType:{
-  serviceQuality: #X,
-  sizeCategory: #S,
-  dataClass: #MIXED
-  }
-      define root view entity zi_online_shop_### as select from zonlineshop_### {
-      key order_uuid as Order_Uuid,
-      order_id as Order_Id,
-      ordereditem as Ordereditem,
-      deliverydate as Deliverydate,
-      creationdate as Creationdate  
-    }
-  ```
+### Raise business event in behavior implementation class
 
-3. Save and activate your data model.
+1. In your behavior definition `ZR_ONLINESHOP_###`, set the cursor on the statement **`with additional save with full data`** and start **Quick Fix** by choosing **`Ctrl+1`**.
 
-  ![cds](2-7.png)
+2. Select Add required method save_modified in new local saver class in the Quick Assist view to update the behavior pool accordingly.
 
-4. Right-click on your package and create a new data definition
+    > The adjusted local saver class of the behavior implementation class ZBP_R_ONLINESHOP### is now opened in Local Types tab of the editor.
 
-  - Name: `ZC_ONLINE_SHOP_###`
-  - Description: `projection view for online shop`
-
-  ![def](2-8.png)
-
-5. After choosing a transport request click **Next** and choose **Define Projection View**
-
-  ![def](2-9.png)
-
-  ![def](2-10.png)
-
-
-6. Copy the code below to your projection view and replace `###` with your number.
-
-
-  ```ZC_ONLINE_SHOP_###
-  @EndUserText.label: 'projection view for online shop'
-  @AccessControl.authorizationCheck: #NOT_REQUIRED
-  @AbapCatalog.viewEnhancementCategory: [#NONE]
-  @Search.searchable: true
-  @UI: { headerInfo: { typeName: 'Online Shop',
-                      typeNamePlural: 'Online Shop',
-                      title: { type: #STANDARD, label: 'Online Shop', value: 'order_id' } },
-
-        presentationVariant: [{ sortOrder: [{ by: 'Creationdate',
-                                              direction: #DESC }] }] }
-  define root view entity zc_online_shop_###
-  as projection on ZI_ONLINE_SHOP_###
-  {
-      @UI.facet: [          { id:                  'Orders',
-                                    purpose:         #STANDARD,
-                                    type:            #IDENTIFICATION_REFERENCE,
-                                    label:           'Order',
-                                    position:        10 }      ]
-  key Order_Uuid,
-
-      @UI: { lineItem:       [ { position: 10,label: 'order id', importance: #HIGH } ],
-                identification: [ { position: 10, label: 'order id' } ] }
-      @Search.defaultSearchElement: true
-      Order_Id,
-
-      @UI: { lineItem:       [ { position: 20,label: 'Ordered item', importance: #HIGH } ],
-              identification: [ { position: 20, label: 'Ordered item' } ] }
-      @Search.defaultSearchElement: true
-      Ordereditem,
-
-      Deliverydate as Deliverydate,
-
-      @UI: { lineItem:       [ { position: 50,label: 'Creation date', importance: #HIGH },
-                                { type: #FOR_ACTION, dataAction: 'update_inforecord', label: 'Update IR' } ],
-              identification: [ { position: 50, label: 'Creation date' } ] }
-      Creationdate as Creationdate
-  }
-  ```
-
-  >Add **root** in the line of **define view entity**
-
-
-7. Save and activate your projection view.
-
-  ![projection](2-11.png)
-
-
-### Create behavior definition for CDS data model
-
-1. Right-click on your data definition `ZI_ONLINE_SHOP_###` and select **New Behavior Definition**.
-
-  ![behavior](2-12.png)    
-
-  Event is triggered in a save sequence. So, to raise an event, you need to enhance the existing behavior definition further **with additional save** phrase.
-  Copy the copy below to your behavior definition and replace `###` with your number
-
-  ```ZI_ONLINE_SHOP_###
-  managed with additional save implementation  in class ZCL_online_shop_### unique;
-  strict;
-  define behavior for ZI_online_shop_### alias Online_Shop
-  persistent table ZONLINESHOP_###
-  lock master
-  authorization master ( instance )
-  {
-    field ( numbering : managed, readonly ) order_Uuid;
-    field ( mandatory ) Ordereditem;
-    field ( readonly ) Creationdate, order_id, deliverydate;
-    determination calculate_order_id on modify { create; }
-
-    create;
-    update;
-    delete;
-  }
-  ```
-
-2. Now you add a new event to the business object as well. Here, you will create an event which is raised when a new item is ordered. You can call the event as `ItemIsOrdered`. To do so, add this code line to your behavior definition
-
-  ```
-    event ItemIsOrdered parameter ZD_ItemOrdered_###;
-  ```
-
-  Your behavior definition will be looking like this:
-
-  ![parameter](2-18.png)
-
-  Save, but don't activate your changes yet.
-
-3. In addition, you can  provide further information like the name of the item which is ordered in your message. This can be done via a parameter define as a data definition (abstract entity) called `ZD_ItemOrdered`.
-
-  ![parameter](2-16.png)
-
-  ![parameter](2-17.png)
-
-4. Copy the code below in this definition. Do not forget to save and activate.
-
-  ```ZD_ItemOrdered_###
-  @EndUserText.label: 'event parameter'
-  define abstract entity ZD_ItemOrdered_###
-  {
-    ItemName : abap.char(25);
-  }
-  ```
-
-  ![parameter](2-19.png)
-
-Save and activate your data definition `ZD_ItemOrdered_###` and behavior definition `ZI_ONLINE_SHOP_###`.
-
-
-### Create behavior implementation class
-
-1. In your behavior definition `ZI_ONLINE_SHOP_###` set the cursor before the implementation class `ZCL_online_shop_###` and click **CTRL + 1**. Double-click on **Create behavior implementation class** `ZCL_online_shop_###` to create your implementation class.
-
-  ![class](5-3.png)
-
-  ![class](2-14.png)
-
-  ![class](2-15.png)
-
-2. In this class navigate to **Local Types** and add the implementation for method `calculate_order_id` which fill the fields of order id and the creation date as the order is created (optional).
-
-  ![class](5-4.png)
-
-  ```calculate_order_id
-  METHOD calculate_order_id.
-  DATA:
-  online_shops TYPE TABLE FOR UPDATE zi_online_shop_###,
-  online_shop  TYPE STRUCTURE FOR UPDATE zi_online_shop_###.
-  * delete from zonlineshop_### UP TO 15 ROWS.
-  SELECT MAX( order_id ) FROM zonlineshop_### INTO @DATA(max_order_id).
-  READ ENTITIES OF zi_online_shop_### IN LOCAL MODE
-  ENTITY Online_Shop
-  ALL FIELDS
-  WITH CORRESPONDING #( keys )
-  RESULT DATA(lt_online_shop_result)
-  FAILED DATA(lt_failed)
-  REPORTED DATA(lt_reported).
-  DATA(today) = cl_abap_context_info=>get_system_date( ).
-  LOOP AT lt_online_shop_result INTO DATA(online_shop_read).
-    max_order_id += 1.
-    online_shop = CORRESPONDING #( online_shop_read ).
-    online_shop-order_id = max_order_id.
-    online_shop-Creationdate = today.
-    online_shop-Deliverydate = today + 10.
-    APPEND online_shop TO online_shops.
-  ENDLOOP.
-
-  MODIFY ENTITIES OF zi_online_shop_### IN LOCAL MODE
-  ENTITY Online_Shop UPDATE SET FIELDS WITH online_shops
-  MAPPED DATA(ls_mapped_modify)
-  FAILED DATA(lt_failed_modify)
-  REPORTED DATA(lt_reported_modify). 
-
-  ENDMETHOD.
-  ```
-
-3. Your class will look like the following:
-
-  ![class](5-5.png)
+    > Please check the name of your behavior pool in the BO behavior definition, as it may be different. Don't forget that all artifacts of your application are generated by the wizard.
 
 3. Now implement the additional save method to raise the entity event.
 
-  ```save
-  METHOD save_modified.
+    ```ABAP
 
-  IF create-online_shop IS NOT INITIAL.
-    RAISE ENTITY EVENT ZI_online_shop_###~ItemIsOrdered
-  FROM VALUE #( FOR online_shop IN create-online_shop ( %key              = online_shop-%key
-                                                        %param-ItemName   = online_shop-Ordereditem ) ).
-  ENDIF.
-  ENDMETHOD.
-  ```
+    METHOD save_modified.
+
+   IF create-zronlineshop### IS NOT INITIAL.
+   RAISE ENTITY EVENT ZR_ONLINESHOP_###~ItemIsOrdered
+   FROM VALUE #( FOR zronlineshop### IN create-zronlineshop### (
+                      %key              = zronlineshop###-%key
+                      %param-ItemName   = zronlineshop###-Ordereditem ) ).
+   ENDIF.
+   ENDMETHOD.
+
+    ```
 
 3. Save and activate your class.
 
-  ![class](5-6.png)
 
+### Create local event handler
 
-### Create behavior definition for projection view
+Now, you will implement the event handler class **`ZEH_ITEM_ORDERED_###`** to enable local consumption of the event **`ItemIsOrdered_###`** raised by the BO entity, `ZR_ONLINE_SHOP_###`.
 
+First, you will create a database table **`ZITEMORDERD_###`** with a UUID-based primary key to store the received event information.
 
-1. Right-click on your data definition `ZC_ONLINE_SHOP_###` and select **New Behavior Definition**.
+1. In your package `Z_BUSINESS_EVENT_###`, navigate to **Dictionary > Database Tables**, select it, choose **New Database Table** from the context menu then enter the following:
+  - Name: **`ZITEMORDERD_###`** (compare the name of your abstract entity `ZA_ItemOrdered_###`)
+  - Description: **Event data for new item ordered**
 
-  ![behavior](5-1.png)
+2. Select a transport request and choose **Finish**.
 
-2. Save and activate the definition.
+3. Replace the default table definition with the source code provided below and replace all occurrences of the placeholder `###` with your suffix.
 
-  ![behavior](5-2.png)
+    ```ABAP
+      @EndUserText.label : 'Event handler - New item ordered'
+      @AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+      @AbapCatalog.tableCategory : #TRANSPARENT
+      @AbapCatalog.deliveryClass : #A
+      @AbapCatalog.dataMaintenance : #RESTRICTED
+      define table ZITEMORDERD_### {
 
+        key mandt   : mandt not null;
+        key uuid    : sysuuid_x16 not null;
+        ItemName    : abap.char(25);
+        created_at  : abp_creation_tstmpl;
 
-### Create service definition and service binding
+      }
 
+    ```
 
-At last, you need to define the service definition and the service binding. Then your application will be ready to use.
+4. Save (Ctrl+S) and activate (Ctrl+F3).
 
-1. Right-click on **Business Services** > **New** > **Service Definition**.
 
-  - Name: `ZUI_ONLINE_SHOP_###`
-  - Description: `service definition for online shop`
+Now you will create and implement the event handler class **`ZEH_ITEM_ORDERED_###`** for local consumption of the event **`ItemIsOrdered_###`** raised by the BO entity, `ZR_ONLINE_SHOP_###`.
 
-  ![def](6-1.png)
+5. In **Project Explorer** select your package **`Z_BUSINESS_EVENT_###`** select **Source Code Library > Classes** and choose **New ABAP Class** from the context menu. Enter the following, select the transport request, then choose **Finish**.
+    - Name: **`ZEH_ITEM_ORDERED_###`**, where `###` is your suffix 
+    - Description: Event handler for a new order item
 
-  ![def](6-2.png)
+    <!-- border -->
+    ![step6a-new-class](step6a-new-class.png)
 
-  Click **Next** and after choosing a transport request click **Finish**.
+6. Specify the class as event handler class pool for your RAP BO by adding the statement `FOR EVENTS OF <entity_name>` of the class definition section on the Global Class tab, directly after the keyword FINAL 
 
-2. Here you can expose your data definition `zc_online_shop_###`
+    ```ABAP
 
-  ![def](6-3.png)
+    FOR EVENTS OF ZR_ONLINESHOP_###
 
-3. Save and activate your service definition.
+    ```
 
-4. Right-click on your service definition and choose **New Service Binding**.
+    <!-- border -->
+    ![step6b-add-for-events-of](step6b-add-for-events-of.png)
 
-  - Name: `ZUI_ONLINE_SHOP_###`
-  - Description: `service Binding for online shop`
-  - Binding Type: `OData V2 - UI`
-  - Service Definition: `ZUI_ONLINE_SHOP_###`
+7. Now you will define and implement the **local** event handler class, **`lhe_item`** for the *OnlineShop* BO. Go to the ❗**Local Types** tab. 
 
-  ![binding](6-4.png)
-  ![binding](6-5.png)
 
-5. Activate your service binding and click **Publish**.
+    > For more details on the classes `cl_abap_behavior_event_handler` and `cl_abap_tx` used in the implementation, see the ABAP Keyword documentation ( **F1** ).
 
-  ![binding](6-6.png)
+    ```ABAP
+    *"* use this source file for the definition and implementation of
+    *"* local helper classes, interface definitions and type
+    *"* declarations
 
+    *"* use this source file for the definition and implementation of
+    *"* local helper classes, interface definitions and type
+    *"* declarations
 
-### Create an Event Binding for the Business Event
+    CLASS lhe_item DEFINITION INHERITING FROM cl_abap_behavior_event_handler.
+      PRIVATE SECTION.
+        METHODS get_uuid RETURNING VALUE(uuid) TYPE sysuuid_x16.
 
+        METHODS on_item_is_ordered FOR ENTITY EVENT
+            created FOR zronlineshop###~ItemIsOrdered.
+    ENDCLASS.
 
-Now create the event binding for your newly created business event. This event binding is needed to map an event to a RAP entity event.
 
-1. Right-click on your package and create an event binding
+    CLASS lhe_item IMPLEMENTATION.
 
-  - Name: `ZEVENT_EXPOSURE_###`
-  - Description: `RAP business event`
+      METHOD get_uuid.
+        TRY.
+            uuid = cl_system_uuid=>create_uuid_x16_static( ) .
+          CATCH cx_uuid_error.
+        ENDTRY.
+      ENDMETHOD.
 
-  ![binding](7-1.png)
+      METHOD on_item_is_ordered.
+        "close the active modify phase
+        cl_abap_tx=>save( ).
 
-  ![binding](7-2.png)
+        " assign values in abstract entity ZA_ITEMORDERED_### to table for event handler
+        " loop over transfered instances and do the needful ;)
+        LOOP AT created REFERENCE INTO DATA(lr_created).
+          DATA lr_item_is_ordered TYPE ZITEMORDERD_###.
+          MOVE-CORRESPONDING lr_created->* TO lr_item_is_ordered.
+          lr_item_is_ordered-uuid        = get_uuid( ).
+          lr_item_is_ordered-itemname   = lr_created->ItemName.
+          lr_item_is_ordered-created_at  = lr_created->created_at.
 
-3. Here fill all fields out, to get errors gone. You can freely choose these names to specify your event with some considerations explained below
+          "insert to db
+          INSERT ZITEMORDERD_### FROM @lr_item_is_ordered.
+        ENDLOOP.
+      ENDMETHOD.
+   ENDCLASS.
+    ```
 
-  - Namespace: `zevent###` (No camel case and no space)
-  - Business Object: `OnlineShop` (No Space)
-  - Business Object Operation: `create`
+The local event handler class must inherit from the superclass `cl_abap_behavior_event_handler`.
 
-  ![error](7-3.png)
+Our current local event handler contains a RAP event handler method to handle `on_item_is_ordered()` for the event `item_is_ordered`.
 
-4. Click **Add** to add items.
+In the method signature, the importing parameter, the entity, as well as the event to be consumed are specified.
+> Note: An event can only be handled by one method within an event handler class. However, method handling across multiple handler classes is possible.
 
-  - Root Entity Name: `ZI_ONLINE_SHOP_###` (your behavior definition)
-  - Entity Event Name: `ITEMISORDERED` (Event name in your behavior definition)
+In this exercise, the method get_uuid() is used for convenience to centrally generate UUIDs for the new database records to be persisted.
 
-  ![item](7-4.png)
+About the implementation of the RAP event handler method  `on_item_is_ordered()`: 
 
-5. Save and activate your event binding.
+Because we are doing an insert on a database, we must first close the active modify phase of the RAP LUW by calling the method 
+`cl_abap_tx=>save()` . Loop over the transfered event instances and perform the insert.
 
-6. As you can see at the screenshot, **Type** (aka topic) is a concatenation of the three attributes (name space, business object, business object operation) and ends with the version of the event. The wildcard * points to the corresponding event e.g. created. This is relevant for addressing the events to the Event Mesh. Copy this address for later use `zevent###.OnlineShop.create.v*`.
+Save (Ctrl+S) and activate (Ctrl+F3) the class.
 
-  ![type](7-5.png)
 
+### Test the Enhanced App
 
-### Create a communication arrangement
+1. First, start the Data Preview (F8) of the new database table **`ZITEM_E_###`** to store the received event information. No data should appear because no new item has been ordered and therefore the event **``**ItemIsOrdered**``** has not been raised yet.
 
-After an event is raised, it should arrive at the Event Mesh to be consumed later. The connection between the system and the SAP Event Mesh is achieved through a channel. For this, you need to create a communication arrangement in your cloud system with `sap_com_0092` scenario which is built for an event enablement and also an event mesh instance's service key.
+2. Now, open the Fiori Elements preview (from the Service Binding) and create a new order item.
 
-One requirement is that you have an existing SAP Event Mesh service instance of the default plan. You can create an instance of SAP Event Mesh provided that you already subscribe to the event mesh service.
+    <!-- border -->
+    ![step7a-test-fep](step7a-test-fep.png)
 
->For more information about how to create instance of SAP Event Mesh [link] (https://developers.sap.com/tutorials/cp-enterprisemessaging-instance-create.html)
+3. Go back to the ABAP Development Tools and refresh the Data Preview of the database table `ZITEM_E_###` or start the Data Preview again (F8). You should now see a new entry for the newly created Agency record in the database table.
 
-1. Log on to your cloud system and navigate to **communication Arrangement**.
-
-  ![comm](8-1.png)
-
-2. Click **New** to create a new communication arrangement.
-
-  ![new](8-2.png)
-
-  ![new](8-3.png)
-
-3. Choose `sap_com_0092` as **Scenario** and copy the service key of your event mesh instance under **Service Key**.
-
-    ![comm](8-4.png)
-
-    ![comm](8-5.png)
-
-4. Create a **Communication User**. Click **New** and enter a **User Name**, **Description** and **Propose Password**. Copy the generated password and save it for later. Click **Create**.
-
-  ![user](8-6.png)
-
-  ![user](8-7.png)
-
-5. Now change the **Arrangement Name** to `Z_EVT_0092_###` and replace `###` with your initials or group number. This Arrangement Name will also be the name of the channel which is used later to send events.
-
-  Click **Create** communication arrangement.
-
-  ![name](8-8.png)  
-
-6. Open your newly created communication arrangement and check the connection under **Outbound Services**.
-
-  ![details](8-9.png)
-
-  ![details](8-10.png)
-
-
-### Assign the event to an outbound channel
-
-
-1. Search for **Enterprise Event Enablement** App and open it.
-
-  ![app](9-1.png)
-
-2. Click **Go** to open a list of channels and choose your channel in this list.
-
-  ![channel](9-2.png)
-
-3. Now add the outbound topic, which is generated during the event binding generation, in to this channel:
-
-  Click **Create**  
-
-  ![create](9-3.png)
-
-  On the next page click **Topic** value help
-
-  ![create](9-5.png)
-
-  In this popup search for `zevent###/OnlineShop/create/*` what you copied in step 8-5 and choose it. Replace `###` with your number.
-
-  ![create](9-4.png)
-
-  Click **Create**
-
-  ![create](9-6.png)
-
-  ![create](9-7.png)
-
-4. In your channel scroll down to **Event Metadata** and copy the channels data for later use.
-
-  ![metadata](9-8.png)
-
-  >If the metadata is empty please reload the page with F5 and try again.
-
-5. Open your cloud system cockpit and navigate to **Instances and Subscriptions** and open your SAP event mesh service.
-
-  ![event](9-9.png)
-
-6. Open the message client, navigate to **Queues** and click **Create Queue**.
-
-  ![queue](9-10.png)
-
-  ![queue](9-11.png)
-
-7. Enter a queue name and click **Create**.
-
-  - Queue Name: `onlineshop/###` (replace `###` with your number)
-
-  ![name](9-12.png)
-
-8. Open **Actions** of your newly created queue and click **Queue Subscriptions**. Here enter the topic what you copied from the event metadata and click **Add** and then **Close** the popup.
-
-  ![subs](9-13.png)
-
-  ![subs](9-14.png)
-
-  ![subs](9-15.png)
-
-
-### Create a Message in Application
-
-
-1. Open ADT and open your SAP BTP ABAP environment system.
-
-2. Navigate to your service binding `ZUI_ONLINE_SHOP_###` and click **Preview** to open your application.
-
-  ![preview](11-1.png)
-
-3. Click **Create** to order a new item.
-
-  ![order](11-2.png)
-
-  ![order](11-3.png)
-
-  ![order](11-4.png)
-
-4. Back to your cockpit and check in your event mesh under **Queues** if this event has reached the system. If you check the queue, a new message is arrived at the queue.
-
-  ![message](11-5.png)
-
-5. Navigate to **Test** and choose your queue under **Queue**.
-
-  ![message](11-6.png)
-
-
-6. Click **Consume Message** to consume this event in your applications. Here you can see that you have the type which you have find in the event binding and the transported data is the parameter structure.
-
-  ![message](11-7.png)
-
-You can also consume this event using [Event Consumption Model within a Business Application] (https://developers.sap.com/tutorials/abap-environment-event-enablement-consumption.html#top)
-
+    <!-- border -->
+    ![step7c-data-preview](step7c-data-preview.png)
 
 
 ### Test yourself
+
+
+## More information
+[Generating a RAP Business Service with the Generate ABAP Repository Objects Wizard | SAP Help](https://help.sap.com/docs/abap-cloud/abap-rap/generating-rap-business-service-with-generate-abap-repository-objects-wizard)
