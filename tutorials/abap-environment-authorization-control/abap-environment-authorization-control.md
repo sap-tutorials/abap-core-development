@@ -55,7 +55,7 @@ First, you create the IAM app yourself. As a next step, you create a business ca
 
       Click **Next >**.
 
-  4. Select a Transport Request and click **Finish**.
+  4. Click **Finish**.
 
   5. Choose **Services** and add a new service.
 
@@ -102,9 +102,9 @@ First, you create the IAM app yourself. As a next step, you create a business ca
       - Name: **`Z_ERROR_CODES_###`**
       - Description: **`Error Codes - Maintenance`**
 
-  3. Select a Transport Request and click **Finish**.
+  3. Click **Finish**.
 
-  4. The wizard for creating a Business Catalog App Assignment opens automatically. Click **Next >**. Select a Transport Request and click **Finish**.
+  4. The wizard for creating a Business Catalog App Assignment opens automatically. Click **Next >**. Click **Finish**.
 
   5. In the Business Catalog, click **Publish Locally** to be able to test your app in the development system.
 
