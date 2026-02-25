@@ -101,13 +101,13 @@ Log on to the system via SAP GUI using the developer user credentials and start 
 
 Open the service binding `ZUI_SHOPCART_WRAPPER_O4_###`: there should be no authorization objects except for `S_START`. Click on the **Variant** icon to create a new variant:
 
-![Create variant](create_variant.png)
+![Create variant](create_variant_new.jpg)
 
-Input the name `ZUI_SHOPCART_WRAPPER_O4_###_V` and a description for the default variant (1) and then click on **Save** (2). You will be prompted to select a package: input the tier 2 package `$Z_PURCHASE_REQ_TIER2_###` (3) and save it (4):
+Input the name `ZUI_SHOPCART_WRAPPER_O4_###_V` and a description for the default variant (1) and then click on **Save** (2). You will be prompted to select a package: input the custom wrapper package `$Z_PURCHASE_REQ_CUST_WRAP_###` (3) and save it (4):
 
-![Create variant - 2](create_variant_2.png)
+![Create variant - 2](create_variant_2_new.png)
 
-Select a suitable transport request (or create a new one if needed) and confirm.
+If needed, select a suitable transport request (or create a new one) and confirm.
 
 ### Check authorization use case - Maintain authorization defaults for the wrapper in default variant
 
@@ -117,7 +117,7 @@ You can use various [authorization traces](https://help.sap.com/docs/ABAP_PLATFO
 
 In the `SU22` transaction, open the newly created authorization default variant. Switch to edit mode (1) and then click on **Object** -> **Add Object from System Trace** -> **Local** (2):
 
-![Activate trace](authorization_trace_2.png)
+![Activate trace](authorization_trace_2_new.png)
 
 Input the username for which you want to activate the trace (in this case: your developer user) and click on **Activate Trace**:
 
@@ -133,7 +133,7 @@ Go back to the `SU22` window you left open, click on **Deactivate Trace** and th
 
 Save. Select all the newly added Authorization Objects and then click on the **Trace** button:
 
-![Activate trace - add authorizations 6](authorization_trace_6.png)
+![Activate trace - add authorizations 6](authorization_trace_6_new.png)
 
 Now click on **Evaluate Trace** -> **System Trace (STAUTHTRACE)** -> **Local**:
 

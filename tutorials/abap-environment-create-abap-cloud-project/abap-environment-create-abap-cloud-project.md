@@ -16,7 +16,7 @@ author_profile: https://github.com/mervey45
 
 
 ## You will learn  
-  - How to create an ABAP Cloud project
+  - How to create an ABAP Cloud project. Each ABAP Cloud project represents a connection to one ABAP instance. You can see all your ABAP Projects in the Project Explorer.
 
 ---
 
@@ -26,43 +26,40 @@ author_profile: https://github.com/mervey45
 
 Open Eclipse. Make sure you have installed ADT in your Eclipse. Find [here](abap-install-adt) the Eclipse installation instruction.
 
-![Create service definition](eclipse.png)
+<!-- border -->
+![eclipse-icon](eclipse.png)
 
 
 ### Create ABAP cloud project
 
-  1. Select **File** > **New** > **Other** > **ABAP Cloud Project** and click **Next >**.
+1. Select **File** > **New** > **Other** > **ABAP Cloud Project** and click **Next >**.
 
-      ![Create ABAP cloud project](cloud.png)
+    <!-- border -->
+    ![Create ABAP cloud project](cloud.png)
 
-  2. Select **SAP BTP ABAP Environment** > **Use a Service Key** and click **Next >**.
+2. Enter the URL for your ABAP instance.
 
-     ![Create ABAP cloud project](project2x.png)
+    <!-- border -->
+    ![Create ABAP cloud project](project2x.png)
 
-    >**Hint:** You have downloaded the service key in [Create an SAP BTP ABAP Environment Trial User](abap-environment-trial-onboarding).
+3. Click **Open Logon Page in Browser**.
 
-  3. Import your service key and click **Next >**.
+    <!-- border -->
+    ![Create ABAP cloud project](project44.png)
 
-      ![Create ABAP cloud project](skey.png)
+  >**Hint:** If you are already logged on in the default browser with a user that you do not want to use for this project, then use the **Copy Logon URL to Clipboard** option and paste the URL in a browser started in private or incognito mode or a non-default browser.
 
-  4. Click **Open Logon Page in Browser**.
+4. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to create your trial account on SAP BTP.
 
-      ![Create ABAP cloud project](project44.png)
+5. Go back to ADT and choose **Finish**.
 
-    >**Hint:** If you are already logged on in the default browser with a user which you do not want to use for this project, then use the **Copy Logon URL to Clipboard** option and paste the URL in a browser started in private or incognito mode or a non defaulted browser.
+    <!-- border -->
+    ![Create ABAP cloud project](project52.png)
 
-  5. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to create your trial account on SAP BTP.
- 
-     Go back to ADT.
+Your trial system appears on the project explorer.
 
-      ![Create ABAP cloud project](project52.png)
-
-      Click **Finish**.
-
-
-  6. Your trial system appears on the project explorer.
-
-      ![Create ABAP cloud project](project62.png)
+<!-- border -->
+![Create ABAP cloud project](project62.png)
 
 
 ### Test yourself

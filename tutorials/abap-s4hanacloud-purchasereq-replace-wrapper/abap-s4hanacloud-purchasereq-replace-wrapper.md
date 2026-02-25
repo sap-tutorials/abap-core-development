@@ -43,7 +43,7 @@ When the `createpurchrqnbapisave` action is used, the shopping cart orders are m
 
 Since in this tutorial we want to use the released API to create purchase requisitions (rather than the BAPI) you will now adapt the `createpurchrqnbapisave` method and the`save_modified` method to replace the call to the BAPI wrapper with an EML call to the released API.
 
-Connect to the system via ADT and navigate to the package `Z_PURCAHSE_REQ_###` containing the RAP BO.
+Connect to the system via ADT and navigate to the package `Z_PURCHASE_REQ_###` containing the RAP BO.
 
 You will first declare some new needed data types and then you will modify the `createpurchrqnbapisave` method to handle the creation of a purchase requisition for a given shopping cart item using the released purchase requisition API.
 
@@ -163,18 +163,30 @@ The `createpurchrqnbapisave` method should now look like this:
 You will now navigate to the `save_modified` method, remove the call to the BAPI wrapper and insert the following code snippet with an EML call to the released API:
 
 ``` ABAP
-IF update IS NOT INITIAL.
-  DATA(creation_date) = cl_abap_context_info=>get_system_date( ).
+METHOD save_modified.
+    IF create-ShoppingCart IS NOT INITIAL.
+      INSERT zashopcart_### FROM TABLE @create-ShoppingCart MAPPING FROM ENTITY.
+    ENDIF.
 
-  LOOP AT update-shoppingcart INTO DATA(OnlineOrder1) WHERE %control-OverallStatus = if_abap_behv=>mk-on .
-    LOOP AT zbp_shopcarttp_###=>purchase_requisition_details INTO DATA(purchase_reqn_via_eml) WHERE pid IS NOT INITIAL AND order_uuid = onlineorder1-OrderUUID.
-      CONVERT KEY OF i_purchaserequisitiontp FROM purchase_reqn_via_eml-pid TO DATA(ls_pr_key1).
-      UPDATE zashopcart_### SET purchase_requisition = @ls_pr_key1-PurchaseRequisition,
-      pr_creation_date = @creation_date
-      WHERE order_uuid = @purchase_reqn_via_eml-Order_UUID.
+    IF update IS NOT INITIAL.
+      DATA(creation_date) = cl_abap_context_info=>get_system_date( ).
+
+      LOOP AT update-ShoppingCart INTO DATA(OnlineOrder1) WHERE %control-OverallStatus = if_abap_behv=>mk-on.
+        LOOP AT zbp_shopcarttp_###=>purchase_requisition_details INTO DATA(purchase_reqn_via_eml) WHERE pid IS NOT INITIAL AND order_uuid = onlineorder1-OrderUUID.
+          CONVERT KEY OF i_purchaserequisitiontp FROM purchase_reqn_via_eml-pid TO DATA(ls_pr_key1).
+          UPDATE zashopcart_### SET purchase_requisition = @ls_pr_key1-PurchaseRequisition,
+          overall_status = 'Submitted / Approved',
+          pr_creation_date = @creation_date
+          WHERE order_uuid = @purchase_reqn_via_eml-Order_UUID.
+        ENDLOOP.
+      ENDLOOP.
+    ENDIF.
+
+    LOOP AT delete-ShoppingCart INTO DATA(shoppingcart_delete) WHERE OrderUUID IS NOT INITIAL.
+      DELETE FROM zashopcart_### WHERE order_uuid = @shoppingcart_delete-OrderUUID.
+      DELETE FROM zdshopcart_### WHERE orderuuid = @shoppingcart_delete-OrderUUID.
     ENDLOOP.
-  ENDLOOP.
-ENDIF.
+ENDMETHOD.
 ```
 
 As previously explained, the released API `I_PurchaserequisitionTP` uses late numbering and so, when being called by the application, it will only return a preliminary key `%pid`. In order to retrieve the final key you have to use the `CONVERT KEY` keyword.
@@ -182,7 +194,7 @@ As previously explained, the released API `I_PurchaserequisitionTP` uses late nu
 The `save_modified` method should now look as follows:
 
 <!-- border -->
-![save_modified implementation](impl-save_modified.png)
+![save_modified implementation](save_modified_new.png)
 
 Save and activate it.
 
@@ -193,7 +205,9 @@ As explained in a previous tutorial [Integrate the Wrapper into the Shopping Car
 You will now remove the `checkPurchaseRequisition` method: open the `lhc_shopcart` class of your behavior implementation and navigate to the `checkpurchaserequisiton` method. Comment it out:
 
 <!-- border -->
-![Comment out checkpurchaserequisiton method implementation](impl-checkpurchaserequisiton.png)
+![Comment out checkpurchaserequisiton method implementation](impl_checkpurchaserequisition_new.png)
+
+Comment out the validation in the behavior definition, too:
 
 Save and activate it.
 
@@ -243,7 +257,7 @@ For simplicity and continuity, you will use the `Z_USER_###` user with the `ZR_S
 |              |                | 02
 |              |                | 03
 |              |                | 08
-|              | `BSART`        | *
+|              | `BSART`        | 
 | `M_BANF_EKG` | `ACTVT`        | 01
 |              |                | 02
 |              |                | 03

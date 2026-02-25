@@ -7,29 +7,33 @@ time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!--DONE in E1Y (https://dlm.wdf.sap.corp/launchpad/portal/#/Search/e1y -> https://my300098.s4hana.ondemand.com/)-->
+<!-- DONE with FYZ/100 -->
+<!-- SAP S/4HANA Extensibility Tutorial: https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-s-4hana-extensibility-tutorial/ba-p/13293080 -->
 # Execute an Outbound Service from Custom Business Object Logic
-<!-- description --> Call an external service of SAP Business Accelerator Hub from inside the logic implementation of a custom business object.
 
-## Prerequisites  
-**Authorizations:** Your user needs
-- (a) business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **SAP S/4HANA Cloud** system
-- access to **[SAP Business Accelerator Hub](https://api.sap.com)**.
-**Example Objects:** Existence of custom business object `Bonus Entitlement` as described in this [tutorial](https://blogs.sap.com/2017/02/20/part-iv-associated-business-objects-bonus-entitlement-with-plan-sales-order/) (Blog), but without any special `bonusplan-releasestatus` logic.
-**Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
+<!-- description -->Call an external service of SAP Business Accelerator Hub from inside the logic implementation of a custom business object.
 
 ## You will learn
+
 - How to get needed service data from SAP Business Accelerator Hub Sandbox
 - How to configure outbound service connection in SAP S/4HANA Cloud system
 - How to call and process an outbound service in custom business object logic
 
-## Intro
-The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
-> Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
+## Prerequisites  
 
->Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2408
+- **Authorizations:** Your user needs business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **SAP S/4HANA Cloud** system
+- Your user needs access to **[SAP Business Accelerator Hub](https://api.sap.com)**.
+- **Example Objects:** Existence of custom business object `Bonus Entitlement` as described in [Part IV: Associated Business Objects (Bonus Entitlement with - Plan & Sales Order)](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/part-iv-associated-business-objects-bonus-entitlement-with-plan-amp-sales/ba-p/13345817) → Steps 1-4 without release status functionality
+- **Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
+
+#### Additional Info
+
+- The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
+- Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
+- Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2508
   
 ---
+
 ### Excursus - Try out the service in SAP Business Accelerator Hub
 
 To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
@@ -62,9 +66,8 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
     ```
 
 6. Hit the **Run** button.
-   
-7. The **RESPONSE** to the service call will appear.
 
+7. The **RESPONSE** to the service call will appear.
 
 ### Get service end point and API Key
 
@@ -74,7 +77,7 @@ After trying out the service in SAP Business Accelerator Hub, the response appea
 
 ![Service End Point: Request URL in response section](API_Hub_GetServiceEndPoint.png)
 
-In order to authenticate during service call later you'll need an API Key of SAP Business Accelerator Hub.
+To authenticate during a service call later, you will need an API key from the SAP Business Accelerator Hub.
 
 1. Still in SAP Business Accelerator Hub, scroll to top and press **Show API Key**
 
@@ -86,7 +89,6 @@ In order to authenticate during service call later you'll need an API Key of SAP
     ![Pop Up to Copy API Key](API_Hub_popUp_CopyAPI_Key.png)
 
 3. Paste the application key into a text editor for later use.
-
 
 ### Create Communication System for Sandbox
 
@@ -102,10 +104,10 @@ In order to allow communication with the SAP Business Accelerator Hub Sandbox yo
 
 4. Enter following Data into the input fields.
 
-    | Field Label | Field Value |
-    | :------------- | :--------------------------- |
-    | System ID | **`SANDBOX_API_SAP_COM`** |
-    | System Name | **`SANDBOX_API_SAP_COM`** |
+    | Field Label    | Field Value               |
+    | :------------- | :-------------------------|
+    | System ID      | **`SANDBOX_API_SAP_COM`** |
+    | System Name    | **`SANDBOX_API_SAP_COM`** |
 
     ![Pop Up to create New Communication System](CS_NewPopUp.png)
 
@@ -113,7 +115,7 @@ In order to allow communication with the SAP Business Accelerator Hub Sandbox yo
 
     The Details screen of the new Communication System opens.
 
-6. Enter as **Host Name** `sandbox.api.sap.com`, which is the domain part of the service's end point that you got in the previous step. 
+6. Enter as **Host Name** `sandbox.api.sap.com`, which is the domain part of the service's end point that you got in the previous step.
 
 7. Scroll down to the **Outbound Users** section and  press the **+** button to add an outbound user.
 
@@ -124,7 +126,6 @@ In order to allow communication with the SAP Business Accelerator Hub Sandbox yo
 8. Press **Create** to finish the outbound user creation. The pop up closes.
 
 9. Press **Save** to finish the communication system creation.
-
 
 ### Create custom communication scenario for outbound service
 
@@ -140,10 +141,10 @@ Define the external SAP Business Accelerator Hub service as an available Communi
 
 3. Enter following data into the input fields and press the **New** button
 
-    | Field Label | Field Value |
-    | :------------- | :--------------------------- |
+    | Field Label               | Field Value                                                      |
+    | :------------------------ | :--------------------------------------------------------------- |
     | Communication Scenario ID | **`SAP_TRANSLATION_HUB`** (prefix `YY1_` is added automatically) |
-    | Description | **`Scenario for SAP Translation Hub`** |
+    | Description               | **`Scenario for SAP Translation Hub`**                           |
 
     ![Scenario creation pop up](CreateCCS.png)
 
@@ -154,30 +155,29 @@ Define the external SAP Business Accelerator Hub service as an available Communi
     ![Switch to outbound services in scenario maintenance](CCS_addOB_service.png)
 
 5. Press **Add** to start outbound service creation. A pop up opens.
-   
+
     ![Pop Up to create outbound service](CCS_createOB_service.png)
 
     Enter following data into the input fields
 
-    | Field Label | Field Value |
-    | :------------- | :--------------------------- |
-    | Description | **`Outbound Service for SAP Translation Hub`** |
+    | Field Label         | Field Value                                                                            |
+    | :-------------------| :------------------------------------------------------------------------------------- |
+    | Description         | **`Outbound Service for SAP Translation Hub`**                                         |
     | Outbound Service ID | **`OS_SAP_TRANSLATION_HUB`** (prefix `YY1_` and suffix `_REST` are added automatically)|
-    | URL Path | **`/sth/translate`** (service specific part of before gotten service's end point)|
+    | URL Path            | **`/sth/translate`** (service-specific path of the previously obtained request URL)    |
 
 6. Press **Create** to finish the outbound service creation.
-   
+
 7. Another pop up opens and tells that only one instance of this communication scenario per client will be supported. Confirm with **OK**.
    Both pop ups close.
 
-8.  Press **Save**.
-   
-9.  Press **Publish** to finish the custom communication scenario creation.
+8. Press **Save**.
 
+9. Press **Publish** to finish the custom communication scenario creation.
 
 ### Create communication arrangement for outbound service
 
-Create a Communication Arrangement to link the scenario with the communication system.
+Create a Communication Arrangement for the scenario you created, using the designated Communication System.
 
 1. Start typing **Communication Arrangements** in the Launchpad search and open the App from the results.
 
@@ -189,9 +189,9 @@ Create a Communication Arrangement to link the scenario with the communication s
 
 3. **Select** or **Enter** following data.
 
-    | Field Label | Field Value |
-    | :------------- | :--------------------------- |
-    | Scenario | **`YY1_SAP_TRANSLATION_HUB`** |
+    | Field Label      | Field Value                                       |
+    | :--------------- | :------------------------------------------------ |
+    | Scenario         | **`YY1_SAP_TRANSLATION_HUB`**                     |
     | Arrangement Name | **`YY1_SAP_TRANSLATION_HUB_SANDBOX_API_SAP_COM`** |
 
 4. Press **Create**.
@@ -206,7 +206,6 @@ Create a Communication Arrangement to link the scenario with the communication s
 
 6. **Save** the Arrangement.
 
-
 ### Extend custom business object data structure
 
 Add fields to persists feedback at the custom business object `Bonus Entitlement`.
@@ -216,21 +215,20 @@ Add fields to persists feedback at the custom business object `Bonus Entitlement
     ![Custom Business Objects application from search results](FLP_search_resultCBO.png)
 
 2. Open the business object `Bonus Entitlement`.
-   
+
 3. Start Edit Mode by executing the **Edit Draft** action.
 
 4. Switch to **Fields** section.
 
 5. Add following **New** fields
 
-    | Field Label | Field Identifier | Field Type | Field Properties |
-    | :---------- | :--------------- | :----------| :----------------|
-    | **`Feedback`**| **`Feedback`** | **`Text`** | Length: **`255`** |
-    | **`Feedback's language`** | **`FeedbacksLanguage`** | **`Text`** | Length: **`2`** |
-    | **`Feedback in english`** | **`FeedbackInEnglish`** | **`Text`** | Length: **`255`** |
+    | Field Label               | Field Identifier        | Field Type | Field Properties   |
+    | :-------------------------| :---------------------- | :----------| :----------------- |
+    | **`Feedback`**            | **`Feedback`**          | **`Text`** | Length: **`255`**  |
+    | **`Feedback's language`** | **`FeedbacksLanguage`** | **`Text`** | Length: **`2`**    |
+    | **`Feedback in english`** | **`FeedbackInEnglish`** | **`Text`** | Length: **`255`**  |
 
 6. **Publish** the business object.
-
 
 ### Enhance custom business object logic
 
@@ -238,15 +236,15 @@ Now as the business object has just been published, the logic can be enhanced by
 
 1. Switch to **Logic** section.
 
-2. Enter the **After Modification** Event Logic.
+2. Enter the **After Modification** Event Logic and **Edit** the code .
 
     ![Enter After Modification logic](CBO_go2AfterModify.png)
 
-3. Code HTTP client creation
-   
-    In order to call an external service from there you need to create an HTTP client in your custom business object logic.
+3. Create the HTTP Client
 
-    - In the already existing coding go to the end but stay in front of the last ENDIF
+    To call an external service from within your custom business object logic, you need to create an HTTP client.
+
+    - In the existing code, locate the IF block that checks whether `bonusentitlement-bonusplanid IS INITIAL`, and insert your logic just before the final ENDIF
   
     - Implement a check if the outbound service is available
 
@@ -268,13 +266,13 @@ Now as the business object has just been published, the logic can be enhanced by
         ).
         ```
 
-4. Code request body string
+4. Build the Request Body String
 
     Implement the creation of the Request Body.
-    
-    As the aim is to translate every other language than english into english, the target language is set to english. The source language and the to be translated feedback are gotten from the corresponding fields of the custom business object.
-    
-    The request body in JSON format looks this way.
+
+    Since the goal is to translate any language other than English into English, the target language is set to English. The source language and the feedback to be translated are retrieved from the relevant fields of the custom business object.
+
+    The request body in JSON format looks as follows:
 
     ```json
     {
@@ -290,7 +288,7 @@ Now as the business object has just been published, the logic can be enhanced by
     }
     ```
 
-    In the custom business object logic you have to supply this request as string. The `sourceLanguage` and `value` values have to be replaced with variables. The [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=2408.500) as part of the key user (KU) edition of the XCO library can be used to create the JSON string for the request body according to the required format.
+    Within the custom business object logic, the request must be provided as a string. Replace the `sourceLanguage` and `value` fields with appropriate variables. To generate the JSON string in the required format for the request body, you can use the [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=LATEST&locale=en-US), which is part of the Key User (KU) edition of the XCO library.
 
     ```abap
     * Create request body json string
@@ -313,13 +311,13 @@ Now as the business object has just been published, the logic can be enhanced by
     
     DATA(lv_request_body) = lo_json_builder->get_data( )->to_string( ).
     ```
-    
-5. Code service request creation
 
-    Create the service request and set several properties
+5. Create the HTTP Request
+
+    Create the HTTP request and set several properties
 
     ```abap
-    * Creation of the service request
+    * Creation of the HTTP request
     DATA(request) = cl_ble_http_request=>create( ).
     request->set_method( if_ble_http_request=>co_method-post
     )->set_body( lv_request_body
@@ -328,7 +326,7 @@ Now as the business object has just been published, the logic can be enhanced by
     )->set_content_type( 'application/json; charset=utf-8' ).
     ```
 
-6. Code request sending and response processing
+6. Send the Request and Process the Response
 
     1. Implement sending the request by the use of the before created HTTP client and receive the response.
 
@@ -336,15 +334,15 @@ Now as the business object has just been published, the logic can be enhanced by
         * Send a request and receive a response.
         DATA(response) = lo_client->send( request ).
         ```
-    
+
     2. Implement getting the response body from the response.
 
         ```abap
         * Get the body of the response.
         DATA(lv_response_body) = response->get_body( ).
         ```
-    
-    3. The response body in JSON format will look like this
+
+    3. The response body in JSON format will look like this:
 
         ```json
         {
@@ -364,7 +362,7 @@ Now as the business object has just been published, the logic can be enhanced by
         }
         ```
 
-    4. Implement getting the translation part from the JSON string by the help of the [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=2408.500)
+    4. Implement logic to extract the translation part from the JSON string using the[XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=LATEST&locale=en-US).
 
         ```abap  
         * Get translation from response
@@ -394,7 +392,7 @@ Now as the business object has just been published, the logic can be enhanced by
         The response of the service call is translated into a corresponding ABAP structure. With help of the built-in Camel case/Pascal case to underscore transformation the JSON data is adjusted to ABAP requirements.
 
     5. Implement error handling
-        
+
         Consider a proper error handling by putting a TRY and CATCH block around the service call logic.
 
         ```abap
@@ -402,7 +400,7 @@ Now as the business object has just been published, the logic can be enhanced by
 
         " < CODING PARTS OF THIS STEP FROM BEFORE TO BE PLACED HERE >
 
-    	    CATCH cx_ble_http_exception INTO DATA(lx).
+         CATCH cx_ble_http_exception INTO DATA(lx).
         * The http status code can be checked.
                 CASE lx->status_code.
                     WHEN 404.
@@ -413,33 +411,27 @@ Now as the business object has just been published, the logic can be enhanced by
         ENDTRY.
         ```
 
-7. Publish the After Modification logic.
-
+7. **Save and Publish** the After Modification logic.
 
 ### Test the application
 
-1. Start typing **Bonus Entitlements** in the Launchpad search and open the App from the results.
+1. Start typing **Bonus Entitlement** in the Launchpad search and open the App from the results.
 
     ![Bonus Entitlements application from search results](FLP_searchResult_BonusEntitlements.png)
 
-3. Open a `Bonus Entitlement`.
+2. Open a `Bonus Entitlement` in **Edit** mode.
 
-4. Enter following data
+3. Enter following data
 
-    | Field Label | Field Value |
-    | :------------- | :--------------------------- |
-    | Feedback | **`Su texto a traducir`** |
-    | Feedback's Language | **`es`** |
+    | Field Label         | Field Value               |
+    | :------------------ | :------------------------ |
+    | Feedback            | **`Su texto a traducir`** |
+    | Feedback's Language | **`es`**                  |
 
     > Please note that the language code must be entered in lower case to ensure that the service call is successful.
 
-5. **Save** the Bonus Entitlement. The translation will get filled.
-
+4. **Save** the Bonus Entitlement. The translation will get filled.
 
 ### Test yourself
-
-
-
-
 
 ---
