@@ -47,10 +47,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       Click **Next >**. Confirm the basic package properties by clicking **Next >** again.
 
-  3. Enter a new transport request and click **Finish**. If change recording is not enabled, you cannot enter a new transport request. Instead, simply click **Finish**.
-
-      ![Create new Transport Request](p3.png)
-
+  3. If change recording is not enabled, you cannot enter a new transport request. Instead, simply click **Finish**.
 
 ### Create Data Elements
 
@@ -71,9 +68,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       Click **Next >**.
 
-  4. Select the previously created transport request and click **Finish**.
-
-      ![Select existing Transport request](e4.png)
+  4. Click **Finish**.
 
   5. Select **`Predefined Type`** as **Category**, **`NUMC`** as **Data type**, 3 as **Length** and enter **`Error Code`** as **Field Labels**:
 
@@ -110,7 +105,7 @@ You first create the database tables and then use the [ABAP Repository Generator
 
       Click **Next >**.
 
-  3. Select a transport request and click **Finish**.
+  3. Click **Finish**.
 
   4. Replace your code as follows. The timestamp fields are used for optimistic concurrency control for [draft processing](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/total-etag) and [OData consumer](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/optimistic-concurrency-control). If you add the field `CONFIGDEPRECATIONCODE` of type `CONFIG_DEPRECATION_CODE` to the database table, the ABAP generator that you use in step 5 can extend the generated RAP BO to manage the validity of the configuration entries.
 
@@ -190,7 +185,7 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
 
   5. The list of repository objects that are generated is displayed. Click **Next >**.
 
-  6. Select a transport request and click **Finish**.
+  6. Click **Finish**.
 
   7. When the generation is complete, the new business configuration maintenance object is displayed. You can find the documentation for the object attributes [here](https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/editing-business-configuration-maintenance-objects). In the next tutorial, you will create the necessary authorization objects for using the business configuration maintenance object in the CUBCO app. You can adapt the generated RAP BO to your needs, see also [CDS Annotations for Metadata-Driven UIs](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/9b4aa865c1e84634b6e105173fc3a5e7.html). For example, you can adjust the visibility, positioning, and labels of the fields.
 
