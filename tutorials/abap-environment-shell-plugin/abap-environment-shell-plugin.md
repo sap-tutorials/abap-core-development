@@ -52,7 +52,7 @@ The shell plug-in will be deployed to the local `ZLOCAL` software component in y
 
     ![Create new package - select software component](create_new_package_3.png)
 
-5. Click on **Next**, then on **Finish**. The package will be created.
+5. Click on **Finish**. The package will be created.
 
     ![No tr creation, just finish](create_transport_request.png)
 
@@ -103,10 +103,12 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
     >Ensure that **Use Virtual Endpoints for Local Preview** remains set to **No**.
 
-9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, select **Enter manually** and input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Click on **Next**.
+9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Click on **Next**.
 
     <!--border-->
     ![Create SAP Fiori application - Deployment configuration](create_SAPUI5_project_6.png)
+
+    >Once the destination and package name have been entered, the system verifies whether the package is local. If this is the case, the Transport Request field is automatically disabled.
 
 10. Fiori Launchpad Configuration: In the **Semantic Object** field input `Shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
 
