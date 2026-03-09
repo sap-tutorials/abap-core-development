@@ -275,7 +275,7 @@ The application project is automatically initialized with several basic folders,
     );
     ```
 
-    >In line 7, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` property.
+    >In line 8, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` property.
 
 ### Preview your SAPUI5 Component
 
