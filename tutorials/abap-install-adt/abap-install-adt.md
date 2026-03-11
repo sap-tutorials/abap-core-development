@@ -21,9 +21,9 @@ author_profile: https://github.com/mervey45
 ## Prerequisites
 - Operating System: 
       - Windows 10, or higher
-      - Apple macOS 10.15 or higher
+      - Apple macOS 14 or higher
 - Microsoft VC++ Runtime:
-      - For Windows: [Microsoft Visual C++ 2015-2022 Redistributable (x64)](https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) 
+      - For Windows: [Microsoft Visual C++ v14 Redistributable (x64)](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) 
 -	Java Runtime:
       - Starting with Eclipse version 2024-06, Eclipse will require Java 21.
       -	ADT is validated and tested against Java versions 17 and 21 (Oracle Java and `OpenJDK`).
