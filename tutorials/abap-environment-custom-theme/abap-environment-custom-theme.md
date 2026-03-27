@@ -1,6 +1,4 @@
 ---
-title: Use Custom Themes in the SAP BTP ABAP Environment
-description: Learn how to integrate the Theme Designer in your SAP BTP ABAP Environment to create and use custom themes.
 auto_validation: true
 time: 20
 tags: [ tutorial>intermediate, software-product>sap-business-technology-platform, software-product>sap-btp-abap-environment]
@@ -9,6 +7,10 @@ author_name: Achim Seubert
 author_profile: https://github.com/AchimSeubert
 parser: v2
 ---
+
+# Use Custom Themes in the SAP BTP ABAP Environment
+
+<!-- description --> Learn how to integrate the Theme Designer in your SAP BTP ABAP Environment to create and use custom themes.
 
 ## Prerequisites
 
