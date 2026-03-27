@@ -3,8 +3,8 @@ title: Use Custom Themes in the SAP BTP ABAP Environment
 description: Learn how to integrate the Theme Designer in your SAP BTP ABAP Environment to create and use custom themes.
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, software-product>sap-business-technology-platform]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>intermediate, software-product>sap-business-technology-platform, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/AchimSeubert
 parser: v2
@@ -82,7 +82,7 @@ You now need to setup a communication between your SAP BTP ABAP Environment and 
 
 ### Maintain custom theme
 
-The communication scenario created in the previous step allows you to maintain both a default custom theme, as well as further additional custom themes that shall be available to business users.
+The communication arrangement created in the previous step allows you to maintain both a default custom theme, as well as further additional custom themes that shall be available to business users.
 
 1. Navigate to the **Communication Arrangements** Fiori app and click on the communication arrangement created in the previous step. Click on **Edit**.
 2. You can now maintain the desired custom themes adding the corresponding theme ID's in the **Additional Properties** section of the communication arrangement.
