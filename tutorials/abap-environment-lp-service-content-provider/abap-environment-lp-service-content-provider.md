@@ -4,8 +4,8 @@ author_name: Achim Seubert
 author_profile: https://github.com/achimseubert
 auto_validation: true
 time: 30
-tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 ---
 
 # Set SAP BTP, ABAP Environment as a Content Provider for SAP Build Work Zone, standard edition
