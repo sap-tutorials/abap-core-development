@@ -9,13 +9,15 @@ author_profile: https://github.com/julieplummer20
 
 ---
 
-# Monitor An SAP BTP ABAP Environment Service Using SAP Cloud ALM (CALM) 
+# Monitor An SAP BTP ABAP Environment Service Using SAP Cloud ALM (CALM)
 <!-- description -->
 Configure health monitoring and real user monitoring for an SAP BTP ABAP Environment service using SAP Cloud ALM.
 
 ## Prerequisites
 - SAP Cloud ALM instance
 - SAP BTP ABAP Environment instance with the Administrator role
+
+**CAUTION**: To complete this tutorial, you need a customer license (i.e. license number). This applies to customers, partners, and SAP employees. 
 
 
 ## You will learn

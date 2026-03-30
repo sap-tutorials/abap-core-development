@@ -8,9 +8,13 @@ author_name: Julie Plummer
 author_profile: https://github.com/julieplummer20
 ---
 
-# Enable connection from  a remote instance of SAP BTP, ABAP Environment
-<!-- description --> Enable another system, such as STP, to securely access data by creating: an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment; and by providing a   
+# Publish an OData service for remote consumption as an API
+<!-- description --> Enable another system, such as STP, to securely access data by creating: an inbound communication scenario, arrangement, system, and user in the provisioning system of SAP BTP, ABAP Environment; and by providing a service metadata file  
 
+
+## Prerequisites
+
+- You have created an OData service, e.g. by completing the tutorial group: [Build an SAP Fiori elements App Using the ABAP RESTful Application Programming Model (RAP) [RAP100]](/group.abap-build-fiori-element-rap.html)
 
 
 ## You will learn
@@ -47,39 +51,6 @@ You start in your **provisioning** system by creating the ABAP artifacts in ABAP
 1. Choose **Create new transport request**, enter a description, such as **Provide access from remote system - OData**, then choose **Finish**.
 
 2. Add it to **Favorite Packages**.
-
-
-### Create OData service endpoint (service binding)
-
-First, you need to expose your service definition (based on your service projection, e.g. **`Z_C_TRAVEL_U_SIMPLE_###`**) as an endpoint so that the **consuming system** can access it. To do this, create a service binding of type **Web API**, OData version 2. (The type **UI** is not suitable for creating the other objects you will derive from it later.) 
-
-When naming, remember to comply with the [Naming Conventions for RAP Business Objects](https://help.sap.com/docs/SAP_S4HANA_CLOUD/e5522a8a7b174979913c99268bc03f1a/8b8f9d8f3cb948b2841d6045a255e503.html?q=naming%20convention&version=2302.500).
-
-1. Create a new **Service Binding** from the service definition by selecting it and choosing **New Service Binding** from the context menu. 
-
-    <!-- border -->
-    ![step2a-create-service-binding](step2a-create-service-binding.png)
-
-
-2. In the wizard:
-
-    - Name: **`Z_C_TRAVEL_API_O2_###`** 
-    - Description **`Endpoint Z_C_TRAVEL_U_SIMPLE_###`**
-    - Enter the binding type: **`ODATA V2 - Web API`**
-    - Make sure that the service definition = **`Z_C_TRAVEL_U_SIMPLE_###`**
-    - Choose **Next**
-
-    <!-- border -->
-    ![step2b-create-sb-wizard](step2b-create-sb-wizard.png)
-
-3. Accept the transport request and choose **Finish**.    
-
-The service binding opens in a new editor.
-
-4. Choose **Activate `( Ctrl+F3 )`** , then choose **Publish**.
-
-    <!-- border -->
-    ![step2c-service-binding-published](step2c-service-binding-published.png)
 
 
 ### Create inbound Communication Scenario
@@ -254,5 +225,9 @@ You will now create a metadata file for this service, which you will access late
 ### Test yourself
 
 
+### Next steps
+
+Optional: You can now consume a custom OData Service such as the one described in:
+[Integrate the SAP BTP, ABAP environment with SAP S/4HANA Cloud, public edition](https://developers.sap.com/group.sap-btp-abap-s4hana-integrate.html)
 
 ---

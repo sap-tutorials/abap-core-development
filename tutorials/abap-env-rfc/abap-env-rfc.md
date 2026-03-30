@@ -13,7 +13,19 @@ author_profile: https://github.com/julieplummer20
 
 <!-- description --> Call a remote function module located in an on-premise system, such as a SAP S/4HANA System, from the ABAP Environment
 
-  
+
+## Prerequisites
+
+- You have set up SAP Business Technology Platform (BTP), ABAP Environment, for example by using the relevant booster: [Using a Booster to Automate the Setup of the ABAP Environment](https://help.sap.com/viewer/65de2977205c403bbc107264b8eccf4b/Cloud/en-US/cd7e7e6108c24b5384b7d218c74e80b9.html)
+- **Tutorial**: [Set Up SAP BTP, ABAP Environment and create Your First Console Application](abap-environment-trial-onboarding), for a licensed user, steps 1-2
+-	You have a user in an ABAP on-premise system. Examples of such on-premise systems include:
+    - [ABAP Cloud Developer Trial 2023](https://community.sap.com/t5/technology-blog-posts-by-sap/abap-cloud-developer-trial-2023-available-now/ba-p/14057183) or:
+    - [SAP S/4HANA 1809 fully activated appliance](https://blogs.sap.com/2018/12/12/sap-s4hana-fully-activated-appliance-create-your-sap-s4hana-1809-system-in-a-fraction-of-the-usual-setup-time/)
+- You have connected **SAP Cloud Connector**, to your BTP subaccount
+- You have assigned the business catalog **``**SAP_CORE_BC_COM** in a business role assigned to your user, e.g. **`SAP_BR_ADMINISTRATOR (Administrator)`**; you will need it to create communication artifacts
+- You may need to define the relevant homepage structure that should be exposed to the launchpad. In Manage Launchpad Settings, set the relevant value for EXPOSURE_HOMEPAGE_STRUCTURE. See Manage Launchpad Settings
+
+
 ## You will learn 
   
   - How to create a secure RFC connection between your SAP BTP, ABAP Environment and an on-premise SAP System, e.g. SAP S/4HANA
@@ -26,6 +38,10 @@ Throughout this tutorial, replace `###` or `000` with your initials or group num
 > This tutorial is part of a mission, [Get Data from an On-Premise System Using a Remote Function Call - RFC](mission.abap-env-connect-onpremise). Make sure you have fulfilled the prerequisites in the previous tutorial and that you follow each tutorial in order.
 
 ---
+
+## Introduction
+
+To learn more about this scenario, see the tutorial: [Get Data from a Remote System Using a Remote Function Call (RFC): Scenario](/abap-env-rfc-scenario)
 
 
 ### Check SAP Cloud Connector Configuration
