@@ -115,6 +115,7 @@ You first create the database tables and then use the [ABAP Repository Generator
     @AbapCatalog.tableCategory : #TRANSPARENT
     @AbapCatalog.deliveryClass : #C
     @AbapCatalog.dataMaintenance : #ALLOWED
+    @AbapCatalog.primaryKey.invertedIndividualIndex : true
     define table zerrcode_### {
       key client            : abap.clnt not null;
       key error_code        : z_error_code_### not null;
@@ -136,6 +137,7 @@ You first create the database tables and then use the [ABAP Repository Generator
     @AbapCatalog.tableCategory : #TRANSPARENT
     @AbapCatalog.deliveryClass : #C
     @AbapCatalog.dataMaintenance : #ALLOWED
+    @AbapCatalog.primaryKey.invertedIndividualIndex : true
     define table zerrcodet_### {
       key client            : abap.clnt not null;
       @AbapCatalog.textLanguage
