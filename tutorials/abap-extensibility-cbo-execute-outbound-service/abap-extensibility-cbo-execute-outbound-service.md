@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: programming-tool>abap-extensibility
-tags: [  tutorial>intermediate, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+tags: [ tutorial>intermediate, tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -26,11 +26,11 @@ author_profile: https://github.com/peterpersiel
 - **Example Objects:** Existence of custom business object `Bonus Entitlement` as described in [Part IV: Associated Business Objects (Bonus Entitlement with - Plan & Sales Order)](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/part-iv-associated-business-objects-bonus-entitlement-with-plan-amp-sales/ba-p/13345817) → Steps 1-4 without release status functionality
 - **Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
 
-#### Additional Info
+## Additional Info
 
 - The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
 - Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
-- Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2508
+- Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2602
   
 ---
 
@@ -204,7 +204,7 @@ Create a Communication Arrangement for the scenario you created, using the desig
 
     ![Communication System Selection in Communication Arrangement](CA_SelectSystem.png)
 
-6. **Save** the Arrangement.
+6. Make sure the outbound service for SAP Translation Hub is active and **Save** the Arrangement.
 
 ### Extend custom business object data structure
 
@@ -362,7 +362,7 @@ Now as the business object has just been published, the logic can be enhanced by
         }
         ```
 
-    4. Implement logic to extract the translation part from the JSON string using the[XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=LATEST&locale=en-US).
+    4. Implement logic to extract the translation part from the JSON string using the [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=LATEST&locale=en-US).
 
         ```abap  
         * Get translation from response
@@ -433,5 +433,3 @@ Now as the business object has just been published, the logic can be enhanced by
 4. **Save** the Bonus Entitlement. The translation will get filled.
 
 ### Test yourself
-
----

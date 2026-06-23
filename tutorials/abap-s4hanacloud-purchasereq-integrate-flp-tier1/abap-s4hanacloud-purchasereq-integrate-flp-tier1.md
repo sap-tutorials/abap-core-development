@@ -8,7 +8,7 @@ author_name: Merve Temel
 author_profile: https://github.com/mervey45
 --- 
  
-# Add the Shopping Cart Fiori Application to FLP  
+# Add the Shopping Cart Fiori Application to FLP (2023) 
 <!-- description --> Integrate your list report application into ABAP Fiori launchpad.
 
 ## Prerequisites  
@@ -28,7 +28,7 @@ author_profile: https://github.com/mervey45
 - How to create a technical catalog 
 - How to create SAP Fiori business catalog
 - How to create a space and page 
-- How to create a business role and assign to business user 
+- How to create a business role and assign to business user  
 - How to run an app from FLP
 
 

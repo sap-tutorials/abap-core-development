@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/achimseubert
 parser: v2

@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: topic>abap-development
-tags: [  tutorial>beginner, tutorial>license, topic>abap-development, topic>abap-extensibility ]
+primary_tag: programming-tool>abap-extensibility
+tags: [  tutorial>beginner, tutorial>license, programming-tool>abap-development, programming-tool>abap-extensibility ]
 time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -20,12 +20,10 @@ author_profile: https://github.com/peterpersiel
 
 - **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and  **Extensibility - Custom Catalog Extensions** (ID: `SAP_CORE_BC_EXT_CCE`) in your **SAP S/4HANA Cloud** system
 
-#### Additional Info
+## Additional Info
 
 - Since application availability in the Fiori Launchpad and its authorization are controlled through Business Catalogs, you'll learn how to extend an existing catalog to include your newly created app.
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
-
----
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
 
 ### Open custom catalog extensions
 

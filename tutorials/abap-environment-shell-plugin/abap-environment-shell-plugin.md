@@ -35,7 +35,7 @@ parser: v2
 
 ### Create a Package in ABAP Developer Tool in Eclipse
 
-The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create in ADT a local package and a transport request for the software component.
+The shell plug-in will be deployed to the local `ZLOCAL` software component in your SAP BTP ABAP Environment. For this reason, you need to create a local package in ADT.
 
 1. Access ABAP Developer Tool in Eclipse and connect to your SAP BTP ABAP Environment.
 
@@ -52,13 +52,9 @@ The shell plug-in will be deployed to the local `ZLOCAL` software component in y
 
     ![Create new package - select software component](create_new_package_3.png)
 
-5. Select the **Create a new request** option and input a description for your transport request. Click on **Finish**. The package will be created.
+5. Click on **Finish**. The package will be created.
 
-    ![Create new transport request](create_transport_request.png)
-
-6. Open the **Transport Organizer** and select your SAP BTP ABAP Environment. Navigate to **Workbench** > **Local Change Requests** > **Modifiable**. Here you can see the transport request you just created. Take note of the transport request number, you will need it in a later step.
-
-    ![Transport organizer - transport request number](transport_organizer.png)
+    ![No tr creation, just finish](create_transport_request.png)
 
 ### Create a SAPUI5 Project in Business Application Studio
 
@@ -107,10 +103,12 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
     >Ensure that **Use Virtual Endpoints for Local Preview** remains set to **No**.
 
-9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Select **Enter manually** and Input the **Transport Request** number you created in the previous step. Click on **Next**.
+9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Click on **Next**.
 
     <!--border-->
     ![Create SAP Fiori application - Deployment configuration](create_SAPUI5_project_6.png)
+
+    >Once the destination and package name have been entered, the system verifies whether the package is local. If this is the case, the Transport Request field is automatically disabled.
 
 10. Fiori Launchpad Configuration: In the **Semantic Object** field input `Shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
 
@@ -277,7 +275,7 @@ The application project is automatically initialized with several basic folders,
     );
     ```
 
-    >In line 7, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` property.
+    >In line 8, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` property.
 
 ### Preview your SAPUI5 Component
 
@@ -319,7 +317,7 @@ You can now deploy your SAPUI5 Component on with a basic (empty) shell plug-in t
 `Deployment Successful`. You can now close the terminal window.
 >The deployment process can take up to a few minutes.
 
-3. After a successful deployment, your software package in ABAP Developer Tool in Eclipse will be automatically enhanced by a BSP Application, a Launchpad App Descriptor Item and two `SICF` Nodes.
+3. After a successful deployment, your software package in ABAP Developer Tool in Eclipse will be automatically enhanced by a BSP Application, a Launchpad App Descriptor Item and `SICF` Node.
 
     <!--border-->
     ![New ADT files](new_ADT_files.png)
@@ -342,7 +340,7 @@ Now that your basic shell plug-in has been successfully deployed to your SAP BTP
 
     ![Create business catalog 3](create_business_catalog_3.png)
 
-5. Click on next and select the transport request you created in a previous step. Click on **Finish**.
+5. Click on **Next**, then on **Finish**.
 
 6. In the newly created **IAM App**, enter the name of your **Launchpad App Descriptor Item** in the corresponding field (1) and save ( **File** > **Save**). Then click on **Publish Locally** (3).
 
@@ -363,17 +361,15 @@ Now that you have created the IAM App, you can create a Business Catalog and ass
 
     ![Create business catalog 5](create_business_catalog_5.png)
 
-3. Click next and select your transport request. Click on **Finish**.
+3. Click on **Next**, then click on **Finish**.
 
-4. A new window will automatically pop up prompting you to create the Business Catalog App Assignment. Click on **Next**.
+4. A new window will automatically pop up prompting you to create the Business Catalog App Assignment. Click on **Next**, then on **Finish**.
 
     ![Create business catalog 6](create_business_catalog_6.png)
 
-5. Select the transport request you used previously. Click on **Finish**.
+5. The generated IAM App, IAM App to Catalog Assignment and IAM Business Catalog will appear in your project folder.  
 
-6. The generated IAM App, IAM App to Catalog Assignment and IAM Business Catalog will appear in your project folder.  
-
-7. Double click on the IAM Business Catalog file to open it. Click on **Publish Locally**.
+6. Double click on the IAM Business Catalog file to open it. Click on **Publish Locally**.
 
     ![Create business catalog 8](create_business_catalog_8.png)
 >Publishing the Business Catalog can take up to a minute. You can keep track of the process in the lower right corner of the ABAP Developer Tool in Eclipse.

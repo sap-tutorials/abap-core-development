@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: topic>abap-development
-tags: [  tutorial>beginner, tutorial>license, topic>abap-development, topic>abap-extensibility  ]
+primary_tag: programming-tool>abap-development
+tags: [ tutorial>beginner, tutorial>license, programming-tool>abap-development, programming-tool>abap-extensibility ]
 time: 25
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -23,7 +23,7 @@ author_profile: https://github.com/peterpersiel
 - Your user needs Administrator access to your **SAP Business Technology Platform** (aka SAP BTP) subaccount
 - Your user needs Administrator access to your **SAP Cloud Identity Services tenant**
 
-#### Glossary
+## Glossary
 
 - *Identity*: individual people, but also computers, services, computational entities like processes and threads, or any group of such things
 - *Identity Provider*: system entity that creates, maintains, and manages identity information for identities
@@ -32,9 +32,9 @@ author_profile: https://github.com/peterpersiel
 - *SAP Cloud Identity Services tenant*: a customer's instance of the services
 - *SAP Cloud Identity Services console*: Web application to configure your tenant
 
-#### Additional Information
+## Additional Information
 
-- Tutorial last updated in September 2025
+- Tutorial last updated in April 2026
 - Documentation: [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/landing-page?version=Cloud)
 
 >Be aware that in case of an integration with SAP S/4HANA Cloud the used Identity Authentication for the SAP BTP subaccount should be the very same as the one used for the SAP S/4HANA Cloud system.
@@ -97,14 +97,14 @@ Choose **Applications & Resources** (1) and go to **Applications** (2). Click **
 
 ### Set application's Subject Name Identifier
 
-Now you have to configure which attribute is used to identify users during `SAML2.0` secure communication. By default this is **`User ID`**, but as SAP S/4HANA Cloud by default works with **`Login Name`** it shall be switched to that.
+Now you have to configure which attribute is used to identify users during `SAML 2.0` authentication. SAP S/4HANA Cloud expects the Subject Name Identifier to be set to **`Login Name`** or **`Email`**. Choose a subject name identifier that is known and provided in both SAP BTP and on S/4HANA Public Cloud Side. Refer to [Configure the Subject Name Identifier Sent to the Application](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/configure-subject-name-identifier-sent-to-application) for more information.
 
 1. Still being in your application's Trust settings select **Subject Name Identifier**.
 
     <!--border-->
     ![Open Subject Name Identifier configuration](IAS_openSubjectNameID_attributeConfig.png)
 
-2. Under **Primary Attribute** use **Identity Directory** as **Source**, choose **Login Name** as **Value** and save your changes.
+2. Under **Primary Attribute** use **Identity Directory** as **Source**, choose **Login Name** or **Email** as **Value** and save your changes.
 
     <!--border-->
     ![Set Login Name as application' s Subject Name Identifier](IAS_subjectNameID_attribute_setLoginName.png)
@@ -154,12 +154,12 @@ To set the SAP Cloud Identity Services tenant as trusted identity provider in th
 
 Switch back to your SAP BTP cockpit trust configuration.
 
-Choose **New SAML Trust Configuration** to add a trusted identity provider.
+Choose **Add SAML Trust** to add a trusted identity provider.
 
 <!--border-->
-![Click New SAML Trust Configuration](btp-new-trust-config-button.png)
+![Click Add SAML Trust](btp-new-trust-config-button.png)
 
-Upload the metadata XML file of your SAP Cloud Identity tenant in the **Metadata File** field, give a **Name**, as for example the tenant id. **Save** your changes.
+Upload the metadata XML file of your SAP Cloud Identity Services tenant in the **Metadata** field, give a **Name**, as for example the tenant id. Save your changes via **Add SAML Trust**.
 
 <!--border-->
 ![Upload identity tenant' s metadata as trusted identity provider and save](btp-new-trust-config.png)

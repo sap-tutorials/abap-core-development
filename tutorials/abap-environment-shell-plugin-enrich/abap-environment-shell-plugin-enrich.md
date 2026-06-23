@@ -41,9 +41,9 @@ In this tutorial you will continue working on the shell plug-in you created in t
 
     ![Create data definition - create 2](create_data_definition_3.png)
 
-5. Select the transport request you created in the previous tutorial, and click on **Next**.
+5. Click on **Next**, then on **Finish**. 
 
-    ![Create data definition - transport request](create_transport_request.png)
+    ![Create data definition - no tr needed ](create_transport_request.png)
 
 6. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 
@@ -70,11 +70,11 @@ In this tutorial you will continue working on the shell plug-in you created in t
 ### Create a Business User Data Definition
 Now you need to create a second Data Definition, which will take the User ID exposed by the Data Definition you created in the previous step, and will expose the data related to that User ID, such as name and email address.
 
-1. As in the previous step, right click on the package and select **New** > **Other ABAP Repository Object**. In the search bar, search for **Data Definition** and click on it. Enter a **Name** and a **Description**. Click on **Next**.
+1. As in the previous step, right click on the package and select **New** > **Other ABAP Repository Object**. In the search bar, search for **Data Definition** and click on it. Enter a **Name** and a **Description**. 
 
     ![Create data definition - Business User](create_data_definition_7.png)
 
-2. Select your transport request and click on **Finish**.
+2. Click on **Finish**, then on **Finish**.
 
 3. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 
@@ -106,13 +106,11 @@ Now you need to create a second Data Definition, which will take the User ID exp
 ### Create a Service Definition
 In order to expose the data from the two previous Data Definitions you need to create a Service Definition.
 
-1. Right click on the package and select **New** > **Other ABAP Repository Object**. In the search bar, search for **Service Definition** and click on it. Enter a **Name** and a **Description**. Click on **Next**.
+1. Right click on the package and select **New** > **Other ABAP Repository Object**. In the search bar, search for **Service Definition** and click on it. Enter a **Name** and a **Description**. Click on **Next**, then on **Finish**.
 
     ![Create service definition](create_service_definition_1.png)
 
-2. Select your transport request and click on **Finish**.
-
-3. Add your Projection Views to your Service Definition as follows:
+2. Add your Projection Views to your Service Definition as follows:
 
     ``` ABAP
     @EndUserText.label: 'Business User Service Definition'
@@ -122,7 +120,7 @@ In order to expose the data from the two previous Data Definitions you need to c
     }
     ```
 
-1. Save your Service Definition and activate it using the **Activate** icon.
+3. Save your Service Definition and activate it using the **Activate** icon.
 
     ![Activate - 2](activate_icon.png)
 
@@ -133,13 +131,13 @@ Your Service Definition will be consumed by your SAP Fiori Application via the u
 
     ![Create service binding](create_service_binding_1.png)
 
-2. Enter a **Name** and a **Description**. In the **Binding Type** dropdown menu, select the option **OData V4 - UI** and click on **Next**.
+2. Enter a **Name** and a **Description**. In the **Binding Type** dropdown menu, select the option **OData V4 - UI**.
 
     ![Create service binding - name and description](create_service_binding_2.png)
 
     >It is good practice to include the type of Service Binding in the Service Binding name, e.g.: adding the suffix `V_O4` to the name of Service Bindings of type OData Service V4.
 
-3. Select your transport request and click on **Finish**.
+3. Click on **Next**, then on **Finish**.
 
 4. Save your Service Binding and activate it using the **Activate** icon.
 
@@ -177,6 +175,8 @@ Now that you have created an OData Service which exposes user-related informatio
 4. Select the **Destination** option. In the **Destination** dropdown menu, select the destination pointing to your SAP BTP ABAP Environment. In the **Provide Service** section, select **Fetch** and from the **Select a service** dropdown menu, select your Service Binding. Click on **Add**.
 
     ![Add new service - parameters](add_new_service_2.png)
+
+>In ADT, navigate to your Service Binding. On the right side you will find the Service URL.
 
 5. Optional: in the **`manifest.json`** file you can see that the OData Service has been added automatically under `"dataSources"` and `"models"` configurations.
 
@@ -237,7 +237,7 @@ Your SAPUI5 Application can now consume user-related information via the OData S
 
     ![Create new view file](create_view_file_1.png)
 
-3. Input a **Name** for your new View file, and make sure it ends with `.fragment.xml` to create a View of type Fragment . Click on **OK**.
+3. Input a **Name** e.g. `BusinessUserFragment` for your new View file, and make sure it ends with `.fragment.xml` to create a View of type Fragment . Click on **OK**.
 
     ![Create new view file - name](create_view_file_2.png)
 
@@ -418,8 +418,11 @@ You can now re-deploy your SAPUI5 Application with an enhanced shell plug-in to 
 
     ![Deploy application](deploy_application.png)
 
+>In case the Deploy tile is not visible in the Application Info, right-click the ui5-deploy.yaml file, select Open in Integrated Terminal, and execute the command npm run deploy.    
+
 2. The deployment process will begin. You will be prompted to confirm the deployment by typing `Y`. Once the SAPUI5 Application is successfully deployed to your SAP BTP ABAP Environment, the terminal will return the status:
 `Deployment Successful`.
+
 >The deployment process can take up to a few minutes.
 
 ### Test your Shell Plug-in

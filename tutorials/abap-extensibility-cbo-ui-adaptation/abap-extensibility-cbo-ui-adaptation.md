@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: topic>abap-extensibility
-tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 10
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -20,13 +20,13 @@ author_profile: https://github.com/peterpersiel
 
 - **Authorizations:** Your user needs a business role with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Key User Adaptation Customizing** (ID: `SAP_CORE_BC_EXT_FLX_CUS_PC`) in your **SAP S/4HANA Cloud** system
 
-#### Additional Info
+## Additional Info
 
 - In the preceding tutorials you created a custom business object with a simple data structure and its persistence. Afterwards you generated an UI for this business object and exposed it as a Fiori Launchpad application. As the generated User Interfaces only lists all fields of a business object node, adapting the UI might be necessary to improve usability of it.
 - The **UI Generation** done in a previous tutorial and the **UI Adaptation** shown in this tutorial are so called **In-App Extensibility** features done completely inside a S/4HANA Cloud system. They are key user functionality with limited possibilities. In contrast to UI Generation and Adaptation, a UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
 
-#### Our Example
+## Our Example
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 

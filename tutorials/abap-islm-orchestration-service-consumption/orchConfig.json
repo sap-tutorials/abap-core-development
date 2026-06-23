@@ -1,0 +1,119 @@
+{
+    "modules": {
+        "prompt_templating": {
+            "prompt": {
+                "template": [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Which LLM is used in our conversation"
+                            }
+                        ]
+                    }
+                ],
+                "defaults": {}
+            },
+            "model": {
+                "name": "anthropic--claude-4-sonnet",
+                "params": {
+                    "max_tokens": 32000,
+                    "temperature": 1
+                },
+                "version": "1"
+            }
+        },
+        "masking": {
+            "masking_providers": [
+                {
+                    "type": "sap_data_privacy_integration",
+                    "method": "pseudonymization",
+                    "entities": [
+                        {
+                            "type": "profile-credit-card-number"
+                        },
+                        {
+                            "type": "profile-driverlicense"
+                        },
+                        {
+                            "type": "profile-email"
+                        },
+                        {
+                            "type": "profile-sensitive-data"
+                        },
+                        {
+                            "type": "profile-ethnicity"
+                        },
+                        {
+                            "type": "profile-gender"
+                        },
+                        {
+                            "type": "profile-pronouns-gender"
+                        },
+                        {
+                            "type": "profile-iban"
+                        },
+                        {
+                            "type": "profile-nationalid"
+                        },
+                        {
+                            "type": "profile-nationality"
+                        },
+                        {
+                            "type": "profile-org"
+                        },
+                        {
+                            "type": "profile-passport"
+                        },
+                        {
+                            "type": "profile-person"
+                        },
+                        {
+                            "type": "profile-phone"
+                        },
+                        {
+                            "type": "profile-political-group"
+                        },
+                        {
+                            "type": "profile-sapids-public"
+                        },
+                        {
+                            "type": "profile-religious-group"
+                        },
+                        {
+                            "type": "profile-sapids-internal"
+                        },
+                        {
+                            "type": "profile-ssn"
+                        },
+                        {
+                            "type": "profile-sexual-orientation"
+                        },
+                        {
+                            "type": "profile-trade-union"
+                        },
+                        {
+                            "type": "profile-address"
+                        },
+                        {
+                            "type": "profile-url"
+                        },
+                        {
+                            "type": "profile-university"
+                        },
+                        {
+                            "type": "profile-username-password"
+                        }
+                    ],
+                    "mask_grounding_input": {
+                        "enabled": true
+                    },
+                    "allowlist": [
+                        "location"
+                    ]
+                }
+            ]
+        }
+    }
+}

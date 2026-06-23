@@ -1,8 +1,8 @@
 ---
 parser: v2
 auto_validation: true
-primary_tag: topic>abap-extensibility
-tags: [  tutorial>beginner, tutorial>license, topic>abap-extensibility, topic>cloud, products>sap-s-4hana ]
+primary_tag: programming-tool>abap-extensibility
+tags: [ tutorial>beginner, tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 20
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -25,15 +25,13 @@ author_profile: https://github.com/peterpersiel
 
 - **Authorizations:** Your user needs a business role with business catalog **Extensibility – Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`) and **Extensibility - Custom Logic** (ID: `SAP_CORE_BC_EXT_BLE`) in your **SAP S/4HANA Cloud** system
 
-#### Our Example
+## Our Example
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is used to save employee specific rules for bonus entitlement.
 
->Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
-
----
+>Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
 
 ### Make key field Read-Only
 
@@ -120,7 +118,7 @@ For **published** Custom Business Objects **without a Draft version** you can im
         ENDIF.
         ```
 
-5. Check user input to determine the `isconsistent` property.
+5. Check user input to determine the `IsConsistent` property.
 
     - Check that `ValidityStartDate` and `ValidityEndDate` are set and that `ValidityStartDate` is earlier in time than `ValidityEndDate`.
 
@@ -294,5 +292,3 @@ Once ensured that both logic implementations were successfully published you can
 7. **Save** the Bonus Plan. Now it will not be rejected and missing values will be filled by determination logic.
 
 ### Test yourself
-
----

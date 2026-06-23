@@ -2,8 +2,8 @@
 parser: v2
 auto_validation: true
 time: 25
-tags: [ tutorial>beginner, topic>cloud, tutorial>license, products>sap-business-technology-platform, products>sap-business-application-studio  ]
-primary_tag: topic>abap-extensibility
+tags: [ tutorial>beginner, topic>cloud, tutorial>license, software-product>sap-business-technology-platform, software-product>sap-business-application-studio, programming-tool>abap-extensibility ]
+primary_tag: programming-tool>abap-extensibility
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
@@ -25,13 +25,11 @@ author_profile: https://github.com/peterpersiel
 - You have a custom business object with OData service running in the SAP S/4HANA Cloud system, for example `YY1_BONUSPLAN`, see [Create a Custom Business Object](abap-extensibility-cbo-create) as well as [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation). During creation of the custom business object, select the option to generate a Back End Service and deselect the option to generate a User Interface.
 - You have an SAP Business Technology Platform (SAP BTP) Trial account with an SAP Business Application Studio subscription and a dev space within that, see preceding tutorials of this tutorial group.
 
-#### Additional Info
+## Additional Info
 
 - This tutorial illustrates all the needed steps to build a UI with all SAPUI5 options in SAP Business Application Studio, how to test it, and how deploy it into the SAP S/4HANA Cloud system. If your goal is simply to generate a user interface and make limited adjustments within the SAP S/4HANA Cloud system using in-app extensibility, refer to [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation).
 - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
-
----
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
 
 ### Launch SAP Business Application Studio
 
@@ -277,5 +275,3 @@ Once the UI is set up to your needs, you can deploy it to the development SAP S/
     Once the deployment is completed, a **Deployment Successful.** message is displayed in the log.
 
 ### Test yourself
-
----

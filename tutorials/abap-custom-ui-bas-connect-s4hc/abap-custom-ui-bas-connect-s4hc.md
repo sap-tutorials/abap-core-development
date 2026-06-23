@@ -2,8 +2,8 @@
 parser: v2
 auto_validation: true
 time: 20
-tags: [ tutorial>beginner, topic>cloud, tutorial>license, products>sap-business-technology-platform, products>sap-business-application-studio  ]
-primary_tag: topic>abap-extensibility
+tags: [ tutorial>beginner, topic>cloud, tutorial>license, software-product>sap-business-technology-platform, software-product>sap-business-application-studio, programming-tool>abap-extensibility ]
+primary_tag: programming-tool>abap-extensibility
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
@@ -23,13 +23,11 @@ author_profile: https://github.com/peterpersiel
 - You have an **SAP Business Technology Platform Trial account** or customer account with an SAP Business Application Studio subscription
 - You have set up mutual trust between the SAP BTP subaccount and the Identity Provider, see [Tutorial: Set Up Trust Between SAP Cloud Identity Services and SAP BTP Cloud Foundry Environment](abap-custom-ui-trust-cf)
 
-#### Additional Infos
+## Additional Infos
 
 - If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2508
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
 - Alternatively, see [Integrating SAP Business Application Studio](https://help.sap.com/viewer/0f69f8fb28ac4bf48d2b57b9637e81fa/latest/en-US/22bc724fd51a4aa4a4d1c5854db7e026.html) documentation for this tutorial's content with a customer account.
-
----
 
 ### Create destination to SAP S/4HANA Cloud system
 
@@ -75,7 +73,7 @@ Although this tutorial describes the flow with a trial account, the sequence is 
     |  `AuthnContextClassRef` | **`urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession`**                    |&nbsp;
     |  `Audience`             | Copy and paste the `OAuth 2.0 SAML2 Audience` from the **Own SAP Cloud System**.|&nbsp;
     |  `Client Key`           | Check _Set empty_ checkbox                                                      |&nbsp;
-    |  `Name Id Format`       | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**                    | Required in case your subaccount sends the e-mail address as SAML Subject Name Identifier for authentication (configured as **Subject Name Identifier** in its SAP Cloud Identity Service Application, see [Tutorial: Set Up Trust Between SAP Cloud Identity Services and SAP BTP Cloud Foundry Environment](abap-custom-ui-trust-cf)), although SAP S/4HANA Cloud system expects user login by default. **That is the case with a trial Account.** This also requires the e-mail address to be maintained for SAP S/4HANA Cloud system business users.
+    |  `Name Id Format`       | **`urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress`**                    | If you have set the subject name identifier in the trust configuration to E-Mail, you have to add this property. Refer to [Tutorial: Set Up Trust Between SAP Cloud Identity Services and SAP BTP Cloud Foundry Environment](abap-custom-ui-trust-cf). This also requires the e-mail address to be maintained for SAP S/4HANA Cloud system business users.
 
     Select **Add Property** and maintain the following **Additional Properties** and values.
 
@@ -165,5 +163,3 @@ This is how you have to configure the communication system that represents the S
 The connection is now set up and you can make use of the OData services of the SAP S/4HANA Cloud system in SAP Business Application Studio.  
 
 ### Test yourself
-
----

@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 20
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/achimseubert
 parser: v2
@@ -23,7 +23,7 @@ parser: v2
 - How to configure an **OAuth 2.0 Identity Provider** for inbound connectivity.
   
 ## Intro
->
+
 >In this tutorial, all activities on S/4HANA Cloud side will be performed in the **customizing tenant** (100) of your **development system**.
 
 ### Understand the OAuth 2.0 SAML Bearer Assertion Flow

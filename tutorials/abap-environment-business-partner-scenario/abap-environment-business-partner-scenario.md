@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 10
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/achimseubert
 parser: v2
@@ -27,7 +27,7 @@ The scenario is successfully implemented when an SAP S/4HANA Cloud, public editi
 
 ### Understand cloud-based communication management
 
-Familiarize yourself with the relevant communication management concepts by reading through the overview page [Communication Management](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/communication-management).
+Familiarize yourself with the relevant communication management concepts by reading through the overview page [Communication Management](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/communications-operations-communication-management).
 
 In the scenario that we are considering, an SAP S/4HANA Cloud, public edition service is called from SAP BTP, ABAP environment. In other words, SAP S/4HANA Cloud, public edition is the **inbound** communication partner, while SAP BTP, ABAP environment is the **outbound** communication partner.
 

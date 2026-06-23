@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 25
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform ]
-primary_tag: products>sap-btp--abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-business-technology-platform, products>sap-btp-abap-environment ]
+primary_tag: products>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/AchimSeubert
 parser: v2
