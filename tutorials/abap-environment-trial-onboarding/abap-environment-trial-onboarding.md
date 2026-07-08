@@ -23,16 +23,6 @@ author_profile: https://github.com/mervey45
 ## You will learn  
   - How to create a trial user
 
-## Intro
-
-This tutorial is part of a 3-part series of SAP BTP, ABAP Environment tutorials, each of which will earn you a badge:
-
-- [Create an SAP BTP ABAP Environment Trial User](mission.abap-env-trial-user)
-
-- [Create and Expose a CDS-Based Data Model With SAP BTP ABAP Environment](mission.cp-starter-extensions-abap)
-
-- [Level Up with SAP BTP, ABAP Environment](mission.abap-env-level-up)
-
 ---
 
 ### Start boosters
@@ -83,8 +73,8 @@ The booster has now been executed successfully.
 2. Select the instance name and choose **Copy link** from the context menu.
 **IMPORTANT** save this link in a text file, since you will need it later.
 
-<!-- border -->
-![step3a-copy-link](step3a-copy-link.png)
+    <!-- border -->
+    <img src="step3a-copy-link.png" alt="step3a-copy-link" width="600">
 
 You can now [Create an ABAP Cloud Project](abap-environment-create-abap-cloud-project).
 
