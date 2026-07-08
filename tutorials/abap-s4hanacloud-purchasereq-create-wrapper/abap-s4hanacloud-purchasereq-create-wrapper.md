@@ -71,390 +71,66 @@ Copy and paste the following code into your previously created interface:
         INTERFACE zif_wrap_bapi_pr_create_###
       PUBLIC.
 
-      TYPES:
-        BEGIN OF bapimereqheader,
-          preq_no         TYPE banfn,
-          pr_type         TYPE bsart,
-          ctrl_ind        TYPE bsakz,
-          general_release TYPE gsfrg,
-          create_ind      TYPE estkz,
-          item_intvl      TYPE pincr,
-          last_item       TYPE lponr,
-          auto_source     TYPE kzzuo,
-          memory          TYPE membf,
-          hold_complete   TYPE bapimereqpostflag,
-          hold_uncomplete TYPE bapimereqpostflag,
-          park_complete   TYPE bapimereqpostflag,
-          park_uncomplete TYPE bapimereqpostflag,
-          memorytype      TYPE memorytype,
-        END OF bapimereqheader.
+  TYPES:
+    BEGIN OF bapimereqheader,
+      pr_type TYPE bsart,
+    END OF bapimereqheader.
 
-      TYPES:
-        BEGIN OF bapimereqheaderx,
-          preq_no         TYPE bapiupdate,
-          pr_type         TYPE bapiupdate,
-          ctrl_ind        TYPE bapiupdate,
-          general_release TYPE bapiupdate,
-          create_ind      TYPE bapiupdate,
-          item_intvl      TYPE bapiupdate,
-          last_item       TYPE bapiupdate,
-          auto_source     TYPE bapiupdate,
-          memory          TYPE bapiupdate,
-          hold_complete   TYPE bapiupdate,
-          hold_uncomplete TYPE bapiupdate,
-          park_complete   TYPE bapiupdate,
-          park_uncomplete TYPE bapiupdate,
-          memorytype      TYPE bapiupdate,
-        END OF bapimereqheaderx.
-      TYPES:
-        char1             TYPE c LENGTH 000001.
+  TYPES:
+    BEGIN OF bapimereqheaderx,
+      pr_type TYPE bapiupdate,
+    END OF bapimereqheaderx.
 
-      TYPES:
-        _bapiparex        TYPE STANDARD TABLE OF bapiparex WITH DEFAULT KEY.
+  TYPES char1 TYPE c LENGTH 000001.
 
-      TYPES:
-        BEGIN OF bapimereqaccountx,
-          preq_item        TYPE bnfpo,
-          serial_no        TYPE dzekkn,
-          preq_itemx       TYPE bapiupdate,
-          serial_nox       TYPE bapiupdate,
-          delete_ind       TYPE bapiupdate,
-          creat_date       TYPE bapiupdate,
-          quantity         TYPE bapiupdate,
-          distr_perc       TYPE bapiupdate,
-          net_value        TYPE bapiupdate,
-          gl_account       TYPE bapiupdate,
-          bus_area         TYPE bapiupdate,
-          costcenter       TYPE bapiupdate,
-          sd_doc           TYPE bapiupdate,
-          itm_number       TYPE bapiupdate,
-          sched_line       TYPE bapiupdate,
-          asset_no         TYPE bapiupdate,
-          sub_number       TYPE bapiupdate,
-          orderid          TYPE bapiupdate,
-          gr_rcpt          TYPE bapiupdate,
-          unload_pt        TYPE bapiupdate,
-          co_area          TYPE bapiupdate,
-          costobject       TYPE bapiupdate,
-          profit_ctr       TYPE bapiupdate,
-          wbs_element      TYPE bapiupdate,
-          network          TYPE bapiupdate,
-          rl_est_key       TYPE bapiupdate,
-          part_acct        TYPE bapiupdate,
-          cmmt_item        TYPE bapiupdate,
-          rec_ind          TYPE bapiupdate,
-          funds_ctr        TYPE bapiupdate,
-          fund             TYPE bapiupdate,
-          func_area        TYPE bapiupdate,
-          ref_date         TYPE bapiupdate,
-          tax_code         TYPE bapiupdate,
-          taxjurcode       TYPE bapiupdate,
-          nond_itax        TYPE bapiupdate,
-          acttype          TYPE bapiupdate,
-          co_busproc       TYPE bapiupdate,
-          res_doc          TYPE bapiupdate,
-          res_item         TYPE bapiupdate,
-          activity         TYPE bapiupdate,
-          grant_nbr        TYPE bapiupdate,
-          cmmt_item_long   TYPE bapiupdate,
-          func_area_long   TYPE bapiupdate,
-          budget_period    TYPE bapiupdate,
-          service_doc      TYPE bapiupdate,
-          service_item     TYPE bapiupdate,
-          service_doc_type TYPE bapiupdate,
-        END OF bapimereqaccountx.
-      TYPES:
-        _bapimereqaccountx TYPE STANDARD TABLE OF bapimereqaccountx WITH DEFAULT KEY.
+  TYPES:
+    BEGIN OF bapimereqitemimp,
+      preq_item  TYPE bnfpo,
+      plant      TYPE ewerk,
+      acctasscat TYPE knttp,
+      currency   TYPE waers,
+      deliv_date TYPE eindt,
+      material   TYPE matnr18,
+      matl_group TYPE matkl,
+      preq_price TYPE bapicurext,
+      quantity   TYPE bamng,
+      unit       TYPE bamei,
+      pur_group  TYPE ekgrp,
+      purch_org  TYPE ekorg,
+      short_text TYPE txz01,
+    END OF bapimereqitemimp.
+  TYPES _bapimereqitemimp TYPE STANDARD TABLE OF bapimereqitemimp WITH DEFAULT KEY.
 
-      TYPES:
-        BEGIN OF bapimereqitemimp ,
-          preq_item                     TYPE bnfpo,
-          ctrl_ind                      TYPE bsakz,
-          delete_ind                    TYPE eloek,
-          pur_group                     TYPE ekgrp,
-          preq_name                     TYPE afnam,
-          short_text                    TYPE txz01,
-          material                      TYPE matnr18,
-          material_external             TYPE mgv_material_external,
-          material_guid                 TYPE mgv_material_guid,
-          material_version              TYPE mgv_material_version,
-          pur_mat                       TYPE ematn18,
-          pur_mat_external              TYPE mgv_pur_mat_external,
-          pur_mat_guid                  TYPE mgv_pur_mat_guid,
-          pur_mat_version               TYPE mgv_pur_mat_version,
-          plant                         TYPE ewerk,
-          store_loc                     TYPE lgort_d,
-          trackingno                    TYPE bednr,
-          matl_group                    TYPE matkl,
-          suppl_plnt                    TYPE reswk,
-          quantity                      TYPE bamng,
-          unit                          TYPE bamei,
-          preq_unit_iso                 TYPE bamei_iso,
-          preq_date                     TYPE badat,
-          del_datcat_ext                TYPE lpein,
-          deliv_date                    TYPE eindt,
-          rel_date                      TYPE frgdt,
-          gr_pr_time                    TYPE webaz,
-          preq_price                    TYPE bapicurext,
-          price_unit                    TYPE epein,
-          item_cat                      TYPE pstyp,
-          acctasscat                    TYPE knttp,
-          distrib                       TYPE vrtkz,
-          part_inv                      TYPE twrkz,
-          gr_ind                        TYPE wepos,
-          gr_non_val                    TYPE weunb,
-          ir_ind                        TYPE repos,
-          des_vendor                    TYPE wlief,
-          fixed_vend                    TYPE flief,
-          purch_org                     TYPE ekorg,
-          agreement                     TYPE konnr,
-          agmt_item                     TYPE ktpnr,
-          info_rec                      TYPE infnr,
-          mrp_ctrler                    TYPE dispo,
-          bomexpl_no                    TYPE sernr,
-          val_type                      TYPE bwtar_d,
-          commitment                    TYPE xoblr,
-          closed                        TYPE ebakz,
-          reserv_no                     TYPE rsnum,
-          fixed                         TYPE bafix,
-          po_unit                       TYPE bstme,
-          po_unit_iso                   TYPE bstme_iso,
-          rev_lev                       TYPE revlv,
-          pckg_no                       TYPE packno,
-          kanban_ind                    TYPE kbnkz,
-          po_price                      TYPE bpueb,
-          int_obj_no                    TYPE cuobj,
-          promotion                     TYPE waktion,
-          batch                         TYPE charg_d,
-          cmmt_item                     TYPE fipos,
-          funds_ctr                     TYPE fistl,
-          fund                          TYPE bp_geber,
-          matl_cat                      TYPE attyp,
-          address2                      TYPE adrnr_mm,
-          address                       TYPE adrn2,
-          customer                      TYPE ekunnr,
-          supp_vendor                   TYPE emlif,
-          sc_vendor                     TYPE lblkz,
-          valuation_spec_stock          TYPE kzbws,
-          currency                      TYPE waers,
-          currency_iso                  TYPE bapiisocd,
-          vend_mat                      TYPE idnlf,
-          manuf_prof                    TYPE mprof,
-          langu                         TYPE spras,
-          langu_iso                     TYPE spras_iso,
-          validity_object               TYPE techs,
-          fw_order                      TYPE sfordn,
-          fw_order_item                 TYPE fordp,
-          plnd_delry                    TYPE plifz,
-          deliv_time                    TYPE lzeit,
-          ref_req                       TYPE refbn,
-          ref_req_item                  TYPE rfbps,
-          grant_nbr                     TYPE gm_grant_nbr,
-          func_area                     TYPE fkber,
-          req_blocked                   TYPE blckd,
-          reason_blocking               TYPE blckt,
-          version                       TYPE revno,
-          procuring_plant               TYPE beswk,
-          ext_proc_prof                 TYPE meprofile,
-          ext_proc_ref_doc              TYPE eprefdoc,
-          ext_proc_ref_item             TYPE eprefitm,
-          funds_res                     TYPE kblnr_fi,
-          res_item                      TYPE kblpos,
-          suppl_stloc                   TYPE reslo,
-          prio_urgency                  TYPE prio_urg,
-          prio_requirement              TYPE prio_req,
-          new_bom_explosion             TYPE bom_expl,
-          minremlife                    TYPE mhdrz,
-          period_ind_expiration_date    TYPE dattp,
-          budget_period                 TYPE fm_budget_period,
-          bras_nbm                      TYPE j_1bnbmco1,
-          matl_usage                    TYPE j_1bmatuse,
-          mat_origin                    TYPE j_1bmatorg,
-          in_house                      TYPE j_1bownpro,
-          indus3                        TYPE j_1bindus3,
-          req_segment                   TYPE sgt_rcat16,
-          stk_segment                   TYPE sgt_scat16,
-          avail_date                    TYPE dat00,
-          material_long                 TYPE matnr40,
-          pur_mat_long                  TYPE ematn40,
-          req_seg_long                  TYPE sgt_rcat40,
-          stk_seg_long                  TYPE sgt_scat40,
-          expected_value                TYPE commitment,
-          limit_amount                  TYPE sumlimit,
-          producttype                   TYPE product_type,
-          serviceperformer              TYPE serviceperformer,
-          startdate                     TYPE mmpur_servproc_period_start,
-          enddate                       TYPE mmpur_servproc_period_end,
-          spe_crm_ref_so                TYPE /spe/ref_vbeln_crm,
-          spe_crm_ref_item              TYPE /spe/ref_posnr_crm,
-          expert_mode                   TYPE mmpur_pr_ssp_expert_mode,
-          txs_business_transaction      TYPE txs_business_transaction,
-          txs_usage_purpose             TYPE txs_usage_purpose,
-          tax_code                      TYPE mwskz,
-          delivery_address_type         TYPE purdeliveryaddrtype,
-          contract_for_limit            TYPE ctr_for_limit,
-          iscrreplicationbeforeapproval TYPE mmpur_pr_cen_reqn_repl_bfr_app,
-          mmpur_pr_cen_reqn_app_rpld_pr TYPE mmpur_pr_cen_reqn_app_rpld_pr,
-          ssp_author                    TYPE mmpur_req_d_author,
-          ssp_requestor                 TYPE mmpur_req_d_requestor,
-          ssp_catalogid                 TYPE bbp_ws_service_id,
-          contract_item_for_limit       TYPE ctr_item_for_limit,
-        END OF bapimereqitemimp.
-      TYPES:
-        _bapimereqitemimp               TYPE STANDARD TABLE OF bapimereqitemimp WITH DEFAULT KEY.
+  TYPES:
+    BEGIN OF bapimereqitemx,
+      preq_item  TYPE bnfpo,
+      plant      TYPE bapiupdate,
+      acctasscat TYPE bapiupdate,
+      currency   TYPE bapiupdate,
+      deliv_date TYPE bapiupdate,
+      material   TYPE bapiupdate,
+      matl_group TYPE bapiupdate,
+      preq_price TYPE bapiupdate,
+      quantity   TYPE bapiupdate,
+      unit       TYPE bapiupdate,
+      pur_group  TYPE bapiupdate,
+      purch_org  TYPE bapiupdate,
+      short_text TYPE bapiupdate,
+    END OF bapimereqitemx.
+  TYPES _bapimereqitemx TYPE STANDARD TABLE OF bapimereqitemx WITH DEFAULT KEY.
 
-      TYPES:
-        BEGIN OF bapimereqitemx ,
-          preq_item                     TYPE bnfpo,
-          preq_itemx                    TYPE bapiupdate,
-          ctrl_ind                      TYPE bapiupdate,
-          delete_ind                    TYPE bapiupdate,
-          pur_group                     TYPE bapiupdate,
-          preq_name                     TYPE bapiupdate,
-          short_text                    TYPE bapiupdate,
-          material                      TYPE bapiupdate,
-          material_external             TYPE bapiupdate,
-          material_guid                 TYPE bapiupdate,
-          material_version              TYPE bapiupdate,
-          pur_mat                       TYPE bapiupdate,
-          pur_mat_external              TYPE bapiupdate,
-          pur_mat_guid                  TYPE bapiupdate,
-          pur_mat_version               TYPE bapiupdate,
-          plant                         TYPE bapiupdate,
-          store_loc                     TYPE bapiupdate,
-          trackingno                    TYPE bapiupdate,
-          matl_group                    TYPE bapiupdate,
-          suppl_plnt                    TYPE bapiupdate,
-          quantity                      TYPE bapiupdate,
-          unit                          TYPE bapiupdate,
-          preq_unit_iso                 TYPE bapiupdate,
-          preq_date                     TYPE bapiupdate,
-          del_datcat_ext                TYPE bapiupdate,
-          deliv_date                    TYPE bapiupdate,
-          rel_date                      TYPE bapiupdate,
-          gr_pr_time                    TYPE bapiupdate,
-          preq_price                    TYPE bapiupdate,
-          price_unit                    TYPE bapiupdate,
-          item_cat                      TYPE bapiupdate,
-          acctasscat                    TYPE bapiupdate,
-          distrib                       TYPE bapiupdate,
-          part_inv                      TYPE bapiupdate,
-          gr_ind                        TYPE bapiupdate,
-          gr_non_val                    TYPE bapiupdate,
-          ir_ind                        TYPE bapiupdate,
-          des_vendor                    TYPE bapiupdate,
-          fixed_vend                    TYPE bapiupdate,
-          purch_org                     TYPE bapiupdate,
-          agreement                     TYPE bapiupdate,
-          agmt_item                     TYPE bapiupdate,
-          info_rec                      TYPE bapiupdate,
-          mrp_ctrler                    TYPE bapiupdate,
-          bomexpl_no                    TYPE bapiupdate,
-          val_type                      TYPE bapiupdate,
-          commitment                    TYPE bapiupdate,
-          closed                        TYPE bapiupdate,
-          reserv_no                     TYPE bapiupdate,
-          fixed                         TYPE bapiupdate,
-          po_unit                       TYPE bapiupdate,
-          po_unit_iso                   TYPE bapiupdate,
-          rev_lev                       TYPE bapiupdate,
-          pckg_no                       TYPE bapiupdate,
-          kanban_ind                    TYPE bapiupdate,
-          po_price                      TYPE bapiupdate,
-          int_obj_no                    TYPE bapiupdate,
-          promotion                     TYPE bapiupdate,
-          batch                         TYPE bapiupdate,
-          cmmt_item                     TYPE bapiupdate,
-          funds_ctr                     TYPE bapiupdate,
-          fund                          TYPE bapiupdate,
-          matl_cat                      TYPE bapiupdate,
-          address2                      TYPE bapiupdate,
-          address                       TYPE bapiupdate,
-          customer                      TYPE bapiupdate,
-          supp_vendor                   TYPE bapiupdate,
-          sc_vendor                     TYPE bapiupdate,
-          valuation_spec_stock          TYPE bapiupdate,
-          currency                      TYPE bapiupdate,
-          currency_iso                  TYPE bapiupdate,
-          vend_mat                      TYPE bapiupdate,
-          manuf_prof                    TYPE bapiupdate,
-          langu                         TYPE bapiupdate,
-          langu_iso                     TYPE bapiupdate,
-          validity_object               TYPE bapiupdate,
-          fw_order                      TYPE bapiupdate,
-          fw_order_item                 TYPE bapiupdate,
-          plnd_delry                    TYPE bapiupdate,
-          deliv_time                    TYPE bapiupdate,
-          ref_req                       TYPE bapiupdate,
-          ref_req_item                  TYPE bapiupdate,
-          grant_nbr                     TYPE bapiupdate,
-          func_area                     TYPE bapiupdate,
-          req_blocked                   TYPE bapiupdate,
-          reason_blocking               TYPE bapiupdate,
-          version                       TYPE bapiupdate,
-          procuring_plant               TYPE bapiupdate,
-          ext_proc_prof                 TYPE bapiupdate,
-          ext_proc_ref_doc              TYPE bapiupdate,
-          ext_proc_ref_item             TYPE bapiupdate,
-          funds_res                     TYPE bapiupdate,
-          res_item                      TYPE bapiupdate,
-          suppl_stloc                   TYPE bapiupdate,
-          prio_urgency                  TYPE bapiupdate,
-          prio_requirement              TYPE bapiupdate,
-          new_bom_explosion             TYPE bapiupdate,
-          minremlife                    TYPE bapiupdate,
-          period_ind_expiration_date    TYPE bapiupdate,
-          budget_period                 TYPE bapiupdate,
-          bras_nbm                      TYPE bapiupdate,
-          matl_usage                    TYPE bapiupdate,
-          mat_origin                    TYPE bapiupdate,
-          in_house                      TYPE bapiupdate,
-          indus3                        TYPE bapiupdate,
-          req_segment                   TYPE bapiupdate,
-          stk_segment                   TYPE bapiupdate,
-          avail_date                    TYPE bapiupdate,
-          material_long                 TYPE bapiupdate,
-          pur_mat_long                  TYPE bapiupdate,
-          req_seg_long                  TYPE bapiupdate,
-          stk_seg_long                  TYPE bapiupdate,
-          expected_value                TYPE bapiupdate,
-          limit_amount                  TYPE bapiupdate,
-          producttype                   TYPE bapiupdate,
-          serviceperformer              TYPE bapiupdate,
-          startdate                     TYPE bapiupdate,
-          enddate                       TYPE bapiupdate,
-          spe_crm_ref_so                TYPE bapiupdate,
-          spe_crm_ref_item              TYPE bapiupdate,
-          expert_mode                   TYPE bapiupdate,
-          tax_code                      TYPE bapiupdate,
-          delivery_address_type         TYPE bapiupdate,
-          contract_for_limit            TYPE bapiupdate,
-          iscrreplicationbeforeapproval TYPE bapiupdate,
-          mmpur_pr_cen_reqn_app_rpld_pr TYPE bapiupdate,
-          ssp_author                    TYPE bapiupdate,
-          ssp_requestor                 TYPE bapiupdate,
-          ssp_catalogid                 TYPE bapiupdate,
-          contract_item_for_limit       TYPE bapiupdate,
-        END OF bapimereqitemx.
-      TYPES:
-        _bapimereqitemx TYPE STANDARD TABLE OF bapimereqitemx WITH DEFAULT KEY.
+  TYPES _bapiret2       TYPE STANDARD TABLE OF bapiret2 WITH DEFAULT KEY.
 
-      TYPES:
-        _bapiret2       TYPE STANDARD TABLE OF bapiret2 WITH DEFAULT KEY.
-
-      METHODS bapi_pr_create
-        IMPORTING
-          !prheader    TYPE bapimereqheader OPTIONAL
-          !prheaderx   TYPE bapimereqheaderx OPTIONAL
-          !testrun     TYPE char1 OPTIONAL
-        EXPORTING
-          !number      TYPE banfn
-          !prheaderexp TYPE bapimereqheader
-            CHANGING
-          !pritem      TYPE _bapimereqitemimp
-          !pritemx     TYPE _bapimereqitemx OPTIONAL
-          !return      TYPE _bapiret2 OPTIONAL.
-      ENDINTERFACE.
+  METHODS bapi_pr_create
+    IMPORTING prheader    TYPE bapimereqheader  OPTIONAL
+              prheaderx   TYPE bapimereqheaderx OPTIONAL
+              testrun     TYPE char1            OPTIONAL
+    EXPORTING !number     TYPE banfn
+              prheaderexp TYPE bapimereqheader
+    CHANGING  pritem      TYPE _bapimereqitemimp
+              pritemx     TYPE _bapimereqitemx  OPTIONAL
+              !return     TYPE _bapiret2        OPTIONAL.
+ENDINTERFACE.
 ```
 
 #### Create the wrapper factory class
@@ -520,57 +196,56 @@ Copy and paste the following code into your previously created wrapper class:
     PROTECTED SECTION.
 
       DATA destination TYPE rfcdest .
-    PRIVATE SECTION.
+  PRIVATE SECTION.
+    METHODS call_bapi_pr_create
+      IMPORTING prheader    TYPE zif_wrap_bapi_pr_create_###~bapimereqheader  OPTIONAL
+                prheaderx   TYPE zif_wrap_bapi_pr_create_###~bapimereqheaderx OPTIONAL
+                testrun     TYPE zif_wrap_bapi_pr_create_###~char1            OPTIONAL
+      EXPORTING !number     TYPE banfn
+                prheaderexp TYPE zif_wrap_bapi_pr_create_###~bapimereqheader
+      CHANGING  pritem      TYPE zif_wrap_bapi_pr_create_###~_bapimereqitemimp
+                pritemx     TYPE zif_wrap_bapi_pr_create_###~_bapimereqitemx  OPTIONAL
+                !return     TYPE zif_wrap_bapi_pr_create_###~_bapiret2        OPTIONAL
 
-      METHODS call_bapi_pr_create
-        IMPORTING
-          !prheader     TYPE zif_wrap_bapi_pr_create_###~bapimereqheader OPTIONAL
-          !prheaderx    TYPE zif_wrap_bapi_pr_create_###~bapimereqheaderx OPTIONAL
-          !testrun      TYPE zif_wrap_bapi_pr_create_###~char1 OPTIONAL
-        EXPORTING
-          !number       TYPE banfn
-          !prheaderexp  TYPE zif_wrap_bapi_pr_create_###~bapimereqheader
-        CHANGING
-          !extensionin  TYPE zif_wrap_bapi_pr_create_###~_bapiparex OPTIONAL
-          !extensionout TYPE zif_wrap_bapi_pr_create_###~_bapiparex OPTIONAL
-          !praccountx   TYPE zif_wrap_bapi_pr_create_###~_bapimereqaccountx OPTIONAL
-          !pritem       TYPE zif_wrap_bapi_pr_create_###~_bapimereqitemimp
-          !pritemx      TYPE zif_wrap_bapi_pr_create_###~_bapimereqitemx OPTIONAL
-          !return       TYPE zif_wrap_bapi_pr_create_###~_bapiret2 OPTIONAL
+      RAISING   cx_root.
 
-        RAISING
-          cx_root.
-
-      METHODS constructor
-        IMPORTING
-          !destination TYPE rfcdest .
+    METHODS constructor
+      IMPORTING !destination TYPE rfcdest.
   ENDCLASS.
 
   CLASS zcl_bapi_pr_wrapper_### IMPLEMENTATION.
+  METHOD call_bapi_pr_create.
 
+    DATA ls_prheader    TYPE bapimereqheader.
+    DATA ls_prheaderx   TYPE bapimereqheaderx.
+    DATA ls_prheaderexp TYPE bapimereqheader.
 
-    METHOD call_bapi_pr_create.
-      DATA: _rfc_message_ TYPE c LENGTH 255.
-      CALL FUNCTION 'BAPI_PR_CREATE' DESTINATION me->destination
-        EXPORTING
-          prheader              = prheader
-          prheaderx             = prheaderx
-          testrun               = testrun
-        IMPORTING
-          number                = number
-          prheaderexp           = prheaderexp
-        TABLES
-          extensionin           = extensionin
-          extensionout          = extensionout
-          praccountx            = praccountx
-          pritem                = pritem
-          pritemx               = pritemx
-          return                = return.
-    ENDMETHOD.
+    MOVE-CORRESPONDING prheader TO ls_prheader.
+    MOVE-CORRESPONDING prheaderx TO ls_prheaderx.
 
-    METHOD constructor.
-      me->destination = destination.
-    ENDMETHOD.
+    DATA lt_pritem  TYPE STANDARD TABLE OF bapimereqitemimp.
+    DATA lt_pritemx TYPE STANDARD TABLE OF bapimereqitemx.
+
+    lt_pritem = VALUE #( FOR ls_my_pritem IN pritem
+                         ( CORRESPONDING #( ls_my_pritem ) ) ).
+
+    lt_pritemx = VALUE #( FOR ls_my_pritemx IN pritemx
+                          ( CORRESPONDING #( ls_my_pritemx ) ) ).
+
+    CALL FUNCTION 'BAPI_PR_CREATE' DESTINATION me->destination
+      EXPORTING prheader    = ls_prheader
+                prheaderx   = ls_prheaderx
+                testrun     = testrun
+      IMPORTING number      = number
+                prheaderexp = ls_prheaderexp
+      TABLES    pritem      = lt_pritem
+                pritemx     = lt_pritemx
+                return      = return.
+  ENDMETHOD.
+
+  METHOD constructor.
+    me->destination = destination.
+  ENDMETHOD.
 
     METHOD zif_wrap_bapi_pr_create_###~bapi_pr_create.
       TRY.
@@ -695,7 +370,7 @@ Implement the newly created class as follows:
                 return = pr_returns
         )
             .
-          CATCH cx_root into data(error)
+          CATCH cx_root into data(error).
             "handle exception            
         ENDTRY.
         out->write( |purchase requisition number: { number  } | ).
