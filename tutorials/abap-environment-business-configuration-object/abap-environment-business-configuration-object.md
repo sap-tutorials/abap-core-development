@@ -178,7 +178,8 @@ A [**Business Configuration Maintenance Object**](https://help.sap.com/products/
      ![Select package](bc4.png)     
 
   4. The system generates a proposal for all input fields based on the description of the table by following these [naming conventions](https://help.sap.com/docs/abap-cloud/abap-rap/naming-conventions-for-development-objects?version=sap_btp). If you receive an error message stating that a specific object already exists, change the corresponding name in the wizard.
-  **Only if you have an SAP BTP trial account**, change the option **Transport selection** to **`No transport`** as you cannot create any customizing transport requests.
+  Select **`Manual with preselection`** for **Transport Selection** and check the box for **`Enable Transport Selection Strip`**. Note that for configurations to be [adjusted in every client](https://community.sap.com/t5/technology-blog-posts-by-sap/how-to-create-a-rap-bo-to-change-the-content-of-a-customizing-table-in-the/ba-p/13723087) you would select **`No transport`** for **Transport Selection**.
+  **If you have an SAP BTP trial account**, change the option **Transport selection** to **`No transport`** as you cannot create any customizing transport requests.
 
 
       Click **Next >**.
