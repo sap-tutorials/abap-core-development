@@ -73,20 +73,21 @@ As an administrator in SAP BTP ABAP environment, adjust your communication syste
 3. Choose **Edit**
 
 4. In section **OAuth 2.0 Settings** set
-    <ol type="a"><li>Token Endpoint: **OAuth 2.0 Confidential Client Token Service URL** (derived in STEP 1)
-    </li><li>Audience: **OAuth 2.0 SAML2 Audience** (derived in STEP 1)
-
-    ![Set Credentials](set_credentials.png)</li></ol>
+<ol type="a">
+    <li>Token Endpoint: **OAuth 2.0 Confidential Client Token Service URL** (derived in STEP 1)</li>
+    <li>Audience: **OAuth 2.0 SAML2 Audience** (derived in STEP 1)
+    ![Set Credentials](set_credentials.png)</li>
+</ol>
 
 5. In section **Users for Outbound Communication**
-    <ol type="a"><li>Choose `+`
-    </li><li>Choose Authentication Method **OAuth 2.0**
-    </li><li>Provide OAuth 2.0 Client ID: Username of communication user created in [Step 'Create a Communication User' of the previous tutorial](abap-environment-business-partner-basic-auth) (`ZBPA2X_COM_USER`)
-    </li><li>Provide Client Secret: Password of communication user created in [Step 'Create a Communication User' of the previous tutorial](abap-environment-business-partner-basic-auth). Here you reuse the communication user in order to sign up to the OAuth 2.0 client.
-
-    ![Provide User Credentials](provide_user_credentials.png)
-
-    </li><li>Choose **Create**</li></ol>
+<ol type="a">
+    <li>Choose `+`</li>
+    <li>Choose Authentication Method **OAuth 2.0**</li>
+    <li>Provide OAuth 2.0 Client ID: Username of communication user created in [Step 'Create a Communication User' of the previous tutorial](abap-environment-business-partner-basic-auth) (`ZBPA2X_COM_USER`)</li>
+    <li>Provide Client Secret: Password of communication user created in [Step 'Create a Communication User' of the previous tutorial](abap-environment-business-partner-basic-auth). Here you reuse the communication user in order to sign up to the OAuth 2.0 client.
+    ![Provide User Credentials](provide_user_credentials.png)</li>
+    <li>Choose **Create**</li>
+</ol>
 
 6. Choose **Save** to save the communication system
 
@@ -101,15 +102,13 @@ As an administrator in SAP BTP ABAP environment, configure your communication ar
 3. Choose **Edit**
 
 4. In Section **Outbound Communication**:
-    <ol type="a"><li>Select newly maintained outbound communication user of type OAuth 2.0 for Outbound Communication
-
+<ol type="a">
+    <li>Select newly maintained outbound communication user of type OAuth 2.0 for Outbound Communication
     ![Outbound Communication](outbound_communication.png)
-
-    ![Outbound Communication 2](outbound_communication_2.png)
-
-    </li><li>Note down the **SAML2 Issuer**, make sure SAML2 Identifier is **E-Mail**
-
-    ![Note SAML Issuer](note_samlissuer.png)</li></ol>
+    ![Outbound Communication 2](outbound_communication_2.png)</li>
+    <li>Note down the **SAML2 Issuer**, make sure SAML2 Identifier is **E-Mail**
+    ![Note SAML Issuer](note_samlissuer.png)</li>
+</ol>
 
 5. Choose **Save** to save the Communication Arrangement
 
@@ -136,11 +135,12 @@ As an administrator in SAP S/4HANA Cloud, public edition, configure your communi
 3. Choose **Edit**
 
 4. Enable OAuth2.0 Identity Provider section
-    <ol type="a"><li>Provide **OAuth 2.0 SAML Issuer**: Noted down in STEP 4
-    </li><li>Choose **Upload Signing Certificate** button
-    </li><li>Upload the certificate obtained in STEP 5
-        
-    ![Upload Signing Certificate](upload_signing_certificate.png)</li></ol>
+<ol type="a">
+    <li>Provide **OAuth 2.0 SAML Issuer**: Noted down in STEP 4</li>
+    <li>Choose **Upload Signing Certificate** button</li>
+    <li>Upload the certificate obtained in STEP 5
+    ![Upload Signing Certificate](upload_signing_certificate.png)</li>
+</ol>
 
 5. Choose **Save** to save the Communication System
 
