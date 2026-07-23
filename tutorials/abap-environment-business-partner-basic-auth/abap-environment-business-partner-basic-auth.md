@@ -63,23 +63,23 @@ Create a communication system in SAP S/4HANA Cloud, public edition. This is used
 4. Choose button **Create**
 
 5. In the **Section General** tab provide the following information:
-    <ol type="a"><li>Logical System: `ZBPA2X`
-    </li><li>Business System: `ZBPA2X`
-    </li><li>Choose **Inbound Only**
-    
-    ![Inbound only](inbound_only.png)</li></ol>
+<ol type="a">
+    <li>Logical System: `ZBPA2X`</li>
+    <li>Business System: `ZBPA2X`</li>
+    <li>Choose **Inbound Only**    
+    ![Inbound only](inbound_only.png)</li>
+</ol>
 
 6. In the **Users for Inbound Communication** tab provide the following information:
-    <ol type="a"><li>Choose `+` to add an Inbound User
-    </li><li>Choose Authentication Method: User Name and Password
-    </li><li>Provide **User Name / Client ID**: `ZBPA2X_COM_USER`
-    </li><li>Choose button **OK**
-
-    ![Users for Inbound Communication](users_for_inbound_communication.png)
-
-    </li><li>The result is that the user created in the previous step is now added as inbound communication user
-
-    ![Users for Inbound Communication](users_for_inbound_communication_2.png)</li></ol>
+<ol type="a">
+    <li>Choose `+` to add an Inbound User</li>
+    <li>Choose Authentication Method: User Name and Password</li>
+    <li>Provide **User Name / Client ID**: `ZBPA2X_COM_USER`</li>
+    <li>Choose button **OK**
+    ![Users for Inbound Communication](users_for_inbound_communication.png)</li>
+    <li>The result is that the user created in the previous step is now added as inbound communication user
+    ![Users for Inbound Communication](users_for_inbound_communication_2.png)</li>
+</ol>
 
 7. Choose **Save** to save the communication system.
 
@@ -100,16 +100,13 @@ Create a communication arrangement based on the communication scenario `SAP_COM_
     ![Create Communication Arrangement](create_communication_arrangement.png)
 
 6. On the next screen provide the following information:
-    <ol type="a"><li>Communication System: `ZBPA2X_COM_SYS`. For inbound communication the User Name and Authentication Method is set automatically from the communication system.
-
-    ![Create Communication Arrangement 2](create_communication_arrangement_2.png)
-
-    </li><li>Store **API-URL** for later use
-    </li><li>Deactivate all Outbound Services. Explanation: The outbound services are used to support a different scenario, which is to synchronize business partners between SAP S/4HANA systems via SOAP. This is not done in this tutorial. We are using the service to expose it as an API. ( **Business Partner (A2X)** ). Example for a deactivated Outbound Service:
-
-    ![Deactivated Outbound Service](deactivated_outbound_service.png)
-
-    </li><li>Choose **Save**</li></ol>
+<ol type="a">
+    <li>Communication System: `ZBPA2X_COM_SYS`. For inbound communication the User Name and Authentication Method is set automatically from the communication system.
+    ![Create Communication Arrangement 2](create_communication_arrangement_2.png)</li>
+    <li>Store **API-URL** for later use</li>
+    <li>Deactivate all Outbound Services. Explanation: The outbound services are used to support a different scenario, which is to synchronize business partners between SAP S/4HANA systems via SOAP. This is not done in this tutorial. We are using the service to expose it as an API. ( **Business Partner (A2X)** ). Example for a deactivated Outbound Service:
+    ![Deactivated Outbound Service](deactivated_outbound_service.png)</li>
+    <li>Choose **Save**</li></ol>
 
 >You can download the metadata of the service also in the communication arrangement. This is helpful in case you extended the API with custom fields. To download the metadata, navigate to **Inbound Services** and choose Download WSDL/Service Metadata:
 ![Download Metadata Alternative](download_metadata_alternative.png)
@@ -137,25 +134,27 @@ Configure the outbound connectivity in SAP BTP, ABAP environment. Create a commu
     ![Create Communication System - ABAP system](create_communication_system_abapsystem.png)
 
 8. Provide:
-    <ol type="a"><li>System ID: `ZBPA2X_COM_SYS_S4H`
-    </li><li>System Name: `ZBPA2X_COM_SYS_S4H`
-
-    ![Create Communication System - ABAP system 2](create_communication_system_abapsystem_2.png)</li></ol>
+<ol type="a">
+    <li>System ID: `ZBPA2X_COM_SYS_S4H`</li>
+    <li>System Name: `ZBPA2X_COM_SYS_S4H`
+    ![Create Communication System - ABAP system 2](create_communication_system_abapsystem_2.png)</li>
+</ol>
 
 9. In the **Communication System** screen, **General** section, provide:
-    <ol type="a"><li>Host Name: **API-URL** stored in STEP 3. Remove the `https://` from the URL.
-    </li><li>Business System: `ZBPA2X`
-    
-    ![Communication System - General](communication_system_general.png)</li></ol>
+<ol type="a">
+    <li>Host Name: **API-URL** stored in STEP 3. Remove the `https://` from the URL.</li>
+    <li>Business System: `ZBPA2X`
+    ![Communication System - General](communication_system_general.png)</li>
+    </ol>
 
 10. In the **Users for Outbound Communication** section
-    <ol type="a"><li>Choose `+`
-    </li><li>Provide **User Name / Client ID**: User created in STEP 1 (`ZBPA2X_COM_USER`)
-    </li><li>Provide Password: Password created and stored in STEP 1
-    
-    ![Users for Outbound Communication](users_for_outbound_communication.png)
-
-    </li><li> Choose button **Create**</li></ol>
+<ol type="a">
+    <li>Choose `+`</li>
+    <li>Provide **User Name / Client ID**: User created in STEP 1 (`ZBPA2X_COM_USER`)</li>
+    <li>Provide Password: Password created and stored in STEP 1
+    ![Users for Outbound Communication](users_for_outbound_communication.png)</li>
+    <li> Choose button **Create**</li>
+</ol>
 
 11. Choose **Save** to save the **Communication System**
 
