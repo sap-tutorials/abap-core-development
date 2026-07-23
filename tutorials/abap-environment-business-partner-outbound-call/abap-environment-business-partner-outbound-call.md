@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 10
-tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud]
-primary_tag: software-product>sap-btp--abap-environment
+tags: [ tutorial>intermediate, programming-tool>abap-development, software-product>sap-s-4hana-cloud, software-product>sap-btp-abap-environment]
+primary_tag: software-product>sap-btp-abap-environment
 author_name: Achim Seubert
 author_profile: https://github.com/achimseubert
 parser: v2
@@ -12,18 +12,20 @@ parser: v2
 
 <!-- description --> As an ABAP developer, implement an outbound service call from an SAP BTP, ABAP Environment system to an SAP S/4HANA Cloud, public edition system. Use the Business Partner (A2X) API to create business partners in the SAP S/4HANA Cloud system remotely.
 
-## Prerequisites
-
-- Your business User in the SAP BTP, ABAP environment system must be assigned to business role `SAP_BR_DEVELOPER`.
-- You have downloaded and installed the latest ABAP Development Tools (ADT) on the latest Eclipse platform.
-- You have created an ABAP Cloud project for your SAP BTP ABAP environment system in ADT.
-
 ## You will learn
 
 - How to create a custom communication scenario.
 - How to create a service consumption model for an OData service.
 - How to implement a console application.
 - How to execute remote calls from your ABAP code.
+
+## Prerequisites
+
+- Your business User in the SAP BTP, ABAP environment system must be assigned to business role `SAP_BR_DEVELOPER`.
+- You have downloaded and installed the latest ABAP Development Tools (ADT) on the latest Eclipse platform.
+- You have created an ABAP Cloud project for your SAP BTP ABAP environment system in ADT.
+
+---
 
 ### Create a Development Package
 
@@ -34,8 +36,10 @@ Create your own ABAP development package, which will serve as the basis for the 
 2. Right click the main package `ZLOCAL` and choose **New > ABAP Package**.
 
 3. Create your own ABAP development package as a sub package of `ZLOCAL` using Software Component `ZLOCAL`. No transport request is necessary, as change recording is not enabled.
-    <ol type="a"><li>Name: `ZBPA2X`
-    </li><li>Description: `BP A2X Outbound Call Tutorial`</li></ol>
+<ol type="a">
+  <li>Name: `ZBPA2X`</li>
+  <li>Description: `BP A2X Outbound Call Tutorial`</li>
+</ol>
 
 ### Create an Outbound Service
 
@@ -46,11 +50,12 @@ Create an outbound service object, which models the outbound call that will be i
     ![Create Outbound Service](create_outbound_service.png)
 
 2. Provide:
-    <ol type="a"><li>Outbound Service: `ZBPA2X_OBS_BUPA`
-    </li><li>Description: `Business Partner Outbound Service`
-    </li><li>Service Type: `HTTP Service`
-
-      ![Create Outbound Service 2](create_outbound_service_2.png)</li></ol>
+<ol type="a">
+  <li>Outbound Service: `ZBPA2X_OBS_BUPA`</li>
+  <li>Description: `Business Partner Outbound Service`</li>
+  <li>Service Type: `HTTP Service`
+  ![Create Outbound Service 2](create_outbound_service_2.png)</li>
+</ol>
 
 3. Choose **Next**
 
@@ -71,14 +76,15 @@ Create a communication scenario and assign the outbound service to it. This will
     ![Create Communication Scenario](create_communication_scenario.png)
 
 2. Provide:
-    <ol type="a"><li>Name: `ZBPA2X_CS_BUPA`
-    </li><li>Description: `Business Partner Outbound Service Call`
-
-      ![Create Communication Scenario 2](create_communication_scenario_2.png)</li></ol>
+<ol type="a">
+  <li>Name: `ZBPA2X_CS_BUPA`</li>
+  <li>Description: `Business Partner Outbound Service Call`<br>
+  ![Create Communication Scenario 2](create_communication_scenario_2.png)</li>
+</ol>
 
 3. No transport request is necessary, as change recording is not enabled. Choose **Finish**
 
-4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
+4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/abap-cloud/abap-integration-connectivity/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
 
     ![Create Communication Scenario 3](create_communication_scenario_3.png)
 
@@ -115,11 +121,12 @@ Create a service consumption model for the targeted OData service from the metad
     ![Create Service Consumption Model](create_service_consumption_model.png)
 
 2. Provide:
-    <ol type="a"><li>Name: `ZBPA2X_SCM_BUPA`  
-    </li><li>Description: `Service Consumption Model Business Partner`
-    </li><li>Remote Consumption Mode: `OData`
-
-      ![Create Service Consumption Model 2](create_service_consumption_model_2.png)</li></ol>
+<ol type="a">
+  <li>Name: `ZBPA2X_SCM_BUPA`</li>
+  <li>Description: `Service Consumption Model Business Partner`</li>
+  <li>Remote Consumption Mode: `OData`
+  ![Create Service Consumption Model 2](create_service_consumption_model_2.png)</li>
+</ol>
 
 3. Choose **Next**
 
@@ -146,11 +153,12 @@ Create a console application, which consists of an ABAP class implementing the i
     ![Create Console Application](create_abap_class.png)
 
 2. Provide:
-    <ol type="a"><li>Name: `ZBPA2X_CL_CLASSRUN`
-    </li><li>Description: `Create S/4HANA Business Partner via console app`
-    </li><li>Interface: `IF_OO_ADT_CLASSRUN`
-
-      ![Create Console Application 2](create_abap_class_2.png)</li></ol>
+<ol type="a">
+  <li>Name: `ZBPA2X_CL_CLASSRUN`</li>
+  <li>Description: `Create S/4HANA Business Partner via console app`</li>
+  <li>Interface: `IF_OO_ADT_CLASSRUN`
+  ![Create Console Application 2](create_abap_class_2.png)</li>
+</ol>
 
 3. Choose **Next**
 
@@ -161,11 +169,12 @@ Create a console application, which consists of an ABAP class implementing the i
 You will now implement the outbound service call in your console application. The previously maintained communication artifacts are used together with the service consumption model to create compact and understandable code.
 
 1. Open the Service Consumption Model `ZBPA2X_SCM_BUPA`
-      <ol type="a"><li>Mark Entity Set **A_BusinessPartner**  
-      </li><li>Make sure Operation **Create** is set
-      </li><li>Choose **Copy to Clipboard**
-
-      ![Hint](hint.png)</li></ol>  
+<ol type="a">
+  <li>Mark Entity Set **A_BusinessPartner**</li>
+  <li>Make sure Operation **Create** is set</li>
+  <li>Choose **Copy to Clipboard**
+  ![Hint](hint.png)</li>
+</ol>  
 
 2. Paste the code into the implementation part of the `if_oo_adt_classrun~main` method of the `ZBPA2X_CL_CLASSRUN` class you created in the previous step.
 
@@ -262,10 +271,13 @@ CLASS zbpa2x_cl_classrun IMPLEMENTATION.
 ENDCLASS.
 ```
 
-  Remember to replace the name of all objects created in the tutorial unless you did not use the suggested names. Here the object names and the suggested names:
-    <ol type="a"><li>Communication Scenario: `ZBPA2X_CS_BUPA`
-    </li><li>Outbound Service: `ZBPA2X_OBS_BUPA_REST`
-    </li><li>Service Consumption Model: `ZBPA2X_SCM_BUPA`</li></ol>
+Remember to replace the name of all objects created in the tutorial unless you did not use the suggested names. Here the object names and the suggested naming:
+<ol type="a">
+  <li>Communication Scenario: `ZBPA2X_CS_BUPA`</li>
+  <li>Outbound Service: `ZBPA2X_OBS_BUPA_REST`</li>
+  <li>Service Consumption Model: `ZBPA2X_SCM_BUPA`</li>
+</ol>
+
 4. Save and activate your class.
 
 The implementation uses the custom communication scenario and outbound service to create a destination object. This is in turn used to instantiate an HTTP client, which is used to handle the HTTP communication. The service consumption model is used to instantiate a client proxy, which offers standard methods to easily build the request payload directly from your ABAP code. In this example, the request creates a single business partner in the target system and writes its ID to the console.
