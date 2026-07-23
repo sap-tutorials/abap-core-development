@@ -109,7 +109,8 @@ Create a communication arrangement based on the communication scenario `SAP_COM_
     <li>Store **API-URL** for later use</li>
     <li>Deactivate all Outbound Services. Explanation: The outbound services are used to support a different scenario, which is to synchronize business partners between SAP S/4HANA systems via SOAP. This is not done in this tutorial. We are using the service to expose it as an API. ( **Business Partner (A2X)** ). Example for a deactivated Outbound Service:
     ![Deactivated Outbound Service](deactivated_outbound_service.png)</li>
-    <li>Choose **Save**</li></ol>
+    <li>Choose **Save**</li>
+</ol>
 
 >You can download the metadata of the service also in the communication arrangement. This is helpful in case you extended the API with custom fields. To download the metadata, navigate to **Inbound Services** and choose Download WSDL/Service Metadata:
 ![Download Metadata Alternative](download_metadata_alternative.png)
@@ -148,7 +149,7 @@ Configure the outbound connectivity in SAP BTP, ABAP environment. Create a commu
     <li>Host Name: **API-URL** stored in STEP 3. Remove the `https://` from the URL.</li>
     <li>Business System: `ZBPA2X`
     ![Communication System - General](communication_system_general.png)</li>
-    </ol>
+</ol>
 
 10. In the **Users for Outbound Communication** section
 <ol type="a">
