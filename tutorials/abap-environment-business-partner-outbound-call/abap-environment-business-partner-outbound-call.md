@@ -84,7 +84,7 @@ Create a communication scenario and assign the outbound service to it. This will
 
 3. No transport request is necessary, as change recording is not enabled. Choose **Finish**
 
-4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/sap-btp-abap-environment/abap-environment/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
+4. In this tutorial, we assume that the Communication Scenario only needs to be setup once per client and no receiver determination is needed (for more information, see [Service Consumption via Communication Arrangements](https://help.sap.com/docs/abap-cloud/abap-integration-connectivity/service-consumption-via-communication-arrangements)). Select "One instance per client" from the **Allowed Instances** dropdown list:
 
     ![Create Communication Scenario 3](create_communication_scenario_3.png)
 
