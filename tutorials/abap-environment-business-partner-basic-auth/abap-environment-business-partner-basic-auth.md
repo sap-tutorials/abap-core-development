@@ -16,8 +16,11 @@ parser: v2
 
 - This is the second tutorial of this tutorial group. Please complete the tutorial [Implement an Outbound Service Call in SAP BTP ABAP environment](abap-environment-business-partner-outbound-call) before proceeding. The prerequisites of the previous part apply.
 - To access communication management apps, your business user has to be assigned to a business role containing business catalog `SAP_CORE_BC_COM`, e.g. business role `SAP_BR_ADMINISTRATOR`. This must be done in the following systems:
-    <ol type="a"><li>The SAP BTP, ABAP environment system
-    </li><li>The customizing tenant (100) of the SAP S/4 HANA Cloud, public edition development system</li></ol>
+<ol type="a">
+    <li>The SAP BTP, ABAP environment system</li>
+    <li>The customizing tenant (100) of the SAP S/4 HANA Cloud, public edition development system</li>
+</ol>
+
 - To access the **Manage Business Partner Master Data** in the SAP S/4 HANA Cloud, public edition system, your business user in the customizing tenant (100) has to be assigned to business role `SAP_BR_BUPA_MASTER_SPECIALIST`.  Thus you are able to test the implementation.
 
 ## You will learn
