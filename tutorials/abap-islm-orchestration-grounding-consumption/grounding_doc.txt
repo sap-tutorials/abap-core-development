@@ -1,0 +1,152 @@
+{
+  "candidate_rating_models": {
+    "global_scale": {
+      "min": 1,
+      "max": 5,
+      "definitions": {
+        "1": "Very weak / insufficient evidence",
+        "2": "Below average",
+        "3": "Meets expectations",
+        "4": "Above average",
+        "5": "Exceptional"
+      }
+    },
+
+    "organizations": [
+      {
+        "organization_type": "Software Development (General)",
+        "overall_rating_calculation": "Weighted average of all aspect scores",
+        "aspects": [
+          {
+            "name": "Software Engineering Skills",
+            "description": "Proficiency in programming languages, software architecture, testing, and development best practices.",
+            "weight": 0.35
+          },
+          {
+            "name": "Problem Solving",
+            "description": "Ability to analyze requirements, debug issues, and design robust technical solutions.",
+            "weight": 0.30
+          },
+          {
+            "name": "Practical Experience",
+            "description": "Hands-on experience with real-world projects, systems, and development workflows.",
+            "weight": 0.20
+          },
+          {
+            "name": "Team Collaboration",
+            "description": "Effectiveness in working within development teams, including communication and feedback handling.",
+            "weight": 0.15
+          }
+        ]
+      },
+
+      {
+        "organization_type": "Software Development (AI Focus)",
+        "overall_rating_calculation": "Weighted average of all aspect scores",
+        "aspects": [
+          {
+            "name": "AI & Machine Learning Expertise",
+            "description": "Depth of knowledge in machine learning, deep learning, data modeling, and AI-related algorithms.",
+            "weight": 0.40
+          },
+          {
+            "name": "Applied Research & Experimentation",
+            "description": "Ability to experiment, evaluate models, interpret results, and improve AI systems iteratively.",
+            "weight": 0.25
+          },
+          {
+            "name": "Software Engineering for AI",
+            "description": "Capability to integrate AI models into production systems with scalable and maintainable code.",
+            "weight": 0.20
+          },
+          {
+            "name": "Ethical & Critical Thinking",
+            "description": "Awareness of AI limitations, bias, data quality, and ethical implications.",
+            "weight": 0.15
+          }
+        ]
+      },
+
+      {
+        "organization_type": "Human Resources",
+        "overall_rating_calculation": "Weighted average of all aspect scores",
+        "aspects": [
+          {
+            "name": "Communication Skills",
+            "description": "Clarity, empathy, and professionalism in verbal and written communication.",
+            "weight": 0.35
+          },
+          {
+            "name": "Cultural Fit & Emotional Intelligence",
+            "description": "Ability to understand people, manage relationships, and align with organizational culture.",
+            "weight": 0.30
+          },
+          {
+            "name": "Organizational & Process Skills",
+            "description": "Capability to manage processes, documentation, and coordination effectively.",
+            "weight": 0.20
+          },
+          {
+            "name": "Analytical & Judgment Skills",
+            "description": "Sound decision-making when evaluating candidates, situations, and organizational needs.",
+            "weight": 0.15
+          }
+        ]
+      },
+
+      {
+        "organization_type": "Controlling / Finance",
+        "overall_rating_calculation": "Weighted average of all aspect scores",
+        "aspects": [
+          {
+            "name": "Analytical & Numerical Skills",
+            "description": "Ability to analyze financial data, metrics, and reports with high accuracy.",
+            "weight": 0.40
+          },
+          {
+            "name": "Business Understanding",
+            "description": "Understanding of business processes, cost structures, and financial impacts.",
+            "weight": 0.25
+          },
+          {
+            "name": "Attention to Detail",
+            "description": "Precision, reliability, and consistency when handling data and financial information.",
+            "weight": 0.20
+          },
+          {
+            "name": "Communication of Insights",
+            "description": "Ability to clearly explain financial findings and recommendations to stakeholders.",
+            "weight": 0.15
+          }
+        ]
+      },
+
+      {
+        "organization_type": "Software Development Consulting",
+        "overall_rating_calculation": "Weighted average of all aspect scores",
+        "aspects": [
+          {
+            "name": "Technical Breadth",
+            "description": "Wide-ranging technical knowledge across software stacks, architectures, and tools.",
+            "weight": 0.30
+          },
+          {
+            "name": "Client Communication & Advisory",
+            "description": "Ability to translate technical concepts into business value and advise clients effectively.",
+            "weight": 0.30
+          },
+          {
+            "name": "Problem Structuring",
+            "description": "Skill in breaking down ambiguous client problems into clear, solvable components.",
+            "weight": 0.20
+          },
+          {
+            "name": "Adaptability & Learning Speed",
+            "description": "Capacity to quickly understand new domains, technologies, and client contexts.",
+            "weight": 0.20
+          }
+        ]
+      }
+    ]
+  }
+}

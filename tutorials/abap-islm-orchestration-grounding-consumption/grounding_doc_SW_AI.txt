@@ -1,0 +1,37 @@
+{
+  "organization_type": "Software Development (AI Focus)",
+  "rating_scale": {
+    "min": 1,
+    "max": 5,
+    "definitions": {
+      "1": "Very weak / insufficient evidence",
+      "2": "Below average",
+      "3": "Meets expectations",
+      "4": "Above average",
+      "5": "Exceptional"
+    }
+  },
+  "overall_rating_calculation": "Weighted average of all aspect scores",
+  "aspects": [
+    {
+      "name": "AI & Machine Learning Expertise",
+      "description": "Knowledge of ML algorithms, deep learning, data modeling, and AI theory.",
+      "weight": 0.40
+    },
+    {
+      "name": "Applied Research & Experimentation",
+      "description": "Ability to design experiments, evaluate models, and iterate based on results.",
+      "weight": 0.25
+    },
+    {
+      "name": "Engineering AI Systems",
+      "description": "Skills in deploying, scaling, and maintaining AI models in production systems.",
+      "weight": 0.20
+    },
+    {
+      "name": "Ethical & Critical Awareness",
+      "description": "Understanding of AI risks, bias, limitations, and responsible usage.",
+      "weight": 0.15
+    }
+  ]
+}
