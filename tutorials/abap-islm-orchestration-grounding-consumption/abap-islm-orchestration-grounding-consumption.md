@@ -32,7 +32,7 @@ Want to learn more? Please see the [Orchestration documentation](https://help.sa
 
 ### Prepare the Execution Flow Template (optional)
 
-Usage of SAP AI Core orchestration service requires the configuration of the orchestration service pipeline. In order to create a custom configuration, you may e.g. use the SAP AI Launchpad as explained in tutorial [Implement a Custom ABAP AI Scenario Consuming SAP AI Core Orchestration Service in Your SAP S/4HANA System](abap-islm-orchestration-service-consumption). The consumption of the orchestration service pipeline in ABAP requires an intelligent scenrio (INTS) including an execution flow template in the enclosed intelligent model (INTM). 
+Usage of SAP AI Core orchestration service requires the configuration of the orchestration service pipeline. In order to create a custom configuration, you may e.g. use the SAP AI Launchpad as explained in tutorial [Implement a Custom ABAP AI Scenario Consuming SAP AI Core Orchestration Service in Your SAP S/4HANA System](abap-islm-orchestration-service-consumption). The consumption of the orchestration service pipeline in ABAP requires an intelligent scenario (INTS) including an execution flow template in the enclosed intelligent model (INTM). 
 
 You may use the above mentioned tutorial for obtaining your own `JSON` file, which can subsequently be uploaded later in this tutorial. Alternatively, you may use the `JSON` provided in a later step in this tutorial. The file provided in this tutorial slightly differs from the one created in the above mentioned tutorial, i.e. it omits the usage of the output translation module.
 
@@ -59,7 +59,7 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 5. Navigate to the `Execution Flow Template` tab and click on `Upload`. 
 ![Upload the Execution Flow Template](imgs/Create_INTS_4_upload_JSON.png)
 
-6. Use the `JSON` file from [this github repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/blob/main/abap-islm-orchestration-grounding-consumption/execution_flow_template.json) and upload it into the intelligent scenario model
+6. Use the `JSON` file from [this repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/blob/main/abap-islm-orchestration-grounding-consumption/execution_flow_template.json) and upload it into the intelligent scenario model
 ![Upload execution flow template](imgs/Create_INTS_5_show_JSON_wo_trans.png) 
 
 7. In order to use grounding, add a data repository of type `Vector`, which enables the option to add grounding templates to the INTM.
@@ -85,7 +85,7 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 11. Configure the `GROUNDING_QUERY`, choose `Display Template Information` to `Yes`, and specify the prompt as `Select the right grounding document for application evaluation based on the organization type {ISLM_OrgType}.`. You may leave the default value for `ISLM_OrgType` empty
 ![Configure the grounding query template](imgs/Create_INTS_12_Add_GroundingQuery.png) 
 > **NOTE:** There are pre-defined variables like `ISLM_GROUNDING_OUTPUT` and pre-defined dynamic parameters formatted like `ISLM_abc`, where `abc` can be chosen (case-sensitive) according to custom needs. The usage of `ISLM_GROUNDING_OUTPUT` in one of the prompts is mandatory, leading to orchestration execution errors if omitted.
-12.  Safe the intelligent scenario model draft and **navigate back** to the intelligent scenario `ZDEMO_INTS_GROUNDING`. In the scenario covered in this tutorial, the application will be used to rate a job application given to organisation-specific ratings. The guidelines for these ratings are given by documents (`txt` files in our example), which are used to ground the large language model response. The files can be obained from [this github repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/tree/main/abap-islm-orchestration-grounding-consumption). Navigate to the document tab, upload the grounding documents, and publish the INTS:
+12.  Safe the intelligent scenario model draft and **navigate back** to the intelligent scenario `ZDEMO_INTS_GROUNDING`. In the scenario covered in this tutorial, the application will be used to rate a job application given to organisation-specific ratings. The guidelines for these ratings are given by documents (`txt` files in our example), which are used to ground the large language model response. The files can be obtained from [this repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/tree/main/abap-islm-orchestration-grounding-consumption). Navigate to the document tab, upload the grounding documents, and publish the INTS:
 
      a. `SW_DEV_CONSULTING`: `Gudilelines for Software Development Consulting`
    
@@ -104,7 +104,7 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 
 ### Deploy and Activate the Intelligent Scenario
 
-**Goal:** Continue with the deployment and activation of the newly created intelligent scenario to enable interactions with the SAP AI Core orchestration service pipeline comprising the grounding capabilitie as well as the LLM deployment.
+**Goal:** Continue with the deployment and activation of the newly created intelligent scenario to enable interactions with the SAP AI Core orchestration service pipeline comprising the grounding capabilities as well as the LLM deployment.
 
 1. Open the Intelligent Scenario Management tile in your SAP Fiori launchpad as shown below. Alternatively, you can start from SAP GUI using transaction ```F4470```
 ![Open ISLM Manage App](imgs/openINTSManageApp.png)
@@ -139,7 +139,7 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 
 **Goal:** Now that you have successfully published and activated the intelligent scenario, it is time to consume it in your ABAP code. For clarity, this tutorial uses a simple ABAP class with console output, but you can of course apply more complex ABAP logic.
 
-1. Use ABAP Development Tools in Eclipse to create an ABAP class with the following code. Please ensure to adapt the INTS name `ZDEMO_INTS_GROUNDING` in case you've chose a different one. Same holds for the prompt templates names `SYSTEMPROMPT` and `USERPROMPT` in case you have chosen a different naming. In case you would like to see how a different grounding influences the result, please modify the value for contant `grounding_hint`.
+1. Use ABAP Development Tools in Eclipse to create an ABAP class with the following code. Please ensure to adapt the INTS name `ZDEMO_INTS_GROUNDING` in case you've chose a different one. Same holds for the prompt templates names `SYSTEMPROMPT` and `USERPROMPT` in case you have chosen a different naming. In case you would like to see how a different grounding influences the result, please modify the value for constant `grounding_hint`.
 ```ABAP
 CLASS zdemo_islm_grounding DEFINITION
   PUBLIC
