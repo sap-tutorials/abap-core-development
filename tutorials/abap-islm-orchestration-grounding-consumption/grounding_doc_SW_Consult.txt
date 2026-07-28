@@ -1,0 +1,37 @@
+{
+  "organization_type": "Software Development Consulting",
+  "rating_scale": {
+    "min": 1,
+    "max": 5,
+    "definitions": {
+      "1": "Very weak / insufficient evidence",
+      "2": "Below average",
+      "3": "Meets expectations",
+      "4": "Above average",
+      "5": "Exceptional"
+    }
+  },
+  "overall_rating_calculation": "Weighted average of all aspect scores",
+  "aspects": [
+    {
+      "name": "Technical Breadth",
+      "description": "Knowledge across multiple technologies, architectures, and development approaches.",
+      "weight": 0.30
+    },
+    {
+      "name": "Client Communication & Advisory Skills",
+      "description": "Ability to translate technical topics into business value and guide clients.",
+      "weight": 0.30
+    },
+    {
+      "name": "Problem Structuring",
+      "description": "Skill in breaking down ambiguous client challenges into actionable plans.",
+      "weight": 0.20
+    },
+    {
+      "name": "Adaptability & Learning Speed",
+      "description": "Speed and effectiveness in understanding new domains, clients, and technologies.",
+      "weight": 0.20
+    }
+  ]
+}
