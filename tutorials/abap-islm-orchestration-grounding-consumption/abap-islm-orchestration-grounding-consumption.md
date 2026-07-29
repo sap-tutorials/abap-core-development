@@ -85,7 +85,8 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 11. Configure the `GROUNDING_QUERY`, choose `Display Template Information` to `Yes`, and specify the prompt as `Select the right grounding document for application evaluation based on the organization type {ISLM_OrgType}.`. You may leave the default value for `ISLM_OrgType` empty
 ![Configure the grounding query template](imgs/Create_INTS_12_Add_GroundingQuery.png) 
 > **NOTE:** There are pre-defined variables like `ISLM_GROUNDING_OUTPUT` and pre-defined dynamic parameters formatted like `ISLM_abc`, where `abc` can be chosen (case-sensitive) according to custom needs. The usage of `ISLM_GROUNDING_OUTPUT` in one of the prompts is mandatory, leading to orchestration execution errors if omitted.
-12.  Safe the intelligent scenario model draft and **navigate back** to the intelligent scenario `ZDEMO_INTS_GROUNDING`. In the scenario covered in this tutorial, the application will be used to rate a job application given to organisation-specific ratings. The guidelines for these ratings are given by documents (`txt` files in our example), which are used to ground the large language model response. The files can be obtained from [this repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/tree/main/abap-islm-orchestration-grounding-consumption). Navigate to the document tab, upload the grounding documents, and publish the INTS:
+
+12. Safe the intelligent scenario model draft and **navigate back** to the intelligent scenario `ZDEMO_INTS_GROUNDING`. In the scenario covered in this tutorial, the application will be used to rate a job application given to organisation-specific ratings. The guidelines for these ratings are given by documents (`txt` files in our example), which are used to ground the large language model response. The files can be obtained from [this repository](https://github.com/SAP-samples/abap-islm-tutorial-samples/tree/main/abap-islm-orchestration-grounding-consumption). Navigate to the document tab, upload the grounding documents, and publish the INTS:
 
      a. `SW_DEV_CONSULTING`: `Gudilelines for Software Development Consulting`
    
@@ -140,6 +141,7 @@ You may use the above mentioned tutorial for obtaining your own `JSON` file, whi
 **Goal:** Now that you have successfully published and activated the intelligent scenario, it is time to consume it in your ABAP code. For clarity, this tutorial uses a simple ABAP class with console output, but you can of course apply more complex ABAP logic.
 
 1. Use ABAP Development Tools in Eclipse to create an ABAP class with the following code. Please ensure to adapt the INTS name `ZDEMO_INTS_GROUNDING` in case you've chose a different one. Same holds for the prompt templates names `SYSTEMPROMPT` and `USERPROMPT` in case you have chosen a different naming. In case you would like to see how a different grounding influences the result, please modify the value for constant `grounding_hint`.
+
 ```ABAP
 CLASS zdemo_islm_grounding DEFINITION
   PUBLIC
@@ -217,7 +219,9 @@ CLASS zdemo_islm_grounding IMPLEMENTATION.
 
 ENDCLASS.
 ```
+
 2. Activate and run the ABAP class using `Run as > ABAP Application (Console)`. The ABAP console output will look similar to the following
+
 ```Text
 ***Grounding result:***
 {
