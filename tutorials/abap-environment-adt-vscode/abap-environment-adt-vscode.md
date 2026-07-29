@@ -154,6 +154,11 @@ Choose the connection type that matches your system:
       ✅ Connection established!
       ``` 
 
+9. As soon as the connection is established you should be able to see a visual feedback that the destination was created successfully and a notification pop-up with a button which directly adds it as a folder to your workspace.
+       ![Add Destination](adddestination.png)
+
+10. If you missed adding the destination to the workspace using the above popup please continue with Step 4.
+
 ### Add the destination to your workspace
 
 1. Open the **Command Palette** **`Ctrl+Shift+P`**.
@@ -204,14 +209,5 @@ Choose the connection type that matches your system:
 | Save | **`Ctrl+S`** | **`Cmd+S`** |
 | Find/Replace | **`Ctrl+H`** | **`Cmd+H`** |
 | Run ABAP Unit Tests | **`Ctrl+Shift+F10`** | **`Cmd+Shift+F10`** |
-
-#### Summary
-
-You have successfully:
-  - Installed Visual Studio Code
-  - Installed the ADT for Visual Studio Code extension 
-  - Created an HTTP destination and connected Visual Studio Code to your ABAP Cloud system
-  - Added the destination to your workspace and authenticated
-  - Explored the key Visual Studio Code areas for ABAP development 
 
 ### Test yourself
