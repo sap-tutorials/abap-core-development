@@ -280,7 +280,7 @@ We will open the newly created CDS view in ADT for Eclipse.
 
 ### Create a new class method to display 10 records
 
-1. First create a new class **`ZCL_ADTVSCODE_###`** by following the same steps in **Create a data generator Class** section until Step 4. In the newly created class we will add a new method to display 10 rows from the table '/dmo/carrier'. Copy the below code and replace it with the code in the new class.
+1. First create a new class **`ZCL_ADTVSCODE_###`** by following the same steps in **Create a data generator Class** section until Step 4. In the newly created class we will add a new method to display 10 rows from the table **`/dmo/carrier`**. Copy the below code and replace it with the code in the new class.
 
     ```ABAP
       CLASS zcl_adtvscode_### DEFINITION
@@ -319,7 +319,7 @@ We will open the newly created CDS view in ADT for Eclipse.
 
 ### Debug a method
 
-1. To debug let us use a line of code in the data generator class. First put a Breakpoint at the `Write` statement by clicking to the left of the line number as shown in the below screenshot.
+1. To debug let us use a the same class created in the previous step. First put a Breakpoint at the `SELECT` statement by clicking to the left of the line number as shown in the below screenshot.
    ![Add Breakpoint](addbreakpoint.png) 
 
 2. Once the breakpoint is set, it'll be highlighted.
@@ -333,13 +333,13 @@ We will open the newly created CDS view in ADT for Eclipse.
 5. Now let us execute the select statement by clicking on **`Step Into`** or **`F11`**.
    ![StepInto](stepinto.jpg)
 
-6. After executing the select statement we can see that `RT_CARRIERS` now has 10 entries
+6. After executing the select statement we can see that `RT_CARRIERS` now has 10 entries.
    We can open each record to analyze the data.
    ![records](records.jpg)  
 
 
 ### Run ABAP Test Cockpit (ATC) Checks.
-Using ATC you can detect the quality issues with regard to performance, security, programming conventions by regular executing static and dynamic checks. We will run ATC Checks on the same class used to Debug in the above step.
+Using ATC you can detect the quality issues with regards to performance, security & programming conventions by regularly executing static and dynamic checks. We will run ATC Checks on the same class used to Debug in the above step.
 
 1. Open the **Command Palette** **`Ctrl+Shift+P`**.
 2. Type `ABAP: Run ABAP Test Cockpit` or **`Ctrl+Shift+F10`**
