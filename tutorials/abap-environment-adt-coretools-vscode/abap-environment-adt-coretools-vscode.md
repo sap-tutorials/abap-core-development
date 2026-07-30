@@ -11,7 +11,7 @@ author_profile: https://github.com/shilpashankar02
 # ABAP Core Tools for Visual Studio Code
 <!-- description --> You will explore the ABAP Development Tool (ADT) functionality in Visual Studio Code which do not require Agentic AI capabilities.
 
-## Introduction 
+## Introduction
 ABAP development tools for Visual Studio Code provides an efficient and feature-rich set of tools for ABAP development within the ABAP Cloud development model. It brings modern ABAP development to your editor, enabling you to create, edit, debug, and manage ABAP artifacts directly in VS Code. You need to set up your development environment in **Visual Studio Code** and connect it to your ABAP system.   
 
 This tutorial focus on non-Agentic AI capabilities and do not need any coding agent extension in Visual Studio Code (for e.g: GitHub Copilot)
