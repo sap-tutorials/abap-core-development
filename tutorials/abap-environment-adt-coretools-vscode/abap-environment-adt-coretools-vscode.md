@@ -327,7 +327,16 @@ We will open the newly created CDS view in ADT for Eclipse.
 3. To Run the ABAP Application, you can right click on the editor and choose Run ABAP Application (Console).
    ![Run Breakpoint](runbreakpoint.png)
 
-4. Run and Debug view will be opened to the left of the editor. You will see the parameter 'RT_CARRIERS'.  
+4. Run and Debug view will be opened to the left of the editor. You will see the parameter `RT_CARRIERS` which doesnt have any entries now. 
+   ![DebugView](debugview.png)
+
+5. Now let us execute the select statement by clicking on **`Step Into`** or **`F11`**.
+   ![StepInto](stepinto.jpg)
+
+6. After executing the select statement we can see that `RT_CARRIERS` now has 10 entries
+   We can open each record to analyze the data.
+   ![records](records.jpg)  
+
 
 ### Run ABAP Test Cockpit (ATC) Checks.
 Using ATC you can detect the quality issues with regard to performance, security, programming conventions by regular executing static and dynamic checks. We will run ATC Checks on the same class used to Debug in the above step.
@@ -514,8 +523,16 @@ In the **Project Explorer**, right-click on the CDS data definition **`ZI_ADT_Tr
       ENDMETHOD.
     ENDCLASS.
     ```
-9. Run the Unit Test by hitting **`Ctrl+Shift+F10`** or Type **`ABAP: Run ABAP Unit Tests`**.
-   ![Unit Test](unittest.png) 
 
-10. The unit test results will be shown as below:
+9. Save ![save icon](adt_save.png) **Ctrl+S** and activate ![activate icon](adt_activate.png) the changes.
+
+9. Now switch back to Visual Studio code and open the class `zcl_test_cds_travel_###.clas.testclasses.abap` file in editor as shown below.
+   ![Open Testclass](opentestclass.jpg) 
+
+10. Run the Unit Test by hitting **`Ctrl+Shift+F10`** or Type **`ABAP: Run ABAP Unit Tests`**.
+   ![Unit Test](unittest.png)  
+
+11. The unit test results will be shown as below:
    ![Test Result](testresults.png) 
+
+### Test yourself
