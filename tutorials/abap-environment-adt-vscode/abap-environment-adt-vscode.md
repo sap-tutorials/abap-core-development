@@ -11,7 +11,7 @@ author_profile: https://github.com/shilpashankar02
 # ABAP Development Tools for Visual Studio Code
 <!-- description --> You will learn how to set up ABAP Development Tool (ADT) in Visual Studio Code.
 
-## Introduction     
+## Introduction
 
 In this tutorial, you will install Visual Studio Code, install the ADT for Visual Studio Code extension, and establish a connection to your ABAP system.
 
