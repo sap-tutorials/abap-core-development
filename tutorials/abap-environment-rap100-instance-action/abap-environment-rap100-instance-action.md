@@ -58,24 +58,24 @@ You will get familiar with both action implementations, i.e. action without and 
 
   1. Go to your behavior definition ![bdef icon](adt_bdef.png) **`ZRAP100_R_TRAVELTP_###`**  define the instance action without input parameter. For that, insert the following code snippet after the defined validations as shown on the screenshot below.
 
-    ```ABAP
-    action deductDiscount result [1] $self; 
-    ```      
+   ```ABAP
+   action deductDiscount result [1] $self; 
+   ```      
 
-     ![Travel BO Behavior Definition](pp.png)      
+![Travel BO Behavior Definition](pp.png)      
 
-     **Short explanation**:  
-     - The name of the instance action is specified after the keyword **action**
+**Short explanation**:  
+- The name of the instance action is specified after the keyword **action**
 
-     - The keyword **result** defines the output parameter of the action.
+- The keyword **result** defines the output parameter of the action.
 
-        - Its cardinality is specified between the square brackets (`[cardinality]`). It is a mandatory addition.  
+   - Its cardinality is specified between the square brackets (`[cardinality]`). It is a mandatory addition.  
 
-        - **`$self`** specifies that the type of the result parameter is the same type as the entity for which the action or function is defined - i.e. the **Travel** entity type in the present exercise. The return type of the result parameter can be an entity or a structure.     
+   - **`$self`** specifies that the type of the result parameter is the same type as the entity for which the action or function is defined - i.e. the **Travel** entity type in the present exercise. The return type of the result parameter can be an entity or a structure.     
 
-      - **Note**: The output parameter **result** can be used to store the result of an action or function in an internal table. However, it does not affect the result of an action or function that is committed to the database.   
+ - **Note**: The output parameter **result** can be used to store the result of an action or function in an internal table. However, it does not affect the result of an action or function that is committed to the database.   
 
-      **Further reading**: [Action Definition](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/14ddc6b2442b4b97842af9158a1c9c44.html)
+ **Further reading**: [Action Definition](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/14ddc6b2442b4b97842af9158a1c9c44.html)
 
   2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -139,59 +139,59 @@ Now implement the required action methods in the behavior pool of the **Travel**
 
     You can use the ABAP Pretty Printer (Ctrl+F1) to format your source code. 
 
-    ```ABAP  
-    **************************************************************************
-    * Instance-bound non-factory action:
-    * Deduct the specified discount from the booking fee (BookingFee)
-    **************************************************************************
-    METHOD deductDiscount.
-      DATA travels_for_update TYPE TABLE FOR UPDATE ZRAP100_R_TravelTP_###.
-      DATA(keys_with_valid_discount) = keys.   
+   ```ABAP  
+   **************************************************************************
+   * Instance-bound non-factory action:
+   * Deduct the specified discount from the booking fee (BookingFee)
+   **************************************************************************
+   METHOD deductDiscount.
+     DATA travels_for_update TYPE TABLE FOR UPDATE ZRAP100_R_TravelTP_###.
+     DATA(keys_with_valid_discount) = keys.   
 
-      " read relevant travel instance data (only booking fee)
-      READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY Travel
-          FIELDS ( BookingFee )
-          WITH CORRESPONDING #( keys_with_valid_discount )
-          RESULT DATA(travels).
+     " read relevant travel instance data (only booking fee)
+     READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY Travel
+         FIELDS ( BookingFee )
+         WITH CORRESPONDING #( keys_with_valid_discount )
+         RESULT DATA(travels).
 
-      LOOP AT travels ASSIGNING FIELD-SYMBOL(<travel>).  
-          DATA(reduced_fee) = <travel>-BookingFee * ( 1 - 3 / 10 ) .  
+     LOOP AT travels ASSIGNING FIELD-SYMBOL(<travel>).  
+         DATA(reduced_fee) = <travel>-BookingFee * ( 1 - 3 / 10 ) .  
 
-          APPEND VALUE #( %tky       = <travel>-%tky
-                        BookingFee = reduced_fee
-                      ) TO travels_for_update.
-      ENDLOOP.
+         APPEND VALUE #( %tky       = <travel>-%tky
+                       BookingFee = reduced_fee
+                     ) TO travels_for_update.
+     ENDLOOP.
 
-      " update data with reduced fee
-      MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY Travel
-          UPDATE FIELDS ( BookingFee )
-          WITH travels_for_update.
+     " update data with reduced fee
+     MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY Travel
+         UPDATE FIELDS ( BookingFee )
+         WITH travels_for_update.
 
-      " read changed data for action result
-      READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY Travel
-          ALL FIELDS WITH
-          CORRESPONDING #( travels )
-          RESULT DATA(travels_with_discount).
+     " read changed data for action result
+     READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY Travel
+         ALL FIELDS WITH
+         CORRESPONDING #( travels )
+         RESULT DATA(travels_with_discount).
 
-      " set action result
-      result = VALUE #( FOR travel IN travels_with_discount ( %tky   = travel-%tky
-                                                                %param = travel ) ).
-    ENDMETHOD.
-    ```
+     " set action result
+     result = VALUE #( FOR travel IN travels_with_discount ( %tky   = travel-%tky
+                                                               %param = travel ) ).
+   ENDMETHOD.
+   ```
 
-    The result should look like this:
+The result should look like this:
 
-     ![Travel BO Behavior Pool](nn6.png)
+ ![Travel BO Behavior Pool](nn6.png)
 
-     Short explanation:
+ Short explanation:
 
-       - The provided implementation is mass-enabled. This is recommended.
-       - The EML statement MODIFY ENTITIES ... UPDATE FIELDS is used to update specific fields of the instances.
-       - The internal tables are filled inline using the constructor operator VALUE which made the need for explicit declaration obsolete.
-       - The EML statement READ ENTITIES ... ALL FIELDS WITH CORRESPONDING is used to read all fields of the updated instances from the buffer to fill the input paramter result.
+   - The provided implementation is mass-enabled. This is recommended.
+   - The EML statement MODIFY ENTITIES ... UPDATE FIELDS is used to update specific fields of the instances.
+   - The internal tables are filled inline using the constructor operator VALUE which made the need for explicit declaration obsolete.
+   - The EML statement READ ENTITIES ... ALL FIELDS WITH CORRESPONDING is used to read all fields of the updated instances from the buffer to fill the input paramter result.
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -208,13 +208,13 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
   2. Replace your code:
     
-    ```ABAP  
-    use action deductDiscount;
-    ```
+   ```ABAP  
+   use action deductDiscount;
+   ```
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![Travel BO Behavior Projection](nn7.png)
+   ![Travel BO Behavior Projection](nn7.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -228,25 +228,25 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
  4. Add following annotation:
 
-    ```ABAP
-      @UI: {
-      lineItem:       [ { position: 100, importance: #HIGH }                          
-                        //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
-                        //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
-                        //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-           ],
-      identification: [ { position: 100 }                          
-                       ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
+   ```ABAP
+     @UI: {
+     lineItem:       [ { position: 100, importance: #HIGH }                          
+                       //,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' } 
                        //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
                        //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
-           ],
-        textArrangement: #TEXT_ONLY
-      }
-    ```
+          ],
+     identification: [ { position: 100 }                          
+                      ,{ type: #FOR_ACTION, dataAction: 'deductDiscount', label: 'Deduct Discount' } 
+                      //,{ type: #FOR_ACTION, dataAction: 'acceptTravel', label: 'Accept Travel' }
+                      //,{ type: #FOR_ACTION, dataAction: 'rejectTravel', label: 'Reject Travel' }
+          ],
+       textArrangement: #TEXT_ONLY
+     }
+   ```
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![Travel Metadata Extension](nn8.png)
+   ![Travel Metadata Extension](nn8.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -284,11 +284,11 @@ An abstract CDS entity defines the type properties of a CDS entity. Consequently
     
     The source code should now look as follows:
 
-    ```ABAP 
-    action deductDiscount parameter /dmo/a_travel_discount result [1] $self;
-    ```
+   ```ABAP 
+   action deductDiscount parameter /dmo/a_travel_discount result [1] $self;
+   ```
     
-    The abstract entity `/dmo/a_travel_discount` is used after the keyword parameter to specify the parameter structure. The present action will only have one parameter ( `discount_percent` ) as defined in the abstract entity.
+   The abstract entity `/dmo/a_travel_discount` is used after the keyword parameter to specify the parameter structure. The present action will only have one parameter ( `discount_percent` ) as defined in the abstract entity.
 
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -312,78 +312,78 @@ Depending on the type of action, the importing parameter keys has different comp
 
     You can use the **ABAP Pretty Printer (Ctrl+F1)** to format your source code.
 
-    ```ABAP 
-    **************************************************************************
-    * Instance-bound non-factory action with parameter `deductDiscount`:
-    * Deduct the specified discount from the booking fee (BookingFee)
-    **************************************************************************
-    METHOD deductDiscount.
-      DATA travels_for_update TYPE TABLE FOR UPDATE ZRAP100_R_TravelTP_###.
-      DATA(keys_with_valid_discount) = keys.
+   ```ABAP 
+   **************************************************************************
+   * Instance-bound non-factory action with parameter `deductDiscount`:
+   * Deduct the specified discount from the booking fee (BookingFee)
+   **************************************************************************
+   METHOD deductDiscount.
+     DATA travels_for_update TYPE TABLE FOR UPDATE ZRAP100_R_TravelTP_###.
+     DATA(keys_with_valid_discount) = keys.
 
-      " check and handle invalid discount values
-      LOOP AT keys_with_valid_discount ASSIGNING FIELD-SYMBOL(<key_with_valid_discount>)
-        WHERE %param-discount_percent IS INITIAL OR %param-discount_percent > 100 OR %param-discount_percent <= 0.
+     " check and handle invalid discount values
+     LOOP AT keys_with_valid_discount ASSIGNING FIELD-SYMBOL(<key_with_valid_discount>)
+       WHERE %param-discount_percent IS INITIAL OR %param-discount_percent > 100 OR %param-discount_percent <= 0.
 
-        " report invalid discount value appropriately
-        APPEND VALUE #( %tky                       = <key_with_valid_discount>-%tky ) TO failed-travel.
+       " report invalid discount value appropriately
+       APPEND VALUE #( %tky                       = <key_with_valid_discount>-%tky ) TO failed-travel.
 
-        APPEND VALUE #( %tky                       = <key_with_valid_discount>-%tky
-                        %msg                       = NEW /dmo/cm_flight_messages(
-                                                          textid = /dmo/cm_flight_messages=>discount_invalid
-                                                          severity = if_abap_behv_message=>severity-error )
-                        %element-TotalPrice        = if_abap_behv=>mk-on     
-                        %op-%action-deductDiscount = if_abap_behv=>mk-on
-                      ) TO reported-travel.
+       APPEND VALUE #( %tky                       = <key_with_valid_discount>-%tky
+                       %msg                       = NEW /dmo/cm_flight_messages(
+                                                         textid = /dmo/cm_flight_messages=>discount_invalid
+                                                         severity = if_abap_behv_message=>severity-error )
+                       %element-TotalPrice        = if_abap_behv=>mk-on     
+                       %op-%action-deductDiscount = if_abap_behv=>mk-on
+                     ) TO reported-travel.
 
-        " remove invalid discount value
-        DELETE keys_with_valid_discount.
-      ENDLOOP.
+       " remove invalid discount value
+       DELETE keys_with_valid_discount.
+     ENDLOOP.
 
-      " check and go ahead with valid discount values
-      CHECK keys_with_valid_discount IS NOT INITIAL.
+     " check and go ahead with valid discount values
+     CHECK keys_with_valid_discount IS NOT INITIAL.
 
-      " read relevant travel instance data (only booking fee)
-      READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-        ENTITY Travel
-          FIELDS ( BookingFee )
-          WITH CORRESPONDING #( keys_with_valid_discount )
-        RESULT DATA(travels).
+     " read relevant travel instance data (only booking fee)
+     READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+       ENTITY Travel
+         FIELDS ( BookingFee )
+         WITH CORRESPONDING #( keys_with_valid_discount )
+       RESULT DATA(travels).
 
-      LOOP AT travels ASSIGNING FIELD-SYMBOL(<travel>).
-        DATA percentage TYPE decfloat16.
-        DATA(discount_percent) = keys_with_valid_discount[ key draft %tky = <travel>-%tky ]-%param-discount_percent.
-        percentage =  discount_percent / 100 .
-        DATA(reduced_fee) = <travel>-BookingFee * ( 1 - percentage ) .
+     LOOP AT travels ASSIGNING FIELD-SYMBOL(<travel>).
+       DATA percentage TYPE decfloat16.
+       DATA(discount_percent) = keys_with_valid_discount[ key draft %tky = <travel>-%tky ]-%param-discount_percent.
+       percentage =  discount_percent / 100 .
+       DATA(reduced_fee) = <travel>-BookingFee * ( 1 - percentage ) .
 
-        APPEND VALUE #( %tky       = <travel>-%tky
-                        BookingFee = reduced_fee
-                      ) TO travels_for_update.
-      ENDLOOP.
+       APPEND VALUE #( %tky       = <travel>-%tky
+                       BookingFee = reduced_fee
+                     ) TO travels_for_update.
+     ENDLOOP.
 
-      " update data with reduced fee
-      MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-        ENTITY Travel
-          UPDATE FIELDS ( BookingFee )
-          WITH travels_for_update.
+     " update data with reduced fee
+     MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+       ENTITY Travel
+         UPDATE FIELDS ( BookingFee )
+         WITH travels_for_update.
 
-      " read changed data for action result
-      READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-        ENTITY Travel
-          ALL FIELDS WITH
-          CORRESPONDING #( travels )
-        RESULT DATA(travels_with_discount).
+     " read changed data for action result
+     READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+       ENTITY Travel
+         ALL FIELDS WITH
+         CORRESPONDING #( travels )
+       RESULT DATA(travels_with_discount).
 
-      " set action result
-      result = VALUE #( FOR travel IN travels_with_discount ( %tky   = travel-%tky
-                                                              %param = travel ) ).
-    ENDMETHOD.
-    ```
+     " set action result
+     result = VALUE #( FOR travel IN travels_with_discount ( %tky   = travel-%tky
+                                                             %param = travel ) ).
+   ENDMETHOD.
+   ```
 
-    The result should look like this:
+   The result should look like this:
 
 
-    ![CDS BO Behavior Definition](nn16.png)
+   ![CDS BO Behavior Definition](nn16.png)
 
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.

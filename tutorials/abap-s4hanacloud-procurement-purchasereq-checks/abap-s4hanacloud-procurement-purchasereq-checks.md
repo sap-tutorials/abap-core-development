@@ -42,12 +42,10 @@ You then implement the `BAdI` in the SAP Fiori app as follows:
     3. For each **`BAdI implementation`** you create an **ABAP Class** - here **`ZCL_CHECK_PURCH_REQ_000`**.
     4. Within this class, you then create a **method** of the `BAdI`- here **`MM_PUR_S4_PR_CHECK~check`**.
 
-<!-- border -->
 ![step0-badi-enhancement-creation-process-v2](step0-badi-enhancement-creation-process-v2.png)
 
 > The advantage of this approach is that you can group several related **BAdI implementations** in one **enhancement implementation**.
 
-<!-- border -->
 ![step0-several-zimps](step0-several-zimps.png)
 
 ## At runtime:
@@ -59,10 +57,8 @@ You then implement the `BAdI` in the SAP Fiori app as follows:
 
 The application will look roughly like this:
 
-<!-- border -->
 ![step0-app-overview](step0-app-overview.png)
 
-<!-- border -->
 ![step0-app-w-badi](step0-app-w-badi.png)
 
 
@@ -75,35 +71,28 @@ Throughout this tutorial, objects name include a suffix, such as **`000`**. Alwa
 
 1. Open ADT, select **File** > **New** > **Other**.
 
-    <!-- border -->
     ![logon](logon.png)
 
 2. Search **ABAP Cloud Project**, select it and choose **Next >**.
 
-    <!-- border -->
     ![logon](logon2.png)
 
 3. Select **SAP S/4HANA Cloud ABAP Environment**, enter the ABAP service instance URL and choose **Next**.
 
-    <!-- border -->
     ![logon](logon3.png)
 
 4. To log on, choose **Open Logon Page in Browser**, then choose **Next**. (Alternatively, e.g. if you have an admin user and a developer user in the SAP BTP Cloud landscape, you may need to choose **Copy Logon URL...** .)
 
-    <!-- border -->
     ![logon](logon4.png)
 
-    <!-- border -->
     ![logon](logon5.png)
 
 5. Check your ABAP service instance connection and choose **Finish**.
 
-    <!-- border -->
     ![logon](logon6.png)
 
 Your project is available in the Project Explorer.
 
-<!-- border -->
 ![logon](logon7.png)
 
 
@@ -114,7 +103,6 @@ First, create a package for your development objects.
 
 1. Choose your project, then choose **New > ABAP Package** from the context menu.
 
-    <!-- border -->
     ![step1a-package-new](step1a-package-new.png)
 
 2. Enter the following.
@@ -123,7 +111,6 @@ First, create a package for your development objects.
 
 3. Choose **Add to favorite packages**, then choose **Next**
 
-    <!-- border -->
     ![step1b-package-name](step1b-package-name.png)
 
 4. Choose **Create a new request**, enter a meaningful description, e.g. **Test `BADIs` MM-PURCHASING** then choose **Finish**.
@@ -134,28 +121,23 @@ First, create a package for your development objects.
 
 1. First make sure that the released APIs are displayed by application component: In your project, navigate to **Released Objects**.The tree should show the Released Objects sorted by Application Component.
 
-    <!-- border -->
     ![step2b-released-objects](step2b-released-objects.png)
 
 2. If not, choose **Configure Tree** from the context menu, then select **Application Component** from the left side ( **Available Tree Levels** ) and add it to the right side ( **Selected Tree Levels** ). Move it to the top. Then choose **Finish**.
 
 
-    <!-- border -->
     ![step2a-tree-configure](step2a-tree-configure.png)
     
-    <!-- border -->
     ![step2b-application-component-add](step2b-application-component-add.png)
 
 3. In the tree, drill down to **MM-PUR-REQ > Enhancements > Enhancement Spots > `MM_PUR_S4_PR`** and open it by double-clicking.
 
-    <!-- border -->
     ![step2c-enhancement-spot-choose](step2c-enhancement-spot-choose.png)
 
 The `BAdI` enhancement spot appears in a new editor, showing you the available `BAdI` definitions (1).
 
 To help you create your own enhancements, example classes are provided (2).
 
-<!-- border -->
 ![step2d-enhancement-spot-editor](step2d-enhancement-spot-editor.png)    
 
 
@@ -166,7 +148,6 @@ Now that you have identified the correct enhancement spot, you need a container 
 
 1. Select your package **`Z_MM_PUR_S4_BADI_000`** and choose **New > Other ABAP Object** from the context menu.
 
-    <!-- border -->
     ![step3a-badi-implem-create](step3a-badi-implem-create.png)
 
 2. Filter by `BAdI`, choose **`BAdI` Enhancement Implementation**, then choose **Next**.
@@ -176,14 +157,12 @@ Now that you have identified the correct enhancement spot, you need a container 
     - Description: **Check date and quantity in Purchase Requisition**
     - Enhancement Spot: **`MM_PUR_S4_PR`**
 
-    <!-- border -->
     ![step3b-badi-enhancement-implem](step3b-badi-enhancement-implem.png)
 
 4. Choose the transport request, then choose **Finish**.
 
 Your `BAdI` enhancement implementation appears in a new editor. It implements the enhancement spot **`MM_PUR_S4_PR`**.
 
-<!-- border -->
 ![step3c-BAdi-enh-impl-editor](step3c-BAdi-enh-impl-editor.png)
 
 > A complete searchable table of available `BAdIs` and the Fiori apps to which they pertain is available here:
@@ -198,7 +177,6 @@ SAP Help Portal: [Adaptation of App Behavior](https://help.sap.com/viewer/0e602d
     - `BAdI` Definition: **`MM_PUR_S4_PR_CHECK`** (Provided by SAP; add by clicking on **Browse**)
     - `BAdI` Implementation Name: **`ZIMP_CHECK_PURCH_REQ_000`**
 
-    <!-- border -->
     ![step5b-badi-input-values](step5b-badi-input-values.png)
 
 Ignore the error. You will fix this in the next step.
@@ -208,7 +186,6 @@ Ignore the error. You will fix this in the next step.
 
 1. Choose **Implementing Class**.
 
-    <!-- border -->
     ![step5a-implementing-class-create](step5a-implementing-class-create.png)
 
 2. Add the following, then choose **Next**.
@@ -216,7 +193,6 @@ Ignore the error. You will fix this in the next step.
     - Description: **Implement checks on creating Purchase Requisition**
     - (Added automatically): Interfaces: **`IF_MM_PUR_S4_PR_CHECK`**
 
-    <!-- border -->
     ![step5b-implementing-class-name](step5b-implementing-class-name.png)
 
 3. Choose the transport request, then choose **Finish**.
@@ -235,36 +211,35 @@ The error will disappear.
 
 1. Add the following code to the method implementation **`if_mm_pur_s4_pr_check~check.`**.
 
-    ```ABAP
-    DATA ls_message TYPE mmpur_s_messages.
-    **
-    READ TABLE  purchaserequisitionitem_table  INTO DATA(ls_pur_req_itm) INDEX 1    .
+   ```ABAP
+   DATA ls_message TYPE mmpur_s_messages.
+   **
+   READ TABLE  purchaserequisitionitem_table  INTO DATA(ls_pur_req_itm) INDEX 1    .
 
-    IF ls_pur_req_itm-orderedquantity > 10.
-      ls_message-messageid = 'DUMMY'.
-      ls_message-messagetype = 'E'.
-      ls_message-messagenumber = '001'.
-      ls_message-messagevariable1 = ' Quantity limit 10'.           "Place holder
-      APPEND ls_message TO messages.
+   IF ls_pur_req_itm-orderedquantity > 10.
+     ls_message-messageid = 'DUMMY'.
+     ls_message-messagetype = 'E'.
+     ls_message-messagenumber = '001'.
+     ls_message-messagevariable1 = ' Quantity limit 10'.           "Place holder
+     APPEND ls_message TO messages.
 
-    ENDIF.
+   ENDIF.
 
-    IF ls_pur_req_itm-deliverydate - ( cl_abap_context_info=>get_system_date( ) ) > 180.
-      ls_message-messageid = 'DUMMY'.
-      ls_message-messagetype = 'E'.
-      ls_message-messagenumber = '001'.
-      ls_message-messagevariable1 = 'Delivery date limit 180 days '.           "Place holder
-      APPEND ls_message TO messages.
+   IF ls_pur_req_itm-deliverydate - ( cl_abap_context_info=>get_system_date( ) ) > 180.
+     ls_message-messageid = 'DUMMY'.
+     ls_message-messagetype = 'E'.
+     ls_message-messagenumber = '001'.
+     ls_message-messagevariable1 = 'Delivery date limit 180 days '.           "Place holder
+     APPEND ls_message TO messages.
 
-    ENDIF.
+   ENDIF.
 
-    ```
+   ```
 
 2. Format, save, and activate ( **`Shift+F1, Ctrl+S, Ctrl+F3`** ) your code.
 
 3. Check that yours is the implementation that will be called:
 
-<!-- border -->
 ![step5d-impl-called](step5d-impl-called.png)
 
 
@@ -274,34 +249,28 @@ Now test that the checks are performed in the app.
 
 1. In SAP Fiori launchpad, open the app **Manage Purchase Requisitions (Professional)**.
 
-    <!-- border -->
     ![step7a-app-open](step7a-app-open.png)
 
 2. Display the existing purchase requisitions by choosing **Go**, then choose **Create**.
 
-    <!-- border -->
     ![step7b-go](step7b-go.png)
 
 3. In the next screen, choose **Create** again, then choose **Material**.
 
-    <!-- border -->
     ![step7c-create-material](step7c-create-material.png)
 
 4. The Details screen appears. From the **Material** field, choose **Value Help**.
 
 5. Then choose the material **RM122**, **Plant 1010**.
 
-    <!-- border -->
     ![step7e-material-rm122-choose](step7e-material-rm122-choose.png)
 
 6. The system fills some fields with default values. Now enter a wrong quantity, e.g. **20**, and date, e.g. **09.11.2021**.
 
-    <!-- border -->
     ![step7f-wrong-date-and-quantity](step7f-wrong-date-and-quantity.png)
 
 7. The system shows you 2 errors. To display the errors, select the red box at the bottom left.
 
-    <!-- border -->
     ![step7g-errors](step7g-errors.png)
 
 8. Enter correct values, choose **Apply**, then choose **Save**.
@@ -309,7 +278,6 @@ Now test that the checks are performed in the app.
 Your new order appears in the Overview List.
 .
 
-<!-- border -->
 ![step7h-new-order](step7h-new-order.png)
 
 

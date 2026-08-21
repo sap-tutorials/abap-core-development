@@ -36,15 +36,15 @@ author_profile: https://github.com/mervey45
 
 1. Open Visual Studio Code and select **View** > **Command Palette**.
 
-    <!-- border -->![app](app.png)
+    ![app](app.png)
 
 2. Search **Fiori: Open Application Generator** and select it.
 
-    <!-- border -->![app](app2.png)
+    ![app](app2.png)
 
 3. Select **SAP Fiori elements** as application type, **List Report Object Page** as `floorplan` and click **Next >**.
 
-    <!-- border -->![app](app3.png)
+    ![app](app3.png)
 
 4. Select **Data Source** and **Service**:
 
@@ -56,7 +56,7 @@ author_profile: https://github.com/mervey45
     - System name: `<your_system_name>`
     - Service: `<your_service_definition>`
 
-    <!-- border -->![app](app5.png)
+    ![app](app5.png)
 
       Click **Next >**.
 
@@ -64,7 +64,7 @@ author_profile: https://github.com/mervey45
 
 5. Select **`TravelProcessor`** and click **Next >**.
 
-    <!-- border -->![app](app6.png)
+    ![app](app6.png)
 
 6. Add project attributes:
 
@@ -74,7 +74,7 @@ author_profile: https://github.com/mervey45
     - Add deployment configuration: Yes
     - Add FLP configuration: Yes
 
-    <!-- border -->![app](app7.png)
+    ![app](app7.png)
 
     Click **Next >**.
 
@@ -88,7 +88,7 @@ author_profile: https://github.com/mervey45
      - Transport Request: `<your_transport_request>`
      - Deployment description: deployment xxx
 
-    <!-- border -->![app](app9.png)
+    ![app](app9.png)
 
     Click **Next >**.
 
@@ -102,13 +102,13 @@ author_profile: https://github.com/mervey45
      - Action: display
      - Title: Travel App XXX
 
-    <!-- border -->![app](app10.png)
+    ![app](app10.png)
 
     Click **Finish**.
 
 9. Now all files have been generated.
 
-    <!-- border -->![app](app8.png)
+    ![app](app8.png)
 
 
 
@@ -187,7 +187,7 @@ author_profile: https://github.com/mervey45
 
   1. Open Eclipse and check the **BSP library** and **SAP Fiori Launchpad app descriptor item folder** in your package **`ZTRAVEL_APP_XXX`**. If you are not able to see BSP applications and SAP Fiori Launchpad app description items, refresh your package `ZTRAVEL_APP_XXX` by pressing `F5`.
 
-    ![library](library.png)
+   ![library](library.png)
 
 
 

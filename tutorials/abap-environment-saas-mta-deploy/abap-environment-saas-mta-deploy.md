@@ -48,18 +48,18 @@ Before we can deploy the services, we need to connect to the right subaccount an
 
 2. In the terminal, navigate to the folder which contains your mta.yaml file. If you are in the router folder, this can be achieved with the command.
 
-    ```Shell/Bash
-    cd .. 
-    ```.
+   ```Shell/Bash
+   cd .. 
+   ```.
 
-    > Note: The terminal from the build cannot be re-used and a new one needs to be opened
+   > Note: The terminal from the build cannot be re-used and a new one needs to be opened
 
 3. Execute the following command to deploy to Cloud Foundry. During the MTA build, an MTA archive file is automatically created with the MTA ID acting as the file name. A similar process could be followed using the prod extension descriptor in the global account for production after tests are satisfactory in the global account for development.
 
-    ```Shell/Bash
-    cf deploy mta_archives/tutorial_mta_0.0.1.mtar -e extensions/dev.mtaext
-    ```. 
-    ![CF Deploy](cfDeploy.png)
+   ```Shell/Bash
+   cf deploy mta_archives/tutorial_mta_0.0.1.mtar -e extensions/dev.mtaext
+   ```. 
+   ![CF Deploy](cfDeploy.png)
 
 ### Verify the services are created and the approuter is started
 
@@ -82,22 +82,22 @@ As a provider, you need to create a destination to the Cloud Foundry Cloud Contr
 1. Navigate to the provider subaccount (05 Provide)
 
 2. Navigate to Connectivity → Destinations
-    ![Destinations](Destinations.png)
+   ![Destinations](Destinations.png)
 3. Create a new destination named ASP\_CC
 
-    ```JSON
-    Name: ASP_CC
-    Type: HTTP
-    Description: <optional>
-    URL: <enter the API Endpoint domain of your cloud foundry landscape. You can find it under your subaccount > Overview. Example: https://api.cf.eu10.hana.ondemand.com
-    Proxy Type: Internet
-    Authentication: OAuth2Password
-    User: <User ID/E-mail>
-    Password: <password>
-    Client ID: cf
-    Client Secret <needs to be left blank>
-    Token Service URL: http://uaa.<landscape-host>/oauth/token Example: https://uaa.cf.eu10.hana.ondemand.com/oauth/token 
-    ```
+   ```JSON
+   Name: ASP_CC
+   Type: HTTP
+   Description: <optional>
+   URL: <enter the API Endpoint domain of your cloud foundry landscape. You can find it under your subaccount > Overview. Example: https://api.cf.eu10.hana.ondemand.com
+   Proxy Type: Internet
+   Authentication: OAuth2Password
+   User: <User ID/E-mail>
+   Password: <password>
+   Client ID: cf
+   Client Secret <needs to be left blank>
+   Token Service URL: http://uaa.<landscape-host>/oauth/token Example: https://uaa.cf.eu10.hana.ondemand.com/oauth/token 
+   ```
 
 For more information around the token service URL, see [Regions and API Endpoints for the ABAP Environment](https://help.sap.com/docs/BTP/65de2977205c403bbc107264b8eccf4b/879f37370d9b45e99a16538e0f37ff2c.html)
     ![ASP_CC](ASP_CC.png)

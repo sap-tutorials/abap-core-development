@@ -38,24 +38,54 @@ To authenticate business users of the application at runtime, use the tenant-awa
 
  3. Create a new project by executing the following command  
 
-    ```Shell/Bash
-    npm init
-    ```
+   ```Shell/Bash
+   npm init
+   ```
 
-    In the upcoming wizard flow you can leave the defaults or define your own values if preferred
+   In the upcoming wizard flow you can leave the defaults or define your own values if preferred
 
-    ![NPM INIT](npmInit.png)
+   ![NPM INIT](npmInit.png)
 
-    Result: After the project is initialized, the package contains a package.json file  
+   Result: After the project is initialized, the package contains a package.json file  
 
-    ![Package JSON](packageJSON.png)
+   ![Package JSON](packageJSON.png)
 
  4. The `package.json` should have the following content (if the defaults are kept):  
 
  5. Replace your code
   
-    ```JSON
-    { 
+   ```JSON
+   { 
+     "name": "router",
+     "version": "1.0.0",
+     "description": "",
+     "main": "index.js",
+     "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1"
+     },
+     "author": "",
+     "license": "ISC",
+   } 
+   ```
+
+### Install necessary dependencies
+
+The '@sap/approuter' and the '@sap/asp-middleware' must be installed so that they can be used in the start script.
+
+ 1. Execute the following command in the terminal:
+
+   ```Shell/Bash
+   npm install @sap/approuter @sap/asp-middleware 
+   ```
+
+   ![Install Dependencies](installDependencies.png)
+
+ 2. Result: The two modules will be listed in the package.json as 'dependencies' and are downloaded into the node\_modules folder.
+
+    Updated package.json (versions might differ):
+
+   ```JSON
+   {
       "name": "router",
       "version": "1.0.0",
       "description": "",
@@ -65,42 +95,12 @@ To authenticate business users of the application at runtime, use the tenant-awa
       },
       "author": "",
       "license": "ISC",
-    } 
-    ```
-
-### Install necessary dependencies
-
-The '@sap/approuter' and the '@sap/asp-middleware' must be installed so that they can be used in the start script.
-
- 1. Execute the following command in the terminal:
-
-    ```Shell/Bash
-    npm install @sap/approuter @sap/asp-middleware 
-    ```
-
-    ![Install Dependencies](installDependencies.png)
-
- 2. Result: The two modules will be listed in the package.json as 'dependencies' and are downloaded into the node\_modules folder.
-
-    Updated package.json (versions might differ):
-
-    ```JSON
-    {
-       "name": "router",
-       "version": "1.0.0",
-       "description": "",
-       "main": "index.js",
-       "scripts": {
-       "test": "echo \"Error: no test specified\" && exit 1"
-       },
-       "author": "",
-       "license": "ISC",
-       "dependencies": {
-       "@sap/approuter": "^11.2.1",
-       "@sap/asp-middleware": "^1.0.9"
-       }
-    }
-    ```
+      "dependencies": {
+      "@sap/approuter": "^11.2.1",
+      "@sap/asp-middleware": "^1.0.9"
+      }
+   }
+   ```
 
 ### Add a start script
 
@@ -108,30 +108,30 @@ A start script needs to be added to prepare the application for execution in the
 
  1. To add a start script, add the following property under the `scripts` section of package.json
 
-    ```JSON
-    "start": "node index.js",
-    ```
+   ```JSON
+   "start": "node index.js",
+   ```
 
  2. The updated package.json looks as follows:
 
-    ```JSON
-    {
-     "name": "router",
-     "version": "1.0.0",
-     "description": "",
-     "main": "index.js",
-     "scripts": {
-     "start": "node index.js",
-     "test": "echo \"Error: no test specified\" && exit 1"
-     },
-     "author": "",
-     "license": "ISC",
-     "dependencies": {
-     "@sap/approuter": "^11.2.1",
-     "@sap/asp-middleware": "^1.0.9"
-     }
+   ```JSON
+   {
+    "name": "router",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+    "@sap/approuter": "^11.2.1",
+    "@sap/asp-middleware": "^1.0.9"
     }
-    ```
+   }
+   ```
 
 ### Create the start script index.js
 
@@ -141,16 +141,16 @@ A start script needs to be added to prepare the application for execution in the
 
  2. The JavaScript code for the application must be written here. The minimum code required is the following:
 
-    ```JavaScript
-    const approuter = require('@sap/approuter');
-    const ar = approuter();
+   ```JavaScript
+   const approuter = require('@sap/approuter');
+   const ar = approuter();
 
-    ar.start({
-      extensions: [ require('@sap/asp-middleware') ]
-    });
-    ```
+   ar.start({
+     extensions: [ require('@sap/asp-middleware') ]
+   });
+   ```
 
-    It will load the approuter and the asp-middleware and ensures that both components are wired. Additionally, the approuter is started.
+   It will load the approuter and the asp-middleware and ensures that both components are wired. Additionally, the approuter is started.
 
 ### Configure the routes
 
@@ -160,48 +160,48 @@ To make sure that the approuter routes all relevant requests to the ABAP Solutio
 
     It should have the following content:
 
-    ```JSON
-    {
-      "authenticationMethod": "route",
-      "welcomeFile": "/ui",
-      "logout": {
-      "logoutEndpoint": "/sap/public/bc/icf/logoff",
-      "logoutPage": "/ui"
-      },
-      "routes": [
-      {
-      "source": "^/sap/(.*)$",
-      "target": "/sap/$1",
-      "authenticationType": "xsuaa",
-      "service": "com.sap.cloud.abap.solution",
-      "csrfProtection": false,
-      "endpoint": "abap"
-      },
-      {
-      "source": "^/ui(.*)$",
-      "target": "/ui$1",
-      "authenticationType": "xsuaa",
-      "service": "com.sap.cloud.abap.solution",
-      "csrfProtection": false,
-      "endpoint": "abap"
-      }
-      ]
-    }
-    ```
+   ```JSON
+   {
+     "authenticationMethod": "route",
+     "welcomeFile": "/ui",
+     "logout": {
+     "logoutEndpoint": "/sap/public/bc/icf/logoff",
+     "logoutPage": "/ui"
+     },
+     "routes": [
+     {
+     "source": "^/sap/(.*)$",
+     "target": "/sap/$1",
+     "authenticationType": "xsuaa",
+     "service": "com.sap.cloud.abap.solution",
+     "csrfProtection": false,
+     "endpoint": "abap"
+     },
+     {
+     "source": "^/ui(.*)$",
+     "target": "/ui$1",
+     "authenticationType": "xsuaa",
+     "service": "com.sap.cloud.abap.solution",
+     "csrfProtection": false,
+     "endpoint": "abap"
+     }
+     ]
+   }
+   ```
 
 ### Test the router
 
  1. To test that everything works, execute the below in your command prompt
 
-    ```Shell/Bash
-    npm start
-    ```
+   ```Shell/Bash
+   npm start
+   ```
 
-    As a result, you should see the following error message: 'Error: No ABAP Solution credentials found in environment'.
+   As a result, you should see the following error message: 'Error: No ABAP Solution credentials found in environment'.
 
-    ![Error as expected](ErrorAsExpected.png)
+   ![Error as expected](ErrorAsExpected.png)
 
-    This tells us that the middleware was loaded as a dependency and that the start command is correct.
+   This tells us that the middleware was loaded as a dependency and that the start command is correct.
 
 ### Test yourself
 

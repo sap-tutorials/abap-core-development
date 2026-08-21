@@ -38,28 +38,28 @@ In this tutorial, you will create an action project based on Open API.  The **Wo
  2. **Save** the below **Open API Specification** file as local `.edmx file`.
     
     
-    ``` Sample Code
-    {
-       <?xml version="1.0" encoding="utf-8"?>
-   <edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-     <edmx:DataServices>
-       <Schema Namespace="com.sap.gateway.default.api_workflow_notification.v0001" Alias="SAP__self">
-         <ComplexType Name="CT_NOTIFICATION_RESULT">
-         </Action>
-         <EntityContainer Name="Container">
-           <ActionImport Name="ProcessCompleted" Action="com.sap.gateway.default.api_workflow_notification.v0001.ProcessCompleted"/>
-           </EntityContainer>
-       </Schema>
-     </edmx:DataServices>
-   </edmx:Edmx>
-       <Property Name="notificationProcessed" Type="Edm.Boolean" Nullable="false"/>
-         </ComplexType>
-         <Action Name="ProcessCompleted">
-       <Parameter Name="workflowInstanceId" Type="Edm.String" Nullable="false" MaxLength="36"/>
-       <Parameter Name="outcome" Type="Edm.String" Nullable="false" MaxLength="255"/>
-       <ReturnType Type="com.sap.gateway.default.api_workflow_notification.v0001.CT_NOTIFICATION_RESULT" Nullable="false"/>
-    }                  
-    ```
+   ``` Sample Code
+   {
+      <?xml version="1.0" encoding="utf-8"?>
+  <edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:DataServices>
+      <Schema Namespace="com.sap.gateway.default.api_workflow_notification.v0001" Alias="SAP__self">
+        <ComplexType Name="CT_NOTIFICATION_RESULT">
+        </Action>
+        <EntityContainer Name="Container">
+          <ActionImport Name="ProcessCompleted" Action="com.sap.gateway.default.api_workflow_notification.v0001.ProcessCompleted"/>
+          </EntityContainer>
+      </Schema>
+    </edmx:DataServices>
+  </edmx:Edmx>
+      <Property Name="notificationProcessed" Type="Edm.Boolean" Nullable="false"/>
+        </ComplexType>
+        <Action Name="ProcessCompleted">
+      <Parameter Name="workflowInstanceId" Type="Edm.String" Nullable="false" MaxLength="36"/>
+      <Parameter Name="outcome" Type="Edm.String" Nullable="false" MaxLength="255"/>
+      <ReturnType Type="com.sap.gateway.default.api_workflow_notification.v0001.CT_NOTIFICATION_RESULT" Nullable="false"/>
+   }                  
+   ```
  3. Choose **Create**
 
      ![CreateActionPlan](CreateActionPlan.png)
@@ -147,9 +147,9 @@ In this tutorial, you will create an action project based on Open API.  The **Wo
        - To release a version of the action project click Release from top-right corner.
        - Enter the **Release Notes**: `Workflow Completion Notification V1`.  
 
-    >Notice the version of the project. It is in `majorVersionNumber.minorVersionNumber.patchNumber` format.   
+>Notice the version of the project. It is in `majorVersionNumber.minorVersionNumber.patchNumber` format.   
 
-       ![ReleaseActionProject](ReleaseActionProject.png)
+   ![ReleaseActionProject](ReleaseActionProject.png)
 
  12. **Publish** Action Project 
 
@@ -218,12 +218,12 @@ In this tutorial, you will create an action project based on Open API.  The **Wo
 
       As the **default Outcome** is Approved, we will have to change the value in case of Approval form **rejection**. 
  
-    | Input Field |   Value
-    | :---------- |   :------
-    | Outcome |    Map it to the Approval Form output field **comment**
-    | Workflowinstanceid |    Map it to the field **process instance id** under process Metadata
+ | Input Field |   Value
+ | :---------- |   :------
+ | Outcome |    Map it to the Approval Form output field **comment**
+ | Workflowinstanceid |    Map it to the field **process instance id** under process Metadata
 
-      ![ProcessInstanceId](ProcessInstanceId.png)
+   ![ProcessInstanceId](ProcessInstanceId.png)
 
  11. **Save** the business process.
 

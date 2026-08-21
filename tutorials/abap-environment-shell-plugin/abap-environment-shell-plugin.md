@@ -66,12 +66,10 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
 2. Click on **Create Dev Space** button in the top right corner, input a Dev Space name, for example `<YOUR_USERNAME>_SAP_Fiori` (1) and select the application type **SAP Fiori** (2). Click on **Create Dev Space** (3). 
 
-    <!--border-->
     ![Create Dev Space in BAS](create_dev_space.png)
 
 3. It might take a couple of minutes that the status of the new dev space switches from `STARTING` to `RUNNING`. Once it is running, click on its name to access it.
 
-    <!--border-->
     ![Access Dev Space](bas-enter-dev-space.png)
 
 4. In the **Get Started** tab click on **Start Project from Template**. Select the **SAP Fiori generator** project type template (1) and click on **Start** (2).
@@ -82,17 +80,14 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
 5. Select **Basic** Fiori application template (1) and click on **Next** (2).
 
-    <!--border-->
     ![Create SAPUI5 project](create_SAPUI5_project_2.png)
 
 6. Data Source and Service Selection: In the **Data source** dropdown menu, select **None** and click on **Next**.
 
-    <!--border-->
     ![Create SAP Fiori application - Data source](create_SAPUI5_project_3.png)
 
 7. Entity Selection: In the **View name** field, choose a view name and click on **Next**.
 
-    <!--border-->
     ![Create SAP Fiori application - Entity selection](create_SAPUI5_project_4.png)
     
     >For the scope of this tutorial the view name is `plugin_view`. You can use this name or choose a different name. If you choose a different view name, make sure to keep it consistent throughout the rest of the tutorial. While developing a SAP Fiori Application it is good practice to add the suffix `_view` to the name of your view.
@@ -105,14 +100,12 @@ The shell plug-in will be deployed to your SAP BTP ABAP Environment as an SAP Fi
 
 9. Deployment Configuration: In the **Please choose the target** dropdown menu, select **ABAP**. In the **Destinations** dropdown menu, select the destination that points towards your SAP BTP ABAP Environment. Input for example `z_plugin_###` as name for the **SAPUI5 ABAP Repository** and a  **Deployment description**. In the **Package** field, input the name of the package that you created in ABAP Development Tool in Eclipse in the previous step. Click on **Next**.
 
-    <!--border-->
     ![Create SAP Fiori application - Deployment configuration](create_SAPUI5_project_6.png)
 
     >Once the destination and package name have been entered, the system verifies whether the package is local. If this is the case, the Transport Request field is automatically disabled.
 
 10. Fiori Launchpad Configuration: In the **Semantic Object** field input `Shell###` and in the **Action** field input `plugin`. Input a **Title** of your choice. Click on **Finish**. The project folder will be generated.
 
-    <!--border-->
     ![Create SAP Fiori application - Fiori Launchpad Configuration](create_SAPUI5_project_7.png)
 
     >Make sure to input the fields with the correct cases: `Shell` must start with an upper case and `plugin` must start with a lower case.
@@ -133,94 +126,94 @@ The application project is automatically initialized with several basic folders,
      
      At the end your **`mainfest.json`** file should look like the following (certain properties are project-dependent and might therefore have different values for you. For this reason, you should use this code snippet as a guide, and manually adjust your **`mainfest.json`** file (rather than simply copy and paste this code snippet)):
 
-    ``` JSON
-        {
-            "_version": "1.58.0",
-            "sap.app": {
-            "id": "zplugin###",
-            "type": "component",
-            "i18n": "i18n/i18n.properties",
-            "applicationVersion": {
-                "version": "0.0.1"
-            },
-            "title": "{{appTitle}}",
-            "description": "{{appDescription}}",
-            "resources": "resources.json",
-            "sourceTemplate": {
-                "id": "@sap/generator-fiori:basic",
-                "version": "1.11.4",
-                "toolsId": "ca6d90b1-7c62-441c-8145-fa747953cc5c"
-            },
-            "crossNavigation": {
-                "inbounds": {
-                "Shell000-plugin": {
-                    "hideLauncher": true,
-                    "semanticObject": "Shell000",
-                    "action": "plugin",
-                    "signature": {
-                    "parameters": {},
-                    "additionalParameters": "allowed"
-                    }
-                }
-            }
-            }
-            },
-            "sap.ui": {
-            "technology": "UI5",
-            "icons": {
-                "icon": "",
-                "favIcon": "",
-                "phone": "",
-                "phone@2": "",
-                "tablet": "",
-                "tablet@2": ""
-            },
-            "deviceTypes": {
-                "desktop": true,
-                "tablet": true,
-                "phone": true
-            }
-            },
-            "sap.ui5": {
-            "flexEnabled": true,
-            "dependencies": {
-                "minUI5Version": "1.120.1",
-                "libs": {
-                "sap.m": {},
-                "sap.ui.core": {},
-                "sap.f": {},
-                "sap.suite.ui.generic.template": {},
-                "sap.ui.comp": {},
-                "sap.ui.generic.app": {},
-                "sap.ui.table": {},
-                "sap.ushell": {}
-                }
-            },
-            "contentDensities": {
-                "compact": true,
-                "cozy": true
-            },
-            "models": {
-                "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "zplugin###.i18n.i18n"
-                }
-                }
-            },
-            "resources": {
-                "css": [
-                {
-                    "uri": "css/style.css"
-                }
-                ]
-            }
-            },
-            "sap.flp":{
-            "type": "plugin"
-            }
-        }
-    ```
+   ``` JSON
+       {
+           "_version": "1.58.0",
+           "sap.app": {
+           "id": "zplugin###",
+           "type": "component",
+           "i18n": "i18n/i18n.properties",
+           "applicationVersion": {
+               "version": "0.0.1"
+           },
+           "title": "{{appTitle}}",
+           "description": "{{appDescription}}",
+           "resources": "resources.json",
+           "sourceTemplate": {
+               "id": "@sap/generator-fiori:basic",
+               "version": "1.11.4",
+               "toolsId": "ca6d90b1-7c62-441c-8145-fa747953cc5c"
+           },
+           "crossNavigation": {
+               "inbounds": {
+               "Shell000-plugin": {
+                   "hideLauncher": true,
+                   "semanticObject": "Shell000",
+                   "action": "plugin",
+                   "signature": {
+                   "parameters": {},
+                   "additionalParameters": "allowed"
+                   }
+               }
+           }
+           }
+           },
+           "sap.ui": {
+           "technology": "UI5",
+           "icons": {
+               "icon": "",
+               "favIcon": "",
+               "phone": "",
+               "phone@2": "",
+               "tablet": "",
+               "tablet@2": ""
+           },
+           "deviceTypes": {
+               "desktop": true,
+               "tablet": true,
+               "phone": true
+           }
+           },
+           "sap.ui5": {
+           "flexEnabled": true,
+           "dependencies": {
+               "minUI5Version": "1.120.1",
+               "libs": {
+               "sap.m": {},
+               "sap.ui.core": {},
+               "sap.f": {},
+               "sap.suite.ui.generic.template": {},
+               "sap.ui.comp": {},
+               "sap.ui.generic.app": {},
+               "sap.ui.table": {},
+               "sap.ushell": {}
+               }
+           },
+           "contentDensities": {
+               "compact": true,
+               "cozy": true
+           },
+           "models": {
+               "i18n": {
+               "type": "sap.ui.model.resource.ResourceModel",
+               "settings": {
+                   "bundleName": "zplugin###.i18n.i18n"
+               }
+               }
+           },
+           "resources": {
+               "css": [
+               {
+                   "uri": "css/style.css"
+               }
+               ]
+           }
+           },
+           "sap.flp":{
+           "type": "plugin"
+           }
+       }
+   ```
 
 3. Delete the **`controller`** folder (This is a sub-folder of the **`webapp`** folder) with all its content.
 
@@ -232,48 +225,48 @@ The application project is automatically initialized with several basic folders,
 
 5. Open the **`Component.js`** file in the **`webapp`** folder. You should use this code snippet as a guide, and manually adjust your Component.js  file (rather than simply copy and paste this code snippet):
 
-    ``` JavaScript
-    sap.ui.define([
-            "sap/ui/core/UIComponent"
-            "zplugin000/model/models"
-        ],
-        function (UIComponent, models) {
-            "use strict";
+   ``` JavaScript
+   sap.ui.define([
+           "sap/ui/core/UIComponent"
+           "zplugin000/model/models"
+       ],
+       function (UIComponent, models) {
+           "use strict";
 
-            return UIComponent.extend("zplugin###.Component", {
-                metadata: {
-                    manifest: "json"
-                },
+           return UIComponent.extend("zplugin###.Component", {
+               metadata: {
+                   manifest: "json"
+               },
 
-                /**
-                * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
-                * @public
-                * @override
-                */
-                init: function () {
-                    // call the base component's init function
-                    UIComponent.prototype.init.apply(this, arguments);
+               /**
+               * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
+               * @public
+               * @override
+               */
+               init: function () {
+                   // call the base component's init function
+                   UIComponent.prototype.init.apply(this, arguments);
 
-                    var oRenderer = sap.ushell.Container.getRenderer();
-                    var oEntry = {
-                        title: "Personalized shell plug-in",
-                        icon: "sap-icon://role",
-                        value: function () {
-                            return jQuery.Deferred().resolve("Plug-in example");
-                        },
-                        content: function () {
-                            return jQuery.Deferred().resolve(new sap.m.Text("plugin-text", {text: ""}));
-                        },
-                        onSave: function () {
-                            return jQuery.Deferred().resolve();
-                        }
-                    };
-                    oRenderer.addUserPreferencesEntry(oEntry);
-                }
-            });
-        }
-    );
-    ```
+                   var oRenderer = sap.ushell.Container.getRenderer();
+                   var oEntry = {
+                       title: "Personalized shell plug-in",
+                       icon: "sap-icon://role",
+                       value: function () {
+                           return jQuery.Deferred().resolve("Plug-in example");
+                       },
+                       content: function () {
+                           return jQuery.Deferred().resolve(new sap.m.Text("plugin-text", {text: ""}));
+                       },
+                       onSave: function () {
+                           return jQuery.Deferred().resolve();
+                       }
+                   };
+                   oRenderer.addUserPreferencesEntry(oEntry);
+               }
+           });
+       }
+   );
+   ```
 
     >In line 8, the `"zplugin###.Component"` is taken from the name of your project. If you chose a different project name in the previous step, make sure to substitute the `zplugin###` with the correct project name. The name of your project can be found in the **`manifest.json`** file under the `"sap.app"`>`"id"` property.
 
@@ -293,7 +286,6 @@ Your basic SAPUI5 Component can be previewed before it is deployed. Using the pr
 
 3. Select **start fiori-run**. This will prompt a new terminal window which will run the **start fiori-run** command. This can take up to a few seconds. Once it is done, a preview of your application will open up in a new browser window.
 
-    <!--border-->
     ![Preview application - start fiori run](Preview_app_2.png)
 
 4. In the preview of your component, click on the user icon in the top-right corner and open the **settings**. Your shell plug-in is listed in the user's settings dialog.
@@ -319,7 +311,6 @@ You can now deploy your SAPUI5 Component on with a basic (empty) shell plug-in t
 
 3. After a successful deployment, your software package in ABAP Developer Tool in Eclipse will be automatically enhanced by a BSP Application, a Launchpad App Descriptor Item and `SICF` Node.
 
-    <!--border-->
     ![New ADT files](new_ADT_files.png)
 
 ### Create an IAM App
@@ -344,7 +335,6 @@ Now that your basic shell plug-in has been successfully deployed to your SAP BTP
 
 6. In the newly created **IAM App**, enter the name of your **Launchpad App Descriptor Item** in the corresponding field (1) and save ( **File** > **Save**). Then click on **Publish Locally** (3).
 
-    <!--border-->
     ![Publish locally](publish_locally.png)
     
     >Publishing the IAM App can take up to a couple of minutes. You can keep track of the process in the lower right corner of the ABAP Developer Tool in Eclipse.
@@ -354,7 +344,6 @@ Now that you have created the IAM App, you can create a Business Catalog and ass
 
 1. In the **IAM App**, click on the link **Create a new Business Catalog and assign the App to it**.
 
-    <!--border-->
     ![Create business catalog 4](create_business_catalog_4.png)
 
 2. Enter a name and description.

@@ -47,21 +47,21 @@ In this tutorial you will continue working on the shell plug-in you created in t
 
 6. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 
-    ``` ABAP
-    @AccessControl.authorizationCheck: #NOT_REQUIRED
-    @EndUserText.label: 'Business User Role'
-    define root view entity Z_C_BusinessUserRole_### as select from I_IAMBusinessUserBusinessRole as _BusinessUserRole
-    association [0..*] to I_IAMBusinessRoleText as _BusinessRoleText on $projection.BusinessRoleUUID = _BusinessRoleText.BusinessRoleUUID
-    {
-    key abap.char'Me' as ID,
-    key _BusinessUserRole.BusinessRoleUUID as BusinessRoleUUID,
-    _BusinessUserRole.BusinessRole as BusinessRole,
-    _BusinessRoleText.Name as Name,
-    /* Associations */
-    _BusinessRoleText
-    }
-    where _BusinessUserRole.UserID = $session.user
-    ```
+   ``` ABAP
+   @AccessControl.authorizationCheck: #NOT_REQUIRED
+   @EndUserText.label: 'Business User Role'
+   define root view entity Z_C_BusinessUserRole_### as select from I_IAMBusinessUserBusinessRole as _BusinessUserRole
+   association [0..*] to I_IAMBusinessRoleText as _BusinessRoleText on $projection.BusinessRoleUUID = _BusinessRoleText.BusinessRoleUUID
+   {
+   key abap.char'Me' as ID,
+   key _BusinessUserRole.BusinessRoleUUID as BusinessRoleUUID,
+   _BusinessUserRole.BusinessRole as BusinessRole,
+   _BusinessRoleText.Name as Name,
+   /* Associations */
+   _BusinessRoleText
+   }
+   where _BusinessUserRole.UserID = $session.user
+   ```
 
 1. Save your Data Definition and activate it using the **Activate** icon.
 
@@ -78,26 +78,26 @@ Now you need to create a second Data Definition, which will take the User ID exp
 
 3. The Data Definition is initialized with a pre-filled code based on your chosen template. Adjust it as follows:
 
-    ``` ABAP
-    @AccessControl.authorizationCheck: #NOT_REQUIRED
-    @EndUserText.label: 'Business User'
-    define root view entity Z_C_BusinessUser_### as select from I_BusinessUserBasic
-        association [0..*] to Z_C_BusinessUserRole_### as _BusinessUserRole on $projection.ID = _BusinessUserRole.ID
-        {      
-        key abap.char'Me' as ID,
-        BusinessPartner,
-        BusinessPartnerUUID,
-        PersonFullName,
-        UserID,
-        _WorkplaceAddress.PhoneNumber,
-        _WorkplaceAddress.DefaultEmailAddress,
-        _WorkplaceAddress.Building,
-        _WorkplaceAddress.RoomNumber,
-        /* Associations */
-        _BusinessUserRole
-        }
-    where UserID = $session.user
-    ```
+   ``` ABAP
+   @AccessControl.authorizationCheck: #NOT_REQUIRED
+   @EndUserText.label: 'Business User'
+   define root view entity Z_C_BusinessUser_### as select from I_BusinessUserBasic
+       association [0..*] to Z_C_BusinessUserRole_### as _BusinessUserRole on $projection.ID = _BusinessUserRole.ID
+       {      
+       key abap.char'Me' as ID,
+       BusinessPartner,
+       BusinessPartnerUUID,
+       PersonFullName,
+       UserID,
+       _WorkplaceAddress.PhoneNumber,
+       _WorkplaceAddress.DefaultEmailAddress,
+       _WorkplaceAddress.Building,
+       _WorkplaceAddress.RoomNumber,
+       /* Associations */
+       _BusinessUserRole
+       }
+   where UserID = $session.user
+   ```
 
 4. Save your Data Definition and activate it using the **Activate** icon.
 
@@ -112,13 +112,13 @@ In order to expose the data from the two previous Data Definitions you need to c
 
 2. Add your Projection Views to your Service Definition as follows:
 
-    ``` ABAP
-    @EndUserText.label: 'Business User Service Definition'
-    define service ZUI_BUSINESSUSER_### {
-        expose Z_C_BusinessUser_### as BusinessUser;
-        expose Z_C_BusinessUserRole_### as BusinessUserRole;     
-    }
-    ```
+   ``` ABAP
+   @EndUserText.label: 'Business User Service Definition'
+   define service ZUI_BUSINESSUSER_### {
+       expose Z_C_BusinessUser_### as BusinessUser;
+       expose Z_C_BusinessUserRole_### as BusinessUserRole;     
+   }
+   ```
 
 3. Save your Service Definition and activate it using the **Activate** icon.
 
@@ -180,12 +180,10 @@ Now that you have created an OData Service which exposes user-related informatio
 
 5. Optional: in the **`manifest.json`** file you can see that the OData Service has been added automatically under `"dataSources"` and `"models"` configurations.
 
-    <!--border-->
     ![Add new service - manifest.json](manifest_json_new_service.png)
 
 6. Optional: in the **`ui5.yaml`** file on project top level you can see that the system connection has been added automatically as `backend` configuration.    
 
-    <!--border-->
     ![Add new service - ui5.yaml](bas-ui5-yaml-new-service.png)
 
 7. Open the **`manifest.json`** file. In the configuration `sap.ui5` > `dependencies` > `libs`, remove the following parameters:  `"sap.f": {}`, `"sap.suite.ui.generic.template": {}`, `"sap.ui.comp": {}`, `"sap.ui.generic.app": {}` and `"sap.ui.table": {}`. Add the parameter `"sap.ui.layout": {}` after `"sap.ushell": {}`. The configuration should look like this:
@@ -205,33 +203,33 @@ Your SAPUI5 Application can now consume user-related information via the OData S
 
 1. In the **`webapp`** > **`i18n`** folder, open the **`i18n.properties`** file. Substitute the file content with the following code:  
 
-    ``` HTML
-    #Texts for manifest.json
-    #XTIT: Application name
-    appTitle=Shell Plug-in
-    #YDES: Application description
-    appDescription=Shell Plug-in
-    #XTIT: Main view title
-    title=Shell Plug-in
-    flpTitle=Shell Plug-in
-    flpSubtitle=
-    #Title and Subtitle of the Plug-in
-    titleTab=Personalized shell plug-in
-    subtitleTab=Plug-in example
-    #Fragment Labels
-    labelUserID=System User ID
-    tooltipUserID=Steampunk System User ID
-    labelMail=E-Mail Address
-    tooltipMail=User-Specific E-Mail Address
-    labelPhone=Phone Number
-    tooltipPhone=User-Specific Phone Number
-    labelLocation=Location
-    tooltipLocation=User-Specific Location
-    titleTable=Assigned Business Roles
-    noContentTable=No Assigned Business Roles
-    labelBusinessRole=Business Role
-    labelBusinessRoleName=Name
-    ```
+   ``` HTML
+   #Texts for manifest.json
+   #XTIT: Application name
+   appTitle=Shell Plug-in
+   #YDES: Application description
+   appDescription=Shell Plug-in
+   #XTIT: Main view title
+   title=Shell Plug-in
+   flpTitle=Shell Plug-in
+   flpSubtitle=
+   #Title and Subtitle of the Plug-in
+   titleTab=Personalized shell plug-in
+   subtitleTab=Plug-in example
+   #Fragment Labels
+   labelUserID=System User ID
+   tooltipUserID=Steampunk System User ID
+   labelMail=E-Mail Address
+   tooltipMail=User-Specific E-Mail Address
+   labelPhone=Phone Number
+   tooltipPhone=User-Specific Phone Number
+   labelLocation=Location
+   tooltipLocation=User-Specific Location
+   titleTable=Assigned Business Roles
+   noContentTable=No Assigned Business Roles
+   labelBusinessRole=Business Role
+   labelBusinessRoleName=Name
+   ```
 
 2. Via the OData Service you created in a previous step, you can consume Business User details associated with the current Business User. You now need to define how these data will be displayed. To do this, you need to create a form, and specify its layout and contents. In your project, go to the empty folder **`webapp`** > **`view`**. Right click on the folder and select **New File**.
 
@@ -243,148 +241,148 @@ Your SAPUI5 Application can now consume user-related information via the OData S
 
 4. Open the newly created Fragment View file, and input the following code:
 
-    ``` XML
-    <core:FragmentDefinition
-        xmlns="sap.m" xmlns:core="sap.ui.core"
-        xmlns:form="sap.ui.layout.form"
-        xmlns:layout="sap.ui.layout"
-        xmlns:grid="sap.ui.layout.cssgrid"
-        id="businessUserFragment">
-    <Page id="PersonInfoPage" title="{PersonFullName}" binding="{path:'/BusinessUser(%27Me%27)'}">
-        <content>
-        <VBox id="_IDGenVBox1" class="sapUiSmallMargin">
-    <form:Form editable="false" id="form0">
-                <form:layout>
-                    <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout1" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="5" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="5" columnsL="5" columnsM="5" singleContainerFullSize="false"/>
-                </form:layout>
-        <form:formContainers>
-            <form:FormContainer title="" id="PersonInfoContainer">
-                <form:formElements><form:FormElement label="{i18n>labelUserID}" id="LabelUserID" tooltip="{i18n>tooltipUserID}">
-                        <form:fields><Text id="UserID" text="{UserID}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipUserID}"/>
-                        </form:fields>
-                    </form:FormElement>
-                    <form:FormElement label="{i18n>labelMail}" id="LabelEMail">
-                        <form:fields>
-                            <Text id="EMail" text="{DefaultEmailAddress}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipMail}"/>
-                        </form:fields>
-                    </form:FormElement>
-                    <form:FormElement label="{i18n>labelPhone}" id="LabelPhone">
-                        <form:fields>
-                            <Text id="Phone" text="{PhoneNumber}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipPhone}"/>
-                        </form:fields>
-                    </form:FormElement>
-                    <form:FormElement label="{i18n>labelLocation}" id="LabelLocation">
-                        <form:fields>
-                            <Text id="Location" text="{Building} / {RoomNumber}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipLocation}"/>
-                        </form:fields>
-                    </form:FormElement>
-                </form:formElements>
-            </form:FormContainer>
-        </form:formContainers>
-        </form:Form>
-        </VBox>
-        <Title id="TableTitleID" text="{i18n>titleTable}" textAlign="Center" titleStyle="H4"/>
-        <Table noDataText="{i18n>noContentTable}" id="TableBusinessRoles" items="{path:'_BusinessUserRole'}">
-        <items>
-            <ColumnListItem type="Active" id="ColumnItem">
-                <cells>
-                    <Text text="{BusinessRole}" id="BusinessRole"/>
-                    <Text text="{Name}" id="BusinessRoleName"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-        <columns>
-            <Column id="ColumnBusinessRole">
-                <header>
-                    <Label text="{i18n>labelBusinessRole}" id="LabelBusinessRole"/>
-                </header>
-            </Column>
-            <Column id="ColumnBusinessRoleName">
-                <header>
-                    <Label text="{i18n>labelBusinessRoleName}" id="LabelBusinessRoleName"/>
-                </header>
-            </Column>
-            </columns>
-            </Table>
-            </content>
-        </Page>
-    </core:FragmentDefinition>
-    ```
+   ``` XML
+   <core:FragmentDefinition
+       xmlns="sap.m" xmlns:core="sap.ui.core"
+       xmlns:form="sap.ui.layout.form"
+       xmlns:layout="sap.ui.layout"
+       xmlns:grid="sap.ui.layout.cssgrid"
+       id="businessUserFragment">
+   <Page id="PersonInfoPage" title="{PersonFullName}" binding="{path:'/BusinessUser(%27Me%27)'}">
+       <content>
+       <VBox id="_IDGenVBox1" class="sapUiSmallMargin">
+   <form:Form editable="false" id="form0">
+               <form:layout>
+                   <form:ResponsiveGridLayout id="_IDGenResponsiveGridLayout1" labelSpanXL="5" labelSpanL="5" labelSpanM="5" labelSpanS="5" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="5" columnsL="5" columnsM="5" singleContainerFullSize="false"/>
+               </form:layout>
+       <form:formContainers>
+           <form:FormContainer title="" id="PersonInfoContainer">
+               <form:formElements><form:FormElement label="{i18n>labelUserID}" id="LabelUserID" tooltip="{i18n>tooltipUserID}">
+                       <form:fields><Text id="UserID" text="{UserID}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipUserID}"/>
+                       </form:fields>
+                   </form:FormElement>
+                   <form:FormElement label="{i18n>labelMail}" id="LabelEMail">
+                       <form:fields>
+                           <Text id="EMail" text="{DefaultEmailAddress}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipMail}"/>
+                       </form:fields>
+                   </form:FormElement>
+                   <form:FormElement label="{i18n>labelPhone}" id="LabelPhone">
+                       <form:fields>
+                           <Text id="Phone" text="{PhoneNumber}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipPhone}"/>
+                       </form:fields>
+                   </form:FormElement>
+                   <form:FormElement label="{i18n>labelLocation}" id="LabelLocation">
+                       <form:fields>
+                           <Text id="Location" text="{Building} / {RoomNumber}" wrappingType="Normal" textAlign="Begin" tooltip="{i18n>tooltipLocation}"/>
+                       </form:fields>
+                   </form:FormElement>
+               </form:formElements>
+           </form:FormContainer>
+       </form:formContainers>
+       </form:Form>
+       </VBox>
+       <Title id="TableTitleID" text="{i18n>titleTable}" textAlign="Center" titleStyle="H4"/>
+       <Table noDataText="{i18n>noContentTable}" id="TableBusinessRoles" items="{path:'_BusinessUserRole'}">
+       <items>
+           <ColumnListItem type="Active" id="ColumnItem">
+               <cells>
+                   <Text text="{BusinessRole}" id="BusinessRole"/>
+                   <Text text="{Name}" id="BusinessRoleName"/>
+               </cells>
+           </ColumnListItem>
+       </items>
+       <columns>
+           <Column id="ColumnBusinessRole">
+               <header>
+                   <Label text="{i18n>labelBusinessRole}" id="LabelBusinessRole"/>
+               </header>
+           </Column>
+           <Column id="ColumnBusinessRoleName">
+               <header>
+                   <Label text="{i18n>labelBusinessRoleName}" id="LabelBusinessRoleName"/>
+               </header>
+           </Column>
+           </columns>
+           </Table>
+           </content>
+       </Page>
+   </core:FragmentDefinition>
+   ```
 
 5. Your Fragment View defines how you want the data to be displayed. You now need to load the Fragment View into the content of your SAPUI5 Application, so that the form containing the user-related information will actually be displayed in your application. In the **`webapp`** folder, open the **`Component.js`** file. Replace the content of the file with the following code:
 
-    ``` JavaScript
-    sap.ui.define([
-            "sap/ui/core/UIComponent",
-            "sap/ui/model/resource/ResourceModel",
-            "sap/ui/core/Fragment"
-        ],
-            function (UIComponent, ResourceModel, Fragment) {
-                "use strict";
+   ``` JavaScript
+   sap.ui.define([
+           "sap/ui/core/UIComponent",
+           "sap/ui/model/resource/ResourceModel",
+           "sap/ui/core/Fragment"
+       ],
+           function (UIComponent, ResourceModel, Fragment) {
+               "use strict";
 
-            return UIComponent.extend("zplugin###.Component", {
-                metadata: {
-                    manifest: "json"
-                },
+           return UIComponent.extend("zplugin###.Component", {
+               metadata: {
+                   manifest: "json"
+               },
 
-                /**
-                * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
-                * @public
-                * @override
-                */
-                init: function () {
-                    // call the base component's init function
-                    UIComponent.prototype.init.apply(this, arguments);
+               /**
+               * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
+               * @public
+               * @override
+               */
+               init: function () {
+                   // call the base component's init function
+                   UIComponent.prototype.init.apply(this, arguments);
 
-                    var businessUserModel = this.getModel();
+                   var businessUserModel = this.getModel();
 
-                    var vtitleTab = new ResourceModel({
-                        bundleName: "zplugin###.i18n.i18n"
-                    }).getResourceBundle().getText("titleTab");
+                   var vtitleTab = new ResourceModel({
+                       bundleName: "zplugin###.i18n.i18n"
+                   }).getResourceBundle().getText("titleTab");
 
-                    var vsubtitleTab = new ResourceModel({
-                        bundleName: "zplugin###.i18n.i18n"
-                    }).getResourceBundle().getText("subtitleTab");
+                   var vsubtitleTab = new ResourceModel({
+                       bundleName: "zplugin###.i18n.i18n"
+                   }).getResourceBundle().getText("subtitleTab");
 
-                    var oRenderer = sap.ushell.Container.getRenderer();
-                    var oEntry = {
-                        title: vtitleTab,
-                        icon: "sap-icon://role",
-                        value: function () {
-                            return jQuery.Deferred().resolve(vsubtitleTab);
-                        },
-                        content: function () {
-                            if (!this.oFragment) {
-                                this.oFragment = Fragment.load({
-                                    type: "XML",
-                                    id: "BusinessUserFragment",
-                                    name: "zplugin###.view.BusinessUserFragment"
-                                }).then(function (fragment) {
-                                    var i18nModel = new ResourceModel({
-                                        bundleName: "zplugin###.i18n.i18n"
-                                    });
-                                    fragment.setModel(i18nModel, "i18n");
-                                    fragment.setModel(businessUserModel);
+                   var oRenderer = sap.ushell.Container.getRenderer();
+                   var oEntry = {
+                       title: vtitleTab,
+                       icon: "sap-icon://role",
+                       value: function () {
+                           return jQuery.Deferred().resolve(vsubtitleTab);
+                       },
+                       content: function () {
+                           if (!this.oFragment) {
+                               this.oFragment = Fragment.load({
+                                   type: "XML",
+                                   id: "BusinessUserFragment",
+                                   name: "zplugin###.view.BusinessUserFragment"
+                               }).then(function (fragment) {
+                                   var i18nModel = new ResourceModel({
+                                       bundleName: "zplugin###.i18n.i18n"
+                                   });
+                                   fragment.setModel(i18nModel, "i18n");
+                                   fragment.setModel(businessUserModel);
 
-                                    return fragment;
-                                });
-                            }
-                            return this.oFragment;
-                        },
-                        onSave: function () {
-                            return jQuery.Deferred().resolve();
-                        }
-                    };
-                    var i18nModel = new ResourceModel({
-                        bundleName: "zplugin###.i18n.i18n"
-                    });
-                    oRenderer.setModel(i18nModel, "i18n");
-                    oRenderer.addUserPreferencesEntry(oEntry);
-                }
-            });
-        }
-        );
-    ```
+                                   return fragment;
+                               });
+                           }
+                           return this.oFragment;
+                       },
+                       onSave: function () {
+                           return jQuery.Deferred().resolve();
+                       }
+                   };
+                   var i18nModel = new ResourceModel({
+                       bundleName: "zplugin###.i18n.i18n"
+                   });
+                   oRenderer.setModel(i18nModel, "i18n");
+                   oRenderer.addUserPreferencesEntry(oEntry);
+               }
+           });
+       }
+       );
+   ```
     
     > If you have chosen different names for your project and for your Fragment View in the previous steps, you will need to adjust the code above: replace any instance of `###` with your initials or group number, and replace `BusinessUserFragment` with the name of your View.
 

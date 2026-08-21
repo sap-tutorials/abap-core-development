@@ -38,7 +38,6 @@ author_profile: https://github.com/peterpersiel
 
 To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
 
-<!--border-->
 ![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
 
 1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
@@ -51,19 +50,19 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
 
 5. Exchange the default body with this simplified example.
 
-    ```json
-    {
-        "sourceLanguage": "en",
-        "targetLanguages": [
-            "es"
-        ],
-        "units": [
-            {
-                "value": "Your text to be translated"
-            }
-        ]
-    }
-    ```
+   ```json
+   {
+       "sourceLanguage": "en",
+       "targetLanguages": [
+           "es"
+       ],
+       "units": [
+           {
+               "value": "Your text to be translated"
+           }
+       ]
+   }
+   ```
 
 6. Hit the **Run** button.
 
@@ -274,57 +273,57 @@ Now as the business object has just been published, the logic can be enhanced by
 
     The request body in JSON format looks as follows:
 
-    ```json
-    {
-        "sourceLanguage": "es",
-        "targetLanguages": [
-            "en"
-        ],
-        "units": [
-            {
-                "value": "Su texto a traducir"
-            }
-        ]
-    }
-    ```
+   ```json
+   {
+       "sourceLanguage": "es",
+       "targetLanguages": [
+           "en"
+       ],
+       "units": [
+           {
+               "value": "Su texto a traducir"
+           }
+       ]
+   }
+   ```
 
     Within the custom business object logic, the request must be provided as a string. Replace the `sourceLanguage` and `value` fields with appropriate variables. To generate the JSON string in the required format for the request body, you can use the [XCO JSON module](https://help.sap.com/docs/SAP_S4HANA_CLOUD/0f69f8fb28ac4bf48d2b57b9637e81fa/b3b824fb2b244bc0a95667567cdb9103.html?version=LATEST&locale=en-US), which is part of the Key User (KU) edition of the XCO library.
 
-    ```abap
-    * Create request body json string
-    DATA(lo_json_builder) = xco_ku_json=>data->builder( ).
-    lo_json_builder->begin_object(
-        )->add_member( 'sourceLanguage'
-            )->add_string( bonusentitlement-feedbackslanguage
-        )->add_member( 'targetLanguages'
-            )->begin_array(
-                )->add_string( 'en'
-            )->end_array(
-        )->add_member( 'units'
-            )->begin_array(
-                )->begin_object(
-                    )->add_member( 'value'
-                        )->add_string( bonusentitlement-feedback
-                )->end_object(
-            )->end_array(
-    )->end_object( ).
-    
-    DATA(lv_request_body) = lo_json_builder->get_data( )->to_string( ).
-    ```
+   ```abap
+   * Create request body json string
+   DATA(lo_json_builder) = xco_ku_json=>data->builder( ).
+   lo_json_builder->begin_object(
+       )->add_member( 'sourceLanguage'
+           )->add_string( bonusentitlement-feedbackslanguage
+       )->add_member( 'targetLanguages'
+           )->begin_array(
+               )->add_string( 'en'
+           )->end_array(
+       )->add_member( 'units'
+           )->begin_array(
+               )->begin_object(
+                   )->add_member( 'value'
+                       )->add_string( bonusentitlement-feedback
+               )->end_object(
+           )->end_array(
+   )->end_object( ).
+   
+   DATA(lv_request_body) = lo_json_builder->get_data( )->to_string( ).
+   ```
 
 5. Create the HTTP Request
 
     Create the HTTP request and set several properties
 
-    ```abap
-    * Creation of the HTTP request
-    DATA(request) = cl_ble_http_request=>create( ).
-    request->set_method( if_ble_http_request=>co_method-post
-    )->set_body( lv_request_body
-    )->set_header_parameter( name  = 'APIKey'
-                             value = '< YOUR API KEY >'
-    )->set_content_type( 'application/json; charset=utf-8' ).
-    ```
+   ```abap
+   * Creation of the HTTP request
+   DATA(request) = cl_ble_http_request=>create( ).
+   request->set_method( if_ble_http_request=>co_method-post
+   )->set_body( lv_request_body
+   )->set_header_parameter( name  = 'APIKey'
+                            value = '< YOUR API KEY >'
+   )->set_content_type( 'application/json; charset=utf-8' ).
+   ```
 
 6. Send the Request and Process the Response
 
