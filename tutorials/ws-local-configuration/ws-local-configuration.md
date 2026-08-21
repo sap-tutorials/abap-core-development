@@ -118,15 +118,15 @@ A provider system describes the parameters and access to a system that contains 
 
     - Copy the highlighted part to /sap/bc/:
 
-        <!-- border -->![System URL](lc1.png)
+        ![System URL](lc1.png)
 
     - Go back to the SOAMANAGER of system A. Add the part from /sap/bc of the placeholder URL to the part you have copied in step 4. Add the corresponding client of system B.
 
-        <!-- border -->![Access URL for WSIL](lc2.png)
+        ![Access URL for WSIL](lc2.png)
 
     - In this example, this results in:
 
-        <!-- border -->![WSIL URL](lc8.png)
+        ![WSIL URL](lc8.png)
 
 6. Enter the credentials of a user in system B with permission to display the WSIL.
 
@@ -134,7 +134,7 @@ A provider system describes the parameters and access to a system that contains 
 
 8. Your settings should look like this:
 
-    <!-- border -->![Services Registry settingsL](lc9.png)
+    ![Services Registry settingsL](lc9.png)
 
 9. Choose **Next**.
 
@@ -174,7 +174,7 @@ In system B, the service definitions are assigned to profiles which result in en
 
 5. Choose **Assign Profiles**, choose your profile from the list, and click **Assign Profiles**.
 
-    <!-- border -->![Assign profile in consumer](lc5.png)
+    ![Assign profile in consumer](lc5.png)
 
 6. Skip step **Service Groups**.
 7. Go to step **Logon Data Assignment** and choose **Finish**.
@@ -205,13 +205,13 @@ On consumer side, it is specified which consumer proxies need to be configured f
 
 8. Choose your provider system from the list. Ignore this **Is Configured** checkbox and choose **Assign to Service Group**.
 
-    <!-- border -->![Service Group Assignment](lc3.png)
+    ![Service Group Assignment](lc3.png)
 
 9. Choose **Next**.
 
 10. In the step **Logon Data Assignment**, choose your logon data from the list.
 
-    <!-- border -->![Logon Data](lc4.png)
+    ![Logon Data](lc4.png)
 
 11. Choose **Finish**.
 12. Activate the integration scenario by choosing **Yes** in the pop-up window.
@@ -235,13 +235,13 @@ To apply your profiles and business scenarios, you have to process the pending t
 
 2. Search for your consumer proxy. It is named like the service definition with the prefix `CO_`. You can also search for your service definition and choose the consumer proxy from the search results. In this case, it is `CO_SRT_TEST_PROVIDER`.
 
-    <!-- border -->![Consumer proxy](lc6.png)
+    ![Consumer proxy](lc6.png)
 
 3. Click on the consumer proxy.
 
 4. Copy the name of the logical port. In the column **Creation Type**, you can see that the logical port is created based on your profile.
 
-    <!-- border -->![Logical port of consumer proxy](lc7.png)
+    ![Logical port of consumer proxy](lc7.png)
 
 5. Logon to system A in SAP GUI.
 
@@ -257,7 +257,7 @@ To apply your profiles and business scenarios, you have to process the pending t
 
 11. Choose **Execute** (F8). The response opens. In this case, the result should look like this:
 
-    <!-- border -->![Logical port of consumer proxy](lc10.png)
+    ![Logical port of consumer proxy](lc10.png)
 
 
 ### Test yourself

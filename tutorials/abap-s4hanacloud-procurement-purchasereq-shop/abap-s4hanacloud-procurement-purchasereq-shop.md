@@ -92,35 +92,35 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
   5. Replace your code with following:
 
-    ```ABAP
-    @EndUserText.label : 'Shopping cart table'
-    @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-    @AbapCatalog.tableCategory : #TRANSPARENT
-    @AbapCatalog.deliveryClass : #A
-    @AbapCatalog.dataMaintenance : #RESTRICTED
-    define table zashopcart_### {
-    key client            : abap.clnt not null;
-    key order_uuid        : sysuuid_x16 not null;
-    order_id              : abap.numc(8) not null;
-    ordered_item          : abap.char(40) not null;
-    @Semantics.amount.currencyCode : 'zashopcart_###.currency'
-    price                 : abap.curr(11,2);
-    @Semantics.amount.currencyCode : 'zashopcart_###.currency'
-    total_price           : abap.curr(11,2);
-    currency              : abap.cuky;
-    order_quantity        : abap.numc(4);
-    delivery_date         : abap.dats;
-    overall_status        : abap.char(30);
-    notes                 : abap.string(256);
-    created_by            : abp_creation_user;
-    created_at            : abp_creation_tstmpl;
-    last_changed_by       : abp_lastchange_user;
-    last_changed_at       : abp_lastchange_tstmpl;
-    local_last_changed_at : abp_locinst_lastchange_tstmpl;
-    purchase_requisition  : abap.char(10);
-    pr_creation_date      : abap.dats;
-    }
-    ```
+   ```ABAP
+   @EndUserText.label : 'Shopping cart table'
+   @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+   @AbapCatalog.tableCategory : #TRANSPARENT
+   @AbapCatalog.deliveryClass : #A
+   @AbapCatalog.dataMaintenance : #RESTRICTED
+   define table zashopcart_### {
+   key client            : abap.clnt not null;
+   key order_uuid        : sysuuid_x16 not null;
+   order_id              : abap.numc(8) not null;
+   ordered_item          : abap.char(40) not null;
+   @Semantics.amount.currencyCode : 'zashopcart_###.currency'
+   price                 : abap.curr(11,2);
+   @Semantics.amount.currencyCode : 'zashopcart_###.currency'
+   total_price           : abap.curr(11,2);
+   currency              : abap.cuky;
+   order_quantity        : abap.numc(4);
+   delivery_date         : abap.dats;
+   overall_status        : abap.char(30);
+   notes                 : abap.string(256);
+   created_by            : abp_creation_user;
+   created_at            : abp_creation_tstmpl;
+   last_changed_by       : abp_lastchange_user;
+   last_changed_at       : abp_lastchange_tstmpl;
+   local_last_changed_at : abp_locinst_lastchange_tstmpl;
+   purchase_requisition  : abap.char(10);
+   pr_creation_date      : abap.dats;
+   }
+   ```
 
    6. Save and activate.
 
@@ -148,22 +148,22 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
      **Please note**: Error Invalid XML format.   
      If you receive an error message **Invalid XML format of the response**, this may be due to a bug in version 1.26 of the ADT tools. An update of your ADT plugin to version 1.26.3 will fix this issue.
 
-    | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
-    |----------------------------------------|-------------------------|-----------------------------------------------------|
-    | **Business Object**                    |                         |                                                     |
-    |                                        | **Data Model**          | Data Definition Name: **`ZR_SHOPCARTTP_###`**     |
-    |                                        |                         | Alias Name: **`ShoppingCart`**                        |  
-    |                                        | **Behavior**            | Implementation Class: **`ZBP_SHOPCARTTP_###`**    |
-    |                                        |                         | Draft Table Name: **`ZDSHOPCART_###`**            |  
-    | **Service Projection (BO Projection)** |                         | Name: **`ZC_SHOPCARTTP_###`**                     |
-    | **Business Services**                  |                         |                                                     |
-    |                                        | **Service Definition**  | Name: **`ZUI_SHOPCART_###`**                      |
-    |                                        | **Service Binding**     | Name: **`ZUI_SHOPCART_O4_###`**                   |
-    |                                        |                         | Binding Type: **`OData V4 - UI`**                   |
+   | **RAP Layer**                          | **Artefacts**           | **Artefact Names**                                  |
+   |----------------------------------------|-------------------------|-----------------------------------------------------|
+   | **Business Object**                    |                         |                                                     |
+   |                                        | **Data Model**          | Data Definition Name: **`ZR_SHOPCARTTP_###`**     |
+   |                                        |                         | Alias Name: **`ShoppingCart`**                        |  
+   |                                        | **Behavior**            | Implementation Class: **`ZBP_SHOPCARTTP_###`**    |
+   |                                        |                         | Draft Table Name: **`ZDSHOPCART_###`**            |  
+   | **Service Projection (BO Projection)** |                         | Name: **`ZC_SHOPCARTTP_###`**                     |
+   | **Business Services**                  |                         |                                                     |
+   |                                        | **Service Definition**  | Name: **`ZUI_SHOPCART_###`**                      |
+   |                                        | **Service Binding**     | Name: **`ZUI_SHOPCART_O4_###`**                   |
+   |                                        |                         | Binding Type: **`OData V4 - UI`**                   |
 
-    ![cds](generator3.png)                    
+   ![cds](generator3.png)                    
 
-    Click **Next >**.
+   Click **Next >**.
 
   4. Click **Finish**.
 
@@ -177,77 +177,77 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
   
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following read-only fields to your behavior definition:
 
-    ```ABAP
-    ,
-    PurchaseRequisition,
-    PrCreationDate,
-    DeliveryDate;
-    ```
+   ```ABAP
+   ,
+   PurchaseRequisition,
+   PrCreationDate,
+   DeliveryDate;
+   ```
 
-     ![projection](bdef3x.png)
+   ![projection](bdef3x.png)
 
 
   2. Check your behavior definition:
 
-    ```ABAP
-    managed implementation in class ZBP_SHOPCARTTP_### unique;
-    strict ( 2 );
-    with draft;
+   ```ABAP
+   managed implementation in class ZBP_SHOPCARTTP_### unique;
+   strict ( 2 );
+   with draft;
 
-    define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
-    persistent table zashopcart_###
-    draft table ZDSHOPCART_###
-    etag master LocalLastChangedAt
-    lock master total etag LastChangedAt
-    authorization master( global )
+   define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
+   persistent table zashopcart_###
+   draft table ZDSHOPCART_###
+   etag master LocalLastChangedAt
+   lock master total etag LastChangedAt
+   authorization master( global )
 
-    {
-    field ( readonly )
-       OrderUUID,
-       CreatedAt,
-       CreatedBy,
-       LastChangedAt,
-       LastChangedBy,
-       LocalLastChangedAt,
-       PurchaseRequisition,
-       PrCreationDate,
-       DeliveryDate;
+   {
+   field ( readonly )
+      OrderUUID,
+      CreatedAt,
+      CreatedBy,
+      LastChangedAt,
+      LastChangedBy,
+      LocalLastChangedAt,
+      PurchaseRequisition,
+      PrCreationDate,
+      DeliveryDate;
 
-    field ( numbering : managed )
-       OrderUUID;
+   field ( numbering : managed )
+      OrderUUID;
 
-    create;
-    update;
-    delete;
+   create;
+   update;
+   delete;
 
-    draft action Edit;
-    draft action Activate;
-    draft action Discard;
-    draft action Resume;
-    draft determine action Prepare;
+   draft action Edit;
+   draft action Activate;
+   draft action Discard;
+   draft action Resume;
+   draft determine action Prepare;
 
-    mapping for ZASHOPCART_###
-    {
-       OrderUUID = ORDER_UUID;
-       OrderID = ORDER_ID;
-       OrderedItem = ORDERED_ITEM;
-       Price = PRICE;
-       TotalPrice = TOTAL_PRICE;
-       Currency = CURRENCY;
-       OrderQuantity = ORDER_QUANTITY;
-       DeliveryDate = DELIVERY_DATE;
-       OverallStatus = OVERALL_STATUS;
-       Notes = NOTES;
-       CreatedBy = CREATED_BY;
-       CreatedAt = CREATED_AT;
-       LastChangedBy = LAST_CHANGED_BY;
-       LastChangedAt = LAST_CHANGED_AT;
-       LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
-       PurchaseRequisition = PURCHASE_REQUISITION;
-       PrCreationDate = PR_CREATION_DATE;
-    } 
-    }       
-    ```
+   mapping for ZASHOPCART_###
+   {
+      OrderUUID = ORDER_UUID;
+      OrderID = ORDER_ID;
+      OrderedItem = ORDERED_ITEM;
+      Price = PRICE;
+      TotalPrice = TOTAL_PRICE;
+      Currency = CURRENCY;
+      OrderQuantity = ORDER_QUANTITY;
+      DeliveryDate = DELIVERY_DATE;
+      OverallStatus = OVERALL_STATUS;
+      Notes = NOTES;
+      CreatedBy = CREATED_BY;
+      CreatedAt = CREATED_AT;
+      LastChangedBy = LAST_CHANGED_BY;
+      LastChangedAt = LAST_CHANGED_AT;
+      LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+      PurchaseRequisition = PURCHASE_REQUISITION;
+      PrCreationDate = PR_CREATION_DATE;
+   } 
+   }       
+   ```
 
    3. Save and activate.  
 

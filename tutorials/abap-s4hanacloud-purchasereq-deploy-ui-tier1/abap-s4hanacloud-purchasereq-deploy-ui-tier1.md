@@ -72,7 +72,7 @@ This step is for creating a list report object page. Open Visual Studio Code and
 
      ![object](vs.png)
 
-    >**Hint:** You can find your folder under: `C:\Users\<userid>\projects`.
+   >**Hint:** You can find your folder under: `C:\Users\<userid>\projects`.
 
   2. Select the menu on the top and click **View > Command Palette**.
 
@@ -104,7 +104,7 @@ This step is for creating a list report object page. Open Visual Studio Code and
 
      Click **Next >**.
 
-    >**Hint:** In case of invalid security certificate errors, follow this [link](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/4b318bede7eb4021a8be385c46c74045.html).
+   >**Hint:** In case of invalid security certificate errors, follow this [link](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/4b318bede7eb4021a8be385c46c74045.html).
 
   6. Select your main entity **`ShoppingCart`** and click **Next >**.
 
@@ -127,7 +127,7 @@ This step is for creating a list report object page. Open Visual Studio Code and
 
      The project folder path has a further substructure.
 
-    >**Hint:** Your **module name must** be written in **lowercase letters**.
+   >**Hint:** Your **module name must** be written in **lowercase letters**.
 
   8. Configure deployment:
        - Target: ABAP
@@ -190,7 +190,7 @@ This step describes the deployment of the created application.
 
       When the deployment is successful, you will get these two information back as a result: **deployment successful**.
 
-    >**Hint:** If an error message appears, use the [Environment Check](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/75390cf5d81e43aea5db231ef4225268.html).
+   >**Hint:** If an error message appears, use the [Environment Check](https://help.sap.com/docs/SAP_FIORI_tools/17d50220bcd848aa854c9c182d65b699/75390cf5d81e43aea5db231ef4225268.html).
 
 
 ### Run your application standalone
