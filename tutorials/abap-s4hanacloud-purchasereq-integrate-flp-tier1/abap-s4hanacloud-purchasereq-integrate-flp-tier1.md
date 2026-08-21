@@ -92,7 +92,7 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
       Select your transport request and description. Select the check mark.
 
-    > **Hint**: The business catalog has the naming convention `BC`.
+   > **Hint**: The business catalog has the naming convention `BC`.
 
   5. Click **Add Tiles/Target Mappings** and select **`Add Tiles/TMs to Selected Catalog`**.
 
