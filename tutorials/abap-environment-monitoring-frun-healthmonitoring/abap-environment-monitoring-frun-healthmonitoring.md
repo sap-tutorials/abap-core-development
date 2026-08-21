@@ -35,7 +35,7 @@ For more information, see SAP Help Portal[Integration in Central Monitoring and 
 
 Throughout this tutorial, objects name include a prefix, such as **`Zxx`** or suffix, such as **`XXX`**. Always replace this with your group number or initials.
 
-<!-- border -->![step0-overview](step0-overview.png)
+![step0-overview](step0-overview.png)
 
 ---
 
@@ -45,27 +45,27 @@ First, you will configure communication from SAP BTP ABAP Environment to the on-
 
 1. In the Fiori launchpad, open the app **Communication Management > Communication System**.
 
-    <!-- border -->![step1a-app-comm-management-systems](step1a-app-comm-management-systems.png)
+    ![step1a-app-comm-management-systems](step1a-app-comm-management-systems.png)
 
 2. Choose **New**.
 
-    <!-- border -->![step1a-comm-system-new](step1a-comm-system-new.png)
+    ![step1a-comm-system-new](step1a-comm-system-new.png)
 
 3. Enter the following:
     - System ID: e.g. **`FRN`**
     - System Name: **`FRN`** or **`ZXX_FRN`**
 
-    <!-- border -->![step1b-comm-system-id](step1b-comm-system-id.png)
+    ![step1b-comm-system-id](step1b-comm-system-id.png)
 
 4. In **General**, choose **Inbound Only**.
 
 5. In **Users for Inbound Communication**, create a new user by choosing **+**.
 
-    <!-- border -->![step1c-comm-user-new](step1c-comm-user-new.png)
+    ![step1c-comm-user-new](step1c-comm-user-new.png)
 
 6. Enter the authentication method **User Name and Password**, then choose **New User**.
 
-    <!-- border -->![step1d-dialog-user-new](step1d-dialog-user-new.png)
+    ![step1d-dialog-user-new](step1d-dialog-user-new.png)
 
 7. Enter the following:
     - User Name: **`USER_COM_0454_FRN`**
@@ -75,7 +75,7 @@ First, you will configure communication from SAP BTP ABAP Environment to the on-
 
 9. The new communication user appears in the communication system.
 
-    <!-- border -->![step1e-comm-system-done](step1e-comm-system-done.png)
+    ![step1e-comm-system-done](step1e-comm-system-done.png)
 
 10. Choose **Create**, then on the **Communication System** screen, choose **Save**.
 
@@ -89,11 +89,11 @@ Now, you will create a communication arrangement using this system.
 
 1. In the Fiori launchpad, open the app **Communication Management > Communication Arrangements**.
 
-    <!-- border -->![step1a-app-comm-management](step1a-app-comm-management.png)
+    ![step1a-app-comm-management](step1a-app-comm-management.png)
 
 2. Choose **New**.
 
-    <!-- border -->![step1b-comm-arrangement-new](step1b-comm-arrangement-new.png)
+    ![step1b-comm-arrangement-new](step1b-comm-arrangement-new.png)
 
 3. Enter the following, then choose **Save**:
     - Scenario: **`SAP_COM_0454` - Application Monitoring Integration**
@@ -104,7 +104,7 @@ Now, you will create a communication arrangement using this system.
 
  4. Copy the URL of this service since you will need it later.
 
-    <!-- border -->![step2c-comm-arr-done](step2c-comm-arr-done-v2.png)
+    ![step2c-comm-arr-done](step2c-comm-arr-done-v2.png)
 
 
 
@@ -116,23 +116,23 @@ Next, specify the details of the SAP BTP ABAP Environment instance in your SAP S
 
 1. In your SAP Focused Run System, in Fiori launchpad, choose the app **Advanced Application Management > Health Monitoring**.
 
-    <!-- border -->![step3a-health-monitoring](step3a-health-monitoring.png)
+    ![step3a-health-monitoring](step3a-health-monitoring.png)
 
 2. Enter the customer scope and choose **Go**:
     - Customer ID
     - Data Center
 
-    <!-- border -->![step3b-customer-scope](step3b-customer-scope.png)
+    ![step3b-customer-scope](step3b-customer-scope.png)
 
     The application opens, showing an overview of the systems in this customer network.
 
 3. From the left menu bar, choose **Application Check**.
 
-    <!-- border -->![step3c-application-check](step3c-application-check.png)
+    ![step3c-application-check](step3c-application-check.png)
 
 The app opens, showing overview page with checks for your systems.
 
-<!-- border -->![step3d-application-check-systems](step3d-application-check-systems.png)
+![step3d-application-check-systems](step3d-application-check-systems.png)
 
 For the ABAP environment, the following checks are relevant:
 
@@ -150,7 +150,7 @@ Add a new endpoint for the HTTP Health metric.
 
 2.	In the dialog that appears, choose HTTP Health API.
 
-    <!-- border -->![step4a-metric-type-http](step4a-metric-type-http.png)
+    ![step4a-metric-type-http](step4a-metric-type-http.png)
 
 
 3. Enter the following data and choose **Save**.
@@ -164,9 +164,9 @@ Add a new endpoint for the HTTP Health metric.
     |  Authentication | Basic
     | User, password | Use the credentials you used when you configured `SAP_COM_0454` in the SAP BTP ABAP environment
 
-    <!-- border -->![step4c-metric](step4c-metric.png)
+    ![step4c-metric](step4c-metric.png)
 
-    <!-- border -->![step4d-url](step4d-url.png)
+    ![step4d-url](step4d-url.png)
 
 The health monitoring agent on SAP Focused RUN is configured and will regularly collect the metrics. Once the first collection is executed, the metrics will be shown in the health monitoring UI. The following metrics are available:
 
@@ -195,11 +195,11 @@ Now you will configure the SAP BTP ABAP environment service.
 
 1. In your SAP Focused Run system, in Fiori launchpad, choose **Advanced Integration Monitoring > Cloud Service Management**.
 
-    <!-- border -->![step6a-choose-cloud-service-management](step6a-choose-cloud-service-management.png)
+    ![step6a-choose-cloud-service-management](step6a-choose-cloud-service-management.png)
 
 2. Choose **Add**.
 
-    <!-- border -->![step6b-cloud-service-add](step6b-cloud-service-add.png)
+    ![step6b-cloud-service-add](step6b-cloud-service-add.png)
 
 3. Enter the following, then choose **Save**:
 
@@ -211,7 +211,7 @@ Now you will configure the SAP BTP ABAP environment service.
     - Your customer network (as in step 3)
     - Unique service ID, e.g. **`S4S100`**
 
-      <!-- border -->![step6c-cloud-service-configure](step6c-cloud-service-configure.jpg)
+      ![step6c-cloud-service-configure](step6c-cloud-service-configure.jpg)
 
 
 
@@ -219,17 +219,17 @@ Now you will configure the SAP BTP ABAP environment service.
 
 1. In the overview of cloud services, select your service and choose **Details**
 
-    <!-- border -->![step7a-choose-service-details](step7a-choose-service-details.png)
+    ![step7a-choose-service-details](step7a-choose-service-details.png)
 
 2. Add a new HTTP endpoint for this cloud service.
     - Enter the same user credentials as you used for the communication scenario **`SAP_COM_0454`** (see Step 1).
     - Description = **`S4S100`**
 
-    <!-- border -->![step7b-service-add-user](step7b-service-add-user.png)
+    ![step7b-service-add-user](step7b-service-add-user.png)
 
 3. Check the HTTP connection to the SAP BTP ABAP environment service.
 
-    <!-- border -->![step7c-check-connection](step7c-check-connection.png)
+    ![step7c-check-connection](step7c-check-connection.png)
 
 
 
@@ -237,21 +237,21 @@ Now you will configure the SAP BTP ABAP environment service.
 
 1. Again, in your SAP Focused Run system, in Fiori launchpad, choose **Advanced Integration Monitoring > Real User Monitoring**.
 
-    <!-- border -->![step8a-choose-real-user-monitoring](step8a-choose-real-user-monitoring.png)
+    ![step8a-choose-real-user-monitoring](step8a-choose-real-user-monitoring.png)
 
 2. In the scope selection, search for your SAP BTP ABAP environment service, using filters if necessary.
 
-    <!-- border -->![step8b-find-steampunk-system](step8b-find-steampunk-system.png)
+    ![step8b-find-steampunk-system](step8b-find-steampunk-system.png)
 
 3. Enable your service for **Real User Monitoring** by choosing **Active = ON**.  
 
-    <!-- border -->![step8c-enable-real-user-monitoring](step8c-enable-real-user-monitoring.png)
+    ![step8c-enable-real-user-monitoring](step8c-enable-real-user-monitoring.png)
 
-    <!-- border -->![step8d-real-user-monitoring-active](step8d-real-user-monitoring-active.png)
+    ![step8d-real-user-monitoring-active](step8d-real-user-monitoring-active.png)
 
 4. Wait at least 5 minutes to get the first data in your SAP Focused Run Real User Monitoring.
 
-    <!-- border -->![step8e-real-user-monitoring-active](step8e-real-user-monitoring-active.png)
+    ![step8e-real-user-monitoring-active](step8e-real-user-monitoring-active.png)
 
 
 

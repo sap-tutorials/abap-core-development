@@ -38,22 +38,22 @@ The duplicate class appears in a new editor.
         - [SAP Help Portal: SAP Gateway Foundation: Ranges Table and Structure](https://help.sap.com/viewer/68bf513362174d54b58cddec28794093/7.52.5/en-US/acdb22512c312314e10000000a44176d.html)
         - [Third-Party Content: My Experiments with ABAP: SAP Range Table](https://www.samplecodeabap.com/sap-range-table-example-abap/)
 
-    ```ABAP
-    "select options
-    DATA lt_filter_ranges_productid TYPE RANGE OF ZCE_product_001-productid.
-    DATA ls_filter_ranges_productid LIKE LINE OF lt_filter_ranges_productid.
-    DATA lt_filter_ranges_supplier  TYPE RANGE OF ZCE_product_001-suppliername.
-    DATA ls_filter_ranges_supplier  LIKE LINE OF lt_filter_ranges_supplier.
-    DATA lt_filter_ranges_category  TYPE RANGE OF ZCE_product_001-category.
-    DATA ls_filter_ranges_category  LIKE LINE OF lt_filter_ranges_category.
+   ```ABAP
+   "select options
+   DATA lt_filter_ranges_productid TYPE RANGE OF ZCE_product_001-productid.
+   DATA ls_filter_ranges_productid LIKE LINE OF lt_filter_ranges_productid.
+   DATA lt_filter_ranges_supplier  TYPE RANGE OF ZCE_product_001-suppliername.
+   DATA ls_filter_ranges_supplier  LIKE LINE OF lt_filter_ranges_supplier.
+   DATA lt_filter_ranges_category  TYPE RANGE OF ZCE_product_001-category.
+   DATA ls_filter_ranges_category  LIKE LINE OF lt_filter_ranges_category.
 
-    ```
+   ```
 
 2. Next define the variable that will contain the selected columns, passed to it from the table, `lt_fields`. (See step 4-5).
 
-    ```ABAP
+   ```ABAP
 		DATA lv_select_string TYPE string.
-    ```
+   ```
 
 
 ### Define filter variable
@@ -174,9 +174,9 @@ selparamcategories    = lt_filter_ranges_category.
 
 2. Change the following annotation to point to the new class:
 
-    ```CDS
-    @ObjectModel.query.implementedBy: 'ABAP:ZCL_SHOW_PRODUCTS_W_FILTER'
-    ```
+   ```CDS
+   @ObjectModel.query.implementedBy: 'ABAP:ZCL_SHOW_PRODUCTS_W_FILTER'
+   ```
 
 3. **Save and activate ( `Ctrl+S, Ctrl+F3` )** the custom entity.
 

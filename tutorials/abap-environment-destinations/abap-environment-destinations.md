@@ -33,7 +33,7 @@ primary_tag: products>sap-btp--abap-environment
 
 - Create a new Destination.
 
-<!-- border -->![Settings for new Destination](1-Destination-settings.png)
+![Settings for new Destination](1-Destination-settings.png)
 
 **URL**:
 
@@ -52,7 +52,7 @@ Press "Save".
 
 Create a new Destination.
 
-<!-- border -->![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
+![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
 
 **URL**: Use API-URL of section "Common Data" in the Communication Arrangement created in tutorial ["Create communication between SAP BTP, ABAP environment and SAP BTP"](abap-environment-communication). Replace `abap` with `abap-web`. (Format: https://<`tenant`>.**abap-web**.<`region`>.hana.ondemand.com)
 
@@ -69,7 +69,7 @@ Press "Save".
  <br>
 Create a new Destination.
 
-<!-- border -->![Settings for dynamic Runtime Destination](2-Destination-oData.png)
+![Settings for dynamic Runtime Destination](2-Destination-oData.png)
 
 **URL**: API-URL of section "Common Data" in the Communication Arrangement created in tutorial ["Create communication between SAP BTP, ABAP environment and SAP BTP"](abap-environment-communication).<br>
 Format: https://<`tenant`>.**`abap`**.<`region`>.hana.ondemand.com
