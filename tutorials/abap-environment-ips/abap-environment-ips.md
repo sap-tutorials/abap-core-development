@@ -292,12 +292,12 @@ Now the communication user can be authenticated via the certificate sent by Iden
 2. In the **New Service Key** dialog, provide a name and copy & paste the following JSON code:
 
 
-    ```JSON
-    {
-      "scenario_id":"SAP_COM_0193",
-      "type":"basic"
-    }
-    ```
+   ```JSON
+   {
+     "scenario_id":"SAP_COM_0193",
+     "type":"basic"
+   }
+   ```
 
 3. **Create** the new service key.
 

@@ -79,9 +79,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`Z_LOCA_DOM_XXX`**
      - Description: **`Location`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create domain](domain3.png)
+   ![Create domain](domain3.png)
 
   4. Click **Finish**.
 
@@ -111,9 +111,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`Z_LOCA_DTEL_XXX`**
      - Description: **`Location`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create data element](element3.png)
+   ![Create data element](element3.png)
 
   4. Click **Finish**.
 
@@ -142,9 +142,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`ZROOM_XXX`**
      - Description: **`Room XXX`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create table](table3.png)
+   ![Create table](table3.png)
 
   4. Click **Finish**.
 
@@ -152,27 +152,27 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
   5. Create your data table with following coding:
 
-    ```ABAP
-      @EndUserText.label : 'Room XXX'
-      @AbapCatalog.enhancementCategory : #NOT_EXTENSIBLE
-      @AbapCatalog.tableCategory : #TRANSPARENT
-      @AbapCatalog.deliveryClass : #A
-      @AbapCatalog.dataMaintenance : #LIMITED
-      define table zroom_xxx {
-      key client          : abap.clnt not null;
-      key id              : abap.char(20) not null;
-      @EndUserText.label : 'Seats'
-      seats               : abap.dec(3,0);
-      location            : z_loca_dtel_xxx;
-      hasbeamer           : abap_boolean;
-      hasvideo            : abap_boolean;
-      userrating          : abap.char(2);
-      lastchangeddatetime : tzntstmpl;
-      lastchangedbyuser   : syuname;
-      }
-    ```
+   ```ABAP
+     @EndUserText.label : 'Room XXX'
+     @AbapCatalog.enhancementCategory : #NOT_EXTENSIBLE
+     @AbapCatalog.tableCategory : #TRANSPARENT
+     @AbapCatalog.deliveryClass : #A
+     @AbapCatalog.dataMaintenance : #LIMITED
+     define table zroom_xxx {
+     key client          : abap.clnt not null;
+     key id              : abap.char(20) not null;
+     @EndUserText.label : 'Seats'
+     seats               : abap.dec(3,0);
+     location            : z_loca_dtel_xxx;
+     hasbeamer           : abap_boolean;
+     hasvideo            : abap_boolean;
+     userrating          : abap.char(2);
+     lastchangeddatetime : tzntstmpl;
+     lastchangedbyuser   : syuname;
+     }
+   ```
 
-      Save and activate.
+   Save and activate.
 
 
 ### Create data definition
@@ -189,9 +189,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`Z_I_ROOM_XXX`**
      - Description: **`Room XXX`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create table](definition3.png)
+   ![Create table](definition3.png)
 
   4. Click **Finish**.
 
@@ -199,49 +199,49 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
   5. Create your data definition with following coding:
 
-    ```ABAP
-    @AbapCatalog.sqlViewName: 'Z_M_ROOM_XXX'
-    @AbapCatalog.compiler.compareFilter: true
-    @AbapCatalog.preserveKey: true
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Room XXX'
-    @Search.searchable
-    @UI.headerInfo: { typeName: 'Room', typeNamePlural: 'Rooms' , title : { value: 'ID' } }
-    define root view Z_I_ROOM_XXX as select from zroom_xxx as room
-    association [0..1] to I_BusinessUserBasic as _SAPSysAdminDataChangeUser on _SAPSysAdminDataChangeUser.UserID = room.lastchangedbyuser
-    {
-    @UI.facet: [ { type: #COLLECTION, position: 1, id: 'ROOM', label: 'Room'  }, { type: #IDENTIFICATION_REFERENCE, position: 1, parentId: 'ROOM', label: 'General Information'}]
-    @EndUserText: { label: 'ID' }
-    @Search: { defaultSearchElement: true }
-    @UI: { lineItem: [{ position: 1 }], identification: [{ position: 1 }] }
-    key room.id,
-    @EndUserText: { label: 'Seats' }
-    @UI: { lineItem: [{ position: 3 }], identification: [{ position: 2 }] }
-    room.seats,
-    @EndUserText: { label: 'Location' }
-    @UI: { lineItem: [{ position: 4 }], identification: [{ position: 3 }] }
-    room.location,
-    @EndUserText: { label: 'Has Beamer' }
-    @UI: { lineItem: [{ position: 5 }], identification: [{ position: 4 }] }
-    room.hasbeamer,
-    @EndUserText: { label: 'Has Video' }
-    @UI: { lineItem: [{ position: 7 }], identification: [{ position: 5 }] }
-    room.hasvideo,
-    @EndUserText: { label: 'User Rating' }
-    @UI: { lineItem: [{ position: 8 }], identification: [{ position: 6 }] }
-    userrating,
-    @EndUserText: { label: 'Last Changed On' }
-    @UI: { identification: [{ position: 7 }] }
-    room.lastchangeddatetime,
-    @EndUserText: { label: 'Last Changed By' }
-    @UI: { identification: [{ position: 8 }], textArrangement: #TEXT_ONLY }
-    room.lastchangedbyuser,
-    @UI.hidden: true
-    _SAPSysAdminDataChangeUser  
-    }
-    ```
+   ```ABAP
+   @AbapCatalog.sqlViewName: 'Z_M_ROOM_XXX'
+   @AbapCatalog.compiler.compareFilter: true
+   @AbapCatalog.preserveKey: true
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: 'Room XXX'
+   @Search.searchable
+   @UI.headerInfo: { typeName: 'Room', typeNamePlural: 'Rooms' , title : { value: 'ID' } }
+   define root view Z_I_ROOM_XXX as select from zroom_xxx as room
+   association [0..1] to I_BusinessUserBasic as _SAPSysAdminDataChangeUser on _SAPSysAdminDataChangeUser.UserID = room.lastchangedbyuser
+   {
+   @UI.facet: [ { type: #COLLECTION, position: 1, id: 'ROOM', label: 'Room'  }, { type: #IDENTIFICATION_REFERENCE, position: 1, parentId: 'ROOM', label: 'General Information'}]
+   @EndUserText: { label: 'ID' }
+   @Search: { defaultSearchElement: true }
+   @UI: { lineItem: [{ position: 1 }], identification: [{ position: 1 }] }
+   key room.id,
+   @EndUserText: { label: 'Seats' }
+   @UI: { lineItem: [{ position: 3 }], identification: [{ position: 2 }] }
+   room.seats,
+   @EndUserText: { label: 'Location' }
+   @UI: { lineItem: [{ position: 4 }], identification: [{ position: 3 }] }
+   room.location,
+   @EndUserText: { label: 'Has Beamer' }
+   @UI: { lineItem: [{ position: 5 }], identification: [{ position: 4 }] }
+   room.hasbeamer,
+   @EndUserText: { label: 'Has Video' }
+   @UI: { lineItem: [{ position: 7 }], identification: [{ position: 5 }] }
+   room.hasvideo,
+   @EndUserText: { label: 'User Rating' }
+   @UI: { lineItem: [{ position: 8 }], identification: [{ position: 6 }] }
+   userrating,
+   @EndUserText: { label: 'Last Changed On' }
+   @UI: { identification: [{ position: 7 }] }
+   room.lastchangeddatetime,
+   @EndUserText: { label: 'Last Changed By' }
+   @UI: { identification: [{ position: 8 }], textArrangement: #TEXT_ONLY }
+   room.lastchangedbyuser,
+   @UI.hidden: true
+   _SAPSysAdminDataChangeUser  
+   }
+   ```
 
-      Save and activate.
+   Save and activate.
 
 
 
@@ -259,9 +259,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`EZROOMXXX`**
      - Description: **`LOCK`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create lock object](lock3.png)
+   ![Create lock object](lock3.png)
 
   4. Click **Finish**.
 

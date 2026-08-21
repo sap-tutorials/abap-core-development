@@ -154,9 +154,9 @@ author_profile: https://github.com/mervey45
   11.  Enter your general data:
      - Title: Travel App XXX
 
-      ![Create launchpad site](service15.png)
+   ![Create launchpad site](service15.png)
 
-      Click on the search field, select **Travel App XXX** as an app, click **Save** and return.
+   Click on the search field, select **Travel App XXX** as an app, click **Save** and return.
 
 
 ### Assign role collection

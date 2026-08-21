@@ -178,7 +178,7 @@ author_profile: https://github.com/mervey45
 
      ![object](page3.png)
 
-    **Hint:** Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
+   **Hint:** Your **application name must** begin with a `z letter` and **must** be in **lowercase letters**.
 
   7. Configure deployment:
 

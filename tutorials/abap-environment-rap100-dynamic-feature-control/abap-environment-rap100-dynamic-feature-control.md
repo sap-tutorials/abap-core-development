@@ -49,25 +49,25 @@ Define the dynamic instance feature control for the standard operations **`updat
 
  2. Add following:
 
-    ```ABAP
-    ...
-    create;
-    update ( features : instance ) ;
-    delete ( features : instance ) ;
-    ...
-    action ( features : instance ) deductDiscount parameter /dmo/a_travel_discount result [1] $self;         
-    ...
-    draft action ( features : instance ) Edit;
-    ```
+   ```ABAP
+   ...
+   create;
+   update ( features : instance ) ;
+   delete ( features : instance ) ;
+   ...
+   action ( features : instance ) deductDiscount parameter /dmo/a_travel_discount result [1] $self;         
+   ...
+   draft action ( features : instance ) Edit;
+   ```
 
-    In case you've defined and implemented the instance actions `acceptTravel` and `rejectTravel` in the previous exercise, then also add the code snippet provided below as shown on the screenshot.
+   In case you've defined and implemented the instance actions `acceptTravel` and `rejectTravel` in the previous exercise, then also add the code snippet provided below as shown on the screenshot.
 
-    ```ABAP
-    action ( features : instance ) acceptTravel result [1] $self;
-    action ( features : instance ) rejectTravel result [1] $self;  
-    ```
+   ```ABAP
+   action ( features : instance ) acceptTravel result [1] $self;
+   action ( features : instance ) rejectTravel result [1] $self;  
+   ```
 
-    ![Travel Behavior Definition](p18.png)
+   ![Travel Behavior Definition](p18.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -125,43 +125,43 @@ Define the dynamic instance feature control for the standard operations **`updat
     For that, replace the current method implementation with the code snippet provided below and replace all occurrences of the placeholder **`###`** with your group ID.
     You can make use of the **F1 Help** for more information about the EML statements and other ABAP constructs.
 
-    ```ABAP
-    **************************************************************************
-    * Instance-based dynamic feature control
-    **************************************************************************
-      METHOD get_instance_features.
-      " read relevant travel instance data
-        READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY travel
-            FIELDS ( TravelID OverallStatus )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(travels)
-          FAILED failed.
+   ```ABAP
+   **************************************************************************
+   * Instance-based dynamic feature control
+   **************************************************************************
+     METHOD get_instance_features.
+     " read relevant travel instance data
+       READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY travel
+           FIELDS ( TravelID OverallStatus )
+           WITH CORRESPONDING #( keys )
+         RESULT DATA(travels)
+         FAILED failed.
 
-        " evaluate the conditions, set the operation state, and set result parameter
-        result = VALUE #( FOR travel IN travels
-                          ( %tky                   = travel-%tky
+       " evaluate the conditions, set the operation state, and set result parameter
+       result = VALUE #( FOR travel IN travels
+                         ( %tky                   = travel-%tky
 
-                            %features-%update      = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                           %features-%update      = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                                                           THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                           %features-%delete      = COND #( WHEN travel-OverallStatus = travel_status-open
+                                                           THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
+                           %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-                            %features-%delete      = COND #( WHEN travel-OverallStatus = travel_status-open
-                                                            THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-                            %action-Edit           = COND #( WHEN travel-OverallStatus = travel_status-accepted
+                           %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-                            %action-acceptTravel   = COND #( WHEN travel-OverallStatus = travel_status-accepted
-                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-                            %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
-                                                              THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
-                            %action-deductDiscount = COND #( WHEN travel-OverallStatus = travel_status-open
-                                                              THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
-                        ) ).
+                           %action-rejectTravel   = COND #( WHEN travel-OverallStatus = travel_status-rejected
+                                                             THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled   )
+                           %action-deductDiscount = COND #( WHEN travel-OverallStatus = travel_status-open
+                                                             THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled   )
+                       ) ).
 
-      ENDMETHOD.    
-    ```   
+     ENDMETHOD.    
+   ```   
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![Travel Behavior Pool](instance_featurex.png)
+   ![Travel Behavior Pool](instance_featurex.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

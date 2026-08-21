@@ -57,14 +57,14 @@ Define the determination `setStatusToOpen` in the behavior definition of the Tra
 
  2. Add following code:
 
-    ```ABAP
-    determination setStatusToOpen on modify { create; }
-    ```
+   ```ABAP
+   determination setStatusToOpen on modify { create; }
+   ```
 
-    ![Travel BO Definition](p6.png)
+   ![Travel BO Definition](p6.png)
 
-    **Short explanation**:  
-    The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
+   **Short explanation**:  
+   The statement specifies the name of the new determination, `setStatusToOpen` and `on modify` as the determination time when creating new **travel** instance (`{ create }`).
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.   
 
@@ -105,16 +105,16 @@ You will now implement the logic of the defined determination in the behavior po
 
  2. Define the local constant **`travel_status`** to store the allowed value of the overall status of a **Travel** instance. Insert the following code snippet in the definition part of the local handler class **`lcl_travel`** as shown on the screenshot below.
 
-    ```ABAP
-    CONSTANTS:
-      BEGIN OF travel_status,
-        open     TYPE c LENGTH 1 VALUE 'O', "Open
-        accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
-        rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
-      END OF travel_status.    
-    ```
+   ```ABAP
+   CONSTANTS:
+     BEGIN OF travel_status,
+       open     TYPE c LENGTH 1 VALUE 'O', "Open
+       accepted TYPE c LENGTH 1 VALUE 'A', "Accepted
+       rejected TYPE c LENGTH 1 VALUE 'X', "Rejected
+     END OF travel_status.    
+   ```
 
-    ![Travel BO Behavior Pool](new10x.png)
+   ![Travel BO Behavior Pool](new10x.png)
 
  3. Now implement the method **`setStatusToOpen`** in the implementation part of the class.
 
@@ -133,34 +133,34 @@ You will now implement the logic of the defined determination in the behavior po
     Insert the following code snippet in the method and replace all occurrences of the placeholder `###` with your group ID.   
     You can use the **F1 help** to get detailed information on each EML statement.
 
-    ```ABAP
-    "Read travel instances of the transferred keys
-    READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+   ```ABAP
+   "Read travel instances of the transferred keys
+   READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+    ENTITY Travel
+      FIELDS ( OverallStatus )
+      WITH CORRESPONDING #( keys )
+    RESULT DATA(travels)
+    FAILED DATA(read_failed).
+
+   "If overall travel status is already set, do nothing, i.e. remove such instances  
+   DELETE travels WHERE OverallStatus IS NOT INITIAL.     
+   CHECK travels IS NOT INITIAL.
+
+   "else set overall travel status to open ('O')
+   MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
      ENTITY Travel
-       FIELDS ( OverallStatus )
-       WITH CORRESPONDING #( keys )
-     RESULT DATA(travels)
-     FAILED DATA(read_failed).
+       UPDATE SET FIELDS
+       WITH VALUE #( FOR travel IN travels ( %tky    = travel-%tky
+                                             OverallStatus = travel_status-open ) )
+   REPORTED DATA(update_reported).
 
-    "If overall travel status is already set, do nothing, i.e. remove such instances  
-    DELETE travels WHERE OverallStatus IS NOT INITIAL.     
-    CHECK travels IS NOT INITIAL.
+   "Set the changing parameter
+   reported = CORRESPONDING #( DEEP update_reported ).   
+   ```  
 
-    "else set overall travel status to open ('O')
-    MODIFY ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-      ENTITY Travel
-        UPDATE SET FIELDS
-        WITH VALUE #( FOR travel IN travels ( %tky    = travel-%tky
-                                              OverallStatus = travel_status-open ) )
-    REPORTED DATA(update_reported).
+   Your source code should look like this:
 
-    "Set the changing parameter
-    reported = CORRESPONDING #( DEEP update_reported ).   
-    ```  
-
-    Your source code should look like this:
-
-    ![Travel BO Behavior Pool](new17.png)
+   ![Travel BO Behavior Pool](new17.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

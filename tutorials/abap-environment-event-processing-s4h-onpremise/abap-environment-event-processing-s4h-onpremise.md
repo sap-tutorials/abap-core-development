@@ -51,47 +51,47 @@ Here you will create an Event Consumption Model with the `.json` file that you d
 
   2. Create a new **ABAP Package** if you have not one. Please be sure if your package name is with **Z** like
 
-    - Name: `ZEVENT_CONSUMPTION_####`
-    - Description: `event consumption`
+   - Name: `ZEVENT_CONSUMPTION_####`
+   - Description: `event consumption`
 
-    ![new](2-1.png)
+   ![new](2-1.png)
 
   3. Right-click your package and choose **New** > **Other ABAP Repository Object** > **Business Services** > **Event Consumption Model**  and click **Next** to launch the creation wizard.
 
-    ![new](4-1.png)
+   ![new](4-1.png)
 
-    ![new](2-3.png)
+   ![new](2-3.png)
 
   4. Fill the fields and upload the `.json` file you saved before into the new event consumption ADT wizard. This will then automatically generate all that you need in this event consumption model, like the event handler custom code, authorization defaults values and inbound service.
 
-    - Name: will be created with the Prefix and Identifier
-    - Description: `event consumption model`
-    - Namespace/ Prefix/ Identifier : `Z`and `EVENT####`
-    - Event specification File: `.json` file
+   - Name: will be created with the Prefix and Identifier
+   - Description: `event consumption model`
+   - Namespace/ Prefix/ Identifier : `Z`and `EVENT####`
+   - Event specification File: `.json` file
 
-    click **Next**.
+   click **Next**.
 
-    ![event](2-4.png)
+   ![event](2-4.png)
 
   5. Select all the event types that you would like to consume in your business application and click **Next**.
 
-    ![event type](2-5.png)
+   ![event type](2-5.png)
 
   6. Click **Next** by **Define Consumer Artifacts**
 
-    ![define](4-7.png)
+   ![define](4-7.png)
 
   7. In **ABAP Artifact Generation List** click **Next**.
 
-    ![generate](2-6.png)
+   ![generate](2-6.png)
 
    8. Select a **Transport Request** and click **Finish**.
 
-    ![transport](4-9.png)
+   ![transport](4-9.png)
 
   9. In created event consumption model you can see the selected **Event Types** that are assigned because of your `.json` file.
 
-    ![types](2-7.png)
+   ![types](2-7.png)
 
   10. Save and activate your event consumption model.
 
@@ -102,35 +102,35 @@ In this step, you can create a DB table and save the business partner IDs in thi
 
   1. Right-click your package and choose **New** > **Other ABAP Repository Object** > **Database Table** and click **Next**
 
-    ![new](8-2.png)
+   ![new](8-2.png)
 
-    ![database](8-3.png)
+   ![database](8-3.png)
 
   2. Enter the following name and description:
 
-    - Name:`ZTABLE_####`
-    - Description: `Database table`
+   - Name:`ZTABLE_####`
+   - Description: `Database table`
 
-    ![database](8-4.png)
+   ![database](8-4.png)
 
-    click **Next**, select a **Transport Request** and click **Finish** .
+   click **Next**, select a **Transport Request** and click **Finish** .
 
   3. Define the table with this code and replace all **####** with your number:
 
-    ```ZTABLE_####
-      @EndUserText.label : 'Database table'
-      @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-      @AbapCatalog.tableCategory : #TRANSPARENT
-      @AbapCatalog.deliveryClass : #A
-      @AbapCatalog.dataMaintenance : #RESTRICTED
-      define table ztable_#### {
-        key client     : abap.clnt not null;
-        key recorddate : abap.dats not null;
-        key recordtime : abap.tims not null;
-        payload        : abap.char(1000);
+   ```ZTABLE_####
+     @EndUserText.label : 'Database table'
+     @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+     @AbapCatalog.tableCategory : #TRANSPARENT
+     @AbapCatalog.deliveryClass : #A
+     @AbapCatalog.dataMaintenance : #RESTRICTED
+     define table ztable_#### {
+       key client     : abap.clnt not null;
+       key recorddate : abap.dats not null;
+       key recordtime : abap.tims not null;
+       payload        : abap.char(1000);
 
-      }
-    ```
+     }
+   ```
 
   4. Save and activate the table.
 
@@ -141,47 +141,47 @@ In this step, you can create a DB table and save the business partner IDs in thi
 
   1. Navigate to **Business Service** > **Event Consumption models** > `ZEVENT####` > **Classes** > `ZCL_EVENT####` which is generated (or you can navigate to the **Source Code Library** > `ZCL_EVENT####`). Here you can see the create Method.
 
-    ![class](8-0.png)
+   ![class](8-0.png)
 
-    ![class](3-1.png)
+   ![class](3-1.png)
 
 
   2. Remove comment from these lines:
 
-    ```
-      DATA ls_business_data TYPE STRUCTURE FOR HIERARCHY Z_BusinessPartner_Created_v1.      
-      ls_business_data = io_event->get_business_data( ).
-    ```
+   ```
+     DATA ls_business_data TYPE STRUCTURE FOR HIERARCHY Z_BusinessPartner_Created_v1.      
+     ls_business_data = io_event->get_business_data( ).
+   ```
 
   3. You need to copy the code below and replace it in your method. Replace all **####** with your number:
 
-    ```ZCL_EVENT####
-      DATA ls_business_data TYPE STRUCTURE FOR HIERARCHY Z_BusinessPartner_Created_v1.
+   ```ZCL_EVENT####
+     DATA ls_business_data TYPE STRUCTURE FOR HIERARCHY Z_BusinessPartner_Created_v1.
 
-      DATA wa TYPE  ztable_####.
-      ls_business_data = io_event->get_business_data( ).
+     DATA wa TYPE  ztable_####.
+     ls_business_data = io_event->get_business_data( ).
 
-      wa-payload = ls_business_data-BusinessPartner.
+     wa-payload = ls_business_data-BusinessPartner.
 
-      DATA(sydatum) = cl_abap_context_info=>get_system_date(  ).
-      DATA(sytime) = cl_abap_context_info=>get_system_time(  ).
+     DATA(sydatum) = cl_abap_context_info=>get_system_date(  ).
+     DATA(sytime) = cl_abap_context_info=>get_system_time(  ).
 
-      wa-recorddate = sydatum.
-      wa-recordtime = sytime.
+     wa-recorddate = sydatum.
+     wa-recordtime = sytime.
 
-      DELETE FROM  ztable_####
-      WHERE recorddate < @sydatum.
+     DELETE FROM  ztable_####
+     WHERE recorddate < @sydatum.
 
-      INSERT ztable_#### FROM @wa.
+     INSERT ztable_#### FROM @wa.
 
-    ```  
+   ```  
 
   4. Your code will look like the following:
 
-    ![class](3-2.png)
+   ![class](3-2.png)
 
-    >You can raise an exception whenever there is an issue. This will imply that the event processing has failed and therefore set the event status to **failed**. To see the exception, open **Window** > **Show View** > **Other** search for **Feed Reader**. Here you can see a message if an issue is raised.
-    ![class](8-7.png)
+   >You can raise an exception whenever there is an issue. This will imply that the event processing has failed and therefore set the event status to **failed**. To see the exception, open **Window** > **Show View** > **Other** search for **Feed Reader**. Here you can see a message if an issue is raised.
+   ![class](8-7.png)
 
 ### Channel Configuration 
 
@@ -193,22 +193,22 @@ A channel represents a single connection to a service instance of the SAP Ev
 
   1. Open your On-Premise system in SAP Logon and run the transaction `/n/IWXBE/CONFIG`.
 
-    ![run](5-1.png)
+   ![run](5-1.png)
 
   2. Press **via Service Key** > **Default** to create a new channel.
 
-    ![new](5-2.png)
+   ![new](5-2.png)
 
   3. Enter the following name and description and replace all **####** with your number, enter the service key of your Event Mesh instance into the corresponding field and press save icon.
 
-    - Name:`ZEVENT_CHANNEL_####`
-    - Description: `New Channel ####`
+   - Name:`ZEVENT_CHANNEL_####`
+   - Description: `New Channel ####`
 
-    ![name](5-3.png)
+   ![name](5-3.png)
 
   4. Your channel is created. Choose your channel and press **Activate**.
 
-    ![new](5-4.png)
+   ![new](5-4.png)
 
 
 After creating a channel, you can decide which events should be listed on this channel. This explicit step of maintaining an outbound/inbound binding is necessary to publish/consume events from/in an S/4HANA system.  
@@ -217,31 +217,31 @@ After creating a channel, you can decide which events should be listed on this c
 
   1. In the channel configuration UI click on **Inbound Bindings** to start configuring the event topics for the event consumption. Alternatively, you can run `/n/IWXBE/INBOUND_CFG`. 
 
-    ![inbound](6-1.png)
+   ![inbound](6-1.png)
     
   2. Choose your active channel and click on create new topic binding icon.
 
-    ![new](6-2.png)
+   ![new](6-2.png)
 
   3. Choose the search help to find the corresponding topic you wish to create an inbound binding for. in this case, choose `sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1` and switch to the next page.
 
-    ![new](6-4.png)
+   ![new](6-4.png)
 
-    ![new](6-3.png)
+   ![new](6-3.png)
 
-    ![new](6-5.png)
+   ![new](6-5.png)
 
   4. Choose your consumer, `ZEVENT####` and click **Create Destination**.
 
-    ![dest](6-6.png)
+   ![dest](6-6.png)
 
   5. Enter your user and click save icon. Please keep in mind that the specified user here is the user that runs the consumer code in the event consumption model. So, one should make sure the specified user has all the necessary authorizations. 
 
-    ![dest](6-7.png)
+   ![dest](6-7.png)
   
   6. In **Create Inbound Binding** screen you can see that a destination is created, now click save icon as well.
 
-    ![dest](6-8.png)
+   ![dest](6-8.png)
 
  
 ### Configure subscriptions
@@ -250,7 +250,7 @@ After creating a channel, you can decide which events should be listed on this c
 
   2. The second step of the event consumption configuration is the creation of queue subscriptions for the channel. Back to your On-Premise system. In the channel configuration UI click **Subscriptions** to start configuring the queue subscriptions for the event consumption. Alternatively, you can run `/n/IWXBE/SUBSCRIPTION`. 
 
-    ![subs](7-1.png)
+   ![subs](7-1.png)
 
   3. In the **Create Channel Subscription** choose your active channel, click create new subscription icon and enter the address of the queue you already created for your Event Mesh instance and click Save.
 
@@ -270,26 +270,26 @@ If you want to send the event from an On-Premise system to the Event Mesh, you n
 
   2. To configure your channel run `/n/IWXBE/OUTBOUND_CFG` or click **Outbound Bindings**.
 
-    ![conf](9-1.png)
+   ![conf](9-1.png)
 
   3. In the configuration UI select your channel and click **Create new topic binding** icon and Choose the search help to find the corresponding topic you wish to create an inbound binding for. in this case, choose `sap/s4/beh/businesspartner/v1/BusinessPartner/Created/v1` and click save icon.
 
-    ![topic](9-2.png)
+   ![topic](9-2.png)
 
   4. Check your topic is listed and run the transaction **BP** to create a new business partner. 
 
-    ![topic](9-3.png)
+   ![topic](9-3.png)
 
   5. In Business Partner UI click **Person** and enter a name and last name and click **Save**.
 
-    ![person](9-4.png)
+   ![person](9-4.png)
 
   6. A new business partner will be created and you can see the ID.
 
-    ![person](9-5.png)
+   ![person](9-5.png)
 
   7. Now open your first On-Premise system in ADT and open your database table `ZTABLE_####` and run the table with F8. You can find your created business ID in this table.
 
-    ![table](9-6.png)
+   ![table](9-6.png)
 
 ### Test yourself
