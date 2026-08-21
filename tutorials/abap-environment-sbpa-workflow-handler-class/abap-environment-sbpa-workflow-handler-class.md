@@ -74,20 +74,20 @@ To create the class, follow the below steps:
  
     This should be same as the data type context structure declare in SAP Build Process Automation.
 
-    ```ABAP Code:
-    Interface data type for information exchange.
-      TYPES: BEGIN OF context,
-             travelid      TYPE string,
-             agency_name   TYPE string,
-             booking_fee   TYPE string, 
-             Currency_code TYPE string,
-             Customer_name TYPE string,
-             Total_price   TYPE string,
-           END OF context,
-           BEGIN OF type_context,
-             travel_context TYPE context,
-           END OF type_context.
-    ```
+   ```ABAP Code:
+   Interface data type for information exchange.
+     TYPES: BEGIN OF context,
+            travelid      TYPE string,
+            agency_name   TYPE string,
+            booking_fee   TYPE string, 
+            Currency_code TYPE string,
+            Customer_name TYPE string,
+            Total_price   TYPE string,
+          END OF context,
+          BEGIN OF type_context,
+            travel_context TYPE context,
+          END OF type_context.
+   ```
 
      
     Since the Datatype identifier name created in SAP Build Process Automation is `TravelContext` thus we have also declared the structure name as `travel_context`. How the name conversion works when we convert from ABAP data to JSON format will be explained in detail as we go through the tutorial.  
@@ -115,38 +115,38 @@ To create the class, follow the below steps:
 
 
        
-    ``` ABAP Code:
-        Constants for workflow,
-        CONSTANTS:
-           BEGIN OF travel_status, 
-             open     TYPE c LENGTH 1 VALUE 'O', "Open,
-             accepted TYPE c LENGTH 1 VALUE 'A', "Accepted,
-             rejected TYPE c LENGTH 1 VALUE 'X', "Rejected,
-             waiting  TYPE c LENGTH 1 VALUE 'W', "Awaiting Approval,
-           END OF travel_status,
-           travel_wf_defid      TYPE if_swf_cpwf_api=>cpwf_def_id_long  VALUE 'euXX-XXXX.XXXX-XXXXX-XXXX-XXXXXXX-					XXXX.rap110travelworkflow.travelApprovalProcessing', " Replace this value with your workflow definition id.
-           wf_retention_days    TYPE if_swf_cpwf_api=>retention_time VALUE '30',
-           callback_class       TYPE if_swf_cpwf_api=>callback_classname VALUE  'ZCL_R_RAP_WORKFLOW_XXXX', " Replace this with your callback class
-           consumer             TYPE string VALUE 'DEFAULT'.
-    ```    
+   ``` ABAP Code:
+       Constants for workflow,
+       CONSTANTS:
+          BEGIN OF travel_status, 
+            open     TYPE c LENGTH 1 VALUE 'O', "Open,
+            accepted TYPE c LENGTH 1 VALUE 'A', "Accepted,
+            rejected TYPE c LENGTH 1 VALUE 'X', "Rejected,
+            waiting  TYPE c LENGTH 1 VALUE 'W', "Awaiting Approval,
+          END OF travel_status,
+          travel_wf_defid      TYPE if_swf_cpwf_api=>cpwf_def_id_long  VALUE 'euXX-XXXX.XXXX-XXXXX-XXXX-XXXXXXX-					XXXX.rap110travelworkflow.travelApprovalProcessing', " Replace this value with your workflow definition id.
+          wf_retention_days    TYPE if_swf_cpwf_api=>retention_time VALUE '30',
+          callback_class       TYPE if_swf_cpwf_api=>callback_classname VALUE  'ZCL_R_RAP_WORKFLOW_XXXX', " Replace this with your callback class
+          consumer             TYPE string VALUE 'DEFAULT'.
+   ```    
 
-    >Do not forget to replace the values for **workflow definition ID & Callback class** values for your implementation.
-
-
-
-    |Constant Name |Use |Values
-    | :-------- | :------ | :------
-    | Travel_status |    To store the allowed value of the overall status of a Travel instance | Possible values can be Open (O), Approved (A), rejected (R) and Awaiting Approval (W).   
-    | wf_retention_days |   Retention time is the time we keep the database entry post completion of Workflow instance. After the retention days are passed the database entry will be deleted automatically.  
-    |                     |   In case the retention time is set to 0 the entry would not be deleted automatically but would require an API call for deletion |    Set the retention days to `30`
-    | callback_class |   Class we created with callback interface to be used while Registering the SAP Build Process Automation Workflow using RAP Facade |  Set the Value to  ZCL_R_RAP_WORKFLOW_XXXX
-    | Consumer |   Tells the information on where to trigger the workflow. |    Set the Value to `DEFAULT`
-    |    |   In the Communication Arrangement for SAP Build Process Automation we have set the consumer type (Workflow) as default |    As we need to execute the workflow in SBPA
-    | travel_wf_defid |    Is the Definition ID of the workflow we created in SBPA |     Set the value to the Workflow definition ID retrieved from SAP Build Process Automation.
+  >Do not forget to replace the values for **workflow definition ID & Callback class** values for your implementation.
 
 
 
-     ![RAPWorkflow](RAPWorkflow.png)
+  |Constant Name |Use |Values
+  | :-------- | :------ | :------
+  | Travel_status |    To store the allowed value of the overall status of a Travel instance | Possible values can be Open (O), Approved (A), rejected (R) and Awaiting Approval (W).   
+  | wf_retention_days |   Retention time is the time we keep the database entry post completion of Workflow instance. After the retention days are passed the database entry will be deleted automatically.  
+  |                     |   In case the retention time is set to 0 the entry would not be deleted automatically but would require an API call for deletion |    Set the retention days to `30`
+  | callback_class |   Class we created with callback interface to be used while Registering the SAP Build Process Automation Workflow using RAP Facade |  Set the Value to  ZCL_R_RAP_WORKFLOW_XXXX
+  | Consumer |   Tells the information on where to trigger the workflow. |    Set the Value to `DEFAULT`
+  |    |   In the Communication Arrangement for SAP Build Process Automation we have set the consumer type (Workflow) as default |    As we need to execute the workflow in SBPA
+  | travel_wf_defid |    Is the Definition ID of the workflow we created in SBPA |     Set the value to the Workflow definition ID retrieved from SAP Build Process Automation.
+
+
+
+   ![RAPWorkflow](RAPWorkflow.png)
 
  4. Define Method to trigger workflow in public section. 
 

@@ -151,21 +151,21 @@ CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
 
 1. Handle any exceptions that occur using a CASE statement.
 
-    ```ABAP
-    CASE sy-subrc.
-        WHEN 0.
-          LOOP AT lt_product INTO ls_product.
-            out->write( ls_product-name && ls_product-price && ls_product-currencycode ).
-          ENDLOOP.
-        WHEN 1.
-          out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
-        WHEN 2.
-          out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
-        WHEN 3.
-          out->write( |EXCEPTION OTHERS| ).
-    ENDCASE.
+   ```ABAP
+   CASE sy-subrc.
+       WHEN 0.
+         LOOP AT lt_product INTO ls_product.
+           out->write( ls_product-name && ls_product-price && ls_product-currencycode ).
+         ENDLOOP.
+       WHEN 1.
+         out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
+       WHEN 2.
+         out->write( |EXCEPTION COMMUNICATION_FAILURE | && msg ).
+       WHEN 3.
+         out->write( |EXCEPTION OTHERS| ).
+   ENDCASE.
 
-    ```
+   ```
 
 2. Save and activate the class
 
@@ -274,7 +274,6 @@ ENDCLASS.
 Test the class in the ABAP Console by choosing **`F9`**.
 Your output should look like this:
 
-<!-- border -->
 ![Image depicting test-rfc-console](test-rfc-console.png)
 
 

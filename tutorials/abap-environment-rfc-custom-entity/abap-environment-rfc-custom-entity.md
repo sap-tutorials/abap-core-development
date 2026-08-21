@@ -47,7 +47,6 @@ First, you create the class that implements the data retrieval logic.
 
 1. In ADT, open your ABAP package and choose **New > Class**.
 
-    <!-- border -->  
     ![Image depicting step1-new-class](step1-new-class.png)
 
 2. Enter the following, then choose **Next**:
@@ -76,7 +75,6 @@ First, you create the class that implements the data retrieval logic.
 
 4. Choose **Define Custom Entity with Parameters**, then choose **Finish**. Ignore the errors for now.
 
-    <!-- border -->  
     ![Image depicting step1b-custom-entity](step1b-custom-entity.png)
 
 
@@ -95,100 +93,100 @@ Add the following annotation to the view (immediately after the '@EndUserText.la
 
 1. Remove the following lines from the view:
 
-    ```CDS
+   ```CDS
 
-    with parameters parameter_name : parameter_type {
-     key key_element_name : key_element_type;
-     element_name : element_type;
+   with parameters parameter_name : parameter_type {
+    key key_element_name : key_element_type;
+    element_name : element_type;
 
-    }
+   }
 
-    ```
+   ```
 
 
 2. Add the header information to the view, after the `@QueryImplementedBy` annotation.
 For more information on the UI Annotations used here, see
 [SAP Help Portal: SAP BTP: ABAP RESTful PM: Defining UI Annotations](https://help.sap.com/viewer/923180ddb98240829d935862025004d6/Cloud/en-US/fd95e7c9905e469bb176217f49e15e71.html)
 
-    ```CDS
+   ```CDS
 
-    @UI: {
-      headerInfo: {
-      typeName: 'Product',
-      typeNamePlural: 'Products'
-      }
-    }
+   @UI: {
+     headerInfo: {
+     typeName: 'Product',
+     typeNamePlural: 'Products'
+     }
+   }
 
-    ```
+   ```
 
 3. Add the fields and their associations.
 
-    ```CDS
+   ```CDS
 
-    define root custom entity zce_product_###
-    {
+   define root custom entity zce_product_###
+   {
 
-          @UI.facet     : [
-            {
-              id        :       'Product',
-              purpose   :  #STANDARD,
-              type      :     #IDENTIFICATION_REFERENCE,
-              label     :    'Product',
-              position  : 10 }
-          ]
-          // DDL source code for custom entity for BAPI_EPM_PRODUCT_HEADER
+         @UI.facet     : [
+           {
+             id        :       'Product',
+             purpose   :  #STANDARD,
+             type      :     #IDENTIFICATION_REFERENCE,
+             label     :    'Product',
+             position  : 10 }
+         ]
+         // DDL source code for custom entity for BAPI_EPM_PRODUCT_HEADER
 
-          @UI           : {
-          lineItem      : [{position: 10, importance: #HIGH}],
-          identification: [{position: 10}],
-          selectionField: [{position: 10}]
-          }
-      key product_id     : abap.char( 10 );
-          TypeCode      : abap.char( 2 );
-          @UI           : {
-          lineItem      : [{position: 20, importance: #HIGH}],
-          identification: [{position: 20}],
-          selectionField: [{position: 20}]
-          }
-          Category      : abap.char( 40 );
-          @UI           : {
-          lineItem      : [{position: 30, importance: #HIGH}],
-          identification: [{position: 30}]
-          }
-          Name          : abap.char( 255 );
-          @UI           : {
-          identification: [{position: 40}]
-          }
-          Description   : abap.char( 255 );
-          SupplierId    : abap.char( 10 );
-          SupplierName  : abap.char( 80 );
-          TaxTarifCode  : abap.int1;
-          @Semantics.unitOfMeasure: true
-          MeasureUnit   : abap.unit( 3 );
-          @Semantics.quantity.unitOfMeasure: 'WeightUnit'
-          WeightMeasure : abap.quan( 13, 3 );
-          @Semantics.unitOfMeasure: true
-          WeightUnit    : abap.unit( 3 );
-          @UI           : {
-          lineItem      : [{position: 50, importance: #HIGH}],
-          identification: [{position: 50}]
-          }
-          Price         : abap.dec( 23, 4 );
-          @Semantics.currency_code: true
-          currency_code  : abap.cuky( 5 );
-          @Semantics.quantity.unitOfMeasure: 'DimUnit'
-          Width         : abap.quan( 13, 3 );
-          @Semantics.quantity.unitOfMeasure: 'DimUnit'
-          Depth         : abap.quan( 13, 3 );
-          @Semantics.quantity.unitOfMeasure: 'DimUnit'
-          Height        : abap.quan( 13, 3 );
-          @Semantics.unitOfMeasure: true
-          DimUnit       : abap.unit( 3 );
-          ProductPicUrl : abap.char( 255 );
+         @UI           : {
+         lineItem      : [{position: 10, importance: #HIGH}],
+         identification: [{position: 10}],
+         selectionField: [{position: 10}]
+         }
+     key product_id     : abap.char( 10 );
+         TypeCode      : abap.char( 2 );
+         @UI           : {
+         lineItem      : [{position: 20, importance: #HIGH}],
+         identification: [{position: 20}],
+         selectionField: [{position: 20}]
+         }
+         Category      : abap.char( 40 );
+         @UI           : {
+         lineItem      : [{position: 30, importance: #HIGH}],
+         identification: [{position: 30}]
+         }
+         Name          : abap.char( 255 );
+         @UI           : {
+         identification: [{position: 40}]
+         }
+         Description   : abap.char( 255 );
+         SupplierId    : abap.char( 10 );
+         SupplierName  : abap.char( 80 );
+         TaxTarifCode  : abap.int1;
+         @Semantics.unitOfMeasure: true
+         MeasureUnit   : abap.unit( 3 );
+         @Semantics.quantity.unitOfMeasure: 'WeightUnit'
+         WeightMeasure : abap.quan( 13, 3 );
+         @Semantics.unitOfMeasure: true
+         WeightUnit    : abap.unit( 3 );
+         @UI           : {
+         lineItem      : [{position: 50, importance: #HIGH}],
+         identification: [{position: 50}]
+         }
+         Price         : abap.dec( 23, 4 );
+         @Semantics.currency_code: true
+         currency_code  : abap.cuky( 5 );
+         @Semantics.quantity.unitOfMeasure: 'DimUnit'
+         Width         : abap.quan( 13, 3 );
+         @Semantics.quantity.unitOfMeasure: 'DimUnit'
+         Depth         : abap.quan( 13, 3 );
+         @Semantics.quantity.unitOfMeasure: 'DimUnit'
+         Height        : abap.quan( 13, 3 );
+         @Semantics.unitOfMeasure: true
+         DimUnit       : abap.unit( 3 );
+         ProductPicUrl : abap.char( 255 );
 
-    }
+   }
 
-    ```
+   ```
 
 You will now implement the data retrieval logic in the class.
 
@@ -199,30 +197,30 @@ Go back to the class.
 
 1. First, in the **`CLASS...DEFINITION` , `  PUBLIC SECTION.`**, define a type for the variable `maxrows`. You will need this later to call the `BAPI`:
 
-    ```ABAP
+   ```ABAP
 
-        TYPES:
-            BEGIN OF bapi_epm_max_rows,
-                bapimaxrow TYPE bapimaxrow,
-            END OF bapi_epm_max_rows.
-        
-    ```
+       TYPES:
+           BEGIN OF bapi_epm_max_rows,
+               bapimaxrow TYPE bapimaxrow,
+           END OF bapi_epm_max_rows.
+       
+   ```
 
 
 1. Now, in the **`CLASS...IMPLEMENTATION`**, define an local internal table, which you will fill by retrieving the data from the back end. The type of the local variable is the CDS View that you just created. Add the following code to the `if_rap_query_provider~select` method.
 
-    ```ABAP
-    DATA lt_product TYPE STANDARD TABLE OF zce_product_###.
+   ```ABAP
+   DATA lt_product TYPE STANDARD TABLE OF zce_product_###.
 
-    ```
+   ```
 
 2. Create a variable, `lv_abap_trial`. **If** you are using the full version of SAP BTP, ABAP Environment, set it to **false**, otherwise **true**.
 
-    ```ABAP
+   ```ABAP
 
-    DATA(lv_abap_trial) = abap_false.  
+   DATA(lv_abap_trial) = abap_false.  
 
-    ```
+   ```
 
 
 ### Define the connection to the on-premise system
@@ -234,104 +232,104 @@ If you are working in the full version of ABAP Environment: Define the connectio
  
 **IMPORTANT**: Always specify the authentication mode using the interface `if_a4c_cp_service`. Never hard-code your password in the class.
 
-    ```ABAP
+   ```ABAP
 
-    IF lv_abap_trial = abap_false.
+   IF lv_abap_trial = abap_false.
 
-      TRY.
-        DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
-                 comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
-                 service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
+     TRY.
+       DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
+                comm_scenario          = 'Z_OUTBOUND_RFC_000_CSCEN'   " Communication scenario
+                service_id             = 'Z_OUTBOUND_RFC_000_SRFC'    " Outbound service
 
-                             ).
+                            ).
 
-        DATA(lv_destination) = lo_destination->get_destination_name( ).
+       DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-      CATCH cx_rfc_dest_provider_error INTO DATA(lx_dest).
-      ENDTRY.
+     CATCH cx_rfc_dest_provider_error INTO DATA(lx_dest).
+     ENDTRY.
 
-    ENDIF.
+   ENDIF.
 
-    ```
+   ```
 
 
 ### Call the remote BAPI or insert the mock data
 
 1. Check whether data is being requested.
 
-    ```ABAP
+   ```ABAP
 
-    IF io_request->is_data_requested( ).
+   IF io_request->is_data_requested( ).
 
-    ENDIF.
-    ```
+   ENDIF.
+   ```
 
 2. Now, in the **`CLASS...IMPLEMENTATION.`**, add an **`IF... ELSE. ... ENDIF.`** block. If you are using the trial version, fill the internal table `lt_product` with the mock data. If not, call the `BAPI`.
 
-    ```ABAP
+   ```ABAP
 
-    DATA ls_maxrows TYPE bapi_epm_max_rows.
-    DATA(lv_skip) = io_request->get_paging( )->get_offset(  ).
-    DATA(lv_top) = io_request->get_paging( )->get_page_size(  ).
-    ls_maxrows-bapimaxrow = lv_skip + lv_top.
+   DATA ls_maxrows TYPE bapi_epm_max_rows.
+   DATA(lv_skip) = io_request->get_paging( )->get_offset(  ).
+   DATA(lv_top) = io_request->get_paging( )->get_page_size(  ).
+   ls_maxrows-bapimaxrow = lv_skip + lv_top.
 
-     IF lv_abap_trial = abap_true.
-          lt_product = VALUE #( ( product_id = 'HT-1000' name = 'Notebook' )
-                                ( product_id = 'HT-1001' name = 'Notebook' )
-                                ( product_id = 'HT-1002' name = 'Notebook' )
-                                ( product_id = 'HT-1003' name = 'Notebook' )
-                                ( product_id = 'HT-1004' name = 'Notebook' )
-                                ( product_id = 'HT-1005' name = 'Notebook' )
-                          ).
+    IF lv_abap_trial = abap_true.
+         lt_product = VALUE #( ( product_id = 'HT-1000' name = 'Notebook' )
+                               ( product_id = 'HT-1001' name = 'Notebook' )
+                               ( product_id = 'HT-1002' name = 'Notebook' )
+                               ( product_id = 'HT-1003' name = 'Notebook' )
+                               ( product_id = 'HT-1004' name = 'Notebook' )
+                               ( product_id = 'HT-1005' name = 'Notebook' )
+                         ).
 
 
-    ELSE.
-    "Call BAPI                      
-    CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
-       DESTINATION lv_destination
-       EXPORTING
-             max_rows   = ls_maxrows
-       TABLES
-             headerdata = lt_product.
+   ELSE.
+   "Call BAPI                      
+   CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
+      DESTINATION lv_destination
+      EXPORTING
+            max_rows   = ls_maxrows
+      TABLES
+            headerdata = lt_product.
 
-    ENDIF.
+   ENDIF.
 
-    ```
+   ```
 
 
 ### Set the total number of records and return the data
 
 1. Set the total number of records requested.
 
-    ```ABAP
+   ```ABAP
 
-    IF io_request->is_total_numb_of_rec_requested( ).
-    io_response->set_total_number_of_records( lines( lt_product ) ).
-    ENDIF.
+   IF io_request->is_total_numb_of_rec_requested( ).
+   io_response->set_total_number_of_records( lines( lt_product ) ).
+   ENDIF.
 
-    ```
+   ```
 
 2. Output the data in the internal table.
 
-    ```ABAP
+   ```ABAP
 
-    io_response->set_data( lt_product ).
+   io_response->set_data( lt_product ).
 
-    ```
+   ```
 
 
 ### Catch the exception if raised
 
 Wrap the whole data retrieval logic call in a second `TRY. ..CATCH...ENDTRY` block.
 
-    ```ABAP
+   ```ABAP
 
-    TRY.
-    ...
-      CATCH cx_rfc_dest_provider_error INTO DATA(lx_dest).
-    ENDTRY.
+   TRY.
+   ...
+     CATCH cx_rfc_dest_provider_error INTO DATA(lx_dest).
+   ENDTRY.
 
-    ```
+   ```
 
 
 ### Check the code for your class
@@ -433,7 +431,6 @@ Start with the Service Definition:
 
 1. From your package, select your custom entity, **`zce_product_###`**, then choose **New > Service Definition** from the context menu, then choose **Next**.
 
-    <!-- border -->
     ![Image depicting step12-choose-service-def](step12-choose-service-def.png)
 
 2. Enter the following and choose **Next**:
@@ -442,21 +439,19 @@ Start with the Service Definition:
     - Source Type: Definition
     - Referenced Object: **`ZCE_PRODUCT_###`**
 
-    <!-- border -->
     ![step12b-new-service-def](step12b-new-service-def.png)  
 
 3. Choose the transport request; choose **Next**.
 
 4. Use the selected template; choose **Finish**. The name of your custom entity is inserted automatically.
 
-    <!-- border -->
     ![Image depicting step11-expose-view](step11-expose-view.png)
 
 5. Optional: For readability, add an alias, such as **Products**:
 
-    ```CDS
-    expose zce_product_### as Products;
-    ```
+   ```CDS
+   expose zce_product_### as Products;
+   ```
    
 6. Save and activate ( **`Ctrl+S, Ctrl+F3`** ) the service definition.
 
@@ -473,7 +468,6 @@ Start with the Service Definition:
     - Binding Type = ODATA V2 (UI...)
     - Service Definition = `ZCE_PRODUCT_###`
 
-    <!-- border -->
     ![Image depicting step12-choose-binding-type](step12-choose-binding-type.png)
 
 3. Choose the transport request; choose **Finish**.
@@ -486,22 +480,18 @@ The service binding automatically references the service definition and thus the
 
 1. In the editor that appears, choose **Activate**.
 
-    <!-- border -->     
     ![Image depicting step13-activate-service-endpoint](step13-activate-service-endpoint.png)
 
 2. Then choose **Publish**. You can now see the Service URL and Entity Set.
 
-    <!-- border -->  
     ![Image depicting step13b-service-binding-details](step13b-service-binding-details.png)
 
 3. You can open the Service Document (`XML`) in your browser, by choosing **Service URL**.
 
-    <!-- border -->
     ![step14c-service-url-in-browser](step14c-service-url-in-browser.png)
 
 4. In the browser, you can also see the **Metadata Document** of the Business Service by adding the suffix `$metadata` to the URL:  `sap/opu/odata/sap/Z_BIND_PRODUCT_TEST_001/$metadata`.
 
-    <!-- border -->
     ![step14d-service-metadata-in-browser](step14d-service-metadata-in-browser.png)
 
 
@@ -509,14 +499,12 @@ The service binding automatically references the service definition and thus the
 
 1. Select the entity set and choose **Preview**.
 
-    <!-- border -->
     ![Image depicting step14-preview](step14-preview.png)
 
 2. Log in using your ABAP Environment user and password; the Fiori Elements preview appears.
 
 3. Display the data by choosing **Go**.
 
-    <!-- border -->
     ![Image depicting step14b-preview-with-data](step14b-preview-with-data.png)
 
 
@@ -533,21 +521,21 @@ If the data does not display (and you are using the licensed version), check tha
 
 2. Replace the type `ty_bapi_epm_product_header`:
 
-    ```ABAP
+   ```ABAP
 
-    DATA lt_product TYPE STANDARD TABLE OF  ty_bapi_epm_product_header.
-    DATA ls_product TYPE ty_bapi_epm_product_header.
+   DATA lt_product TYPE STANDARD TABLE OF  ty_bapi_epm_product_header.
+   DATA ls_product TYPE ty_bapi_epm_product_header.
 
-    ```
+   ```
 
 with the type of your custom entity:
 
-    ```ABAP
+   ```ABAP
 
-    DATA lt_product TYPE STANDARD TABLE OF zce_product_via_rfc_###.
-    DATA ls_product TYPE zce_product_via_rfc_###.
+   DATA lt_product TYPE STANDARD TABLE OF zce_product_via_rfc_###.
+   DATA ls_product TYPE zce_product_via_rfc_###.
 
-    ```
+   ```
 
 The console output should look like this:
 

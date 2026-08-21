@@ -32,7 +32,6 @@ author_profile: https://github.com/mervey45
  
 2. Navigate to the trial global account by clicking **Go To Your Trial Account**.
 
-    <!-- border -->
     ![Trial global account](trial_home.png)
 
     > If this is your first time accessing your trial account, you'll have to configure your account by choosing a region. Your user profile will be set up for you automatically.  
@@ -41,23 +40,19 @@ author_profile: https://github.com/mervey45
 
     > Choose **Continue**.
 
-    > <!-- border -->
-    ![Account setup](organization2.png)
+    > ![Account setup](organization2.png)
   
 3. From your global account page, choose **Boosters** on the left side.
-    <!-- border -->
     ![Select ABAP Trial](boosters.png)
 
 4. Search the **Prepare an Account for ABAP Trial** tile and press **Start** to start your booster.
   If you already created a service instance then please skip this step and go to step 2, **Test yourself**.
   Only one service instance can be created at a time.
 
-    <!-- border -->
     ![Select ABAP Trial](boosters2.png)
     
 5. Now the service instance will be created for the ABAP trial user. 
 
-    <!-- border -->
     ![Select ABAP Trial](boosters3.png)
 
 The booster has now been executed successfully.
@@ -67,7 +62,6 @@ The booster has now been executed successfully.
 
 1. Go to your trial instance, by choosing **Go to instance**.
 
-    <!-- border -->
     ![step2a-go-to-instance](step2a-go-to-instance.png)
 
 2. Select the instance name and choose **Copy link** from the context menu.

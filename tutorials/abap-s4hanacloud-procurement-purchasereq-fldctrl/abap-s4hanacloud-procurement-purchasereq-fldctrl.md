@@ -35,7 +35,7 @@ In this case, the `BAdI` is implemented in the SAP Fiori app as follows:
 2. Create a container ( **enhancement implementation** ) in the enhancement spot
 3. Create a **`BADI` implementation** for the `BADI` definition.
 
-<!-- border -->![step0-badi-creation-enhancement-process](step0-badi-creation-enhancement-process.png)
+![step0-badi-creation-enhancement-process](step0-badi-creation-enhancement-process.png)
 
 Throughout this tutorial, objects name include a prefix, such as **`xx`** or suffix, such as **`XXX`**. Always replace this with your group number or initials.
 
@@ -78,7 +78,7 @@ First, create a package for your development objects, or use an existing package
 
 1. Choose your project, then choose **New > ABAP Package** from the context menu.
 
-    <!-- border -->![step1a-package-new](step1a-package-new.png)
+    ![step1a-package-new](step1a-package-new.png)
 
 2. Enter the following.
     - **`Zxx_MM_PUR_S4_BADI`**
@@ -86,7 +86,7 @@ First, create a package for your development objects, or use an existing package
 
 3. Optional: Choose **Add to favorite packages**, then choose **Next**
 
-    <!-- border -->![step1b-package-name](step1b-package-name.png)
+    ![step1b-package-name](step1b-package-name.png)
 
 4. Choose **Create a new request**, enter a meaningful description, e.g. **Test `BADIs` MM-PURCHASING** then choose **Finish**.
 
@@ -96,23 +96,23 @@ First, create a package for your development objects, or use an existing package
 
 1. First make sure that the released APIs are displayed by application component: In your project, navigate to **Released Objects**. The tree should show the Released Objects sorted by Application Component.
 
-    <!-- border -->![step2b-released-objects](step2b-released-objects.png)
+    ![step2b-released-objects](step2b-released-objects.png)
 
 2. If not, choose **Configure Tree** from the context menu, then select **Application Component** from the left side ( **Available Tree Levels** ) and add it to the right side ( **Selected Tree Levels** ). Move it to the top. Then choose **Finish**.
 
-    <!-- border -->![step2a-tree-configure](step2a-tree-configure.png)
+    ![step2a-tree-configure](step2a-tree-configure.png)
     .
-    <!-- border -->![step2b-application-component-add](step2b-application-component-add.png)
+    ![step2b-application-component-add](step2b-application-component-add.png)
 
 3. In your project, drill down to **Released Objects > MM-PUR-VM > Enhancements > Enhancement Spots > `MM_PUR_S4_PR_FLDCNTRL_SIMPLE`** and open it by double-clicking.
 
-    <!-- border -->![step2c-enhancement-spot-choose-field-control](step2a-enhancement-spot-choose-field-control.png)
+    ![step2c-enhancement-spot-choose-field-control](step2a-enhancement-spot-choose-field-control.png)
 
 The `BAdI` enhancement spot appears in a new editor, showing you the available `BAdI` definitions (1).
 
 To help you create your own enhancements, example classes are provided (2).
 
-<!-- border -->![step2d-enhancement-spot-editor](step2d-enhancement-spot-editor.png)
+![step2d-enhancement-spot-editor](step2d-enhancement-spot-editor.png)
 
 > A complete searchable table of available `BAdIs` and the Fiori apps to which they pertain is available here:
 SAP Help Portal: [Adaptation of App Behavior](https://help.sap.com/viewer/0e602d466b99490187fcbb30d1dc897c/2202.500/en-US/259a396e6bdb4d08b130049880a3920f.html)
@@ -126,7 +126,7 @@ Next, you need a container within the enhancement spot for your `BADI` implement
 
 1. Select your package **`Zxx_MM_PUR_S4_BADI`** and choose **New > Other ABAP Object** from the context menu.
 
-    <!-- border -->![step3a-badi-implem-create](step3a-badi-implem-create.png)
+    ![step3a-badi-implem-create](step3a-badi-implem-create.png)
 
 2. Filter by `BAdI`, choose **`BAdI` Enhancement Implementation**, then choose **Next**.
 
@@ -135,13 +135,13 @@ Next, you need a container within the enhancement spot for your `BADI` implement
     - Description: **Field control: Change price to hidden**
     - Enhancement Spot: **`MM_PUR_S4_PR_FLDCNTRL_SIMPLE`**
 
-      <!-- border -->![step3c-BAdi-enh-impl-editor-hide-price](step3c-BAdi-enh-impl-editor-hide-price.png)
+      ![step3c-BAdi-enh-impl-editor-hide-price](step3c-BAdi-enh-impl-editor-hide-price.png)
 
 4. Choose the transport request, then choose **Finish**.
 
 Your `BAdI` enhancement implementation appears in a new editor. It implements the enhancement spot **`MM_PUR_S4_PR_FLDCNTRL_SIMPLE`**.
 
-  <!-- border -->![step3d-badi-enh-impl-editor-field-control](step3d-badi-enh-impl-editor-field-control.png)
+  ![step3d-badi-enh-impl-editor-field-control](step3d-badi-enh-impl-editor-field-control.png)
 
 
 ### Add `BAdI` Implementation
@@ -149,13 +149,13 @@ Your `BAdI` enhancement implementation appears in a new editor. It implements th
 1. Choose **Add `BAdI`**.
 
 
-    <!-- border -->![step4a-badi-impl-add](step4a-badi-impl-add.png)
+    ![step4a-badi-impl-add](step4a-badi-impl-add.png)
 
 2. Add the following, then choose **Next**:
     - `BAdI` Definition: **`MM_PUR_S4_PR_FLDCNTRL_SIMPLE`** (Add by clicking on **Browse**)
     - `BAdI` Implementation Name: **`ZXX_BADI_FLDCONTROL_PO_IMPL`**
 
-    <!-- border -->![step4b-badi-impl-name](step4b-badi-impl-name.png)
+    ![step4b-badi-impl-name](step4b-badi-impl-name.png)
 
 Ignore the error. You will fix this in the next step.
 
@@ -164,20 +164,20 @@ Ignore the error. You will fix this in the next step.
 
 1. Choose **Implementing Class**.
 
-    <!-- border -->![step5a-implementing-class-create](step5a-implementing-class-create.png)
+    ![step5a-implementing-class-create](step5a-implementing-class-create.png)
 
 2. Add the following, then choose **Next**.
     - Name: **`ZXX_CL_FLDCONTROL_PO`**
     - Description: **Implement hide price for given user**
     - Interfaces: **`IF_MM_PUR_S4_PR_FLDCNTRL`** (added automatically)
 
-    <!-- border -->![step5b-implementing-class-name-hide-price](step5b-implementing-class-name-hide-price.png)
+    ![step5b-implementing-class-name-hide-price](step5b-implementing-class-name-hide-price.png)
 
 3. Choose the transport request, then choose **Finish**.
 
     The class appears in a new editor with skeleton code.
 
-    <!-- border -->![step5c-class-editor](step5c-class-editor.png)
+    ![step5c-class-editor](step5c-class-editor.png)
 
 4. Format, save, and activate the class ( **`Shift+F1, Ctrl+S, Ctrl+F3`** ).
 
@@ -190,62 +190,62 @@ The error will disappear.
 
 1. Add the following code to the method implementation **`if_mm_pur_s4_pr_fldcntrl~modify_fieldcontrols.`**
 
-    ```ABAP
-    * Disclaimer:
-    * Any software coding or code lines / strings ("Code") provided are only examples
-    * and are not intended for use in a productive system environment. The Code is only
-    * intended to better explain and visualize the syntax and phrasing rules for certain
-    * SAP coding. SAP does not warrant the correctness or completeness of the Code
-    * provided herein and SAP shall not be liable for errors or damages cause by use of
-    * the Code, except where such damages were caused by SAP with intent or with gross
-    * negligence.
-    *------------------------------------------------------------------------------------
-    *   Value for FIELDSTATUS can be set to anyone of the following
-    *   '-' Field is Hidden
-    *   '*' Field is only Displayed, which means no entry is possible
-    *   '+' Field is Mandatory, which means an entry must be made
-    *   '.' Field is Optional, which means an entry may be made
-    *------------------------------------------------------------------------------------
+   ```ABAP
+   * Disclaimer:
+   * Any software coding or code lines / strings ("Code") provided are only examples
+   * and are not intended for use in a productive system environment. The Code is only
+   * intended to better explain and visualize the syntax and phrasing rules for certain
+   * SAP coding. SAP does not warrant the correctness or completeness of the Code
+   * provided herein and SAP shall not be liable for errors or damages cause by use of
+   * the Code, except where such damages were caused by SAP with intent or with gross
+   * negligence.
+   *------------------------------------------------------------------------------------
+   *   Value for FIELDSTATUS can be set to anyone of the following
+   *   '-' Field is Hidden
+   *   '*' Field is only Displayed, which means no entry is possible
+   *   '+' Field is Mandatory, which means an entry must be made
+   *   '.' Field is Optional, which means an entry may be made
+   *------------------------------------------------------------------------------------
 
-    **    Sample Code
-    **price hidden when created user is 'CB9980000609'.
-    *
-        IF purchaserequisitionitem-createdbyuser  EQ 'CB9980000609'.
-          READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
-          IF sy-subrc EQ 0.
-            <fs>-fieldstatus = '-'.
-          ENDIF.
-        ENDIF.
-    **
-    **Alternative sample code 1:
-    ** price hidden when requisitioner is a specific person
-    **
-    * enter in field purchase requisitioner = HIDEPRICE
-    *    IF purchaserequisitionitem-purreqnrequestor  EQ 'HIDEPRICE'.
-    *      READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
-    *      IF sy-subrc EQ 0.
-    *        <fs>-fieldstatus = '-'.
-    *      ENDIF.
-    *    ENDIF.
+   **    Sample Code
+   **price hidden when created user is 'CB9980000609'.
+   *
+       IF purchaserequisitionitem-createdbyuser  EQ 'CB9980000609'.
+         READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
+         IF sy-subrc EQ 0.
+           <fs>-fieldstatus = '-'.
+         ENDIF.
+       ENDIF.
+   **
+   **Alternative sample code 1:
+   ** price hidden when requisitioner is a specific person
+   **
+   * enter in field purchase requisitioner = HIDEPRICE
+   *    IF purchaserequisitionitem-purreqnrequestor  EQ 'HIDEPRICE'.
+   *      READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
+   *      IF sy-subrc EQ 0.
+   *        <fs>-fieldstatus = '-'.
+   *      ENDIF.
+   *    ENDIF.
 
-    **
-    **Alternative sample code 1:
-    ** hide price for all users
-    **
-    * READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
-    *    IF sy-subrc EQ 0.
-    *      <fs>-fieldstatus = '-'.
-    *    ENDIF.
+   **
+   **Alternative sample code 1:
+   ** hide price for all users
+   **
+   * READ TABLE fieldselection_table ASSIGNING <fs> WITH KEY field = 'PURCHASEREQUISITIONPRICE'.
+   *    IF sy-subrc EQ 0.
+   *      <fs>-fieldstatus = '-'.
+   *    ENDIF.
 
 
 
-    ```
+   ```
 
 2. Format, save, and activate ( **`Shift+F1, Ctrl+S, Ctrl+F3`** ) your code.
 
 Check that yours is the implementation that will be called:
 
-<!-- border -->![step5d-impl-called](step5d-impl-called.png)
+![step5d-impl-called](step5d-impl-called.png)
 
 
 

@@ -52,48 +52,48 @@ Define the validations `validateCustomer` and `validateDates`.
   
   2. Because empty values will not be accepted for the fields `CustomerID`, `BeginDate`, and `EndDate`, specify them as mandatory field by adding the following code snippet after the determination as shown on the screenshot below.
 
-    ```ABAP
-    field ( mandatory )
-    CustomerID,
-    BeginDate,
-    EndDate; 
-    ```    
+   ```ABAP
+   field ( mandatory )
+   CustomerID,
+   BeginDate,
+   EndDate; 
+   ```    
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![validation](p8.png)   
+   ![validation](p8.png)   
 
   3. Define the validations **`validateCustomer`** and **`validateDates`**. For that, add the following code snippet after the determination.
 
-    ```ABAP
-    validation validateCustomer on save { create; field CustomerID; }
-    validation validateDates on save { create; field BeginDate, EndDate; }
-    ```         
+   ```ABAP
+   validation validateCustomer on save { create; field CustomerID; }
+   validation validateDates on save { create; field BeginDate, EndDate; }
+   ```         
 
   4. In order to have draft instances being checked and determinations being executed before they become active, they have to be specified for the **`draft determine action prepare`** in the behavior definition.
 
-    Replace the code line **`draft determine action Prepare;`** with the following code snippet as shown on the screenshot below
+   Replace the code line **`draft determine action Prepare;`** with the following code snippet as shown on the screenshot below
 
-    ```ABAP
-    draft determine action Prepare
-    { 
-    validation validateCustomer;
-    validation validateDates;    }
-    ```    
+   ```ABAP
+   draft determine action Prepare
+   { 
+   validation validateCustomer;
+   validation validateDates;    }
+   ```    
 
-    Your source code should look like this:
+ Your source code should look like this:
 
-    ![validation](p9.png)           
+ ![validation](p9.png)           
 
-     **Short explanation**:    
+  **Short explanation**:    
 
-      - Validations are always invoked during the save and specified with the keyword `validateCustomer on save`.   
+   - Validations are always invoked during the save and specified with the keyword `validateCustomer on save`.   
 
-      - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
+   - `validateCustomer` is a validation with trigger operation `create` and trigger field `CustomerID`.    
 
-      - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
+   - `validateDates` is a validation with trigger operation `create` and trigger fields `BeginDate` and `EndDate`.            
 
-    >**Hint:** In case a validation should be invoked at every change of the BO entity instance, then the trigger conditions createand update must be specified: e.g. validation `validateCustomer on save { create; update; }`
+ >**Hint:** In case a validation should be invoked at every change of the BO entity instance, then the trigger conditions createand update must be specified: e.g. validation `validateCustomer on save { create; update; }`
 
   5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -107,7 +107,7 @@ Define the validations `validateCustomer` and `validateDates`.
 
   7. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
-    >**Hint:** If you get an error message in the behavior implementation The entity `ZRAP100_R_TRAVELTP_###` does not have a validation `VALIDATECUSTOMER`. try to activate the behavior definition once again.
+   >**Hint:** If you get an error message in the behavior implementation The entity `ZRAP100_R_TRAVELTP_###` does not have a validation `VALIDATECUSTOMER`. try to activate the behavior definition once again.
 
  
 
@@ -161,66 +161,66 @@ An appropriate message should be raised and displayed on the UI for each invalid
 
     You can use the **F1 Help** to get detailed information on the different ABAP and EML statements.  
 
-    ```ABAP
-    **********************************************************************
-    * Validation: Check the validity of the entered customer data
-    **********************************************************************
-      METHOD validateCustomer.
-          "read relevant travel instance data
-          READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY Travel
-           FIELDS ( CustomerID )
-           WITH CORRESPONDING #( keys )
-          RESULT DATA(travels).
+   ```ABAP
+   **********************************************************************
+   * Validation: Check the validity of the entered customer data
+   **********************************************************************
+     METHOD validateCustomer.
+         "read relevant travel instance data
+         READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY Travel
+          FIELDS ( CustomerID )
+          WITH CORRESPONDING #( keys )
+         RESULT DATA(travels).
 
-          DATA customers TYPE SORTED TABLE OF /dmo/customer WITH UNIQUE KEY customer_id.
+         DATA customers TYPE SORTED TABLE OF /dmo/customer WITH UNIQUE KEY customer_id.
 
-          "optimization of DB select: extract distinct non-initial customer IDs
-          customers = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING customer_id = customerID EXCEPT * ).
-          DELETE customers WHERE customer_id IS INITIAL.
-          IF customers IS NOT INITIAL.
+         "optimization of DB select: extract distinct non-initial customer IDs
+         customers = CORRESPONDING #( travels DISCARDING DUPLICATES MAPPING customer_id = customerID EXCEPT * ).
+         DELETE customers WHERE customer_id IS INITIAL.
+         IF customers IS NOT INITIAL.
 
-            "check if customer ID exists
-            SELECT FROM /dmo/customer FIELDS customer_id
-                                      FOR ALL ENTRIES IN @customers
-                                      WHERE customer_id = @customers-customer_id
-              INTO TABLE @DATA(valid_customers).
-          ENDIF.
+           "check if customer ID exists
+           SELECT FROM /dmo/customer FIELDS customer_id
+                                     FOR ALL ENTRIES IN @customers
+                                     WHERE customer_id = @customers-customer_id
+             INTO TABLE @DATA(valid_customers).
+         ENDIF.
 
-          "raise msg for non existing and initial customer id
-          LOOP AT travels INTO DATA(travel).
+         "raise msg for non existing and initial customer id
+         LOOP AT travels INTO DATA(travel).
 
-            APPEND VALUE #(  %tky                 = travel-%tky
-                             %state_area          = 'VALIDATE_CUSTOMER'
+           APPEND VALUE #(  %tky                 = travel-%tky
+                            %state_area          = 'VALIDATE_CUSTOMER'
+                          ) TO reported-travel.
+
+           IF travel-CustomerID IS  INITIAL.
+             APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+
+             APPEND VALUE #( %tky                = travel-%tky
+                             %state_area         = 'VALIDATE_CUSTOMER'
+                             %msg                = NEW /dmo/cm_flight_messages(
+                                                                     textid   = /dmo/cm_flight_messages=>enter_customer_id
+                                                                     severity = if_abap_behv_message=>severity-error )
+                             %element-CustomerID = if_abap_behv=>mk-on
                            ) TO reported-travel.
 
-            IF travel-CustomerID IS  INITIAL.
-              APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+           ELSEIF travel-CustomerID IS NOT INITIAL AND NOT line_exists( valid_customers[ customer_id = travel-CustomerID ] ).
+             APPEND VALUE #(  %tky = travel-%tky ) TO failed-travel.
 
-              APPEND VALUE #( %tky                = travel-%tky
+             APPEND VALUE #(  %tky                = travel-%tky
                               %state_area         = 'VALIDATE_CUSTOMER'
                               %msg                = NEW /dmo/cm_flight_messages(
-                                                                      textid   = /dmo/cm_flight_messages=>enter_customer_id
-                                                                      severity = if_abap_behv_message=>severity-error )
+                                                                     customer_id = travel-customerid
+                                                                     textid      = /dmo/cm_flight_messages=>customer_unkown
+                                                                     severity    = if_abap_behv_message=>severity-error )
                               %element-CustomerID = if_abap_behv=>mk-on
-                            ) TO reported-travel.
+                           ) TO reported-travel.
+           ENDIF.
 
-            ELSEIF travel-CustomerID IS NOT INITIAL AND NOT line_exists( valid_customers[ customer_id = travel-CustomerID ] ).
-              APPEND VALUE #(  %tky = travel-%tky ) TO failed-travel.
-
-              APPEND VALUE #(  %tky                = travel-%tky
-                               %state_area         = 'VALIDATE_CUSTOMER'
-                               %msg                = NEW /dmo/cm_flight_messages(
-                                                                      customer_id = travel-customerid
-                                                                      textid      = /dmo/cm_flight_messages=>customer_unkown
-                                                                      severity    = if_abap_behv_message=>severity-error )
-                               %element-CustomerID = if_abap_behv=>mk-on
-                            ) TO reported-travel.
-            ENDIF.
-
-          ENDLOOP.
-      ENDMETHOD.      
-    ```  
+         ENDLOOP.
+     ENDMETHOD.      
+   ```  
 
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -234,72 +234,72 @@ Implement the validation `validateDates` which checks the validity of entered be
 
  2. Replace the current method implementation.
  
-    ```ABAP
-    **********************************************************************
-    * Validation: Check the validity of begin and end dates
-    **********************************************************************
-      METHOD validateDates.
+   ```ABAP
+   **********************************************************************
+   * Validation: Check the validity of begin and end dates
+   **********************************************************************
+     METHOD validateDates.
 
-        READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
-          ENTITY Travel
-            FIELDS (  BeginDate EndDate TravelID )
-            WITH CORRESPONDING #( keys )
-          RESULT DATA(travels).
+       READ ENTITIES OF ZRAP100_R_TravelTP_### IN LOCAL MODE
+         ENTITY Travel
+           FIELDS (  BeginDate EndDate TravelID )
+           WITH CORRESPONDING #( keys )
+         RESULT DATA(travels).
 
-        LOOP AT travels INTO DATA(travel).
+       LOOP AT travels INTO DATA(travel).
 
-          APPEND VALUE #(  %tky               = travel-%tky
-                           %state_area        = 'VALIDATE_DATES' ) TO reported-travel.
+         APPEND VALUE #(  %tky               = travel-%tky
+                          %state_area        = 'VALIDATE_DATES' ) TO reported-travel.
 
-          IF travel-BeginDate IS INITIAL.
-            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+         IF travel-BeginDate IS INITIAL.
+           APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
 
-            APPEND VALUE #( %tky               = travel-%tky
-                            %state_area        = 'VALIDATE_DATES'
-                             %msg              = NEW /dmo/cm_flight_messages(
-                                                                    textid   = /dmo/cm_flight_messages=>enter_begin_date
-                                                                    severity = if_abap_behv_message=>severity-error )
-                          %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
-          ENDIF.
-          IF travel-BeginDate < cl_abap_context_info=>get_system_date( ) AND travel-BeginDate IS NOT INITIAL.
-            APPEND VALUE #( %tky               = travel-%tky ) TO failed-travel.
-
-            APPEND VALUE #( %tky               = travel-%tky
-                            %state_area        = 'VALIDATE_DATES'
-                             %msg              = NEW /dmo/cm_flight_messages(
-                                                                    begin_date = travel-BeginDate
-                                                                    textid     = /dmo/cm_flight_messages=>begin_date_on_or_bef_sysdate
-                                                                    severity   = if_abap_behv_message=>severity-error )
-                            %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
-          ENDIF.
-          IF travel-EndDate IS INITIAL.
-            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
-
-            APPEND VALUE #( %tky               = travel-%tky
-                            %state_area        = 'VALIDATE_DATES'
-                             %msg                = NEW /dmo/cm_flight_messages(
-                                                                    textid   = /dmo/cm_flight_messages=>enter_end_date
+           APPEND VALUE #( %tky               = travel-%tky
+                           %state_area        = 'VALIDATE_DATES'
+                            %msg              = NEW /dmo/cm_flight_messages(
+                                                                   textid   = /dmo/cm_flight_messages=>enter_begin_date
                                                                    severity = if_abap_behv_message=>severity-error )
-                            %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
-          ENDIF.
-          IF travel-EndDate < travel-BeginDate AND travel-BeginDate IS NOT INITIAL
-                                               AND travel-EndDate IS NOT INITIAL.
-            APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+                         %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
+         ENDIF.
+         IF travel-BeginDate < cl_abap_context_info=>get_system_date( ) AND travel-BeginDate IS NOT INITIAL.
+           APPEND VALUE #( %tky               = travel-%tky ) TO failed-travel.
 
-            APPEND VALUE #( %tky               = travel-%tky
-                            %state_area        = 'VALIDATE_DATES'
-                            %msg               = NEW /dmo/cm_flight_messages(
-                                                                    textid     = /dmo/cm_flight_messages=>begin_date_bef_end_date
-                                                                    begin_date = travel-BeginDate
-                                                                    end_date   = travel-EndDate
-                                                                    severity   = if_abap_behv_message=>severity-error )
-                            %element-BeginDate = if_abap_behv=>mk-on
-                            %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
-          ENDIF.
-        ENDLOOP.
+           APPEND VALUE #( %tky               = travel-%tky
+                           %state_area        = 'VALIDATE_DATES'
+                            %msg              = NEW /dmo/cm_flight_messages(
+                                                                   begin_date = travel-BeginDate
+                                                                   textid     = /dmo/cm_flight_messages=>begin_date_on_or_bef_sysdate
+                                                                   severity   = if_abap_behv_message=>severity-error )
+                           %element-BeginDate = if_abap_behv=>mk-on ) TO reported-travel.
+         ENDIF.
+         IF travel-EndDate IS INITIAL.
+           APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
 
-      ENDMETHOD.
-    ```
+           APPEND VALUE #( %tky               = travel-%tky
+                           %state_area        = 'VALIDATE_DATES'
+                            %msg                = NEW /dmo/cm_flight_messages(
+                                                                   textid   = /dmo/cm_flight_messages=>enter_end_date
+                                                                  severity = if_abap_behv_message=>severity-error )
+                           %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
+         ENDIF.
+         IF travel-EndDate < travel-BeginDate AND travel-BeginDate IS NOT INITIAL
+                                              AND travel-EndDate IS NOT INITIAL.
+           APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
+
+           APPEND VALUE #( %tky               = travel-%tky
+                           %state_area        = 'VALIDATE_DATES'
+                           %msg               = NEW /dmo/cm_flight_messages(
+                                                                   textid     = /dmo/cm_flight_messages=>begin_date_bef_end_date
+                                                                   begin_date = travel-BeginDate
+                                                                   end_date   = travel-EndDate
+                                                                   severity   = if_abap_behv_message=>severity-error )
+                           %element-BeginDate = if_abap_behv=>mk-on
+                           %element-EndDate   = if_abap_behv=>mk-on ) TO reported-travel.
+         ENDIF.
+       ENDLOOP.
+
+     ENDMETHOD.
+   ```
 
  3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

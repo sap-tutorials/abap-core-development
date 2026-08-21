@@ -81,16 +81,16 @@ You will now implement the determination to call trigger workflow method created
 
      Insert the following code snippet.
 
-    ```ABAP Code:
-       CONSTANTS
-         "Travel Status:
-         BEGIN OF travel_status
-           open TYPE c Length 1 Value 'O', "Open
-           accepted TYPE c Length 1 Value 'A', "Accepted
-           rejected TYPE c Length 1 Value 'R', "Rejected
-           waiting TYPE c Length 1 Value 'W', "Awaiting Approval
-       End of travel_status 
-    ```
+   ```ABAP Code:
+      CONSTANTS
+        "Travel Status:
+        BEGIN OF travel_status
+          open TYPE c Length 1 Value 'O', "Open
+          accepted TYPE c Length 1 Value 'A', "Accepted
+          rejected TYPE c Length 1 Value 'R', "Rejected
+          waiting TYPE c Length 1 Value 'W', "Awaiting Approval
+      End of travel_status 
+   ```
        
      Your code should look like
 
@@ -101,53 +101,53 @@ You will now implement the determination to call trigger workflow method created
 	  Insert the following code snippet in the method and replace all occurrences of the 	placeholder `####` with your group ID. You can use the F1 help to get detailed information 	on each EML statement
 
     
-    ```ABAP Code:
-       METHOD trigger_travelworkflow.
+   ```ABAP Code:
+      METHOD trigger_travelworkflow.
 
-           IF keys IS NOT INITIAL.
+          IF keys IS NOT INITIAL.
 
-           READ ENTITIES OF ZR_RAP_Travel_RD02 IN LOCAL MODE
-           ENTITY travel
-               ALL FIELDS
-               WITH CORRESPONDING #( keys )
-               RESULT DATA(travels).
+          READ ENTITIES OF ZR_RAP_Travel_RD02 IN LOCAL MODE
+          ENTITY travel
+              ALL FIELDS
+              WITH CORRESPONDING #( keys )
+              RESULT DATA(travels).
 
-            data(ls_travel) = travels[ 1 ].
+           data(ls_travel) = travels[ 1 ].
 
-           SELECT SINGLE name FROM /DMO/I_Agency WHERE AgencyID = @ls_travel-AgencyID
-           INTO @DATA(agency_name).
+          SELECT SINGLE name FROM /DMO/I_Agency WHERE AgencyID = @ls_travel-AgencyID
+          INTO @DATA(agency_name).
 
-           SELECT SINGLE firstname, lastname, title FROM /DMO/I_Customer
-           WHERE CustomerID = @ls_travel-customerID
-           INTO ( @DATA(firstname), @DATA(lastname), @DATA(title) ).
+          SELECT SINGLE firstname, lastname, title FROM /DMO/I_Customer
+          WHERE CustomerID = @ls_travel-customerID
+          INTO ( @DATA(firstname), @DATA(lastname), @DATA(title) ).
 
-          IF sy-subrc = 0.
+         IF sy-subrc = 0.
 
-          CONCATENATE title firstname lastname INTO DATA(Customer_name) SEPARATED BY space.
+         CONCATENATE title firstname lastname INTO DATA(Customer_name) SEPARATED BY space.
 
 
-           NEW zcl_r_rap_workflow_rd02( )->trigger_workflow(
-             travelid       = ls_travel-travelid
-             agency_name    = agency_name
-             booking_fee    = ls_travel-bookingfee
-             Currency_code  = ls_travel-currencycode
-             Customer_name  = Customer_name
-             Total_price    = ls_travel-Totalprice
-           ).
+          NEW zcl_r_rap_workflow_rd02( )->trigger_workflow(
+            travelid       = ls_travel-travelid
+            agency_name    = agency_name
+            booking_fee    = ls_travel-bookingfee
+            Currency_code  = ls_travel-currencycode
+            Customer_name  = Customer_name
+            Total_price    = ls_travel-Totalprice
+          ).
 
-           " Replace the suffix with your choosen group id.
-           "This is done to update the Overall Travel Status to Awaiting Approval.
-           MODIFY ENTITIES OF ZR_RAP_TRAVEL_RD02 IN LOCAL MODE
-                 ENTITY travel
-                    UPDATE FIELDS ( OverallStatus )
-                    WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
-                                               OverallStatus = travel_status-waiting ) )
-                   FAILED DATA(ls_failed)
-                   REPORTED DATA(ls_reported).
-             ENDIF.
+          " Replace the suffix with your choosen group id.
+          "This is done to update the Overall Travel Status to Awaiting Approval.
+          MODIFY ENTITIES OF ZR_RAP_TRAVEL_RD02 IN LOCAL MODE
+                ENTITY travel
+                   UPDATE FIELDS ( OverallStatus )
+                   WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
+                                              OverallStatus = travel_status-waiting ) )
+                  FAILED DATA(ls_failed)
+                  REPORTED DATA(ls_reported).
             ENDIF.
-           ENDMETHOD.
-    ```
+           ENDIF.
+          ENDMETHOD.
+   ```
 
       your code should look like
 
@@ -181,20 +181,20 @@ Without proper values for Customer ID and Agency ID the read on the CDS views to
  2. Using the below annotation add value help for Agency ID.
     Insert this code above the field name AgencyID in Metadata Extension.
 
-    ```ABAP Code:
-       @Consumption.valueHelpDefinition: 
-        [{entity: { name: ' /DMO/I_Agency_StdVH', 
-          element: ' AgencyID'  }}]`
-    ```
+   ```ABAP Code:
+      @Consumption.valueHelpDefinition: 
+       [{entity: { name: ' /DMO/I_Agency_StdVH', 
+         element: ' AgencyID'  }}]`
+   ```
 
  3.	Using the below annotation add value help for Customer ID.
     Insert this code above the field name CustomerID in Metadata Extension.
 
-    ```ABAP Code:
-      @Consumption.valueHelpDefinition: 
-       [{entity: { name: '/DMO/I_Customer_StdVH', 
-         element: 'CustomerID'  }}]
-    ```
+   ```ABAP Code:
+     @Consumption.valueHelpDefinition: 
+      [{entity: { name: '/DMO/I_Customer_StdVH', 
+        element: 'CustomerID'  }}]
+   ```
     
        **Short explanation:** Here entity name is the Value help CDS View for field and element name in the corresponding field name in Value Help CDS View for which the Value help is being provisioned.
 
