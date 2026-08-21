@@ -48,21 +48,18 @@ Create a table in your package:
 
 1. Select (right-click) the package and choose **New > Other ABAP Repository Object** from the context menu:
 
-    <!-- border -->
     ![Image depicting step1-new-repo-object](step1-new-repo-object.png)
 
 2. Enter the filter text **Table > Database table**, then choose **Next**.
 
 3. Enter a name such as `ZACCOUNTS_###` - always replacing `###` with your initials or group number - and a description, then choose **Next**.
 
-    <!-- border -->
     ![step1b-table-name](step1b-table-name.png)
 
 4. Accept the proposed transport request and choose Finish.
 
 The code for the table appears in a new editor. Ignore the annotations at the top for now.
 
-<!-- border -->
 ![Image depicting step1d-table-editor](step1d-table-editor.png)
 
 
@@ -80,7 +77,6 @@ There are 3 ways to create a field for a database table:
 
   - Create a **new data element**: If you want to reuse the benefits of a data element - that is, semantic attributes, such as reuse of translatable column headers - but a suitable one does not exist yet.
 
-    <!-- border -->
     ![overview-domain-dtel](overview-domain-dtel.png)
 
 In this tutorial, you will create one domain and one data element. For the other fields, you will use a built-in type or existing data element.
@@ -103,10 +99,10 @@ Now you will add the key field **`account_number`**, based on a built-in type.
 
 1. Enter the following (including the period), then choose **Code completion (Ctrl+Space)**:
 
-    ```ABAP
-      key account_number : abap.
+   ```ABAP
+     key account_number : abap.
 
-    ```
+   ```
 
 2. From the dropdown list, choose `numc(len)` and specify `len` as 8. Also, specify this key field as not null:
   `key account_number : abap.numc(8) not null;`
@@ -120,10 +116,10 @@ Now you will add the key field **`account_number`**, based on a built-in type.
 
 3. Then add a semi-colon:
 
-    ```ABAP
-    city: /dmo/city;
+   ```ABAP
+   city: /dmo/city;
 
-    ```
+   ```
 
 
 ### Add field bank using new data element
@@ -132,20 +128,18 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
 
 1. Enter the following: 
 
-    ```ABAP
-    
-    key field bank_name           : z_bank_name_###;
+   ```ABAP
+   
+   key field bank_name           : z_bank_name_###;
 
-    ```
+   ```
 
 2. Select the new data element and choose **Get Quick Fix (Ctrl+1)**. From the list, choose **Create data element …** :
 
-    <!-- border -->
     ![step5a-quick-fix-new-dtel](step5a-quick-fix-new-dtel.png)
 
 3. The Create data element wizard appears. Enter a name and description and choose **Next**:
 
-    <!-- border -->
     ![step6a-new-dtel](step6a-new-dtel.png)
 
 4. Accept the default transport request and choose **Finish**:
@@ -158,7 +152,6 @@ Now add the key field **`bank_name`**, based on a new data element, `z_bank_name
 
 6. Now enter the field labels and lengths:
 
-    <!-- border -->
     ![step6b-dtel-details](step6b-dtel-details.png)
 
 7. Save and activate the data element (`Ctrl+S, Ctrl+F3`).
@@ -197,12 +190,10 @@ You will now fix the error caused by the field `Balance`:
 
 1. Place your cursor on the error symbol (it will change from an arrow to a pointing finger). Then click on it:
 
-    <!-- border -->
     ![Image depicting step8a-fix-error](step8a-fix-error.png)
 
 2. The quick fix proposal appears. Choose (double-click on) the proposal **Assign currency code reference to field currency**
 
-    <!-- border -->
     ![Image depicting step8b-assign-curr-code](step8b-assign-curr-code.png)
   The error message disappears.
 
@@ -217,7 +208,6 @@ Before you activate the table, change the technical settings at the top as follo
 
 2. **`EnhancementCategory`** : Place your cursor immediately after the hash symbol (#), delete the existing text, then choose **Auto-complete (`Ctrl+Space`)**:
 
-    <!-- border -->
     ![step9a-tech-settings](step9a-tech-settings.png)
 
 3. Then choose `#EXTENSIBLE_CHARACTER_NUMERIC` from the dropdown list. Your table contains both character-type and numeric-type fields but does not contain any deep structures (such as a structure included within a table row).
@@ -281,7 +271,6 @@ Finally, you will fill the table with three rows of test data:
 
 2. Enter a name **`ZCL_FILL_ACCOUNTS_###`** and description for your class (replacing `###` with your group number or initials).
 
-    <!-- border -->
     ![step15b-name-class](step15b-name-class.png)
 
 3. Assign a transport request and choose **Finish**.
@@ -294,16 +283,15 @@ The class appears in a new editor.
 
 1. Add the following interface to your class:
 
-    ```ABAP
-     interfaces if_oo_adt_classrun.
-    ```
+   ```ABAP
+    interfaces if_oo_adt_classrun.
+   ```
 
     This interface provides a lightweight solution for executing an ABAP program without launching a full user interface.
     It also lets you display text or data in the ABAP Console.
 
 2. Add the implementation for the **`main`** method of this interface by selecting the interface name and choosing **Add implementation...** from the context menu.
 
-    <!-- border -->
     ![step6a-add-intf](step6a-add-intf.png)
 
 
@@ -312,30 +300,30 @@ The class appears in a new editor.
 
 1. Add the following code to the method implementation:
 
-    ```ABAP
-    DATA: lt_accounts type table of ZACCOUNTS_###.
+   ```ABAP
+   DATA: lt_accounts type table of ZACCOUNTS_###.
 
-    "read current timestamp
-    GET TIME STAMP FIELD DATA(zv_tsl).
+   "read current timestamp
+   GET TIME STAMP FIELD DATA(zv_tsl).
 
-    "fill internal table
-    lt_accounts = VALUE #(
+   "fill internal table
+   lt_accounts = VALUE #(
 
-        ( client ='100' account_number ='00000001' bank_customer_id ='100001' bank_name ='Volksbank' city = 'Gaertringen' balance ='200.00 ' currency ='EUR' account_category ='01' lastchangedat = zv_tsl )
-        ( client ='100' account_number ='00000002' bank_customer_id ='200002' bank_name ='Sparkasse' city ='Schwetzingen' balance ='500.00 ' currency ='EUR' account_category ='02' lastchangedat = zv_tsl )
-        ( client ='100' account_number ='00000003' bank_customer_id ='200003' bank_name ='Commerzbank' city ='Nuernberg' balance ='150.00 ' currency ='EUR' account_category ='02' lastchangedat = zv_tsl )
-    ).
+       ( client ='100' account_number ='00000001' bank_customer_id ='100001' bank_name ='Volksbank' city = 'Gaertringen' balance ='200.00 ' currency ='EUR' account_category ='01' lastchangedat = zv_tsl )
+       ( client ='100' account_number ='00000002' bank_customer_id ='200002' bank_name ='Sparkasse' city ='Schwetzingen' balance ='500.00 ' currency ='EUR' account_category ='02' lastchangedat = zv_tsl )
+       ( client ='100' account_number ='00000003' bank_customer_id ='200003' bank_name ='Commerzbank' city ='Nuernberg' balance ='150.00 ' currency ='EUR' account_category ='02' lastchangedat = zv_tsl )
+   ).
 
-    "Delete possible entries; insert new entries
-    DELETE FROM ZACCOUNTS_###.
+   "Delete possible entries; insert new entries
+   DELETE FROM ZACCOUNTS_###.
 
-    INSERT ZACCOUNTS_### from table @lt_accounts.
+   INSERT ZACCOUNTS_### from table @lt_accounts.
 
-    "Check result in console
-    out->write( sy-dbcnt ).
-    out->write(  'DONE!' ).
+   "Check result in console
+   out->write( sy-dbcnt ).
+   out->write(  'DONE!' ).
 
-    ```
+   ```
 
 2. Save and activate ( **`Ctrl+S, Ctrl+F3`** ) your code.
 
@@ -343,24 +331,20 @@ The class appears in a new editor.
 
 The output should look roughly like this.
 
-<!-- border -->
 ![step16a-console](step16a-console.png)
 
 ### Check your table in Data Preview
 
 Select your table from the Project Explorer and choose **Open With > Data Preview** from the context menu (**F8**).
 
-<!-- border -->
 ![step17a-data-preview](step17a-data-preview.png)
 
 Your table should look like this:
 
-<!-- border -->
 ![step17b-data-preview-2](step17b-data-preview-2.png)
 
 You can also right click on the table and choose **Copy All Rows as ABAP Value Statement** from the context menu. You can then paste it into other code.
 
-<!-- border -->
 ![step17c-copy-all-rows](step17c-copy-all-rows.png)
 
 

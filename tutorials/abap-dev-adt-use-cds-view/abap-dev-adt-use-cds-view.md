@@ -90,13 +90,13 @@ We will change this information in the CDS view using an annotation. For more in
   1. In the CDS view, **`Z_Invoice_Items_XXX`** set the tooltip information for the `payment_status` to:
     `@EndUserText.quickInfo: 'Paid' `
 
-    ![Image depicting step4-annotation](step4-annotation.png)
+   ![Image depicting step4-annotation](step4-annotation.png)
 
   2. Choose **Save (Ctrl+S)**  and **Activate (Ctrl+F3)**.
 
   3. Run the program again. The SAP List Viewer should look like this:
 
-    ![Image depicting step-5-mouse-over-paid](step-5-mouse-over-paid.png)
+   ![Image depicting step-5-mouse-over-paid](step-5-mouse-over-paid.png)
 
 
 ### Optional: Create a data element
@@ -117,7 +117,7 @@ If you have already created a data element in the tutorial [Create a data elemen
     - Field labels: Short = Paid
     - Field labels, others = Invoice Paid
 
-    ![Image depicting step-5-data-element](step-5-data-element.png)
+   ![Image depicting step-5-data-element](step-5-data-element.png)
 
 
 ### Optional: Add a CAST statement
@@ -125,20 +125,20 @@ If you have already created a data element in the tutorial [Create a data elemen
 
   1. Now add the CAST statement. (Ignore the error):
 
-    ```ABAP
-    cast(
-        case header.payment_status
-            when 'P' then 'X'
-            else ' '
-        end
-    as zso_invoice_payment_status )
+   ```ABAP
+   cast(
+       case header.payment_status
+           when 'P' then 'X'
+           else ' '
+       end
+   as zso_invoice_payment_status )
 
-    as payment_status,
-    ```
+   as payment_status,
+   ```
 
   2. Save and activate the CDS view **(Ctrl+S, Ctrl+F3).** If you run the program now, your SAP List Viewer should look like this:
 
-    ![Image depicting step-6-column-header-paid](step-6-column-header-paid.png)
+   ![Image depicting step-6-column-header-paid](step-6-column-header-paid.png)
 
 > Note: You can open the online help for the CAST statement by positioning the cursor on the cast keyword and choosing `F1`
 

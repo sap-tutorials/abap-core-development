@@ -55,7 +55,7 @@ You need to create one ABAP project for each system connection. To do this:
 
 1. In the **File** menu, choose **New > Other ABAP Project**. Choose the ABAP backend system from the list of SAP System connections, then choose **Next**. For example, if you are using the AS ABAP 7.5x developer edition, this will be **`NPL`** or **`A4H`**.
 
-    <!-- border -->![Image depicting step4-system-connection](step4-system-connection.png)
+    ![Image depicting step4-system-connection](step4-system-connection.png)
 
 2. In Connection Settings, accept the defaults and choose **Next**.
 
@@ -67,7 +67,7 @@ You need to create one ABAP project for each system connection. To do this:
 
 The ABAP Project has been created. It represents a system connection to your chosen SAP system.
 
-<!-- border -->![Image depicting step4d-project-created](step4d-project-created.png)
+![Image depicting step4d-project-created](step4d-project-created.png)
 
 
 ### Test yourself

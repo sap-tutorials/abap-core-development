@@ -86,35 +86,35 @@ During any time if you have been logged out of system, you need to Log On to the
 
 8. Copy the below code and replace it in the Database table. Replace '###' with the unique number that you have given.
 
-    ```CDS
-      @EndUserText.label : 'Table for ADT in VS Code'
-      @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-      @AbapCatalog.tableCategory : #TRANSPARENT
-      @AbapCatalog.deliveryClass : #A
-      @AbapCatalog.dataMaintenance : #RESTRICTED
-      define table zadt_travel_### {
+   ```CDS
+     @EndUserText.label : 'Table for ADT in VS Code'
+     @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+     @AbapCatalog.tableCategory : #TRANSPARENT
+     @AbapCatalog.deliveryClass : #A
+     @AbapCatalog.dataMaintenance : #RESTRICTED
+     define table zadt_travel_### {
 
-         key client            : abap.clnt not null;
-         key travel_id         : /dmo/travel_id not null;
-         agency_id             : /dmo/agency_id;
-         customer_id           : /dmo/customer_id;
-         begin_date            : /dmo/begin_date;
-         end_date              : /dmo/end_date;
-         @Semantics.amount.currencyCode : 'zadt_travel_###.currency_code'
-         booking_fee           : /dmo/booking_fee;
-         @Semantics.amount.currencyCode : 'zadt_travel_###.currency_code'
-         total_price           : /dmo/total_price;
-         currency_code         : /dmo/currency_code;
-         description           : /dmo/description;
-         overall_status        : /dmo/overall_status;
-         created_by            : abp_creation_user;
-         created_at            : abp_creation_tstmpl;
-         local_last_changed_by : abp_locinst_lastchange_user;
-         local_last_changed_at : abp_locinst_lastchange_tstmpl;
-         last_changed_at       : abp_lastchange_tstmpl;
+        key client            : abap.clnt not null;
+        key travel_id         : /dmo/travel_id not null;
+        agency_id             : /dmo/agency_id;
+        customer_id           : /dmo/customer_id;
+        begin_date            : /dmo/begin_date;
+        end_date              : /dmo/end_date;
+        @Semantics.amount.currencyCode : 'zadt_travel_###.currency_code'
+        booking_fee           : /dmo/booking_fee;
+        @Semantics.amount.currencyCode : 'zadt_travel_###.currency_code'
+        total_price           : /dmo/total_price;
+        currency_code         : /dmo/currency_code;
+        description           : /dmo/description;
+        overall_status        : /dmo/overall_status;
+        created_by            : abp_creation_user;
+        created_at            : abp_creation_tstmpl;
+        local_last_changed_by : abp_locinst_lastchange_user;
+        local_last_changed_at : abp_locinst_lastchange_tstmpl;
+        last_changed_at       : abp_lastchange_tstmpl;
 
-      }
-    ```
+     }
+   ```
 ### Check and Activate Object
 
 1. Open the **Command Palette** or **`Ctrl+Shift+P`**.
@@ -148,61 +148,61 @@ During any time if you have been logged out of system, you need to Log On to the
    ![Class created](classsuccess.png)
 9. Copy the below code and replace it in the Class. Replace '###' with the unique number that you have given.
 
-    ```ABAP
-      CLASS zcl_adt_travel_### DEFINITION
-      PUBLIC
-      FINAL
-      CREATE PUBLIC .
+   ```ABAP
+     CLASS zcl_adt_travel_### DEFINITION
+     PUBLIC
+     FINAL
+     CREATE PUBLIC .
 
-      PUBLIC SECTION.
+     PUBLIC SECTION.
 
-         INTERFACES if_oo_adt_classrun .
-      PROTECTED SECTION.
-      PRIVATE SECTION.
-      ENDCLASS.
+        INTERFACES if_oo_adt_classrun .
+     PROTECTED SECTION.
+     PRIVATE SECTION.
+     ENDCLASS.
 
-      CLASS zcl_adt_travel_### IMPLEMENTATION.
+     CLASS zcl_adt_travel_### IMPLEMENTATION.
 
-      METHOD if_oo_adt_classrun~main.
-         DATA:
-            group_id   TYPE string VALUE '###'.
+     METHOD if_oo_adt_classrun~main.
+        DATA:
+           group_id   TYPE string VALUE '###'.
 
-      * clear data
-         DELETE FROM zadt_travel_###.
-      * DELETE FROM zadt_travel_###.
+     * clear data
+        DELETE FROM zadt_travel_###.
+     * DELETE FROM zadt_travel_###.
 
-         "insert travel demo data
-         INSERT zadt_travel_### FROM (
-                  SELECT
-                  FROM /dmo/travel AS travel
-                  FIELDS
-                     travel~travel_id        AS travel_id,
-                     travel~agency_id        AS agency_id,
-                     travel~customer_id      AS customer_id,
-                     travel~begin_date       AS begin_date,
-                     travel~end_date         AS end_date,
-                     travel~booking_fee      AS booking_fee,
-                     travel~total_price      AS total_price,
-                     travel~currency_code    AS currency_code,
-                     travel~description      AS description,
-                     CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
-                        WHEN 'N' THEN 'O'
-                        WHEN 'P' THEN 'O'
-                        WHEN 'B' THEN 'A'
-                        ELSE 'X'
-                     END                     AS overall_status,
-                     travel~createdby        AS created_by,
-                     travel~createdat        AS created_at,
-                     travel~lastchangedby    AS last_changed_by,
-                     travel~lastchangedat    AS last_changed_at,
-                     travel~lastchangedat    AS local_last_changed_at
-                     ORDER BY travel_id UP TO 10 ROWS
-               ).
-         COMMIT WORK.
-         out->write( | Demo data generated for table zadt_travel_{ group_id }. | ).
-      ENDMETHOD.
-      ENDCLASS.
-    ```
+        "insert travel demo data
+        INSERT zadt_travel_### FROM (
+                 SELECT
+                 FROM /dmo/travel AS travel
+                 FIELDS
+                    travel~travel_id        AS travel_id,
+                    travel~agency_id        AS agency_id,
+                    travel~customer_id      AS customer_id,
+                    travel~begin_date       AS begin_date,
+                    travel~end_date         AS end_date,
+                    travel~booking_fee      AS booking_fee,
+                    travel~total_price      AS total_price,
+                    travel~currency_code    AS currency_code,
+                    travel~description      AS description,
+                    CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
+                       WHEN 'N' THEN 'O'
+                       WHEN 'P' THEN 'O'
+                       WHEN 'B' THEN 'A'
+                       ELSE 'X'
+                    END                     AS overall_status,
+                    travel~createdby        AS created_by,
+                    travel~createdat        AS created_at,
+                    travel~lastchangedby    AS last_changed_by,
+                    travel~lastchangedat    AS last_changed_at,
+                    travel~lastchangedat    AS local_last_changed_at
+                    ORDER BY travel_id UP TO 10 ROWS
+              ).
+        COMMIT WORK.
+        out->write( | Demo data generated for table zadt_travel_{ group_id }. | ).
+     ENDMETHOD.
+     ENDCLASS.
+   ```
 10. To Format the document, right click on the class and choose Format Document.
    ![Format Class](format.png)
 11. Save and Activate the new Class by following Step 5.
@@ -228,32 +228,32 @@ During any time if you have been logged out of system, you need to Log On to the
 8. A new 'Data Definition' will be created.
 9. Copy the below code and replace it in the CDS View Entity. Replace '###' with the unique number that you have given.
 
-    ```CDS
-      @AbapCatalog.viewEnhancementCategory: [#NONE]
-      @AccessControl.authorizationCheck: #NOT_REQUIRED
-      @EndUserText.label: 'CDS view for ADT Tools'
-      @Metadata.ignorePropagatedAnnotations: true
-      define view entity ZI_ADT_Travel_### as select from ZADT_TRAVEL_###
-      {
-         key travel_id as TravelId,
-         agency_id as AgencyId,
-         customer_id as CustomerId,
-         begin_date as BeginDate,
-         end_date as EndDate,
-         @semantics.amount.currencyCode: 'CurrencyCode'
-         booking_fee as BookingFee,
-         @semantics.amount.currencyCode: 'CurrencyCode'
-         total_price as TotalPrice,
-         currency_code as CurrencyCode,
-         description as Description,
-         overall_status as OverallStatus,
-         created_by as CreatedBy,
-         created_at as CreatedAt,
-         local_last_changed_by as LocalLastChangedBy,
-         local_last_changed_at as LocalLastChangedAt,
-         last_changed_at as LastChangedAt
-      }
-    ```
+   ```CDS
+     @AbapCatalog.viewEnhancementCategory: [#NONE]
+     @AccessControl.authorizationCheck: #NOT_REQUIRED
+     @EndUserText.label: 'CDS view for ADT Tools'
+     @Metadata.ignorePropagatedAnnotations: true
+     define view entity ZI_ADT_Travel_### as select from ZADT_TRAVEL_###
+     {
+        key travel_id as TravelId,
+        agency_id as AgencyId,
+        customer_id as CustomerId,
+        begin_date as BeginDate,
+        end_date as EndDate,
+        @semantics.amount.currencyCode: 'CurrencyCode'
+        booking_fee as BookingFee,
+        @semantics.amount.currencyCode: 'CurrencyCode'
+        total_price as TotalPrice,
+        currency_code as CurrencyCode,
+        description as Description,
+        overall_status as OverallStatus,
+        created_by as CreatedBy,
+        created_at as CreatedAt,
+        local_last_changed_by as LocalLastChangedBy,
+        local_last_changed_at as LocalLastChangedAt,
+        last_changed_at as LastChangedAt
+     }
+   ```
 10. Activate the new CDS View Entity by following Step 5
 
 ### Open with ADT for Eclipse
@@ -282,30 +282,30 @@ We will open the newly created CDS view in ADT for Eclipse.
 
 1. First create a new class **`ZCL_ADTVSCODE_###`** by following the same steps in **Create a data generator Class** section until Step 4. In the newly created class we will add a new method to display 10 rows from the table **`/dmo/carrier`**. Copy the below code and replace it with the code in the new class.
 
-    ```ABAP
-      CLASS zcl_adtvscode_### DEFINITION
-      PUBLIC
-      FINAL
-      CREATE PUBLIC .
-      
-      PUBLIC SECTION.
-         INTERFACES if_oo_adt_classrun.
-      PROTECTED SECTION.
-      PRIVATE SECTION.
-         TYPES tt_carriers TYPE STANDARD TABLE OF /dmo/carrier WITH DEFAULT KEY.
-         METHODS get_carriers RETURNING VALUE(rt_carriers) TYPE tt_carriers.
-      ENDCLASS.
-      
-      CLASS zcl_adtvscode_### IMPLEMENTATION.
-      METHOD if_oo_adt_classrun~main.
-         out->write( get_carriers(  ) ).
-      ENDMETHOD.
-      
-      METHOD get_carriers.
-         SELECT * FROM /dmo/carrier INTO TABLE @rt_carriers UP TO 10 ROWS.
-      ENDMETHOD.
-      ENDCLASS.
-    ```
+   ```ABAP
+     CLASS zcl_adtvscode_### DEFINITION
+     PUBLIC
+     FINAL
+     CREATE PUBLIC .
+     
+     PUBLIC SECTION.
+        INTERFACES if_oo_adt_classrun.
+     PROTECTED SECTION.
+     PRIVATE SECTION.
+        TYPES tt_carriers TYPE STANDARD TABLE OF /dmo/carrier WITH DEFAULT KEY.
+        METHODS get_carriers RETURNING VALUE(rt_carriers) TYPE tt_carriers.
+     ENDCLASS.
+     
+     CLASS zcl_adtvscode_### IMPLEMENTATION.
+     METHOD if_oo_adt_classrun~main.
+        out->write( get_carriers(  ) ).
+     ENDMETHOD.
+     
+     METHOD get_carriers.
+        SELECT * FROM /dmo/carrier INTO TABLE @rt_carriers UP TO 10 ROWS.
+     ENDMETHOD.
+     ENDCLASS.
+   ```
 2. To view the result in the console, Open the Output from View option.
    ![output](output.png)
 
@@ -353,46 +353,46 @@ Using ATC you can detect the quality issues with regards to performance, securit
     
     Add the following code lines for the field **`DiscountedFlightPrice`** to provide **10%** discount on the total price if **`total_price is > 1000`**.
 
-    ```ABAP
-       case
-         when total_price > 1000 then cast(total_price as abap.dec(16,2)) * cast('0.90' as abap.dec(5,2))
-         else cast(total_price as abap.dec(16,2))
-       end as DiscountedFlightPrice,
-    ```
+   ```ABAP
+      case
+        when total_price > 1000 then cast(total_price as abap.dec(16,2)) * cast('0.90' as abap.dec(5,2))
+        else cast(total_price as abap.dec(16,2))
+      end as DiscountedFlightPrice,
+   ```
 
 2. Your CDS data definition ![data definition](adt_ddls.png) **`ZI_ADT_Travel_###`** should look like this:
 
-    ```CDS
-       @AbapCatalog.viewEnhancementCategory: [#NONE]
-       @AccessControl.authorizationCheck: #NOT_REQUIRED
-       @EndUserText.label: 'CDS view for ADT Tools'
-       @Metadata.ignorePropagatedAnnotations: true
-       define view entity ZI_ADT_Travel_###
-         as select from zadt_travel_###
-          {
-            key travel_id         as TravelId,
-            agency_id             as AgencyId,
-            customer_id           as CustomerId,
-            begin_date            as BeginDate,
-            end_date              as EndDate,
-            @Semantics.amount.currencyCode: 'CurrencyCode'
-            booking_fee           as BookingFee,
-            @Semantics.amount.currencyCode: 'CurrencyCode'
-            total_price           as TotalPrice,
-            case
-               when total_price > 1000 then cast(total_price as abap.dec(16,2)) * cast('0.90' as abap.dec(5,2))
-               else cast(total_price as abap.dec(16,2))
-            end                   as DiscountedFlightPrice,
-         currency_code         as CurrencyCode,
-         description           as Description,
-         overall_status        as OverallStatus,
-         created_by            as CreatedBy,
-         created_at            as CreatedAt,
-         local_last_changed_by as LocalLastChangedBy,
-         local_last_changed_at as LocalLastChangedAt,
-         last_changed_at       as LastChangedAt
-      }
-    ```
+   ```CDS
+      @AbapCatalog.viewEnhancementCategory: [#NONE]
+      @AccessControl.authorizationCheck: #NOT_REQUIRED
+      @EndUserText.label: 'CDS view for ADT Tools'
+      @Metadata.ignorePropagatedAnnotations: true
+      define view entity ZI_ADT_Travel_###
+        as select from zadt_travel_###
+         {
+           key travel_id         as TravelId,
+           agency_id             as AgencyId,
+           customer_id           as CustomerId,
+           begin_date            as BeginDate,
+           end_date              as EndDate,
+           @Semantics.amount.currencyCode: 'CurrencyCode'
+           booking_fee           as BookingFee,
+           @Semantics.amount.currencyCode: 'CurrencyCode'
+           total_price           as TotalPrice,
+           case
+              when total_price > 1000 then cast(total_price as abap.dec(16,2)) * cast('0.90' as abap.dec(5,2))
+              else cast(total_price as abap.dec(16,2))
+           end                   as DiscountedFlightPrice,
+        currency_code         as CurrencyCode,
+        description           as Description,
+        overall_status        as OverallStatus,
+        created_by            as CreatedBy,
+        created_at            as CreatedAt,
+        local_last_changed_by as LocalLastChangedBy,
+        local_last_changed_at as LocalLastChangedAt,
+        last_changed_at       as LastChangedAt
+     }
+   ```
 3. Save ![save icon](adt_save.png) **Ctrl+S** and activate ![activate icon](adt_activate.png) the changes.
 4. Now switch to Eclipse and create a unit test class for the CDS view above.  
 In the **Project Explorer**, right-click on the CDS data definition **`ZI_ADT_Travel_###`** and select **New ABAP Test Class** from the context menu.
@@ -407,122 +407,122 @@ In the **Project Explorer**, right-click on the CDS data definition **`ZI_ADT_Tr
 7. Click on **Next** 2 times and finally click on **Finish**.
 8. Copy and replace the entire code inside the test class with the code below:
 
-    ```ABAP
-    "!@testing ZI_ADT_TRAVEL
-       CLASS ltc_zi_adt_travel DEFINITION FINAL
-       FOR TESTING RISK LEVEL HARMLESS DURATION SHORT.
+   ```ABAP
+   "!@testing ZI_ADT_TRAVEL
+      CLASS ltc_zi_adt_travel DEFINITION FINAL
+      FOR TESTING RISK LEVEL HARMLESS DURATION SHORT.
 
-       PRIVATE SECTION.
-       CLASS-DATA environment TYPE REF TO if_cds_test_environment.
+      PRIVATE SECTION.
+      CLASS-DATA environment TYPE REF TO if_cds_test_environment.
 
-       DATA td_zadt_travel TYPE STANDARD TABLE OF zadt_travel WITH EMPTY KEY.
-       DATA act_results TYPE STANDARD TABLE OF zi_adt_travel WITH EMPTY KEY.
-       DATA exp_results TYPE STANDARD TABLE OF zi_adt_travel WITH EMPTY KEY.
+      DATA td_zadt_travel TYPE STANDARD TABLE OF zadt_travel WITH EMPTY KEY.
+      DATA act_results TYPE STANDARD TABLE OF zi_adt_travel WITH EMPTY KEY.
+      DATA exp_results TYPE STANDARD TABLE OF zi_adt_travel WITH EMPTY KEY.
 
-        "! In CLASS_SETUP, corresponding doubles and clone(s) for the CDS view under test and its dependencies are created.
-       CLASS-METHODS class_setup RAISING cx_static_check.
-       "! In CLASS_TEARDOWN, Generated database entities (doubles & clones) should be deleted at the end of test class execution.
-       CLASS-METHODS class_teardown.
+       "! In CLASS_SETUP, corresponding doubles and clone(s) for the CDS view under test and its dependencies are created.
+      CLASS-METHODS class_setup RAISING cx_static_check.
+      "! In CLASS_TEARDOWN, Generated database entities (doubles & clones) should be deleted at the end of test class execution.
+      CLASS-METHODS class_teardown.
 
-       "! SETUP method creates a common start state for each test method,
-       "! clear_doubles clears the test data for all the doubles used in the test method before each test method execution.
-       METHODS setup RAISING cx_static_check.
+      "! SETUP method creates a common start state for each test method,
+      "! clear_doubles clears the test data for all the doubles used in the test method before each test method execution.
+      METHODS setup RAISING cx_static_check.
 
-       "! In this method test data is inserted into the generated double(s) for test case
-       "! "Calculate DISCOUNTEDFLIGHTPRICE field"
-       METHODS td_calc_discountedflightprice.
-       "! In this method test data is inserted into the generated double(s) for test case
-       "! "When total_price > 1000"
-       METHODS td_total_price_gt_1000.
+      "! In this method test data is inserted into the generated double(s) for test case
+      "! "Calculate DISCOUNTEDFLIGHTPRICE field"
+      METHODS td_calc_discountedflightprice.
+      "! In this method test data is inserted into the generated double(s) for test case
+      "! "When total_price > 1000"
+      METHODS td_total_price_gt_1000.
 
-       "! <strong>Test Case:</strong> Calculate DISCOUNTEDFLIGHTPRICE field <br><br>
-       "! Test calculation of DISCOUNTEDFLIGHTPRICE field.
-       "! <br><br> The results should be asserted with the actuals.
-       METHODS calc_discountedflightprice FOR TESTING RAISING cx_static_check.
-       "! <strong>Test Case:</strong> When total_price > 1000 <br><br>
-       "! Test a CDS View when the CASE condition When total_price > 1000 is satisfied.
-       "! <br><br> The results should be asserted with the actuals.
-       METHODS total_price_gt_1000 FOR TESTING RAISING cx_static_check.
-      ENDCLASS.
+      "! <strong>Test Case:</strong> Calculate DISCOUNTEDFLIGHTPRICE field <br><br>
+      "! Test calculation of DISCOUNTEDFLIGHTPRICE field.
+      "! <br><br> The results should be asserted with the actuals.
+      METHODS calc_discountedflightprice FOR TESTING RAISING cx_static_check.
+      "! <strong>Test Case:</strong> When total_price > 1000 <br><br>
+      "! Test a CDS View when the CASE condition When total_price > 1000 is satisfied.
+      "! <br><br> The results should be asserted with the actuals.
+      METHODS total_price_gt_1000 FOR TESTING RAISING cx_static_check.
+     ENDCLASS.
 
 
-      CLASS ltc_ZI_ADT_TRAVEL IMPLEMENTATION.
+     CLASS ltc_ZI_ADT_TRAVEL IMPLEMENTATION.
 
-      METHOD class_setup.
-         environment = cl_cds_test_environment=>create( i_for_entity = 'ZI_ADT_TRAVEL_###' ).
-      ENDMETHOD.
+     METHOD class_setup.
+        environment = cl_cds_test_environment=>create( i_for_entity = 'ZI_ADT_TRAVEL_###' ).
+     ENDMETHOD.
 
-      METHOD setup.
-         environment->clear_doubles( ).
-      ENDMETHOD.
+     METHOD setup.
+        environment->clear_doubles( ).
+     ENDMETHOD.
 
-      METHOD class_teardown.
-         environment->destroy( ).
-      ENDMETHOD.
+     METHOD class_teardown.
+        environment->destroy( ).
+     ENDMETHOD.
 
-      METHOD calc_discountedflightprice.
-         td_calc_discountedflightprice( ).
-      SELECT * FROM zi_adt_travel_### INTO TABLE @act_results.
+     METHOD calc_discountedflightprice.
+        td_calc_discountedflightprice( ).
+     SELECT * FROM zi_adt_travel_### INTO TABLE @act_results.
 
-      cl_abap_unit_assert=>assert_equals( exp = lines( exp_results ) act = lines( act_results ) msg = 'Test Generated using AI: Recheck test data' ).
-      LOOP AT exp_results INTO DATA(exp_result).
-         cl_abap_unit_assert=>assert_equals( exp = exp_result-discountedflightprice
-                                          act = act_results[ sy-tabix ]-discountedflightprice
-                                          msg = 'Test Generated using AI: Expected result for field DISCOUNTEDFLIGHTPRICE is incorrect. Recheck test data.' ).
-      ENDLOOP.
-      ENDMETHOD.
+     cl_abap_unit_assert=>assert_equals( exp = lines( exp_results ) act = lines( act_results ) msg = 'Test Generated using AI: Recheck test data' ).
+     LOOP AT exp_results INTO DATA(exp_result).
+        cl_abap_unit_assert=>assert_equals( exp = exp_result-discountedflightprice
+                                         act = act_results[ sy-tabix ]-discountedflightprice
+                                         msg = 'Test Generated using AI: Expected result for field DISCOUNTEDFLIGHTPRICE is incorrect. Recheck test data.' ).
+     ENDLOOP.
+     ENDMETHOD.
 
-      METHOD td_calc_discountedflightprice.
-      " Prepare test data for 'ZADT_TRAVEL_###'
-      td_zadt_travel = VALUE #(
-      (
-        client = '100'
-        travel_id = '00000001'
-        total_price = '1200.00'
-      ) ).
-      environment->insert_test_data( i_data = td_zadt_travel ).
+     METHOD td_calc_discountedflightprice.
+     " Prepare test data for 'ZADT_TRAVEL_###'
+     td_zadt_travel = VALUE #(
+     (
+       client = '100'
+       travel_id = '00000001'
+       total_price = '1200.00'
+     ) ).
+     environment->insert_test_data( i_data = td_zadt_travel ).
 
-      " Prepare test data for 'zi_adt_travel_###'
-      exp_results = VALUE #(
-      (
-           travelid = '00000001'
-           totalprice = '1200.00'
-           discountedflightprice = '1080.00'
-      ) ).
-      ENDMETHOD.
+     " Prepare test data for 'zi_adt_travel_###'
+     exp_results = VALUE #(
+     (
+          travelid = '00000001'
+          totalprice = '1200.00'
+          discountedflightprice = '1080.00'
+     ) ).
+     ENDMETHOD.
 
-      METHOD total_price_gt_1000.
-         td_total_price_gt_1000( ).
-      SELECT * FROM zi_adt_travel_### INTO TABLE @act_results.
+     METHOD total_price_gt_1000.
+        td_total_price_gt_1000( ).
+     SELECT * FROM zi_adt_travel_### INTO TABLE @act_results.
 
-      cl_abap_unit_assert=>assert_equals( exp = lines( exp_results ) act = lines( act_results ) msg = 'Test Generated using AI: Recheck test data' ).
-      LOOP AT exp_results INTO DATA(exp_result).
-      cl_abap_unit_assert=>assert_equals( exp = exp_result-DiscountedFlightPrice
-                                          act = act_results[ sy-tabix ]-DiscountedFlightPrice
-                                          msg = 'Test Generated using AI: Expected result for field DiscountedFlightPrice is incorrect. Recheck test data.' ).
-      ENDLOOP.
-      ENDMETHOD.
+     cl_abap_unit_assert=>assert_equals( exp = lines( exp_results ) act = lines( act_results ) msg = 'Test Generated using AI: Recheck test data' ).
+     LOOP AT exp_results INTO DATA(exp_result).
+     cl_abap_unit_assert=>assert_equals( exp = exp_result-DiscountedFlightPrice
+                                         act = act_results[ sy-tabix ]-DiscountedFlightPrice
+                                         msg = 'Test Generated using AI: Expected result for field DiscountedFlightPrice is incorrect. Recheck test data.' ).
+     ENDLOOP.
+     ENDMETHOD.
 
-      METHOD td_total_price_gt_1000.
-      " Prepare test data for 'ZADT_TRAVEL_###'
-      td_zadt_travel = VALUE #(
-      (
-        client = '100'
-        travel_id = '00000001'
-        total_price = '1200.00'
-      ) ).
-      environment->insert_test_data( i_data = td_zadt_travel ).
+     METHOD td_total_price_gt_1000.
+     " Prepare test data for 'ZADT_TRAVEL_###'
+     td_zadt_travel = VALUE #(
+     (
+       client = '100'
+       travel_id = '00000001'
+       total_price = '1200.00'
+     ) ).
+     environment->insert_test_data( i_data = td_zadt_travel ).
 
-      " Prepare test data for 'zi_adt_travel_###'
-      exp_results = VALUE #(
-      (
-           travelid = '00000001'
-           totalprice = '1200.00'
-           discountedflightprice = '1080.00'
-      ) ).
-      ENDMETHOD.
-    ENDCLASS.
-    ```
+     " Prepare test data for 'zi_adt_travel_###'
+     exp_results = VALUE #(
+     (
+          travelid = '00000001'
+          totalprice = '1200.00'
+          discountedflightprice = '1080.00'
+     ) ).
+     ENDMETHOD.
+   ENDCLASS.
+   ```
 
 9. Save ![save icon](adt_save.png) **Ctrl+S** and activate ![activate icon](adt_activate.png) the changes.
 

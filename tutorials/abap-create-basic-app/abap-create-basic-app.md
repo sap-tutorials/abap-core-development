@@ -78,10 +78,10 @@ Position the cursor in the class definition statement and choose **Ctrl+1** to o
 3. Call the **run** method.
 That is, enter the following code:
 
-    ```ABAP
-    START-OF-SELECTION.
-        lcl_main=>create( )->run( ).
-    ```
+   ```ABAP
+   START-OF-SELECTION.
+       lcl_main=>create( )->run( ).
+   ```
 
     ![Image depicting step5-create-run-statement](step5-create-run-statement.png)
 
