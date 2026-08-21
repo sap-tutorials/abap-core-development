@@ -104,7 +104,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
       Click **Finish**.
 
-    ![Create ABAP class](class6.png)
+   ![Create ABAP class](class6.png)
 
   7. Right-click on your package **`Z_PCK_XXX`** and select **ABAP Class**.
 
@@ -114,9 +114,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`Z_CL_XXX`**
      - Description: **`Class XXX`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create ABAP class](class8.png)
+   ![Create ABAP class](class8.png)
 
   9. Click **Finish**.
 
@@ -124,26 +124,26 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
   10. Replace your code with following:
 
-    ```ABAP
-    class z_cl_xxx definition
-    public
-    final
-    create public .
+   ```ABAP
+   class z_cl_xxx definition
+   public
+   final
+   create public .
 
-    public section.
-    interfaces if_oo_adt_classrun.
-    protected section.
-    private section.
-    ENDCLASS.
+   public section.
+   interfaces if_oo_adt_classrun.
+   protected section.
+   private section.
+   ENDCLASS.
 
-    CLASS z_cl_xxx IMPLEMENTATION.
-    METHOD IF_OO_ADT_CLASSRUN~MAIN.
-    out->write('Hello world!').
-    ENDMETHOD.
-    ENDCLASS.
-    ```
+   CLASS z_cl_xxx IMPLEMENTATION.
+   METHOD IF_OO_ADT_CLASSRUN~MAIN.
+   out->write('Hello world!').
+   ENDMETHOD.
+   ENDCLASS.
+   ```
 
-      **Save** and **activate**.
+   **Save** and **activate**.
 
 
 
@@ -186,7 +186,7 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
       Click **Create**.
 
-    ![Create new branch](branch3.png)
+   ![Create new branch](branch3.png)
 
   5. Check your result. Now your new branch **`branch_xxx`** is created.
 

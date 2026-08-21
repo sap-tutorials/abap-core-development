@@ -109,20 +109,20 @@ You first create the database tables and then use the [ABAP Repository Generator
 
   4. Replace your code as follows. The timestamp fields are used for optimistic concurrency control for [draft processing](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/total-etag) and [OData consumer](https://help.sap.com/docs/btp/sap-abap-restful-application-programming-model/optimistic-concurrency-control). If you add the field `CONFIGDEPRECATIONCODE` of type `CONFIG_DEPRECATION_CODE` to the database table, the ABAP generator that you use in step 5 can extend the generated RAP BO to manage the validity of the configuration entries.
 
-    ```ABAP
-    @EndUserText.label : 'Error Code ###'
-    @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-    @AbapCatalog.tableCategory : #TRANSPARENT
-    @AbapCatalog.deliveryClass : #C
-    @AbapCatalog.dataMaintenance : #ALLOWED
-    @AbapCatalog.primaryKey.invertedIndividualIndex : true
-    define table zerrcode_### {
-      key client            : abap.clnt not null;
-      key error_code        : z_error_code_### not null;
-      last_changed_at       : abp_lastchange_tstmpl;
-      local_last_changed_at : abp_locinst_lastchange_tstmpl;
-    }
-    ```
+   ```ABAP
+   @EndUserText.label : 'Error Code ###'
+   @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+   @AbapCatalog.tableCategory : #TRANSPARENT
+   @AbapCatalog.deliveryClass : #C
+   @AbapCatalog.dataMaintenance : #ALLOWED
+   @AbapCatalog.primaryKey.invertedIndividualIndex : true
+   define table zerrcode_### {
+     key client            : abap.clnt not null;
+     key error_code        : z_error_code_### not null;
+     last_changed_at       : abp_lastchange_tstmpl;
+     local_last_changed_at : abp_locinst_lastchange_tstmpl;
+   }
+   ```
 
   5. Save and activate.
 
@@ -131,27 +131,27 @@ You first create the database tables and then use the [ABAP Repository Generator
      - Name: **`ZERRCODET_###`**
      - Description: **`Error Code Description ###`**
 
-    ```ABAP
-    @EndUserText.label : 'Error Code Description ###'
-    @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-    @AbapCatalog.tableCategory : #TRANSPARENT
-    @AbapCatalog.deliveryClass : #C
-    @AbapCatalog.dataMaintenance : #ALLOWED
-    @AbapCatalog.primaryKey.invertedIndividualIndex : true
-    define table zerrcodet_### {
-      key client            : abap.clnt not null;
-      @AbapCatalog.textLanguage
-      key langu             : abap.lang not null;
-      @AbapCatalog.foreignKey.keyType : #TEXT_KEY
-      @AbapCatalog.foreignKey.screenCheck : false
-      key error_code        : z_error_code_### not null
-        with foreign key [0..*,1] zerrcode_###
-          where client = zerrcodet_###.client
-            and error_code = zerrcodet_###.error_code;
-      description           : z_code_description_###;
-      local_last_changed_at : abp_locinst_lastchange_tstmpl;
-    }
-    ```
+   ```ABAP
+   @EndUserText.label : 'Error Code Description ###'
+   @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+   @AbapCatalog.tableCategory : #TRANSPARENT
+   @AbapCatalog.deliveryClass : #C
+   @AbapCatalog.dataMaintenance : #ALLOWED
+   @AbapCatalog.primaryKey.invertedIndividualIndex : true
+   define table zerrcodet_### {
+     key client            : abap.clnt not null;
+     @AbapCatalog.textLanguage
+     key langu             : abap.lang not null;
+     @AbapCatalog.foreignKey.keyType : #TEXT_KEY
+     @AbapCatalog.foreignKey.screenCheck : false
+     key error_code        : z_error_code_### not null
+       with foreign key [0..*,1] zerrcode_###
+         where client = zerrcodet_###.client
+           and error_code = zerrcodet_###.error_code;
+     description           : z_code_description_###;
+     local_last_changed_at : abp_locinst_lastchange_tstmpl;
+   }
+   ```
 
   7. Save and activate.
 

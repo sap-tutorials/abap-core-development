@@ -180,40 +180,40 @@ You can check your service URL via Postman. In Step 12 you'll learn how to check
 
   1. Logon to your [SAP BTP Cockpit](https://account.hana.ondemand.com).
 
-    ![check scenario](signIn.png)
+   ![check scenario](signIn.png)
 
   2. Select your global account.
 
-    ![check scenario](global.png)
+   ![check scenario](global.png)
 
   3. Select Subaccounts.
 
-    ![check scenario](subaccounts.png)
+   ![check scenario](subaccounts.png)
 
   4. Select your subaccount.
 
-    ![check scenario](subaccount.png)
+   ![check scenario](subaccount.png)
 
   5. Select Service Instances and find your Instance and open it by clicking the arrow.
 
-    ![check scenario](serviceInstances.png)
+   ![check scenario](serviceInstances.png)
 
   6. Click Actions to create Service Key.
 
-    ![check scenario](actions.png)
+   ![check scenario](actions.png)
 
   7. Create Service key with the following parameters:
       - Name: ADT
       - Configuration Parameters (JSON):
 
-    ```JSON
-    {
-     "scenario_id":"Z_COMMU_XXX",
-     "type":"basic"
-     }
-    ```
+   ```JSON
+   {
+    "scenario_id":"Z_COMMU_XXX",
+    "type":"basic"
+    }
+   ```
 
-    ![check scenario](serviceKey.png)
+   ![check scenario](serviceKey.png)
 
   8. Now, your new service key is listed under Service Keys. The successful creation of the service key proves the existence of the communication scenario.
 

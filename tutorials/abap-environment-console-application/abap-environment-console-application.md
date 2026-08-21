@@ -38,17 +38,14 @@ For more information, see:
 
 Open the ADT and change to the ABAP perspective, using the menu.
 
- <!-- border -->
  ![ABAP menu](adt-abap-menu.png)
 
 And select **ABAP** and choose **Open**.
 
-  <!-- border -->
   ![perspective](perspective.png)
 
 Or select the icon.
 
-  <!-- border -->
   ![ADT ABAP icon](adt-abap-icon.png)
 
 
@@ -56,29 +53,24 @@ Or select the icon.
 
 1. In the ADT, select the menu path **File** > **New** > **Other**.
 
-    <!-- border -->
     ![Create an ABAP Cloud project in ADT](other.png)
 
 2. Search for ABAP Cloud Project, select it and choose **Next**.
 
-    <!-- border -->
     ![Select ABAP Cloud Project](abap.png)
 
 3. Paste the URL of your ABAP instance in **Service URL** and choose **Next**.
 
-    <!-- border -->
     ![step2c-enter-URL](step2c-enter-URL.png)
 
 5. choose **Open Logon Page in Browser**.
 
-    <!-- border -->
     ![Create ABAP cloud project](project4.png)
 
 6. Now you've been authenticated automatically. Provide your credentials if requested. The credentials are the same you used to create your trial account on SAP BTP.
 
 7. Go back to ADT and choose **Finish**.
 
-    <!-- border -->
     ![Create ABAP cloud project](project52.png)
 
     Choose **Finish**.
@@ -134,24 +126,24 @@ Or select the icon.
   1. In the class definition, specify the interface `IF_OO_ADT_CLASSRUN` in the public section as shown on the screenshot. Now go to the class implementation and provide the implementation of the method `IF_OO_ADT_CLASSRUN~MAIN`. As shown on the screenshot, it should output the text Hello World! using the code line below 
 `out->write('Hello World!').`
 
-    ```ABAP
-    CLASS z_class_xxx DEFINITION
-      PUBLIC
-      FINAL
-      CREATE PUBLIC .
+   ```ABAP
+   CLASS z_class_xxx DEFINITION
+     PUBLIC
+     FINAL
+     CREATE PUBLIC .
 
-      PUBLIC SECTION.
-        INTERFACES if_oo_adt_classrun.
-      PROTECTED SECTION.
-      PRIVATE SECTION.
-    ENDCLASS.
+     PUBLIC SECTION.
+       INTERFACES if_oo_adt_classrun.
+     PROTECTED SECTION.
+     PRIVATE SECTION.
+   ENDCLASS.
 
-    CLASS z_class_xxx IMPLEMENTATION.
-      METHOD if_oo_adt_classrun~main.
-        out->write( 'Hello world!' ).
-      ENDMETHOD.
-    ENDCLASS.
-    ```
+   CLASS z_class_xxx IMPLEMENTATION.
+     METHOD if_oo_adt_classrun~main.
+       out->write( 'Hello world!' ).
+     ENDMETHOD.
+   ENDCLASS.
+   ```
 
   2. Save and activate your changes.
 

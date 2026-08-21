@@ -34,58 +34,58 @@ To produce and raise an event you need first to define your RAP Business Object 
 
   2. If you do not have an **ABAP Package** create a new one. Please be sure if your package name is started with **Z** like
 
-    - Name: `ZEVENT_BOOKING_####`
-    - Description: `define a RAP event`
+   - Name: `ZEVENT_BOOKING_####`
+   - Description: `define a RAP event`
 
-    ![new](1-1.png)
+   ![new](1-1.png)
 
   3. Right-click on your package and create a new database table
 
-    - Name: `ZBOOKING_####`
-    - Description: `DB for booking`
+   - Name: `ZBOOKING_####`
+   - Description: `DB for booking`
 
-    ![database](1-2.png)
+   ![database](1-2.png)
 
-    ![database](1-3.png)
+   ![database](1-3.png)
 
   4. Replace the default code with the code snippet provided below and replace all placeholder `####` with your group ID using the **Replace All** function `Ctrl+F`.
 
 
-    ```ZBOOKING_####
-    @EndUserText.label : 'DB for booking'
-    @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-    @AbapCatalog.tableCategory : #TRANSPARENT
-    @AbapCatalog.deliveryClass : #A
-    @AbapCatalog.dataMaintenance : #RESTRICTED
-    define table zbooking_#### {
-    key client            : abap.clnt not null;
-    key travel_id         : /dmo/travel_id not null;
-    agency_id             : /dmo/agency_id;
-    customer_id           : /dmo/customer_id;
-    begin_date            : /dmo/begin_date;
-    end_date              : /dmo/end_date;
-    @Semantics.amount.currencyCode : 'zbooking_####.currency_code'
-    booking_fee           : /dmo/booking_fee;
-    @Semantics.amount.currencyCode : 'zbooking_####.currency_code'
-    total_price           : /dmo/total_price;
-    currency_code         : /dmo/currency_code;
-    description           : /dmo/description;
-    overall_status        : /dmo/overall_status;
-    attachment            : /dmo/attachment;
-    mime_type             : /dmo/mime_type;
-    file_name             : /dmo/filename;
-    created_by            : abp_creation_user;
-    created_at            : abp_creation_tstmpl;
-    last_changed_by       : abp_locinst_lastchange_user;
-    last_changed_at       : abp_locinst_lastchange_tstmpl;
-    local_last_changed_at : abp_lastchange_tstmpl;
-    }  
+   ```ZBOOKING_####
+   @EndUserText.label : 'DB for booking'
+   @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+   @AbapCatalog.tableCategory : #TRANSPARENT
+   @AbapCatalog.deliveryClass : #A
+   @AbapCatalog.dataMaintenance : #RESTRICTED
+   define table zbooking_#### {
+   key client            : abap.clnt not null;
+   key travel_id         : /dmo/travel_id not null;
+   agency_id             : /dmo/agency_id;
+   customer_id           : /dmo/customer_id;
+   begin_date            : /dmo/begin_date;
+   end_date              : /dmo/end_date;
+   @Semantics.amount.currencyCode : 'zbooking_####.currency_code'
+   booking_fee           : /dmo/booking_fee;
+   @Semantics.amount.currencyCode : 'zbooking_####.currency_code'
+   total_price           : /dmo/total_price;
+   currency_code         : /dmo/currency_code;
+   description           : /dmo/description;
+   overall_status        : /dmo/overall_status;
+   attachment            : /dmo/attachment;
+   mime_type             : /dmo/mime_type;
+   file_name             : /dmo/filename;
+   created_by            : abp_creation_user;
+   created_at            : abp_creation_tstmpl;
+   last_changed_by       : abp_locinst_lastchange_user;
+   last_changed_at       : abp_locinst_lastchange_tstmpl;
+   local_last_changed_at : abp_lastchange_tstmpl;
+   }  
 
-    ```
+   ```
 
   5. Save and activate your table.
 
-    ![database](1-4.png)
+   ![database](1-4.png)
 
 
 ### Create data generator class
@@ -254,14 +254,14 @@ The generated business service will be transactional, draft-enabled, and enriche
 
   1. You need to create an event which is raised when a booking flight is cancelled. For this, open `ZEVENT_BP_BOOKINGTP_####` and add a new event to the business object. The event name is `BookingCancelled`.
 
-    ```
-      event BookingCancelled parameter ZEVENT_D_BOOKING_CANCEL_####;
-      
-    ```
+   ```
+     event BookingCancelled parameter ZEVENT_D_BOOKING_CANCEL_####;
+     
+   ```
 
-    Your behavior definition will be looking like this:
+   Your behavior definition will be looking like this:
 
-    ![parameter](5-2.png)
+   ![parameter](5-2.png)
 
   3. In addition,provide a cancellation reason and description. This can be done via a parameter define as a data definition (abstract entity) called `ZEVENT_D_BOOKING_CANCEL_####`.
 
@@ -269,17 +269,17 @@ The generated business service will be transactional, draft-enabled, and enriche
 
   4. Copy the code below in this definition. Do not forget to save and activate.
 
-    ```ZEVENT_D_BOOKING_CANCEL_####
-     @EndUserText.label: 'booking cancelation reason'
-     define abstract entity ZEVENT_D_BOOKING_CANCEL_####
-     {
-        REasonCode : abap.char(2);  
-        Description : abap.char(64);
-     }
+   ```ZEVENT_D_BOOKING_CANCEL_####
+    @EndUserText.label: 'booking cancelation reason'
+    define abstract entity ZEVENT_D_BOOKING_CANCEL_####
+    {
+       REasonCode : abap.char(2);  
+       Description : abap.char(64);
+    }
 
-    ```
+   ```
 
-    ![parameter](5-3.png)
+   ![parameter](5-3.png)
 
 
 ### Creation of an Event Binding for the Business Event
@@ -288,36 +288,36 @@ Now create the event binding for your newly created business event. This event b
 
   1. Right-click on your package and create an event binding
 
-    - Name: `ZEVENT_CANCEL_FLIGHT_####`
-    - Description: `cancel flight event`
+   - Name: `ZEVENT_CANCEL_FLIGHT_####`
+   - Description: `cancel flight event`
 
-    ![binding](6-1.png)
+   ![binding](6-1.png)
 
-    ![binding](6-2.png)
+   ![binding](6-2.png)
 
   3. Here fill all fields out, to get errors gone. You can freely choose these names to specify your event with some considerations explained below
 
-    - Namespace: `zevent####` (No camel case and no space)
-    - Business Object: `booking` (No Space)
-    - Business Object Operation: `Delete`
+   - Namespace: `zevent####` (No camel case and no space)
+   - Business Object: `booking` (No Space)
+   - Business Object Operation: `Delete`
 
-    ![error](6-5.png)
+   ![error](6-5.png)
 
   4. Click **Add** to add items.
 
-    - Root Entity Name: `ZEVENT_R_BOOKINGTP_####` (your behavior definition)
-    - Entity Event Name: `BOOKINGCANCELLED` (Event name in your behavior definition)
+   - Root Entity Name: `ZEVENT_R_BOOKINGTP_####` (your behavior definition)
+   - Entity Event Name: `BOOKINGCANCELLED` (Event name in your behavior definition)
 
 
-    ![item](6-7.png)
+   ![item](6-7.png)
 
-    ![item](6-3.png)
+   ![item](6-3.png)
 
   5. Save and activate your event binding.
 
   6. As you can see at the screenshot, **Type** (aka topic) is a concatenation of the three attributes (name space, business object, business object operation) and ends with the version of the event. The wildcard * points to the corresponding event e.g. created. This is relevant for addressing the events to the Event Mesh. Copy this address for later use `zevent####.booking.Delete.v*`.
 
-    ![type](6-4.png)
+   ![type](6-4.png)
 
 ### Edit behavior implementation class
 
@@ -332,25 +332,25 @@ Now create the event binding for your newly created business event. This event b
 3. Add the `lcl_event_handler` class and save modified method in there:
 
 
-    ```
-        CLASS lcl_event_handler DEFINITION INHERITING FROM cl_abap_behavior_saver.
+   ```
+       CLASS lcl_event_handler DEFINITION INHERITING FROM cl_abap_behavior_saver.
 
-        PROTECTED SECTION.
-            METHODS save_modified REDEFINITION.
+       PROTECTED SECTION.
+           METHODS save_modified REDEFINITION.
 
-        ENDCLASS.
+       ENDCLASS.
 
-        CLASS lcl_event_handler IMPLEMENTATION.
+       CLASS lcl_event_handler IMPLEMENTATION.
 
-        METHOD save_modified.
-            IF delete-booking IS NOT INITIAL.
-           RAISE ENTITY EVENT zevent_r_bookingtp_####~BookingCancelled
-         FROM VALUE #( FOR <s_travel> IN delete-booking  ( TravelID = <s_travel>-TravelID  %param = VALUE #( reasoncode ='02'  description = 'cancelled by customer' ) ) ).
-            ENDIF.
-        ENDMETHOD.
-        ENDCLASS.
+       METHOD save_modified.
+           IF delete-booking IS NOT INITIAL.
+          RAISE ENTITY EVENT zevent_r_bookingtp_####~BookingCancelled
+        FROM VALUE #( FOR <s_travel> IN delete-booking  ( TravelID = <s_travel>-TravelID  %param = VALUE #( reasoncode ='02'  description = 'cancelled by customer' ) ) ).
+           ENDIF.
+       ENDMETHOD.
+       ENDCLASS.
 
-    ```
+   ```
 
     ![class](7-3.png)
 
