@@ -79,10 +79,10 @@ This method does not yet exist so we will create it with a Quick Assist as follo
 
 1.	Still in your program, enter an instance method call:
 
-    ```ABAP
-    data(invoice_items) = invoices->get_items_from_db( ).
+   ```ABAP
+   data(invoice_items) = invoices->get_items_from_db( ).
 
-    ```
+   ```
 
 2. Since the method does not exist, you will get an error. Position the cursor on the name of the missing method and choose **Quick Assist, i.e. `Ctrl+1`**. In the Quick Assist menu, choose **Create method `get_items_from_db`**
 

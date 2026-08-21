@@ -59,7 +59,7 @@ author_profile: https://github.com/mervey45
 
   1. Log in to your **GitHub repository**, select your **folder**, click **Code** and copy the HTTP link for later use.
 
-    ![open](git.png)
+   ![open](git.png)
 
   2. Go back to **Eclipse**. Select your **ABAP system** in the Project Explorer and select **Windows** > **Show View** > **Other** to open the `abapGit` repositories.
 
@@ -118,7 +118,7 @@ author_profile: https://github.com/mervey45
 
       ![object](object9.png)
 
-    The staged objects are transferred to your repository.
+   The staged objects are transferred to your repository.
 
 ### Test yourself
 

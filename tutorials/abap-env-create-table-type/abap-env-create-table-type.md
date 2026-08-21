@@ -44,13 +44,13 @@ Throughout this tutorial, objects have the suffix **`XXX`**. Remember to always 
 
 3. Enter a name and description and choose **Next**.
 
-    <!-- border -->![Image depicting step1b-name](step1b-name.png)
+    ![Image depicting step1b-name](step1b-name.png)
 
 4. Create or assign a transport request and choose **Finish**.
 
 The table type appears in a new editor.  
 
-<!-- border -->![Image depicting step1e-table-type-editor](step1e-table-type-editor.PNG)
+![Image depicting step1e-table-type-editor](step1e-table-type-editor.PNG)
 
 
 ### Define a type
@@ -59,7 +59,7 @@ Choose the category **Dictionary Type** For the type name, choose the database t
 
 > Enter the exact name. The Browse function may not work in some environments.
 
-<!-- border -->![Image depicting step2-define-type](step2-define-type.png)
+![Image depicting step2-define-type](step2-define-type.png)
 
 > In the ABAP Environment, you can only work with whitelisted objects. The majority of tables you might expect, such as `SFLIGHT` are not whitelisted. For a complete list of whitelisted objects, see the folder **Released Objects**. To sort objects by object type, not package, use a Duplicate Tree
 
@@ -80,11 +80,11 @@ Choose the category **Dictionary Type** For the type name, choose the database t
 
 3. You can now choose the key fields from a drop-down list, by choosing **Auto-complete (Ctrl+Space)**.
 
-    <!-- border -->![Image depicting step3c-change-key-comps](step3c-change-key-comps.png)
+    ![Image depicting step3c-change-key-comps](step3c-change-key-comps.png)
 
 4. Choose each key field in turn, using **Auto-complete (`Ctrl+Space`)**:
 
-    <!-- border -->![Image depicting step3d-choose-key-comps](step3d-choose-key-comps.png)
+    ![Image depicting step3d-choose-key-comps](step3d-choose-key-comps.png)
 
 
 This is for test purposes only. The access type you choose in real life affects performance. For more information, see:
@@ -104,11 +104,11 @@ Users may want to query a database table using something other than the primary 
 
 2. Enter a name and choose the component(s) (or fields):
 
-    <!-- border -->![Image depicting step4b-secondary-key-comps](step4b-secondary-key-comps.png)
+    ![Image depicting step4b-secondary-key-comps](step4b-secondary-key-comps.png)
 
 The keys are listed.
 
-  <!-- border -->![Image depicting step4c-keys-list](step4c-keys-list.png)
+  ![Image depicting step4c-keys-list](step4c-keys-list.png)
 
 
 ### Create an ABAP class
@@ -125,29 +125,29 @@ Finally, you will test your table type by using it to:
 
 2. Enter a name **`ZCL_GET_ACCOUNT_DATA_XXX`** and description for your class (replacing `XXX` with your group number or initials).
 
-    <!-- border -->![step5-name-class](step5-name-class.png)
+    ![step5-name-class](step5-name-class.png)
 
 3. Assign a transport request and choose **Finish**.
 
 The class appears in a new editor.
 
-<!-- border -->![step5c-class-editor](step5c-class-editor.png)
+![step5c-class-editor](step5c-class-editor.png)
 
 
 ### Add an interface
 
 1. Add the following interface to your class:
 
-    ```ABAP
-     interfaces if_oo_adt_classrun.
-    ```
+   ```ABAP
+    interfaces if_oo_adt_classrun.
+   ```
 
 This interface provides a light-weight solution for executing an ABAP program without launching a full user interface.
 It also lets you display text or data in the Console View.
 
 2. Add the implementation for the **`main`** method of this interface by selecting the interface name and choosing **Add implementation...** from the context menu.
 
-    <!-- border -->![step6a-add-intf](step6a-add-intf.png)
+    ![step6a-add-intf](step6a-add-intf.png)
 
 
 ### Implement the method
@@ -156,23 +156,23 @@ You will now add the following code to the `main` method, remembering to rename 
 
 1. Create an internal table `lt_accounts` with the table type that you just created, `ZTT_ACCOUNTS_XXX`.
 
-    ```ABAP
-    DATA: lt_accounts type ZTT_ACCOUNTS_XXX.
-    ```
+   ```ABAP
+   DATA: lt_accounts type ZTT_ACCOUNTS_XXX.
+   ```
 2. Select data from the database table from the previous tutorial `ZTBOOKING_XXX` and add it to the internal table.
 
-    ```ABAP
-    select * from ZACCOUNTS_XXX
-    into table @lt_accounts.
-    ```
+   ```ABAP
+   select * from ZACCOUNTS_XXX
+   into table @lt_accounts.
+   ```
 
 3. Output the internal table to the console.
 
-    ```ABAP
-    out->write( EXPORTING
-    data = lt_accounts
-    name = 'Accounts:' ).
-    ```
+   ```ABAP
+   out->write( EXPORTING
+   data = lt_accounts
+   name = 'Accounts:' ).
+   ```
 
 
 4. Then save and activate your class using **`Ctrl+S, Ctrl+F3`**.
@@ -215,7 +215,7 @@ ENDCLASS.
 
 Run your class in the console by choosing **`F9`**. Your output should look like this:
 
-  <!-- border -->![Image depicting step9-console](step9-console.png)
+  ![Image depicting step9-console](step9-console.png)
 
 
 ### Test yourself

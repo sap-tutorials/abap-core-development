@@ -55,7 +55,6 @@ First, you need to connect your ABAP on-premise system to your BTP sub-account b
 
 2. Your configuration should look like this. 
 
-    <!-- border -->
     ![step1b-scc-location-id](step1b-scc-location-id.png)
 
  > The **Location ID** is optional. It enables you to connect multiple Cloud Connectors to a subaccount.
@@ -69,7 +68,6 @@ First, you need to connect your ABAP on-premise system to your BTP sub-account b
 
 3. Check that **Result** = **`Reachable`**. If not, check that you chose the correct port, or whether an internal firewall is preventing communication.
 
-    <!-- border -->
     ![step2a-scc-virtual-host](step2a-scc-virtual-host.png)
 
 4. Add the following resources:
@@ -77,7 +75,6 @@ First, you need to connect your ABAP on-premise system to your BTP sub-account b
     - **`RFC_GET_SYSTEM_INFO`** (as exact name)
     - **`BAPI_EPM`** (as prefix)
 
-      <!-- border -->
       ![step2b-scc-resources](step2b-scc-resources.png)
 
 
@@ -85,7 +82,6 @@ First, you need to connect your ABAP on-premise system to your BTP sub-account b
 
 In the SAP BTP cockpit of your Cloud Foundry sub-account, choose **Cloud Connectors**:
 
-<!-- border -->
 ![step3a-btp-cockpit-cloud-connectors](step3a-btp-cockpit-cloud-connectors.png)
 
 > The **Virtual host** points to the on-Premise connection mapped in SAP Cloud Connector. If used, The **Location ID** points to the correct SAP Cloud Connector (located in the on-Premise system). Later, in your **Communication System** in Fiori Launchpad, you will use these values, as  and **Target Host** and (optionally) **SCC Location ID** respectively.
@@ -102,12 +98,10 @@ Now, in SAP BTP ABAP Environment, you need to create the necessary ABAP artifact
     - Description = **Get product data from S/4HANA using RFC**
     - Package type = **Development**
 
-    <!-- border -->
     ![step3a-create-package](step3a-create-package.png) 
 
 3. Choose **Create new transport request**, enter a description, such as **Get product data from S/4HANA using RFC**, then choose **Finish**.
 
-    <!-- border -->
     ![step1b-transport-request](step1b-transport-request.png) 
 
 
@@ -117,10 +111,8 @@ Next, you will establish outbound communication from the BTP instance to the S/4
 
 1. Select your ABAP package and choose **New > Other Repository Object** from the context menu; then enter **Outbound Service**, then choose **Next**.
 
-    <!-- border -->
     ![step2a-new-repo-object](step2a-new-repo-object.png)
     </br>
-    <!-- border -->
     ![step2a-new-outbound-service](step2a-new-outbound-service.png)
 
 2. Enter the following and choose **Next**.
@@ -128,7 +120,6 @@ Next, you will establish outbound communication from the BTP instance to the S/4
     - Description: **Get product data from S/4HANA using RFC**
     - Service type: **RFC Service**
 
-    <!-- border -->
     ![step2b-outbound-service-name](step2b-outbound-service-name.png)
 
 3. Choose the transport request you just created, then choose **Finish**.
@@ -143,14 +134,12 @@ The outbound service appears. Optional: Add the relevant RFC, **`RFC_GET_SYSTEM_
 
 1. Still in ADT, choose **Cloud Communication Management > New > Communication Scenario** from the context menu, then choose **Next**.
 
-    <!-- border -->
     ![step3a-new-comm-scen](step3a-new-comm-scen.png)
 
 2. Enter the following and choose **Next**.
     - Name: **`Z_OUTBOUND_RFC_###_CSCEN`**
     - Description: **`Comm Scen: Call API from S/4HANA using RFC`**
 
-    <!-- border -->
     ![step3b-new-comm-scen-name](step3b-new-comm-scen-name.png) 
 
 3. Choose the transport request you just created, then choose **Finish**.
@@ -168,7 +157,6 @@ The outbound service appears. Optional: Add the relevant RFC, **`RFC_GET_SYSTEM_
 
     Make sure that **Supported Authentication Methods > Basic** is ticked, since you will use this method later.
 
-    <!-- border -->
     ![step3d-comm-scen-finished](step3d-comm-scen-finished.png) 
 
 7. Leave the other default settings, choose **Save**, then choose **Publish locally**.
@@ -184,7 +172,6 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
     <!-- border -->
     [step4a-comm-system](step4a-comm-system.png)
 
-    <!-- border -->
     ![step4b-new-comm-system](step4b-new-comm-system.png)
 
 2. Enter the following and choose **Create**.
@@ -210,7 +197,6 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
     | Client | *Client of your ABAP on-premise system, also found in the URL e.g. 100*
     | Instance Number | Default = 00
 
-    <!-- border -->
     ![step4c-comm-system-settings]( step4c-comm-system-settings.png)    
 
 5. Under **Users for Outbound Communication**, enter the following, then choose **Close**:
@@ -218,7 +204,6 @@ This artifact specifies the URL of the API (minus the HTTP(S) protocol) and port
     - User name: *Your user name from the on-premise system* 
     - Password: *Your password from the on-premise system*
 
-    <!-- border -->
     ![step4d-comm-user-btp-s4h-cu-000](step4d-comm-user-btp-s4h-cu-000.png)
 
 6. Leave the other default settings as they are and choose **Save**.
@@ -230,15 +215,12 @@ Next, you will create communication arrangement, pointing to the communication s
 
 1. Choose **Communication Arrangements**, then choose **New**.
 
-    <!-- border -->
     ![step4a-comm-management-tiles](step4a-comm-management-tiles.png)
 
 2. Choose your communication scenario, **`Z_OUTBOUND_RFC_###_CSCEN`**. This name is also entered automatically for the communication arrangement. You can accept this default.
 
-    <!-- border -->
     ![step4a-new-comm-arr](step4a-new-comm-arr.png)
 
-    <!-- border -->
     ![step4b-select-comm-scenario](step4b-select-comm-scenario.png)
 
 3. Choose the communication system you created, **`Z_OUTBOUND_RFC_CSYS_###`**.
@@ -283,70 +265,70 @@ For readability and reuse, you will create these in an interface.
 
 4. Add the following to the interface:
 
-    ```ABAP
-      types:
-        RFCPROTO TYPE C LENGTH 000003 .
-      types:
-        RFCCHARTYP TYPE C LENGTH 000004   .
-      types:
-        RFCINTTYP TYPE C LENGTH 000003   .
-      types:
-        RFCFLOTYP TYPE C LENGTH 000003   .
-      types:
-        RFCDEST TYPE C LENGTH 000032   .
-      types:
-        RFCCHAR8 TYPE C LENGTH 000008  .
-      types:
-        SYSYSID TYPE C LENGTH 000008  .
-      types:
-        RFCDBHOST TYPE C LENGTH 000032  .
-      types:
-        SYDBSYS TYPE C LENGTH 000010  .
-      types:
-        SYSAPRL TYPE C LENGTH 000004  .
-      types:
-        RFCMACH TYPE C LENGTH 000005  .
-      types:
-        SYOPSYS TYPE C LENGTH 000010  .
-      types:
-        RFCTZONE TYPE C LENGTH 000006  .
-      types:
-        SYDAYST TYPE C LENGTH 000001  .
-      types:
-        RFCIPADDR TYPE C LENGTH 000015  .
-      types:
-        SYKERNRL TYPE C LENGTH 000004  .
-      types:
-        SYHOST TYPE C LENGTH 000032  .
-      types:
-        RFCSI_RESV TYPE C LENGTH 000012  .
-      types:
-        RFCIPV6ADDR TYPE C LENGTH 000045  .
-      types:
-        BEGIN OF RFCSI                         ,
-              RFCPROTO                       TYPE RFCPROTO                      ,
-              RFCCHARTYP                     TYPE RFCCHARTYP                    ,
-              RFCINTTYP                      TYPE RFCINTTYP                     ,
-              RFCFLOTYP                      TYPE RFCFLOTYP                     ,
-              RFCDEST                        TYPE RFCDEST                       ,
-              RFCHOST                        TYPE RFCCHAR8                      ,
-              RFCSYSID                       TYPE SYSYSID                       ,
-              RFCDATABS                      TYPE SYSYSID                       ,
-              RFCDBHOST                      TYPE RFCDBHOST                     ,
-              RFCDBSYS                       TYPE SYDBSYS                       ,
-              RFCSAPRL                       TYPE SYSAPRL                       ,
-              RFCMACH                        TYPE RFCMACH                       ,
-              RFCOPSYS                       TYPE SYOPSYS                       ,
-              RFCTZONE                       TYPE RFCTZONE                      ,
-              RFCDAYST                       TYPE SYDAYST                       ,
-              RFCIPADDR                      TYPE RFCIPADDR                     ,
-              RFCKERNRL                      TYPE SYKERNRL                      ,
-              RFCHOST2                       TYPE SYHOST                        ,
-              RFCSI_RESV                     TYPE RFCSI_RESV                    ,
-              RFCIPV6ADDR                    TYPE RFCIPV6ADDR                   ,
-        END OF RFCSI                           .
+   ```ABAP
+     types:
+       RFCPROTO TYPE C LENGTH 000003 .
+     types:
+       RFCCHARTYP TYPE C LENGTH 000004   .
+     types:
+       RFCINTTYP TYPE C LENGTH 000003   .
+     types:
+       RFCFLOTYP TYPE C LENGTH 000003   .
+     types:
+       RFCDEST TYPE C LENGTH 000032   .
+     types:
+       RFCCHAR8 TYPE C LENGTH 000008  .
+     types:
+       SYSYSID TYPE C LENGTH 000008  .
+     types:
+       RFCDBHOST TYPE C LENGTH 000032  .
+     types:
+       SYDBSYS TYPE C LENGTH 000010  .
+     types:
+       SYSAPRL TYPE C LENGTH 000004  .
+     types:
+       RFCMACH TYPE C LENGTH 000005  .
+     types:
+       SYOPSYS TYPE C LENGTH 000010  .
+     types:
+       RFCTZONE TYPE C LENGTH 000006  .
+     types:
+       SYDAYST TYPE C LENGTH 000001  .
+     types:
+       RFCIPADDR TYPE C LENGTH 000015  .
+     types:
+       SYKERNRL TYPE C LENGTH 000004  .
+     types:
+       SYHOST TYPE C LENGTH 000032  .
+     types:
+       RFCSI_RESV TYPE C LENGTH 000012  .
+     types:
+       RFCIPV6ADDR TYPE C LENGTH 000045  .
+     types:
+       BEGIN OF RFCSI                         ,
+             RFCPROTO                       TYPE RFCPROTO                      ,
+             RFCCHARTYP                     TYPE RFCCHARTYP                    ,
+             RFCINTTYP                      TYPE RFCINTTYP                     ,
+             RFCFLOTYP                      TYPE RFCFLOTYP                     ,
+             RFCDEST                        TYPE RFCDEST                       ,
+             RFCHOST                        TYPE RFCCHAR8                      ,
+             RFCSYSID                       TYPE SYSYSID                       ,
+             RFCDATABS                      TYPE SYSYSID                       ,
+             RFCDBHOST                      TYPE RFCDBHOST                     ,
+             RFCDBSYS                       TYPE SYDBSYS                       ,
+             RFCSAPRL                       TYPE SYSAPRL                       ,
+             RFCMACH                        TYPE RFCMACH                       ,
+             RFCOPSYS                       TYPE SYOPSYS                       ,
+             RFCTZONE                       TYPE RFCTZONE                      ,
+             RFCDAYST                       TYPE SYDAYST                       ,
+             RFCIPADDR                      TYPE RFCIPADDR                     ,
+             RFCKERNRL                      TYPE SYKERNRL                      ,
+             RFCHOST2                       TYPE SYHOST                        ,
+             RFCSI_RESV                     TYPE RFCSI_RESV                    ,
+             RFCIPV6ADDR                    TYPE RFCIPV6ADDR                   ,
+       END OF RFCSI                           .
 
-    ```
+   ```
 
 4. Format, save, and activate ( `Sh+F1, Ctrl + Save, Ctrl + F3`) your interface. 
 
@@ -354,20 +336,20 @@ For readability and reuse, you will create these in an interface.
 ### Create variables in class implementation
 In the class implementation, in the method **`if_oo_adt_classrun~main`**, add the following variables.
    
-    ```ABAP
-    DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
+   ```ABAP
+   DATA(lo_destination) = cl_rfc_destination_provider=>create_by_comm_arrangement(
 
-        comm_scenario          = 'Z_OUTBOUND_RFC_###_CSCEN'   " Communication scenario
-        service_id             = 'Z_OUTBOUND_RFC_###_SRFC'    " Outbound service
+       comm_scenario          = 'Z_OUTBOUND_RFC_###_CSCEN'   " Communication scenario
+       service_id             = 'Z_OUTBOUND_RFC_###_SRFC'    " Outbound service
 
-                          ).
+                         ).
 
-    DATA(lv_destination) = lo_destination->get_destination_name( ).
+   DATA(lv_destination) = lo_destination->get_destination_name( ).
 
-    DATA lv_result type ZIF_TYPES_FOR_SYSTEM_INFO=>rfcsi.
-    DATA msg TYPE c LENGTH 255.
+   DATA lv_result type ZIF_TYPES_FOR_SYSTEM_INFO=>rfcsi.
+   DATA msg TYPE c LENGTH 255.
 
-    ```
+   ```
 
 
 ### Call remote function from on-premise system
@@ -408,39 +390,39 @@ endtry.
 
     In the method implementation for `if_oo_adt_classrun~main`, add a DATA statement (before you call the function):
 
-    ```ABAP
-    
-    DATA msg TYPE c LENGTH 255.
-    
-    ```
+   ```ABAP
+   
+   DATA msg TYPE c LENGTH 255.
+   
+   ```
 
 2. Now, in the function call for `RFC_GET_SYSTEM_INFO`, remove the period (.) after the IMPORTING parameter and add the following exception parameters to the function call `RFC_GET_SYSTEM_INFO`:
 
-    ```ABAP
+   ```ABAP
 
-    EXCEPTIONS
-      system_failure        = 1 MESSAGE msg
-      communication_failure = 2 MESSAGE msg
-    OTHERS                    = 3.
+   EXCEPTIONS
+     system_failure        = 1 MESSAGE msg
+     communication_failure = 2 MESSAGE msg
+   OTHERS                    = 3.
 
-    ```
+   ```
 
 2. Now evaluate `sy-subrc` by changing **`out->write( lv_result ).`** to include the following `CASE...ENDCASE` statement:
 
-    ```ABAP
+   ```ABAP
 
-    CASE sy-subrc.
-       WHEN 0.
-         out->write( lv_result ).
-       WHEN 1.
-         out->write( | EXCEPTION SYSTEM_FAILURE | && msg ).
-       WHEN 2.
-         out->write( | EXCEPTION COMMUNICATION_FAILURE | && msg ).
-       WHEN 3.
-         out->write( | EXCEPTION OTHERS | ).
-    ENDCASE.
+   CASE sy-subrc.
+      WHEN 0.
+        out->write( lv_result ).
+      WHEN 1.
+        out->write( | EXCEPTION SYSTEM_FAILURE | && msg ).
+      WHEN 2.
+        out->write( | EXCEPTION COMMUNICATION_FAILURE | && msg ).
+      WHEN 3.
+        out->write( | EXCEPTION OTHERS | ).
+   ENDCASE.
 
-    ```
+   ```
 
 
 ### Check your code
@@ -513,7 +495,6 @@ ENDCLASS.
 
 2. Run the class by choosing **`F9`**. The ABAP Console output should look roughly like this:
 3. 
-   <!-- border -->
    ![step15a-console-output-2023](step15a-console-output-2023.png)
 
 

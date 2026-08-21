@@ -47,28 +47,28 @@ The templates already contain certain annotations that are mandatory for the abo
 
   2. Right-click on the browser window and save the content as an xml-file called **analytical_templates.xml**.
 
-    ![file](0110.png)
+   ![file](0110.png)
 
   3. Open ADT. In the menu choose **Window** > **Preferences**.
 
-    ![window](0120.png)
+   ![window](0120.png)
 
   4. In the Templates dialogue choose **Import**.
 
-    ![import](0130.png)
+   ![import](0130.png)
 
   5. Select the XML file **analytical_templates.xml** that you have saved.
 
-    ![upload](0135.png)
+   ![upload](0135.png)
 
 
-    > The Import-Dialog only allows to select files having the extension `.xml.` When you have downloaded the file using a different file extension you have first to rename your file so that it gets the extension `.xml.`
+   > The Import-Dialog only allows to select files having the extension `.xml.` When you have downloaded the file using a different file extension you have first to rename your file so that it gets the extension `.xml.`
 
   6. You will see that three new templates have been imported that you will use in the following tutorial.
 
-    Press **Apply and Close**
+   Press **Apply and Close**
 
-    ![apply](0140.png)
+   ![apply](0140.png)
 
 
 ### Create the first dimension for Carrier
@@ -99,22 +99,22 @@ You will start to create a dimension view that contains the different Airlines /
 
   4. Enter the following values
 
-    - Name:`ZRAP500_I_CARRIER_###`
-    - Description: `Dimension for Carrier`
-    - Referenced Object:`/dmo/carrier`
+ - Name:`ZRAP500_I_CARRIER_###`
+ - Description: `Dimension for Carrier`
+ - Referenced Object:`/dmo/carrier`
 
-    and click **Next**.
+ and click **Next**.
 
-    By selecting a table or another CDS view as Referenced object the wizard will use this object as a data source for the new CDS view and it will automatically add all fields into the DDL source code and it will also create camel Case aliases if needed.
+ By selecting a table or another CDS view as Referenced object the wizard will use this object as a data source for the new CDS view and it will automatically add all fields into the DDL source code and it will also create camel Case aliases if needed.
 
-      ![data definition](1040.png)
+   ![data definition](1040.png)
 
   5. Choose a transport request and click **Next**.
 
-    Do **NOT** press **Finish**, because otherwise the wizard will not provide us the option to choose a specific template but would choose the template that you have used the last time.
+   Do **NOT** press **Finish**, because otherwise the wizard will not provide us the option to choose a specific template but would choose the template that you have used the last time.
 
 
-    ![transport](1050.png)
+   ![transport](1050.png)
 
   6. In the **Templates** dialogue choose the **Define a View Entity for a Dimension** and press **Finish**. The **Define a View Entity for a Dimension** template is one of the new data definition templates that you have imported in the last step. This template contains certain annotations which will be explained below that are mandatory for dimension views.
 
@@ -128,61 +128,61 @@ You will start to create a dimension view that contains the different Airlines /
 
   1. Now you need to edit the dimension view. Here you can use code completion to add the values for the annotations
 
-    <pre>@ObjectModel.representativeKey</pre>
+ <pre>@ObjectModel.representativeKey</pre>
 
-      and
+   and
 
-    <pre>@ObjectModel.text.element</pre>
+ <pre>@ObjectModel.text.element</pre>
 
-    that are needed for our dimension view.
+ that are needed for our dimension view.
 
-      ![view](1070.png)
+   ![view](1070.png)
 
   2. Click on `representativeKey`, delete the placeholder `representativKey` so that you get an empty string '' , press CTRL + Space and choose **`CarrierId`**.
 
-    ![key](1080.png)
+   ![key](1080.png)
 
   3. Click on `textElement`, delete the placeholder string `textElement`, press CTRL + Space and choose **`Name`**.
 
-    ![text](1090.png)
+   ![text](1090.png)
 
   4. Save and activate the dimension.
 
-    ![key](1100.png)
+   ![key](1100.png)
 
   5. Your final code should look like following:
 
-    ```ZRAP500_I_Carrier_####
+   ```ZRAP500_I_Carrier_####
 
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Dimension for Carrier'
-    @Metadata.ignorePropagatedAnnotations: true
-
-
-    @Analytics.dataCategory: #DIMENSION
-    @Analytics.internalName: #LOCAL
-    @ObjectModel.representativeKey: 'CarrierId'
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: 'Dimension for Carrier'
+   @Metadata.ignorePropagatedAnnotations: true
 
 
-    define view entity ZRAP500_I_Carrier_####
-    as select from /dmo/carrier
-    {
-    @ObjectModel.text.element: ['Name']
-    key carrier_id    as CarrierId,
-    name          as Name,
-    currency_code as CurrencyCode
-    }
-    ```
+   @Analytics.dataCategory: #DIMENSION
+   @Analytics.internalName: #LOCAL
+   @ObjectModel.representativeKey: 'CarrierId'
 
-    **Coding explained**
 
-    | Code | Explanation |
-    | ------------- | ---------- |
-    | @Metadata.ignorePropagatedAnnotations: true | ignore annotations from tables and base views, because you want to completely control/override the annotations here. |
-    | @Analytics.dataCategory | you define this CDS view as a dimension. |
-    | @Analytics.internalName: #LOCAL | Create UUIDs. |
-    | @ObjectModel.representativeKey: 'CarrierId' | you define **CarrierID** as the representative key to be able to refer to it using @ObjectModel.foreignKey.association in the Cube that you will create later |
-    |  @ObjectModel.text.element: ['Name'] | Using this annotation you define that the attribute **Name**, contains the text element for a given CarrierId. |  
+   define view entity ZRAP500_I_Carrier_####
+   as select from /dmo/carrier
+   {
+   @ObjectModel.text.element: ['Name']
+   key carrier_id    as CarrierId,
+   name          as Name,
+   currency_code as CurrencyCode
+   }
+   ```
+
+   **Coding explained**
+
+   | Code | Explanation |
+   | ------------- | ---------- |
+   | @Metadata.ignorePropagatedAnnotations: true | ignore annotations from tables and base views, because you want to completely control/override the annotations here. |
+   | @Analytics.dataCategory | you define this CDS view as a dimension. |
+   | @Analytics.internalName: #LOCAL | Create UUIDs. |
+   | @ObjectModel.representativeKey: 'CarrierId' | you define **CarrierID** as the representative key to be able to refer to it using @ObjectModel.foreignKey.association in the Cube that you will create later |
+   |  @ObjectModel.text.element: ['Name'] | Using this annotation you define that the attribute **Name**, contains the text element for a given CarrierId. |  
 
 
 
@@ -197,32 +197,32 @@ You will start to create a dimension view that contains the different Airlines /
 
   1. Right click on your **Core Data Services** folder, choose **Data Definition** > **New** > **Data Definition**. Enter following values and press **Next**:
 
-    - **Name**: `ZRAP500_I_Customer_####`
-    - **Description**: `Dimension for Customer`
-    - **Referenced Object**: `/dmo/customer`
+   - **Name**: `ZRAP500_I_Customer_####`
+   - **Description**: `Dimension for Customer`
+   - **Referenced Object**: `/dmo/customer`
 
-    ![customer](1211.png)
+   ![customer](1211.png)
 
   2. Select a transport request and press **Next**
   3. Select again the template **Define a View Entity for Dimension** and press **Finish**
   4. Add a new field `CustomerName` which will later be specified as the text element for the key field.
 
-    `concat_with_space(first_name, last_name, 1) as CustomerName,`
+   `concat_with_space(first_name, last_name, 1) as CustomerName,`
 
   5. Remove or comment out these fields because they are too long for our analytics scenarios and you do not need any administration fields.
 
-    ```
-    //    email_address as EmailAddress,
+   ```
+   //    email_address as EmailAddress,
 
-    //    createdby as Createdby,
+   //    createdby as Createdby,
 
-    //    createdat as Createdat,
+   //    createdat as Createdat,
 
-    //    lastchangedby as Lastchangedby,
+   //    lastchangedby as Lastchangedby,
 
-    //    lastchangedat as Lastchangedat
+   //    lastchangedat as Lastchangedat
 
-    ```
+   ```
 
   6. Add the association `_Country`
 
@@ -242,43 +242,43 @@ You will start to create a dimension view that contains the different Airlines /
 
    8. Save and activate the dimension.
 
-    > You expose the association `_Country` to be able to access country information in the cube and query.   
+   > You expose the association `_Country` to be able to access country information in the cube and query.   
 
    9. Your final code should look like following:
 
-    ```ZRAP500_I_Customer_####
-      @AccessControl.authorizationCheck: #CHECK
-      @EndUserText.label: 'Dimension for Customer'
-      @Metadata.ignorePropagatedAnnotations: true
+   ```ZRAP500_I_Customer_####
+     @AccessControl.authorizationCheck: #CHECK
+     @EndUserText.label: 'Dimension for Customer'
+     @Metadata.ignorePropagatedAnnotations: true
 
-      @Analytics.dataCategory: #DIMENSION
-      @Analytics.internalName: #LOCAL
-      @ObjectModel.representativeKey: 'CustomerId'
+     @Analytics.dataCategory: #DIMENSION
+     @Analytics.internalName: #LOCAL
+     @ObjectModel.representativeKey: 'CustomerId'
 
-      define view entity ZRAP500_I_Customer_####
-        as select from /dmo/customer
-        association [1] to I_Country as _Country on $projection.CountryCode = _Country.Country
-      {
-            @ObjectModel.text.element: ['CustomerName']
-        key customer_id                                 as CustomerId,
-            first_name                                  as FirstName,
-            last_name                                   as LastName,
-            concat_with_space(first_name, last_name, 1) as CustomerName,
-            title                                       as Title,
-            street                                      as Street,
-            postal_code                                 as PostalCode,
-            city                                        as City,
-            country_code                                as CountryCode,
-            phone_number                                as PhoneNumber,
-            //    email_address as EmailAddress,
-            //    createdby as Createdby,
-            //    createdat as Createdat,
-            //    lastchangedby as Lastchangedby,
-            //    lastchangedat as Lastchangedat
-            _Country
-      }
+     define view entity ZRAP500_I_Customer_####
+       as select from /dmo/customer
+       association [1] to I_Country as _Country on $projection.CountryCode = _Country.Country
+     {
+           @ObjectModel.text.element: ['CustomerName']
+       key customer_id                                 as CustomerId,
+           first_name                                  as FirstName,
+           last_name                                   as LastName,
+           concat_with_space(first_name, last_name, 1) as CustomerName,
+           title                                       as Title,
+           street                                      as Street,
+           postal_code                                 as PostalCode,
+           city                                        as City,
+           country_code                                as CountryCode,
+           phone_number                                as PhoneNumber,
+           //    email_address as EmailAddress,
+           //    createdby as Createdby,
+           //    createdat as Createdat,
+           //    lastchangedby as Lastchangedby,
+           //    lastchangedat as Lastchangedat
+           _Country
+     }
 
-    ```
+   ```
 
   ***Connection Dimension***
 
@@ -297,19 +297,19 @@ You will start to create a dimension view that contains the different Airlines /
   4. Select again the template **Define a View Entity for Dimension** and press **Finish**.
   5. Add a new field **Trip** which will later be specified as the text element for the key field `ConnectionId`.
 
-    `concat(airport_from_id, concat(' -> ', airport_to_id)) as Trip, `
+   `concat(airport_from_id, concat(' -> ', airport_to_id)) as Trip, `
 
   6. Add an association `_Carrier`
 
-    <pre>
-    association [1] to ZRAP500_I_Carrier_#### as _Carrier on $projection.CarrierId = _Carrier.CarrierId
-    </pre>  
+   <pre>
+   association [1] to ZRAP500_I_Carrier_#### as _Carrier on $projection.CarrierId = _Carrier.CarrierId
+   </pre>  
 
-    and expose it in the field list by adding `_Carrier`
+   and expose it in the field list by adding `_Carrier`
 
   7. Add the following annotation to the key field `CarrierId`
 
-    `@ObjectModel.foreignKey.association: '_Carrier' `
+   `@ObjectModel.foreignKey.association: '_Carrier' `
 
   8. Select the field  `ConnectionId` for the annotation `@ObjectModel.representativeKey`
 
@@ -319,31 +319,31 @@ You will start to create a dimension view that contains the different Airlines /
 
   11. Your final code should look like the following:
 
-    ```ZRAP500_I_Connection_####
-      @AccessControl.authorizationCheck: #CHECK
-      @EndUserText.label: 'Dimension for Connections'
-      @Metadata.ignorePropagatedAnnotations: true
+   ```ZRAP500_I_Connection_####
+     @AccessControl.authorizationCheck: #CHECK
+     @EndUserText.label: 'Dimension for Connections'
+     @Metadata.ignorePropagatedAnnotations: true
 
-      @Analytics.dataCategory: #DIMENSION
-      @Analytics.internalName: #LOCAL
-      @ObjectModel.representativeKey: 'ConnectionId'
+     @Analytics.dataCategory: #DIMENSION
+     @Analytics.internalName: #LOCAL
+     @ObjectModel.representativeKey: 'ConnectionId'
 
-      define view entity ZRAP500_I_CONNECTION_#### as select from /dmo/connection
-      association [1] to ZRAP500_I_Carrier_#### as _Carrier on $projection.CarrierId = _Carrier.CarrierId{
-        @ObjectModel.text.element: ['Trip']
-        @ObjectModel.foreignKey.association: '_Carrier'
-        key carrier_id as CarrierId,
-        key connection_id as ConnectionId,
-        airport_from_id as AirportFromId,
-        airport_to_id as AirportToId,
-        concat(airport_from_id, concat('->', airport_to_id)) as Trip,
-        departure_time as DepartureTime,
-        arrival_time as ArrivalTime,
-        distance as Distance,
-        distance_unit as DistanceUnit,
-        _Carrier
-      }
-    ```
+     define view entity ZRAP500_I_CONNECTION_#### as select from /dmo/connection
+     association [1] to ZRAP500_I_Carrier_#### as _Carrier on $projection.CarrierId = _Carrier.CarrierId{
+       @ObjectModel.text.element: ['Trip']
+       @ObjectModel.foreignKey.association: '_Carrier'
+       key carrier_id as CarrierId,
+       key connection_id as ConnectionId,
+       airport_from_id as AirportFromId,
+       airport_to_id as AirportToId,
+       concat(airport_from_id, concat('->', airport_to_id)) as Trip,
+       departure_time as DepartureTime,
+       arrival_time as ArrivalTime,
+       distance as Distance,
+       distance_unit as DistanceUnit,
+       _Carrier
+     }
+   ```
 
 
   ***Agencies Dimension***
@@ -361,12 +361,12 @@ You will start to create a dimension view that contains the different Airlines /
   4. Select again the template **Define a View Entity for Dimension** and press **Finish**  
   5. Remove these fields because they are too long for our analytics scenarios
 
-    ```
-    //   email_address as EmailAddress,
+   ```
+   //   email_address as EmailAddress,
 
-    //   web_address as WebAddress
+   //   web_address as WebAddress
 
-    ```
+   ```
 
   6. Choose the property **Name** for the annotation @ObjectModel.text.element.
 
@@ -380,29 +380,29 @@ You will start to create a dimension view that contains the different Airlines /
 
   9. Your final code should look like the following:
 
-    ```ZRAP500_I_Agency_####
-      @AccessControl.authorizationCheck: #CHECK
-      @EndUserText.label: 'Dimension for Agency'
-      @Metadata.ignorePropagatedAnnotations: true
+   ```ZRAP500_I_Agency_####
+     @AccessControl.authorizationCheck: #CHECK
+     @EndUserText.label: 'Dimension for Agency'
+     @Metadata.ignorePropagatedAnnotations: true
 
-      @Analytics.dataCategory: #DIMENSION
-      @Analytics.internalName: #LOCAL
-      @ObjectModel.representativeKey: 'AgencyId'
+     @Analytics.dataCategory: #DIMENSION
+     @Analytics.internalName: #LOCAL
+     @ObjectModel.representativeKey: 'AgencyId'
 
-      define view entity ZRAP500_I_Agency_#### as select from /dmo/agency {
-          @ObjectModel.text.element: ['Name']
-          key agency_id as AgencyId,
-          name as Name,
-          street as Street,
-          postal_code as PostalCode,
-          city as City,
-          country_code as CountryCode,
-          phone_number as PhoneNumber
-      //    ,
-      //    email_address as EmailAddress,
-      //    web_address as WebAddress
-      }
-    ```
+     define view entity ZRAP500_I_Agency_#### as select from /dmo/agency {
+         @ObjectModel.text.element: ['Name']
+         key agency_id as AgencyId,
+         name as Name,
+         street as Street,
+         postal_code as PostalCode,
+         city as City,
+         country_code as CountryCode,
+         phone_number as PhoneNumber
+     //    ,
+     //    email_address as EmailAddress,
+     //    web_address as WebAddress
+     }
+   ```
 
 
 ### Booking interface view
@@ -413,11 +413,11 @@ You now have to create an interface view that serves as a data source for the Cu
 
   2. Enter the following values and press Next
 
-    - **Name**: `ZRAP500_I_Booking_####`
-    - **Description**: `Interface View for Booking`
-    - **Referenced Object**: `/dmo/I_Booking_U`
+ - **Name**: `ZRAP500_I_Booking_####`
+ - **Description**: `Interface View for Booking`
+ - **Referenced Object**: `/dmo/I_Booking_U`
 
-      ![interface](1300.png)
+   ![interface](1300.png)
 
   3. Select a transport request and press **Next**.  
      Do **NOT** press finish at this point because you need to select a different template in the next step.  
@@ -441,37 +441,37 @@ You now have to create an interface view that serves as a data source for the Cu
 
   8. Your final code should look like the following:
 
-    ```ZRAP500_I_Booking_####
-    @AbapCatalog.viewEnhancementCategory: [#NONE]
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Interface View for Booking'
-    @Metadata.ignorePropagatedAnnotations: true
-    @ObjectModel.usageType:{
-        serviceQuality: #X,
-        sizeCategory: #S,
-        dataClass: #MIXED
-    }
-    define view entity ZRAP500_I_Booking_#### as select from /DMO/I_Booking_U {
-        key TravelID,
-        key BookingID,
-        BookingDate,
-        CustomerID,
-        AirlineID,
-        ConnectionID,
-        FlightDate,
-        @Semantics.amount.currencyCode: 'CurrencyCode'
-        FlightPrice,
-        CurrencyCode,
-        _Travel.AgencyID as AgencyID,
-    /* Associations */
-    _BookSupplement,
-    _Carrier,
-    _Connection,
-    _Customer,
-    _Travel
+   ```ZRAP500_I_Booking_####
+   @AbapCatalog.viewEnhancementCategory: [#NONE]
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: 'Interface View for Booking'
+   @Metadata.ignorePropagatedAnnotations: true
+   @ObjectModel.usageType:{
+       serviceQuality: #X,
+       sizeCategory: #S,
+       dataClass: #MIXED
+   }
+   define view entity ZRAP500_I_Booking_#### as select from /DMO/I_Booking_U {
+       key TravelID,
+       key BookingID,
+       BookingDate,
+       CustomerID,
+       AirlineID,
+       ConnectionID,
+       FlightDate,
+       @Semantics.amount.currencyCode: 'CurrencyCode'
+       FlightPrice,
+       CurrencyCode,
+       _Travel.AgencyID as AgencyID,
+   /* Associations */
+   _BookSupplement,
+   _Carrier,
+   _Connection,
+   _Customer,
+   _Travel
 
-    }
-    ```
+   }
+   ```
 
 
 ### Create cube
@@ -501,13 +501,13 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
 4. Add the following associations
 
-    ```associations
-       association [0..1] to ZRAP500_I_Customer_####   as _Customer   on  $projection.CustomerID = _Customer.CustomerId
-       association [0..1] to ZRAP500_I_Carrier_####    as _Carrier    on  $projection.AirlineID = _Carrier.CarrierId
-       association [0..1] to ZRAP500_I_Connection_#### as _Connection on  $projection.AirlineID    = _Connection.CarrierId
-                                                                      and $projection.ConnectionId = _Connection.ConnectionId
-       association [0..1] to ZRAP500_I_AGENCY_####    as _Agency     on  $projection.AgencyID = _Agency.AgencyId
-    ```
+   ```associations
+      association [0..1] to ZRAP500_I_Customer_####   as _Customer   on  $projection.CustomerID = _Customer.CustomerId
+      association [0..1] to ZRAP500_I_Carrier_####    as _Carrier    on  $projection.AirlineID = _Carrier.CarrierId
+      association [0..1] to ZRAP500_I_Connection_#### as _Connection on  $projection.AirlineID    = _Connection.CarrierId
+                                                                     and $projection.ConnectionId = _Connection.ConnectionId
+      association [0..1] to ZRAP500_I_AGENCY_####    as _Agency     on  $projection.AgencyID = _Agency.AgencyId
+   ```
 
     you also need to add the following to entries to the field list
 
@@ -527,38 +527,38 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
 7. Add the following two fields alongside with a foreign key association 
 
-    ```foreignKey
-        @ObjectModel.foreignKey.association: '_CustomerCountry'
-        _Customer.CountryCode as CustomerCountry,
-        _Customer.City        as CustomerCity,
-    ```
+   ```foreignKey
+       @ObjectModel.foreignKey.association: '_CustomerCountry'
+       _Customer.CountryCode as CustomerCountry,
+       _Customer.City        as CustomerCity,
+   ```
 
 8. You add fields that contain information about the customers
 
-    ```customer
-        @ObjectModel.foreignKey.association: '_CustomerCountry'
-        _Customer.CountryCode as CustomerCountry,
-        _Customer.City        as CustomerCity,
-        _Connection.Trip      as Trip,
-    ```
+   ```customer
+       @ObjectModel.foreignKey.association: '_CustomerCountry'
+       _Customer.CountryCode as CustomerCountry,
+       _Customer.City        as CustomerCity,
+       _Connection.Trip      as Trip,
+   ```
 
 9. You now add Measures to our cube.
 
     You add a field `TotalOfBookings`
 
-    ```totalOfBooking
-        @EndUserText.label: 'Total of Bookings'
-        @Aggregation.default: #SUM
-        1                     as TotalOfBookings,
-    ```
+   ```totalOfBooking
+       @EndUserText.label: 'Total of Bookings'
+       @Aggregation.default: #SUM
+       1                     as TotalOfBookings,
+   ```
 
      and the field **Flight Price** which is annotated as follows
 
-    ```Flight Price
-        @Semantics.amount.currencyCode: 'CurrencyCode'
-        @Aggregation.default: #MIN
-        FlightPrice,
-    ```
+   ```Flight Price
+       @Semantics.amount.currencyCode: 'CurrencyCode'
+       @Aggregation.default: #MIN
+       FlightPrice,
+   ```
 
 10. Save and activate the cube.
 
@@ -568,68 +568,68 @@ This annotation is part of the template **Define a View Entity for a Cube** that
 
 11. Your final code should be look like following:
 
-    ```ZRAP500_I_BookingCube_####
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'Booking Cube'
-    @Metadata.ignorePropagatedAnnotations: true
+   ```ZRAP500_I_BookingCube_####
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: 'Booking Cube'
+   @Metadata.ignorePropagatedAnnotations: true
 
-    @Analytics.dataCategory: #CUBE
-    @Analytics.internalName: #LOCAL
-
-
-    define view entity ZRAP500_I_BookingCube_####
-      as select from ZRAP500_I_Booking_####
-
-      association [0..1] to ZRAP500_I_Customer_####   as _Customer   on  $projection.CustomerID = _Customer.CustomerId  
-      association [0..1] to ZRAP500_I_Carrier_####    as _Carrier    on  $projection.AirlineID = _Carrier.CarrierId
-
-      association [0..1] to ZRAP500_I_Connection_#### as _Connection on  $projection.AirlineID    = _Connection.CarrierId
-                                                                     and $projection.ConnectionId = _Connection.ConnectionId
-
-      association [0..1] to ZRAP500_I_Agency_####     as _Agency     on  $projection.AgencyID = _Agency.AgencyId
-
-    {
-      key TravelID,
-      key BookingID,
-          BookingDate,
-          @ObjectModel.foreignKey.association: '_Customer'
-          CustomerID,
-          @ObjectModel.foreignKey.association: '_Carrier'
-          AirlineID,
-          @ObjectModel.foreignKey.association: '_Connection'
-          ConnectionID          as ConnectionId,
-          FlightDate,
-          //      @Semantics.amount.currencyCode: 'CurrencyCode'
-          //      FlightPrice,
-          CurrencyCode,
-          @ObjectModel.foreignKey.association: '_Agency'
-          AgencyID,
-
-          @ObjectModel.foreignKey.association: '_CustomerCountry'
-          _Customer.CountryCode as CustomerCountry,
-          _Customer.City        as CustomerCity,
-          _Connection.Trip      as Trip,
-
-          /* Measures */
-
-          @EndUserText.label: 'Total of Bookings'
-          @Aggregation.default: #SUM
-          1                     as TotalOfBookings,
-
-          @Semantics.amount.currencyCode: 'CurrencyCode'
-          @Aggregation.default: #SUM
-          FlightPrice,
+   @Analytics.dataCategory: #CUBE
+   @Analytics.internalName: #LOCAL
 
 
-          /* Associations */
-          _Carrier,
-          _Connection,
-          _Customer,
-          _Travel,
-          _Agency,
-          _Customer._Country    as _CustomerCountry
-    }
-    ```
+   define view entity ZRAP500_I_BookingCube_####
+     as select from ZRAP500_I_Booking_####
+
+     association [0..1] to ZRAP500_I_Customer_####   as _Customer   on  $projection.CustomerID = _Customer.CustomerId  
+     association [0..1] to ZRAP500_I_Carrier_####    as _Carrier    on  $projection.AirlineID = _Carrier.CarrierId
+
+     association [0..1] to ZRAP500_I_Connection_#### as _Connection on  $projection.AirlineID    = _Connection.CarrierId
+                                                                    and $projection.ConnectionId = _Connection.ConnectionId
+
+     association [0..1] to ZRAP500_I_Agency_####     as _Agency     on  $projection.AgencyID = _Agency.AgencyId
+
+   {
+     key TravelID,
+     key BookingID,
+         BookingDate,
+         @ObjectModel.foreignKey.association: '_Customer'
+         CustomerID,
+         @ObjectModel.foreignKey.association: '_Carrier'
+         AirlineID,
+         @ObjectModel.foreignKey.association: '_Connection'
+         ConnectionID          as ConnectionId,
+         FlightDate,
+         //      @Semantics.amount.currencyCode: 'CurrencyCode'
+         //      FlightPrice,
+         CurrencyCode,
+         @ObjectModel.foreignKey.association: '_Agency'
+         AgencyID,
+
+         @ObjectModel.foreignKey.association: '_CustomerCountry'
+         _Customer.CountryCode as CustomerCountry,
+         _Customer.City        as CustomerCity,
+         _Connection.Trip      as Trip,
+
+         /* Measures */
+
+         @EndUserText.label: 'Total of Bookings'
+         @Aggregation.default: #SUM
+         1                     as TotalOfBookings,
+
+         @Semantics.amount.currencyCode: 'CurrencyCode'
+         @Aggregation.default: #SUM
+         FlightPrice,
+
+
+         /* Associations */
+         _Carrier,
+         _Connection,
+         _Customer,
+         _Travel,
+         _Agency,
+         _Customer._Country    as _CustomerCountry
+   }
+   ```
 
 
 
@@ -645,11 +645,11 @@ Again you can use a template that you have imported at the beginning of this tut
 
   2. Enter the following values and press **Next**
 
-    - **Name**: `ZRAP500_C_BookingQuery_####`
-    - **Description**: `Query for Booking`
-    - **Referenced Object**: `ZRAP500_I_BookingCube_####`
+   - **Name**: `ZRAP500_C_BookingQuery_####`
+   - **Description**: `Query for Booking`
+   - **Referenced Object**: `ZRAP500_I_BookingCube_####`
 
-    ![new query](1120.png)
+   ![new query](1120.png)
 
   3. Choose a transport request and then press **Next**.
 
@@ -676,56 +676,56 @@ Again you can use a template that you have imported at the beginning of this tut
 
       ![ADTquery](1131.png)
 
-    > With the annotation **@AnalyticsDetails.query.axis:<VALUE>**, the elements of the view can be positioned on multiple axes: Rows, Columns and Free. The elements can be directly annotated with their axis. All measures (elements which can be aggregated) need to be on the same axis. The annotation of the first measure will therefore be used for all measures of the query. If **@AnalyticsDetails.query.axis:<VALUE>** is not found, the system positions the measures on the columns.
+   > With the annotation **@AnalyticsDetails.query.axis:<VALUE>**, the elements of the view can be positioned on multiple axes: Rows, Columns and Free. The elements can be directly annotated with their axis. All measures (elements which can be aggregated) need to be on the same axis. The annotation of the first measure will therefore be used for all measures of the query. If **@AnalyticsDetails.query.axis:<VALUE>** is not found, the system positions the measures on the columns.
 
   8. Your final code should look like the following:
 
-    ```ZRAP500_C_BOOKINGQUERY_####
-    @EndUserText.label: 'Flights Query'
-    @AccessControl.authorizationCheck: #NOT_ALLOWED
+   ```ZRAP500_C_BOOKINGQUERY_####
+   @EndUserText.label: 'Flights Query'
+   @AccessControl.authorizationCheck: #NOT_ALLOWED
 
-    define transient view entity DEF23_Flights_Query
-      provider contract analytical_query
-      as projection on DEF23_Flights_Cube
-    {
-    @AnalyticsDetails.query.axis: #ROWS
-    TravelID,
-    @AnalyticsDetails.query.axis: #ROWS
-    BookingID,
-    @AnalyticsDetails.query.axis: #ROWS
-    BookingDate,
-    @AnalyticsDetails.query.axis: #ROWS
-    CustomerID,
-    @AnalyticsDetails.query.axis: #ROWS
-    AirlineID,
-    @AnalyticsDetails.query.axis: #ROWS
-    ConnectionId,
-    @AnalyticsDetails.query.axis: #ROWS
-    FlightDate,
-    @AnalyticsDetails.query.axis: #ROWS
-    CurrencyCode,
-    @AnalyticsDetails.query.axis: #ROWS
-    AgencyID,
-    @AnalyticsDetails.query.axis: #COLUMNS
-    CustomerCountry,
-    @AnalyticsDetails.query.axis: #ROWS
-    CustomerCity,
-    @AnalyticsDetails.query.axis: #ROWS
-    Trip,
+   define transient view entity DEF23_Flights_Query
+     provider contract analytical_query
+     as projection on DEF23_Flights_Cube
+   {
+   @AnalyticsDetails.query.axis: #ROWS
+   TravelID,
+   @AnalyticsDetails.query.axis: #ROWS
+   BookingID,
+   @AnalyticsDetails.query.axis: #ROWS
+   BookingDate,
+   @AnalyticsDetails.query.axis: #ROWS
+   CustomerID,
+   @AnalyticsDetails.query.axis: #ROWS
+   AirlineID,
+   @AnalyticsDetails.query.axis: #ROWS
+   ConnectionId,
+   @AnalyticsDetails.query.axis: #ROWS
+   FlightDate,
+   @AnalyticsDetails.query.axis: #ROWS
+   CurrencyCode,
+   @AnalyticsDetails.query.axis: #ROWS
+   AgencyID,
+   @AnalyticsDetails.query.axis: #COLUMNS
+   CustomerCountry,
+   @AnalyticsDetails.query.axis: #ROWS
+   CustomerCity,
+   @AnalyticsDetails.query.axis: #ROWS
+   Trip,
 
 
-      TotalOfBookings,
-      @Semantics.amount.currencyCode: 'CurrencyCode'
-      currency_conversion (
-      amount => FlightPrice,
-      source_currency => CurrencyCode,
-      target_currency => cast( 'EUR' as abap.cuky( 5 ) ) ,
-      exchange_rate_date => cast ('20200101' as abap.dats),
-      exchange_rate_type => 'M'
-      ) as FlightPrice    
+     TotalOfBookings,
+     @Semantics.amount.currencyCode: 'CurrencyCode'
+     currency_conversion (
+     amount => FlightPrice,
+     source_currency => CurrencyCode,
+     target_currency => cast( 'EUR' as abap.cuky( 5 ) ) ,
+     exchange_rate_date => cast ('20200101' as abap.dats),
+     exchange_rate_type => 'M'
+     ) as FlightPrice    
 
-    }
-    ```
+   }
+   ```
 
 
 ### Data preview
@@ -760,11 +760,11 @@ Now that you have created the query it is possible to use a data preview to test
 
   2. Enter the following values and press **Next**.
 
-    - **Name**: `ZRAP500_UI_BOOKING_####`
-    - **Description**: `Booking query service definition`
-    - check if Exposed Entity is your created query `ZRAP500_C_BOOKINGQUERY_####`
+ - **Name**: `ZRAP500_UI_BOOKING_####`
+ - **Description**: `Booking query service definition`
+ - check if Exposed Entity is your created query `ZRAP500_C_BOOKINGQUERY_####`
 
-      ![service definition](step7-2.png)
+   ![service definition](step7-2.png)
 
   3. Select transport request and press **Next**.
   4. Select the template **Define Service** and press **Finish**.
@@ -777,24 +777,24 @@ Now that you have created the query it is possible to use a data preview to test
 
   1. Right click your newly created service definition and choose New Service Binding.
 
-    ![RightClick](1160.png)
+   ![RightClick](1160.png)
 
   2. Enter the following values and press **Next**
 
-    - **Name**: `ZRAP500_UI_BOOKING_####`
-    - **Description**: `Booking Query Service Binding`
-    - Choose **InA - UI** as **Binding Type**
-    - Check that in the field **Service Definition** the service definition `ZRAP500_UI_BOOKING_####` is listed that you have created service definition in last step
+   - **Name**: `ZRAP500_UI_BOOKING_####`
+   - **Description**: `Booking Query Service Binding`
+   - Choose **InA - UI** as **Binding Type**
+   - Check that in the field **Service Definition** the service definition `ZRAP500_UI_BOOKING_####` is listed that you have created service definition in last step
 
-    ![new binding](1170.png)
+   ![new binding](1170.png)
 
   3. Choose a transport request and click **Finish**.
   4. Activate your service binding.
   5. After activation, the external service name for your query is displayed.
 
-    ![service binding](1180.png)
+   ![service binding](1180.png)
 
-    >The analytical query will be displayed with the external service name in SAP Analytics Cloud as the data source.
+   >The analytical query will be displayed with the external service name in SAP Analytics Cloud as the data source.
 
 
 ### Create IAM App
@@ -809,28 +809,28 @@ Now that you have created the query it is possible to use a data preview to test
 
   3. Enter the following values and press **Next**
 
-    - **Name**: `ZRAP500_BOOKING_####`
-    - **Description**: `IAM App for Booking Query`
-    - choose **EXT-External App** as **Application Type**
+ - **Name**: `ZRAP500_BOOKING_####`
+ - **Description**: `IAM App for Booking Query`
+ - choose **EXT-External App** as **Application Type**
 
-      ![new IAM APP](1191.png)
+   ![new IAM APP](1191.png)
 
   4. Choose a transport request and click **Finish**.
     Your created IAM App name will get an **EXT** automatically in his name like: `RAP500_BOOKING_####_EXT`.
 
-    ![IAM App](1192.png)
+   ![IAM App](1192.png)
 
   5. Go to the **Services** tab and click on insert button.
 
-    ![Add](1210.png)
+   ![Add](1210.png)
 
   6. Select **Service Type** as `InA - UI`and your **Service Name** which is your service binding name `ZRAP500_UI_BOOKING_####`. Click **OK**.
 
-    ![Find service](1212.png)
+   ![Find service](1212.png)
 
   7. Save and **Publish Locally**.
 
-    ![publish locally](1213.png)
+   ![publish locally](1213.png)
 
 
 
@@ -911,7 +911,7 @@ Now that you have created the query it is possible to use a data preview to test
 
       ![tenant](step12-7.png)
 
-    > **Tenant ID** can be found under the main menu of the SAP Analytics Cloud tenant, click **System** > **About** > **System Name**.
+   > **Tenant ID** can be found under the main menu of the SAP Analytics Cloud tenant, click **System** > **About** > **System Name**.
 
   7. Under the **Outbound Services**, the service status for **UI Link Navigation** should be checked as **Active** and **Retrieve Stories** should be unchecked, click **Save**.
 
