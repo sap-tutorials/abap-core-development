@@ -38,7 +38,7 @@ Always replace `XXX` with your initials or group number.
 
 First, open the ABAP class **`ZCL_AMDP_DEMO_XXX`** from the tutorial [Create an AMDP and Analyze Its Performance](abap-environment-amdp-profiling)
 
-<!-- border -->![Image depicting step-1-open-class](step-1-open-class.png)
+![Image depicting step-1-open-class](step-1-open-class.png)
 
 
 
@@ -50,28 +50,28 @@ First, open the ABAP class **`ZCL_AMDP_DEMO_XXX`** from the tutorial [Create an 
 
     **`"!<p>Class tests AMDP</p>`**
 
-    <!-- border -->![step2a-choose-paragraph](step2a-choose-paragraph.png)
+    ![step2a-choose-paragraph](step2a-choose-paragraph.png)
 
     >You must insert the ABAPDoc comment **immediately** before the declaration; otherwise you will get a warning from ADT.
 
 3. Add the following to the paragraph ( `<p>` ) tag: **`class="shorttext synchronized"`**, so your code looks like this:
 
-    ```
-    "!<p class="shorttext synchronized">Class tests AMDP: </p>
-    ```
+   ```
+   "!<p class="shorttext synchronized">Class tests AMDP: </p>
+   ```
 
 4. Add the following comments to the table type **`ty_result_line`** and to the method **`GET_FLIGHTS`** respectively:
 
-    ```
-    "!<p class="shorttext synchronized">Table type of Flights from HANA DB</p>
-    "! <p class="shorttext synchronized"> Method reads flights from HANA DB using AMDP</p>
-    ```
+   ```
+   "!<p class="shorttext synchronized">Table type of Flights from HANA DB</p>
+   "! <p class="shorttext synchronized"> Method reads flights from HANA DB using AMDP</p>
+   ```
 
 5. Save and activate your class.
 
 The comments should now appear in the Outline View:
 
-<!-- border -->![step2b-shorttext-synch-class](step2b-shorttext-synch-class.png)
+![step2b-shorttext-synch-class](step2b-shorttext-synch-class.png)
 
 
 
@@ -81,17 +81,17 @@ The comments should now appear in the Outline View:
 
 2. Again, choose **Auto-complete ( `Ctrl+Space` )**. Then choose **Sorted list**.
 
-    <!-- border -->![step3a-add-sorted-list](step3a-add-sorted-list.png)
+    ![step3a-add-sorted-list](step3a-add-sorted-list.png)
 
 3. Add the following two statements, so that your code looks like this:
 
-    ```
-    "! <ol>
-    "!    <li>Reads flights from HANA DB</li>
-    "!    <li>Converts currency to EUR</li>
-    "! </ol>
+   ```
+   "! <ol>
+   "!    <li>Reads flights from HANA DB</li>
+   "!    <li>Converts currency to EUR</li>
+   "! </ol>
 
-    ```
+   ```
 
 
 ### Add link
@@ -113,11 +113,11 @@ This creates a link to the Element information for that interface.
 
 3. Your comments should appear look like this:
 
-    <!-- border -->![step4a-element-info](step4a-element-info.png)
+    ![step4a-element-info](step4a-element-info.png)
 
 4. If you choose the link to the interface, its documentation appears:
 
-    <!-- border -->![step6b-interface-abapdoc](step6b-interface-abapdoc.png)
+    ![step6b-interface-abapdoc](step6b-interface-abapdoc.png)
 
 
 ### Test yourself

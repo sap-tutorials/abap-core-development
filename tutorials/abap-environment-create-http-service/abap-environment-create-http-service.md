@@ -40,28 +40,23 @@ Throughout this tutorial, replace `XXX` or `000` with your initials or group num
 
 1. Select a package and choose **New > Other Repository Object** from the context menu:
 
-    <!-- border -->
     ![Image depicting step-1a-new-repo-object](step-1a-new-repo-object.png)
 
 2. Enter the filter text **HTTP** and choose **Next**:
 
-    <!-- border -->
     ![Image depicting step-1b-choose-HTTP-service](step-1b-choose-HTTP-service.png)
 
 3. Enter a **Name:`Z_GET_DATE_HTTP_000`** and **Description:Get system date** for your service and choose **Next**:
 
-    <!-- border -->
     ![Image depicting step-1c-name-service](step-1c-name-service.png)
 
 4. Choose or create a **transport request**:
 
-    <!-- border -->
     ![Image depicting step-1d-transport-request](step-1d-transport-request.png)
 
 The new HTTP service is displayed on a new tab. The handler class and URL are generated automatically, in the form:
 **`https://<server:port>/sap/bc/http/sap/<service_name>?sap-client=100`**
 
-<!-- border -->
 ![Image depicting step-1e-new-service-created](step-1e-new-service-created.png)
 
 
@@ -71,7 +66,6 @@ Now, you will implement the handler class, starting with a simple text output.
 
 1. Open the handler class by clicking on the hyperlink:
 
-    <!-- border -->
     ![Image depicting step-2a-open-handler-class](step-2a-open-handler-class.png)
 
 2. The structure of the class and the interfaces statement for `IF_HTTP_SERVICE_EXTENSION` are generated automatically.
@@ -80,7 +74,6 @@ Now, you will implement the handler class, starting with a simple text output.
 
     **`response->set_text('Hello!').`**
 
-    <!-- border -->
     ![Image depicting step-2b-insert-method](step-2b-insert-method.png)
 
 4. **Save (`Ctrl+S`)** and **Activate (`Ctrl+F3`)** your class.
@@ -90,12 +83,10 @@ Now, you will implement the handler class, starting with a simple text output.
 
 1. Go back to your HTTP Service. Test your service in the browser by clicking the URL link:
 
-    <!-- border -->
     ![Image depicting step-4-test-http-service](step-4-test-http-service.png)
 
 2. If necessary, log in again. The preview open automatically in a new tab and display something like this:
 
-    <!-- border -->
     ![Image depicting step-4b-hello](step-4b-hello.png)
 
 
@@ -107,33 +98,33 @@ In the ABAP environment, you can only use whitelisted APIs. Therefore, for examp
 
 1. In your class definition, add the following statement:
 
-    ```ABAP
-    METHODS: get_html RETURNING VALUE(ui_html) TYPE string.
+   ```ABAP
+   METHODS: get_html RETURNING VALUE(ui_html) TYPE string.
 
-    ```
+   ```
 2. You will get the error "Implementation missing...". Resolve this by choosing **Quick Assist ( `Ctrl+1` )** and choosing **Add implementation...**. Ignore the two warnings for now.
 
-    ```ABAP
+   ```ABAP
 
-    DATA(system_date) = cl_abap_context_info=>get_system_date( ).
+   DATA(system_date) = cl_abap_context_info=>get_system_date( ).
 
-    ui_html =  |<html> \n| &&
-    |<body> \n| &&
-    |<title>General Information</title> \n| &&
-    |<p style="color:DodgerBlue;"> Hello there </p> \n | &&
-    |<p> Today, the date is:  { system_date }| &&
-    |<p> | &&
-    |</body> \n| &&
-    |</html> | .
+   ui_html =  |<html> \n| &&
+   |<body> \n| &&
+   |<title>General Information</title> \n| &&
+   |<p style="color:DodgerBlue;"> Hello there </p> \n | &&
+   |<p> Today, the date is:  { system_date }| &&
+   |<p> | &&
+   |</body> \n| &&
+   |</html> | .
 
-    ```
+   ```
 
 3. Now change the method implementation of the method **`handle_request`**
 
-    ```ABAP
-    response->set_text( get_html(  ) ).
+   ```ABAP
+   response->set_text( get_html(  ) ).
 
-    ```
+   ```
 
 4. Now select the warning for the method **`get_html`** and choose **Quick Assist `( Ctrl + 1 )`**. (You cannot resolve the warning for the method `handle_request`).
 
@@ -146,7 +137,6 @@ In the ABAP environment, you can only use whitelisted APIs. Therefore, for examp
 
 Your output should look roughly like this:
 
-<!-- border -->
 ![step8a-formatted-html](step8a-formatted-html.png)
 
 
@@ -207,26 +197,22 @@ ENDCLASS.
 
 You will now create the artifacts you need to allow other systems to call your service compliantly. This involves some overhead for one consumer; however, the advantage is that you can add several consumer systems, or users (for example, with different authentication) pointing to the same HTTP service, wrapped in the same Communication Scenario.
 
-<!-- border -->
 ![step9-create-comm-artefacts-overview](step9-create-comm-artefacts-overview.png)
 
  First, create the **Communication Scenario**.
 
 1. Select your package, then choose **New > Other Repository Object...** from the context menu.
 
-    <!-- border -->
     ![step9a-new-other](step9a-new-other.png)
 
 2. Add the filter **`scen`**, then choose **Communication Scenario**, then choose **Next**.
 
-    <!-- border -->
     ![step9c-create-comm-scenario](step9c-create-comm-scenario.png)
 
 3. Add a **Name: `Z_WRAP_HTTP_INBOUND_000`** and **Description**, choose a transport request, then choose **Finish**.
 
 Your Communication Scenario appears.
 
-<!-- border -->
 ![step9-new-comm-scen](step9-new-comm-scen.png)
 
 
@@ -234,17 +220,14 @@ Your Communication Scenario appears.
 
 1. On the **Inbound** tab, choose **Add...**.
 
-    <!-- border -->
     ![step10-add-http-service](step10-add-http-service.png)
 
 2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z_HTTP`**, select your service, then choose **Finish**.
 
-    <!-- border -->
     ![step10a-browse-for-service](step10a-browse-for-service.png)
 
 3. Your service appears. Choose **Publish Locally**.
 
-    <!-- border -->
     ![step10-b-publish-locally](step10-b-publish-locally.png)
 
 
@@ -252,17 +235,14 @@ Your Communication Scenario appears.
 
 1. Open the SAP Fiori launchpad for your system. You can find the URL for this launchpad by selecting your system (that is, ABAP Project) in Project Explorer, then choosing **Properties > ABAP Development** from the context menu.
 
-    <!-- border -->
     ![step11a-open-flp](step11a-open-flp.png)
 
 2. From the launchpad, choose the Fiori app **Communication Arrangement**. Then choose **New**.
 
-    <!-- border -->
     ![step11b-new](step11b-new.png)
 
 3. Choose your scenario, **`Z_WRAP_HTTP_INBOUND_000`** from the drop-down list. Accept the default (identical) Arrangement name.
 
-    <!-- border -->
     ![step11c-name-comm-arr](step11c-name-comm-arr.png)
 
 
@@ -277,7 +257,6 @@ Your Communication Scenario appears.
 
 4. In **Technical Data > General > Host Name**, enter **Dummy**. Leave the other defaults and choose **Save**.
 
-    <!-- border -->
     ![step12a-new-system](step12a-new-system.png)
 
 
@@ -285,12 +264,10 @@ Your Communication Scenario appears.
 
 1. Scroll down to **Users for Inbound Communication**, then create a new user by choosing the **+** icon.
 
-    <!-- border -->
     ![step13a-create-comm-user](step13a-create-comm-user.png)
 
 2. Choose **New User** and the **Authentication Method: User name and password**.
 
-    <!-- border -->
     ![step13b-choose-new-user](step13b-choose-new-user.png)
 
 3. Enter a name and description, then choose **Propose password**, then choose **Create > OK > Save**.
@@ -299,7 +276,6 @@ Your Communication Scenario appears.
 ### Save Communication Arrangement
 
 
-<!-- border -->
 ![step14-save-comm-arr](step14-save-comm-arr.png)
 
 

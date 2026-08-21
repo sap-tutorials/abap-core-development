@@ -90,9 +90,9 @@ author_profile: https://github.com/mervey45
       - MTA description: Travel App XXX
       - Add router module: `Managed Approuter`
 
-    Click **Finish**.
+ Click **Finish**.
 
-      ![MTA project](mta3.png)
+   ![MTA project](mta3.png)
 
   5. Check your result.
 
@@ -151,9 +151,9 @@ author_profile: https://github.com/mervey45
 
   3. Select **SAP Fiori elements** as application type and **List Report Object Page** as `floorplan`.
 
-    Click **Next >**.
+ Click **Next >**.
 
-      ![Fiori application](fiori3.png)
+   ![Fiori application](fiori3.png)
 
   4. Configure data source, system and service:
      - Data source: **Connect to a SAP System**
@@ -182,7 +182,7 @@ author_profile: https://github.com/mervey45
      Click **Next >**.
       ![Fiori application](fiori6.png)
 
-    >**HINT**: Make sure, you have selected your **MTA project** in the **folder path**.
+   >**HINT**: Make sure, you have selected your **MTA project** in the **folder path**.
 
   7. Configure deployment:
 
@@ -241,13 +241,13 @@ Check your result
 
   1. Right-click your  `mta.yaml`file inside your SAP Fiori Application `ztravel_app_xxx` and select **Build MTA Project**.
 
-    ![build](build.png)
+   ![build](build.png)
 
   2. Check your result. A new `mta_archives` folder has been created.
 
-    ![build](build2.png)
+   ![build](build2.png)
 
-    >**HINT:** You can also create the `mta_archives` by right-click on the **project** > **open terminal**, and **check** where the `mta_archive` is present, and then run the command `npm run build`. The `mta_archives` file will then get generated.
+   >**HINT:** You can also create the `mta_archives` by right-click on the **project** > **open terminal**, and **check** where the `mta_archive` is present, and then run the command `npm run build`. The `mta_archives` file will then get generated.
 
 
 
@@ -262,7 +262,7 @@ Check your result
 
       ![deploy](deploy2.png)
 
-    >**HINT:** You can also deploy the application from command line by **opening the terminal**, **check** where the **`mta_archive`** is present, and then run the **command `npm run deploy`**.
+   >**HINT:** You can also deploy the application from command line by **opening the terminal**, **check** where the **`mta_archive`** is present, and then run the **command `npm run deploy`**.
 
 
 
@@ -273,7 +273,7 @@ Check your result
 
   1. Go back to SAP BTP trial cockpit, select **HTML5 Applications** on the left menu and select your application **`ztravelappxxx`**.
 
-    ![deployment](deployment.png)
+   ![deployment](deployment.png)
 
 
   2. Click **Go**.
@@ -290,7 +290,7 @@ Check your result
 
   1. Go back to SAP BTP trial cockpit, select **Service Marketplace** on the left menu, search for **Launchpad Service** and select **Go to Application**.
 
-    ![service](service.png)
+   ![service](service.png)
 
 
   2. Click **Content Providers** on the left menu. Now you can see your HTML5 application. Click the refresh button.
@@ -300,7 +300,7 @@ Check your result
 
   3. Go to your content explorer and select your HTML5 app.
 
-    ![service](service4.png)
+   ![service](service4.png)
 
 
   4.  Check your result. Your **Travel App XXX** should appear here.

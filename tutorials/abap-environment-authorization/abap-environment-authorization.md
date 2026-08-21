@@ -104,9 +104,9 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
      - Name: **`Z_I_ROOM_XXX`**
      - Description: **`Room`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create Access Control](access3.png)
+   ![Create Access Control](access3.png)
 
   4. Click **Next>**.
 
@@ -117,20 +117,20 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
       ![Create Access Control](access5.png)
 
   6. Edit your service definition:
-    ```ABAP
-    @EndUserText.label: 'Room'
-    @MappingRole: true
-    define role Z_I_Room_XXX
-    {
-      grant
-        select
-            on
-                Z_I_ROOM_XXX
-                    where
-                        (location) = aspect pfcg_auth(Z_LOCAOXXX, Z_LOCAFXXX, ACTVT = '03');  
-    }
-    ```
-    Save and activate.
+   ```ABAP
+   @EndUserText.label: 'Room'
+   @MappingRole: true
+   define role Z_I_Room_XXX
+   {
+     grant
+       select
+           on
+               Z_I_ROOM_XXX
+                   where
+                       (location) = aspect pfcg_auth(Z_LOCAOXXX, Z_LOCAFXXX, ACTVT = '03');  
+   }
+   ```
+   Save and activate.
 
 
 ### Enhance behavior
@@ -176,9 +176,9 @@ Save and activate.
      - Name: **`Z_ROOM_XXX`**
      - Description: **`Room`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create Access Control](app3.png)
+   ![Create Access Control](app3.png)
 
   4. Click **Finish**.
 
@@ -196,10 +196,10 @@ Save and activate.
     - Service Type: `OData V2`
     - Service Name: `Z_I_ROOM_BND_XXX_0001`
 
-    Add `_0001` to your service name to find it.
-    Click **OK**.
+ Add `_0001` to your service name to find it.
+ Click **OK**.
 
-      ![Create Access Control](app7.png)
+   ![Create Access Control](app7.png)
 
   8. Click **Authorizations**.
 
@@ -217,11 +217,11 @@ Save and activate.
 
   1. Right-click on your package **`Z_ROOM_XXX`** and select **New** > **Other ABAP Repository Object**.
 
-    ![Create restriction field and restriction type](restriction6.png)
+   ![Create restriction field and restriction type](restriction6.png)
 
   2. Search for **restriction field**, select it and click **Next >**.
 
-    ![Create restriction field and restriction type](restriction2.png)
+   ![Create restriction field and restriction type](restriction2.png)
 
   3. Create your restriction field:
     - Name: **`Z_LOC_RF_XXX`**
@@ -229,41 +229,41 @@ Save and activate.
 
       ![Create restriction field and restriction type](restriction3.png)
 
-    Click **Next >**.
+   Click **Next >**.
 
   4. Click **Finish**.  
 
-    ![Create restriction field and restriction type](restriction4.png)
+   ![Create restriction field and restriction type](restriction4.png)
 
   5. Add **`Z_LOCAFXXX`** as authorization field, save and activate.
 
-    ![Create restriction field and restriction type](restriction5.png)
+   ![Create restriction field and restriction type](restriction5.png)
 
   6. Right-click on your package **`Z_ROOM_XXX`** and select **New** > **Other ABAP Repository Object**.
 
-    ![Create restriction field and restriction type](restriction6.png)
+   ![Create restriction field and restriction type](restriction6.png)
 
   7. Search for **restriction type**, select it and click **Next >**.
 
-    ![Create restriction field and restriction type](restriction7.png)
+   ![Create restriction field and restriction type](restriction7.png)
 
   8. Create your restriction field:
     - Name: **`Z_LOC_RT_XXX`**
     - Description: Restriction type for location
 
-    ![Create restriction field and restriction type](restriction8.png)
+   ![Create restriction field and restriction type](restriction8.png)
 
-    Click **Next >**.
+   Click **Next >**.
 
   9. Click **Finish**.   
 
-    ![Create restriction field and restriction type](restriction9.png)
+   ![Create restriction field and restriction type](restriction9.png)
 
   10. Add **`Z_LOC_RF_XXX`** as restriction field AND **`Z_LOCAOXXX`** as restriction object.
 
-    ![Create restriction field and restriction type](restriction10.png)
+   ![Create restriction field and restriction type](restriction10.png)
 
-    Save and activate.
+   Save and activate.
 
 
 
@@ -283,9 +283,9 @@ Save and activate.
      - Name: **`Z_ROOM_BC_XXX`**
      - Description: **`Room`**
 
-     Click **Next>**.
+  Click **Next>**.
 
-      ![Create Access Control](catalog3.png)
+   ![Create Access Control](catalog3.png)
 
   4. Click **Finish**.
 
@@ -303,9 +303,9 @@ Save and activate.
     - App ID: `Z_ROOM_XXX_EXT`
     - Assignment ID: `Z_ROOM_BC_XXX_0001`
 
-    Click **Next>**.
+ Click **Next>**.
 
-      ![Create Access Control](catalog7.png)
+   ![Create Access Control](catalog7.png)
 
   8.  Click **Finish**.
 

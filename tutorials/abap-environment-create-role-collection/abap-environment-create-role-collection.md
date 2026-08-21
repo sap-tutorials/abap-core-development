@@ -28,36 +28,36 @@ author_profile: https://github.com/mervey45
 
   1. Open SAP Web IDE and your project `ROOM_MTA_XXX` and add scope to `xs-security.json`.
 
-    ```JSON
-         {  
+   ```JSON
+        {  
 
-             "name": "$XSAPPNAME.Room-maintain",
-             "description": "View data"
+            "name": "$XSAPPNAME.Room-maintain",
+            "description": "View data"
 
-         }          
-    ```
+        }          
+   ```
 
 
   2.  Add role template to xs-security.json
 
-    ```JSON
-          {
-                "name": "RoomTemplate",
-                "description": "Role for viewing data",
-                "scope-references": ["$XSAPPNAME.Room-maintain"]
-          }   
-    ```
+   ```JSON
+         {
+               "name": "RoomTemplate",
+               "description": "Role for viewing data",
+               "scope-references": ["$XSAPPNAME.Room-maintain"]
+         }   
+   ```
 
   3. Add required scope to `webapp/manifest.json`.
 
-    ```JSON
-          {
-              "sap.platform.cf":
-                                {		
-                                  "oAuthScopes": ["$XSAPPNAME.Room-maintain"]
-                                }
-          }   
-    ```
+   ```JSON
+         {
+             "sap.platform.cf":
+                               {		
+                                 "oAuthScopes": ["$XSAPPNAME.Room-maintain"]
+                               }
+         }   
+   ```
 
 
 ### Deploy UI to Cloud Foundry
@@ -114,7 +114,7 @@ author_profile: https://github.com/mervey45
 
       ![Create role collection mapping](mapping.png)
 
-    Hint: Groups attribute and assignment to business user needs to be provided in identity provider!
+   Hint: Groups attribute and assignment to business user needs to be provided in identity provider!
 
   2. Create a new role collection mapping.
      - Role collection: `MyCollection_XXX`
