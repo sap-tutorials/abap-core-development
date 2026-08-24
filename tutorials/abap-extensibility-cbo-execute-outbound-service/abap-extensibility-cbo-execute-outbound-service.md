@@ -2,12 +2,12 @@
 parser: v2
 auto_validation: true
 primary_tag: programming-tool>abap-extensibility
-tags: [ tutorial>intermediate, tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
+tags: [ tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!-- DONE with FYZ/100 -->
+<!-- DONE with BGO/100 -->
 <!-- SAP S/4HANA Extensibility Tutorial: https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-s-4hana-extensibility-tutorial/ba-p/13293080 -->
 # Execute an Outbound Service from Custom Business Object Logic
 
@@ -23,28 +23,148 @@ author_profile: https://github.com/peterpersiel
 
 - **Authorizations:** Your user needs business role(s) with business catalogs **Extensibility - Custom Business Objects** (ID: `SAP_CORE_BC_EXT_CBO`), **Communication Management** (ID: `SAP_CORE_BC_COM`) and **Extensibility - Custom Communication Scenarios** (ID: `SAP_CORE_BC_EXT_CCS`) in your **SAP S/4HANA Cloud** system
 - Your user needs access to **[SAP Business Accelerator Hub](https://api.sap.com)**.
-- **Example Objects:** Existence of custom business object `Bonus Entitlement` as described in [Part IV: Associated Business Objects (Bonus Entitlement with - Plan & Sales Order)](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/part-iv-associated-business-objects-bonus-entitlement-with-plan-amp-sales/ba-p/13345817) → Steps 1-4 without release status functionality
-- **Knowledge:** (optional) [Tutorial: Tour the SAP Business Accelerator Hub](https://developers.sap.com/tutorials/hcp-abh-getting-started.html)
+- **Example Objects:** Existence of custom business object `Bonus Entitlement`, refer to instructions below for [Bonus Entitlement CBO](#step-1).
 
 ## Additional Info
 
 - The example application of `Bonus Entitlement` will be enhanced by a feedback functionality. The manager's feedback will be translated automatically into English by calling the externally available service **SAP Translation Hub** of SAP.
 - Be aware that the example is done with the SAP Business Accelerator Hub Sandbox system only. This shall only give an idea on how it works and cannot be used productively.
-- Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2602
+- Tutorial feasibility last checked with SAP S/4HANA Cloud Release 2608
   
 ---
+
+### Prerequsite: Bonus Entitlement CBO
+As a prerequisite, create another Custom Business Object `Bonus Entitlement`. Also refer to [Part IV: Associated Business Objects (Bonus Entitlement with - Plan & Sales Order)](https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/part-iv-associated-business-objects-bonus-entitlement-with-plan-amp-sales/ba-p/13345817).
+
+  - Business Object ID: `YY1_BONUSENTITLEMENT`
+  - Enabled Features: Determination and Validation, User Interface, System Administrative Data
+  - Nodes: `BONUSENTITLEMENT`
+  - Fields:
+    - Description, Type = Text with Length = 255
+    - Calculation Start Date, Type = Date
+    - Calculation End Date, Type = Date
+    - Actual Revenue Amount, Type = Amount with Currency
+    - Low Bonus Amount, Type = Amount with Currency
+    - High Bonus Amount, Type = Amount with Currency
+    - Total Bonus Amount, Type = Amount with Currency
+    - Bonus Plan ID, Type = Numeric Identifier with Length = 10
+  - Determination Logic (After Modification):
+```abap
+DATA: bonusplan TYPE yy1_bonusplan.
+DATA: bonusplan_id TYPE yy1_bonusplan-id.
+
+IF bonusentitlement-bonusplanid IS INITIAL.
+    RETURN.
+ELSE.
+    " get Bonus Plan
+    SELECT *
+    FROM yy1_bonusplan
+    INTO @bonusplan
+    WHERE id EQ @bonusentitlement-bonusplanid.
+    ENDSELECT.
+
+    " fill calculation period (should actually be done by plan when creating entitlement)
+    bonusentitlement-calculationstartdate = bonusplan-validitystartdate.
+    bonusentitlement-calculationenddate = bonusplan-validityenddate.
+
+    " get completed Sales Orders for bonus plan's employee
+
+    SELECT FROM i_salesorderitemcube( p_exchangeratetype = 'M', p_displaycurrency = @bonusplan-targetamount_c )
+    FIELDS SUM( netamountindisplaycurrency )
+    WHERE createdbyuser = @bonusplan-employeeid
+        AND overallsdprocessstatus = 'C'
+        AND creationdate BETWEEN @bonusplan-validitystartdate AND @bonusplan-validityenddate
+    INTO @bonusentitlement-actualrevenueamount_v.
+
+    bonusentitlement-actualrevenueamount_c = bonusplan-targetamount_c.
+
+    " calculate minimum bonus
+    IF ( bonusentitlement-actualrevenueamount_v / bonusplan-targetamount_v ) GT bonusplan-lowbonusassignmentfactor.
+        bonusentitlement-lowbonusamount_v = bonusentitlement-actualrevenueamount_v * bonusplan-lowbonuspercentage_v / 100.
+        bonusentitlement-lowbonusamount_c = bonusplan-targetamount_c.
+    ELSE.
+        CLEAR bonusentitlement-lowbonusamount_v.
+        CLEAR bonusentitlement-lowbonusamount_c.
+    ENDIF.
+
+    " calculate maximum bonus
+    IF ( bonusentitlement-actualrevenueamount_v / bonusplan-targetamount_v ) GT bonusplan-highbonusassignmentfactor.
+        bonusentitlement-highbonusamount_v = ( bonusentitlement-actualrevenueamount_v - ( bonusplan-targetamount_v * bonusplan-highbonusassignmentfactor ) ) *  bonusplan-highbonuspercentage_v / 100.
+        bonusentitlement-highbonusamount_c = bonusplan-targetamount_c.
+    ELSE.
+        CLEAR bonusentitlement-highbonusamount_v.
+        CLEAR bonusentitlement-highbonusamount_c.
+    ENDIF.
+
+    " calculate total bonus
+    bonusentitlement-totalbonusamount_v = bonusentitlement-lowbonusamount_v + bonusentitlement-highbonusamount_v.
+    bonusentitlement-totalbonusamount_c = bonusplan-targetamount_c.
+
+    DATA(actrevenue_s) = CONV string( bonusentitlement-actualrevenueamount_v ).
+    DATA(target_s) = CONV string( bonusplan-targetamount_v ).
+    DATA(lowf_s) = CONV string( bonusplan-lowbonusassignmentfactor ).
+    DATA(lowp_s) = CONV string( bonusplan-lowbonuspercentage_v ).
+    DATA(highf_s) = CONV string( bonusplan-highbonusassignmentfactor ).
+    DATA(highp_s) = CONV string( bonusplan-highbonuspercentage_v ).
+
+    CONCATENATE 'Bonus Run for Plan: ' bonusentitlement-bonusplanid
+                ' with Target Amount: ' target_s
+                ', Low Factor: ' lowf_s
+                ', Low Percentage: ' lowp_s
+                ', High Factor: ' highf_s
+                ', High Percentage: ' highp_s INTO bonusentitlement-description SEPARATED BY space.
+ENDIF.
+```
+  - Validation Logic (Before Save):
+```abap
+valid = abap_false.
+
+* check for consistency
+DATA: bonusplan TYPE yy1_bonusplan.
+DATA: bonusplan_id TYPE yy1_bonusplan-id.
+
+IF bonusentitlement-bonusplanid IS INITIAL.
+    message = 'No Bonus Plan set. Bonus calculation impossible.'.
+    RETURN.
+    ELSE.
+
+    * check for uniqueness
+    SELECT SINGLE @abap_true FROM yy1_bonusentitlement INTO @DATA(rv_exists) WHERE bonusplanid EQ @bonusentitlement-bonusplanid
+    AND sap_createddatetime NE @bonusentitlement-sap_createddatetime.
+
+    IF rv_exists EQ abap_true.
+        CONCATENATE 'Bonus Entitlement for Bonus Plan ' bonusentitlement-bonusplanid 'already exists' INTO message SEPARATED BY space.
+        RETURN.
+    ELSE.
+
+        " get Bonus Plan
+        SELECT *
+        FROM yy1_bonusplan
+        INTO @bonusplan
+        WHERE id EQ @bonusentitlement-bonusplanid.
+        ENDSELECT.
+
+        IF bonusplan IS INITIAL.
+        CONCATENATE 'Bonus Plan ' bonusentitlement-bonusplanid 'does not exist. Bonus calculation impossible.' INTO message SEPARATED BY space.
+        RETURN.
+        ENDIF.
+
+        message = 'Bonus calculated' .
+        valid = abap_true.
+    ENDIF.
+ENDIF.
+```
 
 ### Excursus - Try out the service in SAP Business Accelerator Hub
 
 To get to know the SAP Translation Hub service first, you can try it out in SAP Business Accelerator Hub.
 
-![Try out of SAP Translation Hub on SAP Business Accelerator Hub](API_Hub_TryOut.png)
+<!--border-->
+1. Go to [Software Translation on SAP Business Accelerator Hub](https://api.sap.com/api/translationhubK8S/tryout), provided as part of SAP Translation Hub.
 
-1. Go to [Try out of SAP Translation Hub on SAP Business Accelerator Hub](https://api.sap.com/api/translationhub/tryout)
+2. Expand the **Try Out** section .
 
-2. Expand the **Translate** operations section .
-
-3. Choose the POST operation **/translate**.
+3. Choose the POST operation **/v3/translate** under **Translate API for V3**.
 
 4. Switch to **Body** section of **REQUEST**.
 
@@ -53,9 +173,7 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
    ```json
    {
        "sourceLanguage": "en",
-       "targetLanguages": [
-           "es"
-       ],
+       "targetLanguage": "es",
        "units": [
            {
                "value": "Your text to be translated"
@@ -70,15 +188,13 @@ To get to know the SAP Translation Hub service first, you can try it out in SAP 
 
 ### Get service end point and API Key
 
-To configure the connection to the system and the outbound scenario you will need the service's end point.
-
-After trying out the service in SAP Business Accelerator Hub, the response appears. Copy the Request URL - which is the end point - from the response section and paste it into a text editor for later use.
+To configure the connection to the system and the outbound scenario you will need the service's end point. To retrieve the endpoint, switch to the **Overview** section and open the **Configuration Details**. Use the **SANDBOX URL** as endpoint for this tutorial.
 
 ![Service End Point: Request URL in response section](API_Hub_GetServiceEndPoint.png)
 
 To authenticate during a service call later, you will need an API key from the SAP Business Accelerator Hub.
 
-1. Still in SAP Business Accelerator Hub, scroll to top and press **Show API Key**
+1. Still in Software Translation in SAP Business Accelerator Hub, scroll to top and press **Show API Key**
 
     ![Button to show API Key of in SAP Business Accelerator Hub](API_Hub_ShowAPI_Key.png)
     A pop up opens.
@@ -159,11 +275,11 @@ Define the external SAP Business Accelerator Hub service as an available Communi
 
     Enter following data into the input fields
 
-    | Field Label         | Field Value                                                                            |
-    | :-------------------| :------------------------------------------------------------------------------------- |
-    | Description         | **`Outbound Service for SAP Translation Hub`**                                         |
-    | Outbound Service ID | **`OS_SAP_TRANSLATION_HUB`** (prefix `YY1_` and suffix `_REST` are added automatically)|
-    | URL Path            | **`/sth/translate`** (service-specific path of the previously obtained request URL)    |
+    | Field Label         | Field Value                                                                                                       |
+    | :-------------------| :---------------------------------------------------------------------------------------------------------------  |
+    | Description         | **`Outbound Service for SAP Translation Hub`**                                                                    |
+    | Outbound Service ID | **`OS_SAP_TRANSLATION_HUB`** (prefix `YY1_` and suffix `_REST` are added automatically)                           |
+    | URL Path            | **`/swtranslation/v3/translate`** (service-specific path of the previously obtained SANBOX_URL + request path)    |
 
 6. Press **Create** to finish the outbound service creation.
 
@@ -275,13 +391,11 @@ Now as the business object has just been published, the logic can be enhanced by
 
    ```json
    {
-       "sourceLanguage": "es",
-       "targetLanguages": [
-           "en"
-       ],
+       "sourceLanguage": "en",
+       "targetLanguage": "es",
        "units": [
            {
-               "value": "Su texto a traducir"
+               "value": "Your text to be translated"
            }
        ]
    }
@@ -295,10 +409,8 @@ Now as the business object has just been published, the logic can be enhanced by
    lo_json_builder->begin_object(
        )->add_member( 'sourceLanguage'
            )->add_string( bonusentitlement-feedbackslanguage
-       )->add_member( 'targetLanguages'
-           )->begin_array(
-               )->add_string( 'en'
-           )->end_array(
+       )->add_member( 'targetLanguage'
+           )->add_string( 'en'
        )->add_member( 'units'
            )->begin_array(
                )->begin_object(
@@ -307,7 +419,7 @@ Now as the business object has just been published, the logic can be enhanced by
                )->end_object(
            )->end_array(
    )->end_object( ).
-   
+
    DATA(lv_request_body) = lo_json_builder->get_data( )->to_string( ).
    ```
 
@@ -347,15 +459,16 @@ Now as the business object has just been published, the logic can be enhanced by
         {
             "units": [
                 {
-                    "value": "Su texto a traducir",
-                    "translations": [
-                        {
-                            "language": "en",
-                            "value": "Your text to translate",
-                            "translationProvider": 1,
-                            "qualityIndex": 25
-                        }
-                    ]
+                "key": "key_193bbaa9-a59a-4827-8e45-39d666edd003",
+                "value": "Your text to be translated",
+                "translations": [
+                    {
+                    "language": "es",
+                    "value": "Su texto para traducir",
+                    "translationProvider": 1,
+                    "qualityIndex": 25
+                    }
+                ]
                 }
             ]
         }
@@ -367,12 +480,13 @@ Now as the business object has just been published, the logic can be enhanced by
         * Get translation from response
         TYPES:
             BEGIN OF ts_translation,
-                language             TYPE c LENGTH 2,
+                language             TYPE string,
                 value                TYPE string,
                 translation_provider TYPE i,
                 quality_index        TYPE i,
             END OF ts_translation,
             BEGIN OF ts_unit,
+                key          TYPE string,
                 value        TYPE string,
                 translations TYPE STANDARD TABLE OF ts_translation WITH NON-UNIQUE DEFAULT KEY,
             END OF ts_unit,
@@ -395,7 +509,7 @@ Now as the business object has just been published, the logic can be enhanced by
         Consider a proper error handling by putting a TRY and CATCH block around the service call logic.
 
         ```abap
-        TRY .
+        TRY.
 
         " < CODING PARTS OF THIS STEP FROM BEFORE TO BE PLACED HERE >
 
@@ -432,3 +546,4 @@ Now as the business object has just been published, the logic can be enhanced by
 4. **Save** the Bonus Entitlement. The translation will get filled.
 
 ### Test yourself
+
