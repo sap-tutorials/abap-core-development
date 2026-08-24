@@ -34,7 +34,7 @@ author_profile: https://github.com/peterpersiel
 
 ## Additional Information
 
-- Tutorial last updated in April 2026
+- Tutorial last updated in August 2026
 - Documentation: [SAP Cloud Identity Services](https://help.sap.com/docs/cloud-identity-services/cloud-identity-services/landing-page?version=Cloud)
 
 >Be aware that in case of an integration with SAP S/4HANA Cloud the used Identity Authentication for the SAP BTP subaccount should be the very same as the one used for the SAP S/4HANA Cloud system.
@@ -64,7 +64,7 @@ The metadata will be downloaded as XML file.
 
 Open the SAP Cloud Identity Services administration console with its URL which follows the pattern:
 
-`https://<YOUR_TENANTS_ID>.accounts.ondemand.com/admin`
+`https://YOUR_TENANT_ID.accounts.ondemand.com/admin`
 
 The Tenant ID is an automatically generated ID by the system. The first administrator created for the tenant receives an activation e-mail with an URL in it. This URL contains the tenant ID.
 
@@ -136,7 +136,7 @@ To set the SAP Cloud Identity Services tenant as trusted identity provider in th
 
     ![Pop-up to download SAML 2.0 Metadata](IAS-download-metadata-popup.png)
 
->Alternatively you can open the metadata XML by entering your tenant's web address for it which follows pattern `https://<YOUR_TENANTS_ID>.accounts.ondemand.com/saml2/metadata` and saving that XML to a file.
+>Alternatively you can open the metadata XML by entering your tenant's web address for it which follows pattern `https://YOUR_TENANT_ID.accounts.ondemand.com/saml2/metadata` and saving that XML to a file.
 
 ### Add SAP Cloud Identity Services tenant as SAP BTP subaccount's trusted identity provider
 
