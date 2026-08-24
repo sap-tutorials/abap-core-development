@@ -7,7 +7,7 @@ time: 20
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!--DONE with FYZ/100 -->
+<!--DONE with BGO/100 -->
 # Implement Logic for a Custom Business Object
 
 <!-- description -->Control your custom business object application with ABAP logic
@@ -31,7 +31,9 @@ A several tutorials spanning example will show extensibility along custom Bonus 
 
 In the first parts a Manager wants to define business objects **Bonus Plan** for employees. A Bonus Plan is used to save employee specific rules for bonus entitlement.
 
->Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+>Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
+
+---
 
 ### Make key field Read-Only
 
@@ -176,9 +178,9 @@ In the **Test** section you can test the draft or latest published version of th
     | `highbonusassignmentfactor` | `3`          |
     | `lowbonuspercentage_v`      | `10`         |
     | `highbonuspercentage_v`     | `20`         |
-    | `employeeid`                | `<any>`      |
+    | `employeeid`                | <any>      |
 
-    `employeeid` `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
+    `employeeid` <any> shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
 
 5. Execute the **Test** action
 
@@ -224,7 +226,7 @@ Go back to **Develop** section and **Publish** the After Modification Logic.
         - `ValidityStartDate` must be earlier in time than `ValidityEndDate`
         - Factors and Percentages must be > 0
         - Percentages must be < 100
-        - LowBonusAssignmentFactor must be < HighBonusAssignmentFactor
+        - `LowBonusAssignmentFactor` must be < `HighBonusAssignmentFactor`
         - Employee ID must be set
 
         ```ABAP
