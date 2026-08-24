@@ -7,7 +7,7 @@ primary_tag: programming-tool>abap-extensibility
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!-- DONE with FYZ/100 and BTP Trial -->
+<!-- DONE with BGO/100 and BTP Trial -->
 # Develop a Custom UI for an SAP S/4HANA Cloud System
 
 <!-- description -->As a key user develop a custom UI based on a custom business object OData service in SAP Business Application Studio for an SAP S/4HANA Cloud system.
@@ -22,14 +22,17 @@ author_profile: https://github.com/peterpersiel
 ## Prerequisites
 
 - You have an **SAP S/4HANA Cloud system** for development and a business user with UI Development authorization. This requires a business role with unrestricted write access containing business catalog `SAP_CORE_BC_EXT_UI` (Extensibility - Fiori App Development).
-- You have a custom business object with OData service running in the SAP S/4HANA Cloud system, for example `YY1_BONUSPLAN`, see [Create a Custom Business Object](abap-extensibility-cbo-create) as well as [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation). During creation of the custom business object, select the option to generate a Back End Service and deselect the option to generate a User Interface.
+- You have a custom business object with OData service running in the SAP S/4HANA Cloud system, for example `YY1_BONUSPLAN`, see [Create a Custom Business Object](abap-extensibility-cbo-create) as well as [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation). 
+- **Note:** During creation of the custom business object, select the option to generate a Back End Service and __deselect the option to generate a User Interface__. Otherwise label texts may not be populated automatically!
 - You have an SAP Business Technology Platform (SAP BTP) Trial account with an SAP Business Application Studio subscription and a dev space within that, see preceding tutorials of this tutorial group.
 
 ## Additional Info
 
 - This tutorial illustrates all the needed steps to build a UI with all SAPUI5 options in SAP Business Application Studio, how to test it, and how deploy it into the SAP S/4HANA Cloud system. If your goal is simply to generate a user interface and make limited adjustments within the SAP S/4HANA Cloud system using in-app extensibility, refer to [Generate the UI for a Custom Business Object and grant Access](abap-extensibility-cbo-ui-generation) and [Adapt the UI of a Business Object](abap-extensibility-cbo-ui-adaptation).
-- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group-develop-an-sap-fiori-app-to-trigger-purchase-requisitions-api.html)
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
+
+---
 
 ### Launch SAP Business Application Studio
 
