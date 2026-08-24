@@ -7,7 +7,7 @@ time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!-- DONE with FYZ/100 -->
+<!-- DONE with BGO/100 -->
 # Add Custom UI Application Tile to SAP Fiori Launchpad
 
 <!-- description -->Extend a business catalog with custom UI application.
@@ -23,7 +23,9 @@ author_profile: https://github.com/peterpersiel
 ## Additional Info
 
 - Since application availability in the Fiori Launchpad and its authorization are controlled through Business Catalogs, you'll learn how to extend an existing catalog to include your newly created app.
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
+
+---
 
 ### Open custom catalog extensions
 
