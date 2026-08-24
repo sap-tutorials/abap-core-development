@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: programming-tool>abap-extensibility
-tags: [ tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
+tags: [ tutorial>intermediate,tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
@@ -391,11 +391,11 @@ Now as the business object has just been published, the logic can be enhanced by
 
    ```json
    {
-       "sourceLanguage": "en",
-       "targetLanguage": "es",
+       "sourceLanguage": "es",
+       "targetLanguage": "en",
        "units": [
            {
-               "value": "Your text to be translated"
+               "value": "Su texto a traducir"
            }
        ]
    }
@@ -460,11 +460,11 @@ Now as the business object has just been published, the logic can be enhanced by
             "units": [
                 {
                 "key": "key_193bbaa9-a59a-4827-8e45-39d666edd003",
-                "value": "Your text to be translated",
+                "value": "Su texto a traducir",
                 "translations": [
                     {
-                    "language": "es",
-                    "value": "Su texto para traducir",
+                    "language": "en",
+                    "value": "Your text to translate",
                     "translationProvider": 1,
                     "qualityIndex": 25
                     }
