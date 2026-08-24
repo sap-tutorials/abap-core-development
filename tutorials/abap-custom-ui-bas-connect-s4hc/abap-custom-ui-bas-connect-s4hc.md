@@ -51,9 +51,34 @@ Although this tutorial describes the flow with a trial account, the sequence is 
 
 4. Select **Destinations**.
 
-5. To simplify the destination creation and to reduce the risk of errors, this tutorial provides a template file for the destination. You can download [`SAML_ASSERTION_destination_template.json`](https://raw.githubusercontent.com/sap-tutorials/abap-core-development/refs/heads/main/tutorials/abap-custom-ui-bas-connect-s4hc/SAML_ASSERTION_destination_template.json) locally.
+5. To simplify the destination creation and to reduce the risk of errors, this tutorial provides a template for the destination:
 
-6. Create the destination either by uploading the text file via **Create → From File** (A) or if you want to input everything manually via **Create → From Scratch** (B).
+```json
+{
+  "exportTime": "2025-09-05 14:30:04.933832067",
+  "destination": {
+    "Name": "YOUR_SYSTEMS_ID_SAML_ASSERTION",
+    "Type": "HTTP",
+    "Description": "SAML Assertion Destination to SAP S/4HANA Cloud system YOUR_SYSTEMS_ID",
+    "URL": "https://my12345-api.s4hana.cloud.sap",
+    "ProxyType": "Internet",
+    "Authentication": "SAMLAssertion",
+    "authnContextClassRef": "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession",
+    "audience": "https://my12345.s4hana.cloud.sap",
+    "skipUserAttributesPrefixInSAMLAttributes": "false",
+    "includeSigningCertificateInSAMLAssertion": "false",
+    "skipUserUuidInSAMLAttributes": "false",
+    "HTML5.DynamicDestination": "true",
+    "HTML5.Timeout": "60000",
+    "WebIDEEnabled": "true",
+    "WebIDEUsage": "odata_abap,dev_abap"
+  }
+}
+```
+
+You can save the file as a .json file on your machine the simplify the destination creation steps.
+
+6. Create the destination either by uploading the file via **Create → From File** (A) or if you want to input everything manually via **Create → From Scratch** (B).
 
 7. In case of import (A) adapt the `Name` and `Description` to your needs and provide the mandatory value for `URL` and `Audience` and empty value for `Client Key` as shown below.
 
