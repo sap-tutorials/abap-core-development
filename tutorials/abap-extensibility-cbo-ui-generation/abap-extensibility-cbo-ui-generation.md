@@ -7,7 +7,7 @@ time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!--DONE with FYZ/100 -->
+<!--DONE with BGO/100 -->
 # Generate the UI for a Custom Business Object and grant Access
 
 <!-- description -->Generate an own application based on a Custom Business Object and grant access with a Custom Catalog Extension
@@ -23,14 +23,16 @@ author_profile: https://github.com/peterpersiel
 
 ## Additional Info
 
-- **UI Generation** and **UI Adaptation** are so called **In-App Extensibility** features done completely inside an SAP S/4HANA Cloud system. They are functionality with limited possibilities. Alternatively a UI with all SAPUI5 options can be developed with **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group.abap-custom-ui-s4hana-cloud)).
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+- **UI Generation** and **UI Adaptation** are in-app extensibility features executed entirely within an SAP S/4HANA Cloud system. They provide a streamlined set of capabilities. If you need the full SAPUI5 feature set, develop your UI in **SAP Business Application Studio** (see tutorial group [Create an SAP Fiori App and Deploy it to SAP S/4HANA Cloud](group-create-an-sap-fiori-app-and-deploy-it-to-sap-s-4hana-cloud)) and deploy it as a **Custom UI**. Note: when building a Custom UI for a Custom Business Object, deselect the UI Generation option in the CBO — otherwise label texts may not be populated automatically.
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
 
 ## Our Example
 
 A several tutorials spanning example will show extensibility along custom Bonus Management applications.
 
 In the first parts a Manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is used to save employee specific rules for bonus entitlement.
+
+---
 
 ### Generate UI
 
@@ -84,17 +86,17 @@ Refresh the browser window, start typing **Bonus Plan** in the Launchpad search 
 
 **Enter** following data
 
-| Field                        | Value       |
-| :--------------------------- | :---------- |
-| ID                           | 1           |
-| Validity Start Date          | 01.01.2017  |
-| Validity End Date            | 31.12.2017  |
-| Target Amount                | 1000.00 EUR |
-| Low Bonus Assignment Factor  | 1           |
-| High Bonus Assignment Factor | 3           |
-| Employee ID                  | `<any>`     |
+| Field                        | Value         |
+| :--------------------------- | :-------------|
+| ID                           | 1             |
+| Validity Start Date          | 01/01/2017    |
+| Validity End Date            | 12/31/2017    |
+| Target Amount                | 1000.00 EUR   |
+| Low Bonus Assignment Factor  | 1             |
+| High Bonus Assignment Factor | 3             |
+| Employee ID                  | <any>         |
 
-Employee ID `<any>` shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
+Employee ID <any> shall be the one of a sales person that created sales orders with a Net Amount of more than 3000.00 EUR in 2017 and that are completed.
 
 **Create** the Bonus Plan. You can return from Bonus Plan object page to list report, where you can see one entry in the list of bonus plans now.
 
