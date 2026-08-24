@@ -2,7 +2,7 @@
 parser: v2
 auto_validation: true
 primary_tag: programming-tool>abap-extensibility
-tags: [ tutorial>intermediate,tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
+tags: [ tutorial>intermediate, tutorial>license, programming-tool>abap-extensibility, topic>cloud, software-product>sap-s-4hana-cloud ]
 time: 15
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
