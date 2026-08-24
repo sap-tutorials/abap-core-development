@@ -7,7 +7,7 @@ time: 10
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!-- DONE with FYZ/100 -->
+<!-- DONE with BGO/100 -->
 <!-- SAP S/4HANA Extensibility Tutorial: https://community.sap.com/t5/enterprise-resource-planning-blog-posts-by-sap/sap-s-4hana-extensibility-tutorial/ba-p/13293080 -->
 # Create a Custom Business Object
 
@@ -30,7 +30,9 @@ As applications are based on business objects, it all starts with custom busines
 
 In the first parts a manager wants to define business objects "Bonus Plan" for employees. A Bonus Plan is used to save employee specific rules for bonus entitlement.
 
->- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+>- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
+
+---
 
 ### Start Custom Business Objects application
 
@@ -67,7 +69,7 @@ In the first parts a manager wants to define business objects "Bonus Plan" for e
 
 | Field Label                       | Field Identifier               | Field Type                | Key Field | Field Properties                                                                                            |
 | :---------------------------------| :----------------------------- | :------------------------ | :-------- | :---------------------------------------------------------------------------------------------------------- |
-| **`ID`**                          | **`ID`**                       | **`Text`**                | **`X`**   | Length: **`20`** field                                                                                      |
+| **`ID`**                          | **`ID`**                       | **`Numeric Identifier`**  | **`X`**   | Length: **`10`** field                                                                                      |
 | **`Validity Start Date`**         | **`ValidityStartDate`**        | **`Date`**                |           |                                                                                                             |
 | **`Validity End Date`**           | **`ValidityEndDate`**          | **`Date`**                |           |                                                                                                             |
 | **`Target Amount`**               | **`TargetAmount`**             | **`Amount with Currency`**|           |                                                                                                             |
