@@ -55,9 +55,9 @@ Define the instance factory action `copyTravel` in the behavior definition
 
 2. Add following:
  
-    ```ABAP  
-    factory action copyTravel [1];
-    ```
+   ```ABAP  
+   factory action copyTravel [1];
+   ```
 
     The result should look like this:
 
@@ -105,59 +105,59 @@ Implement the instance factory action `coyTravel` in the base BO behavior pool.
       
     For that, replace the current method implementation with the code snippet provided below and replace all occurrences of the placeholder ### with your group ID.
 
-    ```ABAP   
-    **************************************************************************
-    * Instance-bound factory action `copyTravel`:
-    * Copy an existing travel instance
-    **************************************************************************
-    METHOD copyTravel.
-       DATA:
-          travels       TYPE TABLE FOR CREATE zrap100_r_traveltp_###\\travel.
+   ```ABAP   
+   **************************************************************************
+   * Instance-bound factory action `copyTravel`:
+   * Copy an existing travel instance
+   **************************************************************************
+   METHOD copyTravel.
+      DATA:
+         travels       TYPE TABLE FOR CREATE zrap100_r_traveltp_###\\travel.
 
-       " remove travel instances with initial %cid (i.e., not set by caller API)
-       READ TABLE keys WITH KEY %cid = '' INTO DATA(key_with_inital_cid).
-       ASSERT key_with_inital_cid IS INITIAL. 
+      " remove travel instances with initial %cid (i.e., not set by caller API)
+      READ TABLE keys WITH KEY %cid = '' INTO DATA(key_with_inital_cid).
+      ASSERT key_with_inital_cid IS INITIAL. 
 
-       " read the data from the travel instances to be copied
-       READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY travel
-          ALL FIELDS WITH CORRESPONDING #( keys )
-       RESULT DATA(travel_read_result)
-       FAILED failed.
+      " read the data from the travel instances to be copied
+      READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY travel
+         ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(travel_read_result)
+      FAILED failed.
 
-       LOOP AT travel_read_result ASSIGNING FIELD-SYMBOL(<travel>).
-          " fill in travel container for creating new travel instance
-          APPEND VALUE #( %cid      = keys[ KEY entity %key = <travel>-%key ]-%cid 
-                         %is_draft = keys[ KEY entity %key = <travel>-%key ]-%param-%is_draft
-                         %data     = CORRESPONDING #( <travel> EXCEPT TravelID )
-                      )
-          TO travels ASSIGNING FIELD-SYMBOL(<new_travel>). 
+      LOOP AT travel_read_result ASSIGNING FIELD-SYMBOL(<travel>).
+         " fill in travel container for creating new travel instance
+         APPEND VALUE #( %cid      = keys[ KEY entity %key = <travel>-%key ]-%cid 
+                        %is_draft = keys[ KEY entity %key = <travel>-%key ]-%param-%is_draft
+                        %data     = CORRESPONDING #( <travel> EXCEPT TravelID )
+                     )
+         TO travels ASSIGNING FIELD-SYMBOL(<new_travel>). 
 
-          " adjust the copied travel instance data
-          "" BeginDate must be on or after system date
-          <new_travel>-BeginDate     = cl_abap_context_info=>get_system_date( ).      
-          "" EndDate must be after BeginDate
-          <new_travel>-EndDate       = cl_abap_context_info=>get_system_date( ) + 30. 
-          "" OverallStatus of new instances must be set to open ('O')
-          <new_travel>-OverallStatus = travel_status-open.   
-       ENDLOOP.
+         " adjust the copied travel instance data
+         "" BeginDate must be on or after system date
+         <new_travel>-BeginDate     = cl_abap_context_info=>get_system_date( ).      
+         "" EndDate must be after BeginDate
+         <new_travel>-EndDate       = cl_abap_context_info=>get_system_date( ) + 30. 
+         "" OverallStatus of new instances must be set to open ('O')
+         <new_travel>-OverallStatus = travel_status-open.   
+      ENDLOOP.
 
-       " create new BO instance
-       MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY travel
-          CREATE FIELDS ( AgencyID CustomerID BeginDate EndDate BookingFee 
-                            TotalPrice CurrencyCode OverallStatus Description )
-             WITH travels
-          MAPPED DATA(mapped_create).
+      " create new BO instance
+      MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY travel
+         CREATE FIELDS ( AgencyID CustomerID BeginDate EndDate BookingFee 
+                           TotalPrice CurrencyCode OverallStatus Description )
+            WITH travels
+         MAPPED DATA(mapped_create).
 
-       " set the new BO instances
-       mapped-travel   =  mapped_create-travel .
-    ENDMETHOD.   
-    ```
+      " set the new BO instances
+      mapped-travel   =  mapped_create-travel .
+   ENDMETHOD.   
+   ```
 
-    The result should look like this:
+   The result should look like this:
 
-    ![Travel CDS Metadata Extension](nn6.png)
+   ![Travel CDS Metadata Extension](nn6.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -170,13 +170,13 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  2. Add following:
   
-    ```ABAP
-    use action copyTravel;
-    ```
+   ```ABAP
+   use action copyTravel;
+   ```
 
-    The result should like this:
+   The result should like this:
 
-    ![Travel BO Behavior Projection](nn7.png)
+   ![Travel BO Behavior Projection](nn7.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -184,13 +184,13 @@ Expose the instance factory action in the BO behavior projection and in the CDS 
 
  4. Add following:
     
-    ```ABAP   
-    ,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' }
-    ```
+   ```ABAP   
+   ,{ type: #FOR_ACTION, dataAction: 'copyTravel', label: 'Copy Travel' }
+   ```
 
-    The result should look like this:
+   The result should look like this:
 
-    ![Travel CDS Metadata Extension](nn8.png)
+   ![Travel CDS Metadata Extension](nn8.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -211,14 +211,14 @@ In this step, you will define, implement, and expose two instance-bound non-fact
 
  2. For that, insert the following code snippet after the defined validations as shown on the screenshot below.
 
-    ```ABAP
-    action acceptTravel result [1] $self;
-    action rejectTravel result [1] $self; 
-    ```
+   ```ABAP
+   action acceptTravel result [1] $self;
+   action rejectTravel result [1] $self; 
+   ```
 
-    The result should like this:
+   The result should like this:
 
-    ![Travel BO Behavior Projection](p16.png)
+   ![Travel BO Behavior Projection](p16.png)
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -251,72 +251,72 @@ Now implement the required action methods in the behavior pool `ZRAP100_BP_TRAVE
 
     For that, replace the current method implementation with the code snippet provided below and replace all occurrences of the placeholder ### with your group ID. You can make use of the F1 Help for more information about the EML statements and other ABAP constructs.
 
-    ```ABAP
-    *************************************************************************************
-    * Instance-bound non-factory action: Set the overall travel status to 'A' (accepted)
-    *************************************************************************************
-    METHOD acceptTravel.
-       " modify travel instance
-       MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY Travel
-          UPDATE FIELDS ( OverallStatus )
-          WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
-                                           OverallStatus = travel_status-accepted ) )  " 'A'
-       FAILED failed
-       REPORTED reported.
- 
-       " read changed data for action result
-       READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY Travel
-          ALL FIELDS WITH
-          CORRESPONDING #( keys )
-          RESULT DATA(travels).
+   ```ABAP
+   *************************************************************************************
+   * Instance-bound non-factory action: Set the overall travel status to 'A' (accepted)
+   *************************************************************************************
+   METHOD acceptTravel.
+      " modify travel instance
+      MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY Travel
+         UPDATE FIELDS ( OverallStatus )
+         WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
+                                          OverallStatus = travel_status-accepted ) )  " 'A'
+      FAILED failed
+      REPORTED reported.
 
-       " set the action result parameter
-       result = VALUE #( FOR travel IN travels ( %tky   = travel-%tky
-                                                %param = travel ) ).
-    ENDMETHOD.
-    ```
+      " read changed data for action result
+      READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY Travel
+         ALL FIELDS WITH
+         CORRESPONDING #( keys )
+         RESULT DATA(travels).
 
-    ![Travel CDS Metadata Extension](nnn3.png)
+      " set the action result parameter
+      result = VALUE #( FOR travel IN travels ( %tky   = travel-%tky
+                                               %param = travel ) ).
+   ENDMETHOD.
+   ```
 
-    Short explanation:
+  ![Travel CDS Metadata Extension](nnn3.png)
 
-     - The provided implementation is mass-enabled. This is recommended.
-     - The EML statement `MODIFY ENTITIES ... UPDATE FIELDS` is used to update specific fields of the instances.
-     - The internal tables are filled inline using the constructor operator VALUE which made the need for explicit declaration obsolete.
-     - The EML statement `READ ENTITIES ... ALL FIELDS WITH CORRESPONDING` is used to read all fields of the updated instances from the buffer to fill the input paramter result.
+  Short explanation:
+
+   - The provided implementation is mass-enabled. This is recommended.
+   - The EML statement `MODIFY ENTITIES ... UPDATE FIELDS` is used to update specific fields of the instances.
+   - The internal tables are filled inline using the constructor operator VALUE which made the need for explicit declaration obsolete.
+   - The EML statement `READ ENTITIES ... ALL FIELDS WITH CORRESPONDING` is used to read all fields of the updated instances from the buffer to fill the input paramter result.
 
  3. Implement the action `rejectTravel` which is used to set the value of the field `OverallStatus` to rejected (X). The business logic is similar to the one of the `acceptTravel` method. For that, replace the current method implementation with the code snippet provided below and replace all occurrences of the placeholder ### with your group ID.
 
-    ```ABAP
-    *************************************************************************************
-    * Instance-bound non-factory action: Set the overall travel status to 'X' (rejected)
-    *************************************************************************************
-    METHOD rejectTravel.
-       " modify travel instance(s)
-       MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY Travel
-          UPDATE FIELDS ( OverallStatus )
-          WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
-                                           OverallStatus = travel_status-rejected ) )  " 'X'
-       FAILED failed
-       REPORTED reported.
+   ```ABAP
+   *************************************************************************************
+   * Instance-bound non-factory action: Set the overall travel status to 'X' (rejected)
+   *************************************************************************************
+   METHOD rejectTravel.
+      " modify travel instance(s)
+      MODIFY ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY Travel
+         UPDATE FIELDS ( OverallStatus )
+         WITH VALUE #( FOR key IN keys ( %tky          = key-%tky
+                                          OverallStatus = travel_status-rejected ) )  " 'X'
+      FAILED failed
+      REPORTED reported.
 
-       " read changed data for action result
-       READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
-          ENTITY Travel
-          ALL FIELDS WITH
-          CORRESPONDING #( keys )
-          RESULT DATA(travels).
+      " read changed data for action result
+      READ ENTITIES OF zrap100_r_traveltp_### IN LOCAL MODE
+         ENTITY Travel
+         ALL FIELDS WITH
+         CORRESPONDING #( keys )
+         RESULT DATA(travels).
 
-       " set the action result parameter
-       result = VALUE #( FOR travel IN travels ( %tky   = travel-%tky
-                                                %param = travel ) ).
-    ENDMETHOD.   
-    ```
+      " set the action result parameter
+      result = VALUE #( FOR travel IN travels ( %tky   = travel-%tky
+                                               %param = travel ) ).
+   ENDMETHOD.   
+   ```
 
-    ![Travel CDS Metadata Extension](nn14.png)
+   ![Travel CDS Metadata Extension](nn14.png)
 
  4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -329,14 +329,14 @@ Now, you will expose the actions in the BO behavior projection and enrich the UI
 
     Go to your behavior projection `ZRAP100_C_TRAVELTP_###` and insert the following code snippet as shown on the screenshot below.
 
-    ```ABAP
-    use action acceptTravel;
-    use action rejectTravel; 
-    ```
+   ```ABAP
+   use action acceptTravel;
+   use action rejectTravel; 
+   ```
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![Travel App Preview](nn15.png)  
+   ![Travel App Preview](nn15.png)  
 
  2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes. 
 

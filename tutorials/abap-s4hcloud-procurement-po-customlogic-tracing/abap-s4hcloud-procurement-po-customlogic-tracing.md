@@ -43,19 +43,19 @@ Throughout this tutorial, the placeholder `###` or `000` is used. Always replace
 
 1. Open the app **Custom Fields**.
 
-    <!-- border -->![step1a-open-custom-fields](step1a-open-custom-fields.png)
+    ![step1a-open-custom-fields](step1a-open-custom-fields.png)
 
 2. Change to the **Custom Logic** tab, search for the `BAdI` implementation **`YY1_FILLHEADERCUSTOMFIELD_000`**.
 
-    <!-- border -->![Link text e.g., Destination screen](step1b-custom-fields-tabs.png)
+    ![Link text e.g., Destination screen](step1b-custom-fields-tabs.png)
 
 3. Open the **Details** screen (by choosing the arrow on the right).
 
-    <!-- border -->![step6b-badi-implementation-overview](step6b-badi-implementation-overview.png)
+    ![step6b-badi-implementation-overview](step6b-badi-implementation-overview.png)
 
 You can now see the Published Logic and Draft Logic, if they exist, relevant to the custom field.
 
-<!-- border -->![step1c-custom-logic-empty](step1c-custom-logic-empty.png)
+![step1c-custom-logic-empty](step1c-custom-logic-empty.png)
 
 
 ### Add custom logic
@@ -65,14 +65,14 @@ You can now see the Published Logic and Draft Logic, if they exist, relevant to 
 2. In the custom logic for the field **`yy1_zhdrprnt2_pdh_000`**, copy the following code.
 This code will copy the content from a standard field, `purchaseorder-supplyingplant` into the custom field, **`yy1_zhdrprnt2_pdh_000`**, where `supplyingplant` is filled.
 
-    ```ABAP
-    IF purchaseorder-supplyingplant is not initial.
-    purchaseorderchange-yy1_zhdrprnt2_pdh_000 = purchaseorder-supplyingplant.
-    endif.
+   ```ABAP
+   IF purchaseorder-supplyingplant is not initial.
+   purchaseorderchange-yy1_zhdrprnt2_pdh_000 = purchaseorder-supplyingplant.
+   endif.
 
-    ```
+   ```
 
-    <!-- border -->![step2a-add-custom-logic](step2a-add-custom-logic.png)
+    ![step2a-add-custom-logic](step2a-add-custom-logic.png)
 
 3. Save and publish your custom code.
 
@@ -84,7 +84,7 @@ You are now ready to trace the effects of your custom code when a purchase order
 
 1. Open the app **Custom Logic Tracing** and choose **Start Trace**.
 
-    <!-- border -->![step1a-start-trace](step1a-start-trace.png)
+    ![step1a-start-trace](step1a-start-trace.png)
 
 2. Enter the following information, remembering to change the placeholder to your group number or initials:
 
@@ -95,7 +95,7 @@ You are now ready to trace the effects of your custom code when a purchase order
     |  Stored until    | *future date in the format `dd.mm.yyyy`*
     |  Lifetime          | **15**
 
-    <!-- border -->![step1b-start-trace-details](step1b-start-trace-details.png)
+    ![step1b-start-trace-details](step1b-start-trace-details.png)
 
 
 
@@ -105,19 +105,19 @@ You are now ready to trace the effects of your custom code when a purchase order
 
 1. Open **Create Purchase Order - Advanced**.
 
-    <!-- border -->![step4a-create-po](step4a-create-po.png)
+    ![step4a-create-po](step4a-create-po.png)
 
 2. In the top header, change the Order Type to **Stock Transport Order** and the Supplying Plant to **1010**.
 
-    <!-- border -->![step4b-change-to-stock-transport-order](step4b-change-to-stock-transport-order.png)
+    ![step4b-change-to-stock-transport-order](step4b-change-to-stock-transport-order.png)
 
 3. Enter the **Supplying Plant**, **1010**    
 
-    <!-- border -->![step4c-supplying-plant](step4c-supplying-plant.png)
+    ![step4c-supplying-plant](step4c-supplying-plant.png)
 
 4. In the header section, go to the **Custom Fields** tab, check that the custom field **ZPOHDRPRINT2** now contains the value **1010**.
 
-    <!-- border -->![step4a-create-po-custom-field](step4a-create-po-custom-field.png)
+    ![step4a-create-po-custom-field](step4a-create-po-custom-field.png)
 
 5. On the **Org Data** tab, enter the following:
 
@@ -129,7 +129,7 @@ You are now ready to trace the effects of your custom code when a purchase order
 
     > If you check the custom field **`YY1_ZHDRPRNT2_PDH_000`**, it is now filled with the same value as Supplying Plant, **1010**.
 
-    <!-- border -->![step2c-fill-org-data](step2c-fill-org-data.png)
+    ![step2c-fill-org-data](step2c-fill-org-data.png)
 
 6. In the **Item Overview** section, enter the following. Ignore any warnings.
 
@@ -140,15 +140,15 @@ You are now ready to trace the effects of your custom code when a purchase order
     |  Delivery Date     | *future date in the format `dd.mm.yyyy`*
     |  Plant           | **1010**
 
-      <!-- border -->![step4d-fill-item-overview-material](step4d-fill-item-overview-material.png)
+      ![step4d-fill-item-overview-material](step4d-fill-item-overview-material.png)
 
     > The other fields - Material Group, Plant Storage Location - should be filled automatically.
 
-    <!-- border -->![step2d-fill-item-overview](step2d-fill-item-overview.png)
+    ![step2d-fill-item-overview](step2d-fill-item-overview.png)
 
 7. Choose **Save**.
 
-    <!-- border -->![step4e-note-stock-transport-number](step4e-note-stock-transport-number.png)
+    ![step4e-note-stock-transport-number](step4e-note-stock-transport-number.png)
 
 
 
@@ -156,17 +156,17 @@ You are now ready to trace the effects of your custom code when a purchase order
 
 1. Choose **Finish trace**.
 
-    <!-- border -->![step5a-finish-trace](step5a-finish-trace.png)
+    ![step5a-finish-trace](step5a-finish-trace.png)
 
 2. Open the trace. In **Trace Hierarchy**, choose the last call of `BAdI` implementation `YY1_FILLHEADERCUSTOMFIELD_000`.
 (This is necessary because the `BAdI` implementation is called several times.)
 Then choose the parameter **Purchase Order**.
 
-    <!-- border -->![step5b-choose-purchase-order](step5b-choose-purchase-order.png)
+    ![step5b-choose-purchase-order](step5b-choose-purchase-order.png)
 
 3. Scroll right down to the field **`YY1_ZHDRPRNT2_PDH_000`**. Check that its value = **1010**.
 
-    <!-- border -->![step5c-choose-custom-field](step5c-choose-custom-field.png)
+    ![step5c-choose-custom-field](step5c-choose-custom-field.png)
 
 
 

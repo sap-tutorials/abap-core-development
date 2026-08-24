@@ -118,7 +118,7 @@ To monitor operations processes like add-on update or tenant provisioning in you
   3. The Requests section displays a list of all requests triggered for your systems as well as their current status.
   4. In the Active Requests section, you can view all active processes, their request IDs, execution date, systems, and their progress bars
 
-    ![Operations Dashboard](OperationsDashboard.png)
+   ![Operations Dashboard](OperationsDashboard.png)
 
 ### Register systems for pre-upgrade
 
@@ -173,7 +173,7 @@ Retrieve the service key for the targeted ABAP System:
 
   3. Open and copy the SAP\_ASP service key.
 
-    ![Service Key for multi-tenant system](ServiceKeyForMTSys.png)
+   ![Service Key for multi-tenant system](ServiceKeyForMTSys.png)
 
 Retrieve the tenant GUID of the targeted ABAP tenant:
 

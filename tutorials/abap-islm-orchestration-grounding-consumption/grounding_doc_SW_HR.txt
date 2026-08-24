@@ -1,0 +1,37 @@
+{
+  "organization_type": "Human Resources",
+  "rating_scale": {
+    "min": 1,
+    "max": 5,
+    "definitions": {
+      "1": "Very weak / insufficient evidence",
+      "2": "Below average",
+      "3": "Meets expectations",
+      "4": "Above average",
+      "5": "Exceptional"
+    }
+  },
+  "overall_rating_calculation": "Weighted average of all aspect scores",
+  "aspects": [
+    {
+      "name": "Communication Skills",
+      "description": "Clarity, empathy, and professionalism in written and verbal communication.",
+      "weight": 0.35
+    },
+    {
+      "name": "Emotional Intelligence & Cultural Fit",
+      "description": "Ability to understand people, manage relationships, and align with company culture.",
+      "weight": 0.30
+    },
+    {
+      "name": "Process & Organizational Skills",
+      "description": "Capability to manage HR processes, documentation, and coordination tasks.",
+      "weight": 0.20
+    },
+    {
+      "name": "Judgment & Fairness",
+      "description": "Balanced decision-making and objective evaluation of people and situations.",
+      "weight": 0.15
+    }
+  ]
+}

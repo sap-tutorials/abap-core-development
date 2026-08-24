@@ -1,0 +1,37 @@
+{
+  "organization_type": "Controlling / Finance",
+  "rating_scale": {
+    "min": 1,
+    "max": 5,
+    "definitions": {
+      "1": "Very weak / insufficient evidence",
+      "2": "Below average",
+      "3": "Meets expectations",
+      "4": "Above average",
+      "5": "Exceptional"
+    }
+  },
+  "overall_rating_calculation": "Weighted average of all aspect scores",
+  "aspects": [
+    {
+      "name": "Analytical & Numerical Skills",
+      "description": "Accuracy and depth in analyzing financial data, KPIs, and reports.",
+      "weight": 0.40
+    },
+    {
+      "name": "Business & Financial Understanding",
+      "description": "Understanding of cost structures, financial flows, and business drivers.",
+      "weight": 0.25
+    },
+    {
+      "name": "Attention to Detail",
+      "description": "Precision, consistency, and reliability in handling sensitive information.",
+      "weight": 0.20
+    },
+    {
+      "name": "Communication of Financial Insights",
+      "description": "Ability to clearly explain financial findings to non-financial stakeholders.",
+      "weight": 0.15
+    }
+  ]
+}

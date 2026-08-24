@@ -36,22 +36,22 @@ primary_tag: products>sap-btp--abap-environment
 
 - In the field `Host Name` enter the callback URL. This is needed for setting up content change notifications. For example portal-service.cfapps.eu10.hana.ondemand.com.
 
-  <!-- border -->![Communication system overview](1-communication-system.png)
+  ![Communication system overview](1-communication-system.png)
 
 - Add a technical user for inbound communication.
 
-  <!-- border -->![New Inbound User](2-Users-for-inbound-communication.png)
+  ![New Inbound User](2-Users-for-inbound-communication.png)
 
-  <!-- border -->![New Inbound User](3-New-Inbound-Communication-User.png)
+  ![New Inbound User](3-New-Inbound-Communication-User.png)
 
 - Authentication method is `User Name and Password`. Let the System generate a Password.
 Do not forget to note the password down. It will be used in `Step 5` (Create Design-Time destination).
 
-<!-- border -->![Inbound User settings](4-Propose-pwd-3steps.png)
+![Inbound User settings](4-Propose-pwd-3steps.png)
 
 - Similarly add a technical user for outbound communication with `Authentication Method` `None`.
 
-  <!-- border -->![Outbound User settings](5-outbound-user.png)
+  ![Outbound User settings](5-outbound-user.png)
 
 
 ### Create the Communication Arrangement
@@ -65,7 +65,7 @@ Do not forget to note the password down. It will be used in `Step 5` (Create Des
 
 - In the "Common Data" section set the Communication System created before using the value help.
 
-<!-- border -->![Communication arrangement](7-communication-arrangement-settings.png)
+![Communication arrangement](7-communication-arrangement-settings.png)
 
 - Enter the job execution details for scheduling the FLP Content Exposure job every minute and press `Save`.
 
@@ -81,7 +81,7 @@ Do not forget to note the password down. It will be used in `Step 5` (Create Des
 
 - Click `Expose to SAP Launchpad Service`.
 
-<!-- border -->![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
+![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
 
 > The content related to the Business Role, such as groups, catalogs, pages or spaces can then be consumed by the SAP Launchpad Service.
 
@@ -120,7 +120,7 @@ We will create the design-time destination in order to define the location from 
 
 - Create a new Destination.
 
-<!-- border -->![Settings for new Destination](1-Destination-settings.png)
+![Settings for new Destination](1-Destination-settings.png)
 
 **URL**:
 
@@ -141,7 +141,7 @@ Click "Save".
 
 Create a new Destination.
 
-<!-- border -->![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
+![Settings for Runtime iFrame integration](3-Destination-iFrame.png)
 
 **URL**: Use the domain of the Service URL in section "Inbound Services" in the Communication Arrangement created in `Step 2` (Create the Communication Arrangement). Replace `abap` with `abap-web`. (Format: https://<`tenant`>.**abap-web**.<`region`>.hana.ondemand.com)
 
@@ -160,7 +160,7 @@ Click "Save".
  <br>
 Create a new Destination.
 
-<!-- border -->![Settings for dynamic Runtime Destination](2-Destination-oData.png)
+![Settings for dynamic Runtime Destination](2-Destination-oData.png)
 
 **URL**: Use the domain of the  Service URL in section "Inbound Services" in the Communication Arrangement created in `Step 2` (Create the Communication Arrangement).
 Format: https://<`tenant`>.**`abap`**.<`region`>.hana.ondemand.com
@@ -189,11 +189,11 @@ Click "Save".
 
 - Create a new Content Provider.
 
-    <!-- border -->![Workflow](3-cp-overview.png)
+    ![Workflow](3-cp-overview.png)
 
 - Add Title, Description, ID and the Destinations created in `Step 5-7` (Create Design-Time / Runtime destination) accordingly.
 
-    <!-- border -->![Create Content Provider](1-create-content-provider.png)
+    ![Create Content Provider](1-create-content-provider.png)
 
 - Click "Save".
 
@@ -211,7 +211,7 @@ Click "Save".
 
     - Mark the item with Title `Administrator` and click `Add to My Content`.
 
-    <!-- border -->![Add roles to own content](4-add-to-my-content.png)
+    ![Add roles to own content](4-add-to-my-content.png)
 
 
 ### Create Launchpad Site
@@ -226,7 +226,7 @@ Click "Save".
     - Click `Edit` and click into the box to `Search for items to assign`.
 
 
-    <!-- border -->![Create Launchpad Site](2-create-site.png)
+    ![Create Launchpad Site](2-create-site.png)
 
     - Choose the `Administrator` role (click on `+`).
 
@@ -234,7 +234,7 @@ Click "Save".
 
     - Copy and store the URL of the Launchpad for later use.
 
-    <!-- border -->![Launchpad URL](9-copy-launchpad-url.png)
+    ![Launchpad URL](9-copy-launchpad-url.png)
 
 > Now you assigned the Business Role, which you exposed to the Launchpad Service, to your Launchpad Site. With it all apps that are related to this Business Role will be available in the Launchpad Site. Also a Role Collection is created, which is named in this format: `<Content Provider name>_<Business Role name>`
 
@@ -256,7 +256,7 @@ Click "Save".
 
 - Assign the created authorization to the user.
 
-<!-- border -->![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
+![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
 
 
 ### Access Launchpad Site

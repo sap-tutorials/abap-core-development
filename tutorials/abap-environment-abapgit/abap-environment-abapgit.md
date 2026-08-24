@@ -50,11 +50,11 @@ author_profile: https://github.com/niloofar-flothkoetter
 
   1. Copy the content of the latest build from the program `zabapgit`, that you will find in the `abapGit` repository <https://github.com/abapGit/abapGit>.
 
-    ![latest build](github4.png)
+   ![latest build](github4.png)
 
   2. Open your on-premise system of your choice and create a new program like **`ZABAPGIT_STANDALONE`** via SE38 and paste the saved content into it. Activate and execute the program.
 
-    ![create](abapgit16.png)
+   ![create](abapgit16.png)
 
 <<<<<<< HEAD
   3. If you have installed `abapGit` before, you need to go to SE38, search for **ZABAPGIT_STANDALONE** program and press **Execute**. 

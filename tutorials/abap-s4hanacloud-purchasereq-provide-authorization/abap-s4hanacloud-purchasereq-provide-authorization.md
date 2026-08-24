@@ -3,8 +3,8 @@ auto_validation: true
 time: 15
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
 primary_tag: programming-tool>abap-extensibility
-author_name: Achim Seubert
-author_profile: https://github.com/AchimSeubert
+author_name: Matthäus Schüle
+author_profile: https://github.com/MatthaeusSchuele
 parser: v2
 ---
 

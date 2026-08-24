@@ -26,7 +26,6 @@ author_profile: https://github.com/mervey45
 
 Open Eclipse. Make sure you have installed ADT in your Eclipse. Find [here](abap-install-adt) the Eclipse installation instruction.
 
-<!-- border -->
 ![eclipse-icon](eclipse.png)
 
 
@@ -34,17 +33,14 @@ Open Eclipse. Make sure you have installed ADT in your Eclipse. Find [here](abap
 
 1. Select **File** > **New** > **Other** > **ABAP Cloud Project** and click **Next >**.
 
-    <!-- border -->
     ![Create ABAP cloud project](cloud.png)
 
 2. Enter the URL for your ABAP instance.
 
-    <!-- border -->
     ![Create ABAP cloud project](project2x.png)
 
 3. Click **Open Logon Page in Browser**.
 
-    <!-- border -->
     ![Create ABAP cloud project](project44.png)
 
   >**Hint:** If you are already logged on in the default browser with a user that you do not want to use for this project, then use the **Copy Logon URL to Clipboard** option and paste the URL in a browser started in private or incognito mode or a non-default browser.
@@ -53,12 +49,10 @@ Open Eclipse. Make sure you have installed ADT in your Eclipse. Find [here](abap
 
 5. Go back to ADT and choose **Finish**.
 
-    <!-- border -->
     ![Create ABAP cloud project](project52.png)
 
 Your trial system appears on the project explorer.
 
-<!-- border -->
 ![Create ABAP cloud project](project62.png)
 
 

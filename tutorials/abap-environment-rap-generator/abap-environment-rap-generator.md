@@ -30,7 +30,6 @@ For more information, see the links at the end of this tutorial.
 
 1. Create a new package for this tutorial, by choosing **New > ABAP Package**.
 
-    <!-- border -->
     ![step1a-new-package](step1a-new-package.png)
 
 2. Enter the following then follow the wizard, choosing a **new** transport request:
@@ -38,10 +37,8 @@ For more information, see the links at the end of this tutorial.
     - Description: **Travel data generated**
     - Request description: **Travel service RAP Generator**
 
-    <!-- border -->
     ![step1a-create-package](step1a-create-package.png)
     &nbsp;
-    <!-- border -->
     ![step1b-new-tr](step1b-new-tr.png)
 
 
@@ -50,12 +47,10 @@ For more information, see the links at the end of this tutorial.
 
 1. Choose your package, then choose **New > Other Repository Object** from the context menu.
 
-    <!-- border -->
     ![step2a-choose-other](step2a-choose-other.png)
 
 2. Choose **Database Table** then **Next**.
 
-    <!-- border -->
     ![step2b-choose-table](step2b-choose-table.png)
 
 3. Enter the following, then choose **Next**.
@@ -70,34 +65,33 @@ For more information, see the links at the end of this tutorial.
 
 6. Delete the code `key client : abap.clnt;` and add the following:
 
-    ```ABAP
-    key client            : abap.clnt not null;
-    key travel_uuid       : sysuuid_x16 not null;
-    travel_id             : /dmo/travel_id not null;
-    agency_id             : /dmo/agency_id;
-    customer_id           : /dmo/customer_id;
-    begin_date            : /dmo/begin_date;
-    end_date              : /dmo/end_date;
-    @Semantics.amount.currencyCode : 'zrap_travel_####.currency_code'
-    booking_fee           : /dmo/booking_fee;
-    @Semantics.amount.currencyCode : 'zrap_travel_####.currency_code'
-    total_price           : /dmo/total_price;
-    currency_code         : /dmo/currency_code;
-    description           : /dmo/description;
-    overall_status        : /dmo/overall_status;
-    local_created_by      : abp_creation_user;
-    local_created_at      : abp_creation_tstmpl;
-    local_last_changed_by : abp_locinst_lastchange_user;
-    local_last_changed_at : abp_locinst_lastchange_tstmpl;
-    last_changed_at       : abp_lastchange_tstmpl;    
+   ```ABAP
+   key client            : abap.clnt not null;
+   key travel_uuid       : sysuuid_x16 not null;
+   travel_id             : /dmo/travel_id not null;
+   agency_id             : /dmo/agency_id;
+   customer_id           : /dmo/customer_id;
+   begin_date            : /dmo/begin_date;
+   end_date              : /dmo/end_date;
+   @Semantics.amount.currencyCode : 'zrap_travel_####.currency_code'
+   booking_fee           : /dmo/booking_fee;
+   @Semantics.amount.currencyCode : 'zrap_travel_####.currency_code'
+   total_price           : /dmo/total_price;
+   currency_code         : /dmo/currency_code;
+   description           : /dmo/description;
+   overall_status        : /dmo/overall_status;
+   local_created_by      : abp_creation_user;
+   local_created_at      : abp_creation_tstmpl;
+   local_last_changed_by : abp_locinst_lastchange_user;
+   local_last_changed_at : abp_locinst_lastchange_tstmpl;
+   last_changed_at       : abp_lastchange_tstmpl;    
 
-    ```
+   ```
 
 7. Format, save, and activate your table ( **`Shift+F1, Ctrl+S, Ctrl+F3`** ).
 
 8. Optional: Check your table by clicking in the editor and choosing **Open With > Data Preview**.
 
-    <!-- border -->
     ![step2c-data-preview](step2c-data-preview.png)
 
     > You must include a key field `client` with the type `abap.clnt`.
@@ -108,14 +102,14 @@ For more information, see the links at the end of this tutorial.
 
     > These are known as reuse data elements.
 
-    ```ABAP
-    local_created_by      : abp_creation_user;
-    local_created_at      : abp_creation_tstmpl;
-    local_last_changed_by : abp_locinst_lastchange_user;
-    local_last_changed_at : abp_locinst_lastchange_tstmpl;
-    last_changed_at       : abp_lastchange_tstmpl;   
+   ```ABAP
+   local_created_by      : abp_creation_user;
+   local_created_at      : abp_creation_tstmpl;
+   local_last_changed_by : abp_locinst_lastchange_user;
+   local_last_changed_at : abp_locinst_lastchange_tstmpl;
+   last_changed_at       : abp_lastchange_tstmpl;   
 
-    ```
+   ```
 
 
 
@@ -127,7 +121,6 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
 
 1. Select your table and choose **Generate ABAP Repository objects...** from the context menu.
 
-    <!-- border -->
     ![step3a-choose-rap-gen](step3a-choose-rap-gen.png)
 
 2. Enter the following and choose **Next**.
@@ -140,7 +133,6 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
     - Data definition name: **`ZI_TRAVEL_####`**
     - Alias name: **Travel**
 
-    <!-- border -->
     ![step3b-enter-data-def](step3b-enter-data-def.png)
 
 4. Enter the following information for each artifact, then choose **Next**:
@@ -162,14 +154,12 @@ For more information, see the SAP Help Portal: [ABAP RESTful Application Program
 
 5. The system displays a list of objects that will be generated. Choose **Next**
 
-    <!-- border -->
     ![step3c-preview-gen-output](step3c-preview-gen-output.png)
 
 6. Choose the transport request, then choose **Finish**.
 
 The artifacts are generated. You can now see them in the **Project Explorer**.
 
-<!-- border -->
 ![step3d-artifacts-in-project-explorer](step3d-artifacts-in-project-explorer.png)
 
 
@@ -178,21 +168,18 @@ The artifacts are generated. You can now see them in the **Project Explorer**.
 
 1. The service binding appears automatically in a new editor.
 
-    <!-- border -->
     ![step4a-service-binding-unpublished](step4a-service-binding-unpublished.png)
 
 2. Publish the service binding.
 
-    <!-- border -->
     ![step4a-activate](step4a-activate.png)
     &nbsp;
-    <!-- border -->
     ![step4c-sb-publish](step4c-sb-publish.png)
 
 
 3. You now have a fully-fledged business service for which a Fiori app (based on the Fiori Elements List Reporting template) can be generated. Test this in the Fiori Elements preview, by choosing the **Travel** entity set from the service binding, then choosing **Preview**.
 
-    <!-- border -->![step4d-sb-preview](step4d-sb-preview.png)
+    ![step4d-sb-preview](step4d-sb-preview.png)
 
 The service appears in the Fiori Elements preview.
 

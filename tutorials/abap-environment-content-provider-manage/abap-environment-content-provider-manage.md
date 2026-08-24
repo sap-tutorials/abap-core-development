@@ -30,11 +30,11 @@ primary_tag: products>sap-btp--abap-environment
 
 - Create a new Content Provider.
 
-    <!-- border -->![Workflow](3-cp-overview.png)
+    ![Workflow](3-cp-overview.png)
 
 - Add Title, Description, ID and the Destinations created in tutorial ["Create destinations in SAP BTP cockpit"](abap-environment-content-provider-destinations) accordingly.
 
-    <!-- border -->![Create Content Provider](1-create-content-provider.png)
+    ![Create Content Provider](1-create-content-provider.png)
 
 - Click "Save".
 
@@ -52,7 +52,7 @@ primary_tag: products>sap-btp--abap-environment
 
     - Mark the item with Title "Administrator" and click "Add to My Content".
 
-    <!-- border -->![Add roles to own content](4-add-to-my-content.png)
+    ![Add roles to own content](4-add-to-my-content.png)
 
 
 ### Create Launchpad Site
@@ -67,7 +67,7 @@ primary_tag: products>sap-btp--abap-environment
     - Click `Edit` and click into the box to `Search for items to assign`.
 
 
-    <!-- border -->![Create Launchpad Site](2-create-site.png)
+    ![Create Launchpad Site](2-create-site.png)
 
     - Choose the `Administrator` role (click on `+`).
 
@@ -75,7 +75,7 @@ primary_tag: products>sap-btp--abap-environment
 
     - Copy and store the URL of the Launchpad for later use.
 
-    <!-- border -->![Launchpad URL](9-copy-launchpad-url.png)
+    ![Launchpad URL](9-copy-launchpad-url.png)
 
 > Now you assigned the Business Role, which you exposed to the Launchpad Service, to your Launchpad Site. With it all the apps that are related to this Business Role will be available in the Launchpad Site. Also a Role Collection is created, which is named in this format: `<Content Provider name>_<Business Role name>`
 
@@ -97,7 +97,7 @@ primary_tag: products>sap-btp--abap-environment
 
 - Assign the created authorization to the user.
 
-<!-- border -->![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
+![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
 
 
 ### Access Launchpad Site

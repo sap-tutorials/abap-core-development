@@ -47,22 +47,22 @@ Define the (unmanaged) internal early numbering in the behavior definition ![bde
 
  2. Specify the statement provided below just after the statement `authorization master( global )`, just before the opening curly bracket `{` as shown on the screenshot.
 
-    ```ABAP 
-    early numbering
-    ```
+   ```ABAP 
+   early numbering
+   ```
 
-    The warning message **Early Numbering for `CREATE ZRAP100_R_TRAVELTP_###`** is not implemented is now displayed for the statement **`create;`**. You can hover the yellow underlined statement to display the message or have a look at the **Problems** view.        
+   The warning message **Early Numbering for `CREATE ZRAP100_R_TRAVELTP_###`** is not implemented is now displayed for the statement **`create;`**. You can hover the yellow underlined statement to display the message or have a look at the **Problems** view.        
 
-    You can ignore it for now. You will handle it later.    
+   You can ignore it for now. You will handle it later.    
 
-    ![Travel BO Behavior Definition](p1.png)
+   ![Travel BO Behavior Definition](p1.png)
 
  3. Delete following statement:
    
-    ```ABAP 
-    field ( mandatory : create ) 
-    TravelID;
-    ```
+   ```ABAP 
+   field ( mandatory : create ) 
+   TravelID;
+   ```
  
 
  4. Specify the field `TravelID` as read-only field since it will be set at runtime by the internal early numbering.
@@ -125,97 +125,97 @@ You will now implement the logic for the unmanaged internal early numbering in b
 
  2. Now go ahead and implement the method **`earlynumbering_create`** in the implementation part of the implementation class. First, it must be ensured that the imported **Travel** entity instances do not yet have an ID set. This must especially be checked when the BO is draft-enabled. For that, remove all instances with a non-initial **`TravelID`** from the imported parameter **entities** which contains all **Travel** entities for which a key must be assigned. Insert the code snippet provided below into the method implementation and replace all occurrences of the placeholder `###` with your group ID.
 
-    ```ABAP
-    DATA:
-      entity           TYPE STRUCTURE FOR CREATE ZRAP100_R_TravelTP_###,
-      travel_id_max    TYPE /dmo/travel_id,
-      " change to abap_false if you get the ABAP Runtime error 'BEHAVIOR_ILLEGAL_STATEMENT'
-      use_number_range TYPE abap_bool VALUE abap_false.
+   ```ABAP
+   DATA:
+     entity           TYPE STRUCTURE FOR CREATE ZRAP100_R_TravelTP_###,
+     travel_id_max    TYPE /dmo/travel_id,
+     " change to abap_false if you get the ABAP Runtime error 'BEHAVIOR_ILLEGAL_STATEMENT'
+     use_number_range TYPE abap_bool VALUE abap_false.
 
-    "Ensure Travel ID is not set yet (idempotent)- must be checked when BO is draft-enabled
-    LOOP AT entities INTO entity WHERE TravelID IS NOT INITIAL.
-      APPEND CORRESPONDING #( entity ) TO mapped-travel.
-    ENDLOOP.
+   "Ensure Travel ID is not set yet (idempotent)- must be checked when BO is draft-enabled
+   LOOP AT entities INTO entity WHERE TravelID IS NOT INITIAL.
+     APPEND CORRESPONDING #( entity ) TO mapped-travel.
+   ENDLOOP.
 
-    DATA(entities_wo_travelid) = entities.
-    "Remove the entries with an existing Travel ID
-    DELETE entities_wo_travelid WHERE TravelID IS NOT INITIAL.
-    ```
+   DATA(entities_wo_travelid) = entities.
+   "Remove the entries with an existing Travel ID
+   DELETE entities_wo_travelid WHERE TravelID IS NOT INITIAL.
+   ```
 
-    ![Travel BO Behavior Pool](n11x.png)
+   ![Travel BO Behavior Pool](n11x.png)
 
  3. Get the exact number range for the new ID according to number of relevant **Travel** entity instances stored in the internal table **`entities_wo_travelid`** and determine the current max ID. The number range object **`/DMO/TRV_M`** of the **ABAP Flight Reference Scenario** (located in the package `/DMO/FLIGHT_REUSE`) is used in the example implementation provided below.
 
     **Please note**: All participants are using the same number range object **`/DMO/TRV_M`**, therefore, the assigned Travel ID will not be gap-free.
     For that, enhance the method implementation with the provided code snippet as shown on the screenshot below. As already mentioned, the error handling is kept to the minimum here.
 
-    ```ABAP
-    IF use_number_range = abap_true.
-      "Get numbers
-      TRY.
-          cl_numberrange_runtime=>number_get(
-            EXPORTING
-              nr_range_nr       = '01'
-              object            = '/DMO/TRV_M'
-              quantity          = CONV #( lines( entities_wo_travelid ) )
-            IMPORTING
-              number            = DATA(number_range_key)
-              returncode        = DATA(number_range_return_code)
-              returned_quantity = DATA(number_range_returned_quantity)
-          ).
-        CATCH cx_number_ranges INTO DATA(lx_number_ranges).
-          LOOP AT entities_wo_travelid INTO entity.
-            APPEND VALUE #(  %cid      = entity-%cid
-                             %key      = entity-%key
-                             %is_draft = entity-%is_draft
-                             %msg      = lx_number_ranges
-                          ) TO reported-travel.
-            APPEND VALUE #(  %cid      = entity-%cid
-                             %key      = entity-%key
-                             %is_draft = entity-%is_draft
-                          ) TO failed-travel.
-          ENDLOOP.
-          EXIT.
-      ENDTRY.
+   ```ABAP
+   IF use_number_range = abap_true.
+     "Get numbers
+     TRY.
+         cl_numberrange_runtime=>number_get(
+           EXPORTING
+             nr_range_nr       = '01'
+             object            = '/DMO/TRV_M'
+             quantity          = CONV #( lines( entities_wo_travelid ) )
+           IMPORTING
+             number            = DATA(number_range_key)
+             returncode        = DATA(number_range_return_code)
+             returned_quantity = DATA(number_range_returned_quantity)
+         ).
+       CATCH cx_number_ranges INTO DATA(lx_number_ranges).
+         LOOP AT entities_wo_travelid INTO entity.
+           APPEND VALUE #(  %cid      = entity-%cid
+                            %key      = entity-%key
+                            %is_draft = entity-%is_draft
+                            %msg      = lx_number_ranges
+                         ) TO reported-travel.
+           APPEND VALUE #(  %cid      = entity-%cid
+                            %key      = entity-%key
+                            %is_draft = entity-%is_draft
+                         ) TO failed-travel.
+         ENDLOOP.
+         EXIT.
+     ENDTRY.
 
-      "determine the first free travel ID from the number range
-      travel_id_max = number_range_key - number_range_returned_quantity.
-    ELSE.
-      "determine the first free travel ID without number range
-      "Get max travel ID from active table
-      SELECT SINGLE FROM zrap100_atrav### FIELDS MAX( travel_id ) AS travelID INTO @travel_id_max.
-      "Get max travel ID from draft table
-      SELECT SINGLE FROM zrap100_dtrav### FIELDS MAX( travelid ) INTO @DATA(max_travelid_draft).
-      IF max_travelid_draft > travel_id_max.
-        travel_id_max = max_travelid_draft.
-      ENDIF.
-    ENDIF.
-    ```
+     "determine the first free travel ID from the number range
+     travel_id_max = number_range_key - number_range_returned_quantity.
+   ELSE.
+     "determine the first free travel ID without number range
+     "Get max travel ID from active table
+     SELECT SINGLE FROM zrap100_atrav### FIELDS MAX( travel_id ) AS travelID INTO @travel_id_max.
+     "Get max travel ID from draft table
+     SELECT SINGLE FROM zrap100_dtrav### FIELDS MAX( travelid ) INTO @DATA(max_travelid_draft).
+     IF max_travelid_draft > travel_id_max.
+       travel_id_max = max_travelid_draft.
+     ENDIF.
+   ENDIF.
+   ```
 
-    ![Travel BO Behavior Pool](n12.png)
+  ![Travel BO Behavior Pool](n12.png)
 
-     **Hint:** If you get the following error message: ABAP Runtime error 'BEHAVIOR_ILLEGAL_STATEMENT' then change the value of the variable `use_number_range` to `abap_false`. `use_number_range TYPE abap_bool VALUE abap_true`.
+   **Hint:** If you get the following error message: ABAP Runtime error 'BEHAVIOR_ILLEGAL_STATEMENT' then change the value of the variable `use_number_range` to `abap_false`. `use_number_range TYPE abap_bool VALUE abap_true`.
 
 
 
  4. Set the Travel ID for new **Travel** instances without identifier. Enhance the method implementation with the following code snippet as shown on the screenshot below.
 
-    ```ABAP
-    "Set Travel ID for new instances w/o ID
-    LOOP AT entities_wo_travelid INTO entity.
-     travel_id_max += 1.
-     entity-TravelID = travel_id_max.
+   ```ABAP
+   "Set Travel ID for new instances w/o ID
+   LOOP AT entities_wo_travelid INTO entity.
+    travel_id_max += 1.
+    entity-TravelID = travel_id_max.
 
-     APPEND VALUE #( %cid      = entity-%cid
-                     %key      = entity-%key
-                     %is_draft = entity-%is_draft
-                   ) TO mapped-travel.
-    ENDLOOP.  
-    ``` 
+    APPEND VALUE #( %cid      = entity-%cid
+                    %key      = entity-%key
+                    %is_draft = entity-%is_draft
+                  ) TO mapped-travel.
+   ENDLOOP.  
+   ``` 
 
-    Remember to regularly use the **ABAP Pretty Printer** function **(Shift+F1)** to format your source code.
+   Remember to regularly use the **ABAP Pretty Printer** function **(Shift+F1)** to format your source code.
 
-    ![Travel BO Behavior Pool](n13.png)
+   ![Travel BO Behavior Pool](n13.png)
 
  5. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

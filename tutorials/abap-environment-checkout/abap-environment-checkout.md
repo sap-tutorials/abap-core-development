@@ -66,28 +66,28 @@ In this tutorial, wherever `XXX` appears, use a number (e.g. `000`).
 
 2. Now make changes in your ABAP class. Therefore replace your code of your ABAP class **`Z_CL_XXX`** with following:
 
-    ```ABAP
-    class z_cl_xxx definition
-       public
-       final
-       create public .
+   ```ABAP
+   class z_cl_xxx definition
+      public
+      final
+      create public .
 
-       public section.
-       interfaces if_oo_adt_classrun.
-       protected section.
-       private section.
-     ENDCLASS.
-
-
-
-     CLASS Z_CL_XXX IMPLEMENTATION.
+      public section.
+      interfaces if_oo_adt_classrun.
+      protected section.
+      private section.
+    ENDCLASS.
 
 
-       METHOD IF_OO_ADT_CLASSRUN~MAIN.
-       out->write('Hello world! I am on branch_xxx now!').
-       ENDMETHOD.
-     ENDCLASS.
-    ```
+
+    CLASS Z_CL_XXX IMPLEMENTATION.
+
+
+      METHOD IF_OO_ADT_CLASSRUN~MAIN.
+      out->write('Hello world! I am on branch_xxx now!').
+      ENDMETHOD.
+    ENDCLASS.
+   ```
 
     ![Change your coding](change2.png)
 

@@ -34,38 +34,33 @@ author_profile: https://github.com/julieplummer20
 
   1. Right-click on your package and create an event binding
 
-    - Name: `ZEVENT_EXPOSURE_###`
-    - Description: `RAP business event`
+   - Name: `ZEVENT_EXPOSURE_###`
+   - Description: `RAP business event`
 
-  <!-- border -->
   ![binding](7-1.png)
 
-  <!-- border -->
   ![binding](7-2.png)
 
   3. Here fill all fields out, to get errors gone. You can freely choose these names to specify your event with some considerations explained below
 
-    - Namespace: `zevent###` (No camel case and no space)
-    - Business Object: `OnlineShop` (No Space)
-    - Business Object Operation: `create`
+   - Namespace: `zevent###` (No camel case and no space)
+   - Business Object: `OnlineShop` (No Space)
+   - Business Object Operation: `create`
 
-   <!-- border -->  
    ![error](7-3.png)
 
   4. Click **Add** to add items.
 
-    - Root Entity Name: `ZR_ONLINE_SHOP_###` (your behavior definition)
-    - Entity Event Name: `ITEMISORDERED` (Event name in your behavior definition)
+   - Root Entity Name: `ZR_ONLINE_SHOP_###` (your behavior definition)
+   - Entity Event Name: `ITEMISORDERED` (Event name in your behavior definition)
 
-   <!-- border -->
-  ![item](7-4.png)
+   ![item](7-4.png)
 
   5. Save and activate your event binding.
 
   6. As you can see at the screenshot, **Type** (aka topic) is a concatenation of the three attributes (name space, business object, business object operation) and ends with the version of the event. The wildcard * points to the corresponding event e.g. created. This is relevant for addressing the events to the Event Mesh. Copy this address for later use `zevent###.OnlineShop.create.v*`.
 
-   <!-- border -->
-  ![type](7-5.png)
+   ![type](7-5.png)
 
 
 ### Create a communication arrangement
@@ -78,46 +73,36 @@ author_profile: https://github.com/julieplummer20
 
   1. Log on to your cloud system and navigate to **Communication Arrangement**.
  
-  <!-- border -->
   ![comm](8-1.png)
 
   2. Click **New** to create a new communication arrangement.
   
-  <!-- border -->
   ![new](8-2.png)
   
-  <!-- border -->
   ![new](8-3.png)
 
   3. Choose `sap_com_0092` as **Scenario** and copy the service key of your Integration Suite Event Mesh instance under **Service Key**.
 
-   <!-- border -->
    ![comm](8-4.png)
 
-   <!-- border -->
    ![comm](8-5.png)
 
   4. Create a **Communication User**. Click **New** and enter a **User Name**, **Description** and **Propose Password**. Copy the generated password and save it for later. Click **Create**.
 
-  <!-- border -->
   ![user](8-6.png)
 
- <!-- border -->
  ![user](8-7.png)
 
   5. Now change the **Arrangement Name** to `Z_EVT_0092_###` and replace `###` with your initials or group number. This Arrangement Name will also be the name of the channel which is used later to send events.
 
   - Click **Create** communication arrangement.
 
-  <!-- border -->
   ![name](8-8.png)  
 
   6. Open your newly created communication arrangement and check the connection under **Outbound Services** to check if the connection is established and the channel is active.
 
-   <!-- border -->
    ![details](8-9.png)
    
-   <!-- border -->
    ![details](8-10.png)
 
 
@@ -125,67 +110,53 @@ author_profile: https://github.com/julieplummer20
 
 
   1. Search for **Enterprise Event Enablement** App and open it.
-   <!-- border -->
    ![app](9-1.png)
 
   2. Click **Go** to open a list of channels and choose your channel in this list.
-   <!-- border -->
    ![channel](9-2.png)
 
   3. Now add the outbound topic, which is generated during the event binding generation, in to this channel:
 
   - Click **Create**  
-  <!-- border -->
   ![create](9-3.png)
 
   - On the next page click **Topic** value help
-  <!-- border -->
   ![create](9-5.png)
 
   - In this popup search for `zevent###/OnlineShop/create/*` what you copied in step 8-5 and choose it. Replace `###` with your number.
-  <!-- border -->   
   ![create](9-4.png)
 
   - Click **Create**
-  <!-- border --> 
   ![create](9-6.png)
  
-  <!-- border -->
   ![create](9-7.png)
 
   4. In your channel click on **Metadata**, download the AsyncAPI json file, open it to copy the channels data for later use.
 
-  <!-- border -->
   ![metadata](9-8.png)
 
  
   5. Open your cloud system cockpit and navigate to **Instances and Subscriptions** and open **Integration Suite** application. Then click on Manage Business Events- Configure Events
 
-   <!-- border -->
    ![event](9-9.png)
     
    
   6. Open the message client, navigate to **Queues** and click **Create Queue**.
 
-   <!-- border -->
    ![queue](9-10.png)
 
-   <!-- border -->
    ![queue](9-11.png)
 
   7. Enter a queue name and click **Create**.
 
   - Queue Name: `onlineshop/###` (replace `###` with your number)
 
-   <!-- border -->
    ![name](9-12.png)
 
   8. Double click on your newly created queue and on tab **Subscriptions** click on **Create**. Here enter the topic what you copied from the event metadata and click **Create**. The subscription to the selected topic is done. 
 
-   <!-- border -->
    ![subs](9-13.png)
 
-   <!-- border -->
    ![subs](9-14.png)
 
    
@@ -198,23 +169,18 @@ author_profile: https://github.com/julieplummer20
 
   2. Navigate to your service binding `ZUI_Z_ONLINE_SHOP_###_O4` and click **Preview** to open your application.
    
-   <!-- border -->
    ![preview](11-1.png)
 
   3. Click **Create** to order a new item.
 
-   <!-- border -->
    ![order](11-2.png)
 
-   <!-- border -->
    ![order](11-3.png)
 
-   <!-- border -->
    ![order](11-4.png)
 
   4. Back to your cockpit and check in your event mesh under **Queues** if this event has reached the system. If you check the queue, a new message is arrived at the queue.
 
-   <!-- border -->
    ![message](11-5.png)
 
   5. Navigate to **Test** and choose your queue  under **Queue** in **Consume Messages** section.
@@ -222,7 +188,6 @@ author_profile: https://github.com/julieplummer20
 
   6. Click **Consume** to consume this event in your applications. Here you can see that you have the type which you have find in the event binding and the transported data is the parameter structure.
  
-   <!-- border -->
    ![message](11-6.png)
 
   

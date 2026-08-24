@@ -79,23 +79,23 @@ Create the test class ![class icon](adt_class.png) **`ZRAP100_TC_TRAVEL_EML_###`
 
   4. Specify the new global ABAP class as an ABAP Unit test class and also specify the test relation to the behavior definition (`BDEF`) of your **Travel** BO entity **`ZRAP100_R_TravelTP_###`**. For that, insert the addition **`FOR TESTING RISK LEVEL HARMLESS DURATION SHORT`** after the addition **`CREATE PPUBLIC`** (just before the **`.`**) of the class definition to enable the class for ABAP Unit testing.
 
-    ```ABAP   
-    FOR TESTING
-    RISK LEVEL HARMLESS
-    DURATION SHORT   
-    ```
+   ```ABAP   
+   FOR TESTING
+   RISK LEVEL HARMLESS
+   DURATION SHORT   
+   ```
 
-    Then add the ABAP Doc comment provided as code snippet below at the top of class editor to specify the test relation with your behavior definition **`ZRAP100_R_TravelTP_###`** (TADIR entry: `R3TR BDEF`). Replace the placeholder `###` with your group ID.
+   Then add the ABAP Doc comment provided as code snippet below at the top of class editor to specify the test relation with your behavior definition **`ZRAP100_R_TravelTP_###`** (TADIR entry: `R3TR BDEF`). Replace the placeholder `###` with your group ID.
 
-    >**Info**: In ABAP Unit testing, test relations allow the tests of a given object to be executed from the referenced object. In the present example, you will execute the test for your RAP BO in the separate test class. It is also possible to write ABAP Unit tests directly in the behavior implementation classes.
+   >**Info**: In ABAP Unit testing, test relations allow the tests of a given object to be executed from the referenced object. In the present example, you will execute the test for your RAP BO in the separate test class. It is also possible to write ABAP Unit tests directly in the behavior implementation classes.
 
-    ```ABAP
-    "! @testing BDEF:ZRAP100_R_TravelTP_###
-    ```
+   ```ABAP
+   "! @testing BDEF:ZRAP100_R_TravelTP_###
+   ```
 
-    Your source code should look like this:
+  Your source code should look like this:
 
-     ![Test Class](ex8_1.png)
+   ![Test Class](ex8_1.png)
 
   5. Save ![save icon](adt_save.png) the changes.
 
@@ -109,48 +109,48 @@ You will declare the needed special ABAP unit instance and static methods, and t
 
   1. Insert the code snippet provided below under the **PRIVATE SECTION.** statement in the class definition.  
 
-    ```ABAP
-    CLASS-DATA:
-      cds_test_environment TYPE REF TO if_cds_test_environment,
-      sql_test_environment TYPE REF TO if_osql_test_environment,
-      begin_date           TYPE /dmo/begin_date,
-      end_date             TYPE /dmo/end_date,
-      agency_mock_data     TYPE STANDARD TABLE OF /dmo/agency,
-      customer_mock_data   TYPE STANDARD TABLE OF /dmo/customer,
-      carrier_mock_data    TYPE STANDARD TABLE OF /dmo/carrier,
-      flight_mock_data     TYPE STANDARD TABLE OF /dmo/flight.
+   ```ABAP
+   CLASS-DATA:
+     cds_test_environment TYPE REF TO if_cds_test_environment,
+     sql_test_environment TYPE REF TO if_osql_test_environment,
+     begin_date           TYPE /dmo/begin_date,
+     end_date             TYPE /dmo/end_date,
+     agency_mock_data     TYPE STANDARD TABLE OF /dmo/agency,
+     customer_mock_data   TYPE STANDARD TABLE OF /dmo/customer,
+     carrier_mock_data    TYPE STANDARD TABLE OF /dmo/carrier,
+     flight_mock_data     TYPE STANDARD TABLE OF /dmo/flight.
 
-    CLASS-METHODS:
-      class_setup,    " setup test double framework
-      class_teardown. " stop test doubles
-     METHODS:
-      setup,          " reset test doubles      
-      teardown.       " rollback any changes
+   CLASS-METHODS:
+     class_setup,    " setup test double framework
+     class_teardown. " stop test doubles
+    METHODS:
+     setup,          " reset test doubles      
+     teardown.       " rollback any changes
 
-     METHODS:
-      " CUT: create with action call and commit
-      create_with_action FOR TESTING RAISING cx_static_check.
-    ```
+    METHODS:
+     " CUT: create with action call and commit
+     create_with_action FOR TESTING RAISING cx_static_check.
+   ```
 
-    An error will be displayed in the ABAP editor due to the missing method bodies in the class implementations.  
+   An error will be displayed in the ABAP editor due to the missing method bodies in the class implementations.  
 
   2. Add the method bodies via ADT quick fix.    
 
-    For that, set your cursor on the method name **`class_setup`**, press **Ctrl+1** to display the **Quick Assist** view, and select the entry **+ Add 5 unimplemented methods** from the pop-up menu to add the empty method bodies in the class implementation section.
+For that, set your cursor on the method name **`class_setup`**, press **Ctrl+1** to display the **Quick Assist** view, and select the entry **+ Add 5 unimplemented methods** from the pop-up menu to add the empty method bodies in the class implementation section.
 
-    Your source code should now look like:
+Your source code should now look like:
 
-    ![Test Class](testclass03.png)
+![Test Class](testclass03.png)
 
-    **Short explanation**:
+**Short explanation**:
 
-    Various static attributes for the test doubles and the mock data  
+Various static attributes for the test doubles and the mock data  
 
-      -	`cds_test_environment`: The reference object for the CDS TDF (`if_cds_test_environment`) which is used to provide test doubles for the **travel** CDS entity of the base BO view. The CDS test doubles will be used for **read** operations.
+ -	`cds_test_environment`: The reference object for the CDS TDF (`if_cds_test_environment`) which is used to provide test doubles for the **travel** CDS entity of the base BO view. The CDS test doubles will be used for **read** operations.
 
-      -	`sql_test_environment`: The reference object for the ABAP SQL TDF (`if_osql_test_environment`) is used for stubbing the additional needed database tables. The database test doubles will be used for **write** operations.          
-        - The ABAP unit framework standard special methods of the test configuration are specified: `setup`, `teardown`, `class_setup`, and `class_teardown`.
-        -  The method `create_with_action()` is the unit test method for our CUT. Test methods are easily identifiable by the addition `FOR TESTING` in the method signature.
+ -	`sql_test_environment`: The reference object for the ABAP SQL TDF (`if_osql_test_environment`) is used for stubbing the additional needed database tables. The database test doubles will be used for **write** operations.          
+   - The ABAP unit framework standard special methods of the test configuration are specified: `setup`, `teardown`, `class_setup`, and `class_teardown`.
+   -  The method `create_with_action()` is the unit test method for our CUT. Test methods are easily identifiable by the addition `FOR TESTING` in the method signature.
 
   3. Save ![save icon](adt_save.png) the changes.
 
@@ -166,35 +166,35 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
   
   3. Add following:
 
-    ```ABAP
-     METHOD class_setup.
-       " create the test doubles for the underlying CDS entities
-       cds_test_environment = cl_cds_test_environment=>create_for_multiple_cds(
-                         i_for_entities = VALUE #(
-                           ( i_for_entity = 'ZRAP100_R_TravelTP_###' ) ) ).
+   ```ABAP
+    METHOD class_setup.
+      " create the test doubles for the underlying CDS entities
+      cds_test_environment = cl_cds_test_environment=>create_for_multiple_cds(
+                        i_for_entities = VALUE #(
+                          ( i_for_entity = 'ZRAP100_R_TravelTP_###' ) ) ).
 
-       " create test doubles for additional used tables.
-       sql_test_environment = cl_osql_test_environment=>create(
-       i_dependency_list = VALUE #( ( '/DMO/AGENCY' )
-                                    ( '/DMO/CUSTOMER' )
-                                    ( '/DMO/CARRIER' )
-                                    ( '/DMO/FLIGHT' ) ) ).
+      " create test doubles for additional used tables.
+      sql_test_environment = cl_osql_test_environment=>create(
+      i_dependency_list = VALUE #( ( '/DMO/AGENCY' )
+                                   ( '/DMO/CUSTOMER' )
+                                   ( '/DMO/CARRIER' )
+                                   ( '/DMO/FLIGHT' ) ) ).
 
-       " prepare the test data
-       begin_date = cl_abap_context_info=>get_system_date( ) + 10.
-       end_date   = cl_abap_context_info=>get_system_date( ) + 30.
+      " prepare the test data
+      begin_date = cl_abap_context_info=>get_system_date( ) + 10.
+      end_date   = cl_abap_context_info=>get_system_date( ) + 30.
 
-       agency_mock_data   = VALUE #( ( agency_id = '070041' name = 'Agency 070041' ) ).
-       customer_mock_data = VALUE #( ( customer_id = '000093' last_name = 'Customer 000093' ) ).
-       carrier_mock_data  = VALUE #( ( carrier_id = '123' name = 'carrier 123' ) ).
-       flight_mock_data   = VALUE #( ( carrier_id = '123' connection_id = '9876' flight_date = begin_date
-                                       price = '2000' currency_code = 'EUR' ) ).
-     ENDMETHOD.   
-    ```   
+      agency_mock_data   = VALUE #( ( agency_id = '070041' name = 'Agency 070041' ) ).
+      customer_mock_data = VALUE #( ( customer_id = '000093' last_name = 'Customer 000093' ) ).
+      carrier_mock_data  = VALUE #( ( carrier_id = '123' name = 'carrier 123' ) ).
+      flight_mock_data   = VALUE #( ( carrier_id = '123' connection_id = '9876' flight_date = begin_date
+                                      price = '2000' currency_code = 'EUR' ) ).
+    ENDMETHOD.   
+   ```   
 
-    Your source code should look like this:
+ Your source code should look like this:
 
-      ![Test Class](ex8_2.png)    
+   ![Test Class](ex8_2.png)    
 
   2. Save ![save icon](adt_save.png) the changes.
 
@@ -202,55 +202,55 @@ Implement the special static methods **`class_setup`** and **`class_teardown`**,
 
   4. Add following:
   
-    ```ABAP
-     METHOD class_teardown.
-       " remove test doubles
-       cds_test_environment->destroy(  ).
-       sql_test_environment->destroy(  ).
-     ENDMETHOD.
-    ```   
+   ```ABAP
+    METHOD class_teardown.
+      " remove test doubles
+      cds_test_environment->destroy(  ).
+      sql_test_environment->destroy(  ).
+    ENDMETHOD.
+   ```   
 
-    Your source code should look like this:
+ Your source code should look like this:
 
-      ![Test Class](testclass05.png)
+   ![Test Class](testclass05.png)
 
 
   4. Implement the special instance method **`setup`** which is used to reset the test doubles and insert the test data before the execution of the test method - or of each test method of a test class in general.    
 
-    Insert the code snippet below in the appropriate method implementation as shown on the screenshot.
+   Insert the code snippet below in the appropriate method implementation as shown on the screenshot.
 
-    ```ABAP
-    METHOD setup.
-      " clear the test doubles per test
-      cds_test_environment->clear_doubles(  ).
-      sql_test_environment->clear_doubles(  ).
-      " insert test data into test doubles
-      sql_test_environment->insert_test_data( agency_mock_data   ).
-      sql_test_environment->insert_test_data( customer_mock_data ).
-      sql_test_environment->insert_test_data( carrier_mock_data  ).
-      sql_test_environment->insert_test_data( flight_mock_data   ).
-    ENDMETHOD.
-    ```
+   ```ABAP
+   METHOD setup.
+     " clear the test doubles per test
+     cds_test_environment->clear_doubles(  ).
+     sql_test_environment->clear_doubles(  ).
+     " insert test data into test doubles
+     sql_test_environment->insert_test_data( agency_mock_data   ).
+     sql_test_environment->insert_test_data( customer_mock_data ).
+     sql_test_environment->insert_test_data( carrier_mock_data  ).
+     sql_test_environment->insert_test_data( flight_mock_data   ).
+   ENDMETHOD.
+   ```
 
-    The source code should look like this:
+   The source code should look like this:
 
-    ![Test Class](testclass06.png)
+   ![Test Class](testclass06.png)
 
 
   5. Implement the special instance method **`teardown`** which is used to rollback any changes in the involved entities after the execution the test method.
 
-    Replace the method body with the code snippet provided below and format your code your source code.
+   Replace the method body with the code snippet provided below and format your code your source code.
 
-    ```ABAP
-    METHOD teardown.
-     " clean up any involved entity
-     ROLLBACK ENTITIES.    
-    ENDMETHOD.    
-    ```
+   ```ABAP
+   METHOD teardown.
+    " clean up any involved entity
+    ROLLBACK ENTITIES.    
+   ENDMETHOD.    
+   ```
 
-     The source code should look like follows.
+   The source code should look like follows.
 
-     ![Test Class](testclass07.png)
+   ![Test Class](testclass07.png)
 
 
   6. Save ![save icon](adt_save.png) the changes.
@@ -263,97 +263,97 @@ Implement your BO test. The present code under test (CUT) is an EML statement th
 
   1. Implement the test method `create_with_action`.  
 
-    Insert the code snippet provided below in the method body and replace all occurrences of **`###`** with your group ID.
+   Insert the code snippet provided below in the method body and replace all occurrences of **`###`** with your group ID.
 
-    ```ABAP   
-    METHOD create_with_action.
-       " create a complete composition: Travel (root)
-       MODIFY ENTITIES OF ZRAP100_R_TravelTP_###
-        ENTITY Travel
-        CREATE FIELDS ( AgencyID CustomerID BeginDate EndDate Description TotalPrice BookingFee CurrencyCode )
-          WITH VALUE #( (  %cid = 'ROOT1'
-                           AgencyID      = agency_mock_data[ 1 ]-agency_id
-                           CustomerID    = customer_mock_data[ 1 ]-customer_id
-                           BeginDate     = begin_date
-                           EndDate       = end_date
-                           Description   = 'TestTravel 1'
-                           TotalPrice    = '1100'
-                           BookingFee    = '20'
-                           CurrencyCode  = 'EUR'
-                        ) )
+   ```ABAP   
+   METHOD create_with_action.
+      " create a complete composition: Travel (root)
+      MODIFY ENTITIES OF ZRAP100_R_TravelTP_###
+       ENTITY Travel
+       CREATE FIELDS ( AgencyID CustomerID BeginDate EndDate Description TotalPrice BookingFee CurrencyCode )
+         WITH VALUE #( (  %cid = 'ROOT1'
+                          AgencyID      = agency_mock_data[ 1 ]-agency_id
+                          CustomerID    = customer_mock_data[ 1 ]-customer_id
+                          BeginDate     = begin_date
+                          EndDate       = end_date
+                          Description   = 'TestTravel 1'
+                          TotalPrice    = '1100'
+                          BookingFee    = '20'
+                          CurrencyCode  = 'EUR'
+                       ) )
 
-        " execute action `acceptTravel`
-        ENTITY Travel
-          EXECUTE acceptTravel
-            FROM VALUE #( ( %cid_ref = 'ROOT1' ) )
+       " execute action `acceptTravel`
+       ENTITY Travel
+         EXECUTE acceptTravel
+           FROM VALUE #( ( %cid_ref = 'ROOT1' ) )
 
-       " execute action `deductDiscount`
-        ENTITY Travel
-          EXECUTE deductDiscount
-            FROM VALUE #( ( %cid_ref = 'ROOT1'
-                            %param-discount_percent = '20' ) )   "=> 20%
+      " execute action `deductDiscount`
+       ENTITY Travel
+         EXECUTE deductDiscount
+           FROM VALUE #( ( %cid_ref = 'ROOT1'
+                           %param-discount_percent = '20' ) )   "=> 20%
 
-        " result parameters
-        MAPPED   DATA(mapped)
-        FAILED   DATA(failed)
-        REPORTED DATA(reported).
+       " result parameters
+       MAPPED   DATA(mapped)
+       FAILED   DATA(failed)
+       REPORTED DATA(reported).
 
-       " expect no failures and messages
-       cl_abap_unit_assert=>assert_initial( msg = 'failed'   act = failed ).
-       cl_abap_unit_assert=>assert_initial( msg = 'reported' act = reported ).
+      " expect no failures and messages
+      cl_abap_unit_assert=>assert_initial( msg = 'failed'   act = failed ).
+      cl_abap_unit_assert=>assert_initial( msg = 'reported' act = reported ).
 
-       " expect a newly created record in mapped tables
-       cl_abap_unit_assert=>assert_not_initial( msg = 'mapped-travel'  act = mapped-travel ).
+      " expect a newly created record in mapped tables
+      cl_abap_unit_assert=>assert_not_initial( msg = 'mapped-travel'  act = mapped-travel ).
 
-       " persist changes into the database (using the test doubles)
-       COMMIT ENTITIES RESPONSES
-         FAILED   DATA(commit_failed)
-         REPORTED DATA(commit_reported).
+      " persist changes into the database (using the test doubles)
+      COMMIT ENTITIES RESPONSES
+        FAILED   DATA(commit_failed)
+        REPORTED DATA(commit_reported).
 
-       " no failures expected
-       cl_abap_unit_assert=>assert_initial( msg = 'commit_failed'   act = commit_failed ).
-       cl_abap_unit_assert=>assert_initial( msg = 'commit_reported' act = commit_reported ).
+      " no failures expected
+      cl_abap_unit_assert=>assert_initial( msg = 'commit_failed'   act = commit_failed ).
+      cl_abap_unit_assert=>assert_initial( msg = 'commit_reported' act = commit_reported ).
 
-       " read the data from the persisted travel entity (using the test doubles)
-       SELECT * FROM ZRAP100_R_TravelTP_### INTO TABLE @DATA(lt_travel). "#EC CI_NOWHERE         
-       " assert the existence of the persisted travel entity      
-       cl_abap_unit_assert=>assert_not_initial( msg = 'travel from db' act = lt_travel ).
-       " assert the generation of a travel ID (key) at creation
-       cl_abap_unit_assert=>assert_not_initial( msg = 'travel-id' act = lt_travel[ 1 ]-TravelID ).
-       " assert that the action has changed the overall status
-       cl_abap_unit_assert=>assert_equals( msg = 'overall status' exp = 'A' act = lt_travel[ 1 ]-OverallStatus ).
-       " assert the discounted booking_fee
-       cl_abap_unit_assert=>assert_equals( msg = 'discounted booking_fee' exp = '16' act = lt_travel[ 1 ]-BookingFee ).
+      " read the data from the persisted travel entity (using the test doubles)
+      SELECT * FROM ZRAP100_R_TravelTP_### INTO TABLE @DATA(lt_travel). "#EC CI_NOWHERE         
+      " assert the existence of the persisted travel entity      
+      cl_abap_unit_assert=>assert_not_initial( msg = 'travel from db' act = lt_travel ).
+      " assert the generation of a travel ID (key) at creation
+      cl_abap_unit_assert=>assert_not_initial( msg = 'travel-id' act = lt_travel[ 1 ]-TravelID ).
+      " assert that the action has changed the overall status
+      cl_abap_unit_assert=>assert_equals( msg = 'overall status' exp = 'A' act = lt_travel[ 1 ]-OverallStatus ).
+      " assert the discounted booking_fee
+      cl_abap_unit_assert=>assert_equals( msg = 'discounted booking_fee' exp = '16' act = lt_travel[ 1 ]-BookingFee ).
 
-    ENDMETHOD.
-    ```
+   ENDMETHOD.
+   ```
 
-    The source code should look like this:
+The source code should look like this:
 
-    ![Test Class](ex8_3.png)
+![Test Class](ex8_3.png)
 
-    **Short explanation:**  
+**Short explanation:**  
 
-      - The complete CUT is a complex EML Statement comprising a `MODIFY ENTITIES` statement `CREATE` and `EXECUTE` additions, and a `COMMIT ENTITIES` statement.
+- The complete CUT is a complex EML Statement comprising a `MODIFY ENTITIES` statement `CREATE` and `EXECUTE` additions, and a `COMMIT ENTITIES` statement.
 
-      - The class `CL_ABAP_UNIT_ASSERT` is used in test method implementations to check/assert the test assumptions. It offers various static methods for the purposes - e.g. `assert_equals()`, `assert_initial()`, `assert_not_initial()`, and `assert_differs()`.
+- The class `CL_ABAP_UNIT_ASSERT` is used in test method implementations to check/assert the test assumptions. It offers various static methods for the purposes - e.g. `assert_equals()`, `assert_initial()`, `assert_not_initial()`, and `assert_differs()`.
 
-      - Block (1)
-        CUT: `MODIFY ENTITIES` statement, including the following
-          - a `CREATE` addition which creates a **travel** instance (root).
-          - an `EXECUTE` addition which calls the action `acceptTravel` on the **travel** instance.
-          - an `EXECUTE` addition which calls the action `deductDiscount` on the **travel** instance.
-        First assertion block on the result parameters - before committing the changes
-          - An assertion used to check for eventual failures and messages during the creation of the instances and the execution of the action.
-          - An assertion used to check the returned `mapped` table for the created **travel** and **booking** instances.
+- Block (1)
+CUT: `MODIFY ENTITIES` statement, including the following
+  - a `CREATE` addition which creates a **travel** instance (root).
+  - an `EXECUTE` addition which calls the action `acceptTravel` on the **travel** instance.
+  - an `EXECUTE` addition which calls the action `deductDiscount` on the **travel** instance.
+First assertion block on the result parameters - before committing the changes
+  - An assertion used to check for eventual failures and messages during the creation of the instances and the execution of the action.
+  - An assertion used to check the returned `mapped` table for the created **travel** and **booking** instances.
 
-      - Block (2)
-           - CUT: `COMMIT ENTITIES` statement which persists the changes to the database (test doubles).
-           - The second assertion block checks for an eventual failure of the performed commit by examining the return parameters `commit_failed` and `commit_reported`.
-      - Block (3)
-           - Third assertion block to check the successful persistence of the data in the test doubles.
-           - For that, the committed data is first read via a `SELECT` statement on the base BO view **`ZRAP100_R_TravelTP_####`**; The data is read from the configure test double.
-           - Various assertion checks are performed. Please read the comment lines in the code snippet for more explanation.
+- Block (2)
+   - CUT: `COMMIT ENTITIES` statement which persists the changes to the database (test doubles).
+   - The second assertion block checks for an eventual failure of the performed commit by examining the return parameters `commit_failed` and `commit_reported`.
+- Block (3)
+   - Third assertion block to check the successful persistence of the data in the test doubles.
+   - For that, the committed data is first read via a `SELECT` statement on the base BO view **`ZRAP100_R_TravelTP_####`**; The data is read from the configure test double.
+   - Various assertion checks are performed. Please read the comment lines in the code snippet for more explanation.
 
   2. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

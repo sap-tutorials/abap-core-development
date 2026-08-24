@@ -74,29 +74,29 @@ Create a database table to store the underlying data of the order application.
 
 5. Replace the default code with the code snippet provided below (make sure to replace the placeholder ###):
 
-    ```ABAP
-    @EndUserText.label : 'Factory Calendar Tutorial - Order data'
-    @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
-    @AbapCatalog.tableCategory : #TRANSPARENT
-    @AbapCatalog.deliveryClass : #A
-    @AbapCatalog.dataMaintenance : #RESTRICTED
-    define table zfactoryord_### {
+   ```ABAP
+   @EndUserText.label : 'Factory Calendar Tutorial - Order data'
+   @AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+   @AbapCatalog.tableCategory : #TRANSPARENT
+   @AbapCatalog.deliveryClass : #A
+   @AbapCatalog.dataMaintenance : #RESTRICTED
+   define table zfactoryord_### {
 
-      key client            : abap.clnt not null;
-      key order_id          : sysuuid_x16 not null;
-      description           : abap.char(100);
-      days_to_produce       : abap.int4;
-      factory_calendar      : abap.char(32);
-      production_start_date : abap.dats;
-      delivery_date         : abap.dats;
-      created_by            : abp_creation_user;
-      created_at            : abp_creation_tstmpl;
-      last_changed_by       : abp_lastchange_user;
-      last_changed_at       : abp_lastchange_tstmpl;
-      local_last_changed_at : abp_locinst_lastchange_tstmpl;
+     key client            : abap.clnt not null;
+     key order_id          : sysuuid_x16 not null;
+     description           : abap.char(100);
+     days_to_produce       : abap.int4;
+     factory_calendar      : abap.char(32);
+     production_start_date : abap.dats;
+     delivery_date         : abap.dats;
+     created_by            : abp_creation_user;
+     created_at            : abp_creation_tstmpl;
+     last_changed_by       : abp_lastchange_user;
+     last_changed_at       : abp_lastchange_tstmpl;
+     local_last_changed_at : abp_locinst_lastchange_tstmpl;
 
-    }
-    ```
+   }
+   ```
 
 6. Save and activate the changes
 
@@ -137,15 +137,14 @@ Currently, a user needs to know the desired factory calendar ID to be able to in
 
 2. Add the below annotation to the `FactoryCalendar` field:
 
-    ```ABAP
-    @Consumption.valueHelpDefinition: [{ entity : { name: 'I_FactoryCalendarValueHelp', element: 'FactoryCalendarID' } }]
-          FactoryCalendar,
-    ```
+   ```ABAP
+   @Consumption.valueHelpDefinition: [{ entity : { name: 'I_FactoryCalendarValueHelp', element: 'FactoryCalendarID' } }]
+         FactoryCalendar,
+   ```
   
 3. Save and activate the CDS view.
 
 4. Reload the service binding **Preview** and check that the value help is displayed correctly.
-<!-- border -->
 ![Preview](screenshot_step4.png)
 
 ### Define a Validation for the Factory Calendar Selection
@@ -156,10 +155,10 @@ The value help allows selecting a factory calendar from the list. However, the u
 
 2. Define a new validation on the factory calendar field, which shall be triggered during the save process. Add the new validation to the standard **Prepare** action:
 
-    ```ABAP
-    validation checkFactoryCalendarId on save { field FactoryCalendar; }
-    draft determine action Prepare { validation checkFactoryCalendarId; }
-    ```
+   ```ABAP
+   validation checkFactoryCalendarId on save { field FactoryCalendar; }
+   draft determine action Prepare { validation checkFactoryCalendarId; }
+   ```
 
 3. Save and activate your changes.
 
@@ -167,33 +166,32 @@ The value help allows selecting a factory calendar from the list. However, the u
 
 5. Implement the method as shown below:
 
-    ```ABAP
-    METHOD checkFactoryCalendarId.
-      SELECT FactoryCalendarID FROM I_FactoryCalendarBasic INTO TABLE @DATA(lt_fcal).
-      READ ENTITIES OF zr_factoryorder_### IN LOCAL MODE
-        ENTITY FactoryOrder
-        FIELDS ( FactoryCalendar )
-        WITH CORRESPONDING #( keys )
-        RESULT DATA(lt_orders).
+   ```ABAP
+   METHOD checkFactoryCalendarId.
+     SELECT FactoryCalendarID FROM I_FactoryCalendarBasic INTO TABLE @DATA(lt_fcal).
+     READ ENTITIES OF zr_factoryorder_### IN LOCAL MODE
+       ENTITY FactoryOrder
+       FIELDS ( FactoryCalendar )
+       WITH CORRESPONDING #( keys )
+       RESULT DATA(lt_orders).
 
-      LOOP AT lt_orders INTO DATA(ls_order).
-        READ TABLE lt_fcal WITH KEY FactoryCalendarID = ls_order-FactoryCalendar INTO DATA(ls_fcal).
-        IF ls_fcal IS INITIAL.
-          APPEND VALUE #( %tky = ls_order-%tky ) TO failed-factoryorder.
-          APPEND VALUE #( %tky = ls_order-%tky
-          %msg = new_message_with_text(
-          severity = if_abap_behv_message=>severity-error
-          text = 'Factory calendar does not exist.'
-          ) ) TO reported-factoryorder.
-        ENDIF.
-      ENDLOOP.
-    ENDMETHOD.
-    ```
+     LOOP AT lt_orders INTO DATA(ls_order).
+       READ TABLE lt_fcal WITH KEY FactoryCalendarID = ls_order-FactoryCalendar INTO DATA(ls_fcal).
+       IF ls_fcal IS INITIAL.
+         APPEND VALUE #( %tky = ls_order-%tky ) TO failed-factoryorder.
+         APPEND VALUE #( %tky = ls_order-%tky
+         %msg = new_message_with_text(
+         severity = if_abap_behv_message=>severity-error
+         text = 'Factory calendar does not exist.'
+         ) ) TO reported-factoryorder.
+       ENDIF.
+     ENDLOOP.
+   ENDMETHOD.
+   ```
 
 6. Save and activate your changes.
 
 7. Reload the service binding **Preview**. Create a new factory order and input a non-existent factory calendar ID. Check that the new validation is triggered when clicking **Save**.
-<!-- border -->
 ![Factory calenddar does not exist](screenshot_step5.png)
 The validation starts by reading all available factory calendar IDs from the released CDS view `I_FactoryCalendarBasic`. Additionally, the factory calendar ID of the entries for which the validation is run are also read. For each entry, the existence of the calendar is checked by filtering the first table for the chosen calendar ID. If the result is empty, an error is raised.
 
@@ -213,14 +211,14 @@ Each factory order receives a production start date and the required production 
 5. Choose template `defineScalarFunction` and click **Finish**.
 6. Replace the generated code with the following code:
 
-    ```ABAP
-    define scalar function ZFACTORYORDER_SCALAR_###
-      with parameters
-        i_calendar_id: abap.char( 32 ),
-        i_production_start_date: abap.dats,
-        i_days_to_produce : abap.int4
-      returns abap.dats
-    ```
+   ```ABAP
+   define scalar function ZFACTORYORDER_SCALAR_###
+     with parameters
+       i_calendar_id: abap.char( 32 ),
+       i_production_start_date: abap.dats,
+       i_days_to_produce : abap.int4
+     returns abap.dats
+   ```
 
 7. Save and activate your changes.
 
@@ -263,28 +261,28 @@ You will now implement the actual logic for the scalar function, which will be c
 
 4. Declare and implement a new class method as shown in the code snippet below:
 
-    ```ABAP
-    CLASS zcl_factoryorder_### DEFINITION
-      PUBLIC
-      FINAL
-      CREATE PUBLIC .
+   ```ABAP
+   CLASS zcl_factoryorder_### DEFINITION
+     PUBLIC
+     FINAL
+     CREATE PUBLIC .
 
-      PUBLIC SECTION.
-        INTERFACES if_amdp_marker_hdb .
-        CLASS-METHODS calculate_production_end_date FOR SCALAR FUNCTION zfactoryorder_scalar_###.
-      PROTECTED SECTION.
-      PRIVATE SECTION.
-    ENDCLASS.
+     PUBLIC SECTION.
+       INTERFACES if_amdp_marker_hdb .
+       CLASS-METHODS calculate_production_end_date FOR SCALAR FUNCTION zfactoryorder_scalar_###.
+     PROTECTED SECTION.
+     PRIVATE SECTION.
+   ENDCLASS.
 
-    CLASS zcl_factoryorder_### IMPLEMENTATION.
-      METHOD calculate_production_end_date BY DATABASE FUNCTION
-                    FOR HDB
-                    LANGUAGE SQLSCRIPT
-                    OPTIONS READ-ONLY.
-        SELECT to_dats( add_workdays(i_calendar_id, i_production_start_date, i_days_to_produce) ) INTO result FROM dummy;
-      ENDMETHOD.
-    ENDCLASS.
-    ```
+   CLASS zcl_factoryorder_### IMPLEMENTATION.
+     METHOD calculate_production_end_date BY DATABASE FUNCTION
+                   FOR HDB
+                   LANGUAGE SQLSCRIPT
+                   OPTIONS READ-ONLY.
+       SELECT to_dats( add_workdays(i_calendar_id, i_production_start_date, i_days_to_produce) ) INTO result FROM dummy;
+     ENDMETHOD.
+   ENDCLASS.
+   ```
 
 5. Save the object.
 
@@ -299,32 +297,32 @@ You can now use the defined scalar function to add a production date field to yo
 1. Open the interface layer CDS view `ZR_FACTORYORDER_###`.
 2. Add a new field which is calculated using the scalar function and the other required fields as input:
 
-    ```ABAP
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: '##GENERATED Factory Calendar Tutorial'
-    define root view entity ZR_FACTORYORDER_###
-      as select from zfactoryord_### as FactoryOrder
-    {
-      key order_id as OrderID,
-      description as Description,
-      days_to_produce as DaysToProduce,
-      factory_calendar as FactoryCalendar,
-      production_start_date as ProductionStartDate,
-      delivery_date as DeliveryDate,
-      @Semantics.user.createdBy: true
-      created_by as CreatedBy,
-      @Semantics.systemDateTime.createdAt: true
-      created_at as CreatedAt,
-      @Semantics.user.lastChangedBy: true
-      last_changed_by as LastChangedBy,
-      @Semantics.systemDateTime.lastChangedAt: true
-      last_changed_at as LastChangedAt,
-      @Semantics.systemDateTime.localInstanceLastChangedAt: true
-      local_last_changed_at as LocalLastChangedAt,
-      ZFACTORYORDER_SCALAR_###( i_calendar_id =>  factory_calendar, i_production_start_date => production_start_date, i_days_to_produce => days_to_produce) as ProductionEndDate
+   ```ABAP
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: '##GENERATED Factory Calendar Tutorial'
+   define root view entity ZR_FACTORYORDER_###
+     as select from zfactoryord_### as FactoryOrder
+   {
+     key order_id as OrderID,
+     description as Description,
+     days_to_produce as DaysToProduce,
+     factory_calendar as FactoryCalendar,
+     production_start_date as ProductionStartDate,
+     delivery_date as DeliveryDate,
+     @Semantics.user.createdBy: true
+     created_by as CreatedBy,
+     @Semantics.systemDateTime.createdAt: true
+     created_at as CreatedAt,
+     @Semantics.user.lastChangedBy: true
+     last_changed_by as LastChangedBy,
+     @Semantics.systemDateTime.lastChangedAt: true
+     last_changed_at as LastChangedAt,
+     @Semantics.systemDateTime.localInstanceLastChangedAt: true
+     local_last_changed_at as LocalLastChangedAt,
+     ZFACTORYORDER_SCALAR_###( i_calendar_id =>  factory_calendar, i_production_start_date => production_start_date, i_days_to_produce => days_to_produce) as ProductionEndDate
 
-    }
-    ```
+   }
+   ```
 
 3. Save and activate the changes.
 
@@ -348,23 +346,22 @@ You can now use the defined scalar function to add a production date field to yo
 
 13. Add UI annotations for the newly defined field, so that it will be visible on the UI:
 
-    ```ABAP
-    @UI.lineItem: [ {
-      position: 60 , 
-      importance: #MEDIUM, 
-      label: 'ProductionEndDate'
-    } ]
-    @UI.identification: [ {
-      position: 60 , 
-      label: 'ProductionEndDate'
-    } ]
-    ProductionEndDate;
-    ```
+   ```ABAP
+   @UI.lineItem: [ {
+     position: 60 , 
+     importance: #MEDIUM, 
+     label: 'ProductionEndDate'
+   } ]
+   @UI.identification: [ {
+     position: 60 , 
+     label: 'ProductionEndDate'
+   } ]
+   ProductionEndDate;
+   ```
 
 14. Save and activate the changes.
 15. Reload the service binding **Preview**. Check that the new field is visible in the UI, and that it is automatically calculated once a factory order is saved.
 
-<!-- border -->
 ![Preview](screenshot_step9.png)
 
 ### Define a Validation using the chosen Factory Calendar
@@ -375,55 +372,54 @@ The user inputs a delivery date when creating an order. This date should be vali
 
 2. Define a new validation on the delivery date field, which shall be triggered during the save process. Add the new validation to the standard **Prepare** action:
 
-    ```ABAP
-    validation checkFactoryCalendarId on save { field FactoryCalendar; }
-    validation checkDeliveryDate on save { field DeliveryDate; }
-    draft determine action Prepare { validation checkFactoryCalendarId; validation checkDeliveryDate; }
-    ```
+   ```ABAP
+   validation checkFactoryCalendarId on save { field FactoryCalendar; }
+   validation checkDeliveryDate on save { field DeliveryDate; }
+   draft determine action Prepare { validation checkFactoryCalendarId; validation checkDeliveryDate; }
+   ```
 
 3. Save and activate your changes.
 4. Use the quick fix that is offered to generate the required method shell in your behavior implementation class. The IDE will automatically navigate to the class.
 5. Implement the method as shown below:
 
-    ```ABAP
-    METHOD checkDeliveryDate.
+   ```ABAP
+   METHOD checkDeliveryDate.
 
-      READ ENTITIES OF zr_factoryorder_### IN LOCAL MODE
-                ENTITY FactoryOrder
-                  ALL FIELDS
-                    WITH CORRESPONDING #( keys )
-                RESULT DATA(lt_orders).
+     READ ENTITIES OF zr_factoryorder_### IN LOCAL MODE
+               ENTITY FactoryOrder
+                 ALL FIELDS
+                   WITH CORRESPONDING #( keys )
+               RESULT DATA(lt_orders).
 
-      LOOP AT lt_orders INTO DATA(ls_order).
-        TRY.
-            DATA(lo_fcal_run) = cl_fhc_calendar_runtime=>create_factorycalendar_runtime(
-                iv_factorycalendar_id = ls_order-FactoryCalendar ).
+     LOOP AT lt_orders INTO DATA(ls_order).
+       TRY.
+           DATA(lo_fcal_run) = cl_fhc_calendar_runtime=>create_factorycalendar_runtime(
+               iv_factorycalendar_id = ls_order-FactoryCalendar ).
 
-            DATA(production_end_date) = lo_fcal_run->add_workingdays_to_date(
-                                      iv_start                 = ls_order-ProductionStartDate
-                                      iv_number_of_workingdays = ls_order-DaysToProduce
-                                    ).
-          CATCH cx_fhc_runtime INTO DATA(lx_err).
-            "Exception handling – here you can catch any errors related to the factory calendar runtime
-        "This is out of scope for this tutorial 
-        ENDTRY.
-        IF ls_order-DeliveryDate < production_end_date.
-          APPEND VALUE #( %tky =  ls_order-%tky ) TO failed-factoryorder.
-          APPEND VALUE #( %tky =  ls_order-%tky
-                          %msg =  new_message_with_text(
-                                    severity = if_abap_behv_message=>severity-error
-                                    text     = 'Delivery date is too early.'
-                                  ) ) TO reported-factoryorder.
-        ENDIF.
-      ENDLOOP.
-      
-    ENDMETHOD.
-    ```
+           DATA(production_end_date) = lo_fcal_run->add_workingdays_to_date(
+                                     iv_start                 = ls_order-ProductionStartDate
+                                     iv_number_of_workingdays = ls_order-DaysToProduce
+                                   ).
+         CATCH cx_fhc_runtime INTO DATA(lx_err).
+           "Exception handling – here you can catch any errors related to the factory calendar runtime
+       "This is out of scope for this tutorial 
+       ENDTRY.
+       IF ls_order-DeliveryDate < production_end_date.
+         APPEND VALUE #( %tky =  ls_order-%tky ) TO failed-factoryorder.
+         APPEND VALUE #( %tky =  ls_order-%tky
+                         %msg =  new_message_with_text(
+                                   severity = if_abap_behv_message=>severity-error
+                                   text     = 'Delivery date is too early.'
+                                 ) ) TO reported-factoryorder.
+       ENDIF.
+     ENDLOOP.
+     
+   ENDMETHOD.
+   ```
 
 6. Save and activate your changes.
 7. Reload the service binding **Preview**. Create a new factory order and input a delivery date that is too early (for example, before the production start date). Check that the new validation is triggered when clicking **Save**.
 
-<!-- border -->
 ![Preview](screenshot_step10.png)
 
 The validation starts by reading all fields of the entries for which the validation is run. For each entry, the chosen factory calendar ID is used to create a factory calendar runtime object. This object is then used to compute the production end date, using the start date and required production days. This date is compared to the delivery date and an error is raised if the latter is too early.

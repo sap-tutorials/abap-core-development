@@ -44,30 +44,30 @@ Define and expose new associations in the base BO data model defined in the CDS 
   
   2. Replace your code:
 
-    ```ABAP
-    association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
-    association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID = _Customer.CustomerID
-    association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
-    association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
-    ```
+   ```ABAP
+   association [0..1] to /DMO/I_Agency            as _Agency        on $projection.AgencyID = _Agency.AgencyID
+   association [0..1] to /DMO/I_Customer          as _Customer      on $projection.CustomerID = _Customer.CustomerID
+   association [1..1] to /DMO/I_Overall_Status_VH as _OverallStatus on $projection.OverallStatus = _OverallStatus.OverallStatus
+   association [0..1] to I_Currency               as _Currency      on $projection.CurrencyCode = _Currency.Currency
+   ```
 
-    Your source code should look like this: 
+ Your source code should look like this: 
     
-      ![association](association.png)
+   ![association](association.png)
     
 
   2. Expose the defined associations **`_Agency`**, **`_Customer`**, **`_OverallStatus`** and **`_Currency`** in the selection list. For that, insert the code snippet provided below in the selection list between the curly brackets (`{...}`) as shown on the screenshot.
 
-    ```ABAP
-    ,
-    //public associations
-    _Customer,
-    _Agency,
-    _OverallStatus,
-    _Currency
-    ```
+   ```ABAP
+   ,
+   //public associations
+   _Customer,
+   _Agency,
+   _OverallStatus,
+   _Currency
+   ```
 
-     ![association](association2.png)
+   ![association](association2.png)
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -86,27 +86,27 @@ The only things you will have to do in the RAP business object, is to specify th
 
   2. Use the code snippets provided below and annotate the elements as shown on the screenshot.
 
-    For element `MimeType`:
-    ```ABAP
-    @Semantics.mimeType: true
-    ```
+   For element `MimeType`:
+   ```ABAP
+   @Semantics.mimeType: true
+   ```
 
-    For element `Attachment`:
-    ```ABAP
-    @Semantics.largeObject: { mimeType: 'MimeType',   //case-sensitive
-                           fileName: 'FileName',   //case-sensitive
-                           acceptableMimeTypes: ['image/png', 'image/jpeg'],
-                           contentDispositionPreference: #ATTACHMENT }
-    ```
+   For element `Attachment`:
+   ```ABAP
+   @Semantics.largeObject: { mimeType: 'MimeType',   //case-sensitive
+                          fileName: 'FileName',   //case-sensitive
+                          acceptableMimeTypes: ['image/png', 'image/jpeg'],
+                          contentDispositionPreference: #ATTACHMENT }
+   ```
 
-    ![association](new7.png)
+  ![association](new7.png)
 
-     Short explanation: The attributes of the annotation `@Semantics.largeObject`
+   Short explanation: The attributes of the annotation `@Semantics.largeObject`
 
-     - `mimeType`: It indicates the name of the field containing the type of a MIME object. ⚠ The value is case sensitive.
-     - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
-     - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
-     - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
+   - `mimeType`: It indicates the name of the field containing the type of a MIME object. ⚠ The value is case sensitive.
+   - `fileName`: It indicates the name of the field containing the file name of a MIME object. ⚠ The value is case sensitive.
+   - `acceptableMimeTypes`: It provides the list of acceptable MIME types for the related stream property to restrict or verify the user entry accordingly. If any subtype is accepted, this can be indicated by *.
+   - `contentDispositionPreference`: It indicates whether the content is expected to be displayed inline in the browser, i.e., as a Web page or as part of a Web page, or as an attachment, i.e., downloaded and saved locally.
 
   3. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 
@@ -118,91 +118,91 @@ For example, you will allow the full-text search on some elements, add new eleme
 
   1. Open your data definition ![datadefinition](adt_ddls.png) **`ZRAP100_C_TRAVELTP_###`** and format the generated source code with the pretty printer (Shift+F1). Specify the projection view as searchable by adding the following view annotation as shown on the screenshot below:
 
-    ```ABAP
-    @Search.searchable: true
-    ```
+   ```ABAP
+   @Search.searchable: true
+   ```
 
-    >**Info:** In the generated data definition, the element `TravelID` is specified as the semantic key of the Travel entity with the view annotation @ObjectModel.semanticKey: [`TravelID`] and the CDS projection view is specified as business object projections with the addition provider contract `transactional_query` in the `DEFINE ROOT VIEW ENTITY` statement.
+   >**Info:** In the generated data definition, the element `TravelID` is specified as the semantic key of the Travel entity with the view annotation @ObjectModel.semanticKey: [`TravelID`] and the CDS projection view is specified as business object projections with the addition provider contract `transactional_query` in the `DEFINE ROOT VIEW ENTITY` statement.
 
-    Replace the end-user label text:
+   Replace the end-user label text:
 
-    ```ABAP
-    @EndUserText.label: '##GENERATED Travel App (###)'
-    ```
+   ```ABAP
+   @EndUserText.label: '##GENERATED Travel App (###)'
+   ```
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![association](n2.png)
+   ![association](n2.png)
 
   2. If not yet done, please format your source code with the pretty printer (Shift+F1).
 
   3. Enhance the selection list between the curly brackets (`{...}`) with the agency name, the customer name, and the descriptive text of the overall status.
 
-    Agency Name:  
-    ```ABAP
-    _Agency.Name              as AgencyName,
-    ```
+   Agency Name:  
+   ```ABAP
+   _Agency.Name              as AgencyName,
+   ```
 
-    Customer Name:
-    ```ABAP
-    _Customer.LastName        as CustomerName,
-    ```
+   Customer Name:
+   ```ABAP
+   _Customer.LastName        as CustomerName,
+   ```
 
-    Overall Status Text:
-    ```ABAP
-    _OverallStatus._Text.Text as OverallStatusText : localized,   
-    ```
+   Overall Status Text:
+   ```ABAP
+   _OverallStatus._Text.Text as OverallStatusText : localized,   
+   ```
 
-    > Note: The keyword `localized` is used to display text elements in the current system language.
+   > Note: The keyword `localized` is used to display text elements in the current system language.
 
-    Your source code should look like this:
+   Your source code should look like this:
 
-    ![association](new5.png)
+   ![association](new5.png)
 
   4. Use the provided code snippets to specify various element annotations for the elements **`TravelID`**, **`AgencyID`**, **`CustomerID`**, **`Currency Code`**, and **`OverallStatus`** between the curly brackets as shown on the screenshot below.
 
-    For the element **`TravelID`**: Enable the full-text search with a specific fuzziness (error tolerance).
+   For the element **`TravelID`**: Enable the full-text search with a specific fuzziness (error tolerance).
 
-    ```ABAP
-    @Search.defaultSearchElement: true
-    @Search.fuzzinessThreshold: 0.90    
-    ```
+   ```ABAP
+   @Search.defaultSearchElement: true
+   @Search.fuzzinessThreshold: 0.90    
+   ```
 
-    For element **`AgencyID`**: Enable the full-text search, define a value help, and specified **`AgencyName`** as associated text.
+   For element **`AgencyID`**: Enable the full-text search, define a value help, and specified **`AgencyName`** as associated text.
 
-    ```ABAP
-    @Search.defaultSearchElement: true
-    @ObjectModel.text.element: ['AgencyName']
-    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency', element: 'AgencyID' }, useForValidation: true }]
-    ```
+   ```ABAP
+   @Search.defaultSearchElement: true
+   @ObjectModel.text.element: ['AgencyName']
+   @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency', element: 'AgencyID' }, useForValidation: true }]
+   ```
 
-    For element **`CustomerID`**: Enable the full-text search, define a value help, and specified **`CustomerName`** as associated text.
+   For element **`CustomerID`**: Enable the full-text search, define a value help, and specified **`CustomerName`** as associated text.
 
-    ```ABAP
-    @Search.defaultSearchElement: true
-    @ObjectModel.text.element: ['CustomerName']
-    @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Customer', element: 'CustomerID'  }, useForValidation: true }]
-    ```
+   ```ABAP
+   @Search.defaultSearchElement: true
+   @ObjectModel.text.element: ['CustomerName']
+   @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Customer', element: 'CustomerID'  }, useForValidation: true }]
+   ```
 
-    For  element **`Currency Code`**: Define a value help.
+   For  element **`Currency Code`**: Define a value help.
 
-    ```ABAP
-    @Consumption.valueHelpDefinition: [{ entity: {name: 'I_Currency', element: 'Currency' }, useForValidation: true }]
+   ```ABAP
+   @Consumption.valueHelpDefinition: [{ entity: {name: 'I_Currency', element: 'Currency' }, useForValidation: true }]
 
-    For element **`OverallStatus`**: Define a value help and specified **`OverallStatusText`** as associated text.
+   For element **`OverallStatus`**: Define a value help and specified **`OverallStatusText`** as associated text.
 
-    ```ABAP
-    @ObjectModel.text.element: ['OverallStatusText']
-    @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
-    ```
+   ```ABAP
+   @ObjectModel.text.element: ['OverallStatusText']
+   @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
+   ```
 
-    Alternatively, you can simply replace the source code of your BO projection view ![ddls icon](adt_ddls.png) **`ZRAP100_C_TRAVELTP_###`** with the code provided in the source code document linked below and replace all occurrences of the placeholder **`###`** with your group ID using **CTRL+F**.
+Alternatively, you can simply replace the source code of your BO projection view ![ddls icon](adt_ddls.png) **`ZRAP100_C_TRAVELTP_###`** with the code provided in the source code document linked below and replace all occurrences of the placeholder **`###`** with your group ID using **CTRL+F**.
 
-    ![document](doc.png) **Source code document**: ![ddls icon](adt_ddls.png)[CDS projection view ZRAP100_C_TRAVELTP_###](EX2_DDLS_ZRAP100_C_TRAVELTP.txt). Format your source code with the ABAP Pretty Printer (Shift+F1). Your source code should look like this:
+![document](doc.png) **Source code document**: ![ddls icon](adt_ddls.png)[CDS projection view ZRAP100_C_TRAVELTP_###](EX2_DDLS_ZRAP100_C_TRAVELTP.txt). Format your source code with the ABAP Pretty Printer (Shift+F1). Your source code should look like this:
 
-       ![projected view](new6.png)
+   ![projected view](new6.png)
 
-    >**Hint**: **Frontend Validations:** Validations are used to ensure the data consistency. As the name suggests, frontend validations are performed on the UI. They are used to improve the user experience by providing faster feedback and avoiding unnecessary server roundtrips. In the RAP context, front-end validations are defined using CDS annotation (e.g. `@Consumption.valueHelpDefinition.useForValidation: true`) or UI logic.
+>**Hint**: **Frontend Validations:** Validations are used to ensure the data consistency. As the name suggests, frontend validations are performed on the UI. They are used to improve the user experience by providing faster feedback and avoiding unnecessary server roundtrips. In the RAP context, front-end validations are defined using CDS annotation (e.g. `@Consumption.valueHelpDefinition.useForValidation: true`) or UI logic.
 
   4. Save ![save icon](adt_save.png) and activate ![activate icon](adt_activate.png) the changes.
 

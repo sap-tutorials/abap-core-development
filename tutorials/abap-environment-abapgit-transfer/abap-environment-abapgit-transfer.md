@@ -14,10 +14,9 @@ author_profile: https://github.com/mervey45
 ## Prerequisites  
 - You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have installed the [`abapGit` plugin](abap-install-abapgit-plugin).
-- You can find the installation of the standalone version [here](https://docs.abapgit.org/user-guide/getting-started/install.html#install-standalone-version).
 - Generate a personal access token in GitHub, [here](https://github.com/settings/tokens)
 
-
+ 
 ## You will learn  
 - How to create or adapt source code in ABAP instance
 - How to open `abapGit` repositories
@@ -60,7 +59,7 @@ author_profile: https://github.com/mervey45
 
   1. Log in to your **GitHub repository**, select your **folder**, click **Code** and copy the HTTP link for later use.
 
-    ![open](git.png)
+   ![open](git.png)
 
   2. Go back to **Eclipse**. Select your **ABAP system** in the Project Explorer and select **Windows** > **Show View** > **Other** to open the `abapGit` repositories.
 
@@ -119,7 +118,7 @@ author_profile: https://github.com/mervey45
 
       ![object](object9.png)
 
-    The staged objects are transferred to your repository.
+   The staged objects are transferred to your repository.
 
 ### Test yourself
 

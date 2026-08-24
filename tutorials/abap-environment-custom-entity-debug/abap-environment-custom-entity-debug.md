@@ -43,60 +43,60 @@ Open the class you created previously in the tutorial [Call a Remote Function Mo
 
 2. Add the following code:
 
-    ```ABAP
-    CLASS ZCL_OUTPUT_TEST_000 DEFINITION
-    PUBLIC
-    FINAL
-    CREATE PUBLIC .
+   ```ABAP
+   CLASS ZCL_OUTPUT_TEST_000 DEFINITION
+   PUBLIC
+   FINAL
+   CREATE PUBLIC .
 
-    PUBLIC SECTION.
+   PUBLIC SECTION.
 
-    INTERFACES if_oo_adt_classrun .
-    PROTECTED SECTION.
-    PRIVATE SECTION.
-    ENDCLASS.
+   INTERFACES if_oo_adt_classrun .
+   PROTECTED SECTION.
+   PRIVATE SECTION.
+   ENDCLASS.
 
 
 
-    CLASS ZCL_OUTPUT_TEST_000 IMPLEMENTATION.
-    METHOD if_oo_adt_classrun~main.
+   CLASS ZCL_OUTPUT_TEST_000 IMPLEMENTATION.
+   METHOD if_oo_adt_classrun~main.
 
-        DATA lt_products TYPE standard table of bapi_epm_product_header .
-    *      DATA lv_max_rows TYPE bapi_epm_max_rows.
-        DATA lv_max_rows TYPE int8.
-        DATA msg TYPE c LENGTH 255.
+       DATA lt_products TYPE standard table of bapi_epm_product_header .
+   *      DATA lv_max_rows TYPE bapi_epm_max_rows.
+       DATA lv_max_rows TYPE int8.
+       DATA msg TYPE c LENGTH 255.
 
-        " get products
-        CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
-            DESTINATION 'NONE'
+       " get products
+       CALL FUNCTION 'BAPI_EPM_PRODUCT_GET_LIST'
+           DESTINATION 'NONE'
 
-    *        EXPORTING
-    *           max_rows =
+   *        EXPORTING
+   *           max_rows =
 
-            TABLES
-            headerdata    = lt_products
-    *          selparamproductid     = lt_filter_ranges_productid
-    *          selparamsuppliernames = lt_filter_ranges_supplier
-    *          selparamcategories    = lt_filter_ranges_category
-    *          return                = lt_return
+           TABLES
+           headerdata    = lt_products
+   *          selparamproductid     = lt_filter_ranges_productid
+   *          selparamsuppliernames = lt_filter_ranges_supplier
+   *          selparamcategories    = lt_filter_ranges_category
+   *          return                = lt_return
 
-            .
+           .
 
-        " output list of products or error
-        CASE sy-subrc.
-            WHEN 0.
-                out->write( lt_products ).
-            WHEN 1.
-                out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
-            WHEN 3.
-                out->write( |EXCEPTION OTHERS| ).
-            ENDCASE.
+       " output list of products or error
+       CASE sy-subrc.
+           WHEN 0.
+               out->write( lt_products ).
+           WHEN 1.
+               out->write( |EXCEPTION SYSTEM_FAILURE | && msg ).
+           WHEN 3.
+               out->write( |EXCEPTION OTHERS| ).
+           ENDCASE.
 
-    ENDMETHOD.
+   ENDMETHOD.
 
-    ENDCLASS.
+   ENDCLASS.
 
-    ```
+   ```
 
 3. Format, save, and activate your class ( `Shift + F1, Ctrl + S, Ctrl + F3` ).
    
@@ -125,10 +125,10 @@ Note that breakpoints in the ABAP Development Tools (ADT) are by default externa
 
 1. In your class, right at the start of the method, add some simple code, e.g.
 
-    ```ABAP
-    IF 0 = 1.
-    ENDIF.
-    ```
+   ```ABAP
+   IF 0 = 1.
+   ENDIF.
+   ```
 
 2. At the statement `IF 0 = 1.`, set a breakpoint by double-clicking the ruler.
 

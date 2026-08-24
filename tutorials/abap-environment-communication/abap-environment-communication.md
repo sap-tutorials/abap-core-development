@@ -39,22 +39,22 @@ In this group of tutorials, the target is to provide the content of a SAP BTP, A
 
 - In the field `Host Name` optionally enter the callback URL. This is needed for setting up content change notifications. For example portal-service.cfapps.eu10.hana.ondemand.com.
 
-  <!-- border -->![Communication system overview](1-communication-system.png)
+  ![Communication system overview](1-communication-system.png)
 
 - Add a technical user for inbound communication.
 
-  <!-- border -->![New Inbound User](2-Users-for-inbound-communication.png)
+  ![New Inbound User](2-Users-for-inbound-communication.png)
 
-  <!-- border -->![New Inbound User](3-New-Inbound-Communication-User.png)
+  ![New Inbound User](3-New-Inbound-Communication-User.png)
 
 - Authentication method is `User Name and Password`. Let the System generate a Password.
 Do not forget to note the password down. It will be used in Tutorial [Create destinations in SAP BTP cockpit](abap-environment-destinations).
 
-<!-- border -->![Inbound User settings](4-Propose-pwd-3steps.png)
+![Inbound User settings](4-Propose-pwd-3steps.png)
 
 - Similarly add a technical user for outbound communication with `Authentication Method` `None`.
 
-  <!-- border -->![Outbound User settings](5-outbound-user.png)
+  ![Outbound User settings](5-outbound-user.png)
 
 
 ### Create the Communication Arrangement
@@ -68,7 +68,7 @@ Do not forget to note the password down. It will be used in Tutorial [Create des
 
 - In the "Common Data" section set the Communication System created before using the value help.
 
-<!-- border -->![Communication arrangement](7-communication-arrangement-settings.png)
+![Communication arrangement](7-communication-arrangement-settings.png)
 
 - Enter the job execution details for scheduling the exposure job daily and press `Save`.
 
@@ -84,7 +84,7 @@ Do not forget to note the password down. It will be used in Tutorial [Create des
 
 - Click `Expose to SAP Launchpad Service`.
 
-<!-- border -->![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
+![Expose to the SAP Launchpad Service](8-expose-to-launchpad-service.png)
 
 > The content related to the Business Role, such as groups, catalogs, pages, or spaces can then be consumed by the SAP Launchpad service.
 

@@ -32,7 +32,6 @@ This tutorial mission was written for SAP BTP ABAP Environment. However, you sho
 
 > Throughout this tutorial, replace `###` or `000` with your initials or group number.
 
-<!-- border -->
 ![step0-overview-scm2](step0-overview-scm2.png)
 
 ---
@@ -71,17 +70,14 @@ Your Communication Scenario appears in a new editor.
 
 1. On the **Inbound** tab, choose **Add...**.
 
-    <!-- border -->
     ![step2a-add-http-service](step2a-add-http-service.png)
 
 2. **IMPORTANT**: Choose **Browse**. You cannot simply enter the name. Then add a filter, such as **`Z###_`**, select your service binding - (with the ending `IWSG` or `G4BA` added automatically) then choose **Finish**.
 
-    <!-- border -->
     ![step2b-browse-inbound-service](step2b-browse-inbound-service.png)
 
 3. Your service binding **`Z_C_TRAVEL_API_O2_###_IWSG`** appears. Save, then choose **Publish Locally**.
 
-    <!-- border -->
     ![step2c-publish-service-locally](step2c-publish-service-locally.png)
 
 > `IWSG` refers to OData 2.0; 
@@ -100,19 +96,16 @@ Now you will create several communication artifacts using the appropriate Fiori 
    - Copy this URL into your browser and choose **Enter**. 
    - **IMPORTANT**: Check that the URL does **not** contain the string **`-api`**. If it does, delete it.
 
-    <!-- border -->
-    ![step5a-open-flp](step5a-open-flp.png)
+   ![step5a-open-flp](step5a-open-flp.png)
 
 2. From the Dashboard Home screen, choose From **Communication Management > Communication Systems**.
 
 3. Choose **New**.
 
-    <!-- border -->
     ![step5b-comm-system-new](step5b-comm-system-new.png)
 
 4. Enter a System ID, **`Z###_TO_CON_CSYS`**, where **CON** is your consuming system; accept the default (identical) System name; then choose **Create**.
 
-    <!-- border -->
     ![step5c-comm-system-id-name](step5c-comm-system-id-name.png)
 
 
@@ -132,17 +125,14 @@ Now you will create several communication artifacts using the appropriate Fiori 
 
     - Port = **443**
 
-    <!-- border -->
     ![step5e-host-name](step5e-host-name.png)
 
 6. Scroll down to **Users for Inbound Communication**, then create a new user by choosing the **+** icon.
     
-    <!-- border -->
     ![step5f-create-comm-user](step5f-create-comm-user.png)
 
 7. Choose **New User** and the **Authentication Method: User name and password**.
 
-    <!-- border -->
     ![step5g-comm-user-name](step5g-comm-user-name.png)
 
 8. Enter a name, **`INBOUND_USER_PRV`**, and description, then choose **Propose password**, then choose **Create > OK > Save**. `PRV` is the name of the provisioning system, that is, this system. 
@@ -156,12 +146,10 @@ Now you will create several communication artifacts using the appropriate Fiori 
 
 1. From **Communication Management**, choose **Communication Arrangement**. Then choose **New**.
 
-    <!-- border -->
     ![step6a-new-comm-arr](step6a-new-comm-arr.png)
 
 2. Choose your scenario, **`Z_IN_ODATA_TRAVEL_CSCEN`** from the drop-down list. Accept the default (identical) Arrangement name.
 
-    <!-- border -->
     ![step6b-choose-scenario](step6b-choose-scenario.png)
 
 3. From the dropdown list, choose your communication system **`Z###_TO_CON_CSYS`**
@@ -172,7 +160,6 @@ Your Communication Arrangement should look roughly like this.
 
 > The information from the Communication System is filled in automatically. The Service URL / Service Interface = < Base URL of provisioning system > + relative path of your Inbound Service, here `/sap/opu/odata/sap/Z_C_TRAVEL_API_O2_###_IWSG`.
 
-<!-- border -->
 ![step6e-comm-arr-editor](step6e-comm-arr-editor.png)
 
 
@@ -201,7 +188,6 @@ On the left is the Service Definition, `/DMO/TRAVEL_U`.
 
 Now, on the right, is the active service, including the Entity Set and the Service URL.
 
-<!-- border -->
 ![step3a-service-binding](step3a-service-binding.png)
 
 You will now create a metadata file for this service, which you will access later in your consuming system.
@@ -210,7 +196,6 @@ You will now create a metadata file for this service, which you will access late
 
 2. Add the suffix **`/$metadata`** to the Service URL (deleting parameters, such as `sap-client`).
 
-    <!-- border -->
     ![step2d-add-metadata-suffix](step2d-add-metadata-suffix.png)
 
     The service metadata appears.

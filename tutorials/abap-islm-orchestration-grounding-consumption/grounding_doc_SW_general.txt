@@ -1,0 +1,37 @@
+{
+  "organization_type": "Software Development (General)",
+  "rating_scale": {
+    "min": 1,
+    "max": 5,
+    "definitions": {
+      "1": "Very weak / insufficient evidence",
+      "2": "Below average",
+      "3": "Meets expectations",
+      "4": "Above average",
+      "5": "Exceptional"
+    }
+  },
+  "overall_rating_calculation": "Weighted average of all aspect scores",
+  "aspects": [
+    {
+      "name": "Software Engineering Skills",
+      "description": "Programming proficiency, architecture knowledge, testing practices, and code quality.",
+      "weight": 0.35
+    },
+    {
+      "name": "Problem Solving",
+      "description": "Ability to analyze requirements, debug issues, and design robust solutions.",
+      "weight": 0.30
+    },
+    {
+      "name": "Practical Experience",
+      "description": "Hands-on experience with real-world software systems and development workflows.",
+      "weight": 0.20
+    },
+    {
+      "name": "Team Collaboration",
+      "description": "Communication skills, teamwork, and effectiveness in collaborative environments.",
+      "weight": 0.15
+    }
+  ]
+}

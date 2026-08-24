@@ -58,7 +58,6 @@ First, open your preferred Git provider and create a new repository; here, we ar
 
 > IMPORTANT: Create a branch at the same time. In `Github`, adding a readme file will automatically create a main branch for the repository.
 
-<!-- border -->
 ![step1a-create-new-remote-repo](step1a-create-new-remote-repo.png)
 
 
@@ -72,15 +71,12 @@ First, open your preferred Git provider and create a new repository; here, we ar
    - Repository URL: *`Github` repo from previous step*
    - Type: **Development**
 
-   <!-- border -->
    ![step2a-create-swc](step2a-create-swc.png)
    
-   <!-- border -->
    ![step2b-create-swc-details](step2b-create-swc-details.png)
 
 2. Choose **Clone** in the top right corner.
 
-    <!-- border -->
     ![step2c-clone-crop](step2c-clone-crop.png)   
 
 3. Enter the following and choose **Next**.
@@ -92,17 +88,14 @@ First, open your preferred Git provider and create a new repository; here, we ar
 
 4. From the dropdown select the name of the branch you want to clone and choose **Clone**.
 
-    <!-- border -->
     ![step2d-clone-repo](step2d-clone-repo.png)
 
 When the cloning is finished, the status changes to **Success**. 
 
-<!-- border -->
 ![step2e-clone-success](step2e-clone-success.png) 
 
 In the remote repository, a new commit has been generated from `noreply@example.com` and a new file added.
 
-<!-- border -->
 ![step2f-json-created](step2f-json-created.png) 
 
 > **Important**: This file is necessary for pushing and pulling changes into the SAP system. **Therefore this file should never be deleted or modified at any time.** 
@@ -121,15 +114,12 @@ In the remote repository, a new commit has been generated from `noreply@example.
     - `Superpackage`: *Should be added automatically*
     - Package Type: Development
 
-    <!-- border -->
     ![step3a-create-abap-dev-pkj](step3a-create-abap-dev-pkj.png)
 
  4. The software component and transport layer are automatically derived from the generated structure package. Choose **Next**, then **Finish**.
 
-    <!-- border -->
     ![step3b-swc-and-t-layer](step3b-swc-and-t-layer.png)
 
-    <!-- border -->
     ![step3c-tr-package](step3c-tr-package.png)
 
 
@@ -147,33 +137,32 @@ In the remote repository, a new commit has been generated from `noreply@example.
 
 4. Add the following code to your class:
 
-    ```ABAP
-    CLASS zcl_hello_world_### DEFINITION
-    PUBLIC
-    FINAL
-    CREATE PUBLIC .
+   ```ABAP
+   CLASS zcl_hello_world_### DEFINITION
+   PUBLIC
+   FINAL
+   CREATE PUBLIC .
 
-    PUBLIC SECTION.
+   PUBLIC SECTION.
 
-        INTERFACES if_oo_adt_classrun .
-    PROTECTED SECTION.
-    PRIVATE SECTION.
-    ENDCLASS.
+       INTERFACES if_oo_adt_classrun .
+   PROTECTED SECTION.
+   PRIVATE SECTION.
+   ENDCLASS.
 
-    CLASS zcl_hello_world_### IMPLEMENTATION.
+   CLASS zcl_hello_world_### IMPLEMENTATION.
 
-        METHOD if_oo_adt_classrun~main.
-            out->write( 'Hello' ).
-        ENDMETHOD.
-    ENDCLASS.
+       METHOD if_oo_adt_classrun~main.
+           out->write( 'Hello' ).
+       ENDMETHOD.
+   ENDCLASS.
 
-    ```
+   ```
 
 5. Format, save, and activate your class (**`Sh+F1`, `Ctrl+S`, `Ctrl+F3`**). 
    
 6. Run your class as a console application. The output should look roughly like this:
 
-    <!-- border -->
     ![step4a-console-hello](step4a-console.png)
 
 
@@ -183,7 +172,6 @@ In the remote repository, a new commit has been generated from `noreply@example.
    
 2. Release the transport request (**F9**).
 
-    <!-- border -->
     ![step4a-release-tr](step4a-release-tr.png)
 
 The transport request number and the transported objects are now visible in your remote repository.
@@ -197,12 +185,10 @@ To import your released transport into a target system (e.g., your test or produ
 
 1. Repeat step 3.2 to 3.4. The only difference is the "Repository Role", which now must be set to "Target".
 
-    <!-- border -->
     ![step5a-clone-to-target](step5a-clone-to-target.png)
 
 2. Open the target system in ADT. You can see the transported objects.
 
-    <!-- border -->
     ![step5b-objects-in-target-system](step5b-objects-in-target-system.png)
 
 
@@ -210,12 +196,10 @@ To import your released transport into a target system (e.g., your test or produ
 
 Currently, creating a new branch for BYOG is not supported in **Manage Software Components**.  Therefore, create the branch using the native interface of your git provider linked to your repository.
 
-<!-- border -->
 ![step3a-create-branch](step3a-create-branch.png)
 
 In **Manage Software Components**, you can see the new branch by refreshing the **Branches** table. You can then proceed as usual with checkout.
 
-<!-- border -->
 ![step3b-branch-success](step3b-branch-success.png)
 
 

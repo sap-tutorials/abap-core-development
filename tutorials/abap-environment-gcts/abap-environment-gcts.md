@@ -44,10 +44,10 @@ author_profile: https://github.com/niloofar-flothkoetter
 
   4. Enter a **Software Component Name** and a **Description** and press **Create**.
 
-    - Name: `Z_MY_APP_####`
-    - Description: `my software component`
+ - Name: `Z_MY_APP_####`
+ - Description: `my software component`
 
-      ![enter data](save.png)
+   ![enter data](save.png)
 
   5. In your created software component press **Clone**.
 
@@ -85,22 +85,22 @@ author_profile: https://github.com/niloofar-flothkoetter
 
   5. Create a package
 
-    - Name: **`Z_PACKAGE_SC_####`**
-    - Description: **`Package ####`**
+ - Name: **`Z_PACKAGE_SC_####`**
+ - Description: **`Package ####`**
 
-    Click **Next**.
+ Click **Next**.
 
-      ![create package](dash7.png)
+   ![create package](dash7.png)
 
-    >Your software component root package is a structure package, hence it's not allowed to create objects directly in this package. You need to add an additional development package and then you are able to add your objects.
+ >Your software component root package is a structure package, hence it's not allowed to create objects directly in this package. You need to add an additional development package and then you are able to add your objects.
 
   6. Select **Create a new request**
 
-    - Request Description: **`TR####`**
+   - Request Description: **`TR####`**
 
-    click **Finish**.
+   click **Finish**.
 
-    ![create package2](dash8.png)
+   ![create package2](dash8.png)
 
   7. Right-click your package **`Z_PACKAGE_SC_####`** and select **New** > **ABAP Class**.
 

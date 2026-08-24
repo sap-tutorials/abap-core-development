@@ -98,11 +98,11 @@ Switch to your SAP Cloud Platform subaccount. Open trust settings, copy all data
 
 1. In the text editor file that you pasted SAP Cloud Platform subaccount's signing certificate into before, add a line with value "`-----BEGIN CERTIFICATE-----`" in front of the `<SIGNING_CERTIFICATE>` and a line with value "`-----END CERTIFICATE-----`" after.
 
-    ```swift
-        -----BEGIN CERTIFICATE-----
-             <SIGNING_CERTIFICATE>
-        -----END CERTIFICATE-----
-    ```
+   ```swift
+       -----BEGIN CERTIFICATE-----
+            <SIGNING_CERTIFICATE>
+       -----END CERTIFICATE-----
+   ```
 2. Save your changes as `.cer` file.
 
 

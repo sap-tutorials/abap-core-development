@@ -41,7 +41,6 @@ To produce and raise an event you need first to define your RAP Business Object 
   
 1. In ADT, open your SAP BTP ABAP environment system and create a new package for this tutorial, by choosing **New > ABAP Package**.
 
-    <!-- border -->
     ![step1a-new-package](step1a-new-package.png)
 
 2. Enter the following, then follow the wizard, choosing a **new** transport request:
@@ -49,21 +48,18 @@ To produce and raise an event you need first to define your RAP Business Object 
     - Name: **`Z_BUSINESS_EVENT_###`**
     - Description **Define a Business Event**
 
-      <!-- border -->
       ![step1b-create-package](step1b-create-package.png)
-      <!-- border -->
       ![step1c-new-tr](step1c-new-tr.png)
 
-  3. Select your package and choose **New > Other Repository object > Database table** from the context menu. Enter the following.
+3. Select your package and choose **New > Other Repository object > Database table** from the context menu. Enter the following.
 
       - Name: `ZONLINESHOP_###`
       - Description: `Database table for Online Shop`
 
-      <!-- border -->
       ![step1d-create-db-table](step1d-create-db-table.png)
 
 
-  4. Copy the code below to the Database and replace `###` with your number. 
+4. Copy the code below to the Database and replace `###` with your number. 
       
   > You need the Admin field(s) for `local_last_changed` and `last_changed` in the table, in order to use the ABAP Repository Objects Generator later. These fields are used to provide optimistic concurrency control, using ETags. For more information, see: [ETag Definition | SAP Help](https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/74b16803910d4939a83f354259fca4fc.html)
 
@@ -84,7 +80,7 @@ To produce and raise an event you need first to define your RAP Business Object 
 
       }
 
-    ```
+   ```
 
 5. Format, save, and activate your table ( `Shift+F1, Ctrl+S, Ctrl+F3` ).
 
@@ -96,45 +92,40 @@ The end result is a full-blown RAP UI service or Web API.
 
 1. Select your table **'zonlineshop_###'** and choose **Generate ABAP Repository Objects** from the context menu.
 
-    <!-- border -->
-    ![step2a-open-generator](step2a-open-generator.png)
+   ![step2a-open-generator](step2a-open-generator.png)
 
 2. Since you later want to create a Fiori app, i.e. a user interface, choose **OData UI Service**.
 
-    <!-- border -->
-    ![step2b-odata-ui-service](step2b-odata-ui-service.png)
+   ![step2b-odata-ui-service](step2b-odata-ui-service.png)
 
 3. Enter a package, e.g. **`Z_BUSINESS_EVENT_###`**.
 
 4. Since the prefix `Z_` and the suffix `_000` will be added automatically, leave these fields blank.
 
-    <!-- border -->
-    ![step2c-config-generator](step2c-config-generator.png)
+   ![step2c-config-generator](step2c-config-generator.png)
 
 5. The next step in the wizard shows you the objects that will be generated, along with previews for some. At present, you cannot change individual names. Choose **Next**.
 
-    <!-- border -->
-    ![step2d-object-names](step2d-object-names.png)
+   ![step2d-object-names](step2d-object-names.png)
 
 6. Follow the instructions in the wizard, choose your existing transport request, then choose **Finish**.
 
 The wizard generates the objects; you can display them in the Project Explorer.
 
-<!-- border -->
 ![step2e-objects-finished](step2e-objects-finished.png)
 
 
 <!-- 
-    (Optional): Test generated app
+   (Optional): Test generated app
 
-    1. Open the service binding. 
+   1. Open the service binding. 
 
-    2. Choose **Publish**.
+   2. Choose **Publish**.
 
-    3. Select the entity, then choose **Fiori Preview**.
+   3. Select the entity, then choose **Fiori Preview**.
 
-    SHOTS
- -->
+   SHOTS
+-->
 
 ### Define business event in behavior definition
 
@@ -142,19 +133,19 @@ You will now enhance the behavior definition of the BO entity, by adding the bus
 
 1. First create a parameter, **`ZA_ItemOrdered_###`** as a data definition (abstract entity). You can then provide more information in the message, such as the name of the item ordered. To do this, select **Core Data Services > Data Definition** in your package, choose **New > Data Definition** from the context menu. Then enter the following.
 
-  - Name: **`ZA_ItemOrdered_###`**
-  - Description: **Item Ordered Abstract Entity**
+ - Name: **`ZA_ItemOrdered_###`**
+ - Description: **Item Ordered Abstract Entity**
 
 2. Copy the code below in this definition. Save and activate.
 
-    ```CDS
-      @EndUserText.label: 'event parameter'
-      define abstract entity ZA_ItemOrdered_###
-      {
-        ItemName : abap.char(25);
-        created_at : abp_creation_tstmpl;
-      }
-    ```
+   ```CDS
+     @EndUserText.label: 'event parameter'
+     define abstract entity ZA_ItemOrdered_###
+     {
+       ItemName : abap.char(25);
+       created_at : abp_creation_tstmpl;
+     }
+   ```
 
 3. Select the behavior definition **`ZR_ONLINESHOP_###`**    
 
@@ -162,59 +153,59 @@ You will now enhance the behavior definition of the BO entity, by adding the bus
     Replace the code in the business definition with the code below; replace `###` with your number or initials.
    
 
-    ```CDS     
-      managed with additional save with full data
-      implementation in class ZBP_R_ONLINESHOP_### unique;
-      strict ( 2 );
-      with draft;
+   ```CDS     
+     managed with additional save with full data
+     implementation in class ZBP_R_ONLINESHOP_### unique;
+     strict ( 2 );
+     with draft;
 
-      define behavior for ZR_ONLINESHOP_### alias ZrOnlineshop###
-      persistent table ZONLINESHOP_###
-      draft table ZONLNESHOP_###_D
-      etag master LocalLastChangedAt
-      lock master total etag LastChangedAt
-      authorization master( global )
+     define behavior for ZR_ONLINESHOP_### alias ZrOnlineshop###
+     persistent table ZONLINESHOP_###
+     draft table ZONLNESHOP_###_D
+     etag master LocalLastChangedAt
+     lock master total etag LastChangedAt
+     authorization master( global )
 
-      {
-        field ( readonly )
-        Creationdate, orderId, deliverydate,
-        LocalCreatedBy,
-        LocalCreatedAt,
-        LocalLastChangedBy,
-        LocalLastChangedAt,
-        LastChangedAt;
+     {
+       field ( readonly )
+       Creationdate, orderId, deliverydate,
+       LocalCreatedBy,
+       LocalCreatedAt,
+       LocalLastChangedBy,
+       LocalLastChangedAt,
+       LastChangedAt;
 
-        field ( numbering : managed, readonly )
-        OrderUuid;
+       field ( numbering : managed, readonly )
+       OrderUuid;
 
-        field ( mandatory )
-        OrderedItem;
+       field ( mandatory )
+       OrderedItem;
 
-        create;
-        update;
-        delete;
+       create;
+       update;
+       delete;
 
-        draft action Activate optimized;
-        draft action Discard;
-        draft action Edit;
-        draft action Resume;
-        draft determine action Prepare;
+       draft action Activate optimized;
+       draft action Discard;
+       draft action Edit;
+       draft action Resume;
+       draft determine action Prepare;
 
-        mapping for ZONLINESHOP_###
-        {
-          OrderUuid = order_uuid;
-          OrderId = order_id;
-          Ordereditem = ordereditem;
-          Deliverydate = deliverydate;
-          Creationdate = creationdate;
-          LocalCreatedBy = local_created_by;
-          LocalCreatedAt = local_created_at;
-          LocalLastChangedBy = local_last_changed_by;
-          LocalLastChangedAt = local_last_changed_at;
-          LastChangedAt = last_changed_at;
-        }
-      }
-    ```
+       mapping for ZONLINESHOP_###
+       {
+         OrderUuid = order_uuid;
+         OrderId = order_id;
+         Ordereditem = ordereditem;
+         Deliverydate = deliverydate;
+         Creationdate = creationdate;
+         LocalCreatedBy = local_created_by;
+         LocalCreatedAt = local_created_at;
+         LocalLastChangedBy = local_last_changed_by;
+         LocalLastChangedAt = local_last_changed_at;
+         LastChangedAt = last_changed_at;
+       }
+     }
+   ```
 
 4. Now add a new event with a parameter, **`ItemIsOrdered_###`**  to the business object. 
 This event will be raised when a new item is ordered and will pass the values in the parameter `ZA_ItemOrdered_###`. 
@@ -241,19 +232,19 @@ Save and activate your behavior definition **`ZR_ONLINE_SHOP_###`**.
 
 3. Now implement the additional save method to raise the entity event.
 
-    ```ABAP
+   ```ABAP
 
-    METHOD save_modified.
+   METHOD save_modified.
 
-   IF create-zronlineshop### IS NOT INITIAL.
-   RAISE ENTITY EVENT ZR_ONLINESHOP_###~ItemIsOrdered
-   FROM VALUE #( FOR zronlineshop### IN create-zronlineshop### (
-                      %key              = zronlineshop###-%key
-                      %param-ItemName   = zronlineshop###-Ordereditem ) ).
-   ENDIF.
-   ENDMETHOD.
+  IF create-zronlineshop### IS NOT INITIAL.
+  RAISE ENTITY EVENT ZR_ONLINESHOP_###~ItemIsOrdered
+  FROM VALUE #( FOR zronlineshop### IN create-zronlineshop### (
+                     %key              = zronlineshop###-%key
+                     %param-ItemName   = zronlineshop###-Ordereditem ) ).
+  ENDIF.
+  ENDMETHOD.
 
-    ```
+   ```
 
 3. Save and activate your class.
 
@@ -272,22 +263,22 @@ First, you will create a database table **`ZITEMORDERD_###`** with a UUID-based 
 
 3. Replace the default table definition with the source code provided below and replace all occurrences of the placeholder `###` with your suffix.
 
-    ```ABAP
-      @EndUserText.label : 'Event handler - New item ordered'
-      @AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
-      @AbapCatalog.tableCategory : #TRANSPARENT
-      @AbapCatalog.deliveryClass : #A
-      @AbapCatalog.dataMaintenance : #RESTRICTED
-      define table ZITEMORDERD_### {
+   ```ABAP
+     @EndUserText.label : 'Event handler - New item ordered'
+     @AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+     @AbapCatalog.tableCategory : #TRANSPARENT
+     @AbapCatalog.deliveryClass : #A
+     @AbapCatalog.dataMaintenance : #RESTRICTED
+     define table ZITEMORDERD_### {
 
-        key mandt   : mandt not null;
-        key uuid    : sysuuid_x16 not null;
-        ItemName    : abap.char(25);
-        created_at  : abp_creation_tstmpl;
+       key mandt   : mandt not null;
+       key uuid    : sysuuid_x16 not null;
+       ItemName    : abap.char(25);
+       created_at  : abp_creation_tstmpl;
 
-      }
+     }
 
-    ```
+   ```
 
 4. Save (Ctrl+S) and activate (Ctrl+F3).
 
@@ -298,18 +289,16 @@ Now you will create and implement the event handler class **`ZEH_ITEM_ORDERED_##
     - Name: **`ZEH_ITEM_ORDERED_###`**, where `###` is your suffix 
     - Description: Event handler for a new order item
 
-    <!-- border -->
     ![step6a-new-class](step6a-new-class.png)
 
 6. Specify the class as event handler class pool for your RAP BO by adding the statement `FOR EVENTS OF <entity_name>` of the class definition section on the Global Class tab, directly after the keyword FINAL 
 
-    ```ABAP
+   ```ABAP
 
-    FOR EVENTS OF ZR_ONLINESHOP_###
+   FOR EVENTS OF ZR_ONLINESHOP_###
 
-    ```
+   ```
 
-    <!-- border -->
     ![step6b-add-for-events-of](step6b-add-for-events-of.png)
 
 7. Now you will define and implement the **local** event handler class, **`lhe_item`** for the *OnlineShop* BO. Go to the ❗**Local Types** tab. 
@@ -317,52 +306,52 @@ Now you will create and implement the event handler class **`ZEH_ITEM_ORDERED_##
 
     > For more details on the classes `cl_abap_behavior_event_handler` and `cl_abap_tx` used in the implementation, see the ABAP Keyword documentation ( **F1** ).
 
-    ```ABAP
-    *"* use this source file for the definition and implementation of
-    *"* local helper classes, interface definitions and type
-    *"* declarations
+   ```ABAP
+   *"* use this source file for the definition and implementation of
+   *"* local helper classes, interface definitions and type
+   *"* declarations
 
-    *"* use this source file for the definition and implementation of
-    *"* local helper classes, interface definitions and type
-    *"* declarations
+   *"* use this source file for the definition and implementation of
+   *"* local helper classes, interface definitions and type
+   *"* declarations
 
-    CLASS lhe_item DEFINITION INHERITING FROM cl_abap_behavior_event_handler.
-      PRIVATE SECTION.
-        METHODS get_uuid RETURNING VALUE(uuid) TYPE sysuuid_x16.
+   CLASS lhe_item DEFINITION INHERITING FROM cl_abap_behavior_event_handler.
+     PRIVATE SECTION.
+       METHODS get_uuid RETURNING VALUE(uuid) TYPE sysuuid_x16.
 
-        METHODS on_item_is_ordered FOR ENTITY EVENT
-            created FOR zronlineshop###~ItemIsOrdered.
-    ENDCLASS.
-
-
-    CLASS lhe_item IMPLEMENTATION.
-
-      METHOD get_uuid.
-        TRY.
-            uuid = cl_system_uuid=>create_uuid_x16_static( ) .
-          CATCH cx_uuid_error.
-        ENDTRY.
-      ENDMETHOD.
-
-      METHOD on_item_is_ordered.
-        "close the active modify phase
-        cl_abap_tx=>save( ).
-
-        " assign values in abstract entity ZA_ITEMORDERED_### to table for event handler
-        " loop over transfered instances and do the needful ;)
-        LOOP AT created REFERENCE INTO DATA(lr_created).
-          DATA lr_item_is_ordered TYPE ZITEMORDERD_###.
-          MOVE-CORRESPONDING lr_created->* TO lr_item_is_ordered.
-          lr_item_is_ordered-uuid        = get_uuid( ).
-          lr_item_is_ordered-itemname   = lr_created->ItemName.
-          lr_item_is_ordered-created_at  = lr_created->created_at.
-
-          "insert to db
-          INSERT ZITEMORDERD_### FROM @lr_item_is_ordered.
-        ENDLOOP.
-      ENDMETHOD.
+       METHODS on_item_is_ordered FOR ENTITY EVENT
+           created FOR zronlineshop###~ItemIsOrdered.
    ENDCLASS.
-    ```
+
+
+   CLASS lhe_item IMPLEMENTATION.
+
+     METHOD get_uuid.
+       TRY.
+           uuid = cl_system_uuid=>create_uuid_x16_static( ) .
+         CATCH cx_uuid_error.
+       ENDTRY.
+     ENDMETHOD.
+
+     METHOD on_item_is_ordered.
+       "close the active modify phase
+       cl_abap_tx=>save( ).
+
+       " assign values in abstract entity ZA_ITEMORDERED_### to table for event handler
+       " loop over transfered instances and do the needful ;)
+       LOOP AT created REFERENCE INTO DATA(lr_created).
+         DATA lr_item_is_ordered TYPE ZITEMORDERD_###.
+         MOVE-CORRESPONDING lr_created->* TO lr_item_is_ordered.
+         lr_item_is_ordered-uuid        = get_uuid( ).
+         lr_item_is_ordered-itemname   = lr_created->ItemName.
+         lr_item_is_ordered-created_at  = lr_created->created_at.
+
+         "insert to db
+         INSERT ZITEMORDERD_### FROM @lr_item_is_ordered.
+       ENDLOOP.
+     ENDMETHOD.
+  ENDCLASS.
+   ```
 
 The local event handler class must inherit from the superclass `cl_abap_behavior_event_handler`.
 
@@ -387,12 +376,10 @@ Save (Ctrl+S) and activate (Ctrl+F3) the class.
 
 2. Now, open the Fiori Elements preview (from the Service Binding) and create a new order item.
 
-    <!-- border -->
     ![step7a-test-fep](step7a-test-fep.png)
 
 3. Go back to the ABAP Development Tools and refresh the Data Preview of the database table `ZITEM_E_###` or start the Data Preview again (F8). You should now see a new entry for the newly created Agency record in the database table.
 
-    <!-- border -->
     ![step7c-data-preview](step7c-data-preview.png)
 
 

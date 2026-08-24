@@ -39,15 +39,15 @@ primary_tag: software-product>sap-btp-abap-environment
 
     - Port: `443`
 
-    <!-- border -->![Communication system overview](1-1-communication-system.png)
+    ![Communication system overview](1-1-communication-system.png)
 
 3. Add a technical user for inbound communication:
 
-    <!-- border -->![New Inbound User](2-Users-for-inbound-communication.png)
+    ![New Inbound User](2-Users-for-inbound-communication.png)
 
     - Choose authentication method `User Name and Password`.
 
-    <!-- border -->![New Inbound User](3-New-Inbound-Communication-User.png)
+    ![New Inbound User](3-New-Inbound-Communication-User.png)
 
     - User Name: `COMMUNICATIONSYSTEM_INBOUND_USER`
 
@@ -55,11 +55,11 @@ primary_tag: software-product>sap-btp-abap-environment
 
     - Let the system generate a password. Do not forget to note the password for later use in `Step 6` (Create Design-Time destination).
 
-    <!-- border -->![Inbound User settings](4-Propose-pwd-3steps.png)
+    ![Inbound User settings](4-Propose-pwd-3steps.png)
 
 4. Similarly add a technical user for outbound communication with `Authentication Method` `None`.
 
-    <!-- border -->![Outbound User settings](5-outbound-user.png)
+    ![Outbound User settings](5-outbound-user.png)
 
 5. To save the communication system, select `Save`.
 
@@ -79,7 +79,7 @@ primary_tag: software-product>sap-btp-abap-environment
 
     - Logical Target Identifier: `LNCHPD_INTG_TGT`
 
-    <!-- border -->![Communication arrangement](7-1-communication-arrangement-settings.png)
+    ![Communication arrangement](7-1-communication-arrangement-settings.png)
 
 5. Enter the job execution details for scheduling the SAP Fiori Launchpad content exposure job every 10 minutes.
 
@@ -97,7 +97,7 @@ primary_tag: software-product>sap-btp-abap-environment
 
     - Choose: Copy from Source `Assigned Launchpad Spaces`.
 
-    <!-- border -->![Copy Business Role](copy-sap_br_administrator.png)
+    ![Copy Business Role](copy-sap_br_administrator.png)
 
     - Choose button `OK`.
 
@@ -113,7 +113,7 @@ primary_tag: software-product>sap-btp-abap-environment
 
 2. Select `Export` of the Active Trust Certificate.
 
-    <!-- border -->![Download trust](4-Destination-Trust-1.png)
+    ![Download trust](4-Destination-Trust-1.png)
 
 3. Open the `Communication Systems` app from the SAP Fiori launchpad in your SAP BTP, ABAP environment system.
 
@@ -131,7 +131,7 @@ primary_tag: software-product>sap-btp-abap-environment
 
     - Enter the value of the certificate's CN attribute as `SAML Bearer Issuer`.
 
-    <!-- border -->![Comunication subaccount / Abap environment system](10-cs-subaccount-system.png)
+    ![Comunication subaccount / Abap environment system](10-cs-subaccount-system.png)
 
 5. To save the communication system, select `Save`.
 
@@ -168,7 +168,7 @@ You create a design-time destination to define the location from which the SAP B
     - URL: Use the service URL of Service *Inbound Service (`SAP_COM_0647`)* provided in section`Inbound Services` of the communication arrangement created in `Step 2` (Create the Communication Arrangement). Add suffix `entities`.
     >**CAUTION:** *Do not* use the the service URL of the Inbound Service for Version 2.
 
-    <!-- border -->![Service URL](4-Destination-service-url.png)
+    ![Service URL](4-Destination-service-url.png)
 
     - Proxy Type: `Internet`
 
@@ -180,7 +180,7 @@ You create a design-time destination to define the location from which the SAP B
 
     The destination should look like this:
 
-    <!-- border -->![Settings for new Destination](1-Design-Time-Destination-settings.png)
+    ![Settings for new Destination](1-Design-Time-Destination-settings.png)
 
 4. Select `Save`.
 
@@ -212,7 +212,6 @@ You create a design-time destination to define the location from which the SAP B
 
 Finally the destination should look like this:
 
-<!-- border -->
 ![Settings for Runtime iFrame integration](3-Runtime-Destination-iFrame.png)
 
 ### Create Runtime Destination for Dynamic OData access
@@ -251,7 +250,7 @@ Finally the destination should look like this:
 
 The destination should look like this:
 
-<!-- border -->![Settings for dynamic Runtime Destination](2-Dynamic-Runtime-Destination-oData.png)  
+![Settings for dynamic Runtime Destination](2-Dynamic-Runtime-Destination-oData.png)  
 
 ### Create Content Provider
 
@@ -265,7 +264,7 @@ The destination should look like this:
 
 5. Create a new content provider.
 
-    <!-- border -->![Workflow](3-content-provider-overview.png)
+    ![Workflow](3-content-provider-overview.png)
 
 6. Add title, description, ID, and the destinations created in `Step 6-8` (Create Design-Time / Runtime destination) accordingly:
 
@@ -291,7 +290,7 @@ The destination should look like this:
 
     The content provider should look like this:
 
-    <!-- border -->![Create Content Provider](1-create-content-provider.png)
+    ![Create Content Provider](1-create-content-provider.png)
 
 > In the `Status` column of the table the status changes to `Created` as soon as the creation is finished.
 
@@ -305,7 +304,7 @@ The destination should look like this:
 
 4. Select the `Administrator` content item and choose `Add`.
 
-    <!-- border -->![Add roles to own content](4-add-to-my-content.png)
+    ![Add roles to own content](4-add-to-my-content.png)
 
 ### Create Launchpad Site
 
@@ -317,7 +316,7 @@ The destination should look like this:
 
 4. In section `Role Assignments` select `Edit` and move your cursor to the search box on the upper right part of the screen.
 
-    <!-- border -->![Create Launchpad Site](2-1-create-lp-site-1.png)
+    ![Create Launchpad Site](2-1-create-lp-site-1.png)
 
 5. Choose the `Administrator` role (select `-`).
 
@@ -325,7 +324,7 @@ The destination should look like this:
 
 7. Navigate to `Site Settings`section. Copy and store the URL of the launchpad for later use.
 
-    <!-- border -->![Launchpad URL](9-copy-launchpad-url-1.png)
+    ![Launchpad URL](9-copy-launchpad-url-1.png)
 
 > Now you have assigned the business role, that is exposed to the SAP Build Work Zone, standard edition, to your launchpad site. With the business role all apps that are related to this business role will be available on the launchpad site. Also, a role collection is created, which is labeled according to this format: `<Content Provider name>_<Business Role name>`
 
@@ -343,7 +342,7 @@ The destination should look like this:
 
 5. Assign the created role collection `~tutorial_ZSAP_BR_ADMINISTRATOR` to the user.
 
-    <!-- border -->![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
+    ![Assign created role collection to SAP BTP, ABAP environment user](1-add-role collection.png)
 
 ### Access Launchpad Site
 
@@ -352,6 +351,6 @@ The destination should look like this:
 2. Log off and log on again. This makes sure the newly assigned role collection is taken into account.
 
 The launchpad site should look like this. The groups might be in different order:
-<!-- border -->![Launchpad](final-lp-view.png)
+![Launchpad](final-lp-view.png)
 
 ---

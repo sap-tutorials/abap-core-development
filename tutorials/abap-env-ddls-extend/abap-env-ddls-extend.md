@@ -13,7 +13,7 @@ author_profile: https://github.com/MatthaeusSchuele
 <!-- description --> Find out what to do if a C1-released SAP data source (aka CDS view) does not expose a required database table field that you want to read in Cloud Development (ABAP Cloud Development). For example, data source I_SalesOrder only exposes roughly half of the fields of database table vbak.
 
 ## Prerequisites
-- You have a license for an SAP S/4HANA or SAP S/4HANA Cloud, private edition release 2023 (both referred to as SAP S/4HANA from now on)
+- You have a license for an SAP S/4HANA or SAP S/4HANA Cloud, private edition release 2025 (both referred to as SAP S/4HANA from now on)
 - You have a user in the system with full development authorizations and business role `SAP_BR_SALES_MANAGER`
 - [You are connected to your SAP S/4HANA system in ABAP Development Tools for Eclipse (ADT)](abap-s4hanacloud-login)
 - You understand the Clean Core Extensibility Guide, see SAP blog [ABAP Extensibility Guide – Clean Core for SAP S/4HANA Cloud - August 2025 Update](https://community.sap.com/t5/technology-blog-posts-by-sap/abap-extensibility-guide-clean-core-for-sap-s-4hana-cloud-august-2025/ba-p/14175399)
@@ -30,7 +30,7 @@ author_profile: https://github.com/MatthaeusSchuele
 - How to extend a data source that is not released for extend (case 3)
 
 **Additional info**
->Tutorial last updated with SAP S/4HANA release 2023 FPS03
+>Tutorial last updated with SAP S/4HANA release 2025, Fully-Activated Appliance.
 
 ---
 
@@ -51,17 +51,17 @@ To test the consumption of the data source from ABAP Cloud Development we call i
 
 2. Implement the method `main` of the interface to read the data source. In this example, the data source `I_SalesOrder` is protected but allows privileged access, make use of it, as shown here:
 
-    ```ABAP
-    METHOD if_oo_adt_classrun~main.
-        out->write( |\nRead I_SalesOrder| ).
-        SELECT FROM I_SalesOrder
-        WITH PRIVILEGED ACCESS
-        FIELDS SalesOrder, CreationDate
-        INTO TABLE @DATA(lt_data)
-        UP TO 5 ROWS.
-        out->write( lt_data ).
-    ENDMETHOD.
-    ```
+   ```ABAP
+   METHOD if_oo_adt_classrun~main.
+       out->write( |\nRead I_SalesOrder| ).
+       SELECT FROM I_SalesOrder
+       WITH PRIVILEGED ACCESS
+       FIELDS SalesOrder, CreationDate
+       INTO TABLE @DATA(lt_data)
+       UP TO 5 ROWS.
+       out->write( lt_data ).
+   ENDMETHOD.
+   ```
 
 3.	Save and activate the class.
 
@@ -195,14 +195,14 @@ Now, you can make use of this field in read operations with the extended data so
 
 1.	Enhance the ABAP class from **Read a Data Source in Cloud Development (ABAP Cloud Development)** by a read via data source `I_GLAccountLineItem`
 
-    ```ABAP
-    out->write( |\nCase 1 - Key User extensibility on I_GLAccountLineItem + ZZ1_CompanyCountry | ).
-    SELECT FROM I_GLAccountLineItem
-    WITH PRIVILEGED ACCESS
-    FIELDS CompanyCode, Company, ZZ1_CompanyCountry
-    INTO TABLE @DATA(lt_data_case1) UP TO 5 ROWS.
-    out->write( lt_data_case1 ).
-    ```
+   ```ABAP
+   out->write( |\nCase 1 - Key User extensibility on I_GLAccountLineItem + ZZ1_CompanyCountry | ).
+   SELECT FROM I_GLAccountLineItem
+   WITH PRIVILEGED ACCESS
+   FIELDS CompanyCode, Company, ZZ1_CompanyCountry
+   INTO TABLE @DATA(lt_data_case1) UP TO 5 ROWS.
+   out->write( lt_data_case1 ).
+   ```
 
 2.	Run the ABAP class as Application and check that data is retrieved.
 
@@ -227,7 +227,6 @@ Open data source definition `I_SalesOrder` in ADT and search for `E_`. You will 
  
 Open `E_SalesDocumentBasic`. 
 
-<!--border-->
 ![Extension Association in data source I_SalesOrder code](ADT_DDLS_E_SD_Basic_code.png)
 
 This extension data source is of `@VDM.viewType #EXTENSION`. It exposes the database table `vbak`. You can choose additional fields from this database to extend the extensible data sources. The extension data source defines the alias `Persistence` for `vbak`.
@@ -245,7 +244,6 @@ The first step is to extend the extension data source. This has to be done in a 
  
     Give the package `$TMP`, the name `ZZ1_E_SALES_DOC_BASIC`, the description `I_SALESDOCUMENTBASIC extension` and click **Next**.
 
-    <!--border-->
     ![Set Attributes at ZZ1_E_SALES_DOC_BASIC creation](ADT_DDLS_Z_E_SD_Basic_crt_name_pckg.png)
  
 3.	Continue in the wizard until the **Templates** selection dialog and choose **Extend View Entity**.
@@ -256,15 +254,14 @@ The first step is to extend the extension data source. This has to be done in a 
 
 4.	Complete the code of the data source by adding the field that you want to extend your extensible data source with.
 
-    <!--border-->
     ![ZZ1_E_SALES_DOC_BASIC data source code](ADT_DDLS_Z_E_SD_Basic_code.png)
 
-    ```ABAP
-    extend view entity E_SalesDocumentBasic with
-    {
-        Persistence.gwldt as ZZ1_WarrantyStartDate
-    }
-    ```
+   ```ABAP
+   extend view entity E_SalesDocumentBasic with
+   {
+       Persistence.gwldt as ZZ1_WarrantyStartDate
+   }
+   ```
 
     Reminder: `Persistence` is the alias defined for database table `vbak` in the extension data source.
 
@@ -297,14 +294,14 @@ Follow the same steps as in **Step 7: Case 2.2 - Extend the Extension Data Sourc
 
     ![ZZ1_E_SALESORDER data source code](ADT_DDLS_Z_E_SO_code.png)
 
-    ```ABAP
-    @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SO'
-    @EndUserText.label: 'I_SALESORDER extension'
-    extend view I_SalesOrder with ZZ1_E_SALESORDER
-    {
-        _Extension.ZZ1_WarrantyStartDate as ZZ1_WarrantyStartDate
-    }
-    ```
+   ```ABAP
+   @AbapCatalog.sqlViewAppendName: 'ZZ1_E_SO'
+   @EndUserText.label: 'I_SALESORDER extension'
+   extend view I_SalesOrder with ZZ1_E_SALESORDER
+   {
+       _Extension.ZZ1_WarrantyStartDate as ZZ1_WarrantyStartDate
+   }
+   ```
 
 5.	Save and activate the data source. Note that this may take up to an hour.
 
@@ -312,15 +309,15 @@ Now, data source `I_SalesOrder` will also return the database field.
 
 1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (ABAP Cloud Development)** by a another read via data source `I_SalesOrder`
 
-    ```ABAP
-    out->write( |\nCase 2 - I_SalesOrder + ZZ1_WarrantyStartDate  | ).
-    SELECT FROM I_SalesOrder
-    WITH PRIVILEGED ACCESS
-    FIELDS SalesOrder, CreationDate, ZZ1_WarrantyStartDate
-    INTO TABLE @DATA(lt_data_case2)
-    UP TO 5 ROWS.
-    out->write( lt_data_case2 ).
-    ```
+   ```ABAP
+   out->write( |\nCase 2 - I_SalesOrder + ZZ1_WarrantyStartDate  | ).
+   SELECT FROM I_SalesOrder
+   WITH PRIVILEGED ACCESS
+   FIELDS SalesOrder, CreationDate, ZZ1_WarrantyStartDate
+   INTO TABLE @DATA(lt_data_case2)
+   UP TO 5 ROWS.
+   out->write( lt_data_case2 ).
+   ```
 
 2.	Run the ABAP class as Application and check if data is retrieved.
  
@@ -356,22 +353,22 @@ First, we create the data source that wraps the database table and exposes its m
 
     ![ZZ1_W_VBPA data source code](ADT_DDLS_Z_W_VBPA_code.png)
 
-    ```ABAP
-    @AbapCatalog.viewEnhancementCategory: [#NONE]
-    @AccessControl.authorizationCheck: #NOT_REQUIRED
-    @EndUserText.label: 'VBPA wrapping and field exposing dta src'
-    @Metadata.ignorePropagatedAnnotations: true
-    @ObjectModel.usageType:{
-        serviceQuality: #X,
-        sizeCategory: #S,
-        dataClass: #MIXED
-    }
-    define view entity ZZ1_W_VBPA as select from vbpa
-    {
-        key vbeln as SalesDocumentID ,
-        knref as ZZ1_CustDescrOfPartnerPlant
-    }
-    ```
+   ```ABAP
+   @AbapCatalog.viewEnhancementCategory: [#NONE]
+   @AccessControl.authorizationCheck: #NOT_REQUIRED
+   @EndUserText.label: 'VBPA wrapping and field exposing dta src'
+   @Metadata.ignorePropagatedAnnotations: true
+   @ObjectModel.usageType:{
+       serviceQuality: #X,
+       sizeCategory: #S,
+       dataClass: #MIXED
+   }
+   define view entity ZZ1_W_VBPA as select from vbpa
+   {
+       key vbeln as SalesDocumentID ,
+       knref as ZZ1_CustDescrOfPartnerPlant
+   }
+   ```
 
 4.	Save and activate the data source.
 
@@ -407,15 +404,15 @@ Next, we create the interface data source for ABAP Cloud Development which combi
 
     4.2.    Add the association for the original data source.
 
-    ```ABAP
-    association to I_SalesOrderPartner as _I_SO_PARTNER on $projection.SalesOrder = _I_SO_PARTNER.SalesOrder
-    ```
+   ```ABAP
+   association to I_SalesOrderPartner as _I_SO_PARTNER on $projection.SalesOrder = _I_SO_PARTNER.SalesOrder
+   ```
 
     4.3.    Define a second association for the wrapper data source.
 
-    ```ABAP
-    association to ZZ1_W_VBPA as _vbpa_wrapper on $projection.SalesOrder = _vbpa_wrapper.SalesDocumentID
-    ```
+   ```ABAP
+   association to ZZ1_W_VBPA as _vbpa_wrapper on $projection.SalesOrder = _vbpa_wrapper.SalesDocumentID
+   ```
 
     4.4.    Add the additional database field that's exposed via the wrapper: `_vbpa_wrapper.ZZ1_CustDescrOfPartnerPlant`
 
@@ -423,32 +420,32 @@ Next, we create the interface data source for ABAP Cloud Development which combi
 
     ![ZZ1_I_SO_PARTNER data source code](ADT_DDLS_Z_I_SO_PARTNER_code.png)
  
-    ```ABAP
-    @AbapCatalog.viewEnhancementCategory: [#NONE]
-    @AccessControl.authorizationCheck: #CHECK
-    @EndUserText.label: 'comb I_SO_PARTNER+vbpa wrapper/exposure'
-    @Metadata.ignorePropagatedAnnotations: true
-    @ObjectModel.usageType:{
-        serviceQuality: #X,
-        sizeCategory: #S,
-        dataClass: #MIXED
-    }
-    define view entity ZZ1_I_SO_PARTNER
-    as select from I_SalesOrderPartner
-    association to I_SalesOrderPartner as _I_SO_PARTNER on $projection.SalesOrder = _I_SO_PARTNER.SalesOrder
-    association to ZZ1_W_VBPA          as _vbpa_wrapper on $projection.SalesOrder = _vbpa_wrapper.SalesDocumentID
-    {
-    key SalesOrder,
-    key PartnerFunction,
-        _vbpa_wrapper.ZZ1_CustDescrOfPartnerPlant,
-        Customer,
-        Supplier,
-        […]
-        _PersonName,
-        _SalesOrder,
-        _I_SO_PARTNER
-    }
-    ```
+   ```ABAP
+   @AbapCatalog.viewEnhancementCategory: [#NONE]
+   @AccessControl.authorizationCheck: #CHECK
+   @EndUserText.label: 'comb I_SO_PARTNER+vbpa wrapper/exposure'
+   @Metadata.ignorePropagatedAnnotations: true
+   @ObjectModel.usageType:{
+       serviceQuality: #X,
+       sizeCategory: #S,
+       dataClass: #MIXED
+   }
+   define view entity ZZ1_I_SO_PARTNER
+   as select from I_SalesOrderPartner
+   association to I_SalesOrderPartner as _I_SO_PARTNER on $projection.SalesOrder = _I_SO_PARTNER.SalesOrder
+   association to ZZ1_W_VBPA          as _vbpa_wrapper on $projection.SalesOrder = _vbpa_wrapper.SalesDocumentID
+   {
+   key SalesOrder,
+   key PartnerFunction,
+       _vbpa_wrapper.ZZ1_CustDescrOfPartnerPlant,
+       Customer,
+       Supplier,
+       […]
+       _PersonName,
+       _SalesOrder,
+       _I_SO_PARTNER
+   }
+   ```
 
 5.	    Save and activate the data definition.
 
@@ -473,19 +470,19 @@ Since the ABAP Cloud Development data source should provide the very same protec
 
     ![ACL ZZ1_I_SO_PARTNER_ACL code](ADT_ACL_Z_I_SO_PARTNER_code.png)
 
-    ```ABAP
-    @EndUserText.label: 'ACL for SO Partner + vbpa exposing DDLS '
-    @MappingRole: true
-    define role ZZ1_I_SO_PARTNER_ACL {
-        grant
-            select
-                on
-                    ZZ1_I_SO_PARTNER
-                        where
-                            inheriting conditions from entity I_SalesOrderPartner replacing {root with _I_SO_PARTNER };
-                            
-    }
-    ```
+   ```ABAP
+   @EndUserText.label: 'ACL for SO Partner + vbpa exposing DDLS '
+   @MappingRole: true
+   define role ZZ1_I_SO_PARTNER_ACL {
+       grant
+           select
+               on
+                   ZZ1_I_SO_PARTNER
+                       where
+                           inheriting conditions from entity I_SalesOrderPartner replacing {root with _I_SO_PARTNER };
+                           
+   }
+   ```
 
 4.	Save and activate the access control.
 
@@ -493,14 +490,14 @@ The data source `ZZ1_I_SO_PARTNER` will also return the database field.
 
 1.	Enhance the ABAP class from **Step 2: Read a Data Source in Cloud Development (ABAP Cloud Development)** by a read via data source `ZZ1_I_SO_PARTNER`
 
-    ```ABAP
-    out->write( |\nCase 3 - ZZ1_I_SO_PARTNER associating I_SO_PARTNER and exposing Wrapper | ).
-    SELECT FROM ZZ1_I_SO_PARTNER
-    FIELDS SalesOrder, Partner, ZZ1_CustDescrOfPartnerPlant
-    INTO TABLE @DATA(lt_data_case3)
-    UP TO 5 ROWS.
-    out->write( lt_data_case3 ).
-    ```
+   ```ABAP
+   out->write( |\nCase 3 - ZZ1_I_SO_PARTNER associating I_SO_PARTNER and exposing Wrapper | ).
+   SELECT FROM ZZ1_I_SO_PARTNER
+   FIELDS SalesOrder, Partner, ZZ1_CustDescrOfPartnerPlant
+   INTO TABLE @DATA(lt_data_case3)
+   UP TO 5 ROWS.
+   out->write( lt_data_case3 ).
+   ```
 
 2.	Run the ABAP class as Application and check if the data is retrieved. The data is retrieved even if the requested new field has no data.
 
@@ -533,21 +530,21 @@ If you want to restrict the use of the wrapper data source, you can protect it w
  
     ![ACL ZZ1_W_VBPA_ACL code](ADT_ACL_Z_W_VBPA_code.png)
     
-    ```ABAP
-    @EndUserText.label: 'ACL for vbpa wrapping+exposing DDLS'
-    @MappingRole: true
-    define role ZZ1_W_VBPA_ACL {
-        grant
-            select
-                on
-                    ZZ1_W_VBPA
-                        where //forbid direct access to wrapper data source by never occurring condition ( ineffective in privileged mode )
-                            SalesDocumentID is not initial
-                            and SalesDocumentID is initial
-                    ;
-                            
-    }
-    ```
+   ```ABAP
+   @EndUserText.label: 'ACL for vbpa wrapping+exposing DDLS'
+   @MappingRole: true
+   define role ZZ1_W_VBPA_ACL {
+       grant
+           select
+               on
+                   ZZ1_W_VBPA
+                       where //forbid direct access to wrapper data source by never occurring condition ( ineffective in privileged mode )
+                           SalesDocumentID is not initial
+                           and SalesDocumentID is initial
+                   ;
+                           
+   }
+   ```
 
 7.	Save and activate the access control.
 

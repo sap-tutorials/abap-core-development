@@ -40,11 +40,11 @@ Therefore, this tutorial will only cover in detail those aspects that are differ
 You have already tested the connection by displaying data in an ABAP Console app. You will now display this data in a Fiori Elements preview, using a custom entity.
 1. First, open the class **`ZCL_PROXY_TRAVELS_###`** and add the interface **`IF_RAP_QUERY_PROVIDER`** to the class definition.
 
-    ```ABAP
-    INTERFACES:   if_oo_adt_classrun,
-                  if_rap_query_provider.
+   ```ABAP
+   INTERFACES:   if_oo_adt_classrun,
+                 if_rap_query_provider.
 
-    ```
+   ```
 
     > The signature of the method `IF_RAP_QUERY_PROVIDER~SELECT` contains the import parameter `io_request`. This parameter represents the OData query options that are delegated from the UI and used as input for the SELECT method. Whenever the OData client requests data, the query implementation class must return the data that matches the request, or throw an exception if the request cannot be fulfilled.
 
@@ -61,10 +61,10 @@ You have already tested the connection by displaying data in an ABAP Console app
 
 2. Add the following annotation to the view (immediately after the '@EndUserText.label' annotation), pointing to the class you have just created - **IMPORTANT: Use upper case!**
 
-    ```CDS
+   ```CDS
 
-    @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_###'
-    ```
+   @ObjectModel.query.implementedBy: 'ABAP:ZCL_PROXY_TRAVELS_###'
+   ```
 
 
 ### Implement SELECT method in query implementation class
@@ -73,45 +73,45 @@ You will retrieve the travel data using the same method **`get_travels`** as bef
 
 1. Add the following statements to **`METHODS get_travels`** in the **CLASS ... DEFINITION**.
 
-    ```ABAP
-    IMPORTING
-      top              TYPE i OPTIONAL
-      skip             TYPE i OPTIONAL
+   ```ABAP
+   IMPORTING
+     top              TYPE i OPTIONAL
+     skip             TYPE i OPTIONAL
 
-    ```
+   ```
 
 2. Now add the following code to the method **`if_rap_query_provider~select.`** in the **CLASS...IMPLEMENTATION**.
 
-    ```ABAP
-      METHOD if_rap_query_provider~select.
-    DATA business_data TYPE TABLE OF zce_travel_data_###.
-    DATA(top)     = io_request->get_paging( )->get_page_size( ).
-    DATA(skip)    = io_request->get_paging( )->get_offset( ).
-    DATA(requested_fields)  = io_request->get_requested_elements( ).
-    DATA(sort_order)    = io_request->get_sort_elements( ).
+   ```ABAP
+     METHOD if_rap_query_provider~select.
+   DATA business_data TYPE TABLE OF zce_travel_data_###.
+   DATA(top)     = io_request->get_paging( )->get_page_size( ).
+   DATA(skip)    = io_request->get_paging( )->get_offset( ).
+   DATA(requested_fields)  = io_request->get_requested_elements( ).
+   DATA(sort_order)    = io_request->get_sort_elements( ).
 
-    TRY.
-        get_travels(
+   TRY.
+       get_travels(
 
-          EXPORTING
-                     top               = CONV i( top )
-                     skip              = CONV i( skip )
-          IMPORTING
-            et_business_data  = business_data
-          ) .
+         EXPORTING
+                    top               = CONV i( top )
+                    skip              = CONV i( skip )
+         IMPORTING
+           et_business_data  = business_data
+         ) .
 
-        io_response->set_total_number_of_records( lines( business_data ) ).
-        io_response->set_data( business_data ).
+       io_response->set_total_number_of_records( lines( business_data ) ).
+       io_response->set_data( business_data ).
 
-      CATCH cx_root INTO DATA(exception).
-        DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
+     CATCH cx_root INTO DATA(exception).
+       DATA(exception_message) = cl_message_helper=>get_latest_t100_exception( exception )->if_message~get_longtext( ).
 
-    ENDTRY.
+   ENDTRY.
 
 
-      ENDMETHOD.
+     ENDMETHOD.
 
-    ```
+   ```
 
 3. Format, save and activate ( **`Sh+F1, Ctrl+S, Ctrl+F3`** ) the class.
 
@@ -252,7 +252,6 @@ ENDCLASS.
     - (The referenced object: **`ZCE_TRAVEL_DATA_###`** should be entered automatically)
     - Choose **Next**
 
-    <!-- border -->
     ![step4a-sd-wizard](step4a-sd-wizard.png)    
 
 3. Accept the transport request and choose **Finish**.    
@@ -261,10 +260,10 @@ ENDCLASS.
 
 4. Optional: Add a semantic alias for the service, here **`SimpleTravels`**:
 
-    ```CDS
-    expose ZCE_TRAVEL_DATA_### as SimpleTravels;
+   ```CDS
+   expose ZCE_TRAVEL_DATA_### as SimpleTravels;
 
-    ```
+   ```
   
 5. Choose **Save** and **Activate**.
 
@@ -275,7 +274,6 @@ ENDCLASS.
 
 1. Select your service definition, **`ZCE_TRAVEL_DATA_###`** and choose **New > Create Service Binding** from the context menu.
 
-    <!-- border -->
     ![step2a-create-service-binding](step2a-create-service-binding.png)
 
 2. In the wizard:
@@ -283,7 +281,6 @@ ENDCLASS.
     - Enter the binding type: **`ODATA V2 - UI`**
     - Choose **Next**
 
-    <!-- border -->
     ![step5b-create-sb-wizard](step5b-service-binding-wizard.png)
 
 3. Accept the transport request and choose **Finish**.    
@@ -297,7 +294,6 @@ ENDCLASS.
 
 5. Select the entity Set **Travel** and choose **Preview**.
 
-    <!-- border -->
     ![step7b-service-binding-editor](step7b-service-binding-editor.png)
 
     The Fiori Elements preview for your remote OData service appears in the browser, but without any data.
@@ -306,7 +302,6 @@ ENDCLASS.
 
     Your Fiori Elements preview should look roughly like this:
 
-    <!-- border -->
     ![step7c-fiori](step7c-fiori.png)
 
 
@@ -358,7 +353,6 @@ define custom entity ZCE_TRAVEL_DATA_###
 ```
 The SAP Fiori elements preview should now open looking like this.
 
-<!-- border -->
 ![step9-fiori-improved](step9-fiori-improved.png)
 
 

@@ -3,8 +3,8 @@ auto_validation: true
 time: 20
 tags: [ tutorial>intermediate, software-product>sap-s-4hana, programming-tool>abap-development, programming-tool>abap-extensibility]
 primary_tag: programming-tool>abap-extensibility
-author_name: Achim Seubert
-author_profile: https://github.com/AchimSeubert
+author_name: Matthäus Schüle
+author_profile: https://github.com/MatthaeusSchuele
 parser: v2
 ---
 
@@ -63,7 +63,6 @@ You just defined a new table type, which will be used in the behavior implementa
 
 Your global class should now look as follows:
 
-<!-- border -->
 ![Global Class](1-global-class.png)
 
 Save it. Do NOT activate it yet.
@@ -157,7 +156,6 @@ The `createpurchrqnbapisave` method handles the creation of a purchase requisiti
 
 The `createpurchrqnbapisave` method should now look like this:
 
-<!-- border -->
 ![Implementation Code](impl-createpurchrqnbapisave.png)
 
 You will now navigate to the `save_modified` method, remove the call to the BAPI wrapper and insert the following code snippet with an EML call to the released API:
@@ -193,7 +191,6 @@ As previously explained, the released API `I_PurchaserequisitionTP` uses late nu
 
 The `save_modified` method should now look as follows:
 
-<!-- border -->
 ![save_modified implementation](save_modified_new.png)
 
 Save and activate it.
@@ -204,7 +201,6 @@ As explained in a previous tutorial [Integrate the Wrapper into the Shopping Car
 
 You will now remove the `checkPurchaseRequisition` method: open the `lhc_shopcart` class of your behavior implementation and navigate to the `checkpurchaserequisiton` method. Comment it out:
 
-<!-- border -->
 ![Comment out checkpurchaserequisiton method implementation](impl_checkpurchaserequisition_new.png)
 
 Comment out the validation in the behavior definition, too:
@@ -217,14 +213,12 @@ Since you now removed the `checkpurchaserequisiton` method, no authorization che
 
 Open the behavior definition `ZR_SHOPCARTTP_###` and change to strict(2) mode:
 
-<!-- border -->
 ![Behavior Definition Strict 2](bdef-strict2.png)
 
 Save and activate it.
 
 Open the behavior definition `ZC_SHOPCARTTP_###` and change to strict(2) mode there as well:
 
-<!-- border -->
 ![Behavior Definition Strict 2](bdef-c-strict2.png)
 
 Save and activate it.
@@ -233,12 +227,10 @@ Save and activate it.
 
 In ADT, open the Service Binding `ZUI_SHOPCART_O4_###` and click on the **Preview** button to start a preview of the UI of your RAP BO. You will be prompted to login. Create a new entry and then click on the button **Create PR via BAPI in SAVE** to create the purchase requisition via released API:
 
-<!-- border -->
 ![Create PR - start](create-pr-1.png)
 
 The purchase requisition will be created:
 
-<!-- border -->
 ![Create PR - result](create-pr-2.png)
 
 ### Maintain Authorization Defaults
@@ -278,22 +270,18 @@ For simplicity and continuity, you will use the `Z_USER_###` user with the `ZR_S
 
 3. In this step switch to edit mode and click on `Object`-->`Add Objects (Manually)`. In the pop-up window add the needed authorization objects and click on `Continue`. The authorization objects will be added but you still need to maintain the relative Authorization Default Values (for more information, please refer to the Purchase Requisition API documentation). Do so and then save it. The warning, which is shown, indicates that Full authorization for authorization object `M_BANF_BSA` field `BSART` is granted. It can be ignored in the context of this tutorial. (For more explanation see the long text). The service binding should now look like this:
 
-    <!-- border -->
     ![Service Binding Authorizations](service-binding-auth.PNG)
 
 4. Start transaction `SU24` and select `SAP Gateway OData V4 Backend Service Group and Assignments` from the dropdown menu of the `Type of Application` field. In the `Object Name` field input your Service Binding name (`ZUI_SHOPCART_WRAPPER_O4_###`) and click on the `Execute` button. Switch to edit mode and click on the `SAP Data` icon (1), mark the needed authorization objects (2), and then click on `Copy SAP Data to SU24` icon (3) in the Maintenance Status for Authorization Objects tab. This will copy the authorization objects, but you still need to copy the authorization defaults values for each object.
 
-    <!-- border -->
     ![Maintain SU24 Data](su24-copy-sap-data.PNG)
   To do this, click on the `Synchronize with SAP data` icon (1) for all the authorization objects or click on the `Copy SAP Data to SU24` icon (2) in the `Authorization Default Values` tab.
 
-    <!-- border -->
     ![Maintain Authorization Default Values](su24-maintain-auth-default-values.PNG)
   Save it and select a suitable transport request (or create a new one if needed).
 
 5. Start transaction `PFCG`, open the role `ZR_SHOPCART_###` in Edit mode, navigate to the `Authorizations` tab and click on `Expert Mode for Profile Generation` and in the pop-up select `Read old status and merge with new data` and click on `execute`. You will see that all the authorization objects are automatically added and all the field values are set. Save (1) and then click on the `Generate` (2) icon to generate the authorization profile.
 
-    <!-- border -->
     ![Generate Profile](pfcg-profile-generation.PNG)
 
 Now the `Z_USER_###` user has the role assigned which contains the service binding and  the necessary authorizations to create a purchase requisition via the released API.

@@ -38,7 +38,7 @@ The diagram illustrates how **Intelligent Scenario Lifecycle Management** is emb
 
 
 ### Implement Required SAP Notes
-In this step, you implement the required SAP Notes and Transport-Based Correction Instructions** (TCIs) in your SAP S/4HANA system. SAP Notes contain correction instructions that adjust or enhance existing functionality in your system. During implementation, the system checks your release and identifies any prerequisite notes that must be processed first. This provides the technical foundation for custom generative AI scenarios with ISLM and enables integration with SAP AI Core.
+In this step, you implement the required SAP Notes and Transport-Based Correction Instructions (TCIs) in your SAP S/4HANA system. SAP Notes contain correction instructions that adjust or enhance existing functionality in your system. During implementation, the system checks your release and identifies any prerequisite notes that must be processed first. This provides the technical foundation for custom generative AI scenarios with ISLM and enables integration with SAP AI Core.
 
 1\. Log on to your **SAP S/4HANA** system and open transaction **SNOTE** (Note Assistant).
 

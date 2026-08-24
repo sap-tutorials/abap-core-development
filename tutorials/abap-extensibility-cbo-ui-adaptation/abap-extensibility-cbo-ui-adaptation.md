@@ -96,7 +96,6 @@ Last you make the UI adaptations available to all users in the system.
 
 Click the activation button (wand icon).
 
-<!--border-->
 ![Activate UI changes](UI_activate.png)
 
 In the opening pop up give a name for the new version and **Confirm** that.
@@ -105,12 +104,10 @@ In the opening pop up give a name for the new version and **Confirm** that.
 
 Click the Publishing button (truck icon) to make the last activated layout version available to all users in the system.
 
-<!--border-->
 ![Publish UI version](UI_publish.png)
 
 Finally exit adaptation mode (cross icon).
 
-<!--border-->
 ![Exit UI Adaptation mode](UI_exit.png)
 
 ### Test yourself

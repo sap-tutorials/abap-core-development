@@ -114,46 +114,46 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
 
   4. The snippet scopes the page template. Scoping a space template is still commented out. Therefore copy and paste the code snippet in your class. Change ### with your own ID.
     
-    ```ABAP
-    CLASS zcl_scope_page_space_### DEFINITION
-    PUBLIC
-    FINAL
-    CREATE PUBLIC .
+   ```ABAP
+   CLASS zcl_scope_page_space_### DEFINITION
+   PUBLIC
+   FINAL
+   CREATE PUBLIC .
 
-    PUBLIC SECTION.
-        INTERFACES if_oo_adt_classrun.
-    PROTECTED SECTION.
-    PRIVATE SECTION.
-    ENDCLASS.
-
-
-
-    CLASS zcl_scope_page_space_### IMPLEMENTATION.
-    METHOD if_oo_adt_classrun~main.
+   PUBLIC SECTION.
+       INTERFACES if_oo_adt_classrun.
+   PROTECTED SECTION.
+   PRIVATE SECTION.
+   ENDCLASS.
 
 
-        DATA(lo_scope_api) = cl_aps_bc_scope_change_api=>create_instance( ).
 
-        lo_scope_api->scope(
-        EXPORTING it_object_scope = VALUE #(
-        pgmid = if_aps_bc_scope_change_api=>gc_tadir_pgmid-R3TR
-        scope_state = if_aps_bc_scope_change_api=>gc_scope_state-ON
+   CLASS zcl_scope_page_space_### IMPLEMENTATION.
+   METHOD if_oo_adt_classrun~main.
 
-    * Space template
-    *   ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIST obj_name = 'ZRAP100_TRAVEL_###' )
 
-    * Page template
-        ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIPG obj_name = 'ZRAP100_TRAVEL_###' )
-        )
+       DATA(lo_scope_api) = cl_aps_bc_scope_change_api=>create_instance( ).
 
-                iv_simulate = abap_false
-                iv_force = abap_false
-        IMPORTING et_object_result = DATA(lt_results)
-                et_message = DATA(lt_messages) ).
-    ENDMETHOD.
+       lo_scope_api->scope(
+       EXPORTING it_object_scope = VALUE #(
+       pgmid = if_aps_bc_scope_change_api=>gc_tadir_pgmid-R3TR
+       scope_state = if_aps_bc_scope_change_api=>gc_scope_state-ON
 
-    ENDCLASS.   
-    ```
+   * Space template
+   *   ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIST obj_name = 'ZRAP100_TRAVEL_###' )
+
+   * Page template
+       ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIPG obj_name = 'ZRAP100_TRAVEL_###' )
+       )
+
+               iv_simulate = abap_false
+               iv_force = abap_false
+       IMPORTING et_object_result = DATA(lt_results)
+               et_message = DATA(lt_messages) ).
+   ENDMETHOD.
+
+   ENDCLASS.   
+   ```
 
   5. Save and activate.
    
@@ -236,9 +236,9 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
 
   1. Open your ABAP class `ZCL_SCOPE_PAGE_SPACE_###` and uncomment the following line:
 
-    ```ABAP
-    ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIST obj_name = 'ZRAP100_TRAVEL_000' )
-    ```
+   ```ABAP
+   ( object = if_aps_bc_scope_change_api=>gc_tadir_object-UIST obj_name = 'ZRAP100_TRAVEL_000' )
+   ```
 
   2. Save and activate.
    
@@ -267,27 +267,22 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
 
   1. As Developer in ADT, right-click the **Identity and Access Management** folder in your project and choose **New** > **Business Role Template**
 
-     <!-- border -->
      ![Create business role template from context menu](adt-brt-crt-ctxt-menu.png)
 
   2. Enter **Name** `ZRAP100_BRT_###`, **Description** `Business Role Template for Travel Solution ###` and finish the wizard.
 
-     <!-- border -->
      ![Give name and Description of business role template](adt-brt-crt-wizard-attributes.png)
 
   3. Right-click the **Identity and Access Management** folder in your project again and choose **New** > **`Business Role Templ. - Launchpad Space Templ. Assignment`** now.
       
-     <!-- border -->
      ![Create business role template - launchpad space template assignment from context menu](adt-brt-spt-assign-crt-ctxt-menu.png)
 
   4. Enter **Name** `ZRAP100_BRT_SPT_###`, **Description** `Assignment of space template to business role template ###`, finish the wizard and save (Ctrl + S).
 
-     <!-- border -->
      ![Give name and Description of business role template - launchpad space template assignment](adt-brt-spt-assign-crt-wizard-attributes.png)
 
   5. In the editor of the Assignment enter **Business Role Template** `ZRAP100_BRT_###`, **Launchpad Space Template** `ZRAP100_TRAVEL_###` and save (Ctrl + S).
 
-     <!-- border -->
      ![Set business role template and launchpad space in assignment](adt-brt-spt-assign-set-gen-info.png)
 
   6. Switch back to the editor of the business role template and press **Publish locally**
@@ -300,22 +295,18 @@ For more information see documentation [SAP BTP, ABAP environment > Development 
 
   2. Click the **Create From Template** button.
 
-     <!-- border -->
      ![Create From Template button in Maintain Business Roles app](flp-br-crt-from-tmpl-btn.png)
 
   3. Use the value help for **Template** to set `ZRAP100_BRT_###`, delete `T` from the defaulted  **Name**, delete `Template` from the defaulted **Description**, leave all the other defaulted values and press **OK**. 
 
-     <!-- border -->
      ![Pop up to create business role from template](flp-br-crt-from-tmpl-pop-up.png)
 
   4. In the business role editor under **General Role Details** > **Access Categories** > **Write, Read, Value Help** set the value **Unrestricted**.
 
-     <!-- border -->
      ![Business role access category](flp-br-crt-access-cat.png)
 
   5. Afterwards switch to the **Business Users** tab, add your user and **Save** the business role.
 
-     <!-- border -->
      ![Business role business users](flp-br-crt-business-users.png)
 
  

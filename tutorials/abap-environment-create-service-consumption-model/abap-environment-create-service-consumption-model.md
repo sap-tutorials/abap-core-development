@@ -53,7 +53,6 @@ Throughout this tutorial, replace `###` or `000` with your initials or group num
     - Outbound Service: **`Z_OUTBOUND_ODATA_###`**
     - Description: **Get data from remote service via OData**
     - Service Type: **HTTP Service**
-        <!-- border -->
         ![step1b-outbound-service-details](step1b-outbound-service-details.png)
  
 4. Choose the transport request, then choose **Finish**.
@@ -72,7 +71,6 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
     - Description **Get data from remote service via OData**
     </br>       
     Your Communication Scenario appears in a new editor.
-        <!-- border -->
         ![step2a-new-outbound-comm-scen](step2a-new-outbound-comm-scen.png)
 
 4. On the **Overview** tab, select **Allowed Instances: One instance per client**.
@@ -81,7 +79,6 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 6. Then, in the **Outbound Services** panel, choose **Add...**.
 
-    <!-- border -->
     ![step2b-add-outbound-service](step2b-add-outbound-service.png)
 
 
@@ -91,7 +88,6 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 7. Choose **Save**, then choose **Publish locally**.
 
-    <!-- border -->
     ![step2c-publish-comm-scen](step2c-publish-comm-scen.png)
 
 
@@ -99,16 +95,13 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 1. In Fiori launchpad, open the app **Communication Systems**, then choose **New**.
 
-    <!-- border -->
     ![step3a-comm-sys](step3a-comm-sys.png)
     </br>
-    <!-- border -->
     ![step3b-new-comm-sys](step3b-new-comm-sys.png)   
 
 2. Enter a system ID, then accept the (identical) system name:
     - **`Z###_TO_PRV_CSYS`** *where `PRV` is the name of your provisioning system*
 
-        <!-- border -->
         ![step3b-new-comm-sys-id-name](step3b-new-comm-sys-id-name.png)
 
  <!--  -->    
@@ -126,12 +119,10 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
     - Port = **443**
 
-    <!-- border -->
     ![step3c-comm-sys-general](step3c-comm-sys-general.png)  
 
 4. In **Users for Outbound Communication**, add a new user by choosing the **+** symbol.
 
-    <!-- border -->
     ![step3d-add-comm-user](step3d-add-comm-user.png) 
 
 
@@ -139,7 +130,6 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 6. From the dropdown, choose the user from the provisioning system, **`INBOUND_TRAVELPRO`**; paste the password you generated previously (if necessary); then choose **Create**.
 
-    <!-- border -->
     ![select-comm-user](select-comm-user.png)
 
 7. Choose **Save**.
@@ -155,17 +145,14 @@ Your service appears in a new editor. The system adds the suffix **`_REST`** aut
 
 4. The system fills in the **User Name** and **Outbound Service** automatically. Choose **Save**.
 
-    <!-- border -->
     ![step11c-comm-arr-complete](step11c-comm-arr-complete.png)
 
 5. In the **Outbound Services** panel, check the connection.
 
-    <!-- border -->
     ![step11d-check-connection](step11d-check-connection.png)
 
 You should get a result like this.
 
-<!-- border -->
 ![step11d-ping-successful](step11d-ping-successful.png)
 
 
@@ -183,17 +170,14 @@ You will now create the Service Consumption Model in ADT, using the `EDMX` file 
     - Description **`Model for Z_C_TRAVEL_U_SIMPLE_###`**
     - Remote Consumption Mode: **`OData`**
 
-    <!-- border -->
     ![step5a-scm-new](step5a-scm-new.png)  
 
 4. Using **Browse...**, navigate to your `$metadata` file, choose **Open**, enter a **Class Name**, then choose **Next**. 
 
-    <!-- border -->
     ![step5b-scm2-metadata](step5b-scm2-metadata.png)
 
 5. The **Entity Set** and **Entity Type** appear; choose **Next**.
 
-    <!-- border -->
     ![step5c-entity-set](step5c-entity-set.png)
 
 
@@ -203,7 +187,6 @@ You will now create the Service Consumption Model in ADT, using the `EDMX` file 
 
 The Service Consumption Model appears in a new editor, showing the model class, entity set name, and sample code for 5 basic operations. 
 
-<!-- border -->
 ![step5d-scm2-editor](step5d-scm2-editor.png)
 
 You will later create an ABAP class based on the operation **Read List**. The class will display the retrieved data to an ABAP Console application, then to a Fiori Elements preview.

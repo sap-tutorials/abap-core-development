@@ -18,7 +18,7 @@ parser: v2
 - How to use the Intelligent Scenario in a simple ABAP Class 
 
 ## Prerequisites
-You have successfully configured your system as described in [Set Up SAP BTP and Integrate SAP AI Core with ISLM](abap-islm-setup-oauth).
+You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group.abap-islm-setup).
 
 
 ---

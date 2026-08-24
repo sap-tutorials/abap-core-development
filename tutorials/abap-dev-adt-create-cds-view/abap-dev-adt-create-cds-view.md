@@ -46,12 +46,10 @@ Throughout this tutorial, objects name include the suffix `XXX`. Always replace 
 
   1. In the context menu of your package choose **New** and then choose **Other ABAP Repository Object**.
 
-  <!-- border -->
   ![Image depicting step1-newObject](step1-newObject.png)
 
   2. Select **Data Definition**, then choose **Next**.
     
-  <!-- border -->
   ![Image depicting step2-DataDef](step2-DataDef.png)
 
   3. Enter the following values, then choose **Next**:
@@ -60,14 +58,12 @@ Throughout this tutorial, objects name include the suffix `XXX`. Always replace 
   - Description = **Invoice Items**
   - Referenced Object: **`sepm_sddl_so_invoice_item`**
 
-    <!-- border -->
     ![Image depicting step3-enterValues](step3-enterValues.png)
 
   4. Accept the default transport request (local) by simply choosing **Next** again.
 
   5. Select the entry **Define View**, then choose **Finish**
 
-  <!-- border -->
   ![Image depicting step5-defineView](step5-defineView.png)
 
 
@@ -79,8 +75,7 @@ The new view appears in an editor, with the fields from the referenced object, `
 
     Your CDS view should now look like this:
 
-    <!-- border -->
-      ![step3a-new-cds-view](step3a-new-cds-view.png)
+    ![step3a-new-cds-view](step3a-new-cds-view.png)
 
     > The SQL view name is the internal/technical name of the view which will be created in the database. `Z_Invoice_Items` is the name of the CDS view which provides enhanced view-building capabilities in ABAP. You should always use the CDS view name in your ABAP applications.
 
@@ -100,7 +95,6 @@ You will now model the relationships between data sources by using some existing
 To see the related data sources that can be accessed using associations, scroll down.
 To see details about the target data source of the association header, choose the hyperlink **`sepm_sddl_so_invoice_header`**.
 
-<!-- border -->
 ![Image depicting step8-CdsAssociations](step8-CdsAssociations.png)
 
 
@@ -110,13 +104,12 @@ You will now add fields of related data sources to the SELECT list of `Z_Invoice
 
 1. Add the association **`header`** to your selection list, preferably with a comment, by adding the following the code. do not forget to add a comma after the previous item, `gross_amount`:
 
-    ```ABAP
-    //      * Associations *//
-            header    
-    
-    ```
+   ```ABAP
+   //      * Associations *//
+           header    
+   
+   ```
 
-    <!-- border -->
     ![Image depicting step5-association](step5-association.png)
 
 2. You will get an error, "Field header must be included in the selection list together with field `SEPM_SDDL_SO_INVOICE_ITEM.SALES_ORDER_INVOICE_KEY`". Resolve this by adding the field **`sepm_sddl_so_invoice_item.sales_order_invoice_key`** to the Select statement.
@@ -125,11 +118,10 @@ You will now add fields of related data sources to the SELECT list of `Z_Invoice
 
 4.	Add the `payment_status` from the invoice header to the SELECT list using the association **header**
 
-    ```ABAP
-    header.payment_status
-    ```
+   ```ABAP
+   header.payment_status
+   ```
 
-    <!-- border -->
     ![Image depicting step9-AddRelatedFields](step9-AddRelatedFields.png)
 
 
@@ -148,7 +140,6 @@ end as paid,
 
 ```
 
-<!-- border -->
 ![Image depicting step5a-case-paid](step5a-case-paid.png)
 
 > You can check your code below.
@@ -160,18 +151,16 @@ You will now filter the results so that only invoice items with `currency_code =
 
 1. Add a WHERE clause:
 
-    ```ABAP
+   ```ABAP
 
-    WHERE currency_code = 'EUR'
+   WHERE currency_code = 'EUR'
 
-    ```
+   ```
 
-    <!-- border -->
     ![step6a-where-eur](step6a-where-eur.png) 
 
 2. Save and activate the data definition by choosing **Save** (`Ctrl+S`) and **Activate** (`Ctrl+F3`).
 
-    <!-- border -->
     ![Image depicting step14-saveAndActivate](step14-saveAndActivate.png)
 
 
@@ -212,7 +201,6 @@ where
 ```
 Open the CDS View in the Data Preview by choosing **F8**. Your CDS View should look roughly like this:
 
-  <!-- border -->
   ![Image depicting step15-data-preview](step15-data-preview.png)
 
 

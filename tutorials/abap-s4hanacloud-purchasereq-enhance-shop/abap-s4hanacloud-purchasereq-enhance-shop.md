@@ -39,92 +39,92 @@ In this tutorial, wherever ### appears, use a number (e.g. 000). This tutorial i
 
   1. Open your behavior definition **`ZR_SHOPCARTTP_###`** to enhance it. Add the following statements to your behavior definition:
 
-    ```ABAP
-    update (features: instance);
-    .
-    .
-    draft action(features: instance) Edit;
-    ```
+   ```ABAP
+   update (features: instance);
+   .
+   .
+   draft action(features: instance) Edit;
+   ```
 
-     ![projection](updatenew.png)
+   ![projection](updatenew.png)
 
   2. Replace the following statements to your behavior definition:
 
-    ```ABAP
-    draft determine action Prepare { validation checkOrderedQuantity;  validation checkDeliveryDate;}
-      determination setInitialOrderValues on modify { create; }
-      determination calculateTotalPrice on modify { create; field Price; } 
-      validation checkOrderedQuantity on save { create; field OrderQuantity; }
-      validation checkDeliveryDate on save { create; field DeliveryDate; }
-    ```
+   ```ABAP
+   draft determine action Prepare { validation checkOrderedQuantity;  validation checkDeliveryDate;}
+     determination setInitialOrderValues on modify { create; }
+     determination calculateTotalPrice on modify { create; field Price; } 
+     validation checkOrderedQuantity on save { create; field OrderQuantity; }
+     validation checkDeliveryDate on save { create; field DeliveryDate; }
+   ```
    
-     ![projection](bdef5xx.png) 
+   ![projection](bdef5xx.png) 
  
   3. Check your behavior definition:
 
-    ```ABAP
-    managed implementation in class ZBP_SHOPCARTTP_### unique;
-    strict ( 2 );
-    with draft;
+   ```ABAP
+   managed implementation in class ZBP_SHOPCARTTP_### unique;
+   strict ( 2 );
+   with draft;
 
-    define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
-    persistent table zashopcart_###
-    draft table ZDSHOPCART_###
-    etag master LocalLastChangedAt
-    lock master total etag LastChangedAt
-    authorization master( global )
-    {
-      field ( readonly ) 
-      OrderUUID,
-      CreatedAt,
-      CreatedBy,
-      LastChangedAt,
-      LastChangedBy,
-      LocalLastChangedAt,
-      PurchaseRequisition,
-      PrCreationDate,
-      DeliveryDate;      
+   define behavior for ZR_SHOPCARTTP_### alias ShoppingCart
+   persistent table zashopcart_###
+   draft table ZDSHOPCART_###
+   etag master LocalLastChangedAt
+   lock master total etag LastChangedAt
+   authorization master( global )
+   {
+     field ( readonly ) 
+     OrderUUID,
+     CreatedAt,
+     CreatedBy,
+     LastChangedAt,
+     LastChangedBy,
+     LocalLastChangedAt,
+     PurchaseRequisition,
+     PrCreationDate,
+     DeliveryDate;      
 
-      field ( numbering : managed )
-      OrderUUID;
+     field ( numbering : managed )
+     OrderUUID;
 
-      create;
-      update(features: instance) ;
-      delete;
+     create;
+     update(features: instance) ;
+     delete;
 
-      draft action(features: instance) Edit;
-      draft action Activate;
-      draft action Discard; 
-      draft action Resume;
-      draft determine action Prepare { validation checkOrderedQuantity;  validation checkDeliveryDate;}
-        determination setInitialOrderValues on modify { create; }
-        determination calculateTotalPrice on modify { create; field Price; }
-        validation checkOrderedQuantity on save { create; field OrderQuantity; }
-        validation checkDeliveryDate on save { create; field DeliveryDate; }
+     draft action(features: instance) Edit;
+     draft action Activate;
+     draft action Discard; 
+     draft action Resume;
+     draft determine action Prepare { validation checkOrderedQuantity;  validation checkDeliveryDate;}
+       determination setInitialOrderValues on modify { create; }
+       determination calculateTotalPrice on modify { create; field Price; }
+       validation checkOrderedQuantity on save { create; field OrderQuantity; }
+       validation checkDeliveryDate on save { create; field DeliveryDate; }
 
-      mapping for ZASHOPCART_### 
-      {
-        OrderUUID = order_uuid;
-        OrderID = order_id;
-        OrderedItem = ordered_item;
-        Price = price;
-        TotalPrice = total_price;
-        Currency = currency;
-        OrderQuantity = order_quantity;
-        DeliveryDate = delivery_date;
-        OverallStatus = overall_status;
-        Notes = notes;
-        CreatedBy = created_by;
-        CreatedAt = created_at;
-        LastChangedBy = last_changed_by;
-        LastChangedAt = last_changed_at;
-        LocalLastChangedAt = local_last_changed_at;
-        PurchaseRequisition = purchase_requisition;
-        PrCreationDate = pr_creation_date;
-      }
-    }
-    ```
-    **Hint:** Please replace **`###`** with your ID.
+     mapping for ZASHOPCART_### 
+     {
+       OrderUUID = order_uuid;
+       OrderID = order_id;
+       OrderedItem = ordered_item;
+       Price = price;
+       TotalPrice = total_price;
+       Currency = currency;
+       OrderQuantity = order_quantity;
+       DeliveryDate = delivery_date;
+       OverallStatus = overall_status;
+       Notes = notes;
+       CreatedBy = created_by;
+       CreatedAt = created_at;
+       LastChangedBy = last_changed_by;
+       LastChangedAt = last_changed_at;
+       LocalLastChangedAt = local_last_changed_at;
+       PurchaseRequisition = purchase_requisition;
+       PrCreationDate = pr_creation_date;
+     }
+   }
+   ```
+   **Hint:** Please replace **`###`** with your ID.
     
    4. Save and activate. 
 
@@ -151,50 +151,50 @@ This data definition is needed to create a value help for products.
 
  4. In your data definition **`ZI_Products_###`** replace your code with following:
 
-    ```ABAP
-    @AbapCatalog.viewEnhancementCategory: [#NONE]
-    @AccessControl.authorizationCheck: #NOT_REQUIRED
-    @EndUserText.label: 'Value Help for I_PRODUCT'
-    @Metadata.ignorePropagatedAnnotations: true
-    @ObjectModel.usageType:{
-      serviceQuality: #X,
-      sizeCategory: #S,
-      dataClass: #MIXED
-    }
-    define view entity ZI_PRODUCTS_###
-      as select from I_Product
-    {
-      key Product                                                 as Product,
-          _Text[1: Language=$session.system_language].ProductName as ProductText,
-          @Semantics.amount.currencyCode: 'Currency'
-          case
-            when Product = 'D001' then cast ( 1000.00 as abap.dec(16,2) ) 
-            when Product = 'D002' then cast ( 499.00 as abap.dec(16,2) ) 
-            when Product = 'D003' then cast ( 799.00 as abap.dec(16,2) ) 
-            when Product = 'D004' then cast ( 249.00 as abap.dec(16,2) )
-            when Product = 'D005' then cast ( 1500.00 as abap.dec(16,2) ) 
-            when Product = 'D006' then cast ( 30.00 as abap.dec(16,2) ) 
-            else cast ( 100000.00 as abap.dec(16,2) ) 
-          end                                                     as Price,
-          
-          @UI.hidden: true
-          cast ( 'EUR' as abap.cuky( 5 ) )                        as Currency,
+   ```ABAP
+   @AbapCatalog.viewEnhancementCategory: [#NONE]
+   @AccessControl.authorizationCheck: #NOT_REQUIRED
+   @EndUserText.label: 'Value Help for I_PRODUCT'
+   @Metadata.ignorePropagatedAnnotations: true
+   @ObjectModel.usageType:{
+     serviceQuality: #X,
+     sizeCategory: #S,
+     dataClass: #MIXED
+   }
+   define view entity ZI_PRODUCTS_###
+     as select from I_Product
+   {
+     key Product                                                 as Product,
+         _Text[1: Language=$session.system_language].ProductName as ProductText,
+         @Semantics.amount.currencyCode: 'Currency'
+         case
+           when Product = 'D001' then cast ( 1000.00 as abap.dec(16,2) ) 
+           when Product = 'D002' then cast ( 499.00 as abap.dec(16,2) ) 
+           when Product = 'D003' then cast ( 799.00 as abap.dec(16,2) ) 
+           when Product = 'D004' then cast ( 249.00 as abap.dec(16,2) )
+           when Product = 'D005' then cast ( 1500.00 as abap.dec(16,2) ) 
+           when Product = 'D006' then cast ( 30.00 as abap.dec(16,2) ) 
+           else cast ( 100000.00 as abap.dec(16,2) ) 
+         end                                                     as Price,
+         
+         @UI.hidden: true
+         cast ( 'EUR' as abap.cuky( 5 ) )                        as Currency,
 
-          @UI.hidden: true
-          ProductGroup                                            as ProductGroup,
+         @UI.hidden: true
+         ProductGroup                                            as ProductGroup,
 
-          @UI.hidden: true
-          BaseUnit                                                as BaseUnit
+         @UI.hidden: true
+         BaseUnit                                                as BaseUnit
 
-    }
-    where
-        Product = 'D001'
-      or Product = 'D002'
-      or Product = 'D003'
-      or Product = 'D004'
-      or Product = 'D005'
-      or Product = 'D006'
-    ```
+   }
+   where
+       Product = 'D001'
+     or Product = 'D002'
+     or Product = 'D003'
+     or Product = 'D004'
+     or Product = 'D005'
+     or Product = 'D006'
+   ```
 
  5. Save and activate.
 

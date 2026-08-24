@@ -51,7 +51,6 @@ Technically:
 1. SAP Cloud Connector opens a tunnel connection to the ABAP environment tenant using its public tenant URL
 2. After the tunnel is established, it can be used for actual data connection using the RFC or HTTP(S) protocols. 
 
-<!-- border -->
 ![step0-overview-2402](step0-overview-2402.png)
 
 ### Test yourself

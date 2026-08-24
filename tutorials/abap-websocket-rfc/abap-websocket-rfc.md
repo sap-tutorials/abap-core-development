@@ -50,19 +50,19 @@ First, you have to create a communication scenario based on a remote-enabled fun
     - Description: **`RFM for WebSocket RFC`**
 5. Paste the following code.
 
-    ```ABAP
-        FUNCTION Z_RFM_XXX
+   ```ABAP
+       FUNCTION Z_RFM_XXX
 
-          IMPORTING
-            VALUE(input) TYPE string
-          EXPORTING
-            VALUE(output) TYPE string.
-        
-          output = input && ' How are you?'.
+         IMPORTING
+           VALUE(input) TYPE string
+         EXPORTING
+           VALUE(output) TYPE string.
+       
+         output = input && ' How are you?'.
 
-        ENDFUNCTION.
+       ENDFUNCTION.
 
-    ```
+   ```
 
 6. Save and activate the function module.
 
@@ -152,40 +152,40 @@ The connection test returns a ping result.
     - Description: **`WebSocket RFC Call`**
 3. Paste the following code.
 
-    ```ABAP
+   ```ABAP
 
-      CLASS z_ws_rfc_call_xxx DEFINITION
-        PUBLIC
-        FINAL
-        CREATE PUBLIC .
+     CLASS z_ws_rfc_call_xxx DEFINITION
+       PUBLIC
+       FINAL
+       CREATE PUBLIC .
 
-        PUBLIC SECTION.
+       PUBLIC SECTION.
 
-          INTERFACES if_oo_adt_classrun .
-        PROTECTED SECTION.
-        PRIVATE SECTION.
-      ENDCLASS.
+         INTERFACES if_oo_adt_classrun .
+       PROTECTED SECTION.
+       PRIVATE SECTION.
+     ENDCLASS.
 
-      CLASS z_ws_rfc_call_xxx IMPLEMENTATION.
+     CLASS z_ws_rfc_call_xxx IMPLEMENTATION.
 
-        METHOD if_oo_adt_classrun~main.
+       METHOD if_oo_adt_classrun~main.
 
-          DATA lv_output TYPE string.
-          DATA lv_input TYPE string VALUE 'Hello world!'.
+         DATA lv_output TYPE string.
+         DATA lv_input TYPE string VALUE 'Hello world!'.
 
-          CALL FUNCTION 'Z_RFM_XXX' DESTINATION 'Z_WSRFCDEST_XXX'
-            EXPORTING
-              input  = lv_input
-            IMPORTING
-              output = lv_output.
+         CALL FUNCTION 'Z_RFM_XXX' DESTINATION 'Z_WSRFCDEST_XXX'
+           EXPORTING
+             input  = lv_input
+           IMPORTING
+             output = lv_output.
 
 
-          out->write( lv_output ).
+         out->write( lv_output ).
 
-        ENDMETHOD.
-      ENDCLASS.
+       ENDMETHOD.
+     ENDCLASS.
 
-    ```
+   ```
 
 4. Save and activate the class.
 5. Choose **Run > Run AS > ABAP Application (Console)**.

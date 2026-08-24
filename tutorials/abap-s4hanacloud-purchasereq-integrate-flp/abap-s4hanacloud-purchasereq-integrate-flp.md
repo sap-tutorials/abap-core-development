@@ -98,11 +98,11 @@ In this step, you will create a technical catalog. The technical catalog will be
  
       Click **Save**. 
 
-    > **Hint**: The technical catalog has the naming convention `TC`.
+  > **Hint**: The technical catalog has the naming convention `TC`.
 
-     Now the **SAP Fiori Launchpad Application Manager** opens.
+   Now the **SAP Fiori Launchpad Application Manager** opens.
 
-     The technical catalog contains the launchpad app descriptor item, which will be added in the next step.
+   The technical catalog contains the launchpad app descriptor item, which will be added in the next step.
 
 ### Create a launchpad app descriptor item
 
@@ -110,7 +110,7 @@ In this step, you will create a technical catalog. The technical catalog will be
 
       ![catalog](newx.png)
     
-    > **Hint:** The launchpad app descriptor item can be for e.g. an SAPUI5 Fiori app.
+   > **Hint:** The launchpad app descriptor item can be for e.g. an SAPUI5 Fiori app.
 
   2. Fill in the target application fields:
      - App Type: SAPUI5 Fiori App
@@ -157,7 +157,7 @@ In this step, you will create a business catalog. The SAP Fiori business catalog
 
       Select your transport request and description. Select the check mark.
 
-    > **Hint**: The technical catalog has the naming convention `BC`.
+   > **Hint**: The technical catalog has the naming convention `BC`.
 
   5. Click **Add Tiles/Target Mappings** and select **`Add Tiles/TMs to Selected Catalog`**.
 
