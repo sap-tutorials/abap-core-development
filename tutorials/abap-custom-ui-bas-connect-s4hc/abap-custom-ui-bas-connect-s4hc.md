@@ -7,7 +7,7 @@ primary_tag: programming-tool>abap-extensibility
 author_name: Peter Persiel
 author_profile: https://github.com/peterpersiel
 ---
-<!-- DONE with FYZ/100 and BTP Trial -->
+<!-- DONE with BGO/100 and BTP Trial -->
 # Connect SAP Business Application Studio and SAP S/4HANA Cloud System
 
 <!-- description -->For key user extensibility connect SAP Business Application Studio and an SAP S/4HANA Cloud system using SAML assertion authentication to develop custom UIs.
@@ -25,9 +25,11 @@ author_profile: https://github.com/peterpersiel
 
 ## Additional Infos
 
-- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/group.sap-fiori-app-purchase-req.html)
-- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2602
+- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/tutorials/group-develop-an-sap-fiori-app-to-trigger-purchase-requisitions-api)
+- Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
 - Alternatively, see [Integrating SAP Business Application Studio](https://help.sap.com/viewer/0f69f8fb28ac4bf48d2b57b9637e81fa/latest/en-US/22bc724fd51a4aa4a4d1c5854db7e026.html) documentation for this tutorial's content with a customer account.
+
+---
 
 ### Create destination to SAP S/4HANA Cloud system
 
@@ -49,9 +51,34 @@ Although this tutorial describes the flow with a trial account, the sequence is 
 
 4. Select **Destinations**.
 
-5. To simplify the destination creation and to reduce the risk of errors, this tutorial provides a template file for the destination. You can download [`SAML_ASSERTION_destination_template.json`](SAML_ASSERTION_destination_template.json) locally.
+5. To simplify the destination creation and to reduce the risk of errors, this tutorial provides a template for the destination:
 
-6. Create the destination either by uploading the text file via **Create → From File** (A) or if you want to input everything manually via **Create → From Scratch** (B).
+```json
+{
+  "exportTime": "2025-09-05 14:30:04.933832067",
+  "destination": {
+    "Name": "YOUR_SYSTEMS_ID_SAML_ASSERTION",
+    "Type": "HTTP",
+    "Description": "SAML Assertion Destination to SAP S/4HANA Cloud system YOUR_SYSTEMS_ID",
+    "URL": "https://my12345-api.s4hana.cloud.sap",
+    "ProxyType": "Internet",
+    "Authentication": "SAMLAssertion",
+    "authnContextClassRef": "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession",
+    "audience": "https://my12345.s4hana.cloud.sap",
+    "skipUserAttributesPrefixInSAMLAttributes": "false",
+    "includeSigningCertificateInSAMLAssertion": "false",
+    "skipUserUuidInSAMLAttributes": "false",
+    "HTML5.DynamicDestination": "true",
+    "HTML5.Timeout": "60000",
+    "WebIDEEnabled": "true",
+    "WebIDEUsage": "odata_abap,dev_abap"
+  }
+}
+```
+
+You can save the file as a .json file on your machine the simplify the destination creation steps.
+
+6. Create the destination either by uploading the file via **Create → From File** (A) or if you want to input everything manually via **Create → From Scratch** (B).
 
 7. In case of import (A) adapt the `Name` and `Description` to your needs and provide the mandatory value for `URL` and `Audience` and empty value for `Client Key` as shown below.
 
@@ -59,9 +86,9 @@ Although this tutorial describes the flow with a trial account, the sequence is 
 
     |  Field Name       | Value
     |  :--------------- | :-------------
-    |  `Name`           | **`<YOUR_SYSTEMS_ID>_SAML_ASSERTION`**
+    |  `Name`           | **`YOUR_SYSTEMS_ID_SAML_ASSERTION`**
     |  `Type`           | **`HTTP`**
-    |  `Description`    | **`SAML Assertion Destination to SAP S/4HANA Cloud system <YOUR_SYSTEMS_ID>`**
+    |  `Description`    | **`SAML Assertion Destination to SAP S/4HANA Cloud system YOUR_SYSTEMS_ID`**
     |  `URL`            | In the SAP S/4HANA Cloud system, navigate to the **Communication Systems** app, click the **Own SAP Cloud System** button, copy the **Host Name** and paste it with prefix `https://`, for example `https://my12345-api.s4hana.cloud.sap`![Own System Host Name in Communication Systems App](s4hc-cs-own-system-host-name.png)
     |  `Proxy Type`     | **`Internet`**
     |  `Authentication` | **`SAMLAssertion`**
@@ -130,7 +157,7 @@ With the downloaded trust certificate from the SAP Business Application Studio s
 
     ![New Communication System](s4hc-cs-new.png)
 
-- Enter a System ID and System Name, for example `BAS_<YOUR SUBACCOUNTS_SUBDOMAIN>` like `BAS_12AB34CDTRIAL` and choose **Create**.
+- Enter a System ID and System Name, for example `BAS_YOUR_SUBACCOUNTS_SUBDOMAIN` like `BAS_12AB34CDTRIAL` and choose **Create**.
 
     ![Create Communication System](s4hc-cs-create.png)
 

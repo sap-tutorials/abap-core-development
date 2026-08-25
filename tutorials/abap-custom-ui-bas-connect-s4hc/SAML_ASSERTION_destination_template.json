@@ -3,7 +3,7 @@
   "destination": {
     "Name": "YOUR_SYSTEMS_ID_SAML_ASSERTION",
     "Type": "HTTP",
-    "Description": "SAML Assertion Destination to SAP S/4HANA Cloud system <YOUR_SYSTEMS_ID>",
+    "Description": "SAML Assertion Destination to SAP S/4HANA Cloud system YOUR_SYSTEMS_ID",
     "URL": "https://my12345-api.s4hana.cloud.sap",
     "ProxyType": "Internet",
     "Authentication": "SAMLAssertion",
