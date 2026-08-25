@@ -25,7 +25,7 @@ author_profile: https://github.com/peterpersiel
 
 ## Additional Infos
 
-- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](group-develop-an-sap-fiori-app-to-trigger-purchase-requisitions-api)
+- If you want to create a custom SAP Fiori app with developer extensibility check out [Develop an SAP Fiori App to Trigger Purchase Requisitions API](https://developers.sap.com/tutorials/group-develop-an-sap-fiori-app-to-trigger-purchase-requisitions-api)
 - Tutorial last checked for feasibility with SAP S/4HANA Cloud Release 2608
 - Alternatively, see [Integrating SAP Business Application Studio](https://help.sap.com/viewer/0f69f8fb28ac4bf48d2b57b9637e81fa/latest/en-US/22bc724fd51a4aa4a4d1c5854db7e026.html) documentation for this tutorial's content with a customer account.
 
