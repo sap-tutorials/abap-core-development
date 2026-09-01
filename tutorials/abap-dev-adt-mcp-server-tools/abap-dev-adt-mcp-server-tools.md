@@ -148,43 +148,44 @@ If the ADT MCP Server does not appear or fails to start:
 ## Exercise 1.3: Verify the ADT MCP Tools in your coding agent
 [^Top of page](#)
 
-> Open the **Chat** view of your coding agent in agent mode and confirm that the ADT MCP tools are loaded and available.
+> Open the **Chat** view of your coding agent in the agent mode. Confirm that the ADT MCP tools are loaded and available.
 
 <details>
   <summary>🔵 Click to expand!</summary>
 
-1. If not displayed by default, open the **GitHub Copilot Chat** view in Visual Studio Code.
+1. If not displayed by default, open the GitHub Copilot **Chat** view in Visual Studio Code.
 
       ![GitHub Copilot Chat view](images/ex0_github_copilot_chat.png)
 
-    You have the following possiblities:  
+    You have the following possiblities to do this:  
    - Click the **Copilot** icon in the **Activity Bar** (left),
    - choose *View* > *Chat* from the menu, or    
    - press **'Ctrl+Shift+I'** (macOS: **'Cmd+Shift+I'**)
 
 2. Switch the chat mode to **Agent** in the chat dropdown.
 
-   > ℹ️ **Note**: ADT MCP tools are only available in **Agent** mode — not in the standard **Ask** or **Plan** modes.
+   > ℹ️ **Note**: ADT MCP tools are only available in **Agent** mode — not in the standard **Ask** or **Plan** mode.
  
-   ![Activating the agent mode in the Chat view](images/ex0_agent_mode.png)   
+   ![Choosing the agent mode in the Chat view](images/ex0_agent_mode.png)   
 
 3. Click the **Configure Tools** (tools wrench icon) button in the Copilot chat input bar.
 
-4. A quick pick list appears showing available tool providers. You should see the following node:
-   - **ADT MCP Server** with a list of tools below it (e.g., 'abap_generators-list_generators', 'abap_creation-create_object', etc.)
+4. A quick pick list appears showing available tool providers. 
+
+    You should see the **ADT MCP Server** node with a list of tools below it (e.g., 'abap_generators-list_generators', 'abap_creation-create_object', etc.)
 
    > ✅ If you see the ADT MCP Server and its tools listed, your setup is complete!
 
 5. Check and ensure the ADT MCP Server tools are **checked/enabled** in the list.
 
-6. **Sanity test** — type the following prompt in your coding agent's chat and press **Enter**:
+6. **Sanity test** — type the following prompt in the chat and press **Enter**:
    ```
    List all available ABAP RAP generators using the MCP tool.
    ```
 
-   Your coding agent will request to call the 'abap_generators-list_generators' tool. **Allow** the tool call when prompted.
+   The coding agent will request to call the 'abap_generators-list_generators' tool. **Allow** the tool call when prompted.
 
-   You should see a list of available generators returned, including an entry for **'OData UI Service from Scratch'**.
+   You should see a list of available generators returned, including an entry for **OData UI Service from Scratch**.
 
    > ✅ If you see generator names returned, the ADT MCP Server is working correctly with your coding agent!
    
