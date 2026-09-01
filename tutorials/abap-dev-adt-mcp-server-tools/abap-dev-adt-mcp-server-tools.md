@@ -4,7 +4,7 @@
 
 In this tutorial, you will enable the **ADT MCP Server** that is built into **ABAP Development Tools for VS Code** and verify that the ADT MCP tools are available.
 
-The ADT MCP Server exposes ABAP development capabilities as **Model Context Protocol (MCP) tools** — allowing you to create packages, create transport requests, generate complete RAP applications, activate objects, and more through natural language prompts. For more information, see [Agentic AI for ABAP Development](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/agentic-ai-development?locale=en-US)
+The ADT MCP Server exposes ABAP development capabilities as **[Model Context Protocol (MCP)**](https://modelcontextprotocol.io/), an open standard that allows AI assistants (like [GitHub Copilot](https://github.com/features/copilot))). It allows you to create packages, to create transport requests, to generate complete RAP applications, activate objects, and more through natural language prompts. For more information, see [Agentic AI for ABAP Development](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/agentic-ai-development?locale=en-US)
 
 ### Exercises
 
@@ -17,7 +17,7 @@ The ADT MCP Server exposes ABAP development capabilities as **Model Context Prot
 
 ## About the ADT MCP Server 💎
 
-The **ADT MCP Server** is a local HTTP server that runs inside the ADT for Visual Studio Code extension. It implements the **Model Context Protocol (MCP)**, an open standard that allows AI assistants (like [GitHub Copilot](https://github.com/features/copilot))) to call tools in a structured, authenticated way.
+The **ADT MCP Server** is a local HTTP server that runs inside and is part of the **ABAP Development Tools for Visual Studio Code** extension. It implements the Model Context Protocol (MCP) to call tools in a structured, authenticated way.
 
 When enabled, the ADT MCP server exposes a set of ABAP development tools to any MCP-compatible AI assistant. In this workshop, the exercises use **GitHub Copilot** (see [Quickstart for GitHub Copilot](https://docs.github.com/en/copilot/get-started/quickstart)) as the client. Any coding agent that supports Visual Studio Code's virtual workspace filesystem is compatible — GitHub Copilot is confirmed; others are also supported.
 
@@ -40,12 +40,11 @@ For example, the following ADT MCP tools are available:
 |abap_transport-create|Creates a transport request|
 |abap_transport-get|Validates and displays relevant transport requests for a given object|
 
-See [ADT MCP Tools](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/mcp-tools?locale=en-US) for the complete list of tools available.
+> ℹ️ **Note**: See [ADT MCP Tools](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/mcp-tools?locale=en-US) for the complete list of tools available.
 
 > ⚠ **Warning regarding AI outputs** ⚠
 > The ADT MCP Server is an **experimental feature** that may change at any time without notice. It is not intended for productive use. Please back up your data before using it.
-
-> **Further reading**: [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
+> **Further reading**: [Security Considerations and Recommendations](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/security-recommendations-and-considerations)
 
 ---
 
@@ -62,16 +61,16 @@ See [ADT MCP Tools](https://help.sap.com/docs/abap-cloud/abap-development-tools-
    b. Type 'Preferences: Open Settings (UI)' and select the finding.
 
 2. In the search bar, type:
-   '''
+   ```
    adt mcp
-   '''
+   ```
 
 3. The findings in the **Extensions > ABAP Development** node are displayed. Locate the setting **'Adt: Enable MCP Server'** (or similar) and **enable it** by checking the checkbox.
 
-   > ℹ️ **Hint**: You can also switch to JSON mode (click the '{}' icon top-right in Settings) and add:
-   > '''json
-   >  'adt.mcpServer.enabled': true
-   > '''
+   > ℹ️ **Hint**: You can also switch to JSON mode (click the '{}' icon top-right in Settings) and add:  
+   ```
+   json 'adt.mcpServer.enabled': true
+   ```
 
 4. Optionally, you can configure the **MCP server port** (default: '2236'). Only change this if port 2236 is occupied on your machine:  
    a. Search for 'ADT MCP port' in Settings  
@@ -82,7 +81,7 @@ See [ADT MCP Tools](https://help.sap.com/docs/abap-cloud/abap-development-tools-
 
    ![ADT MCP Server setting enabled](images/ex0_mcp_setting.png)
 
-> ⚠️ **Important**: Make sure your system destination is still added to the workspace (from Exercise 0.4). The MCP server only starts once a destination is active in the workspace.
+> ⚠️ **Important**: Make sure your system destination is still added to the workspace. The MCP server only starts once a destination is active in the workspace.
 
 </details>
 
@@ -100,11 +99,10 @@ After enabling the setting and having a destination in the workspace, the server
 
 ### Method 1: Check for the startup notification
 
-1. Look at the **bottom-right corner** of Visual Studio Code for a notification:
-   '''
+1. Look at the **bottom-right corner** for a notification in the status bar:
+   ```
    ADT MCP Server running on port 2236
-   '''
-
+   ```
    ![ADT MCP Server running](images/ex0_mcp_running.png)
 
    > ℹ️ If you don't see the notification, proceed to Method 2.
@@ -151,10 +149,15 @@ If the ADT MCP Server does not appear or fails to start:
 <details>
   <summary>🔵 Click to expand!</summary>
 
-1. If not displayed by default, open the **GitHub Copilot Chat** in Visual Studio Code:  
-   a. Click the **Copilot** icon in the **Activity Bar** (left), or  
-   b. Press **'Ctrl+Shift+I'** (macOS: **'Cmd+Shift+I'**)
+1. If not displayed by default, open the **GitHub Copilot Chat** view in Visual Studio Code.
+
       ![GitHub Copilot Chat view](images/ex0_github_copilot_chat.png)
+
+    You have the following possiblities:  
+   - Click the **Copilot** icon in the **Activity Bar** (left),
+   - choose *View* > *Chat* from the menu, or    
+   - press **'Ctrl+Shift+I'** (macOS: **'Cmd+Shift+I'**)
+
 
 
 2. Switch the chat mode to **'Agent'** in the chat dropdown.
