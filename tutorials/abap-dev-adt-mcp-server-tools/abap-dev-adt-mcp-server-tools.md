@@ -124,11 +124,11 @@ After enabling the setting and having a destination in the workspace, the server
 
 ### Method 3: Check the display in the Output view
 
-1. Open the **Output** view on the bottom.
+5. Open the **Output** view beneath the editor.
 
    ![MCP Server listed in the Output view](images/ex0_output_server.png)
 
-2. Select **MCP: ADT MCP Servers** from the drop-down list.
+6. Select **MCP: ADT MCP Servers** from the drop-down list. Then, the status will be displayed in the **Output** view.
 
    ![MCP Server listed and running in the Output view](images/ex0_output_verfication_mcp.png)
 
@@ -136,9 +136,10 @@ After enabling the setting and having a destination in the workspace, the server
 
 If the ADT MCP Server does not appear or fails to start:
 
-1. **Disable and re-enable** the 'Adt: Enable MCP Server' setting.
-2. **Remove** the destination folder from the workspace and **add it back** (Command Palette → 'ABAP: Add Destination as Folder to the Workspace...').
-3. **Restart** Visual Studio Code.
+1. Disable and re-enable the **Adt: Enable MCP Server** setting.
+
+2. Remove the destination folder from the workspace and **add it back** from the Command Palette → 'ABAP: Add Destination as Folder to the Workspace...'.
+3. Restart Visual Studio Code.
 
 </details>
 
@@ -147,7 +148,7 @@ If the ADT MCP Server does not appear or fails to start:
 ## Exercise 1.3: Verify the ADT MCP Tools in your coding agent
 [^Top of page](#)
 
-> Open your coding agent in agent mode and confirm that the ADT MCP tools are loaded and available.
+> Open the **Chat** view of your coding agent in agent mode and confirm that the ADT MCP tools are loaded and available.
 
 <details>
   <summary>🔵 Click to expand!</summary>
@@ -160,8 +161,6 @@ If the ADT MCP Server does not appear or fails to start:
    - Click the **Copilot** icon in the **Activity Bar** (left),
    - choose *View* > *Chat* from the menu, or    
    - press **'Ctrl+Shift+I'** (macOS: **'Cmd+Shift+I'**)
-
-
 
 2. Switch the chat mode to **Agent** in the chat dropdown.
 
