@@ -8,7 +8,7 @@ author_name: Shilpa Shankar
 author_profile: https://github.com/shilpashankar02
 ---
 
-# ABAP Core Tools for Visual Studio Code
+# ABAP Basic Features for Visual Studio Code
 <!-- description --> You will explore the ABAP Development Tool (ADT) functionality in Visual Studio Code which do not require Agentic AI capabilities.
 
 ## Introduction
