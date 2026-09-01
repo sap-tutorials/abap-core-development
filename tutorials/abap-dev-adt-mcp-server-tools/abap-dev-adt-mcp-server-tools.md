@@ -68,6 +68,8 @@ For example, the following ADT MCP tools are available:
 
 3.  Locate the **Adt: Enable MCP Server** setting (or similar) and enable it by checking the checkbox.
 
+   ![ADT MCP Server setting enabled](images/ex0_adt_settings_enable_mcp.png)
+
       > ℹ️ **Hint**: You can also switch to JSON mode (click the '{}' icon top-right in settings) and add:
        >```
       >json 'adt.mcpServer.enabled': true
