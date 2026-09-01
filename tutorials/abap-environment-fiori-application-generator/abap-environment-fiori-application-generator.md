@@ -14,13 +14,13 @@ This tutorial was written for SAP BTP ABAP Environment. However, you should also
 Always replace `###` with your initials or group number.
 
 ## Prerequisites  
-- You need an SAP BTP, ABAP environment [trial user](abap-environment-trial-onboarding) or a license.
+- You need an SAP BTP, ABAP Environment [trial user](abap-environment-trial-onboarding) or a license.
 - You have completed [Create Database Table and Generate UI Service](https://developers.sap.com/tutorials/abap-environment-rap100-generate-ui-service.html).
 - Your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
   
 ## You will learn
 
-  - How to create a List Report based SAP Fiori application from service binding using the quick Fiori application generator.
+  - How to create a List Report based SAP Fiori Application from service binding using the quick Fiori application generator.
   
 ### Create SAP Fiori application
 
