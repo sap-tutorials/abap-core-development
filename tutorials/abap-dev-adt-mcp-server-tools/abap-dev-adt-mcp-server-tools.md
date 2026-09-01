@@ -58,22 +58,23 @@ For example, the following ADT MCP tools are available:
 
 1. Open **Visual Studio Code Settings** as follows:  
    a. Open the **Command Palette** with **'Ctrl+Shift+P'** (macOS: **'Cmd+Shift+P'**)  
-   b. Type 'Preferences: Open Settings (UI)' and select the finding.
+   b. Type **Preferences: Open Settings (UI)** and select the finding.
 
 2. In the search bar, type:
    ```
    adt mcp
    ```
+    The findings in the **Extensions > ABAP Development** node are displayed.
 
-3. The findings in the **Extensions > ABAP Development** node are displayed. Locate the setting **'Adt: Enable MCP Server'** (or similar) and **enable it** by checking the checkbox.
+3.  Locate the **Adt: Enable MCP Server** setting (or similar) and enable it by checking the checkbox.
 
-   > ℹ️ **Hint**: You can also switch to JSON mode (click the '{}' icon top-right in Settings) and add:  
-   ```
-   json 'adt.mcpServer.enabled': true
-   ```
+      > ℹ️ **Hint**: You can also switch to JSON mode (click the '{}' icon top-right in settings) and add:
+       >```
+      >json 'adt.mcpServer.enabled': true
+      >```
 
-4. Optionally, you can configure the **MCP server port** (default: '2236'). Only change this if port 2236 is occupied on your machine:  
-   a. Search for 'ADT MCP port' in Settings  
+4. Optionally, you can configure the **MCP server port** (default: '2236'). Note that you only change this if port 2236 is occupied on your machine. Proceed as follows:  
+   a. Search for **ADT MCP port** in the Settings.
    b. Set it to any available port to '2236'.  
     > ℹ️ **Hint**: If the port is not available, set the value between '0' and '65535'.
 
@@ -90,7 +91,7 @@ For example, the following ADT MCP tools are available:
 ## Exercise 1.2: Verify the ADT MCP Server is Running
 [^Top of page](#)
 
-> Confirm that the ADT MCP Server started successfully.
+> Confirm that the ADT MCP Server started successfully. See **Method 1**, step 1.
 
 <details>
   <summary>🔵 Click to expand!</summary>
@@ -99,9 +100,9 @@ After enabling the setting and having a destination in the workspace, the server
 
 ### Method 1: Check for the startup notification
 
-1. Look at the **bottom-right corner** for a notification in the status bar:
+1. Look at the bottom-right corner for a notification in the status bar:
    ```
-   ADT MCP Server running on port 2236
+   ADT MCP Server running on port 2236.
    ```
    ![ADT MCP Server running](images/ex0_mcp_running.png)
 
@@ -113,17 +114,19 @@ After enabling the setting and having a destination in the workspace, the server
 
 2. Type **MCP: List Servers**.
 
-3. Select **'MCP: List Servers'** from the list.
+3. Select **'MCP: List Servers'** from the list.  
 
-4. You should see an entry for **ADT MCP Server** in the quick pick list.
+    You should then see an entry for **ADT MCP Server** in the quick pick list.
 
-5. Select it and click **Start Server** if it is not already running.
+4. Select it and click **Start Server** if it is not already running.
 
    ![MCP Server listed and running](images/ex0_mcp_list_servers.png)
 
 ### Method 3: Check the display in the Output view
 
 1. Open the **Output** view on the bottom.
+
+   ![MCP Server listed in the Output view](images/ex0_output_server.png)
 
 2. Select **MCP: ADT MCP Servers** from the drop-down list.
 
@@ -160,13 +163,13 @@ If the ADT MCP Server does not appear or fails to start:
 
 
 
-2. Switch the chat mode to **'Agent'** in the chat dropdown.
+2. Switch the chat mode to **Agent** in the chat dropdown.
 
-   > ℹ️ **Note**: ADT MCP tools are only available in **Agent mode** — not in the standard Ask or Edit modes.
+   > ℹ️ **Note**: ADT MCP tools are only available in **Agent** mode — not in the standard **Ask** or **Plan** modes.
  
    ![Activating the agent mode in the Chat view](images/ex0_agent_mode.png)   
 
-3. Click the **'Configure Tools'** (tools wrench icon) button in the Copilot chat input bar.
+3. Click the **Configure Tools** (tools wrench icon) button in the Copilot chat input bar.
 
 4. A quick pick list appears showing available tool providers. You should see the following node:
    - **ADT MCP Server** with a list of tools below it (e.g., 'abap_generators-list_generators', 'abap_creation-create_object', etc.)
@@ -176,9 +179,9 @@ If the ADT MCP Server does not appear or fails to start:
 5. Check and ensure the ADT MCP Server tools are **checked/enabled** in the list.
 
 6. **Sanity test** — type the following prompt in your coding agent's chat and press **Enter**:
-   '''
+   ```
    List all available ABAP RAP generators using the MCP tool.
-   '''
+   ```
 
    Your coding agent will request to call the 'abap_generators-list_generators' tool. **Allow** the tool call when prompted.
 
