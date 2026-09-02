@@ -182,17 +182,20 @@ If the ADT MCP Server does not appear or fails to start:
 3. Click the **Configure Tools** (tools wrench icon) button in the Copilot chat input bar.  
    A quick pick list appears showing available tool providers. 
 
-    You should see the **ADT MCP Server** node with a list of tools below it (e.g., 'abap_generators-list_generators', 'abap_creation-create_object', etc.)
+      ![Icon to open the Configure Tools dialog](images/ex0_configure_tools_icon.png)
+
+      Here, you see the **ADT MCP Server** node with a list of the available tools, e.g., 'abap_generators-list_generators', 'abap_creation-create_object', and so on.
 
    > ✅ If you see the ADT MCP Server and its tools listed, your setup is complete!
 
 4. Check and ensure the ADT MCP Server tools are **checked/enabled** in the list.
 
-5. **Sanity test** — type the following prompt in the chat and press **Enter**:
+5. Run a **Sanity test**: Type the following prompt in the **Chat** view and press **Enter**:
    ```
    List all available ABAP RAP generators using the MCP tool.
    ```
-   The coding agent will request to call the 'abap_generators-list_generators' tool. **Allow** the tool call when prompted.
+   The coding agent will request to call the 'abap_generators-list_generators' tool.  
+   > ℹ️ **Note**: **Allow** the tool call when prompted.
 
    You should see a list of available generators returned, including an entry for **OData UI Service from Scratch**.
 
@@ -201,7 +204,9 @@ If the ADT MCP Server does not appear or fails to start:
    ![Available ABAP RAP Generators](images/ex0_available_generators.png)
 
 </details>
+
 ---
+
 ## Summary & Next Exercise
 [^Top of page](#)
 
