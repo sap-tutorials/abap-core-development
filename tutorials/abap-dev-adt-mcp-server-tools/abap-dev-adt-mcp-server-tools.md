@@ -1,12 +1,29 @@
-# Exercise: Enable the ADT MCP Server in ABAP Development Tools for VS Code 💎
+---
+parser: v2
+description: In this tutorial, you will enable the ADT MCP Server that is built into ABAP Development Tools for VS Code and verify that the ADT MCP tools are available.
+auto_validation: true
+primary_tag: programming-tool>abap-development
+tags: [  tutorial>beginner, programming-tool>abap-development, software-product>sap-business-technology-platform, software-product>sap-ai-core, topic>artificial-intelligence]
+time: 15
+author_name: Wolfgang Woehrle
+author_profile: https://github.com/wwoehrle2024
+---
 
-## Introduction
+# Exercise: Enable the ADT MCP Server in ABAP Development Tools for VS Code 💎
 
 In this tutorial, you will enable the **ADT MCP Server** that is built into **ABAP Development Tools for VS Code** and verify that the ADT MCP tools are available.
 
 The ADT MCP Server exposes ABAP development capabilities as **Model Context Protocol (MCP)** tools allowing you to create packages, to create transport requests, to generate complete RAP applications, activate objects, and more through natural language prompts. 
 
 > **Further reading**: [Agentic AI for ABAP Development](https://help.sap.com/docs/abap-cloud/abap-development-tools-for-visual-studio-code/agentic-ai-development?locale=en-US) and **[Model Context Protocol (MCP)**](https://modelcontextprotocol.io/)
+
+---
+
+## Prerequisites
+
+You have installed Visual Studio Code and the [**ABAP Development Tools for Visual Studio Code**](https://developers.sap.com/tutorials/abap-environment-adt-vscode/) extenstion.
+
+---
 
 ### Exercises
 
@@ -17,7 +34,7 @@ The ADT MCP Server exposes ABAP development capabilities as **Model Context Prot
 
 ---
 
-## About the ADT MCP Server 💎
+### About the ADT MCP Server 💎
 
 The **ADT MCP Server** is a local HTTP server that is integrated in and runs inside the **ABAP Development Tools for Visual Studio Code** extension. It implements the Model Context Protocol (MCP) to call tools in a structured, authenticated way.
 
@@ -50,7 +67,7 @@ For example, the following ADT MCP tools are available:
 
 ---
 
-## Exercise 1.1: Enable the ADT MCP Server in the Visual Studio Code Settings
+### Exercise 1.1: Enable the ADT MCP Server in the Visual Studio Code Settings
 [^Top of page](#)
 
 > Enable the built-in ADT MCP Server in the Visual Studio Code extension settings.
@@ -92,7 +109,7 @@ Note that you only change this if port 2236 is occupied on your machine. Proceed
 
 ---
 
-## Exercise 1.2: Verify the ADT MCP Server is Running
+### Exercise 1.2: Verify the ADT MCP Server is Running
 [^Top of page](#)
 
 > Check and confirm that the ADT MCP Server started successfully.
@@ -102,7 +119,7 @@ Note that you only change this if port 2236 is occupied on your machine. Proceed
 
 After enabling the setting and having a destination in the workspace, the server should start automatically.
 
-### Method 1: Check for the startup notification
+**Method 1: Check for the startup notification**
 
 1. Look at the bottom-right corner for a notification in the status bar:
    ```
@@ -110,9 +127,9 @@ After enabling the setting and having a destination in the workspace, the server
    ```
    ![ADT MCP Server running](images/ex0_mcp_running.png)
 
-   > ℹ️ If you don't see the notification, proceed to Method 2.
+   > ℹ️ If you don't see the notification, proceed to Method 2.  
 
-### Method 2: Check via MCP Server list
+**Method 2: Check via MCP Server list**
 
 1. Open the **Command Palette** (**'Ctrl+Shift+P'**).
 
@@ -129,7 +146,7 @@ After enabling the setting and having a destination in the workspace, the server
 
    ![MCP Server listed and running](images/ex0_mcp_list_servers.png)
 
-### Method 3: Check the display in the Output view
+**Method 3: Check the display in the Output view**
 
 5. Open the **Output** view beneath the editor.
 
@@ -139,7 +156,7 @@ After enabling the setting and having a destination in the workspace, the server
 
    ![MCP Server listed and running in the Output view](images/ex0_output_verfication_mcp.png)
 
-### Troubleshooting
+**Troubleshooting**
 
 If the ADT MCP Server does not appear or fails to start:
 
@@ -156,7 +173,7 @@ If the ADT MCP Server does not appear or fails to start:
 
 ---
 
-## Exercise 1.3: Verify the ADT MCP Tools in your coding agent
+### Exercise 1.3: Verify the ADT MCP Tools in your coding agent
 [^Top of page](#)
 
 > Open the **Chat** view of your coding agent in the agent mode. Confirm that the ADT MCP tools are loaded and available.
@@ -207,7 +224,7 @@ If the ADT MCP Server does not appear or fails to start:
 
 ---
 
-## Summary & Next Exercise
+### Summary & Next Exercise
 [^Top of page](#)
 
 You have successfully:
