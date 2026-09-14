@@ -234,15 +234,15 @@ Save and activate your behavior definition **`ZR_ONLINE_SHOP_###`**.
 
    ```ABAP
 
-   METHOD save_modified.
+    METHOD save_modified.
 
-  IF create-zronlineshop### IS NOT INITIAL.
-  RAISE ENTITY EVENT ZR_ONLINESHOP_###~ItemIsOrdered
-  FROM VALUE #( FOR zronlineshop### IN create-zronlineshop### (
-                     %key              = zronlineshop###-%key
-                     %param-ItemName   = zronlineshop###-Ordereditem ) ).
-  ENDIF.
-  ENDMETHOD.
+   IF create-zronlineshop### IS NOT INITIAL.
+   RAISE ENTITY EVENT ZR_ONLINESHOP_###~ItemIsOrdered
+   FROM VALUE #( FOR zronlineshop### IN create-zronlineshop### (
+                      %key              = zronlineshop###-%key
+                      %param-ItemName   = zronlineshop###-Ordereditem ) ).
+   ENDIF.
+   ENDMETHOD.
 
    ```
 
@@ -307,50 +307,50 @@ Now you will create and implement the event handler class **`ZEH_ITEM_ORDERED_##
     > For more details on the classes `cl_abap_behavior_event_handler` and `cl_abap_tx` used in the implementation, see the ABAP Keyword documentation ( **F1** ).
 
    ```ABAP
-   *"* use this source file for the definition and implementation of
-   *"* local helper classes, interface definitions and type
-   *"* declarations
+    *"* use this source file for the definition and implementation of
+    *"* local helper classes, interface definitions and type
+    *"* declarations
 
-   *"* use this source file for the definition and implementation of
-   *"* local helper classes, interface definitions and type
-   *"* declarations
+    *"* use this source file for the definition and implementation of
+    *"* local helper classes, interface definitions and type
+    *"* declarations
 
-   CLASS lhe_item DEFINITION INHERITING FROM cl_abap_behavior_event_handler.
-     PRIVATE SECTION.
-       METHODS get_uuid RETURNING VALUE(uuid) TYPE sysuuid_x16.
+    CLASS lhe_item DEFINITION INHERITING FROM cl_abap_behavior_event_handler.
+      PRIVATE SECTION.
+        METHODS get_uuid RETURNING VALUE(uuid) TYPE sysuuid_x16.
 
-       METHODS on_item_is_ordered FOR ENTITY EVENT
-           created FOR zronlineshop###~ItemIsOrdered.
+        METHODS on_item_is_ordered FOR ENTITY EVENT
+            created FOR zronlineshop###~ItemIsOrdered.
+    ENDCLASS.
+
+
+    CLASS lhe_item IMPLEMENTATION.
+
+      METHOD get_uuid.
+        TRY.
+            uuid = cl_system_uuid=>create_uuid_x16_static( ) .
+          CATCH cx_uuid_error.
+        ENDTRY.
+      ENDMETHOD.
+
+      METHOD on_item_is_ordered.
+        "close the active modify phase
+        cl_abap_tx=>save( ).
+
+        " assign values in abstract entity ZA_ITEMORDERED_### to table for event handler
+        " loop over transfered instances and do the needful ;)
+        LOOP AT created REFERENCE INTO DATA(lr_created).
+          DATA lr_item_is_ordered TYPE ZITEMORDERD_###.
+          MOVE-CORRESPONDING lr_created->* TO lr_item_is_ordered.
+          lr_item_is_ordered-uuid        = get_uuid( ).
+          lr_item_is_ordered-itemname   = lr_created->ItemName.
+          lr_item_is_ordered-created_at  = lr_created->created_at.
+
+          "insert to db
+          INSERT ZITEMORDERD_### FROM @lr_item_is_ordered.
+        ENDLOOP.
+      ENDMETHOD.
    ENDCLASS.
-
-
-   CLASS lhe_item IMPLEMENTATION.
-
-     METHOD get_uuid.
-       TRY.
-           uuid = cl_system_uuid=>create_uuid_x16_static( ) .
-         CATCH cx_uuid_error.
-       ENDTRY.
-     ENDMETHOD.
-
-     METHOD on_item_is_ordered.
-       "close the active modify phase
-       cl_abap_tx=>save( ).
-
-       " assign values in abstract entity ZA_ITEMORDERED_### to table for event handler
-       " loop over transfered instances and do the needful ;)
-       LOOP AT created REFERENCE INTO DATA(lr_created).
-         DATA lr_item_is_ordered TYPE ZITEMORDERD_###.
-         MOVE-CORRESPONDING lr_created->* TO lr_item_is_ordered.
-         lr_item_is_ordered-uuid        = get_uuid( ).
-         lr_item_is_ordered-itemname   = lr_created->ItemName.
-         lr_item_is_ordered-created_at  = lr_created->created_at.
-
-         "insert to db
-         INSERT ZITEMORDERD_### FROM @lr_item_is_ordered.
-       ENDLOOP.
-     ENDMETHOD.
-  ENDCLASS.
    ```
 
 The local event handler class must inherit from the superclass `cl_abap_behavior_event_handler`.
