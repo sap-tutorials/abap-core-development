@@ -25,7 +25,7 @@ You have installed Visual Studio Code and the [**ABAP Development Tools for Visu
 
 ---
 
-### Exercises
+## Exercises
 
 - [1.1 - Enable the ADT MCP Server in the Visual Studio Code Settings](#exercise-11-enable-the-adt-mcp-server-in-the-visual-studio-code-settings)
 - [1.2 - Verify the ADT MCP Server is Running](#exercise-12-verify-the-adt-mcp-server-is-running)
