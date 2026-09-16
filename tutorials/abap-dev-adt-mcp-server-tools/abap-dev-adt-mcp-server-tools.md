@@ -65,7 +65,7 @@ For example, the following ADT MCP tools are available:
 > Enable the built-in ADT MCP Server in the Visual Studio Code extension settings.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
+
 
 1. Open **Visual Studio Code Settings** as follows:  
    a. Open the **Command Palette** with **'Ctrl+Shift+P'** (macOS: **'Cmd+Shift+P'**)  
@@ -107,7 +107,6 @@ Note that you only change this if port 2236 is occupied on your machine. Proceed
 > Check and confirm that the ADT MCP Server started successfully.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
 
 After enabling the setting and having a destination in the workspace, the server should start automatically.
 
@@ -171,7 +170,7 @@ If the ADT MCP Server does not appear or fails to start:
 > Open the **Chat** view of your coding agent in the agent mode. Confirm that the ADT MCP tools are loaded and available.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
+
 
 1. If the **Chat** view is not displayed by default, open the GitHub Copilot **Chat** view in Visual Studio Code.
 
