@@ -17,7 +17,7 @@ ABAP development tools for Visual Studio Code provides an efficient and feature-
 This tutorial focus on non-Agentic AI capabilities and do not need any coding agent extension in Visual Studio Code (for e.g: GitHub Copilot)
 
 ## Prerequisites  
-You have connected an ABAP system to Visual Studio Code following the tutorial.
+You have connected an ABAP system to Visual Studio Code following the previous tutorial in this group .
 
 ## You will learn
     - How to explore and adjust the generated artifacts (CDS views, behavior definitions, metadata extensions) directly in Visual Studio Code
