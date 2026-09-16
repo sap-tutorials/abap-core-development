@@ -9,9 +9,10 @@ author_name: Wolfgang Woehrle
 author_profile: https://github.com/wwoehrle2024
 ---
 
-# Exercise: Enable the ADT MCP Server in ABAP Development Tools for VS Code 💎
+# Enable the ADT MCP Server in ABAP Development Tools for VS Code 💎
 
-In this tutorial, you will enable the **ADT MCP Server** that is built into **ABAP Development Tools for VS Code** and verify that the ADT MCP tools are available.
+## Overview
+In this tutorial, you will enable the **ADT MCP Server**, that is built into **ABAP Development Tools for VS Code**, and verify that the ADT MCP tools are available.
 
 The ADT MCP Server exposes ABAP development capabilities as **Model Context Protocol (MCP)** tools allowing you to create packages, to create transport requests, to generate complete RAP applications, activate objects, and more through natural language prompts. 
 
@@ -21,16 +22,7 @@ The ADT MCP Server exposes ABAP development capabilities as **Model Context Prot
 
 ## Prerequisites
 
-You have installed Visual Studio Code and the [**ABAP Development Tools for Visual Studio Code**](https://developers.sap.com/tutorials/abap-environment-adt-vscode/) extenstion.
-
----
-
-## Exercises
-
-- [1.1 - Enable the ADT MCP Server in the Visual Studio Code Settings](#exercise-11-enable-the-adt-mcp-server-in-the-visual-studio-code-settings)
-- [1.2 - Verify the ADT MCP Server is Running](#exercise-12-verify-the-adt-mcp-server-is-running)
-- [1.3 - Verify the ADT MCP Tools in your coding agent](#exercise-13-verify-the-adt-mcp-tools-in-your-coding-agent)
-- [Summary & Next Exercise](#summary--next-exercise)
+You have installed Visual Studio Code and the [**ABAP Development Tools for Visual Studio Code**](https://developers.sap.com/tutorials/abap-environment-adt-vscode/) extenstion into your VS Code installation.
 
 ---
 
@@ -67,13 +59,13 @@ For example, the following ADT MCP tools are available:
 
 ---
 
-### Exercise 1.1: Enable the ADT MCP Server in the Visual Studio Code Settings
+### Step 1.1: Enable the ADT MCP Server in the Visual Studio Code Settings
 [^Top of page](#)
 
 > Enable the built-in ADT MCP Server in the Visual Studio Code extension settings.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
+
 
 1. Open **Visual Studio Code Settings** as follows:  
    a. Open the **Command Palette** with **'Ctrl+Shift+P'** (macOS: **'Cmd+Shift+P'**)  
@@ -109,13 +101,12 @@ Note that you only change this if port 2236 is occupied on your machine. Proceed
 
 ---
 
-### Exercise 1.2: Verify the ADT MCP Server is Running
+### Step 1.2: Verify the ADT MCP Server is Running
 [^Top of page](#)
 
 > Check and confirm that the ADT MCP Server started successfully.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
 
 After enabling the setting and having a destination in the workspace, the server should start automatically.
 
@@ -173,13 +164,13 @@ If the ADT MCP Server does not appear or fails to start:
 
 ---
 
-### Exercise 1.3: Verify the ADT MCP Tools in your coding agent
+### Step 1.3: Verify the ADT MCP Tools in your coding agent
 [^Top of page](#)
 
 > Open the **Chat** view of your coding agent in the agent mode. Confirm that the ADT MCP tools are loaded and available.
 
 <details>
-  <summary>🔵 Click to expand!</summary>
+
 
 1. If the **Chat** view is not displayed by default, open the GitHub Copilot **Chat** view in Visual Studio Code.
 
