@@ -54,7 +54,7 @@ For example, the following ADT MCP tools are available:
 
 You have installed Visual Studio Code and the [**ABAP Development Tools for Visual Studio Code**](https://developers.sap.com/tutorials/abap-environment-adt-vscode/) extenstion into your VS Code installation.
 
-## Steps
+## Procedure
 
 ### Enable the ADT MCP Server in the Visual Studio Code Settings
 [^Top of page](#)
