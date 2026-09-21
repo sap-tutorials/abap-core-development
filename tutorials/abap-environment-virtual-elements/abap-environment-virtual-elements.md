@@ -281,76 +281,76 @@ The keyword virtual must be specified in front of the element and the name of th
    Your code should look like this:
 
       ```CDS
-     @Metadata.allowExtensions: true
-     @Metadata.ignorePropagatedAnnotations: true
-     @EndUserText: {
-        label: '###GENERATED Core Data Service Entity'
+        @Metadata.allowExtensions: true
+        @Metadata.ignorePropagatedAnnotations: true
+        @EndUserText: {
+          label: '###GENERATED Core Data Service Entity'
+          }
+        @ObjectModel: {
+        sapObjectNodeType.name: 'ZTRAVEL_###'
+        } 
+        @AccessControl.authorizationCheck: #MANDATORY
+        define root view entity ZC_TRAVEL_###
+        provider contract transactional_query
+        as projection on ZR_TRAVEL_###
+        association [1..1] to ZR_TRAVEL_### as _BaseEntity on  $projection.UUID     = _BaseEntity.UUID
+                                                        and $projection.TravelID = _BaseEntity.TravelID
+        {
+            key     UUID,
+            key     TravelID,
+              @Consumption.valueHelpDefinition: [{entity: {name: '/DMO/I_Customer_StdVH', element: 'CustomerID' }, useForValidation: true}]
+              @ObjectModel.text.element: ['CustomerName']
+              @Search.defaultSearchElement: true
+              CustomerID                as CustomerID,
+              _Customer.FirstName       as CustomerName,
+              Description,
+              @ObjectModel.text.element: ['OverallStatusText'] //case-sensitive
+              @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
+              Status,
+              _OverallStatus._Text.Text as OverallStatusText : localized,
+              @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
+              @EndUserText.label: 'Trip Duration'
+        virtual TripDuration          : abap.int2,
+              @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
+              @EndUserText.label: 'Remaining Days to Flight'
+        virtual RemainingDaysToFlight : abap.int1,
+              BeginDate,
+              EndDate,
+              @Semantics: {
+                  amount.currencyCode: 'CurrencyCode'
+                  }
+              FlightPrice,
+              @Consumption: {
+                  valueHelpDefinition: [ {
+                  entity.element: 'Currency',
+                  entity.name: 'I_CurrencyStdVH',
+                  useForValidation: true
+                  }       ]
+              }
+              CurrencyCode,
+              @Semantics: {
+              user.createdBy: true
+              }
+              LocalCreatedBy,
+              @Semantics: {
+                  systemDateTime.createdAt: true
+              }
+              LocalCreatedAt,
+              @Semantics: {
+              user.localInstanceLastChangedBy: true
+                  }
+              LocalLastChangedBy,
+              @Semantics: {
+                  systemDateTime.localInstanceLastChangedAt: true
+                  }
+              LocalLastChangedAt,
+              @Semantics: {
+                  systemDateTime.lastChangedAt: true
+                  }
+              LastChangedAt,
+              _BaseEntity
         }
-     @ObjectModel: {
-     sapObjectNodeType.name: 'ZTRAVEL_###'
-     } 
-     @AccessControl.authorizationCheck: #MANDATORY
-     define root view entity ZC_TRAVEL_###
-     provider contract transactional_query
-     as projection on ZR_TRAVEL_###
-     association [1..1] to ZR_TRAVEL_### as _BaseEntity on  $projection.UUID     = _BaseEntity.UUID
-                                                    and $projection.TravelID = _BaseEntity.TravelID
-     {
-        key     UUID,
-        key     TravelID,
-          @Consumption.valueHelpDefinition: [{entity: {name: '/DMO/I_Customer_StdVH', element: 'CustomerID' }, useForValidation: true}]
-          @ObjectModel.text.element: ['CustomerName']
-          @Search.defaultSearchElement: true
-          CustomerID                as CustomerID,
-          _Customer.FirstName       as CustomerName,
-          Description,
-          @ObjectModel.text.element: ['OverallStatusText'] //case-sensitive
-          @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
-          Status,
-          _OverallStatus._Text.Text as OverallStatusText : localized,
-          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
-          @EndUserText.label: 'Trip Duration'
-     virtual TripDuration          : abap.int2,
-          @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
-          @EndUserText.label: 'Remaining Days to Flight'
-     virtual RemainingDaysToFlight : abap.int1,
-          BeginDate,
-          EndDate,
-          @Semantics: {
-              amount.currencyCode: 'CurrencyCode'
-              }
-          FlightPrice,
-          @Consumption: {
-              valueHelpDefinition: [ {
-              entity.element: 'Currency',
-              entity.name: 'I_CurrencyStdVH',
-              useForValidation: true
-              }       ]
-           }
-          CurrencyCode,
-          @Semantics: {
-           user.createdBy: true
-           }
-          LocalCreatedBy,
-          @Semantics: {
-              systemDateTime.createdAt: true
-           }
-          LocalCreatedAt,
-          @Semantics: {
-           user.localInstanceLastChangedBy: true
-              }
-          LocalLastChangedBy,
-          @Semantics: {
-              systemDateTime.localInstanceLastChangedAt: true
-              }
-          LocalLastChangedAt,
-          @Semantics: {
-              systemDateTime.lastChangedAt: true
-              }
-          LastChangedAt,
-          _BaseEntity
-     }
-    
+        
       ``` 
 
 ### Calculate the Virtual Elements of the Travel BO Entity
