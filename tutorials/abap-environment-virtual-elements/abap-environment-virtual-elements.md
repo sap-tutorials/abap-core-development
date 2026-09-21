@@ -35,7 +35,7 @@ For some business use cases, it may be necessary to add new elements to the data
     - Name: **`ZABAP_VIRT_ELEM_###`**
     - Description: **Package for Virtual Elements**
 
-     ![New Package](images/newpackage.png)
+     ![New Package](newpackage.png)
 
 ### Create database table
 
@@ -43,13 +43,13 @@ For some business use cases, it may be necessary to add new elements to the data
 
 2. Search for **Database Table**, select it and then click **Next>**.
 
-     ![Database Table](images/databasetable.png)
+     ![Database Table](databasetable.png)
 
 3. Enter the following information (### is your group ID), then choose **Next**.
     - Name: **`ztravel_###`**
     - Description: **Table for Travel Data**
 
-     ![Create Table](images/createtable.png)
+     ![Create Table](createtable.png)
 
 4. Choose the transport request, then choose **Finish** to create the database table.
 
@@ -93,14 +93,14 @@ The generated business service will be transactional, draft-enabled, and enriche
 
 1. Right-click your database table table **ZTRAVEL_###** and select **Generate ABAP Repository Objects** from the context menu.
 2. Select OData UI Service and click Next >.
-     ![OData Service](images/odataservice.png)
+     ![OData Service](odataservice.png)
 
 3. Click Next >, enter your package name and click Next < again. 
 
 4. Maintain the required information on the Configure Generator dialog to provide the suffix, name of your data model as shown in the below screenshot and generate them.
 For that, navigate through the wizard tree (Business Objects, Data Model, etc...), maintain the artefact names and press Next >.
 5. Verify the maintained entries and press Next > and Finish to confirm. The needed artefacts will be generated.
-     ![Development Objects](images/developmentobjects.png)
+     ![Development Objects](developmentobjects.png)
 6. Go to the Project Explorer, select your package package **`ZABAP_VIRT_ELEM_###`**, refresh it by pressing F5, and check all generated ABAP repository objects.
 
 7. Open your service binding ZUI_TRAVEL_###_O4 and click **Publish**.
@@ -255,19 +255,19 @@ Replace the whole data definition of the travel BO projection view datadefinitio
        or go to your service binding ZUI_TRAVEL_###_O4 and start the Fiori elements App preview for the Travel entity set.
     2. Create a new Travel instance.
        A dialog for manually entering a Travel ID should be displayed now. When you create a new entry you see that the value helps for the fields Customer ID offer an out of the box frontend validation. Enter some demo data required as shown below:
-         ![Demo Data](images/demodata.png)
+         ![Demo Data](demodata.png)
 
 ### Define the virtual elements
 Now, go ahead and define 2 virtual elements **Trip Duration** and **Remaining Days to Flight** that will be used to specify the duration of the trip and number of days left before the flight date.
 
 1. Create an ABAP class ZCL_CALC_VIRT_ELEM_###, save and activate it. This class will be used to handle the logic to populate the virtual element values. 
-    ![ABAP Class](images/abapclassnew.png)
+    ![ABAP Class](abapclassnew.png)
 
 2. Now add the statements to declare the virtual elements in the data definition of the travel BO projection view ZC_TRAVEL_### after the OverallStatusText in the SELECT list.
 The keyword virtual must be specified in front of the element and the name of the calculation class must be specified in the annotation @ObjectModel.virtualElementCalculatedBy. The ABAP class ZCL_CALC_VIRT_ELEM_### created above will be used to calculate this virtual element is specified.
 
         
-      ```CDS
+  ```CDS
         @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
         @EndUserText.label: 'Trip Duration'
       virtual TripDuration : abap.int2,
@@ -276,11 +276,11 @@ The keyword virtual must be specified in front of the element and the name of th
         @EndUserText.label: 'Remaining Days to Flight'
       virtual RemainingDaysToFlight  : abap.int1,
     
-      ``` 
+  ``` 
      
    Your code should look like this:
 
-      ```CDS
+  ```CDS
         @Metadata.allowExtensions: true
         @Metadata.ignorePropagatedAnnotations: true
         @EndUserText: {
@@ -351,14 +351,14 @@ The keyword virtual must be specified in front of the element and the name of th
               _BaseEntity
         }
         
-      ``` 
+  ``` 
 
 ### Calculate the Virtual Elements of the Travel BO Entity
 Implement the logic of the virtual elements **Trip Duration** and **Remaining Days to Flight** in the ABAP Class ZCL_CALC_VIRT_ELEM_###.
 
 1. Open your ABAP class ZCL_CALC_VIRT_ELEM_### and replace the entire code with the code provided below. Replace all occurences of the placeholder ### with your assigned suffix using Ctrl+F.
 
-      ```ABAP
+  ```ABAP
      CLASS zcl_calc_virt_elem_### DEFINITION
        PUBLIC
         FINAL
@@ -408,7 +408,7 @@ Implement the logic of the virtual elements **Trip Duration** and **Remaining Da
          ENDMETHOD.
        ENDCLASS.
     
-      ``` 
+  ``` 
 
 The class implements the virtual element interface IF_SADL_EXIT_CALC_ELEMENT_READ that must be implemented by calculation classes for virtual elements.
 
@@ -420,22 +420,22 @@ The method IF_SADL_EXIT_CALC_ELEMENT_READ~CALCULATE executes the value calculati
 
 For that, insert the code snippet provided below after the statement interfaces IF_SADL_EXIT_CALC_ELEMENT_READ. in the class definition and replace all occurences of the placeholder ### with your assigned suffix.
 
-      ```ABAP
+  ```ABAP
       CLASS-METHODS:
        calculate_days_to_flight
         IMPORTING is_original_data TYPE ZC_TRAVEL_###
         RETURNING VALUE(result)    TYPE ZC_TRAVEL_###.
     
-      ``` 
+  ``` 
 
 3. Press the light bulb symbol on the left side or use the ADT Quick Fix (Ctrl+1) to add the missing method implementations. Set the cursor before your method calculate_trav_status_ind and press CTRL + 1, select Add implementation for calculate_trav_status_ind.
 
-     ![Calculation Method](images/addcalcmethod.png)
+     ![Calculation Method](addcalcmethod.png)
 
 4. Implement the method calculate_trav_status_ind which calculates the value of the virtual element defined in the Travel BO entity.
 For that, replace the empty method implementation of calculate_days_to_flight with the code snippet provided below.
 
-      ```ABAP
+  ```ABAP
       METHOD calculate_days_to_flight.
         DATA(today) = cl_abap_context_info=>get_system_date( ).
         result = CORRESPONDING #( is_original_data ).
@@ -457,18 +457,18 @@ For that, replace the empty method implementation of calculate_days_to_flight wi
         ENDIF.
       ENDMETHOD.
 
-      ``` 
+  ``` 
 
 TripDuration : The number of days between the flight begin date and the flight end date (flight end date - flight begin date).
 RemainingDaysToFlight: The number of days until departure from today.
 
 5. Now, uncomment the method call calculate_trav_status_ind within the method CALCULATE
 
-      ```ABAP
+  ```ABAP
       <fs_book_original_data> = zcl_calc_virt_elem_222=>calculate_days_to_flight( <fs_book_original_data> ).
-      ``` 
+  ``` 
 
-     ![Uncomment Command](images/uncomment.png)
+  ![Uncomment Command](uncomment.png)
 
 6. Save and activate (Ctrl+F3) the changes. Close the ABAP class.
     
@@ -479,10 +479,10 @@ Test the enhanced SAP Fiori elements application.
 2. Click Go on the app and check the result.
 
 3. Press the respective Gear icon and add the missing column (virtual elements) on the list report and click OK.
- ![Add Fields](images/addfields.png)
+ ![Add Fields](addfields.png)
 
 4. Now you can see the 2 virtual element fields 'Trip Duration' and 'Remaining Days To Flight'.
- ![Virtual Elements](images/virtualelements.png)
+ ![Virtual Elements](virtualelements.png)
 
 ### Test yourself
 
