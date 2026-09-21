@@ -267,7 +267,7 @@ Now, go ahead and define 2 virtual elements **Trip Duration** and **Remaining Da
 The keyword virtual must be specified in front of the element and the name of the calculation class must be specified in the annotation @ObjectModel.virtualElementCalculatedBy. The ABAP class ZCL_CALC_VIRT_ELEM_### created above will be used to calculate this virtual element is specified.
 
         
-      ```CDS
+  ```CDS
         @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_CALC_VIRT_ELEM_###'
         @EndUserText.label: 'Trip Duration'
       virtual TripDuration : abap.int2,
@@ -276,11 +276,11 @@ The keyword virtual must be specified in front of the element and the name of th
         @EndUserText.label: 'Remaining Days to Flight'
       virtual RemainingDaysToFlight  : abap.int1,
     
-      ``` 
+  ``` 
      
    Your code should look like this:
 
-      ```CDS
+  ```CDS
         @Metadata.allowExtensions: true
         @Metadata.ignorePropagatedAnnotations: true
         @EndUserText: {
@@ -351,14 +351,14 @@ The keyword virtual must be specified in front of the element and the name of th
               _BaseEntity
         }
         
-      ``` 
+  ``` 
 
 ### Calculate the Virtual Elements of the Travel BO Entity
 Implement the logic of the virtual elements **Trip Duration** and **Remaining Days to Flight** in the ABAP Class ZCL_CALC_VIRT_ELEM_###.
 
 1. Open your ABAP class ZCL_CALC_VIRT_ELEM_### and replace the entire code with the code provided below. Replace all occurences of the placeholder ### with your assigned suffix using Ctrl+F.
 
-      ```ABAP
+  ```ABAP
      CLASS zcl_calc_virt_elem_### DEFINITION
        PUBLIC
         FINAL
@@ -408,7 +408,7 @@ Implement the logic of the virtual elements **Trip Duration** and **Remaining Da
          ENDMETHOD.
        ENDCLASS.
     
-      ``` 
+  ``` 
 
 The class implements the virtual element interface IF_SADL_EXIT_CALC_ELEMENT_READ that must be implemented by calculation classes for virtual elements.
 
@@ -420,13 +420,13 @@ The method IF_SADL_EXIT_CALC_ELEMENT_READ~CALCULATE executes the value calculati
 
 For that, insert the code snippet provided below after the statement interfaces IF_SADL_EXIT_CALC_ELEMENT_READ. in the class definition and replace all occurences of the placeholder ### with your assigned suffix.
 
-      ```ABAP
+  ```ABAP
       CLASS-METHODS:
        calculate_days_to_flight
         IMPORTING is_original_data TYPE ZC_TRAVEL_###
         RETURNING VALUE(result)    TYPE ZC_TRAVEL_###.
     
-      ``` 
+  ``` 
 
 3. Press the light bulb symbol on the left side or use the ADT Quick Fix (Ctrl+1) to add the missing method implementations. Set the cursor before your method calculate_trav_status_ind and press CTRL + 1, select Add implementation for calculate_trav_status_ind.
 
@@ -435,7 +435,7 @@ For that, insert the code snippet provided below after the statement interfaces 
 4. Implement the method calculate_trav_status_ind which calculates the value of the virtual element defined in the Travel BO entity.
 For that, replace the empty method implementation of calculate_days_to_flight with the code snippet provided below.
 
-      ```ABAP
+  ```ABAP
       METHOD calculate_days_to_flight.
         DATA(today) = cl_abap_context_info=>get_system_date( ).
         result = CORRESPONDING #( is_original_data ).
@@ -457,18 +457,18 @@ For that, replace the empty method implementation of calculate_days_to_flight wi
         ENDIF.
       ENDMETHOD.
 
-      ``` 
+  ``` 
 
 TripDuration : The number of days between the flight begin date and the flight end date (flight end date - flight begin date).
 RemainingDaysToFlight: The number of days until departure from today.
 
 5. Now, uncomment the method call calculate_trav_status_ind within the method CALCULATE
 
-      ```ABAP
+  ```ABAP
       <fs_book_original_data> = zcl_calc_virt_elem_222=>calculate_days_to_flight( <fs_book_original_data> ).
-      ``` 
+  ``` 
 
-     ![Uncomment Command](uncomment.png)
+  ![Uncomment Command](uncomment.png)
 
 6. Save and activate (Ctrl+F3) the changes. Close the ABAP class.
     
