@@ -206,7 +206,7 @@ During any time if you have been logged out of system, you need to Log On to the
 10. To Format the document, right click on the class and choose Format Document.
    ![Format Class](format.png)
 11. Save and Activate the new Class by following Step 5.
-12. Now execute your class by hitting F5 or Type `ABAP: Open with ADT for Eclipse` in the Command Palette. 
+12. Now execute your class by hitting F5 or Type `ABAP: Run ABAP Application (Console)` in the Command Palette. 
    ![Execute Class](executeclass.png)
 13. You will get a message 'Demo data generated for table zadt_travel_###' in the console.
 
