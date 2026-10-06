@@ -20,7 +20,7 @@ Always replace `###` with your initials or group number.
 
 ## Prerequisites  
 - Visual Studio Code — Download from <https://code.visualstudio.com/>
-- ADT for Visual Studio Code — ADT for Visual Studio Code includes the built-in ADT MCP Server. Here is the [link] (https://marketplace.visualstudio.com/items?itemName=SAPSE.adt-vscode) to download the extension 
+- ADT for Visual Studio Code — ADT for Visual Studio Code includes the built-in ADT MCP Server. Here is the [link](https://marketplace.visualstudio.com/items?itemName=SAPSE.adt-vscode) to download the extension 
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2025 or higher) system. 
   For example, you can create a free [trial user](https://developers.sap.com/tutorials/abap-environment-trial-onboarding.html) on SAP BTP, ABAP environment.
 - You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
@@ -118,6 +118,11 @@ Choose the connection type that matches your system:
       ✅ Connection established!
       ```
 
+7. As soon as the connection is established you should be able to see a visual feedback that the destination was created successfully and a notification pop-up with a button which directly adds it as a folder to your workspace.
+       ![Add Destination](adddestination.png)
+
+8. **If you missed adding the destination to the workspace using the above popup please continue with Step 4.**
+
 **Option B: RFC destination (On-premise systems)**
 
 >ℹ️ **Prerequisite**: Your system must be configured in **SAP Logon** (SAP GUI) with RFC connectivity before proceeding.
@@ -157,7 +162,7 @@ Choose the connection type that matches your system:
 9. As soon as the connection is established you should be able to see a visual feedback that the destination was created successfully and a notification pop-up with a button which directly adds it as a folder to your workspace.
        ![Add Destination](adddestination.png)
 
-10. If you missed adding the destination to the workspace using the above popup please continue with Step 4.
+10. **If you missed adding the destination to the workspace using the above popup please continue with Step 4.**
 
 ### Add the destination to your workspace
 
@@ -167,12 +172,19 @@ Choose the connection type that matches your system:
 
 3. Select your newly created destination.
 
-4. For **HTTP** systems: a browser window opens — log in with your ABAP system credentials.  
+### Logon to Destination
+
+1. Type `ABAP: Log On to Destination` 
+   ![Logon](logon1.png)
+2. Select the Destination. This will prompt to open the system in  browser to enter the logon credentials
+   ![Logon](logon2.png)
+
+3. For **HTTP** systems: a browser window opens — log in with your ABAP system credentials.  
    For **RFC** systems: the connection is established immediately using your SAP Logon credentials.
 
-5. After login, your system connection appears as a **folder** in the Visual Studio Code Explorer view (left sidebar).
+4. After login, your system connection appears as a **folder** in the Visual Studio Code Explorer view (left sidebar).
 
-6. Open Destination settings to see the details of the added system
+5. Open Destination settings to see the details of the added system
        ![Destination Settings](destsettings.png)
 
 ### Navigating your ABAP system 
