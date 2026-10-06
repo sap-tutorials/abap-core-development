@@ -20,10 +20,10 @@ Always replace `###` with your initials or group number.
 
 ## Prerequisites  
 - Visual Studio Code — Download from <https://code.visualstudio.com/>
-- ADT for Visual Studio Code — ADT for Visual Studio Code includes the built-in ADT MCP Server. Here is the [link] (https://marketplace.visualstudio.com/items?itemName=SAPSE.adt-vscode) to download the extension 
+- ADT for Visual Studio Code — ADT for Visual Studio Code includes the built-in ADT MCP Server. Here is the [link](https://marketplace.visualstudio.com/items?itemName=SAPSE.adt-vscode) to download the extension 
 - You need to have access to an SAP BTP, ABAP environment, or SAP S/4HANA Cloud, ABAP environment or SAP S/4HANA (release 2025 or higher) system. 
   For example, you can create a free [trial user](https://developers.sap.com/tutorials/abap-environment-trial-onboarding.html) on SAP BTP, ABAP environment.
-- You have downloaded and installed the [latest ABAP Development Tools (ADT)] (https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
+- You have downloaded and installed the [latest ABAP Development Tools (ADT)](https://tools.hana.ondemand.com/#abap) on the latest Eclipse© platform.
 - You have created an [ABAP Cloud Project](https://developers.sap.com/tutorials/abap-environment-create-abap-cloud-project.html).
 - Your system has the ABAP flight reference scenario. If your system hasn't this scenario. You can download it [here](https://github.com/SAP-samples/abap-platform-refscen-flight). The trial systems have the flight scenario included.
   
