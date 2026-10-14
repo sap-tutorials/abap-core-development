@@ -181,29 +181,29 @@ Both of these are AMDP methods.
 
 5. Finally, call the other AMDP method, `convert_currency`. Your method should look like this:
 
-   ```ABAP
+```ABAP
 
-   METHOD get_flights BY DATABASE PROCEDURE
-     FOR HDB
-     LANGUAGE SQLSCRIPT
-     OPTIONS READ-ONLY
-     USING
-       /dmo/flight
-       /dmo/carrier
-       ZCL_AMDP_DEMO_XXX=>convert_currency.
+METHOD get_flights BY DATABASE PROCEDURE
+  FOR HDB
+  LANGUAGE SQLSCRIPT
+  OPTIONS READ-ONLY
+  USING
+    /dmo/flight
+    /dmo/carrier
+    ZCL_AMDP_DEMO_XXX=>convert_currency.
 
-     flights = select distinct
-       c.name as airline,
-       f.connection_id as flight_connection,
-       f.price    as price,
-       f.currency_code as currency
-       from "/DMO/FLIGHT"  as f
-       inner join "/DMO/CARRIER" as c
-         on f.carrier_id = c.carrier_id;
+  flights = select distinct
+    c.name as airline,
+    f.connection_id as flight_connection,
+    f.price    as price,
+    f.currency_code as currency
+    from "/DMO/FLIGHT"  as f
+    inner join "/DMO/CARRIER" as c
+      on f.carrier_id = c.carrier_id;
 
-     call "ZCL_AMDP_DEMO_XXX=>CONVERT_CURRENCY"( :flights, result );
+  call "ZCL_AMDP_DEMO_XXX=>CONVERT_CURRENCY"( :flights, result );
 
-   ENDMETHOD.
+ENDMETHOD.
 ```
 
 
