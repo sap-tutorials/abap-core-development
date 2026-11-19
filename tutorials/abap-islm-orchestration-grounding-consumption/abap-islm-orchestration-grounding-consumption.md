@@ -2,8 +2,8 @@
 parser: v2
 auto_validation: true
 time: 25
-tags: [programming-tool>abap-development, tutorial>beginner, topic>artificial-intelligence, software-product>sap-s-4hana, software-product>sap-ai-core]
-primary_tag: programming-tool>abap-development
+tags: [abap-development, tutorial>beginner, artificial-intelligence, enterprise-resource-planning>4hana, technology-platform>sap-ai-core]
+primary_tag: abap-development
 author_name: Jasmin Gruschke
 author_profile: https://github.com/JasminGruschke
 ---
@@ -14,7 +14,7 @@ author_profile: https://github.com/JasminGruschke
 
 ## Prerequisites
 
-You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group.abap-islm-setup).
+You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group-set-up-your-sap-s-4hana-system-for-custom-ai-scenarios).
 
 ## You will learn
 
@@ -297,7 +297,7 @@ MASKED_PERSON is a career changer with basic computer literacy and customer serv
 **Recommendation:** Not suitable for current AI team roles. Would require extensive training/education before contributing meaningfully. Consider for non-technical AI-adjacent positions or suggest pursuing formal AI education first.
 ```
 
-**Conclusion:** Congratulations! You implemented an intelligent scenario using the SAP AI Core orchestration service including the grounding capabilities. You're now well equipped to build you own Custom ABAP GenAI scenario!
+**Conclusion:** Congratulations! You implemented an intelligent scenario using the SAP AI Core orchestration service including the grounding capabilities. You are now well equipped to build you own Custom ABAP GenAI scenario!
 
 
 ### Test yourself

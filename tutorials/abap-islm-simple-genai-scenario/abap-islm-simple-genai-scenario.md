@@ -1,8 +1,8 @@
 ---
 auto_validation: true
 time: 20
-tags: [programming-tool>abap-development, tutorial>beginner, software-product>sap-s-4hana, topic>artificial-intelligence, software-product>sap-ai-core]
-primary_tag: programming-tool>abap-development
+tags: [abap-development, tutorial>beginner, enterprise-resource-planning>4hana, artificial-intelligence, technology-platform>sap-ai-core]
+primary_tag: abap-development
 author_name: Jasmin Gruschke
 author_profile: https://github.com/jasmingruschke
 parser: v2
@@ -18,7 +18,7 @@ parser: v2
 - How to use the Intelligent Scenario in a simple ABAP Class 
 
 ## Prerequisites
-You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group.abap-islm-setup).
+You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group-set-up-your-sap-s-4hana-system-for-custom-ai-scenarios).
 
 
 ---
