@@ -2,8 +2,8 @@
 parser: v2
 auto_validation: true
 time: 30
-tags: [programming-tool>abap-development, tutorial>beginner, software-product>sap-ai-core, topic>artificial-intelligence, software-product>sap-s-4hana]
-primary_tag: programming-tool>abap-development
+tags: [abap-development, tutorial>beginner, technology-platform>sap-ai-core, artificial-intelligence, enterprise-resource-planning>4hana]
+primary_tag: abap-development
 author_name: Jasmin Gruschke
 author_profile: https://github.com/JasminGruschke
 ---
@@ -19,7 +19,7 @@ author_profile: https://github.com/JasminGruschke
 - How to use the Intelligent Scenario in a simple ABAP class
 
 ## Prerequisites
-You have successfully configured your system as described in [Set Up SAP BTP and Integrate SAP AI Core with ISLM](abap-islm-setup-oauth).
+You have successfully configured your system as described in [Set Up Your SAP S/4HANA System for Custom AI Scenarios](group-set-up-your-sap-s-4hana-system-for-custom-ai-scenarios).
 
 ---
 
@@ -401,7 +401,7 @@ CLASS zdemo_islm_orch IMPLEMENTATION.
                    |I'm looking for a new opportunity and think your team might be a good fit. Please find my resume attached. | &&
                    |Best regards,| &&
                    |Jane Doe | &&
-                   |(jane.doe@email.com, 555-901-2345)|.
+                   |(jane.doe@email.com, 555-901-2347)|.
     system_role = |Briefly summarize the user input, i.e. give a personal description, | &&
                   |summarize and rate if this person | &&
                   |fits into our team of AI enthusiats.|.
